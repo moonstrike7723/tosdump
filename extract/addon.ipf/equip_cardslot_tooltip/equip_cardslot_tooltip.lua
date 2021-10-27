@@ -7,7 +7,7 @@ function EQUIP_CARDSLOT_INFO_TOOLTIP_OPEN(frame, slot, argStr, groupSlotIndex)
 	if slot == nil then
 		return
 	end
-
+	
 	local parentSlotSet = slot:GetParent()
 	if parentSlotSet == nil then
 		return
@@ -28,7 +28,7 @@ function EQUIP_CARDSLOT_INFO_TOOLTIP_OPEN(frame, slot, argStr, groupSlotIndex)
 	EQUIP_CARDSLOT_TOOLTIP_BOSSCARD(slotIndex);
 end;
 
-function EQUIP_CARDSLOT_INFO_TOOLTIP_CLOSE(frame, slot, argStr, argNum)	
+function EQUIP_CARDSLOT_INFO_TOOLTIP_CLOSE(frame, slot, argStr, argNum)		
 	local tooltipFrame    = ui.GetFrame("equip_cardslot_tooltip");	
 	tooltipFrame:ShowWindow(0);
 end;
@@ -37,6 +37,28 @@ function EQUIP_CARDSLOT_INFO_TOOLTIP_CLOSE_TEST(frame, slot, argStr, argNum)
 	local tooltipFrame    = ui.GetFrame("monstercardslot");	
 	tooltipFrame:ShowWindow(0);
 end;
+
+function set_sclae_value(value)	
+	local before_min = -320
+	local before_max = 1640
+	local after_min = -640
+	local after_max = 1540
+    local before_denominator = before_max - before_min
+    if before_denominator == 0 then
+        before_denominator = 100000
+    end
+    local ratio = (value - before_min) / before_denominator
+    local add_value = (after_max - after_min) * ratio
+    value = after_min + add_value
+    
+    if value < after_min then
+        value = after_min
+    elseif value > after_max then
+        value = after_max
+	end
+	
+	return math.floor(value)
+end
 
 function EQUIP_CARDSLOT_TOOLTIP_BOSSCARD(slotIndex)
 	local frame = ui.GetFrame("equip_cardslot_tooltip");		
@@ -49,20 +71,45 @@ function EQUIP_CARDSLOT_TOOLTIP_BOSSCARD(slotIndex)
 	if infoFrame:IsVisible() == 0 then
 		return
 	end
-		
-	if slotIndex >= 0 and slotIndex <= 2 or slotIndex >= 6 and slotIndex <= 8 then
-		if infoFrame:GetX() - frame:GetWidth() < 0 then
-			frame:SetOffset(infoFrame:GetX() + infoFrame:GetWidth(), frame : GetY());
+
+	local wide_screen = false
+	if ui.GetSceneWidth() / ui.GetSceneHeight() > 2 then
+		wide_screen = true;
+	end
+
+	if wide_screen == false then
+		if slotIndex >= 0 and slotIndex <= 2 or slotIndex >= 6 and slotIndex <= 8 then
+			if infoFrame:GetX() - frame:GetWidth() < 0 then
+				frame:SetOffset(infoFrame:GetX() + infoFrame:GetWidth(), frame : GetY());
+			else
+				frame:SetOffset(infoFrame :GetX() - frame:GetWidth() , frame:GetY());
+			end
 		else
-			frame:SetOffset(infoFrame :GetX() - frame:GetWidth() , frame:GetY());
+			if infoFrame:GetX() + infoFrame : GetWidth() + frame : GetWidth() > ui.GetClientInitialWidth() then
+				frame : SetOffset(infoFrame : GetX() - frame : GetWidth(), frame : GetY());
+			else
+				frame:SetOffset(infoFrame : GetX() + infoFrame : GetWidth(), frame : GetY());
+			end
 		end
 	else
-		if infoFrame:GetX() + infoFrame : GetWidth() + frame : GetWidth() > ui.GetClientInitialWidth() then
-			frame : SetOffset(infoFrame : GetX() - frame : GetWidth(), frame : GetY());
+		local info_x = infoFrame:GetX()
+		info_x = set_sclae_value(info_x)
+	
+		if slotIndex >= 0 and slotIndex <= 2 or slotIndex >= 6 and slotIndex <= 8 then	
+			if info_x - frame:GetWidth() < 0 then	
+				frame:SetOffset(info_x + infoFrame:GetWidth(), frame:GetY());			
+			else
+				frame:SetOffset(info_x - frame:GetWidth() - 200, frame:GetY());			
+			end
 		else
-			frame:SetOffset(infoFrame : GetX() + infoFrame : GetWidth(), frame : GetY());
+			if info_x + infoFrame:GetWidth() + frame:GetWidth() > ui.GetClientInitialWidth() then 
+				frame:SetOffset(info_x - frame:GetWidth() - 200, frame:GetY());
+			else
+				frame:SetOffset(info_x + infoFrame:GetWidth(), frame:GetY());
+			end
 		end
 	end
+	
 	local cardID, cardLv, cardExp = GETMYCARD_INFO(slotIndex);
 	local cls = GetClassByType("Item", cardID);
 	if cardID == 0 then

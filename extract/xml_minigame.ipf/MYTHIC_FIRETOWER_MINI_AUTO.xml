@@ -255,6 +255,11 @@
                 </StageEvents>
             </Stage>
             <Stage Name="SUCCESS">
+				<StartScpList>
+                    <ToolScp Scp="MGAME_SUCCESS_STAGE_SCP" Client="NO" UseSleep="NO">
+                        <Str Str="Mythic"/>
+                    </ToolScp>
+                </StartScpList>
                 <ObjList>
                     <Obj Type="Monster" MonType="160064" Pos="-78.00#254.09#1890.55" genCount="1" genTime="20000" objectKey="0"/>
                     <Obj Type="Monster" MonType="160065" Pos="28.89#254.09#1871.64" genCount="1" genTime="20000" objectKey="1"/>

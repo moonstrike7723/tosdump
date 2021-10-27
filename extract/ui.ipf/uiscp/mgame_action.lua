@@ -74,6 +74,16 @@ function MGAME_EVT_SCRIPT_CLIENT(actor, scriptName)
 end
    
 function MGAME_MSG_ICON(actor, msgStr, icon,  sec)
+	-- EVENT_2101_SUPPLY
+	local objList, objCount = SelectBaseObject(actor, 1000, 'NEUTRAL');
+	for i = 1 , objCount do
+		local _obj = objList[i];
+		local obj = GetBaseObjectIES(_obj);
+		if obj.ClassName == "Event_supply_NPC_1" or obj.ClassName == "Event_supply_NPC_7" then
+			return;
+		end
+	end
+
     local msg_int = "NOTICE_Dm_"..icon
 	addon.BroadMsg(msg_int, msgStr, sec);
 end
