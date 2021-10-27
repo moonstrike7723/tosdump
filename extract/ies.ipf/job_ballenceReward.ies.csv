@@ -9,7 +9,7 @@ ClassID,JobChangePoint,ClassName,Name,EngName,CtrlType,BaseClass,RewardDay_Start
 1007,0,Char1_7,[캐터프랙트],Cataphract,Warrior,,,,,,,,,
 1009,0,Char1_9,[도펠죌트너],Doppelsoeldner,Warrior,,,,,,,,,
 1010,0,Char1_10,[로델레로],Rodelero,Warrior,,,,,,,,,
-1012,0,Char1_12,[무르밀로],Murmillo,Warrior,,,,,,,,,
+1012,1000,Char1_12,[무르밀로],Murmillo,Warrior,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,,,,
 1014,0,Char1_14,[펜서],Fencer,Warrior,,,,,,,,,
 1015,0,Char1_15,[드라군],Dragoon,Warrior,,,,,,,,,
 1016,1000,Char1_16,[템플러],Templar,Warrior,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Templar11_1d,,,

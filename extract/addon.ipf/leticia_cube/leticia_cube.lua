@@ -26,18 +26,13 @@ function LETICIA_CUBE_LIST_UPDATE(frame)
     
         for i = 0, cnt -1 do
         local info = GetClassByIndexFromList(gachaList, i);
+
         if info ~= nil then
             local is_create = true;
     
-            if IS_SEASON_SERVER(pc) == "YES" then
-                if TryGetProp(info, "RewardGroup", "None") ~= "Gacha_TP2_Season_001" then
-                    is_create = false;
-                    end
-            else
                 if TryGetProp(info, "RewardGroup", "None") == "Gacha_TP2_Season_001" then
                     is_create = false;
                 end
-            end
     
             if info.Group == "NPC" and is_create == true then
                 local cube = cubeListBox:CreateOrGetControlSet("leticia_cube_list", 'LIST_'..info.ClassName, 0, 0);

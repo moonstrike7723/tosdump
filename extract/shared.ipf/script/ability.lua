@@ -2461,6 +2461,7 @@ function SCR_ABIL_Pyromancer38_ACTIVE(self, ability)
     if skill ~= nil then
         skill.UseType = "FORCE"
         skill.Target = "Actor"
+        skill.MaxRValue = 200
         
         InvalidateSkill(self, skill.ClassName);
         SendSkillProperty(self, skill);
@@ -2472,6 +2473,10 @@ function SCR_ABIL_Pyromancer38_INACTIVE(self, ability)
     if skill ~= nil then
         skill.UseType = "MELEE_GROUND"
         skill.Target = "Front"
+        skill.MaxRValue = 100
+        
+        InvalidateSkill(self, skill.ClassName);
+        SendSkillProperty(self, skill);
     end
 end
 

@@ -1,5 +1,6 @@
 
 function COIN_GET_GAUGE_ON_INIT(addon, frame)
+    addon:RegisterMsg("SET_COIN_GET_GAUGE", "COIN_GET_GAUGE_SET")
     addon:RegisterMsg("UPDATE_COIN_GET_GAUGE", "COIN_GET_GAUGE_UPDATE")
 end
 

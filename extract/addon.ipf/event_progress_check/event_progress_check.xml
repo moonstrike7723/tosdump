@@ -27,6 +27,7 @@
 		<richtext name="nametext" parent="namegb" rect="0 0 500 40" margin="0 0 0 0" layout_gravity="center center" format="{@st42b}{s20}%s{/}" param1="value" param1_def="탭 제목" skin="test_pvp_resul_team"/>
 		<richtext name="tiptext" rect="0 0 500 40" margin="0 830 0 0" layout_gravity="center top" format="{@st66b}{s16}%s{/}" param1="value" fixwidth="true" textalign="center center" resizebytext="false"/>
 		<groupbox name="listgb" rect="0 0 520 510" margin="0 305 0 0" layout_gravity="center top" draw="false" scrollbar="true" hittestbox="true"/>
+		<richtext name="loadingtext" rect="0 0 490 300" margin="0 80 0 0" layout_gravity="center center" hittest="false" fixwidth="true" textalign="center top" caption="{@st42b}{s24}정보를 불러오는 중입니다."/>
 		<groupbox name="tab2_listgb1" tabname="tab2_item1" rect="0 0 520 510" margin="0 305 0 0" layout_gravity="center top" draw="false" scrollbar="true" hittestbox="true"/>
 		<groupbox name="tab2_listgb2" tabname="tab2_item2" rect="0 0 520 510" margin="0 305 0 0" layout_gravity="center top" draw="false" scrollbar="true" hittestbox="true"/>
 		<groupbox name="tab2_listgb3" tabname="tab2_item3" rect="0 0 520 510" margin="0 305 0 0" layout_gravity="center top" draw="false" scrollbar="true" hittestbox="true"/>

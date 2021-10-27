@@ -115,7 +115,7 @@ function DRAW_GEM_PROPERTYS_TOOLTIP(tooltipframe, invitem, yPos, mainframename)
 			
 		else
 			local type_text = GET_CHILD(innerCSet,'type_text','ui::CRichText')
-			-- 각 프로퍼티의 옵션 마다 컨트롤셋 생성. 공격력+10에서 한번, 블럭+10에서 한번 이런 식
+			-- 각 프로퍼티의 옵션 마다 컨트롤셋 생성. 공격력+10에서 한번, 블록+10에서 한번 이런 식
 			innerInnerCSet = innerCSet:CreateOrGetControlSet('tooltip_each_gem_property_each_text', 'proptext'..innerpropcount, 0, innerpropypos);
 			
 			local realtext = nil

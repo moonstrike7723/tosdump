@@ -260,6 +260,7 @@
 		<Class ClassID="2107" ClassName="ProcessDangerTranscendBy{P}Percent" Data="{s20}{@st66d_y}{s22}포텐셜 0{/}{/}인 아이템을{nl}{@st66d_y}{s22}성공률 {P}%{/}{/}로 초월하려 하며,{nl}초월 실패 시 {@st66d_y}{s22}아이템이 파괴{/}{/}됩니다.{nl} {nl}파괴된 아이템은 {@st66d_y}{s22}복구가 불가능{/}{/}합니다.{nl}정말로 초월하시려면 단어 [초월]을 입력해주세요."/>
 		<Class ClassID="2108" ClassName="OnlyLv1GoddessEvilCanDecompose" Data="1레벨 여신/마신 장비만 분해 가능합니다."/>
 		<Class ClassID="2109" ClassName="ReallyDecomposeEvilGoddess" Data="정말 해당 여신/마신 장비를 분해하시겠습니까?"/>
+		<Class ClassID="2110" ClassName="ReallyDecomposeThisItem" Data="정말 해당 아이템을 분해하시겠습니까?"/>
 	</Category>
 	<Category Name="ItemContents">
 		<Class ClassID="2200" ClassName="ClickSocketTargetItem" Data="소켓을 추가 할 아이템을 선택해주세요"/>
@@ -372,12 +373,12 @@
 		<Class ClassID="2312" ClassName="ExceedAdditionalAccountwarehouse2" Data="해당 아이템 사용 시, 확장 가능한 기본 창고 슬롯의 최대치를 초과하게 되어 사용이 불가능합니다."/>
 		<Class ClassID="2313" ClassName="ItemRandomOptionCheckFail{OPTIONNAME}" Data="{OPTIONNAME} 옵션은 비정상 옵션입니다."/>
 		<Class ClassID="2314" ClassName="CannotItemOptionRelocateBecause{TYPE}{REASON}" Data="아이템 {TYPE} 이전을 할 수 없는 [{REASON}] 아이템입니다."/>
-		<Class ClassID="2315" ClassName="CannotItemOptionRelocateBecause{REASON}_2" Data="이전할 아이템과 [{REASON}]이 다른 아이템입니다."/>
-		<Class ClassID="2316" ClassName="ItemOptionRelocate_Check_Message_Awake" Data="옵션을 이전할 아이템의 {#fe7e00}각성 옵션{/}이 {nl} 이전받을 아이템에게 옮겨갑니다."/>
+		<Class ClassID="2315" ClassName="CannotItemOptionRelocateBecause{REASON}_2" Data="이전 할 아이템과 [{REASON}]이 다른 아이템입니다."/>
+		<Class ClassID="2316" ClassName="ItemOptionRelocate_Check_Message_Awake" Data="옵션을 이전 할 아이템의 {#fe7e00}각성 옵션{/}이 {nl} 이전 받을 아이템에게 옮겨갑니다.{nl} {nl}옵션을 이전 받는 아이템의 {#fe7e00}각성 옵션{/}이 삭제됩니다."/>
 		<Class ClassID="2317" ClassName="AlreadRegSameItem" Data="이미 등록된 아이템입니다."/>
 		<Class ClassID="2318" ClassName="DestItemLvHigh" Data="이전 받는 아이템의 레벨 또는 경험치가 더 높습니다."/>
 		<Class ClassID="2319" ClassName="ReallyArkRelocation" Data="이전 하시겠습니까?"/>
-		<Class ClassID="2320" ClassName="ItemOptionRelocate_Check_Message_Enchant" Data="옵션을 이전할 아이템의 {#fe7e00}인챈트 옵션{/}이 {nl} 이전받을 아이템에게 옮겨갑니다."/>
+		<Class ClassID="2320" ClassName="ItemOptionRelocate_Check_Message_Enchant" Data="옵션을 이전 할 아이템의 {#fe7e00}인챈트 옵션{/}이 {nl} 이전 받을 아이템에게 옮겨갑니다.{nl} {nl}옵션을 이전 받는 아이템의 {#fe7e00}인챈트 옵션{/}이 삭제됩니다."/>
 		<Class ClassID="2321" ClassName="ItemArkReturnExtraExp{count}" Data="아크 아이템 레벨 확장으로 인해 여분의 경험치에 따른 재화가 {count} 만큼 [마켓 수령함]으로 지급되었습니다."/>
 		<Class ClassID="2322" ClassName="ReallyDecomposeLEgendItemFor{ITEM}?_LV430_UPPER" Data="해당 아이템을 분해할 경우{nl}확률적으로 일정 개수의 [{ITEM}] 아이템이 지급됩니다.{nl}분해하시겠습니까?"/>
 		<Class ClassID="2323" ClassName="EnchantOptionRelocateDestItemLvHigh" Data="이전 받을 아이템의 레벨이 더 높아야 합니다."/>
@@ -488,6 +489,11 @@
 		<Class ClassID="3055" ClassName="composition_vibora" Data="바이보라 합성"/>
 		<Class ClassID="3056" ClassName="upgrade_vibora" Data="바이보라 연성"/>
 		<Class ClassID="3057" ClassName="uniquedecompose" Data="여신/마신 장비 분해"/>
+		<Class ClassID="3058" ClassName="CanGetMiscWhenDecomposeArk" Data="- 아크 분해 시 재료로 사용된 아키스톤을 획득합니다."/>
+		<Class ClassID="3059" ClassName="CanGetMiscWhenDecomposeUnique" Data="- 여신/마신 장비 분해 시 아케늄 1개를 획득합니다."/>
+		<Class ClassID="3060" ClassName="CanGetMiscWhenDecomposeMiscLegend" Data="아키스톤 분해 시 아키스톤 파편 10개를 획득합니다"/>
+		<Class ClassID="3061" ClassName="CanGetMiscWhenDecomposeAccEp12" Data="카랄리엔 액세서리 분해 시 재료로 사용된 바이올렛틴 크리스탈을 획득합니다."/>
+		<Class ClassID="3062" ClassName="SpecialDecompose" Data="특수 아이템 분해"/>
 	</Category>
 	<Category Name="ItemPuzzle">
 		<Class ClassID="3501" ClassName="WouldYouSelectThisCombinationAsAlchemystryTarget?" Data="이 조합을 연금 대상으로 선택합니까?"/>
@@ -636,7 +642,7 @@
 		<Class ClassID="4141" ClassName="ThisIsEndedEvent" Data="종료 기한이 지난 이벤트입니다."/>
 		<Class ClassID="4142" ClassName="THMace" Data="양손둔기"/>
 		<Class ClassID="4143" ClassName="Event_Select_Acc_Box_Title" Data="슈페리어 브레이슬릿(15일) 상자"/>
-		<Class ClassID="4144" ClassName="LeticiaGacha{CONSUME}" Data="큐브 개봉시{nl}{CONSUME}  소모됩니다.{nl}정말 개봉하시겠습니까?"/>
+		<Class ClassID="4144" ClassName="LeticiaGacha{CONSUME}" Data="큐브 개봉시{nl}{CONSUME}  소모됩니다.{nl}정말 개봉하시겠습니까?{nl} {nl}{@st66d_y}{s20}현재 개봉 횟수{nl}{COUNT}{/}{/}"/>
 		<Class ClassID="4145" ClassName="SelectCostume{ITEM}" Data="{@st66d_y}{s20}{ITEM}{/}{/} {nl}코스튬을 정말 선택하시겠습니까?{nl} {nl}선택 후에는 다른 코스튬으로{nl}교환할 수 없습니다."/>
 		<Class ClassID="4146" ClassName="Card_Summon_Check_god" Data="여신상 주변에서는 사용하실 수 없습니다."/>
 		<Class ClassID="4147" ClassName="Card_Summon_check_Boss" Data="보스 몬스터 주변에서는 사용하실 수 없습니다."/>
@@ -773,6 +779,7 @@
 		<Class ClassID="4280" ClassName="CantUseThisArea" Data="사용하실 수 없는 지역입니다."/>
 		<Class ClassID="4281" ClassName="MoreTranscendForCraft{count}" Data="제작을 위한 재료의 초월 수치가 {count}이상 필요합니다."/>
 		<Class ClassID="4282" ClassName="CantCraftCusRestriciton" Data="제작을 위한 재료가 제작 조건을 만족하지 않습니다."/>
+		<Class ClassID="4283" ClassName="AbnormalTerrain" Data="정상적인 지형이 아닙니다."/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -904,11 +911,11 @@
 		<Class ClassID="8050" ClassName="Pet_MINPATK" Data="최소 물리 공격력"/>
 		<Class ClassID="8051" ClassName="Pet_SR" Data="광역 공격 비율"/>
 		<Class ClassID="8052" ClassName="Pet_MHR" Data="마법 증폭"/>
-		<Class ClassID="8053" ClassName="Pet_BLK_BREAK" Data="블럭 관통"/>
+		<Class ClassID="8053" ClassName="Pet_BLK_BREAK" Data="블록 관통"/>
 		<Class ClassID="8054" ClassName="Pet_CRTATK" Data="치명타 공격력"/>
 		<Class ClassID="8055" ClassName="Pet_MDEF" Data="마법 방어력"/>
 		<Class ClassID="8056" ClassName="Pet_SDR" Data="광역 방어 비율"/>
-		<Class ClassID="8057" ClassName="Pet_BLK" Data="블럭"/>
+		<Class ClassID="8057" ClassName="Pet_BLK" Data="블록"/>
 		<Class ClassID="8058" ClassName="Pet_CRTDEF" Data="치명타 저항"/>
 		<Class ClassID="8059" ClassName="Pet_MSPD" Data="이동 속도"/>
 		<Class ClassID="8060" ClassName="Pet_ADD_FIRE" Data="불 속성 추가 대미지"/>
@@ -1393,10 +1400,13 @@
 		<Class ClassID="10554" ClassName="YouAreNotCampOwner" Data="해당 캠프의 주인이 아닙니다."/>
 		<Class ClassID="10555" ClassName="YouAreNotTableOwner" Data="해당 배식대의 주인이 아닙니다."/>
 		<Class ClassID="10552" ClassName="Goddess_Roulette_SSSGradeItemGetMessage{TEAMNAME}{ITEM}" Data="[{TEAMNAME}] 님이 여신의 룰렛에서 SSS등급 [{ITEM}]을(를) 획득하였습니다!"/>
-		<Class ClassID="10562" ClassName="NoticeInventoryOverSlotCount" Data="아이템이 너무 많습니다."/>
-		<Class ClassID="10571" ClassName="KOR_MaxSilverLimitOverDaily" Data="넥슨 ID 보안서비스에 가입하지 않아, 더 이상 사냥을 통해 실버를 획득할 수 없습니다. 넥슨 ID 보안 서비스에 가입하여 주세요.{nl} {nl}보안서비스 가입 후 재접속하여 주세요."/>
-		<Class ClassID="10572" ClassName="GLOBAL_MaxSilverLimitOverDaily" Data="Your account is currently under the daily limit of acquiring silver in the field. If you wish to lift the daily limit, register your account in Steam Guard."/>
-		<Class ClassID="10573" ClassName="GLOBAL_JP_MaxSilverLimitOverDaily" Data="当アカウントは現在フィールドで獲得可能なシルバーの一日獲得数が制限されております。解除したい場合はアカウントをSTEAMガードに登録してください。"/>
+		<Class ClassID="10561" ClassName="NoticeInventoryOverSlotCount" Data="아이템이 너무 많습니다."/>
+		<Class ClassID="10562" ClassName="KOR_MaxSilverLimitOverDaily" Data="넥슨 ID 보안서비스에 가입하지 않아, 더 이상 사냥을 통해 실버를 획득할 수 없습니다. 넥슨 ID 보안 서비스에 가입하여 주세요.{nl} {nl}보안서비스 가입 후 재접속하여 주세요."/>
+		<Class ClassID="10563" ClassName="GLOBAL_MaxSilverLimitOverDaily" Data="Your account is currently under the daily limit of acquiring silver in the field. If you wish to lift the daily limit, register your account in Steam Guard."/>
+		<Class ClassID="10564" ClassName="GLOBAL_JP_MaxSilverLimitOverDaily" Data="当アカウントは現在フィールドで獲得可能なシルバーの一日獲得数が制限されております。解除したい場合はアカウントをSTEAMガードに登録してください。"/>
+		<Class ClassID="10569" ClassName="WeeklyMaxPvpMineCountOver" Data="주간 최대 획득량에 도달하여 더 이상 용병단 주화를 획득하실 수 없습니다."/>
+		<Class ClassID="10570" ClassName="GuildPromoteNotice" Data="가입할 수 있는 길드가 있습니다."/>
+		<Class ClassID="10571" ClassName="AlreadyorImpossibleName" Data="이미 사용 중이거나, 사용할 수 없는 이름입니다."/>
 		</Category>
 	<Category Name="FoodTable">
 		<Class ClassID="20001" ClassName="IncreaseHP{Value}For{Time}Minute" Data="{Time}분 동안 HP가 {Value}% 증가합니다."/>
@@ -1753,8 +1763,8 @@
 		<Class ClassID="21349" ClassName="Already_Exit_Raid" Data="종료된 레이드 입니다."/>
 		<Class ClassID="21351" ClassName="StatusTooltipMsgHR" Data="% 표기값 : 회피 수치가 0인 동일 레벨의 적을 상대할 때의 기대 확률"/>
 		<Class ClassID="21352" ClassName="StatusTooltipMsgDR" Data="% 표기값 : 명중 수치가 0인 동일 레벨의 적을 상대할 때의 기대 확률"/>
-		<Class ClassID="21353" ClassName="StatusTooltipMsgBLK" Data="% 표기값 : 블럭 관통 수치가 0인 동일 레벨의 적을 상대할 때의 기대 확률"/>
-		<Class ClassID="21354" ClassName="StatusTooltipMsgBLK_BREAK" Data="% 표기값 : 블럭 수치가 0인 동일 레벨의 적을 상대할 때의 기대 확률"/>
+		<Class ClassID="21353" ClassName="StatusTooltipMsgBLK" Data="% 표기값 : 블록 관통 수치가 0인 동일 레벨의 적을 상대할 때의 기대 확률"/>
+		<Class ClassID="21354" ClassName="StatusTooltipMsgBLK_BREAK" Data="% 표기값 : 블록 수치가 0인 동일 레벨의 적을 상대할 때의 기대 확률"/>
 		<Class ClassID="21356" ClassName="StatusTooltipMsgCRTHR" Data="% 표기값 : 치명타 저항 수치가 0인 동일 레벨의 적을 상대할 때의 기대 확률"/>
 		<Class ClassID="21357" ClassName="StatusTooltipMsgCRTDR" Data="% 표기값 : 치명타 발생 수치가 0인 동일 레벨의 적을 상대할 때의 기대 확률"/>
 		<Class ClassID="21350" ClassName="JobExp" Data="클래스 경험치"/>
@@ -9258,6 +9268,10 @@
 		<Class ClassID="91020" ClassName="CommonGamble_GET_ALLMSG" Data="{PC} 님이 [{DESC}]을 통해{nl}{ITEMNAME} 를(을) {count}개 획득하셨습니다!"/>
 		<Class ClassID="91021" ClassName="C_REQUEST_1_NPC_MSG_01" Data="필요하신 게 있으신가요?"/>
 		<Class ClassID="91022" ClassName="C_REQUEST_1_NPC_MSG_02" Data="젖은 신발로 돌아다니지 마세요."/>
+		<Class ClassID="91023" ClassName="TELHARSHA_REMOVE_PATTERN_MSG1" Data="난이도(상) 패턴 : 양초 거미"/>
+		<Class ClassID="91024" ClassName="TELHARSHA_REMOVE_PATTERN_MSG2" Data="난이도(중) 패턴 : 어미스독"/>
+		<Class ClassID="91025" ClassName="TELHARSHA_REMOVE_PATTERN_MSG3" Data="난이도(하) 패턴 : 열기"/>
+		<Class ClassID="91026" ClassName="TELHARSHA_REMOVE_PATTERN_MSG4" Data="종료. 선택을 종료하고 보스 등장"/>
 		<Class ClassID="91030" ClassName="F_TABLELAND_28_2_NPC_CRU_14" Data="마족이 겁에 질려 도망갑니다."/>
 		<Class ClassID="91027" ClassName="Legend_Boss_Glacier_Easy" Data="하얀 마녀의 숲 : 레전드 레이드 (Easy)"/>
 		<Class ClassID="91028" ClassName="Legend_Boss_Glacier_Normal" Data="하얀 마녀의 숲 : 레전드 레이드 (Normal)"/>
@@ -9354,7 +9368,7 @@
 		<Class ClassID="100062" ClassName="Hold_Immune" Data="이동불가 면역!"/>
 		<Class ClassID="100063" ClassName="SnowRolling_Immune" Data="스노우롤링 면역!"/>
 		<Class ClassID="100064" ClassName="Raise_Immune" Data="레이즈 면역!"/>
-		<Class ClassID="100065" ClassName="HeadShot_Spin_Immune" Data="헤드 샷 스핀 면역!"/>
+		<Class ClassID="100065" ClassName="{Auto_1}_Spin_Immune" Data="{Auto_1} 스핀 면역!"/>
 		<Class ClassID="100066" ClassName="ID_ENDTER_DIALOG_1" Data="성당 지하 (권장 레벨:50)"/>
 		<Class ClassID="100067" ClassName="ID_ENDTER_DIALOG_2" Data="폐허 유적지 (권장 레벨:120)"/>
 		<Class ClassID="100068" ClassName="ID_ENDTER_DIALOG_3" Data="염원의 비석로 (권장 레벨:180)"/>
@@ -9382,6 +9396,8 @@
 		<Class ClassID="100094" ClassName="skill_visibletalent2" Data="비지블 탤런트 공격 (최대 대미지 도달!)"/>
 		<Class ClassID="100095" ClassName="skill_visibletalent_pc" Data="비지블 탤런트 (캐릭터)"/>
 		<Class ClassID="100100" ClassName="StartUp_Charging_Buff" Data="페널티: HP 감소"/>
+		<Class ClassID="100101" ClassName="Excnaged_AccountCount_Remind_Week" Data="팀당 1주 {COUNT}번 교환 가능 합니다."/>
+		<Class ClassID="100102" ClassName="Excnaged_AccountCount_Remind_Day" Data="팀당 1일 {COUNT}번 교환 가능 합니다."/>
 	</Category>
 	<Category Name="Party">
 		<Class ClassID="101001" ClassName="GULID_OUT" Data="길드 탈퇴"/>
@@ -10091,7 +10107,7 @@
 		<Class ClassID="111042" ClassName="ATK_Up" Data="베기류 범위 증가"/>
 		<Class ClassID="111043" ClassName="SkillRange" Data="공격 범위"/>
 		<Class ClassID="111044" ClassName="SkillAngle" Data="공격 각도"/>
-		<Class ClassID="111045" ClassName="BlockRate" Data="최종블럭율"/>
+		<Class ClassID="111045" ClassName="BlockRate" Data="최종블록율"/>
 		<Class ClassID="111046" ClassName="HitCount" Data="연타"/>
 		<Class ClassID="111047" ClassName="BackHit" Data="후방 공격 범위"/>
 		<Class ClassID="111048" ClassName="SkillName" Data="특정 스킬 사용"/>
@@ -10171,8 +10187,8 @@
 		<Class ClassID="111122" ClassName="MATK" Data="마법 공격력"/>
 		<Class ClassID="111123" ClassName="ADD_HR" Data="명중"/>
 		<Class ClassID="111124" ClassName="ADD_DR" Data="회피"/>
-		<Class ClassID="111125" ClassName="BLK" Data="블럭"/>
-		<Class ClassID="111126" ClassName="BLK_BREAK" Data="블럭 관통"/>
+		<Class ClassID="111125" ClassName="BLK" Data="블록"/>
+		<Class ClassID="111126" ClassName="BLK_BREAK" Data="블록 관통"/>
 		<Class ClassID="111127" ClassName="ADD_CLOTH" Data="천 방어 대상 공격력"/>
 		<Class ClassID="111128" ClassName="ADD_LEATHER" Data="가죽 방어 대상 공격력"/>
 		<Class ClassID="111129" ClassName="ADD_IRON" Data="판금 방어 대상 공격력"/>
@@ -10280,8 +10296,8 @@
 		<Class ClassID="111232" ClassName="CRTDR_status" Data="{#66b3ff}치명타 저항"/>
 		<Class ClassID="111233" ClassName="HR_status" Data="{#e24e91}명중"/>
 		<Class ClassID="111234" ClassName="DR_status" Data="{#e24e91}회피"/>
-		<Class ClassID="111235" ClassName="BLK_status" Data="{#e24e91}블럭"/>
-		<Class ClassID="111236" ClassName="BLK_BREAK_status" Data="{#e24e91}블럭 관통"/>
+		<Class ClassID="111235" ClassName="BLK_status" Data="{#e24e91}블록"/>
+		<Class ClassID="111236" ClassName="BLK_BREAK_status" Data="{#e24e91}블록 관통"/>
 		<Class ClassID="111237" ClassName="Cloth_Def_status" Data="{#66b3ff}천 대상 공격력 상쇄"/>
 		<Class ClassID="111238" ClassName="Leather_Def_status" Data="{#66b3ff}가죽 대상 공격력 상쇄"/>
 		<Class ClassID="111239" ClassName="Iron_Def_status" Data="{#66b3ff}판금 대상 공격력 상쇄"/>
@@ -10334,7 +10350,7 @@
 		<Class ClassID="111287" ClassName="ARK_PUNISHMENT_RATIO" Data="최대 천벌효과 발동확률"/>
 		<Class ClassID="111288" ClassName="ARK_PUNISHMENT_ATTACK" Data="천벌공격 계수"/>
 		<Class ClassID="111289" ClassName="Ark_punishment_desc{base1}{base2}" Data="[천벌효과] 10초내 시전하는 다음 일반 스킬의 3회 타격은 입힌 피해의 천벌공격 계수 만큼의 추가 물리 피해를 발생시킴(천벌효과중엔 천벌효과가 발생하지 않음, 맵 이동시에 사라짐){nl}[천벌 발동] 공격 스킬 계수에 비례하여 최대 발동확률까지 증가{nl}3레벨 달성시 최대 천벌효과 발동 확률 +{base1}%{nl}3레벨 달성시 천벌공격 계수 +{base2}%"/>
-		<Class ClassID="111290" ClassName="HR_BLK_BREAK_BM" Data="명중, 블럭 관통"/>
+		<Class ClassID="111290" ClassName="HR_BLK_BREAK_BM" Data="명중, 블록 관통"/>
 		<Class ClassID="111291" ClassName="ARK_OVERPOWER_OVERDUE" Data="연체이자 비율"/>
 		<Class ClassID="111292" ClassName="Ark_overpower_desc{base1}{base2}" Data="3레벨 달성시 방패를 착용한 캐릭터를 대상으로 블록 관통에 성공할 때마다 대상에게 연체이자 비율만큼 [연체이자] 디버프 부여{nl}[연체이자] 디버프 지속시간 20초{nl}3레벨 달성시 명중/블록 관통 +{base1}{nl}3레벨 달성시 연체이자 비율 +{base2}%{nl}[연체이자] 디버프가 걸린 대상은 적에게 가하는 대미지의 50%가 연체이자만큼 감소하며, 감소한 양만큼 연체이자가 차감.{nl}연체이자는 20초가 지나거나 맵을 이동하면 사라지지만, 사라지기 이전에 연체이자가 쌓이게 되면 이전 누적분의 지속시간이 갱신됨"/>
 		<Class ClassID="111293" ClassName="MaxWeight_BM" Data="휴대 가능무게"/>
@@ -15092,15 +15108,23 @@
 		<Class ClassID="514044" ClassName="GLACIER_COLD_BLAST_MSG" Data="눈보라가 생성됩니다."/>
 		<Class ClassID="514045" ClassName="Glacier_Obj_Dlg" Data="크루비나의 힘이 들어있는 장치입니다.{nl}작동시키겠습니까?"/>
 		<Class ClassID="514046" ClassName="Glacier_Obj_Dlg_1" Data="몬스터를 모두 처치해야 합니다."/>
+		<Class ClassID="514047" ClassName="TELHARSHA_WORMWHOLE_MSG" Data="주변의 공간이 일그러지기 시작합니다.{/}"/>
+		<Class ClassID="514048" ClassName="TELHARSHA_CANDLESPIDER_MSG" Data="{s20}양초거미가 텔하르샤에 반응하여 등장합니다.{/}"/>
+		<Class ClassID="514049" ClassName="TELHARSHA_CARDINAL_POINTS_MSG_1" Data="동쪽에서 물웅덩이가 고이기 시작합니다.{/}"/>
+		<Class ClassID="514050" ClassName="TELHARSHA_CARDINAL_POINTS_MSG_2" Data="북쪽에서 물웅덩이가 고이기 시작합니다.{/}"/>
+		<Class ClassID="514051" ClassName="TELHARSHA_CARDINAL_POINTS_MSG_3" Data="서쪽에서 물웅덩이가 고이기 시작합니다.{/}"/>
+		<Class ClassID="514052" ClassName="TELHARSHA_CARDINAL_POINTS_MSG_4" Data="남쪽에서 물웅덩이가 고이기 시작합니다.{/}"/>
 		<Class ClassID="514053" ClassName="Glacier_ColdBlast_Obj_Dlg" Data="5초 후 [한기 폭파]가 발동됩니다."/>
 		<Class ClassID="514054" ClassName="GLACIER_SNOW_CLOUD_HARD_MODE_CRATE_MSG" Data="[눈구름이 생성됩니다.]"/>
 		<Class ClassID="514055" ClassName="LEGEND_PBETA_BATTLE_FIELD_THIRD_VICTORY_NOTICE_MSG" Data="[프베타 3승]{nl}보스의 공격력/방어력이 200% 추가로 증가하며{nl}보스에게 받는 데미지가 30% 증가 합니다."/>
 		<Class ClassID="514056" ClassName="LEGEND_GLACIER_SUMMON_MONSTER_NOTICE_MSG" Data="[60초 마다 몬스터가 생성됩니다.]"/>
 		<Class ClassID="514057" ClassName="LEGEND_GLACIER_STUN_MSG" Data="글레이시어가, 혼란에 빠집니다."/>
-		<Class ClassID="514058" ClassName="TANTALISER_SOLO_PATTERN_DEBUFF_MSG" Data="{s20}탄타이저가 {Name}에게 {#ff6d00}마력 응축{/} 디버프를 부여합니다.{/}"/>
-		<Class ClassID="514059" ClassName="MORINGPONIA_SOLO_CURSE_PATTERN_MSG" Data="{s20}모링포니아가 {#ff6d00}{NAME}{/}에게 저주를 부여합니다. 저주로 인해 생성된 마법진에서 벗어날 경우 피해를 받습니다.{/}"
+		<Class ClassID="514058" ClassName="TANTALISER_SOLO_PATTERN_DEBUFF_MSG" Data="탄타이저가 {Name}에게 {#ff6d00}마력 응축{/} 디버프를 부여합니다.{/}"/>
+		<Class ClassID="514059" ClassName="MORINGPONIA_SOLO_CURSE_PATTERN_MSG" Data="모링포니아가 {#ff6d00}{NAME}{/}에게 저주를 부여합니다. 저주로 인해 생성된 마법진에서 벗어날 경우 피해를 받습니다.{/}"
 />
 		<Class ClassID="514060" ClassName="MORINGPONIA_SOLO_STEP_MSG" Data="난이도 {STEP}단계를 선택하였습니다."/>
+		<Class ClassID="514061" ClassName="MORINGPONIA_SOLO_MONSTER_MSG1" Data="모링포니아가 {#ff6d00}{NAME}{/}을(를) 주시합니다.{/}"/>
+		<Class ClassID="514062" ClassName="MORINGPONIA_SOLO_SUMMON_MSG_02" Data="모링포니아가 {#ff6d00}리타스워트{/}를 소환 중입니다.{nl}소환 포탈을 찾아 암흑 디버프를 해제하고 {#ff6d00}리타스워트{/}를 처치하십시오.{/}"/>
 	</Category>
 	<Category Name="SoloDungeon">
 		<Class ClassID="513001" ClassName="SoloDungeonStageMSG" Data="스테이지의 몬스터가 몰려옵니다. 모두 처치해 주세요!"/>
@@ -15407,7 +15431,7 @@
 		<Class ClassID="594007" ClassName="TokenWarpDisable{TIME}" Data="토큰 이동을 사용하실 수 없습니다. 남은 대기시간: {TIME}초"/>
 		<Class ClassID="594008" ClassName="TokenWarpTo{MAPNAME}" Data="{MAPNAME}(으)로 토큰 이동을 하시겠습니까?"/>
 		<Class ClassID="594009" ClassName="TokenWarp" Data="토큰 이동"/>
-		<Class ClassID="594010" ClassName="OutOfFavoriteMapCount" Data="즐겨찾기에 맵을 더 이상 등록할 수 없습니다.{nl}즐겨찾기는 최대 5개까지 등록 가능합니다."/>
+		<Class ClassID="594010" ClassName="OutOfFavoriteMapCount" Data="즐겨찾기에 지역을 더 이상 등록할 수 없습니다.{nl}즐겨찾기는 최대 8개까지 등록 가능합니다."/>
 		<Class ClassID="594011" ClassName="Check{COLONY}" Data="{COLONY} 지역을 확인합니다."/>
 		<Class ClassID="594012" ClassName="MoveTo{EPISODE}" Data="{EPISODE}로 이동합니다."/>
 		<Class ClassID="594013" ClassName="AddBookMark" Data="즐겨찾기에 추가합니다."/>
@@ -15420,6 +15444,8 @@
 		<Class ClassID="594020" ClassName="NoGuildTowerToShow" Data="길드에 속해 있지 않거나, 길드 타워가 설치되지 않았습니다."/>
 		<Class ClassID="594021" ClassName="challenge_level_enable" Data="챌린지"/>
 		<Class ClassID="594022" ClassName="challenge_level_disable" Data="챌린지 불가"/>
+		<Class ClassID="594023" ClassName="NoGoddessStatue" Data="해당 지역은 여신상이 없거나 활성화되지 않았습니다."/>
+		<Class ClassID="594024" ClassName="NoFavoriteMap" Data="등록된 지역이 없습니다"/>
 	</Category>
 	<Category Name="GlobalEventDialog">
 		<Class ClassID="597000" ClassName="EVENT_2004_NEWUSER_SEL_MSG1_GLOBAL" Data="{#003399}[트린이날]{/} 이벤트"/>

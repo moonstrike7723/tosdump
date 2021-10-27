@@ -78,6 +78,11 @@ function FOODTABLE_REG_EXEC(parent, ctrl)
 		return 0;
 	end
 
+	if 1 == CheckDynamicOBB(pc, x, y, z, 15) then
+		ui.SysMsg(ClMsg("AbnormalTerrain"));	
+		return 0;
+	end
+
 	local strScp = "_FOODTABLE_REG_EXEC()";
 	ui.MsgBox(ScpArgMsg("REALLY_DO"), strScp, "None");
 end

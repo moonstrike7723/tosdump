@@ -84,7 +84,7 @@ function UNIQUEDECOMPOSE_SET_TARGET(frame, itemGuid)
 
 	local itemObj = GetIES(invItem:GetObject())
 	if ENABLE_DECOMPOSE_EVIL_GODDESS_ITEM(itemObj) == false then
-		ui.SysMsg(ClMsg('OnlyLv1GoddessEvilCanDecompose'))
+		ui.SysMsg(ClMsg('decomposeCant'))
 		return
 	end
 
@@ -121,7 +121,7 @@ function UNIQUEDECOMPOSE_EXECUTE(parent, ctrl)
 	
 	local targetObj = GetIES(targetItem:GetObject())
 	if ENABLE_DECOMPOSE_EVIL_GODDESS_ITEM(targetObj) == false then
-		ui.SysMsg(ClMsg('OnlyLv1GoddessEvilCanDecompose'))
+		ui.SysMsg(ClMsg('decomposeCant'))
 		return
 	end
 

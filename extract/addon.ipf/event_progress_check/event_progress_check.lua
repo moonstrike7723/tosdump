@@ -53,6 +53,9 @@ function EVENT_PROGRESS_CHECK_INIT(frame, type)
 
 	local title_deco = GET_CHILD(frame, "title_deco");
 	title_deco:SetImage(GET_EVENT_PROGRESS_CHECK_TITLE_DECO(type));
+	
+	local loadingtext = GET_CHILD_RECURSIVELY(frame, "loadingtext");
+	loadingtext:ShowWindow(0);
 end
 
 function EVENT_PROGRESS_CHECK_TAB_CLICK(parent, ctrl, argStr, type)
@@ -508,14 +511,13 @@ local infolistY = 0;
 local scrolledTime = 0;
 local finishedLoading = false;
 local all_ranking_score_sum = 0;
-local sumRankTop = false; 
 function EVENT_YOUR_MASTER_OPEN(frame, msg, argStr)
 	local strList = StringSplit(argStr, "/");
     local state = strList[1];
     local week = tonumber(strList[2]);
 	local curcnt = strList[3];
 	local nextcnt = strList[4];
-	print(state,week,curcnt,nextcnt)
+
 	EVENT_YOUR_MASTER_INIT(frame, state, week, curcnt, nextcnt);
 	EVENT_YOUR_MATER_TAB_CLICK(frame, nil, state, week);
 	frame:ShowWindow(1);
@@ -554,6 +556,9 @@ function EVENT_YOUR_MASTER_INIT(frame, state, week, curcnt, nextcnt)
 
 	local title_deco = GET_CHILD(frame, "title_deco");
 	title_deco:SetImage(GET_EVENT_PROGRESS_CHECK_TITLE_DECO(your_master_type));	
+
+	local loadingtext = GET_CHILD(frame, "loadingtext");
+	loadingtext:ShowWindow(0);
 end
 
 function EVENT_PROGRESS_TAB_UNFREEZE()
@@ -605,7 +610,6 @@ function EVENT_YOUR_MASTER_TAB_INIT(index)
 	scrolledTime = imcTime.GetAppTime();
 	finishedLoading = false;
 	all_ranking_score_sum = 0;
-	sumRankTop = false; 
 end
 
 function EVENT_YOUR_MATER_TAB_CLICK(parent, ctrl)
@@ -629,18 +633,11 @@ function EVENT_YOUR_MATER_TAB_CLICK(parent, ctrl)
 	local comming_soon_pic = GET_CHILD_RECURSIVELY(frame, "comming_soon_pic");
 	comming_soon_pic:ShowWindow(0);
 
-
 	local desclist = GET_EVENT_PROGRESS_CHECK_DESC(your_master_type);
 	local nametext = GET_CHILD_RECURSIVELY(frame, "nametext");
 	nametext:SetTextByKey('value', ClMsg(desclist[index + 1]));
 	
 	EVENT_YOUR_MASTER_TAB_INIT(index);
-
-	local tab2_listgb1 = GET_CHILD_RECURSIVELY(frame,"tab2_listgb1")
-	if tab2_listgb1:GetUserValue("STATE") == 'prev' then
-		comming_soon_pic:ShowWindow(1);
-		return
-	end
 
 	if index < 2 then
 		local gbname = "tab2_listgb"..(index+1);
@@ -665,17 +662,51 @@ function EVENT_YOUR_MATER_TAB_CLICK(parent, ctrl)
 
 		local state = listgb:GetUserValue("STATE");
 		if state == "prev" then
+			comming_soon_pic:ShowWindow(1);
 			return;
 		end
 
+		local loadingtext = GET_CHILD(frame, "loadingtext");
+		loadingtext:ShowWindow(1);
+		
 		local sort = GET_RANKING_SORT_TYPE(index, state);
-		GetRaidRanking("EVENT_YOUR_MASTER_UPDATE", "EVENT_2008_YOUR_MASTER:EVENT_2008_YOUR_MASTER_"..week, curPage, sort);
+		GetRaidRankingSumScore("EVENT_YOUR_MASTER_SUM_SCORE_UPDATE", "EVENT_2008_YOUR_MASTER:EVENT_2008_YOUR_MASTER_"..week, sort);
 	elseif index == 2 then
 		EVENT_YOUR_MASTER_ACCRUE_REWARD_INIT(frame);
 	end
 end
 
-function EVENT_YOUR_MASTER_UPDATE(code, ret_json)
+function EVENT_YOUR_MASTER_SUM_SCORE_UPDATE(code, retValue)
+    if code ~= 200 then
+        if code == 500 then
+            ui.SysMsg(ScpArgMsg('CantExecInThisArea'));
+        end
+
+		ui.SysMsg(ScpArgMsg("GuildJointInvTryLater"));
+		EVENT_YOUR_MASTER_TAB_INIT();
+        return;
+    end
+	
+	all_ranking_score_sum = retValue;
+
+	ReserveScript("EVENT_YOUR_MASTER_UPDATE()", 1);
+end
+
+function EVENT_YOUR_MASTER_UPDATE()
+	local frame = ui.GetFrame("event_progress_check");	
+	local tab2 = GET_CHILD(frame, "tab2");
+	local tabindex = tab2:GetSelectItemIndex();
+
+	local gbname = "tab2_listgb"..(tabindex + 1);
+	local listgb = GET_CHILD(frame, gbname);
+	local week = listgb:GetUserIValue("WEEK");
+	local state = listgb:GetUserValue("STATE");
+
+	local sort = GET_RANKING_SORT_TYPE(tabindex, state);
+	GetRaidRanking("_EVENT_YOUR_MASTER_UPDATE", "EVENT_2008_YOUR_MASTER:EVENT_2008_YOUR_MASTER_"..week, curPage, sort);
+end
+
+function _EVENT_YOUR_MASTER_UPDATE(code, ret_json)
 	finishedLoading = true;
     if code ~= 200 then
         if code == 500 then
@@ -695,6 +726,9 @@ function EVENT_YOUR_MASTER_UPDATE(code, ret_json)
 	
 	local frame = ui.GetFrame("event_progress_check");
 
+	local loadingtext = GET_CHILD(frame, "loadingtext");
+	loadingtext:ShowWindow(0);
+
 	local tab2 = GET_CHILD(frame, "tab2");
 	local tabindex = tab2:GetSelectItemIndex();
 
@@ -711,26 +745,13 @@ function EVENT_YOUR_MASTER_UPDATE(code, ret_json)
 		local member = v["member"];
 		local score = v["score"];
 		local rank = v["rank"]
+		if sort == "asc" then
+			rank = curCnt - rank + 1;
+		end
 
-		if member == "all_ranking_score_sum" then
-			all_ranking_score_sum = score;
-			sumRankTop = true;
-		else
-			local npc_cls = GetClass("event_ranking_data", member);
-			if npc_cls ~= nil then
-				if sort == "asc" then
-					rank = curCnt - rank;
-					if sumRankTop == true then 
-						rank = rank + 1;
-					end
-				else
-					if sumRankTop == true then 
-						rank = rank -1;
-					end
-				end
-
-				infolistY = EVENT_YOUR_MASTER_LIST_CREATE(listgb, infolistY, rank, member, score, tabindex);
-			end
+		local npc_cls = GetClass("event_ranking_data", member);
+		if npc_cls ~= nil then
+			infolistY = EVENT_YOUR_MASTER_LIST_CREATE(listgb, infolistY, rank, member, score, tabindex);
 		end
 	end   
 end
@@ -761,6 +782,7 @@ function EVENT_YOUR_MASTER_LIST_CREATE(gb, y, rank, member, score, tabindex)
 	end
 	
 	local percent = "0.00";
+	all_ranking_score_sum = tonumber(all_ranking_score_sum)
 	if all_ranking_score_sum ~= 0 then
 		percent = string.format("%.2f", math.floor(score/all_ranking_score_sum*10000)/100);
 	end
@@ -789,22 +811,24 @@ function EVENT_YOUR_MASTER_LIST_CREATE(gb, y, rank, member, score, tabindex)
 	if state == "end" then
 		btn:SetEnable(0);
 		btn_text:SetEnable(0);
+		
+		if score == 0 or (cnt < rank) then
+			local prev_ctrl_name = "LIST"..(rank-1);
+			local prev_ctrl = GET_CHILD_RECURSIVELY(gb, prev_ctrl_name);
+			local prev_percent = GET_CHILD(prev_ctrl, "percent");
+			local prev_blackbg = GET_CHILD(prev_ctrl, "blackbg");
+			local prev_percentText = prev_percent:GetTextByKey("value");
+
+			if prev_percentText ~= percent or prev_blackbg:IsVisible() == 1 then
+				blackbg:ShowWindow(1);
+				blackbg:SetAlpha(60);
+			end
+		end
 	else		
 		btn:SetEventScript(ui.LBUTTONUP, "EVENT_YOUR_MASTER_LIST_CLICK");
 		btn:SetEventScriptArgString(ui.LBUTTONUP, npc_cls.ClassID);
 		btn:ShowWindow(1);
 		btn_text:ShowWindow(1);
-	end
-
-	if cnt ~= nil and cnt < rank and state == "end" then
-		local prev_ctrl_name = "LIST"..cnt;
-		local prev_ctrl = GET_CHILD_RECURSIVELY(gb, prev_ctrl_name);
-		local prev_percent = GET_CHILD(prev_ctrl, "percent");
-		local prev_percentText = prev_percent:GetTextByKey("value");
-		if prev_percentText ~= percent then
-			blackbg:ShowWindow(1);
-			blackbg:SetAlpha(60);
-		end
 	end
 
     y = y + ctrlSet:GetHeight();
@@ -835,7 +859,7 @@ function EVENT_YOUR_MASTER_RANKING_SCROLL(parent, ctrl)
 
 			local state = ctrl:GetUserValue("STATE")
 			local sort = GET_RANKING_SORT_TYPE(index, state);
-			GetRaidRanking("EVENT_YOUR_MASTER_UPDATE", "EVENT_2008_YOUR_MASTER:EVENT_2008_YOUR_MASTER_"..week, curPage, sort);
+			GetRaidRanking("_EVENT_YOUR_MASTER_UPDATE", "EVENT_2008_YOUR_MASTER:EVENT_2008_YOUR_MASTER_"..week, curPage, sort);
 			
             scrolledTime = now;
 			finishedLoading = false;

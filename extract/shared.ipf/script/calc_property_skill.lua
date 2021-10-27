@@ -1,4 +1,4 @@
-﻿--- calc_property_skill.lua
+--- calc_property_skill.lua
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function HAS_DRAGON_POWER(pc)
@@ -11043,7 +11043,7 @@ function SCR_GET_SR_LV_Doppelsoeldner(skill)
     end
     
     local value = pc.SR + skillSR;
-    
+   
     if value < 1 then
         value = 1
     end
@@ -11842,6 +11842,12 @@ function SCR_GET_GenbuArmor_Ratio(skill)
     return value
 end
 
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_WaterShikigami_Ratio(skill)
+	local value = 12
+    return value
+end
+
 function SCR_GET_GenbuArmor_Ratio2(skill)
     local value = 60
     
@@ -12511,7 +12517,12 @@ function SCR_GET_EnchantGlove_Ratio(skill)
 end
 
 function SCR_GET_KnifeThrowing_Ratio(skill)
+    local pc = GetSkillOwner(skill)
     local value = 5 + (skill.Level * 1)
+
+    if IsPVPServer(pc) == 1 or IsPVPField(pc) == 1 then
+        value = value * 0.5;
+    end
     
     return value;
 end
@@ -14073,6 +14084,116 @@ function SCR_GET_Karys_Ratio(skill)
     return value;
 end
 
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_SKL_COOLDOWN_DownFall(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = TryGetProp(skill, "BasicCoolDown", 0)
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+    return math.floor(basicCoolDown);
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_SkillFactor_Vibora_QS(skill)
+    local pc = GetSkillOwner(skill)
+    local Teardown = GetSkill(pc, "QuarrelShooter_Teardown")
+    local value = math.floor(TryGetProp(Teardown, "SkillFactor", 0) * 1.5)
+
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_SKL_COOLDOWN_Capote(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    if IsBuffApplied(pc, "ITEM_BUFF_VIBORA_RAPIER_MATADOR_EQUIP") == "YES" then
+        basicCoolDown = basicCoolDown - 10000
+    end
+
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_SKL_COOLDOWN_Ole(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    if IsBuffApplied(pc, "ITEM_BUFF_VIBORA_RAPIER_MATADOR_EQUIP") == "YES" then
+        basicCoolDown = basicCoolDown - 10000
+    end
+
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_CrossCut_Bufftime(skill)
     local pc = GetSkillOwner(skill);
     local time = 5 + (TryGetProp(skill, "Level", 0) * 1)
@@ -14083,15 +14204,7 @@ function SCR_GET_CrossCut_Bufftime(skill)
     return time;
 end
 
-function SCR_GET_SKL_COOLDOWN_DownFall(skill)
-    local pc = GetSkillOwner(skill);
-    local basicCoolDown = TryGetProp(skill, "BasicCoolDown", 0)
-    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
-    basicCoolDown = basicCoolDown + abilAddCoolDown;
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
-    return math.floor(basicCoolDown);
-end
-
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_ShadowFatter_Ratio2(skill)
     local value = skill.Level * 0.2
     return value
@@ -14102,5 +14215,166 @@ function SCR_GET_Barrage_Ratio2(skill)
     local pc = GetSkillOwner(skill);
     local sklsr = TryGetProp(skill, "SklSR", 0)
     local value = sklsr + math.floor(TryGetProp(pc, "SR", 0))
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_SkillFactor_ViboraGravity(skill)
+    local pc = GetSkillOwner(skill)
+    local Teardown = GetSkill(pc, "Psychokino_GravityPole")
+    local value = TryGetProp(Teardown, "SkillFactor", 0) * 0.5
+
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_SkillFactor_ViboraGravity_Finish(skill)
+    local pc = GetSkillOwner(skill)
+    local Teardown = GetSkill(pc, "Psychokino_GravityPole")
+    local value = TryGetProp(Teardown, "SkillFactor", 0) * 10
+
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_SKL_COOLDOWN_Westraid(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    if IsBuffApplied(pc, "ITEM_BUFF_VIBORA_PISTOL_DERRINGER") == "YES" then
+        basicCoolDown = basicCoolDown - 25000
+    end
+
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_SKL_COOLDOWN_Punish(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    if IsBuffApplied(pc, "ITEM_BUFF_VIBORA_THSWORD_PUNISH") == "YES" then
+        basicCoolDown = basicCoolDown + 10000
+    end
+
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+function SCR_Get_SkillFactor_Vibora_Matross(skill)
+    local pc = GetSkillOwner(skill)
+    local Explosion = GetSkill(pc, "Matross_Explosion")
+    local value = math.floor(TryGetProp(Explosion, "SkillFactor", 0) * 0.3)
+
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_SkillFactor_Vibora_Matador(skill)
+    local pc = GetSkillOwner(skill)
+    local PasoDoble = GetSkill(pc, "Matador_PasoDoble")
+    local value = math.floor(TryGetProp(PasoDoble, "SkillFactor", 0) * 4 * 0.2)
+    
+    return value
+end
+
+-- 불완전한 포스 웨이브 대미지
+function SCR_Get_SkillFactor_Low_Triukas(skill)
+    local pc = GetSkillOwner(skill)
+    local now = GetExProp(pc, 'EP12_LOW_006_STACK')
+    local value = now * 825
+    value = value
+    
+    return value
+end
+
+-- 포스 웨이브 대미지
+function SCR_Get_SkillFactor_Triukas(skill)
+    local pc = GetSkillOwner(skill)
+    local now = GetExProp(pc, 'EP12_HIGH_006_STACK')
+    local value = now * 1375
+    if GetExProp(pc, "ITEM_DRAGON_POWER") == 2 and now == 4 then
+        value = now * 1875
+    end
+    value = value
+    
+    return value
+end
+
+-- 루시페리 오버로드 - 엘리멘탈 대미지
+function SCR_Get_SkillFactor_Elemental_Force(skill)
+    local pc = GetSkillOwner(skill)
+    local now = GetExProp(pc, 'EP12_LUCI_005_STACK')
+    local value = now * 2250
+    if GetExProp(pc, "ITEM_DRAGON_POWER") == 2 and now == 4 then
+        value = now * 3150
+    end
+    value = value
+    
     return value
 end

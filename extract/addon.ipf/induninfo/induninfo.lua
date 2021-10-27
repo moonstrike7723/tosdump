@@ -101,6 +101,10 @@ function TOGGLE_INDUNINFO(frame,type)
 		local isShow = BoolToNumber(2 == type)
 		local WeeklyBossbox = GET_CHILD_RECURSIVELY(frame, 'WeeklyBossbox')
 		WeeklyBossbox:ShowWindow(isShow)
+
+		if isShow == 0 then
+			ui.CloseFrame('induninfo_class_selector')
+		end
 	end
 	--raid rank
 	do
@@ -136,6 +140,7 @@ function INDUNINFO_UI_CLOSE(frame)
     ui.CloseFrame('indun_char_status');
     ui.CloseFrame('weeklyboss_patterninfo');
     ui.CloseFrame('induninfo_pvpreward');
+    ui.CloseFrame('induninfo_class_selector');
 end
 
 function INDUNINFO_ADD_COUNT(table,index)
@@ -1355,7 +1360,7 @@ function INDUNINFO_OPEN_INDUN_MAP(parent, ctrl)
     
     ui.OpenFrame("worldmap2_mainmap")
 
-    WORLDMAP2_SUBMAP_OPEN_FROM_MAINMAP_BY_EPISODE(episode)
+    WORLDMAP2_OPEN_SUBMAP_FROM_MAINMAP_BY_EPISODE(episode)
     WORLDMAP2_SUBMAP_ZONE_CHECK(mapName)
 end
 
@@ -1720,6 +1725,7 @@ function WEEKLY_BOSS_DATA_REUQEST()
     -- 랭킹 정보
     local jobID = WEEKLY_BOSS_RANK_JOBID_NUMBER();
     weekly_boss.RequestWeeklyBossRankingInfoList(week_num, jobID);
+	INDUNINFO_CLASS_SELECTOR_FILL_CLASS(jobID)
 
     -- 보스 정보
     weekly_boss.RequestWeeklyBossStartTime(week_num);           -- 해당 주간 보스 시작 시간 정보 요청
