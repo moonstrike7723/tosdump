@@ -293,6 +293,10 @@ function ON_UPDATE_OTHER_GUILD_EMBLEM_WORLDMAP2_COLONYMAP(frame, msg, argStr, ar
         local controlName = colonyData.ClassName
         local targetControl = GET_CHILD_RECURSIVELY(frame, controlName)
 
+        if targetControl == nil then
+            return
+        end
+
         -- 해당 길드의 엠블럼셋이 존재할 경우 이미지 부여
         local emblemSet = GET_CHILD_RECURSIVELY(targetControl, 'EMBELM_'..argStr)
         if emblemSet ~= nil then

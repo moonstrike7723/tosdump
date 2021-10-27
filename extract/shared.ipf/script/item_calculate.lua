@@ -662,6 +662,15 @@ function SCR_REFRESH_ARMOR(item, enchantUpdate, ignoreReinfAndTranscend, reinfBo
         if basicDef < 1 then
             basicDef = 1;
         end
+    
+        local pc = GetItemOwner(item)
+    -- pvp 전용아이템인 경우 체크 (팀배, 수정광산 적용)    
+    if pc ~= nil and TryGetProp(item, 'StringArg', 'None') == 'FreePvP' then        
+            if IsJoinColonyWarMap(pc) == 1 or ( IsPvPMineMap(pc) == false and IsTeamBattleLeague(pc) == 0) then
+                basicDef = 0
+            end
+        end
+
         basicDef = math.floor(basicDef) * upgradeRatio + GET_REINFORCE_ADD_VALUE(basicProp, item, ignoreReinfAndTranscend, reinfBonusValue) + buffarg
         item[basicProp] = SyncFloor(basicDef);
     end

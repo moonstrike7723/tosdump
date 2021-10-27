@@ -28,5 +28,3 @@ ClassID,GenType,Lv,Range,GenRange,RespawnTime,MaxPop,Minimap,Hide,UseAIOufOfPC,A
 34,34,1,40,1,60000,1,1,0,0,0,0,0,npc_nicopolis_guard_female,니코폴리스 경비병,,,,,,,NICOPOLIS_811_SUBQ_NPC2,,,NO,YES,NO,Neutral,,,,
 35,35,1,40,1,60000,1,1,0,0,0,0,0,id_gate_npc,[마법 실험 구역] 입구,,,,,,,INSTANCE_DUNGEON_NICO811,,,NO,YES,NO,Neutral,,,,
 36,36,1,40,100,30000,17,0,0,0,1,0,0,rootcrystal_02,,,,,MON_TORCH,,,,,,NO,YES,NO,RootCrystal,,,,
-37,37,1,40,1,1,1,2,0,0,0,0,0,npc_elevator,이동 장치,,,,,,,,,,NO,YES,NO,Neutral,,,,
-38,38,1,40,1,1,1,2,0,0,0,0,0,npc_elevator,이동 장치,,,,,,,,,,NO,YES,NO,Neutral,,,,

@@ -314,7 +314,7 @@ end"/>
 				<Frame Angle="0" AniTime="9999" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="9799" Type="FAN"/>
 			</HitList>
 			<EtcList>
-				<Scp Client="NO" Scp="SKL_SET_TARGET_SQUARE" Time="100" UseSleep="NO">
+				<Scp Client="NO" Scp="SKL_SET_TARGET_SQUARE" Time="100" UseSleep="NO" LoopTime="400">
 					<Pos Angle="0" Dist="0"/>
 					<Num Num="0"/>
 					<Num Num="50"/>

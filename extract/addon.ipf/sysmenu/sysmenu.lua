@@ -267,6 +267,10 @@ function CHECK_CTRL_OPENCONDITION(frame, ctrlName, frameName)
 		inven:Emphasize("focus_ui", 0, 1.0, "AAFFFFFF");
 		ui.CheckStopEmphaSize(frameName, frame:GetName(), ctrlName);
 	end
+
+	if ctrlName == 'inven' then
+		ui.OpenFrame('coin_get_gauge')
+	end
 end
 
 function ON_UI_EMPHASIZE(frame, msg, argStr, argNum)

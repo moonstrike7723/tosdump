@@ -71,7 +71,7 @@ function WORLDMAP2_SEARCH_UPDATE(frame)
         return
     end
 
-    ui.MakeDropListFrame(searchEdit, -5, GET_SCENE_OFFSET(), 326, 1000, math.min(10, #mapList), ui.LEFT, "WORLDMAP2_SEARCH_GO_TARGET_MAP", "WORLDMAP2_SEARCH_DROPLIST_MOUSEOVER", nil)
+    ui.MakeDropListFrame(searchEdit, GET_SCENE_OFFSET_WIDTH() - 5, GET_SCENE_OFFSET_HEIGHT(), 326, 1000, math.min(10, #mapList), ui.LEFT, "WORLDMAP2_SEARCH_GO_TARGET_MAP", "WORLDMAP2_SEARCH_DROPLIST_MOUSEOVER", nil)
     
     WORLDMAP2_DROPLIST_SET_BY_UI_MANAGER(255)
 

@@ -281,7 +281,7 @@ function WORLDMAP2_MINIMAP_QUEST_INFO(frame)
 		local nowMap = WORLDMAP2_MINIMAP_MAPNAME()
 
 		local cond1 = questIES.PossibleUI_Notify ~= 'NO'
-		local cond2 = questIES.Level ~= 9999 
+		local cond2 = questIES.Level ~= 9999
 		local cond3 = questIES.Lvup ~= -9999
 		local cond4 = questIES.QuestStartMode ~= 'NPCENTER_HIDE'
 		local cond5 = questIES.QuestMode ~= 'KEYITEM'
@@ -291,19 +291,19 @@ function WORLDMAP2_MINIMAP_QUEST_INFO(frame)
 
             -- 시작 가능
             if questProgress == "POSSIBLE" and questIES.StartMap == nowMap then
-				WORLDMAP2_MINIMAP_QUEST_INFO_ADD(frame, questIES, count, 1)
+				WORLDMAP2_MINIMAP_QUEST_INFO_ADD(frame, questIES, count, questProgress)
                 count = count + 1
             end
 
             -- 진행중
             if questProgress == "PROGRESS" and questIES.ProgMap == nowMap then
-				WORLDMAP2_MINIMAP_QUEST_INFO_ADD(frame, questIES, count, 2)
+				WORLDMAP2_MINIMAP_QUEST_INFO_ADD(frame, questIES, count, questProgress)
                 count = count + 1
             end
 
             -- 성공
             if questProgress == "SUCCESS" and questIES.EndMap == nowMap then
-				WORLDMAP2_MINIMAP_QUEST_INFO_ADD(frame, questIES, count, 3)
+				WORLDMAP2_MINIMAP_QUEST_INFO_ADD(frame, questIES, count, questProgress)
                 count = count + 1
             end
 		end
@@ -320,27 +320,29 @@ function WORLDMAP2_MINIMAP_QUEST_INFO(frame)
     end
 end
 
-function WORLDMAP2_MINIMAP_QUEST_INFO_ADD(frame, questIES, count, type)
+function WORLDMAP2_MINIMAP_QUEST_INFO_ADD(frame, questIES, count, state)
 	local minimapInfoBox = AUTO_CAST(frame:GetChild("minimap_info_bg"))
 	local minimapQuestSet = minimapInfoBox:CreateOrGetControlSet("minimap_info_quest_set", questIES.ClassName, 0, 41*count)
 
 	local spotImg = AUTO_CAST(minimapQuestSet:GetChild("spot_img"))
 	local checkImg = AUTO_CAST(minimapQuestSet:GetChild("check_img"))
-	local questBox = AUTO_CAST(minimapQuestSet:GetChild("quest_box"))
+    local questBox = AUTO_CAST(minimapQuestSet:GetChild("quest_box"))
+    local imageName = GET_QUESTINFOSET_ICON_BY_STATE_MODE(state, questIES)
 
-	-- 퀘스트 표기
+    -- 퀘스트 표기
 	if questIES.QuestMode == 'MAIN' then
-		questBox:SetText(' {img minimap_'..type..'_MAIN 28 28} {@st70_m_16}'..questIES.Name)
+		questBox:SetText(' {img '..imageName..' 28 28} {@st70_m_16}'..questIES.Name)
 	elseif questIES.QuestMode == 'SUB' then
-		questBox:SetText(' {img minimap_'..type..'_SUB 28 28} {@st70_s_16}'..questIES.Name)
+		questBox:SetText(' {img '..imageName..' 28 28} {@st70_s_16}'..questIES.Name)
 	elseif questIES.QuestMode == 'REPEAT' then
-		questBox:SetText(' {img minimap_'..type..'_REPEAT 28 28} {@st70_d_16}'..questIES.Name)
+		questBox:SetText(' {img '..imageName..' 28 28} {@st70_d_16}'..questIES.Name)
 
 	-- 나머지는 서브퀘스트 취급
 	else
-		questBox:SetText(' {img minimap_'..type..'_SUB 28 28} {@st70_s_16}'..questIES.Name)
+		questBox:SetText(' {img '..imageName..' 28 28} {@st70_s_16}'..questIES.Name)
 	end
-
+    
+    -- 위치보기 세팅
     spotImg:SetUserValue("QUEST_NAME", questIES.ClassName)
     
     -- 체크박스 세팅

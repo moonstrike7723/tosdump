@@ -182,8 +182,8 @@ function UPDATE_CHALLENGE_MODE_MINIMAP_MARK(x, y, z, isAlive, isHardMode)
 
 	if isAlive == 1 then
 		session.minimap.AddIconInfo(msg, "trasuremapmark", x, y, z, ClMsg(msg), true, nil, 1.5);
-	--else
-	--	session.minimap.RemoveIconInfo(msg);
+	else
+		session.minimap.RemoveIconInfo(msg);
 	end
 end
 

@@ -2073,7 +2073,7 @@ function SCR_POSSIBLE_UI_OPEN_CHECK(pc, questIES, subQuestZoneList, chType)
             ret = "OPEN"
             return ret, subQuestZoneList
         end
-    elseif questIES.QuestMode == "MAIN" or questIES.QuestMode == "SUB" or questIES.PossibleUI_Notify == 'UNCOND' then
+    elseif questIES.QuestMode == "MAIN" or questIES.QuestMode == "SUB" or questIES.QuestMode == 'REPEAT' or questIES.PossibleUI_Notify == 'UNCOND' then
         ret = "OPEN"
         return ret, subQuestZoneList
     end
@@ -3226,4 +3226,8 @@ function RANDOM_SHUFFLE(tbl)
         tbl[i], tbl[j] = tbl[j], tbl[i];
     end
     return tbl
+end
+
+function CLMSG_DIALOG_CONVERT(npc,msg)
+	return string.format("%s*@*%s",npc.Name,msg)
 end

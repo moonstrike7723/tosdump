@@ -13,9 +13,27 @@ function UI_TOGGLE_WORLDMAP()
     end
 end
 
--- 1920*1080 비율이 아닌 해상도에서 발생하는 상단 바의 길이를 알아내는 함수..
-function GET_SCENE_OFFSET()
-    return (1920 * ui.GetSceneHeight() / ui.GetSceneWidth() - 1080) / 2
+-- 해상도 보정
+function GET_SCENE_OFFSET_HEIGHT()
+    local X = ui.GetSceneWidth()
+    local Y = ui.GetSceneHeight()
+
+    if X / Y > 1920 / 1080 then
+        return 0
+    else
+        return (1920 * Y / X - 1080) / 2
+    end
+end
+
+function GET_SCENE_OFFSET_WIDTH()
+    local X = ui.GetSceneWidth()
+    local Y = ui.GetSceneHeight()
+
+    if X / Y > 1920 / 1080 then
+        return (1080 * X / Y - 1920) / 2
+    else
+        return 0
+    end
 end
 
 -- 맵 데이터 서치함수
@@ -153,7 +171,7 @@ end
 
 -- 월드맵 드랍리스트 세팅 함수
 function WORLDMAP2_DROPLIST_SET(ctrl)
-    ctrl:SetFrameOffset(0, GET_SCENE_OFFSET())
+    ctrl:SetFrameOffset(GET_SCENE_OFFSET_WIDTH(), GET_SCENE_OFFSET_HEIGHT())
     ctrl:SetFrameScrollBarOffset(-3, 0)
     ctrl:SetFrameScrollBarSkinName("worldmap2_scrollbar")
 end
@@ -322,6 +340,12 @@ function WORLDMAP2_TOKEN_WARP(mapName)
         return
     end
 
+    -- 서브맵 존재 여부 검사
+    local submapData = GetClassByStrProp("worldmap2_submap_data", "MapName", mapName)
+    if submapData == nil then
+        return
+    end
+
     -- 같은 맵 검사
     if GetZoneName() == mapName then
         ui.SysMsg(ScpArgMsg("ThatCurrentPosition"))
@@ -395,7 +419,7 @@ end
 function WORLDMAP2_HELPLIST(frame, ctrl)
     local count = 6
 
-    ui.MakeDropListFrame(ctrl, 5, GET_SCENE_OFFSET() - 8, 200, 1000, count, ui.LEFT, "WORLDMAP2_HELPLIST_OPEN", nil, nil)
+    ui.MakeDropListFrame(ctrl, GET_SCENE_OFFSET_WIDTH() + 5, GET_SCENE_OFFSET_HEIGHT() - 8, 200, 1000, count, ui.LEFT, "WORLDMAP2_HELPLIST_OPEN", nil, nil)
     
     WORLDMAP2_DROPLIST_SET_BY_UI_MANAGER(255)
 

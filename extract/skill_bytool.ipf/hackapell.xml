@@ -307,8 +307,15 @@ return value' Num="15000" UseFunc="1"/>
                     <Num Num="100"/>
                     <Num Num="0"/>
                 </Scp>
-		<Scp Client="NO" Scp="SKL_RUN_SCRIPT" Time="0" UseSleep="NO">
-                    <Str Str="SCR_HAKKAPALLE_HIDDEN_ABIL"/>
+		<Scp Scp="SKL_BUFF_ABIL" Client="NO" UseSleep="NO"Time="0">
+                    <Str Str="Hackapell16"/>
+                    <Str Str="HakkaPalle_Abil_Buff"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="45000"/>
+                    <Num Num="1"/>
+                    <Num Num="100"/>
+                    <Num Num="1"/>
                 </Scp>
                 <Scp Client="YES" Scp="C_VOICE_SOUND" Time="100" UseSleep="NO">
                     <Str Str="voice_archer_m_HakkaPalle_cast"/>

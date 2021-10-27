@@ -49,9 +49,9 @@ end
 -- 축석 개수, 신비한 서 낱장, 시에라 스톤 순으로 반환
 shared_item_ark.get_require_count_for_next_lv = function(goal_lv, max_lv)    
     if max_lv == nil or max_lv == 0 then
-        max_lv = 5
+        max_lv = 5 -- 레벨이 올라가더라도 해당 수치는 고정
     else
-        max_lv = 5
+        max_lv = 5 -- 레벨이 올라가더라도 해당 수치는 고정
     end
 
     local multiple = tonumber(string.format('%.2f',math.floor(goal_lv * (goal_lv * item_ark_grow_ratio))))    
@@ -80,9 +80,9 @@ end
 -- 렙업에 필요한 뉴클 가루 수
 shared_item_ark.get_require_count_for_exp_up = function(goal_lv, max_lv)    
     if max_lv == nil or max_lv == 0 then
-        max_lv = 5
+        max_lv = 5 -- 레벨이 올라가더라도 해당 수치는 고정
     else
-        max_lv = 5
+        max_lv = 5 -- 레벨이 올라가더라도 해당 수치는 고정
     end
 
     local low_lv_adventage = shared_item_ark.get_low_lv_adventage(goal_lv, max_lv)
@@ -178,6 +178,31 @@ shared_item_ark.get_current_lv_exp = function(item)
     return true, next_exp
 end
 
+-- 분해 가능한 마신/여신방어구 인가?
+-- stringArg, NumberArg1 체크
+function ENABLE_DECOMPOSE_EVIL_GODDESS_ITEM(item)    
+    if TryGetProp(item, 'GroupName', 'None') == 'Icor' then  -- 아이커인 경우
+        local inheritance_name = TryGetProp(item, 'InheritanceItemName', 'None')
+        if inheritance_name ~= 'None' then
+            local item_obj = GetClass('Item', inheritance_name)
+            if item_obj == nil then
+                return false
+            end
+            local string_arg = TryGetProp(item_obj, 'StringArg', 'None')
+            if (string_arg == 'evil' or string_arg == 'goddess') and TryGetProp(item_obj, 'NumberArg1', 0) == 1 then
+                return true    
+            end
+        end
+    else
+        local string_arg = TryGetProp(item, 'StringArg', 'None')
+        if (string_arg == 'evil' or string_arg == 'goddess') and TryGetProp(item, 'NumberArg1', 0) == 1 then
+            return true    
+        end
+    end
+
+    return false
+end
+
 ------------------------------------ 아크 툴팁 관련 ----
 -- 반환값 : tooptip_type, option, level, value
 
@@ -246,7 +271,7 @@ function get_tooltip_Ark_mna_arg3()
 end
 
 -------------- 아크 - 질풍 ----------------
--- 첫번째 옵션 힘/민/지능은 1레벨당 16씩 오른다.
+-- 첫번째 옵션 힘/민/지능은 1레벨당 20씩 오른다.
 function get_tooltip_Ark_wind_arg1()
     return 1, 'STR_DEX_INT_BM', 1, 20
 end
@@ -259,6 +284,10 @@ end
 -- 세번째 옵션 질풍은 5레벨당 x씩 확률적으로 발생한다. (정수로 해야 함). 총 10회, 10 + (2 * 10) = 30%
 function get_tooltip_Ark_wind_arg3()
     return 3, 'ARK_UNLEASH_WIND', 5, 5, 10
+end
+
+function get_Ark_wind_option_active_lv()
+    return 5
 end
 
 -------------- 아크 - 낙뢰 ----------------
@@ -277,6 +306,9 @@ function get_tooltip_Ark_thunderbolt_arg3()
     return 3, 'ARK_THUNDERBOLT_ATTACK', 5, 700, 3500
 end
 
+function get_Ark_thunderbolt_option_active_lv()
+    return 3
+end
 
 -------------- 아크 - 폭풍 ----------------
 -- 첫번째 옵션 힘/지능은 1레벨당 16씩 오른다.
@@ -292,6 +324,10 @@ end
 -- 세번째 옵션 폭풍 계수는 5레벨당 x씩 오른다. 총 16회, 2400 + (10 * 490) = 7300%
 function get_tooltip_Ark_storm_arg3()
     return 3, 'ARK_STORM_ATTACK', 5, 490, 2400
+end
+
+function get_Ark_storm_option_active_lv()
+    return 3
 end
 
 -------------- 아크 - 분산 ----------------
@@ -310,6 +346,10 @@ function get_tooltip_Ark_dispersion_arg3()
     return 3, 'ARK_DISPERSION_RATIO', 5, 5, 25
 end
 
+function get_Ark_dispersion_option_active_lv()
+    return 3
+end
+
 -------------- 아크 - 천벌 ----------------
 -- 첫번째 옵션 힘, 지능은 1레벨당 20씩 오른다.
 function get_tooltip_Ark_punishment_arg1()
@@ -324,6 +364,10 @@ end
 -- 세번째 옵션, 천벌 계수 5레벨당 5%씩 오른다. 총 10회, 70 + (6 * 5) = 100%
 function get_tooltip_Ark_punishment_arg3()
     return 3, 'ARK_PUNISHMENT_ATTACK', 5, 5, 70
+end
+
+function get_Ark_punishment_option_active_lv()
+    return 3
 end
 
 -------------- 아크 - 제압 ----------------
@@ -345,3 +389,9 @@ function get_tooltip_Ark_overpower_arg3()
     
     return 4, 'ARK_OVERPOWER_OVERDUE', 5, 4, 10, 'Ark_overpower_desc{base1}'
 end
+
+function get_Ark_overpower_option_active_lv()
+    return 3
+end
+
+

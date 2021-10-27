@@ -1734,6 +1734,7 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 	local extract_flag = 0
 	local socket_flag = 0
 	local briquet_flag = 0;
+	local briquet_Valid_flag = 0
 	local exchange_flag = TryGetProp(invitem, 'Rebuildchangeitem', 0);
 	local text = ""
 
@@ -1764,6 +1765,11 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 		extract_flag = 1
 	end
 
+    if TryGetProp(itemClass, "BriquetingAble", "No") == "No" or TryGetProp(itemClass, "StringArg", "None") == "WoodCarving" then
+        briquet_Valid_flag = 1
+    end
+    
+    if invitem.MaxSocket > 100 then invitem.MaxSocket = 0 end
 	if invitem.MaxSocket == 0 then
 		socket_flag = 1
 	end
@@ -1797,7 +1803,7 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 
 		local _text = text..targetText;
 		if appendComma ~= false then
-			_text = _text..',';
+			_text = _text..', ';
 		end
 		return _text;
 	end
@@ -1809,12 +1815,13 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 	text = _APPEND_LIMITATION_TEXT(extract_flag, text, CSet:GetUserConfig("EXTRACT_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(socket_flag, text, CSet:GetUserConfig("SOCKET_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(briquet_flag, text, CSet:GetUserConfig("BRIQUET_TEXT"));
+	text = _APPEND_LIMITATION_TEXT(briquet_Valid_flag, text, CSet:GetUserConfig("BRIQUET_VALID_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(exchange_flag, text, CSet:GetUserConfig("EXCHANGE_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(awaken_flag, text, CSet:GetUserConfig("AWAKEN_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(enchant_flag, text, CSet:GetUserConfig("ENCHANT_TEXT"))
 
-	if text:sub(-#',') == ',' then
-		text = text:sub(0, text:len() - 1);
+	if text:sub(-#', ') == ', ' then
+		text = text:sub(0, text:len() - 2);
 	end
 
 	socket_text:SetText(text);
@@ -2025,6 +2032,13 @@ local function _CREATE_ARK_LV(gBox, ypos, step, class_name, curlv)
     local tooltip_func = _G[func_str]  -- get_tooltip_Ark_str_arg1 시리즈
 	if tooltip_func ~= nil then
 		local tooltip_type, status, interval, add_value, summon_atk, client_msg, unit = tooltip_func();		
+		local option_active_lv = nil
+		local option_active_func_str = string.format('get_%s_option_active_lv', class_name)
+		local option_active_func = _G[option_active_func_str]
+		if option_active_func ~= nil then
+			option_active_lv = option_active_func();			
+		end
+
 		local option = status        
 		local grade_count = math.floor(curlv / interval);
 		if tooltip_type == 3 then
@@ -2033,7 +2047,7 @@ local function _CREATE_ARK_LV(gBox, ypos, step, class_name, curlv)
 			add_value = math.floor(add_value * grade_count);		
 		end
 		
-		if add_value <= 0 then
+		if add_value <= 0 and (option_active_lv == nil or curlv < option_active_lv)then			
 			return ypos;
 		end
 		
@@ -2044,7 +2058,7 @@ local function _CREATE_ARK_LV(gBox, ypos, step, class_name, curlv)
 			strInfo = strInfo .. ' ' .. add_msg
 		elseif tooltip_type == 3 then
 			if unit == nil then				
-				strInfo = string.format(" - %s "..ScpArgMsg("PropUp").."%d", ScpArgMsg(option), add_value + summon_atk) .. '%'				
+				strInfo = string.format(" - %s "..ScpArgMsg("PropUp").."%d", ScpArgMsg(option), add_value + summon_atk) .. '%'								
 			else
 				strInfo = string.format(" - %s "..ScpArgMsg("PropUp").."%d", ScpArgMsg(option), add_value + summon_atk) .. unit				
 			end
@@ -2153,7 +2167,7 @@ function DRAW_ARK_LV(tooltipframe, invitem, ypos, mainframename)
 
 	-- 레벨에 따른 옵션 증가 text
 	local _ypos = 43;			-- offset
-	for i = 1, max_ark_option_count do 	-- 옵션이 최대 10개 있다고 가정함
+	for i = 1, max_ark_option_count do 	-- 옵션이 최대 10개 있다고 가정함		
 		_ypos = _CREATE_ARK_LV(CSet, _ypos, i, class_name, curlv);
 	end
 	
