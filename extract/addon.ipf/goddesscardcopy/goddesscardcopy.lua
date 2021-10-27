@@ -24,7 +24,7 @@ function GODDESS_CARD_COPY_UI_INIT_SETTING(frame)
 	if frame ~= nil then
 		local help_pic = GET_CHILD_RECURSIVELY(frame, "helpPic");
 		if help_pic ~= nil then
-			local tooltip_text = "여신 카드 레벨 복사 입니다.";
+			local tooltip_text = ClMsg("GoddessCardCopyHelp")
 			help_pic:SetTextTooltip(tooltip_text);
 			-- 툴팁 변경해야함
 			help_pic:Invalidate();

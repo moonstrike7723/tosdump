@@ -1,6 +1,6 @@
 function WEEKLYBOSS_REWARD_ON_INIT(addon, frame)
     addon:RegisterMsg('WEEKLY_BOSS_RECEIVE_REWARD', 'WEEKLY_BOSS_RECEIVE_REWARD');    
-    addon:RegisterMsg('RANK_SYSTEM_DATA', 'TOSHERO_ON_SYSTEM_DATA')
+    addon:RegisterMsg('RANK_SYSTEM_MY_DATA', 'TOSHERO_ON_SYSTEM_DATA')
 end
 
 function WEEKLYBOSSREWARD_OPEN(frame)
@@ -58,8 +58,9 @@ function TOSHERO_ON_SYSTEM_DATA(parent, ctrl, argStr, argNum)
     local prev = parent:GetUserIValue("PREV")
     season_num = tonumber(session.rank.GetPrevSeason(1, prev))
     local retlist = TOSHERO_GET_RANKING_REWARD_LIST(season_num)
-    TOSHERO_RANK_REWARD_UPDATE(parent, retlist);
+    TOSHERO_RANK_REWARD_UPDATE(parent, retlist, argStr, false);
 end
+
 function WEEKLYBOSSREWARD_GET_RANKING_REWARD_LIST(week_num)
     local retlist = {};
     local retindex = 1;
@@ -246,11 +247,14 @@ end
 
 
 -- 영웅담 보상 목록 출력
-function TOSHERO_RANK_REWARD_UPDATE(frame, retlist)
+function TOSHERO_RANK_REWARD_UPDATE(frame, retlist,argStr, recieved)
     VALIDATE_GET_ALL_REWARD_BUTTON(frame,0)
     local rewardgb = GET_CHILD_RECURSIVELY(frame, "rewardgb", "ui::CGroupBox");
     rewardgb:RemoveAllChild();
-    local myrank = session.rank.GetMyRank();
+    local myrank = 0
+    if argStr ~= "NO_DATA" then
+        myrank = session.rank.GetMyRank();
+    end
     local y = 0;
     local cnt = #retlist -- 랭킹 cnt
     for i = 1, cnt do
@@ -282,9 +286,9 @@ function TOSHERO_RANK_REWARD_UPDATE(frame, retlist)
 
         WEEKLYBOSSREWARD_REWARD_LIST_UPDATE(frame, ctrl, retlist[i].rewardstr);
         
-        local alreadyGet = session.rank.IsReceivedReward(season_num, 1);
+        local alreadyGet = session.rank.IsReceivedReward();
         if myrank <= retlist[i].end_rank and myrank >= retlist[i].start_rank then
-            if alreadyGet==true then
+            if alreadyGet==true or recieved == true then
                 WEEKLYBOSSREWARD_ITEM_BUTTON_SET(ctrl,4)
             elseif season_num < tonumber(session.rank.GetPrevSeason(1, 0)) then
                 WEEKLYBOSSREWARD_ITEM_BUTTON_SET(ctrl,1, myrank)
@@ -406,7 +410,7 @@ function WEEKLY_BOSS_RECEIVE_REWARD(frame,msg,argStr,argNum)
         WEEKLYBOSSREWARD_ABSOLUTED_REWARD_UPDATE(frame, retlist);
     elseif argStr == 'TosHero' then
         local retlist = TOSHERO_GET_RANKING_REWARD_LIST(season_num)
-        TOSHERO_RANK_REWARD_UPDATE(frame, retlist);
+        TOSHERO_RANK_REWARD_UPDATE(frame, retlist, nil, true);
     end
 end
 

@@ -51,7 +51,7 @@ function ON_TOSHERO_INFO_BUFFSHOP_COMBINE_SUCCESS(frame, msg, argStr, type)
 
     -- 조합/확인 버튼 변경
     local button = GET_CHILD_RECURSIVELY(frame, 'combine_btn')
-
+    button:SetTextTooltip("");
     button:SetTextByKey("state", frame:GetUserConfig("COMBINE_STATE_2"))
     button:SetEventScript(ui.LBUTTONDOWN, 'TOSHERO_INFO_BUFFSHOP_COMBINE_CLEAR')
 
@@ -271,6 +271,7 @@ end
 
 function TOSHERO_INFO_BUFFSHOP_ADD_MATERIAL(parent, self, from, type)
     if ui.CheckHoldedUI() == true then
+        ui.SysMsg(ClMsg("TOSHeroNeedConfirmButton"));
         return
     end
     
@@ -286,8 +287,22 @@ function TOSHERO_INFO_BUFFSHOP_ADD_MATERIAL(parent, self, from, type)
             return
         end
 
+        -- 대상 버프가 3렙 이상임
+        if string.sub(buffCls.ClassName, -1) == '3' then
+            ui.SysMsg(ClMsg("TOSHeroCanNotCombineBuff"));
+            return
+        end
+        
+        -- 대상 버프가 히든 버프임
+        if string.sub(buffCls.ClassName, -2) == '_H' then
+            ui.SysMsg(ClMsg("TOSHeroCanNotCombineBuff"));
+            return;
+        end
+
+
         -- 대상 인벤토리의 버프가 선택중임
         if nowIndex == targetIndex then
+            ui.SysMsg(ClMsg("TOSHeroNeedRemoveBuff"));
             return
         end
 
@@ -297,6 +312,13 @@ function TOSHERO_INFO_BUFFSHOP_ADD_MATERIAL(parent, self, from, type)
                 return
             end
         end
+        
+    end
+
+    -- 대상 버프가 히든 버프임
+    if type > 54 then
+        ui.SysMsg(ClMsg("TOSHeroCanNotCombineBuff"));
+        return;
     end
 
     for key, value in pairs(s_combine_table) do
@@ -406,6 +428,7 @@ function TOSHERO_INFO_BUFFSHOP_REQUEST_COMBINE()
         local type = value["type"]
 
         if type == 0 then
+            ui.SysMsg(ClMsg("TOSHeroNeedThreeBuff"));
             return
         end
 

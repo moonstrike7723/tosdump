@@ -175,7 +175,7 @@
                     <Event execCount="1" eventName="1min">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="240"/>
+                                <Num Num="540"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -189,7 +189,7 @@
                     <Event execCount="1" eventName="time_over">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="360"/>
+                                <Num Num="660"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -197,7 +197,7 @@
                                 <Str Str="Fail"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="제한 시간 6분이 경과되어 레이드에 실패하였습니다.{nl}30초 후 입장 지역으로 이동됩니다."/>
+                                <Str Str="제한 시간 11분이 경과되어 레이드에 실패하였습니다.{nl}30초 후 입장 지역으로 이동됩니다."/>
                                 <Str Str="!"/>
                                 <Num Num="5"/>
                             </ToolScp>
@@ -418,7 +418,7 @@
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_SET_RAID_TIMER" Client="NO" UseSleep="NO">
-                                <Num Num="300"/>
+                                <Num Num="600"/>
                                 <Str Str="RemainTime"/>
                                 <Str Str="Yellow"/>
                             </ToolScp>
@@ -453,7 +453,7 @@
                             </ToolScp>
                         </execList>
                     </Event>
-                <Event execMS="5000" execCount="1" eventName="Direction_text" execWithStart="0" isEnabled="0">
+                    <Event execMS="5000" execCount="1" eventName="Direction_text" execWithStart="0" isEnabled="0">
                         <execList>
                             <ToolScp Scp="MGAME_SHOWBALLOONTEXT" Client="NO" UseSleep="NO">
                                 <Str Str="Goddess_Raid_Vasilissa_Track_Bolloon_1"/>
@@ -495,6 +495,22 @@
                     <Obj Type="Monster" MonType="160087" Pos="-292.28#10.46#-16.55" angle="45" genCount="1" genTime="20000" objectKey="2"/>
                     <Obj Type="Monster" MonType="160087" Pos="10.70#10.46#284.31" angle="315" genCount="1" genTime="20000" objectKey="3"/>
                 </ObjList>
+                <StageEvents>
+                    <Event execCount="1" eventName="Passive_Remove">
+                        <condList>
+                            <ToolScp Scp="MGAME_EVT_COND_MONCNT_ALIVE" Client="NO" UseSleep="NO">
+                                <MGameObj List="MirrorInstallation/0/MirrorInstallation/1/MirrorInstallation/2/MirrorInstallation/3"/>
+                                <Num Num="0"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
+                                <MGameObj List="Vasilissa/0"/>
+                                <Str Str="SCR_VASILISSA_MIRROR_ALL_DEAD_CHECK_REMOVE_PASSIVE"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                </StageEvents>
             </Stage>
             <Stage Name="Petrified_Wind" AutoStart="0">
                 <ObjList/>

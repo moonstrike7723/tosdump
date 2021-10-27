@@ -792,11 +792,12 @@
                             <ToolScp Scp="TOSHERO_CHECK_BOSSSTAGE" Client="NO" UseSleep="NO">
                                 <Str Str="0"/>
                             </ToolScp>
-                            <ToolScp Scp="TOSHERO_GIVEPOINT" Client="NO" UseSleep="NO">
-                                <Num Num="15000"/>
-                            </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_RESTART" Client="NO" UseSleep="NO">
                                 <Str Str="Ready"/>
+                            </ToolScp>
+                            <ToolScp Scp="TOSHERO_COUPON_ENABLE" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="TOSHERO_GIVEPOINT" Client="NO" UseSleep="NO">
+                                <Num Num="15000"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
                                 <Str Str="BossStage1"/>

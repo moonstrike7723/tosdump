@@ -3,6 +3,7 @@ function TOSHERO_INFO_ON_INIT(addon, frame)
     addon:RegisterMsg('TOSHERO_INFO_POINT', 'ON_TOSHERO_INFO_POINT')
     addon:RegisterMsg('TOSHERO_STAGE_START', 'ON_TOSHERO_INFO_SET_STAGE')
     addon:RegisterMsg('TOSHERO_INFO_NEXT_STAGE', 'ON_TOSHERO_INFO_NEXT_STAGE')
+    addon:RegisterMsg('TOSHERO_HIDDEN_BUFF_ADD', 'ON_TOSHERO_HIDDEN_BUFF_ADD')
     addon:RegisterMsg('TOSHERO_ZONE_ENTER', 'ON_TOSHERO_ZONE_ENTER')
 end
 
@@ -55,6 +56,10 @@ function ON_TOSHERO_INFO_NEXT_STAGE(frame, msg, argStr, argNum)
     g_next_stage_time = argNum
 
     AddUniqueTimerFunccWithLimitCount("TOSHERO_UPDATE_NEXT_STAGE_SECOND", 1000, argNum)
+end
+
+function ON_TOSHERO_HIDDEN_BUFF_ADD(frame,msg,argStr,argNum)
+    GET_CHILD_RECURSIVELY(frame, "buff_hidden_icon"):SetVisible(1);
 end
 
 -- Open/Close

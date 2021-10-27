@@ -326,6 +326,8 @@ end
 
 -- Request
 function RANKSYSTEM_UI_PAGE_SELECT(pageCtrl, ctrl)
+    local frame = ui.GetFrame("ranksystem_ui")
+    frame:SetUserValue("TARGET_FRAME","ranksystem_ui")
     RequestRankSystemRankList(pageCtrl:GetCurPage(), contents_id, season_id)
 end
 

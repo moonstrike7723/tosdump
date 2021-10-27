@@ -244,8 +244,12 @@ function CUSTOM_COIN_SHOP_CLEAR_BUYLIST(frame,slotset)
 	buyMoneyCtrl:SetTextByKey("price1",0)
 	buyMoneyCtrl:SetValue("0")
 	local remainMoneyCtrl = GET_CHILD_RECURSIVELY(frame,"finalprice")
+	local totalPrice = frame:GetUserValue("totalprice")
+	if totalPrice == nil or totalPrice == 'None' then
+		totalPrice = 0
+	end
 
-	local nowMoney =  GET_PROPERTY_SHOP_MY_POINT(buyMoneyCtrl:GetTopParentFrame()) - frame:GetUserValue("totalprice")
+	local nowMoney =  GET_PROPERTY_SHOP_MY_POINT(buyMoneyCtrl:GetTopParentFrame()) - totalPrice
 
 	remainMoneyCtrl:SetTextByKey("price1",nowMoney)
 end

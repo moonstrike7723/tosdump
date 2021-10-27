@@ -2040,6 +2040,7 @@
                             <ToolScp Scp="TOSHERO_CHECK_BOSSSTAGE" Client="NO" UseSleep="NO">
                                 <Num Num="0"/>
                             </ToolScp>
+                            <ToolScp Scp="TOSHERO_COUPON_ENABLE" Client="NO" UseSleep="NO"/>
                             <ToolScp Scp="GAME_EVT_ON_BYNAME" Client="NO" UseSleep="NO">
                                 <Str Str="mission_Fail_Check"/>
                             </ToolScp>

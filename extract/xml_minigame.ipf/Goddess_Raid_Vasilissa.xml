@@ -555,6 +555,22 @@
                     <Obj Type="Monster" MonType="160087" Pos="-292.28#10.46#-16.55" angle="45" genCount="1" genTime="20000" objectKey="2"/>
                     <Obj Type="Monster" MonType="160087" Pos="10.70#10.46#284.31" angle="315" genCount="1" genTime="20000" objectKey="3"/>
                 </ObjList>
+                <StageEvents>
+                    <Event execCount="1" eventName="Passive_Remove">
+                        <condList>
+                            <ToolScp Scp="MGAME_EVT_COND_MONCNT_ALIVE" Client="NO" UseSleep="NO">
+                                <MGameObj List="MirrorInstallation/0/MirrorInstallation/1/MirrorInstallation/2/MirrorInstallation/3"/>
+                                <Num Num="0"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
+                                <MGameObj List="Vasilissa/0"/>
+                                <Str Str="SCR_VASILISSA_MIRROR_ALL_DEAD_CHECK_REMOVE_PASSIVE"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                </StageEvents>
             </Stage>
             <Stage Name="Petrified_Wind" AutoStart="0">
                 <ObjList/>

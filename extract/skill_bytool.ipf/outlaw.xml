@@ -38,7 +38,7 @@
                     <Num Num="0"/>
                 </Scp>
                 <Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
-                    <Str Str="RH"/>
+                    <Str Str="LH"/>
                     <Num Num="0"/>
                     <Num Num="1"/>
                 </Scp>

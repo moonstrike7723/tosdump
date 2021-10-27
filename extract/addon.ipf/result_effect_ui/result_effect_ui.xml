@@ -3,13 +3,13 @@
 <uiframe name="result_effect_ui" x="0" y="0" width="470" height="362" create="open">
 	<draw drawtitlebar="false"/>
 	<skin frameskin=" "/>
-	<frame title="" fullheight="false" fasthide="true" layout_gravity="left top" margin="0 0 0 0"/>
+	<frame title="" fullheight="false" fasthide="false" layout_gravity="left top" margin="0 0 0 0"/>
 	<input moveable="false" hittestframe="true" moveintitlebar="false"/>
 	<layer layerlevel="95" topmostlayerbyclick="false"/>
 	<option closebutton="false"/>
 	<sound opensound="window_open" closesound="window_close"/>
-	<script OpenScp="" CloseScp=""/>
-	<userconfig DO_SUCCESS_EFFECT="UI_item_parts2_success" DO_FAIL_EFFECT="UI_item_parts2_fail" SUCCESS_EFFECT_SCALE="7" SUCCESS_EFFECT_DURATION="2" FAIL_EFFECT_SCALE="4" FAIL_EFFECT_DURATION="2"/>
+	<script OpenScp="RESULT_EFFECT_UI_OPEN" CloseScp="RESULT_EFFECT_UI_CLOSE"/>
+	<userconfig DO_SUCCESS_EFFECT="UI_item_parts2_success" DO_FAIL_EFFECT="UI_item_parts2_fail" SUCCESS_EFFECT_SCALE="7" SUCCESS_EFFECT_DURATION="0.5" FAIL_EFFECT_SCALE="4" FAIL_EFFECT_DURATION="0.5"/>
 	<controls>
 		<groupbox name="result_effect_bg" rect="0 0 470 362" margin="0 0 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" changecursor="false" scrollbar="false" hittest="true" skin="test_socket_topskin"/>
 		<picture name="success_effect_bg" parent="result_effect_bg" rect="0 0 507 313" hittest="false" image="SUCCESS_gold_bg" oversound="button_cursor_over_3" margin="0 0 0 0" stretch="true" layout_gravity="center top"/>

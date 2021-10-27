@@ -77,6 +77,10 @@ function UPDATE_GAUGE_BOSS_PATTERN_BY_BUFF_STACK_AFTER_TIMER(cur_value, max_valu
 
         local frame = ui.GetFrame("gauge_boss_pattern");
         if frame ~= nil then
+            if frame:IsVisible() == 0 then
+                frame:ShowWindow(1);
+            end
+
             local gauge = GET_CHILD_RECURSIVELY(frame, "charge_gauge");
             if gauge ~= nil then
                 gauge:ShowWindow(1);
@@ -97,6 +101,10 @@ function UPDATE_GAUGE_BOSS_PATTERN_BY_BUFF_STACK_AFTER_TIMER(cur_value, max_valu
         -- timer
         local frame = ui.GetFrame("gauge_boss_pattern");
         if frame ~= nil then
+            if frame:IsVisible() == 0 then
+                frame:ShowWindow(1);
+            end
+            
             local max_time = max_value;
             local cur_time = cur_value;
             local remain_time = max_value - cur_time;

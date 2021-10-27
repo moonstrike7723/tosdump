@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by asd (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <idspace id="ClientMessage">
 	<Category Name="ErrorMsg">
 		<Class ClassID="1" Data="DirectX 9.0c 이상의 버전이 설치되어 있어야 합니다"/>
@@ -314,7 +314,7 @@
 		<Class ClassID="2140" ClassName="ReplaceGoddessItem" Data="해당 등급의 장비는 장착 불가능합니다. 서브 슬롯을 확인하세요."/>
 		<Class ClassID="2141" ClassName="NotGoddessCard" Data="여신 카드가 아닙니다."/>
 		<Class ClassID="2142" ClassName="LessLevelofSourceCard" Data="복사할 카드의 레벨이 너무 낮습니다. 2레벨 이상부터 가능합니다."/>
-		<Class ClassID="2143" ClassName="GreaterLevelofTargetCardThanSourceCard" Data="복사할 대상 카드의 레벨이 원본 레벨보다 높습니다."/>				
+		<Class ClassID="2143" ClassName="GreaterLevelofTargetCardThanSourceCard" Data="복사할 대상 카드의 레벨이 원본 레벨과 같거나 더 높습니다."/>
 		<Class ClassID="2144" ClassName="OverGoddessGradeOnSubSlot" Data="서브 슬롯에는 가디스 등급의 장비만 장착 가능합니다."/>
 		<Class ClassID="2145" ClassName="OnlySameCardType" Data="같은 종류의 카드만 가능합니다."/>
 		<Class ClassID="2146" ClassName="NeedRegisterForCardCopy" Data="복사할 카드를 먼저 등록해야합니다."/>
@@ -1015,16 +1015,19 @@
 		<Class ClassID="4395" ClassName="Gem_Aether" Data="에테르 젬"/>
 		<Class ClassID="4396" ClassName="nohaveAbilitynouse" Data="습득한 특성이 없어 사용 할 수 없습니다."/>
 		<Class ClassID="4397" ClassName="TooNearFromInstallPC" Data="다른 개인 상점과 너무 가깝습니다."/>
-		<Class ClassID="4398" ClassName="WantToEquipCuzCharacterBelonging" Data="착용시 캐릭터에 귀속되게 됩니다. 정말 착용하시겠습니까?"/>
+		<Class ClassID="4398" ClassName="WantToEquipCuzCharacterBelonging" Data="{#33FF33}착용 시 캐릭터에 귀속{/}되며, 귀속 전 상태로 되돌릴 수 없습니다.{nl}정말 착용하시겠습니까?"/>
 		<Class ClassID="4399" ClassName="EquipCharacterBelonging" Data="착용시 캐릭터 귀속"/>
 		<Class ClassID="4400" ClassName="EquipTeamBelonging" Data="착용시 팀 귀속"/>
-		<Class ClassID="4401" ClassName="WantToEquipCuzTeamBelonging" Data="착용시 팀에 귀속되게 됩니다. 정말 착용하시겠습니까?"/>
+		<Class ClassID="4401" ClassName="WantToEquipCuzTeamBelonging" Data="{#33FF33}착용 시 팀에 귀속{/}되며, 귀속 전 상태로 되돌릴 수 없습니다.{nl}정말 착용하시겠습니까?"/>
 		<Class ClassID="4402" ClassName="ItemLevelIsGreaterThanMatItem" Data="대상 아이템의 레벨이 소모 아이템의 레벨보다 높습니다."/>
 		<Class ClassID="4403" ClassName="NotEnoughGoldenSocket" Data="[황금 소켓] 의 개수가 부족합니다."/>
 		<Class ClassID="4405" ClassName="DeprecatedArts" Data="삭제된 아츠(특성)입니다."/>
 		<Class ClassID="4406" ClassName="Result_GabijaCertificate" Data="여신의 증표(가비야) : {count1} → {count2}"/>
 		<Class ClassID="4407" ClassName="CantRepairGoddess" Data="수리할 수 있는 Lv.{level} 가디스 장비가 없습니다."/>
 		<Class ClassID="4408" ClassName="SubExpOrb" Data="경험치 저장"/>
+		<Class ClassID="4409" ClassName="WarningCharacterBelonging" Data="캐릭터 귀속 주의"/>
+		<Class ClassID="4410" ClassName="WarningTeamBelonging" Data="팀 귀속 주의"/>
+		<Class ClassID="4411" ClassName="ClassMisc" Data="전용 재료"/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -1120,7 +1123,7 @@
 		<Class ClassID="5091" ClassName="tooltip_OrbitalArrow" Data=" - 화살비 스킬 레벨{img green_up_arrow 16 16}2{nl}  - 화살비 재사용 대기시간 20초 감소{nl} {nl}궤도화살{nl} - 화살비 시전 위치에 1초마다 거대 화살을 낙하하여 범위 내의 적 20명에게 추가 피해를 줌{nl} - 지속시간 3초{nl}(궤도화살은 화살비 1타와 동일한 스킬 계수)"/>
 		<Class ClassID="5092" ClassName="tooltip_Saber" Data=" - 하카펠 모든 스킬 레벨{img green_up_arrow 16 16}1{nl} {nl}기병도{nl} - 스칼푸그닝 스킬 대미지{img green_up_arrow 16 16}100%{nl} - 그라인드 커터 스킬 대미지{img green_up_arrow 16 16}100%"/>
 		<Class ClassID="5093" ClassName="tooltip_EternalFrozenLand" Data=" - 아이스 파이크 스킬 레벨{img green_up_arrow 16 16}3{nl} {nl}영구동토{nl} - 캐릭터가 [결빙], [한기] 디버프를 걸 때 마다 영구동토 버프 1 중첩{nl} - 영구동토 버프 지속시간 30초, 최대 30 중첩{nl} - 버프 1 중첩 이상일 때, 기본 공격 시 영구동토 버프 중첩을 모두 소모하고 [거스트] 스킬 시전{nl} {nl}거스트{nl} - 광역 공격 비율 20, 얼음 속성 마법 대미지{nl} - 스킬 계수 현재 레벨의 아이스 파이크와 동일{nl} - 시전 시 소모한 영구동토 버프 1 중첩 당 스킬 대미지 7% 증가{nl} - 영구동토 버프 30 중첩 일 때 시전 시 스킬 대미지 100% 추가 증가, 4초 동안 결빙 디버프 부여"/>
-		<Class ClassID="5094" ClassName="tooltip_DualSword" Data=" - 카타 스트로크 스킬 레벨{img green_up_arrow 16 16}3{nl}  - 스카이라이너 스킬 레벨{img green_up_arrow 16 16}2{nl}  - 크로스 가드 블록 확률 증가 효과{img green_up_arrow 16 16}100%{nl} {nl}듀얼소드{nl} - 크로스 가드 시전 중 3초 동안 버프 활성화{nl} - 버프 중 크로스 가드 최대 유지시간 3초로 변경{nl} - 버프 중 일반 해제 가능한 모든 상태이상 저항{nl} - 버프 중 블록 성공 시 [반전베기] 시전{nl} {nl}반전베기{nl} - 정면 방향 200 거리 이내 적의 공격으로 발동{nl}   [마법진], [범위 지속형] 스킬에 발동 불가{nl} - 공격자에게 돌진{nl} - 현재 레벨의 카타 스트로크 스킬 계수로 4회 타격{nl} {nl}크로스 가드로 반전베기 성공 시 즉시 재사용 가능{nl}실패 시 3초 동안 반전베기 사용 불가"/>
+		<Class ClassID="5094" ClassName="tooltip_DualSword" Data=" - 카타 스트로크 스킬 레벨{img green_up_arrow 16 16}3{nl}  - 스카이라이너 스킬 레벨{img green_up_arrow 16 16}2{nl}  - 크로스 가드 블록 확률 증가 효과{img green_up_arrow 16 16}100%{nl} {nl}듀얼소드{nl} - 크로스 가드 시전 중 3초 동안 버프 활성화{nl} - 버프 중 크로스 가드 최대 유지시간 3초로 변경{nl} - 버프 중 일반 해제 가능한 모든 상태이상 저항{nl} - 버프 중 블록 성공 시 [반전베기] 시전{nl} {nl}반전베기{nl} - 정면 방향 200 거리 이내 적의 공격으로 발동{nl}   [마법진], [범위 지속형] 스킬에 발동 불가{nl} - 공격자에게 돌진{nl} - 현재 레벨의 카타 스트로크 스킬 계수 * 200%를 총 4회로 나눠 타격{nl} {nl}크로스 가드로 반전베기 성공 시 즉시 재사용 가능{nl}실패 시 3초 동안 반전베기 사용 불가"/>
 		<Class ClassID="5095" ClassName="tooltip_Javelin" Data=" - 하플라이트 모든 스킬 레벨{img green_up_arrow 16 16}1{nl}  - 투창 스킬 레벨{img green_up_arrow 16 16}2{nl}  - 투창 시전 시 [자벨린] 버프 중첩을 1개 획득{nl}(최대 3중첩까지 획득 가능, 지속시간 25초){nl} {nl}자벨린{nl} - 기본 공격 시 버프 중첩 1개를 소모해서 250 거리 이하 단일 대상에게 창을 투척{nl} - 자벨린 스킬 계수 현재 레벨의 투창과 동일{nl} - 타격 수 6회"/>
 		<Class ClassID="5096" ClassName="tooltip_TripleStepsSingleShot" Data=" - 산포 모든 스킬 레벨{img green_up_arrow 16 16}1{nl}  - 관통 사격 스킬 광역 공격 비율{img green_up_arrow 16 16}10{nl}{nl}  - 관통 사격 스킬 범위{img green_up_arrow 16 16}100%{nl}  - 관통 사격 재사용 대기시간 10초 감소{nl} {nl}삼보방포{nl} - 연발 사격이 대상 주변 최대 10명에게 피해를 줌"/>
 		<Class ClassID="5097" ClassName="tooltip_Desition" Data=" - 카타디카조 스킬 레벨{img green_up_arrow 16 16}2{nl} {nl}종언{nl} - 카타디카조 시전 위치에 마법진 설치{nl} - 마법진 지속시간 20초{nl} - 마법진 소멸 시 창을 떨어뜨려 범위 내의 적 최대 20명에게 4연타 피해를 줌{nl}(현재 레벨의 카타디카조 스킬 계수 50%로 피해){nl} - 마법진 위에 있는 파티원에게 버프 부여{nl} - 버프 대상 [신성], [불] 속성 마법 스킬 대미지{img green_up_arrow 16 16}20%{nl} - 버프 대상 [신성], [불] 속성 마법 스킬 시전 시 마다 마법진 소멸 시간 1초씩 단축"/>
@@ -1152,7 +1155,7 @@
 		<Class ClassID="5123" ClassName="tooltip_ConcentratedDefence" Data=" - 최종블록률 {img green_up_arrow 16 16}2%{nl} {nl}집중방어{nl} - 메인 슬롯 또는 서브 슬롯에 방패 착용 시 자신 주변 150범위 파티원에게 [집중방어] 버프 부여{nl} - [마법진], [범위 지속형] 공격에 받는 피해 5% * [방패 착용 수] 만큼 감소{nl} - 몬스터에게 받는 피해 5% * [방패 착용 수] 만큼 감소{nl} - 블록 성공시 3초간 집중방어 효과 2배 적용"/>
 		<Class ClassID="5124" ClassName="tooltip_LeverAction" Data=" - 아퀴버지어 모든 스킬 레벨{img green_up_arrow 16 16}1{nl} {nl}레버액션{nl} - 프리시전 파이어 발사 속도 2배{nl} - [클린 힛] 버프 최대 중첩 수 10 으로 변경"/>
 		<Class ClassID="5125" ClassName="tooltip_Tuning" Data=" - 사두 모든 스킬 레벨 {img green_up_arrow 16 16}1{nl} {nl}조율{nl} - 사두 영혼 버프 최대 중첩{img green_up_arrow 16 16}1{nl} - 사두 영혼 버프 중첩을 모두 소모하는 스킬이 중첩을 2개만 소모{nl} {nl}각 스킬별 버프 중첩 소모량에 따른 효과가 조율 효과에 맞춰서 변경 됨{nl} - 유체 폭발 : 소모된 사두 영혼 하나당 대미지 12.5% 증가{nl} - 바시타 싯디 : [스턴] 지속시간 [소모된 사두 영혼 x 1.25]초{nl} - 포제션 : 소모된 사두 영혼 하나당 대미지 25% 증가"/>
-		<Class ClassID="5126" ClassName="tooltip_Tuning_Lv4" Data="{nl} {nl}{@st66d}{s15} - 바시타 싯디 연타 수 {img green_up_arrow 16 16}1"/>
+		<Class ClassID="5126" ClassName="tooltip_Tuning_Lv4" Data="{nl} {nl}{@st66d}{s15} - 바시타 싯디 연타 수 2배"/>
 		<Class ClassID="5127" ClassName="tooltip_SacredArmor_Lv4" Data="{nl} {nl}{@st66d}{s15} - 비지블 탤런트 최종 대미지 {img green_up_arrow 16 16}100%{nl} {nl}비지블 탤런트 버프 중 아이템 장착 시 버프 제거"/>
 		<Class ClassID="5128" ClassName="tooltip_Grind_Lv4" Data="{nl} {nl}{@st66d}{s15} - 자우스트 재사용 대기시간 10초 감소{nl} - 자우스트 시전 시 기마대를 소환하여 주변 범위 대미지{nl}(스킬 계수 현재 레벨 기간테 마르샤와 동일. 타격수 10회){nl} - 최대 대상 수 10{nl} {nl}PVP 지역에서 스킬 계수 기간테 마르샤의 50%로 변경{/}{/}"/>
 		<Class ClassID="5129" ClassName="tooltip_AddDamageSword_Lv4" Data="{nl} {nl}{@st66d}{s15}반향{nl} - 공격 시 추가 대미지 능력치 40% 최종 증가"/>
@@ -1190,7 +1193,7 @@
 		<Class ClassID="5161" ClassName="tooltip_KnifeSpread_Lv4" Data="{nl} {nl}{@st66d}{s15} - 페이탈 룰렛 최종 대미지 {img green_up_arrow 16 16}100%"/>
 		<Class ClassID="5162" ClassName="tooltip_LeverAction_Lv4" Data="{nl} {nl}{@st66d}{s15} - 핀포인트 파이어 최종 대미지 {img green_up_arrow 16 16}100%"/>
 		<Class ClassID="5163" ClassName="tooltip_ClusterShot_Lv4" Data="{nl} {nl}{@st66d}{s15} - 블록 앤드 샷 발사 속도 2배"/>
-		<Class ClassID="5164" ClassName="tooltip_Extinction" Data=" - 엘리멘탈리스트 모든 스킬 레벨 {img green_up_arrow 16 16}1{nl}  - 엘리멘탈 버스트 스킬에 섬멸 효과 추가{nl} {nl}섬멸{nl} - 엘리멘탈 버스트 시전 시 전방에 섬멸 광선 발사{nl} - 최대 대상 수 20, 타격 수 3{nl} - 같은 대상에게 중복 타격 불가능{nl} - 속성은 스킬 레벨 합이 제일 높은 속성으로 결정 됨{nl} {nl}스킬 레벨 합{nl} - 불 : 파이어 클러 + 메테오{nl} - 얼음 : 헤일 + 블리자드 스톰{nl} - 전기 : 일렉트로큐트 + 라이트닝 오브{nl}(투자한 스킬 포인트만 계산){nl} {nl}섬멸은 캐스팅으로 판정되지 않음"/>
+		<Class ClassID="5164" ClassName="tooltip_Extinction" Data=" - 엘리멘탈리스트 모든 스킬 레벨 {img green_up_arrow 16 16}1{nl}  - 엘리멘탈 버스트 스킬에 섬멸 효과 추가{nl} {nl}섬멸{nl} - 엘리멘탈 버스트 시전 시 전방에 섬멸 광선 발사{nl} - 최대 대상 수 20, 타격 수 6{nl} - 같은 대상에게 중복 타격 불가능{nl} - 속성은 스킬 레벨 합이 제일 높은 속성으로 결정 됨{nl} {nl}스킬 레벨 합{nl} - 불 : 파이어 클러 + 메테오{nl} - 얼음 : 헤일 + 블리자드 스톰{nl} - 전기 : 일렉트로큐트 + 라이트닝 오브{nl}(투자한 스킬 포인트만 계산){nl} {nl}섬멸은 캐스팅으로 판정되지 않음"/>
 		<Class ClassID="5165" ClassName="tooltip_Extinction_Lv4" Data="{nl} {nl}{@st66d}{s15}[섬멸 속성]에 따라 아래 효과 적용{nl} - 불 : 파이어 클러 최종 대미지 {img green_up_arrow 16 16}100%{nl} - 얼음 : 블리자드 스톰 최종 대미지 {img green_up_arrow 16 16}100%{nl} - 전기 : 라이트닝 오브 전기 결정 연타 수 {img green_up_arrow 16 16}1{nl} {nl}아이템 장착 해제 시 30초동안 Lv4 효과를 받을 수 없음"/>
 		<Class ClassID="5166" ClassName="tooltip_ShakeFoot" Data=" - 몽크 모든 스킬 레벨 {img green_up_arrow 16 16}1{nl}  - 장착 후 3초 후부터 [진각] 효과 발동{nl} {nl}진각{nl} - 몽크 스킬로 공격 시 자신 주변 100범위의 적에게 때리기 속성으로 타격{nl} - 재사용 대기시간 5초{nl} - [금종조 : 해방] 버프 중에는 재사용 대기시간 2초 감소{nl} - 스킬 계수, 현재 레벨의 쌍쇄공의 20%{nl} - 대상 수 15, 연타 수 2{nl} - 단일 대상일 경우 2배의 대미지를 입히는 [진각 : 극]이 시전 됨"/>
 		<Class ClassID="5167" ClassName="tooltip_ShakeFoot_Lv4" Data="{nl} {nl}{@st66d}{s15} - 쌍쇄공 시전 시 타격 주기마다 [철사장 : 권] 발동{nl} {nl}철사장 : 권{nl} - 스킬계수 현재 레벨의 철사장의 27.5%"/>
@@ -10784,6 +10787,9 @@
 		<Class ClassID="107033" ClassName="CanExecCuzCharacterBelonging" Data="캐릭터 귀속 아이템에만 사용 가능합니다."/>
 		<Class ClassID="107034" ClassName="CantDestroyExpCard_Level" Data="해당 아이템을 파괴할 수 없습니다{nl}아이템 툴팁을 확인해주세요"/>
 		<Class ClassID="107035" ClassName="CantUseExpCard_Level_1" Data="해당 아이템을 사용 할 수 없습니다{nl}아이템 툴팁을 확인해주세요"/>
+		<Class ClassID="107036" ClassName="MaxTranscend" Data="더 이상 초월 단계를 상승 시킬 수 없는 아이템 입니다."/>
+		<Class ClassID="107037" ClassName="EvolvedWeapon" Data="이미 진화 된 무기입니다."/>
+		<Class ClassID="107038" ClassName="GoddessCardCopyHelp" Data="{s20}여신 카드의 레벨을 동일한 종류의 여신 카드에 복사할 수 있습니다.{nl} {s18} {nl}[예시]{nl} - 여신 아우스테야 카드 10성 → 여신 아우스테야 카드 1성 : 복사 가능{nl} - 여신 아우스테야 카드 10성 → 여신 달리아 카드 1성 : 복사 불가능"/>
 	</Category>
 	<Category Name="ChatMsg">
 		<Class ClassID="108001" ClassName="GetOut!WeMustTransportStones!" Data="비켜주십시오! 빨리 돌을 운반해야 합니다."/>
@@ -11775,6 +11781,7 @@
 		<Class ClassID="134121" ClassName="UNIQ_ASIOMAGE_ENTER_QusetEnter" Data="아시오 메이지의 실험실 진입"/>
 		<Class ClassID="134122" ClassName="TargetItemIsNot10Transcend" Data="해당 장비의 초월 단계가 10이 아닙니다."/>
 		<Class ClassID="134123" ClassName="MustEquipWeaponArmorToEnter" Data="장비를 장착하지 않은 부위가 있어서 진행이 불가능합니다."/>
+		<Class ClassID="134124" ClassName="CantEvolvedEquip" Data="진화시킬 수 없는 장비 혹은 이미 진화된 장비입니다."/>
 	</Category>
 	<Category Name="AchieveReward">
 		<Class ClassID="135001" ClassName="GainAchieveHairBefore" Data="이미 업적 보상을 받았습니다."/>
@@ -15373,6 +15380,7 @@
 		<Class ClassID="302574" ClassName="KUPOLE_TESTSERVER3_NAME" Data="[큐폴]{nl}테스트 서버 아이템 상점 2"/>
 		<Class ClassID="302575" ClassName="KUPOLE_TESTSERVER4_NAME" Data="[큐폴]{nl}테스트 서버 아이템 상점 3"/>
 		<Class ClassID="302576" ClassName="EVENT_2107_NEXT_GR_MSG5" Data="{#FF0000}}※ 460미만 캐릭터만 참여 가능합니다.{/}"/>
+		<Class ClassID="302583" ClassName="NEWUSER_BUFF_MSG" Data="{#FF0000}※신규/복귀 유저 지원 버프가 종료되었습니다. 스크롤을 다시 사용해주세요.{/}"/>
 		</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -17074,6 +17082,16 @@
 		<Class ClassID="1011023" ClassName="TOSHeroYouCanTryOnlyOnce" Data="올인 쿠폰은 1회만 사용 가능합니다.{nl}사용하시겠습니까?"/>
 		<Class ClassID="1011024" ClassName="TOSHeroNeedRemoveBuffForSell" Data="해당 버프를 해제 후 판매할 수 있습니다."/>
 		<Class ClassID="1011025" ClassName="TOSHeroCanNotWhenPlaying" Data="스테이지 진행 도중에는 사용할 수 없습니다."/>
+		<Class ClassID="1011026" ClassName="TOSHeroAlreadySelectAttribute" Data="현재 적용 중인 속성입니다."/>
+		<Class ClassID="1011027" ClassName="TOSHeroSelectChaosAttribute" Data="현재 [혼돈성] 속성이 적용 중 입니다.{nl}정말 속성을 변경하시겠습니까?"/>
+		<Class ClassID="1011028" ClassName="TOSHeroCanNotReinforceItem" Data="강화할 수 없는 아이템입니다."/>
+		<Class ClassID="1011029" ClassName="TOSHeroNeedConfirmButton" Data="버프 조합 결과를 먼저 확인하세요."/>
+		<Class ClassID="1011030" ClassName="TOSHeroCanNotCombineBuff" Data="해당 버프는 조합할 수 없는 버프입니다."/>
+		<Class ClassID="1011031" ClassName="TOSHeroNeedThreeBuff" Data="버프 조합은 3개의 재료 버프가 필요합니다."/>
+		<Class ClassID="1011032" ClassName="TOSHeroAlreadyMaxBuff" Data="이미 업그레이드가 최대치 입니다."/>
+		<Class ClassID="1011033" ClassName="TOSHeroCanNotUpgradeBuff" Data="업그레이드가 불가능한 버프입니다."/>
+		<Class ClassID="1011034" ClassName="TOSHeroAlreadyBuyHiddenBuff" Data="이미 보유 중인 히든 버프입니다."/>
+		<Class ClassID="1011035" ClassName="TOSHeroCouponCanAfterStageClear" Data="1 스테이지 클리어 후 이용할 수 있습니다."/>
 	</Category>
 	<Category Name="aether_ui">
 		<Class ClassID="1030000" ClassName="clear_stage" Data="클리어 스테이지 - "/>
@@ -17103,5 +17121,6 @@
 		<Class ClassID="1040018" ClassName="UNKNOWN_SANTUARY_GATE_CLMSG_PAY_WARNING_4" Data="해당 관문을 활성화할 수 없습니다."/>
 		<Class ClassID="1040019" ClassName="UNKNOWN_SANTUARY_GATE_CLMSG_PAY_WARNING_5" Data="해당 지역의 미지의 성역을 관리할 권한이 없습니다."/>
 		<Class ClassID="1040020" ClassName="UNKNOWN_SANTUARY_GATE_CLMSG_PAY_WARNING_6" Data="[성역의 가호] 효과를 획득하기 위해 {Cost}실버가 소모됩니다. 효과를 획득하시겠습니까?"/>
+		<Class ClassID="1040021" ClassName="UNKNOWN_SANTUARY_GATE_CLMSG_BUFF_CHECK_1" Data="보유중인 [성역의 가호] 버프가 없습니다. {nl}[성역의 가호]버프를 보유한 상태여야 입장이 가능합니다."/>
 	</Category>
 </idspace>

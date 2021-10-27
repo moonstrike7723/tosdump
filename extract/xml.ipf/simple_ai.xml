@@ -21135,6 +21135,16 @@ if self.HP == 0 then return 1; else return 0; end;">
             </ToolScp>
         </StartList>
     </AI>
+    <AI Name="TOSHERO_GALE_AI" ActiveMessageMapInBattle="1">
+        <List>
+            <ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+                <Str Str="TOSHERO_GALE_AI_RUN"/>
+            </ToolScp>
+        </List>
+        <StartList>
+            <ToolScp Scp="EnableAIOutOfPC" Client="NO" UseSleep="NO"/>
+        </StartList>
+    </AI>
     <AI Name="TOSHERO_GRID_CRYSTAL_STATESET_AI" ActiveMessageMapInBattle="1">
         <List>
             <ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">

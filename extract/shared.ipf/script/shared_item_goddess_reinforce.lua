@@ -310,94 +310,94 @@ function setting_lv460_material(mat_list_by_lv)
 	local medusaReinforceMisc = "misc_vasilisa_NoTrade" -- 정제된 바실리사의 비늘
 
 	-- 여기서 레벨별 재료를 세팅한다.
-	mat_list_by_lv[460][1][seasonCoin] = 1313
+	mat_list_by_lv[460][1][seasonCoin] = 657
 	mat_list_by_lv[460][1][medusaReinforceMisc] = 5
 
-	mat_list_by_lv[460][2][seasonCoin] = 1313
+	mat_list_by_lv[460][2][seasonCoin] = 657
 	mat_list_by_lv[460][2][medusaReinforceMisc] = 5
 
-	mat_list_by_lv[460][3][seasonCoin] = 1313
+	mat_list_by_lv[460][3][seasonCoin] = 657
 	mat_list_by_lv[460][3][medusaReinforceMisc] = 5
 	
-	mat_list_by_lv[460][4][seasonCoin] = 1313
+	mat_list_by_lv[460][4][seasonCoin] = 657
 	mat_list_by_lv[460][4][medusaReinforceMisc] = 5
 
-	mat_list_by_lv[460][5][seasonCoin] = 1313
-	mat_list_by_lv[460][5][medusaReinforceMisc] = 5
+	mat_list_by_lv[460][5][seasonCoin] = 1125
+	mat_list_by_lv[460][5][medusaReinforceMisc] = 7
 
-	mat_list_by_lv[460][6][seasonCoin] = 2250
+	mat_list_by_lv[460][6][seasonCoin] = 1125
 	mat_list_by_lv[460][6][medusaReinforceMisc] = 7
 	
-	mat_list_by_lv[460][7][seasonCoin] = 2250
+	mat_list_by_lv[460][7][seasonCoin] = 1125
 	mat_list_by_lv[460][7][medusaReinforceMisc] = 7
 
-	mat_list_by_lv[460][8][seasonCoin] = 2250
+	mat_list_by_lv[460][8][seasonCoin] = 1125
 	mat_list_by_lv[460][8][medusaReinforceMisc] = 7
 
-	mat_list_by_lv[460][9][seasonCoin] = 2250
+	mat_list_by_lv[460][9][seasonCoin] = 1125
 	mat_list_by_lv[460][9][medusaReinforceMisc] = 7
 	
-	mat_list_by_lv[460][10][seasonCoin] = 3363
+	mat_list_by_lv[460][10][seasonCoin] = 1682
 	mat_list_by_lv[460][10][medusaReinforceMisc] = 9
 
-	mat_list_by_lv[460][11][seasonCoin] = 3363
+	mat_list_by_lv[460][11][seasonCoin] = 1682
 	mat_list_by_lv[460][11][medusaReinforceMisc] = 9
 
-	mat_list_by_lv[460][12][seasonCoin] = 3363
+	mat_list_by_lv[460][12][seasonCoin] = 1682
 	mat_list_by_lv[460][12][medusaReinforceMisc] = 9
 
-	mat_list_by_lv[460][13][seasonCoin] = 3363
+	mat_list_by_lv[460][13][seasonCoin] = 1682
 	mat_list_by_lv[460][13][medusaReinforceMisc] = 9
 
-	mat_list_by_lv[460][14][seasonCoin] = 3363
+	mat_list_by_lv[460][14][seasonCoin] = 1682
 	mat_list_by_lv[460][14][medusaReinforceMisc] = 9
 
-	mat_list_by_lv[460][15][seasonCoin] = 4637
+	mat_list_by_lv[460][15][seasonCoin] = 2318
 	mat_list_by_lv[460][15][medusaReinforceMisc] = 11
 
-	mat_list_by_lv[460][16][seasonCoin] = 4637
+	mat_list_by_lv[460][16][seasonCoin] = 2318
 	mat_list_by_lv[460][16][medusaReinforceMisc] = 11
 
-	mat_list_by_lv[460][17][seasonCoin] = 6058
+	mat_list_by_lv[460][17][seasonCoin] = 3029
 	mat_list_by_lv[460][17][medusaReinforceMisc] = 13
 
-	mat_list_by_lv[460][18][seasonCoin] = 7616
+	mat_list_by_lv[460][18][seasonCoin] = 3808
 	mat_list_by_lv[460][18][medusaReinforceMisc] = 15
 	
-	mat_list_by_lv[460][19][seasonCoin] = 9305
+	mat_list_by_lv[460][19][seasonCoin] = 4653
 	mat_list_by_lv[460][19][medusaReinforceMisc] = 17
 
-	mat_list_by_lv[460][20][seasonCoin] = 11117
+	mat_list_by_lv[460][20][seasonCoin] = 5559
 	mat_list_by_lv[460][20][medusaReinforceMisc] = 19
 
-	mat_list_by_lv[460][21][seasonCoin] = 14056
+	mat_list_by_lv[460][21][seasonCoin] = 6465
 	mat_list_by_lv[460][21][medusaReinforceMisc] = 22
 	
-	mat_list_by_lv[460][22][seasonCoin] = 17247
+	mat_list_by_lv[460][22][seasonCoin] = 7371
 	mat_list_by_lv[460][22][medusaReinforceMisc] = 25
 
-	mat_list_by_lv[460][23][seasonCoin] = 20675
+	mat_list_by_lv[460][23][seasonCoin] = 8277
 	mat_list_by_lv[460][23][medusaReinforceMisc] = 28
 
-	mat_list_by_lv[460][24][seasonCoin] = 24332
+	mat_list_by_lv[460][24][seasonCoin] = 9183
 	mat_list_by_lv[460][24][medusaReinforceMisc] = 31
 	
-	mat_list_by_lv[460][25][seasonCoin] = 28208
+	mat_list_by_lv[460][25][seasonCoin] = 10089
 	mat_list_by_lv[460][25][medusaReinforceMisc] = 34
 
-	mat_list_by_lv[460][26][seasonCoin] = 33702
+	mat_list_by_lv[460][26][seasonCoin] = 10995
 	mat_list_by_lv[460][26][medusaReinforceMisc] = 38
 
-	mat_list_by_lv[460][27][seasonCoin] = 57391
+	mat_list_by_lv[460][27][seasonCoin] = 11901
 	mat_list_by_lv[460][27][medusaReinforceMisc] = 53
 
-	mat_list_by_lv[460][28][seasonCoin] = 68134
+	mat_list_by_lv[460][28][seasonCoin] = 12807
 	mat_list_by_lv[460][28][medusaReinforceMisc] = 59
 
-	mat_list_by_lv[460][29][seasonCoin] = 81521
+	mat_list_by_lv[460][29][seasonCoin] = 13713
 	mat_list_by_lv[460][29][medusaReinforceMisc] = 66
 
-	mat_list_by_lv[460][30][seasonCoin] = 97897
+	mat_list_by_lv[460][30][seasonCoin] = 14619
 	mat_list_by_lv[460][30][medusaReinforceMisc] = 74
 end
 

@@ -45,6 +45,18 @@ end
 
 function TOSHERO_INFO_ATTRIBUTE_REQUEST_SELECT(parent, self, argStr, attribute)
     if attribute ~= GetTOSHeroAttribute() then
-        toshero.RequestChangeAttribute(attribute)
+        if 5 == GetTOSHeroAttribute() then
+            local msg = ClMsg("TOSHeroSelectChaosAttribute");
+            local yesscp = string.format('TOSHERO_INFO_ATTRIBUTE_SELECT_CHAOS(%d)', attribute);
+            ui.MsgBox_NonNested(msg, parent:GetName(), yesscp, 'None');
+        else
+            toshero.RequestChangeAttribute(attribute)
+        end
+    else
+        ui.SysMsg(ClMsg("TOSHeroAlreadySelectAttribute"));
     end
+end
+
+function TOSHERO_INFO_ATTRIBUTE_SELECT_CHAOS(type)
+    toshero.RequestChangeAttribute(type)
 end

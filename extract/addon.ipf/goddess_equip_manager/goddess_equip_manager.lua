@@ -186,16 +186,29 @@ function GODDESS_MGR_REFORGE_CLEAR(frame)
 	GODDESS_MGR_REFORGE_TAB_CHANGE(frame, reforge_tab)
 end
 
-function GODDESS_MGR_REFORGE_INV_RBTN(item_obj, slot, guid)
+-- 제련 탭 아이템 등록
+function GODDESS_MGR_REFORGE_INV_RBTN(item_obj, slot, guid)	
 	local frame = ui.GetFrame('goddess_equip_manager')
 
 	local inv_item = session.GetInvItemByGuid(guid)
 	if inv_item ~= nil then
 		local reforge_tab = GET_CHILD_RECURSIVELY(frame, 'reforge_tab')
 		local index = reforge_tab:GetSelectItemIndex()
+		
+		if index == 3 then
+			local obj = GetIES(inv_item:GetObject())
+			if IS_EVOLVED_ITEM(obj) == true then
+				ui.SysMsg(ClMsg('EvolvedWeapon'))
+				return
+			end
+
+			if IS_WEAPON_TYPE(TryGetProp(obj, "ClassType", "None")) == false then
+				return
+			end
+		end
 
 		local main_slot = GET_CHILD_RECURSIVELY(frame, 'ref_slot')
-		local main_guid = main_slot:GetUserValue('ITEM_GUID')
+		local main_guid = main_slot:GetUserValue('ITEM_GUID')		
 		if index == 1 then
 			if main_guid ~= 'None' then
 				GODDESS_MGR_REFORGE_ENCHANT_REG_MAT_ITEM(frame, inv_item, item_obj)
@@ -269,7 +282,7 @@ function GODDESS_MGR_REFORGE_REG_ITEM(frame, inv_item, item_obj)
 		GODDESS_MGR_REFORGE_ENCHANT_UPDATE(frame)
 	elseif index == 2 then
 		GODDESS_MGR_REFORGE_TRANSCEND_UPDATE(frame)
-	elseif index == 3 then
+	elseif index == 3 then		
 		GODDESS_MGR_REFORGE_EVOLUTION_UPDATE(frame)
 	end
 end
@@ -329,7 +342,7 @@ function GODDESS_MGR_REFORGE_TAB_CHANGE(parent, tab)
 end
 
 -- 재련 - 강화
-function GODDESS_MGR_REFORGE_REINFORCE_REG_MAT(ctrlset, btn)
+function GODDESS_MGR_REFORGE_REINFORCE_REG_MAT(ctrlset, btn)		
 	local item_name = ctrlset:GetUserValue('ITEM_NAME')
 
 	local cur_count = 0
@@ -482,6 +495,61 @@ local function _REFORGE_REINFORCE_ADD_MAT_CTRL(bg, item_name, count)
 	inv_count:SetTextByKey('need', count)
 	
 	return ctrlset:GetHeight()
+end
+
+local function _REFORGE_REINFORCE_MAT_COUNT_UPDATE(frame)
+	local mat_bg = GET_CHILD_RECURSIVELY(frame, 'reinf_main_mat_bg')
+	for i = 0, mat_bg:GetChildCount() - 1 do
+		local ctrlset = GET_CHILD(mat_bg, 'GODDESS_REINF_MAT_' .. i)
+		if ctrlset ~= nil then
+			local slot = GET_CHILD(ctrlset, 'slot')
+			local mat_name = ctrlset:GetUserValue('ITEM_NAME')
+			local cur_count = '0'
+			if IS_ACCOUNT_COIN(mat_name) == true then
+				local acc = GetMyAccountObj()
+				cur_count = TryGetProp(acc, mat_name, '0')
+				if cur_count == 'None' then
+					cur_count = '0'
+				end
+			else
+				local mat_item = session.GetInvItemByName(mat_name)
+				if mat_item == nil then
+					cur_count = '0'
+				else
+					cur_count = tostring(mat_item.count)
+				end
+			end
+
+			local need_count = slot:GetEventScriptArgString(ui.DROP)
+			local inv_count = GET_CHILD_RECURSIVELY(ctrlset, 'invcount')
+			inv_count:SetTextByKey('have', cur_count)
+			inv_count:SetTextByKey('need', need_count)
+		end
+	end
+end
+
+local function _REFORGE_REINFORCE_EXTRA_MAT_COUNT_UPDATE(frame)
+	local slotset = GET_CHILD_RECURSIVELY(frame, 'reinf_extra_mat_list')
+	for i = 0, slotset:GetSlotCount() - 1 do
+		local slot = slotset:GetSlotByIndex(i)
+		local cnt = slot:GetSelectCount()
+		if cnt > 0 then
+			local mat_guid = slot:GetUserValue('ITEM_GUID')
+			local inv_item = session.GetInvItemByGuid(mat_guid)
+			if inv_item ~= nil then
+				local obj = GetIES(inv_item:GetObject())
+				local icon = slot:GetIcon()
+				local slotindex = slot:GetSlotIndex()
+				icon:Set(obj.Icon, 'Item', inv_item.type, slotindex, inv_item:GetIESID(), inv_item.count)
+				slot:SetMaxSelectCount(inv_item.count)
+				SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, inv_item, obj, inv_item.count)
+			end
+		end
+
+		if cnt == 0 then
+			slot:Select(0)
+		end
+	end
 end
 
 function GODDESS_MGR_REINFORCE_MAT_UPDATE(frame)
@@ -684,12 +752,18 @@ function GODDESS_MGR_REFORGE_REINFORCE_EXEC(parent, btn)
 
 	local guid = slot:GetUserValue('ITEM_GUID')
 	local inv_item = session.GetInvItemByGuid(guid)
+	if inv_item == nil then return end
 	local item_obj = GetIES(inv_item:GetObject())
 	local item_name = dic.getTranslatedStr(TryGetProp(item_obj, 'Name', 'None'))
 
-	local yesscp = '_GODDESS_MGR_REFORGE_REINFORCE_EXEC()'
-	local msgbox = ui.MsgBox(ScpArgMsg('ReallyDoAetherGemReinforce', 'name', item_name), yesscp, 'ENABLE_CONTROL_WITH_UI_HOLD(false)')
-	SET_MODAL_MSGBOX(msgbox)
+	local reinf_no_msgbox = GET_CHILD_RECURSIVELY(frame, 'reinf_no_msgbox')
+	if reinf_no_msgbox:IsChecked() == 1 then
+		_GODDESS_MGR_REFORGE_REINFORCE_EXEC()
+	else
+		local yesscp = '_GODDESS_MGR_REFORGE_REINFORCE_EXEC()'
+		local msgbox = ui.MsgBox(ScpArgMsg('ReallyDoAetherGemReinforce', 'name', item_name), yesscp, 'ENABLE_CONTROL_WITH_UI_HOLD(false)')
+		SET_MODAL_MSGBOX(msgbox)
+	end
 end
 
 function _GODDESS_MGR_REFORGE_REINFORCE_EXEC()
@@ -767,10 +841,80 @@ function GODDESS_MGR_REINFORCE_CLEAR_BTN(parent, btn)
 	local ref_item_reinf_text = GET_CHILD_RECURSIVELY(frame, 'ref_item_reinf_text')
 	ref_item_reinf_text:SetTextByKey('value', reinforce_value)
 
-	GODDESS_MGR_REFORGE_REINFORCE_CLEAR(frame)
+	local result_str = frame:GetUserValue('REINFORCE_RESULT')
+	if result_str == 'SUCCESS' then
+		GODDESS_MGR_REFORGE_REINFORCE_CLEAR(frame)
+	else
+		local ref_ok_reinforce = GET_CHILD_RECURSIVELY(frame, 'ref_ok_reinforce')
+		ref_ok_reinforce:ShowWindow(0)
+		local ref_do_reinforce = GET_CHILD_RECURSIVELY(frame, 'ref_do_reinforce')
+		ref_do_reinforce:SetEnable(1)
+		ref_do_reinforce:ShowWindow(1)
+
+		local clear_flag = false
+		local mat_bg = GET_CHILD_RECURSIVELY(frame, 'reinf_main_mat_bg')
+		for i = 0, mat_bg:GetChildCount() - 1 do
+			local ctrlset = GET_CHILD(mat_bg, 'GODDESS_REINF_MAT_' .. i)
+			if ctrlset ~= nil then
+				local slot = GET_CHILD(ctrlset, 'slot')
+				local mat_name = ctrlset:GetUserValue('ITEM_NAME')
+				local cur_count = '0'
+				if IS_ACCOUNT_COIN(mat_name) == true then
+					local acc = GetMyAccountObj()
+					cur_count = TryGetProp(acc, mat_name, '0')
+					if cur_count == 'None' then
+						cur_count = '0'
+					end
+				else
+					local mat_item = session.GetInvItemByName(mat_name)
+					if mat_item == nil then
+						clear_flag = true
+						break
+					end
+
+					cur_count = tostring(mat_item.count)
+				end
+
+				local need_count = slot:GetEventScriptArgString(ui.DROP)
+				if math.is_larger_than(tostring(need_count), cur_count) == 1 then
+					clear_flag = true
+					break
+				end
+			end
+		end
+
+		local extra_mat_list = GET_CHILD_RECURSIVELY(frame, 'reinf_extra_mat_list')
+		for i = 0, extra_mat_list:GetSlotCount() - 1 do
+			local slot = extra_mat_list:GetSlotByIndex(i)
+			local cnt = slot:GetSelectCount()
+			if cnt > 0 then
+				local _guid = slot:GetUserValue('ITEM_GUID')
+				local extra_mat = session.GetInvItemByGuid(_guid)
+				if extra_mat == nil then
+					clear_flag = true
+					break
+				end
+
+				if extra_mat.count < cnt then
+					clear_flag = true
+					break
+				end
+			end
+		end
+
+		if clear_flag == true then
+			GODDESS_MGR_REFORGE_REINFORCE_CLEAR(frame)
+		else
+			_REFORGE_REINFORCE_MAT_COUNT_UPDATE(frame)
+			_REFORGE_REINFORCE_EXTRA_MAT_COUNT_UPDATE(frame)
+			GODDESS_MGR_REINFORCE_RATE_UPDATE(frame)
+		end
+	end
 end
 
 function ON_SUCCESS_REFORGE_REINFORCE_EXEC(frame, msg, arg_str, arg_num)
+	frame:SetUserValue('REINFORCE_RESULT', 'SUCCESS')
+
 	local ref_do_reinforce = GET_CHILD_RECURSIVELY(frame, 'ref_do_reinforce')
 	ref_do_reinforce:ShowWindow(0)
 
@@ -787,6 +931,8 @@ function ON_SUCCESS_REFORGE_REINFORCE_EXEC(frame, msg, arg_str, arg_num)
 end
 
 function ON_FAILED_REFORGE_REINFORCE_EXEC(frame, msg, arg_str, arg_num)
+	frame:SetUserValue('REINFORCE_RESULT', 'FAILED')
+
 	local ref_do_reinforce = GET_CHILD_RECURSIVELY(frame, 'ref_do_reinforce')
 	ref_do_reinforce:ShowWindow(0)
 	
@@ -844,7 +990,7 @@ function GODDESS_MGR_REFORGE_ENCHANT_MAT_DROP(parent, slot)
 	end
 end
 
-function GODDESS_MGR_REFORGE_ENCHANT_REG_MAT_ITEM(frame, inv_item, item_obj)
+function GODDESS_MGR_REFORGE_ENCHANT_REG_MAT_ITEM(frame, inv_item, item_obj)	
 	local equip_slot = GET_CHILD_RECURSIVELY(frame, 'ref_slot')
 	local equip_guid = equip_slot:GetUserValue('ITEM_GUID')
 	local equip_item = session.GetInvItemByGuid(equip_guid)
@@ -1004,14 +1150,20 @@ function GODDESS_MGR_REFORGE_ENCHANT_EXEC(parent, btn)
 
 	local guid = slot:GetUserValue('ITEM_GUID')
 	local inv_item = session.GetInvItemByGuid(guid)
+	if inv_item == nil then return end
 
 	local mat_guid = mat_slot:GetUserValue('ITEM_GUID')
 	local mat_item = session.GetInvItemByGuid(mat_guid)
+	if mat_item == nil then return end
 
-
-	local yesscp = '_GODDESS_MGR_REFORGE_ENCHANT_EXEC()'
-	local msgbox = ui.MsgBox(ClMsg('CommitEnchantOption'), yesscp, 'ENABLE_CONTROL_WITH_UI_HOLD(false)')
-	SET_MODAL_MSGBOX(msgbox)
+	local enchant_no_msgbox = GET_CHILD_RECURSIVELY(frame, 'enchant_no_msgbox')
+	if enchant_no_msgbox:IsChecked() == 1 then
+		_GODDESS_MGR_REFORGE_ENCHANT_EXEC()
+	else
+		local yesscp = '_GODDESS_MGR_REFORGE_ENCHANT_EXEC()'
+		local msgbox = ui.MsgBox(ClMsg('CommitEnchantOption'), yesscp, 'ENABLE_CONTROL_WITH_UI_HOLD(false)')
+		SET_MODAL_MSGBOX(msgbox)
+	end
 
 	ENABLE_CONTROL_WITH_UI_HOLD(true)
 end
@@ -1359,6 +1511,14 @@ function GODDESS_MGR_REFORGE_TRANSCEND_MAT_UPDATE(frame, count)
 
 	SET_SLOT_COUNT_TEXT(mat_slot, count_str)
 
+	if TryGetProp(item_obj, 'Transcend', 0) == 10 then
+		mat_slot:ShowWindow(0)
+	else
+		mat_slot:ShowWindow(1)		
+	end
+	
+	if mat_item == nil then return end
+
 	local icon = mat_slot:GetIcon()
 	if have_count < need_count then
 		icon:SetColorTone('FFFF0000')
@@ -1427,6 +1587,12 @@ function GODDESS_MGR_REFORGE_TRANSCEND_EXEC(parent, btn)
 	end
 
 	local item_obj = GetIES(inv_item:GetObject())
+
+	if TryGetProp(item_obj, "Transcend", 0) == 10 then
+		ui.SysMsg(ClMsg('MaxTranscend'))
+		return
+	end
+
 	if item_goddess_transcend.is_able_to_transcend(item_obj) ~= 'YES' then
 		ui.SysMsg(ClMsg('ThisItemIsNotAbleToTranscend'))
 		return
@@ -1526,7 +1692,7 @@ local function GODDESS_EVOLUTION_MAT_SLOT_UPDATE(frame, inv_item, item_obj)
 
 	local mat_list = GET_EVOLVE_MAT_LIST(use_lv)
 	if mat_list == nil then return end
-
+	
 	local index = 1
 	for _name, _count in pairs(mat_list) do
 		local mat_slot = GET_CHILD_RECURSIVELY(frame, 'evolve_mat_slot_' .. index)
@@ -1547,12 +1713,21 @@ local function GODDESS_EVOLUTION_MAT_SLOT_UPDATE(frame, inv_item, item_obj)
 			else
 				local inv_mat_count = '0'
 				if IS_ACCOUNT_COIN(_name) == true then
-					inv_mat_count = TryGetProp(acc, _name, '0')
+					inv_mat_count = TryGetProp(acc, _name, '0')		
+					local dummy_coin_name = 'dummy_'.._name
+					local mat_cls = GetClass('Item', dummy_coin_name)	
+					icon:SetTooltipType('texthelp');
+					icon:SetTooltipArg(TryGetProp(mat_cls, 'Name', 'None'));
+					icon:SetTooltipOverlap(1)
 				else
 					local inv_mat_item = session.GetInvItemByName(_name)
 					if inv_mat_item ~= nil then
 						inv_mat_count = tostring(inv_mat_item.count)
 					end
+					icon:SetTooltipType('wholeitem');
+					local mat_cls = GetClass('Item', _name)
+					icon:SetTooltipArg("", TryGetProp(mat_cls, "ClassID", 0), 0);
+					icon:SetTooltipOverlap(1)
 				end
 				
 				if inv_mat_count == 'None' then
@@ -1575,6 +1750,9 @@ end
 
 function GODDESS_MGR_REFORGE_EVOLUTION_UPDATE(frame)
 	local ref_slot = GET_CHILD_RECURSIVELY(frame, 'ref_slot')
+	local slot_pic = GET_CHILD_RECURSIVELY(frame, 'ref_slot_bg_image')
+	local ref_item_name = GET_CHILD_RECURSIVELY(frame, 'ref_item_name')
+	local ref_item_text = GET_CHILD_RECURSIVELY(frame, 'ref_item_text')
 	local ref_evolution_do = GET_CHILD_RECURSIVELY(frame, 'ref_evolution_do')
 	local target_slot = GET_CHILD_RECURSIVELY(frame, 'evolve_target_slot')
 
@@ -1593,19 +1771,34 @@ function GODDESS_MGR_REFORGE_EVOLUTION_UPDATE(frame)
 		local inv_item = session.GetInvItemByGuid(equip_guid)
 		if inv_item == nil then return end
 
-		SET_SLOT_ITEM(target_slot, inv_item)
-
-		local icon = target_slot:GetIcon()
-		local item_obj = GetIES(inv_item:GetObject())
-		if IS_EVOLVED_ITEM(item_obj) == true then
-			icon:SetColorTone('FFFF0000')
+		local obj = GetIES(inv_item:GetObject())
+		if IS_EVOLVED_ITEM(obj) == true or IS_WEAPON_TYPE(TryGetProp(obj, "ClassType", "None")) == false then
+			ui.SysMsg(ClMsg('CantEvolvedEquip'))
 			ref_evolution_do:SetEnable(0)
+			target_slot:ClearIcon()
+			for i = 1, MAX_EVOLVE_MAT_COUNT do
+				local mat_slot = GET_CHILD_RECURSIVELY(frame, 'evolve_mat_slot_' .. i)
+				mat_slot:ClearIcon()
+				SET_SLOT_COUNT_TEXT(mat_slot, '')
+				mat_slot:SetUserValue('MAT_NAME', 'None')
+				mat_slot:SetUserValue('MAT_COUNT', 0)
+			end
+			ref_slot:ClearIcon()
+			ref_slot:SetUserValue('ITEM_GUID', 'None')
+			slot_pic:ShowWindow(1)
+			ref_item_name:ShowWindow(0)
+			ref_item_text:ShowWindow(1)
 		else
-			icon:SetColorTone('FFFFFFFF')
-			ref_evolution_do:SetEnable(1)
-		end
+			SET_SLOT_ITEM(target_slot, inv_item)
 
-		GODDESS_EVOLUTION_MAT_SLOT_UPDATE(frame, inv_item, item_obj)
+			local icon = target_slot:GetIcon()
+			local item_obj = GetIES(inv_item:GetObject())
+			if IS_EVOLVED_ITEM(item_obj) == false then
+				icon:SetColorTone('FFFFFFFF')
+				ref_evolution_do:SetEnable(1)
+				GODDESS_EVOLUTION_MAT_SLOT_UPDATE(frame, inv_item, item_obj)
+			end
+		end
 	end
 end
 
@@ -1617,6 +1810,12 @@ function GODDESS_MGR_REFORGE_EVOLUTION_EXEC(parent, btn)
 
 	local inv_item = session.GetInvItemByGuid(guid)
 	if inv_item == nil then return end
+
+	local itemObj = GetIES(inv_item:GetObject())
+	if TryGetProp(itemObj, "Transcend", 0) < 10 then
+		ui.SysMsg(ClMsg('TargetItemIsNot10Transcend'))
+		return
+	end
 
 	if inv_item.isLockState == true then
 		ui.SysMsg(ClMsg('MaterialItemIsLock'))
@@ -1651,6 +1850,13 @@ function _GODDESS_MGR_REFORGE_EVOLUTION_EXEC()
 		return
 	end
 
+	local resulteffect_slot = GET_CHILD_RECURSIVELY(frame, "resulteffect_slot");
+	local posX, posY = GET_SCREEN_XY(resulteffect_slot);
+	local effectName = frame:GetUserConfig("EVOLVE_EFFECT");
+	local effectName2 = frame:GetUserConfig("EVOLVE_SUCCESS")
+	movie.PlayUIEffect(effectName, posX, posY, tonumber(frame:GetUserConfig("EVOLVE_EFFECT_SCALE")))
+	movie.PlayUIEffect(effectName2, posX, posY, tonumber(frame:GetUserConfig("EVOLVE_SUCCESS_SCALE")))
+
 	pc.ReqExecuteTx_Item('GODDESS_EVOLUTION', guid, '')
 
 	local ref_evolution_do = GET_CHILD_RECURSIVELY(frame, 'ref_evolution_do')
@@ -1658,11 +1864,14 @@ function _GODDESS_MGR_REFORGE_EVOLUTION_EXEC()
 end
 
 function ON_SUCCESS_REFORGE_EVOLUTION_EXEC(frame, msg, arg_str, arg_num)
+	local ref_slot = GET_CHILD_RECURSIVELY(frame, 'ref_slot')
+	ref_slot:SetUserValue('ITEM_GUID', 'None')
 	local ref_evolution_do = GET_CHILD_RECURSIVELY(frame, 'ref_evolution_do')
 	ref_evolution_do:ShowWindow(0)
 	
 	local ref_evolution_send_ok = GET_CHILD_RECURSIVELY(frame, 'ref_evolution_send_ok')
 	ref_evolution_send_ok:ShowWindow(1)
+	GODDESS_MGR_REFORGE_EVOLUTION_UPDATE(frame)
 end
 
 function GODDESS_MGR_EVOLUTION_CLEAR_BTN(parent, btn)
@@ -2344,8 +2553,8 @@ function GODDESS_MGR_RANDOMOPTION_APPLY_COST_UPDATE(frame)
 		cost_bg:Resize(cost_bg:GetWidth(), origin_height)
 	end
 
-	local rand_apply_bg = GET_CHILD_RECURSIVELY(frame, 'rand_apply_bg')	
-	rand_apply_bg:SetUserValue('COIN_TYPE', coin_type)	
+	local rand_apply_bg = GET_CHILD_RECURSIVELY(frame, 'rand_apply_bg')
+	rand_apply_bg:SetUserValue('COIN_TYPE', coin_type)
 	rand_apply_bg:SetUserValue('REQ_COST', apply_cost)
 end
 
@@ -2550,12 +2759,18 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_CLEAR(frame)
 	rand_icor_slot:ClearIcon()
 	rand_icor_slot:SetUserValue('ITEM_GUID', 'None')
 
+	local rand_icor_slot_pic = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot_pic')
+	rand_icor_slot_pic:ShowWindow(1)
+
 	local rand_icor_name = GET_CHILD_RECURSIVELY(frame, 'rand_icor_name')
 	rand_icor_name:ShowWindow(0)
 	rand_icor_name:SetTextByKey('name', '')
 
 	local rand_icor_text = GET_CHILD_RECURSIVELY(frame, 'rand_icor_text')
 	rand_icor_text:ShowWindow(1)
+
+	local rand_icor_help_text = GET_CHILD_RECURSIVELY(frame, 'rand_icor_help_text')
+	rand_icor_help_text:ShowWindow(1)
 
 	local current_icor_option_inner = GET_CHILD_RECURSIVELY(frame, 'current_icor_option_inner')
 	current_icor_option_inner:RemoveChild('tooltip_equip_property_narrow')
@@ -2634,13 +2849,13 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_COST_UPDATE(frame)
 	local rand_do_icor = GET_CHILD_RECURSIVELY(frame, 'rand_do_icor')
 
 	local slot = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot')
-	local guid = slot:GetUserValue('ITEM_GUID')	
+	local guid = slot:GetUserValue('ITEM_GUID')
 	if guid ~= 'None' then
 		local rate = slot:GetUserValue('DEFAULT_RATE')
 		local coin = slot:GetUserValue('COIN_TYPE')
 		local cost = slot:GetUserValue('REQ_COST')
-		
-		rand_icor_prob_text:SetTextByKey('total', rate)	
+	
+		rand_icor_prob_text:SetTextByKey('total', rate)
 		if cost == 'None' then
 			cost = '0'
 		end
@@ -2692,12 +2907,22 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_REG_ITEM(frame, inv_item, item_ob
 	slot:SetUserValue('DEFAULT_RATE', def_rate)
 	slot:SetUserValue('EQUIP_SPOT', spot)
 
-	local rand_item_text = GET_CHILD_RECURSIVELY(frame, 'rand_icor_text')
-	rand_item_text:ShowWindow(0)
+	local coin = GET_COST_SAVE_ENGRAVE(inherit_item)
+	slot:SetUserValue('COIN_TYPE', coin)
+	slot:SetUserValue('REQ_COST', 0)
 
-	local rand_item_name = GET_CHILD_RECURSIVELY(frame, 'rand_icor_name')
-	rand_item_name:SetTextByKey('name', dic.getTranslatedStr(TryGetProp(item_obj, 'Name', 'NONE')))
-	rand_item_name:ShowWindow(1)
+	local slot_pic = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot_pic')
+	slot_pic:ShowWindow(0)
+
+	local rand_icor_text = GET_CHILD_RECURSIVELY(frame, 'rand_icor_text')
+	rand_icor_text:ShowWindow(0)
+
+	local rand_icor_name = GET_CHILD_RECURSIVELY(frame, 'rand_icor_name')
+	rand_icor_name:SetTextByKey('name', dic.getTranslatedStr(TryGetProp(item_obj, 'Name', 'NONE')))
+	rand_icor_name:ShowWindow(1)
+
+	local rand_icor_help_text = GET_CHILD_RECURSIVELY(frame, 'rand_icor_help_text')
+	rand_icor_help_text:ShowWindow(0)
 
 	local current_icor_option_inner = GET_CHILD_RECURSIVELY(frame, 'current_icor_option_inner')
 	current_icor_option_inner:RemoveChild('tooltip_equip_property_narrow')
@@ -2713,14 +2938,14 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_ITEM_REMOVE(parent, ctrl)
 	GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_CLEAR(frame)
 end
 
-function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC(parent, btn)	
+function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC(parent, btn)
 	local frame = parent:GetTopParentFrame()
 
 	local rand_icor_slot = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot')
 	local coin_type = rand_icor_slot:GetUserValue('COIN_TYPE')
 	local acc = GetMyAccountObj()
 	if acc == nil then return end
-	
+
 	local cur_coin = TryGetProp(acc, coin_type, '0')
 	if cur_coin == 'None' then
 		cur_coin = '0'
@@ -2735,12 +2960,12 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC(parent, btn)
 		ui.SysMsg(ClMsg('NOT_ENOUGH_MONEY'))
 		return
 	end
-	
+
 	if rand_icor_slot:GetUserIValue('IS_SAME_OPTION') == 1 then
 		ui.SysMsg(ClMsg('SameOptionEngravedAlready'))
 		return
 	end
-	
+
 	local yesscp = string.format('_GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC()')
 	local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetEngrave'), yesscp, 'None')
 	SET_MODAL_MSGBOX(msgbox)
@@ -2774,7 +2999,7 @@ function _GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC()
 	arg_list:Add(index)
 
 	local result_list = session.GetItemIDList()
-	item.DialogTransaction('ICOR_PRESET_ENGRAVE_ICOR', result_list, '', arg_list)	
+	item.DialogTransaction('ICOR_PRESET_ENGRAVE_ICOR', result_list, '', arg_list)
 end
 
 function GODDESS_MGR_ENGRAVE_ICOR_CLEAR_BTN(parent, btn)
@@ -2798,7 +3023,7 @@ function ON_SUCCESS_RANDOMOPTION_ENGRAVE_ICOR(frame, msg, arg_str, arg_num)
 	if cls ~= nil then
 		icon = TryGetProp(cls, 'Icon', 'None')
 	end
-	
+
 	local success_scp = string.format('RESULT_EFFECT_UI_RUN_SUCCESS(\'%s\', \'%s\', \'%d\', \'%d\')', '_END_RAMDOMOPTION_ENGRAVE_ICOR_EXEC', icon, left, top)
 	ReserveScript(success_scp, 0)
 end
@@ -3772,7 +3997,7 @@ function GODDESS_MGR_MAKE_MAKE_LIST(frame)
 end
 
 function GODDESS_MGR_MAKE_CLEAR(frame)
-	
+	GODDESS_MGR_MAKE_MAKE_LIST(frame)
 end
 
 function GODDESS_MGR_MAKE_OPEN(frame)
@@ -3848,6 +4073,11 @@ function _GODDESS_MGR_MAKE_EXEC(recipe_name)
 	item.DialogTransaction('GODDESS_CRAFT_EQUIP', result_list, '', arg_list)
 end
 
+function _END_GODDESS_MAKE_EFFECT()
+	local frame = ui.GetFrame('goddess_equip_manager')
+	GODDESS_MGR_MAKE_CLEAR(frame)
+end
+
 function PLAY_GODDESS_MAKE_SUCCESS_EFFECT(frame, msg, item_name, recipe_id)
 	ui.OpenFrame('fulldark_itemblacksmith')
 	local bg_frame = ui.GetFrame('fulldark_itemblacksmith')
@@ -3873,8 +4103,9 @@ function PLAY_GODDESS_MAKE_SUCCESS_EFFECT(frame, msg, item_name, recipe_id)
 	local screenHeight = ui.GetSceneHeight()
 	movie.PlayUIEffect(bg_frame:GetUserConfig('BLACKSMITH_RESULT_EFFECT'), screenWidth / 2, screenHeight / 2, tonumber(bg_frame:GetUserConfig('BLACKSMITH_RESULT_EFFECT_SCALE')))
 
-	local duration = bg_frame:GetUserConfig('FRAME_DURATION')
+	local duration = tonumber(frame:GetUserConfig('MAKE_EFFECT_DURATION'))
 	bg_frame:SetDuration(duration)
+	ReserveScript('_END_GODDESS_MAKE_EFFECT()', duration)
 end
 
 function ON_SUCCESS_GODDESS_MAKE_EXEC(frame, msg, arg_str, arg_num)
@@ -3900,6 +4131,11 @@ local function GODDESS_MGR_MAKE_INHERIT_TARGET_LIST(gbox, inv_item, item_obj)
 		local ctrlset = gbox:CreateOrGetControlSet('eachitem_in_exchange_weapontype', 'INHERIT_WEAPONTYPE_CSET_'..(i - 1), 0, (i - 1) * 90)
 		if ctrlset ~= nil then
 			local icon = GET_CHILD_RECURSIVELY(ctrlset, 'item_icon', 'ui::CPicture')
+
+			local result = CHECK_EQUIPABLE(cls.ClassID);
+			if result ~= "OK" then
+				icon:SetColorTone("FFFF0000");
+			end
 			icon:ShowWindow(1)
 			icon:SetImage(cls.Icon)
 
@@ -3979,6 +4215,7 @@ function GODDESS_MGR_INHERIT_REG_TARGET(frame)
 
 	local after_name = GET_CHILD_RECURSIVELY(frame, 'inherit_after_item_name')
 	local after_enchant = GET_CHILD_RECURSIVELY(frame, 'inherit_after_item_enchant')
+	local dont_equip = GET_CHILD_RECURSIVELY(frame, 'inherit_dont_equip_item')
 
 	local name_str = dic.getTranslatedStr(TryGetProp(target_cls, 'Name', 'None'))
 	if reinf_value ~= nil then
@@ -3998,6 +4235,13 @@ function GODDESS_MGR_INHERIT_REG_TARGET(frame)
 
 	else
 		after_enchant:ShowWindow(0)
+	end
+
+	local result = CHECK_EQUIPABLE(target_cls_id);
+	if result ~= "OK" then
+		dont_equip:ShowWindow(1)
+	else
+		dont_equip:ShowWindow(0)
 	end
 
 	after_name:SetTextByKey('name', name_str)

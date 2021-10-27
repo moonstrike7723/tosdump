@@ -8854,7 +8854,7 @@
 		<image name="2021_flex_box" file="\skin\2021flexbox.tga" imgrect="0 0 510 714" CMM_Caption="[2021 신년맞이] 플렉스 박스"/>
 		<image name="card_reinforce_COMPLETE" file="\skin\monstercard.tga" imgrect="997 803 330 133" CMM_Caption="레전드 카드 합성 결과_complete"/>
 		<image name="new_inventory_icon_s" file="\skin\pip_test.tga" imgrect="2049 277 50 50" CMM_Caption="n아이콘 작은버전"/>
-		<image name="goddess_Equip" file="\skin\goddess_Equip.tga" imgrect="0 0 635 597" CMM_Caption="가디스_성공배경"/>
+		<image name="goddess_Equip" file="\skin\goddess_Equip.tga" imgrect="0 0 635 627" CMM_Caption="가디스_성공배경"/>
 		<image name="goddess_tooltip_title" file="\skin\tooltip_skin_3.tga" imgrect="1025 1553 404 61" CMM_Caption="가디스 툴팁 띠지"/>
 		<image name="aether_icon_equip" file="\skin\pip_test.tga" imgrect="514 1126 26 26" CMM_Caption="에테르젬 장비 아이콘"/>
 		<image name="aether_icon_inventory" file="\skin\pip_test.tga" imgrect="541 1126 26 26" CMM_Caption="에테르젬 인벤토리 아이콘"/>

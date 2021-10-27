@@ -439,6 +439,9 @@
 		</MainSkl>
 	</Skill>
 	<Skill Name="Chronomancer_Stop">
+        <EnableScripts>
+            <ToolScp Client="BOTH" Scp="CHECK_IS_NO_CHANGEDROPLIST" UseSleep="NO"/>
+        </EnableScripts>
         <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
                 <Frame Angle="0" AniTime="200" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" TermMax="0" TermMin="0" Time="0" Type="FAN" />

@@ -1727,9 +1727,10 @@ function ITEM_EQUIP_MSG(item, slotName)
 			if slotName ~= nil then
 				strscp = string.format("item.Equip(\"%s\", %d)", slotName, item.invIndex);
 			end
+
+			local guid = GetIESID(item_obj)
 			local msg = ScpArgMsg("WantToEquipCuzCharacterBelonging");
-			local box = ui.MsgBox(msg, strscp, "None")
-			SET_MODAL_MSGBOX(box)
+			WARNINGMSGBOX_FRAME_OPEN_EQUIP_ITEM(msg, strscp, "None", guid, 'char')			
 		elseif TryGetProp(item_obj, 'EquipActionType', 'None') == 'EquipTeamBelonging' and TryGetProp(item_obj, 'TeamBelonging') == 0 then
 			-- 착용시 팀 귀속
 			local strscp = string.format("item.Equip(%d)", item.invIndex);
@@ -1737,8 +1738,9 @@ function ITEM_EQUIP_MSG(item, slotName)
 				strscp = string.format("item.Equip(\"%s\", %d)", slotName, item.invIndex);
 			end
 			local msg = ScpArgMsg("WantToEquipCuzTeamBelonging");
-			local box = ui.MsgBox(msg, strscp, "None")
-			SET_MODAL_MSGBOX(box)
+			local guid = GetIESID(item_obj)
+			local msg = ScpArgMsg("WantToEquipCuzCharacterBelonging");
+			WARNINGMSGBOX_FRAME_OPEN_EQUIP_ITEM(msg, strscp, "None", guid, 'team')			
 		else
 			local strscp = string.format("item.Equip(%d)", item.invIndex);
 			if slotName ~= nil then

@@ -1,9 +1,15 @@
 function TOSHERO_INFO_LOTTERY_ON_INIT(addon, frame)
     addon:RegisterMsg('TOSHERO_INFO_POINT', 'TOSHERO_INFO_LOTTERY_RESULT');    
+    addon:RegisterMsg('TOSHERO_ZONE_ENTER', 'ON_TOSHERO_ZONE_ENTER')
+    addon:RegisterMsg('TOSHERO_LOTTERY_FAIL', 'ON_TOSHERO_LOTTERY_FAIL')
 end
 
 function OPEN_TOSHERO_INFO_LOTTERY()
     ui.OpenFrame("toshero_info_lottery")
+end
+
+function ON_TOSHERO_INFO_LOTTERY_INIT(frame, msg, argStr, stage)
+    GET_CHILD_RECURSIVELY(frame,"point_btn_4"):SetEnable(1);
 end
 
 local Type = -1
@@ -28,4 +34,8 @@ function TOSHERO_INFO_LOTTERY_RESULT()
     if Type == 4 then
         GET_CHILD_RECURSIVELY(frame,"point_btn_4"):SetEnable(0);
     end
+end
+
+function ON_TOSHERO_LOTTERY_FAIL()
+    Type = -1
 end

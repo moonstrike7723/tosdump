@@ -131,6 +131,7 @@ function TOSHERO_INFO_REINFORCE_DROP_EQUIP(parent, self, argStr, argNum)
         end
 
         if TryGetProp(GetIES(invItem:GetObject()), "StringArg", "None") ~= "TOSHeroEquip" then
+            ui.SysMsg(ClMsg("TOSHeroCanNotReinforceItem"));
             return
         end
 

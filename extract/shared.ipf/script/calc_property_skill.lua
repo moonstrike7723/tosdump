@@ -1433,7 +1433,7 @@ function SCR_Get_SkillFactor_Doppelsoeldner_Zornhau_Abil(skill)
     local value = 100 
     local zornhauSkill = GetSkill(pc, 'Doppelsoeldner_Zornhau');
     if zornhauSkill ~= nil then
-        value = TryGetProp(zornhauSkill, "SkillFactor", 100) * 0.2
+        value = TryGetProp(zornhauSkill, "SkillFactor", 100) * 0.4
     end
     
     return value
@@ -15017,6 +15017,11 @@ end
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
 
+    -- 기본 스킬 재사용 대기시간 1초짜리는 감소시켜 주지 않음
+    if CHECK_SKILL_KEYWORD(skill, "BasicSkill") == 1 then
+        return basicCoolDown
+    end
+
     -- Laima CoolTime Buff
     local laimaCoolTime = GetExProp(pc, "LAIMA_BUFF_COOLDOWN")
     if laimaCoolTime ~= 0 and TryGetProp(skill, "CoolDownGroup", "None") ~= "ItemSetSkill" then
@@ -15105,8 +15110,8 @@ function SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
 	-- 영웅담
 	if IS_TOS_HERO_ZONE(pc) == 'YES' and TryGetProp(skill, "ValueType", "None") == "Attack" and CHECK_SKILL_KEYWORD(skill, "NormalSkill") == 0 and GetExProp(pc, "TOSHero_CoolDownRate") ~= 0 then
 		basicCoolDown = basicCoolDown * GetExProp(pc, "TOSHero_CoolDownRate")
-	end
-
+    end
+    
 	return basicCoolDown
 end
 

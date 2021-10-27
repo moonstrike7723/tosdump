@@ -20,6 +20,7 @@
 		<picture name="reinforce_pic" rect="0 0 66 66" margin="25 75 0 0" layout_gravity="left center" image="None" imagealign="center center" stretch="true" hittest="true"/>
 		<picture name="attribute_pic" rect="0 0 66 66" margin="25 -10 0 0" layout_gravity="left center" image="None" imagealign="center center" stretch="true" hittest="true"/>
 		<picture name="buff_pic" rect="0 0 66 66" margin="0 75 25 0" layout_gravity="right center" image="None" imagealign="center center" stretch="true" hittest="true"/>
+		<picture name="buff_hidden_icon" rect="0 0 25 25" margin="0 45 15 0" layout_gravity="right center" image="hero_icon_hiddenbuff" imagealign="center center" stretch="true" hittest="true" visible="false"/>
 		<button name="reinforce_btn" rect="0 0 76 76" margin="20 75 0 0" layout_gravity="left center" image="hero_btn_empty" imagealign="center center" stretch="true" LBtnUpScp="OPEN_TOSHERO_INFO_REINFORCE" oversound="button_cursor_over_3" clicksound="button_click_big"/>
 		<button name="attribute_btn" rect="0 0 76 76" margin="20 -10 0 0" layout_gravity="left center" image="hero_btn_empty" imagealign="center center" stretch="true" LBtnUpScp="OPEN_TOSHERO_INFO_ATTRIBUTE" oversound="button_cursor_over_3" clicksound="button_click_big"/>
 		<button name="buff_btn" rect="0 0 76 76" margin="0 75 20 0" layout_gravity="right center" image="hero_btn_empty" imagealign="center center" stretch="true" LBtnUpScp="OPEN_TOSHERO_INFO_BUFF" oversound="button_cursor_over_3" clicksound="button_click_big"/>

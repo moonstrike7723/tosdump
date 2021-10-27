@@ -192,15 +192,14 @@ function IS_ENABLE_TO_EXCHANGE_REINFORCE_PERCENTUP(item_obj)
     return false, 'None', 0
 end
 
--- 저장된 각인 정보 가져오기
-function GET_ENGRAVED_OPTION_BY_INDEX_SPOT(etc, index, spot)
+-- 저장된 각인 정보의 옵션, 그룹, 값 리스트를 각각 리턴
+function GET_ENGRAVED_OPTION_LIST(etc, index, spot)
     if etc == nil then
         return nil
     end
 
     local suffix = string.format('_%d_%s', tonumber(index), spot)
 
-    local option_dic = {}
     local option_prop = TryGetProp(etc, 'RandomOptionPreset'.. suffix, 'None')
     local group_prop = TryGetProp(etc, 'RandomOptionGroupPreset'.. suffix, 'None')
     local value_prop = TryGetProp(etc, 'RandomOptionValuePreset'.. suffix, 'None')
@@ -213,6 +212,21 @@ function GET_ENGRAVED_OPTION_BY_INDEX_SPOT(etc, index, spot)
     local group_list = SCR_STRING_CUT(group_prop, '/')
     local value_list = SCR_STRING_CUT(value_prop, '/')
 
+    return option_list, group_list, value_list
+end
+
+-- 저장된 각인 정보 딕셔너리 가져오기
+function GET_ENGRAVED_OPTION_BY_INDEX_SPOT(etc, index, spot)
+    if etc == nil then
+        return nil
+    end
+
+    local option_list, group_list, value_list = GET_ENGRAVED_OPTION_LIST(etc, index, spot)
+    if option_list == nil then
+        return nil
+    end
+
+    local option_dic = {}
     for i = 1, #option_list do
 		local prop_name = 'RandomOption_' .. i
         local group_name = 'RandomOptionGroup_' .. i

@@ -42,25 +42,25 @@ function RESULT_EFFECT_UI_RUN_SUCCESS(run_scp, icon, left, top)
 end
 
 function RESULT_EFFECT_UI_SUCCESS_EFFECT(frame)
-	local SUCCESS_EFFECT_NAME = frame:GetUserConfig('DO_SUCCESS_EFFECT')
-	local SUCCESS_EFFECT_SCALE = tonumber(frame:GetUserConfig('SUCCESS_EFFECT_SCALE'))
-	local SUCCESS_EFFECT_DURATION = tonumber(frame:GetUserConfig('SUCCESS_EFFECT_DURATION'))
 	local success_effect_bg = GET_CHILD_RECURSIVELY(frame, 'success_effect_bg')
-	if success_effect_bg == nil then return end
-
-	success_effect_bg:PlayUIEffect(SUCCESS_EFFECT_NAME, SUCCESS_EFFECT_SCALE, 'DO_SUCCESS_EFFECT')
-
+	if success_effect_bg ~= nil then
+		local SUCCESS_EFFECT_NAME = frame:GetUserConfig('DO_SUCCESS_EFFECT')
+		local SUCCESS_EFFECT_SCALE = tonumber(frame:GetUserConfig('SUCCESS_EFFECT_SCALE'))
+		success_effect_bg:PlayUIEffect(SUCCESS_EFFECT_NAME, SUCCESS_EFFECT_SCALE, 'DO_SUCCESS_EFFECT')
+	end
+	
+	local SUCCESS_EFFECT_DURATION = tonumber(frame:GetUserConfig('SUCCESS_EFFECT_DURATION'))
 	ReserveScript('_RESULT_EFFECT_UI_SUCCESS_EFFECT()', SUCCESS_EFFECT_DURATION)
 end
 
 function _RESULT_EFFECT_UI_SUCCESS_EFFECT()
 	local frame = ui.GetFrame('result_effect_ui')
-	if frame:IsVisible() == 0 then return end
-
-	local success_effect_bg = GET_CHILD_RECURSIVELY(frame, 'success_effect_bg')
-	if success_effect_bg == nil then return end
-
-	success_effect_bg:StopUIEffect('DO_SUCCESS_EFFECT', true, 0.5)
+	if frame:IsVisible() == 1 then
+		local success_effect_bg = GET_CHILD_RECURSIVELY(frame, 'success_effect_bg')
+		if success_effect_bg ~= nil then
+			success_effect_bg:StopUIEffect('DO_SUCCESS_EFFECT', true, 0.5)
+		end
+	end
 
 	ui.SetHoldUI(false)
 
@@ -71,6 +71,8 @@ function _RESULT_EFFECT_UI_SUCCESS_EFFECT()
 			run_scp()
 		end
 	end
+
+	ReserveScript('CLOSE_RESULT_EFFECT_UI()', 1)
 end
 
 function RESULT_EFFECT_UI_RUN_FAILED(run_scp, left, top)
@@ -97,30 +99,31 @@ function RESULT_EFFECT_UI_RUN_FAILED(run_scp, left, top)
 end
 
 function RESULT_EFFECT_UI_FAIL_EFFECT(frame)
-	local FAIL_EFFECT_NAME = frame:GetUserConfig('DO_FAIL_EFFECT')
-	local FAIL_EFFECT_SCALE = tonumber(frame:GetUserConfig('FAIL_EFFECT_SCALE'))
-	local FAIL_EFFECT_DURATION = tonumber(frame:GetUserConfig('FAIL_EFFECT_DURATION'))
 	local fail_effect_bg = GET_CHILD_RECURSIVELY(frame, 'fail_effect_bg')
-	if fail_effect_bg == nil then return end
-
-	local result_item_img = GET_CHILD_RECURSIVELY(frame, 'result_item_img')
-	result_item_img:ShowWindow(0)
-
-	fail_effect_bg:PlayUIEffect(FAIL_EFFECT_NAME, FAIL_EFFECT_SCALE, 'DO_FAIL_EFFECT')
-
+	if fail_effect_bg ~= nil then
+		local result_item_img = GET_CHILD_RECURSIVELY(frame, 'result_item_img')
+		result_item_img:ShowWindow(0)
+		
+		local FAIL_EFFECT_NAME = frame:GetUserConfig('DO_FAIL_EFFECT')
+		local FAIL_EFFECT_SCALE = tonumber(frame:GetUserConfig('FAIL_EFFECT_SCALE'))
+		fail_effect_bg:PlayUIEffect(FAIL_EFFECT_NAME, FAIL_EFFECT_SCALE, 'DO_FAIL_EFFECT')
+	end
+	
+	local FAIL_EFFECT_DURATION = tonumber(frame:GetUserConfig('FAIL_EFFECT_DURATION'))
 	ReserveScript('_RESULT_EFFECT_UI_FAIL_EFFECT()', FAIL_EFFECT_DURATION)
 end
 
 function  _RESULT_EFFECT_UI_FAIL_EFFECT()
 	local frame = ui.GetFrame('result_effect_ui')
-	if frame:IsVisible() == 0 then return end
+	if frame:IsVisible() == 1 then
+		local fail_effect_bg = GET_CHILD_RECURSIVELY(frame, 'fail_effect_bg')
+		if fail_effect_bg ~= nil then
+			fail_effect_bg:StopUIEffect('DO_FAIL_EFFECT', true, 0.5)
+		end
+	end
 
-	local fail_effect_bg = GET_CHILD_RECURSIVELY(frame, 'fail_effect_bg')
-	if fail_effect_bg == nil then return end
-
-	fail_effect_bg:StopUIEffect('DO_FAIL_EFFECT', true, 0.5)
 	ui.SetHoldUI(false)
-
+	
 	local scp_name = frame:GetUserValue('RUN_SCP')
 	if scp_name ~= nil and scp_name ~= 'None' then
 		local run_scp = _G[scp_name]
@@ -128,4 +131,10 @@ function  _RESULT_EFFECT_UI_FAIL_EFFECT()
 			run_scp()
 		end
 	end
+
+	ReserveScript('CLOSE_RESULT_EFFECT_UI()', 1)
+end
+
+function CLOSE_RESULT_EFFECT_UI()
+	ui.CloseFrame('result_effect_ui')
 end

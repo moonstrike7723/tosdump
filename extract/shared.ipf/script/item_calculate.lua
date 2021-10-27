@@ -218,7 +218,7 @@ function GET_REINFORCE_ADD_VALUE_ATK(item, ignoreReinf, reinfBonusValue, basicTo
     value = SyncFloor(value);
 
     if grade == 6 then
-        value = SCR_GET_GODDESS_REINFORCE(TryGetProp(item, "UseLv", 0), TryGetProp(item, "Reinforce_2", 0))
+        value = SCR_GET_GODDESS_REINFORCE(item)
         if classType == 'Trinket' then
             value = value * 0.3
         end
@@ -228,33 +228,38 @@ function GET_REINFORCE_ADD_VALUE_ATK(item, ignoreReinf, reinfBonusValue, basicTo
 end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
-function SCR_GET_GODDESS_REINFORCE(itemLv, reinforce)
-    if itemLv == nil or reinforce == nil then
+function SCR_GET_GODDESS_REINFORCE(item)
+    local itemReinforce = TryGetProp(item, "Reinforce_2", 0)
+    local lv = TryGetProp(item, 'UseLv', 0)
+    if itemReinforce == 0 or lv == 0 then
         return 0;
     end
     
-    if reinforce > 30 or reinforce == 0 then
+    if itemReinforce > 30 then
         return 0;
     end
 
-    if itemLv < 1 then
-        return 0;
+    local type = 'AddAtk'
+    if IS_WEAPON_TYPE(TryGetProp(item, "ClassType", "None")) == false then
+        type = 'AddDef'
+    end 
+
+    if TryGetProp(item, 'DefaultEqpSlot', 'None') == 'NECK' or TryGetProp(item, 'DefaultEqpSlot', 'None') == 'RING' then
+        type = 'AddAccAtk'
     end
     
     local reinforceDmg = 0
 
-    for i = 1, reinforce do
-        local div = math.floor((i - 1) / 5)
-        if div > 4 then
-            div = 4
-        end
-        if div > 0 then
-            reinforceDmg = reinforceDmg + (175 + (div * 15))
+    for i = 1, itemReinforce do        
+        local cls = GetClassByType('item_goddess_reinforce_' .. tostring(lv), i)
+        if cls == nil then
+            reinforceDmg = reinforceDmg + 0
         else
-            reinforceDmg = reinforceDmg + 175
+            local add = TryGetProp(cls, type, 0)
+            reinforceDmg = reinforceDmg + add
         end
     end
-
+    
     return reinforceDmg;
 end
 
@@ -344,7 +349,7 @@ function GET_REINFORCE_ADD_VALUE(prop, item, ignoreReinf, reinfBonusValue)
     value = value * (item.ReinforceRatio / 100) + buffValue;
 
     if grade == 6 then
-        value = SCR_GET_GODDESS_REINFORCE(TryGetProp(item, "UseLv", 0), TryGetProp(item,"Reinforce_2", 0))
+        value = SCR_GET_GODDESS_REINFORCE(item)
     end
 
     return SyncFloor(value);
@@ -446,7 +451,7 @@ function GET_BASIC_ATK(item)
     if damageRange == nil then
         return 0, 0;
     end
-    
+
     if grade == 6 then
         itemATK = 13128
         if TryGetProp(item, 'ClassType', 'None') == 'Trinket' then
@@ -470,6 +475,11 @@ function GET_EVOLVED_ATK(item)
 
     local evolvedAtkUp = 0
     local basicAtk = 13128
+    if TryGetProp(item, 'ClassType', 'None') == 'Trinket' then
+        basicAtk = basicAtk * 0.15
+    elseif TryGetProp(item, 'EquipGroup', 'None') == 'THWeapon' then
+        basicAtk = basicAtk * 1.15
+    end
 
     evolvedAtkUp = basicAtk * 0.05
     return evolvedAtkUp

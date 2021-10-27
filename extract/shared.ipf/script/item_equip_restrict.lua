@@ -1443,8 +1443,7 @@ function CHECK_GEAR_SCORE_FOR_CONTENTS(pc, indun_cls)
 			end
 
 			local icorable_spot = {	
-				RH = "NoWeapon", LH = "NoWeapon", RH_SUB = "NoWeapon", LH_SUB = "NoWeapon",
-				SHIRT = "NoShirt", PANTS = "NoPants", GLOVES = "NoGloves", BOOTS = "NoBoots",
+				RH = "NoWeapon", LH = "NoWeapon", SHIRT = "NoShirt", PANTS = "NoPants", GLOVES = "NoGloves", BOOTS = "NoBoots",
 			};
 
 			local function _check_equip(pc, item, check)
@@ -1557,12 +1556,11 @@ function CHECK_GEAR_SCORE_FOR_GUILD_EVENT_BLOCKADE(pc, event_id)
         end
 	end
 	
-	-- 보루타 or 길티네 봉쇄전 장비 체크 : 8부위 가디스 장비 장착 여부 체크.
+	-- 보루타 or 길티네 봉쇄전 장비 체크 : 6부위 가디스 장비 장착 여부 체크.
 	if is_occupation_guild == true then
 		if event_id == 500 or event_id == 501 then 
 			local icorable_spot = {	
-				RH = "NoWeapon", LH = "NoWeapon", RH_SUB = "NoWeapon", LH_SUB = "NoWeapon",
-				SHIRT = "NoShirt", PANTS = "NoPants", GLOVES = "NoGloves", BOOTS = "NoBoots",
+				RH = "NoWeapon", LH = "NoWeapon", SHIRT = "NoShirt", PANTS = "NoPants", GLOVES = "NoGloves", BOOTS = "NoBoots",
 			};
 
 			local function _check_equip(pc, item, check)
