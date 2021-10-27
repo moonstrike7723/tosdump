@@ -806,3 +806,9 @@ ClassID,TargetX,TargetY,TargetZ,Latitude,Longitude,StartDir,ClassName,CMM_Name,T
 3016,-3056,52,266,45,45,0,WARP_DCAPITAL53_1_TO_CASTLE102,링크스마스 폐허 -> 스칼다 외곽,f_castle_102
 3017,1722,2,-2048,45,45,0,WARP_DCAPITAL53_1_TO_DCAPITAL104,링크스마스 폐허 -> 종언의 길,f_dcapital_104
 3018,3115,166,3393,45,45,0,WARP_DCAPITAL104_TO_DCAPITAL53_1,종언의 길 -> 링크스마스 폐허,f_desolated_capital_53_1
+3019,324,300,-1686,45,45,0,WARP_DCAPITAL104_TO_F_DCAPITAL_101,종언의 길 -> 애스팔비스 신역,f_castle_101
+3020,629,162,1905,45,45,0,WARP_F_DCAPITAL_101_TO_DCAPITAL104,애스팔비스 신역 -> 종언의 길,f_dcapital_104
+3021,485,24,-1721,45,45,0,WARP_F_DCAPITAL_101_TO_D_DCAPITAL_108,애스팔비스 신역 -> 프래지아 신전,d_dcapital_108
+3022,116,52,-523,45,45,0,WARP_D_DCAPITAL_108_TO_F_CASTLE_101,프래지아 신전 -> 애스팔비스 신역,f_castle_101
+3023,470,23,1840,45,45,0,WARP_D_DCAPITAL_108_TO_DEVINE_SANCTUARY,카르투 회랑 -> 디바인 생츄어리,d_dcapital_108
+3024,281,27,-1396,45,45,0,WARP_DEVINE_SANCTUARY_TO_D_DCAPITAL_108,"디바인 생츄어리 -> 카르투 회랑 ",d_dcapital_108

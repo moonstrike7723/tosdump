@@ -16,6 +16,11 @@ function _GUILDINFO_INIT_MEMBER_TAB(frame, msg)
     if guild == nil then
         return;
     end
+    
+    local pc = GetMyPCObject();
+    if IsPVPField(pc) == 1 or IsPVPServer(pc) == 1 then
+        return;
+    end
 
     GUILDINFO_MEMBER_INIT_ONLINE_CHECKBOX(frame);
 
@@ -24,6 +29,11 @@ function _GUILDINFO_INIT_MEMBER_TAB(frame, msg)
 end
 
 function GUILDINFO_MEMBER_ONLINE_CLICK(parent, checkBox)
+    local pc = GetMyPCObject();
+    if IsPVPField(pc) == 1 or IsPVPServer(pc) == 1 then
+        return;
+    end
+
     local topFrame = parent:GetTopParentFrame();
     local memberCtrlBox = GET_CHILD_RECURSIVELY(topFrame, 'memberCtrlBox');
     if checkBox == nil then
@@ -365,15 +375,9 @@ function WARP_GUILD_MEMBER_EXEC(aid)
                 local addTime = AFTER_GUILD_OUT_COLONY_WAR_PARTICIPATE_PERIOD_DELAY
 
                 -- 개척 길드 탈퇴 패널티 제거
-                local guildidx = GET_GUILD_MEMBER_JOIN_AUTO_GUILD_OUT_IDX();
+                local guildidx = GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX();
                 if guildidx ~= "0" and guildidx == lastGuildGIDX then
                     return;
-                end
-
-                --200827_SEASON
-                local IsSeasonSvr = IS_SEASON_SERVER()
-                if IsSeasonSvr == "YES" then
-                    addTime = 720
                 end
 
                 local enterEnableTime = imcTime.AddSec(lastTime, (addTime*60));
@@ -481,6 +485,10 @@ function GUILDINFO_ONLINE_MEMBER_LIST(frame, page)
 end
 
 function GUILDINFO_MEMBER_LIST_CREATE(memberCtrlBox, partyMemberInfo)
+    if partyMemberInfo == nil then
+        return;
+    end
+
     local aid = partyMemberInfo:GetAID();
     local memberCtrlSet = memberCtrlBox:CreateOrGetControlSet('guild_memberinfo', 'MEMBER_'..aid, 0, 0);
     memberCtrlSet = AUTO_CAST(memberCtrlSet);

@@ -610,7 +610,7 @@ function CRAFT_BEFORE_START_CRAFT(ctrl, ctrlset, recipeName, artNum)
     if lifeTimeOverFlag then
         ui.SysMsg(ClMsg('CannotUseLifeTimeOverItem'));
         return;
-    end
+	end
     
     local recipeCls = GetClass('Recipe', recipeName)
     local targetItemName = TryGetProp(recipeCls, 'TargetItem', 'None')
@@ -738,6 +738,11 @@ local function CHECK_MATERIAL_COUNT(recipecls, totalCount)
 end
 
 function CRAFT_START_CRAFT(idSpace, recipeName, totalCount, upDown)    
+	if control.IsRestSit() == false then
+		addon.BroadMsg("NOTICE_Dm_!", ClMsg("AvailableOnlyWhileResting"), 3);
+		return
+	end
+
 	control.DialogEscape();
 	local frame = ui.GetFrame(g_itemCraftFrameName);
 	local ctrl = GET_CHILD_RECURSIVELY(frame, "LABEL", "ui::CGroupBox");
