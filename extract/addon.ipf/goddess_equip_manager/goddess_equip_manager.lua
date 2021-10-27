@@ -2120,7 +2120,7 @@ function _GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(gBox, item_obj, option_list)
 	local property_gbox = GET_CHILD(tooltip_equip_property_CSet, 'property_gbox', 'ui::CGroupBox')
 	
 	tooltip_equip_property_CSet:Resize(gBox:GetWidth(), tooltip_equip_property_CSet:GetHeight())
-	property_gbox:Resize(gBox:GetWidth(), property_gbox:GetHeight())
+	property_gbox:Resize(gBox:GetWidth() + 5, property_gbox:GetHeight())
 
 	local inner_yPos = 0
 	if item_obj == nil then
@@ -2919,7 +2919,7 @@ function GODDESS_MGR_RANDOMOPTION_APPLY_EXEC(parent, btn)
 	end
 
 	local yesscp = string.format('_GODDESS_MGR_RANDOMOPTION_APPLY_EXEC()')
-	local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetEngrave'), yesscp, 'None')
+	local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetApply'), yesscp, 'None')
 	SET_MODAL_MSGBOX(msgbox)
 end
 
@@ -5116,9 +5116,19 @@ function GODDESS_MGR_CONVERT_EXEC(parent, btn)
 	local selected_id = list_bg:GetUserIValue('NOW_SELECT_ITEM_ID')
 	if selected_id <= 0 then return end
 
-	local selectedName = TryGetProp(GetClassByNumProp("Item", "ClassID", selected_id), "Name", "None")
+	local selected_item_cls = GetClassByNumProp("Item", "ClassID", selected_id);
+	if selected_item_cls == nil then return; end
 
-	local clmsg = ScpArgMsg('ReallyDoCraftByConvert{item1}{item2}', 'item1', item_name, 'item2', selectedName)
+	local clmsg = "None";
+	local selectedName = TryGetProp(selected_item_cls, "Name", "None");
+	local selected_item_group_name = TryGetProp(selected_item_cls, "GroupName", "None");
+	local selected_item_class_type = TryGetProp(selected_item_cls, "ClassType", "None");
+	if selected_item_group_name == "Armor" and selected_item_class_type ~= "Shield" then
+		clmsg = ScpArgMsg('ReallyDoCraftByConvertArmor{item1}{item2}', 'item1', item_name, 'item2', selectedName);
+	else
+		clmsg = ScpArgMsg('ReallyDoCraftByConvert{item1}{item2}', 'item1', item_name, 'item2', selectedName);
+    end
+
 	local yesscp = string.format('_GODDESS_MGR_CONVERT_EXEC(%d)', selected_id)
 	local msgbox = ui.MsgBox(clmsg, yesscp, '')
 	SET_MODAL_MSGBOX(msgbox)

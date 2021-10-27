@@ -14,7 +14,7 @@ ClassID,HitCount,ClassName
 13,6,Hoplite_SynchroThrusting
 14,3,Hoplite_ThrouwingSpear
 15,2,Hoplite_SpearLunge
-16,18,Hoplite_Stabbing
+16,16,Hoplite_Stabbing
 17,1,Barbarian_Embowel
 18,1,Barbarian_StompingKick
 19,1,Barbarian_Cleave
@@ -31,13 +31,13 @@ ClassID,HitCount,ClassName
 30,8,Doppelsoeldner_Zucken
 31,10,Doppelsoeldner_Redel
 32,3,Doppelsoeldner_Zwerchhau
-33,26,Doppelsoeldner_Cyclone
+33,33,Doppelsoeldner_Cyclone
 34,6,Rodelero_ShieldCharge
 35,1,Rodelero_Montano
 36,1,Rodelero_TargeSmash
 37,1,Rodelero_ShieldPush
 38,1,Rodelero_ShieldShoving
-39,1,Rodelero_Slithering
+39,3,Rodelero_Slithering
 40,1,Rodelero_ShieldBash
 41,4,Rodelero_ShootingStar
 42,1,Murmillo_FrenziedBurst
@@ -83,7 +83,7 @@ ClassID,HitCount,ClassName
 82,5,Hackapell_StormBolt
 83,1,Hackapell_CavalryCharge
 84,2,Hackapell_HelmChopper
-85,3,Hackapell_GrindCutter
+85,20,Hackapell_GrindCutter
 86,2,Hackapell_InfiniteAssault
 87,1,BlossomBlader_Flowering
 88,5,BlossomBlader_FallenBlossom
@@ -98,7 +98,7 @@ ClassID,HitCount,ClassName
 97,61,Pyromancer_FireWall
 98,16,Pyromancer_FlameGround
 99,20,Pyromancer_FirePillar
-100,33,Pyromancer_HellBreath
+100,10,Pyromancer_HellBreath
 101,32,Pyromancer_Prominence
 102,2,Cryomancer_IceBolt
 103,1,Cryomancer_IciclePike
@@ -137,7 +137,7 @@ ClassID,HitCount,ClassName
 136,1,Warlock_Mastema
 137,6,Warlock_DemonScratch
 138,18,Featherfoot_BloodBath
-139,25,Featherfoot_BloodSucking
+139,50,Featherfoot_BloodSucking
 140,1,Featherfoot_BonePointing
 141,1,Featherfoot_Ngadhundi
 142,120,Featherfoot_Kurdaitcha
@@ -168,7 +168,7 @@ ClassID,HitCount,ClassName
 167,1,TerraMancer_SandBlast
 168,1,TerraMancer_Implosion
 169,5,TerraMancer_StoneShower
-170,1,TerraMancer_RollingStone
+170,3,TerraMancer_RollingStone
 171,1,TerraMancer_HornOfGolem
 172,10,Archer_Multishot
 173,1,Archer_ObliqueShot
@@ -258,7 +258,7 @@ ClassID,HitCount,ClassName
 257,5,Dievdirbys_Carve
 258,33,Dievdirbys_CarveOwl
 259,15,Oracle_DivineMight
-260,2,Monk_DoublePunch
+260,22,Monk_DoublePunch
 261,1,Monk_PalmStrike
 262,1,Monk_HandKnife
 263,16,Monk_EnergyBlast
@@ -271,8 +271,8 @@ ClassID,HitCount,ClassName
 270,1,Chaplain_LastRites
 271,1,Chaplain_Aspergillum
 272,1,Chaplain_VisibleTalent
-273,43,PlagueDoctor_Incineration
-274,30,PlagueDoctor_PlagueVapours
+273,15,PlagueDoctor_Incineration
+274,14,PlagueDoctor_PlagueVapours
 275,1,Kabbalist_Merkabah
 276,5,Kabbalist_Nachash
 277,20,Kabbalist_TheTreeOfSepiroth
@@ -341,9 +341,9 @@ ClassID,HitCount,ClassName
 340,48,Arditi_TreGranata
 341,1,Arditi_Ritirarsi
 342,3,Arditi_Invasione
-343,7,Arditi_Taglio
+343,17,Arditi_Taglio
 344,1,Sheriff_QuickDraw
-345,26,Sheriff_Fanning
+345,15,Sheriff_Fanning
 346,1,Sheriff_Peacemaker
 347,1,Sheriff_AimingShot
 348,31,Rangda_Luka

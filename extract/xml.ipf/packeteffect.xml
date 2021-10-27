@@ -10254,6 +10254,8 @@
         <Effect Name="battlefield5vs5"/>
         <Effect Name="toy_ep13tcance"/>
         <Effect Name="Goddess_Raid_Vasilissa_Solo"/>
+        <Effect Name="Lose"/>
+        <Effect Name="Win"/>
     </Category>
     <Category ID="19">
         <Effect Name="I_fallen_statue_atk002_mash"/>

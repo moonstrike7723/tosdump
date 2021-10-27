@@ -1,4 +1,4 @@
---  worldpvp_result.lua
+﻿--  worldpvp_result.lua
 function GET_SKILL_DEAL_TOOLTIP(skillDeals)
 	local strList = StringSplit(skillDeals, "#");
 	if #strList <= 1 then return ""; end
@@ -180,8 +180,8 @@ function TEAM_BATTLE_LEAGUE_RESULT_UI(win_team, auto_exit_time)
 				gbox:SetSkinName('test_com_losebg');
 			end
 		else
-			gbox:SetSkinName('test_com_winbg');
 			result:SetImage("test_pvp_draw");
+			gbox:SetSkinName('test_com_winbg');
 		end
 	end
 

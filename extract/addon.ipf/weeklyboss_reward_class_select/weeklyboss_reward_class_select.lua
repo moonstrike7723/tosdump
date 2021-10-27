@@ -1,4 +1,4 @@
-function WEEKLYBOSS_REWARD_CLASS_SELECT_ON_INIT(addon, frame)
+﻿function WEEKLYBOSS_REWARD_CLASS_SELECT_ON_INIT(addon, frame)
     addon:RegisterMsg("WEEKLY_BOSS_RECEIVE_CLASS_RANKING_REWARD", "WEEKLYBOSS_REWARD_CLASS_SELECT_RECEIVE_REWARD");
     addon:RegisterMsg("WEEKLY_BOSS_UI_UPDATE", "WEEKLYBOSS_REWARD_CLASS_SELECT_CREATE_LIST");
 end
@@ -82,8 +82,13 @@ function WEEKLYBOSS_REWARD_CLASS_SELECT_CREATE_LIST(frame)
         
         local empty_text = GET_CHILD_RECURSIVELY(frame, "empty_text");
         if #list == 0 then
+            if session.weeklyboss.IsEnableClassRankingSeason() == true then
             local str = ClMsg("WeeklyBossClassRankEmptyTitle");
             empty_text:SetText(str);
+            else
+                local str = ClMsg("WeeklyBossClassRankDisEnableTitle");
+                empty_text:SetText(str);
+            end
             empty_text:ShowWindow(1);
             return;
         else

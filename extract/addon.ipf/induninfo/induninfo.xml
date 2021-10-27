@@ -142,8 +142,7 @@
 		<richtext name="pvpInfoValue" parent="pvpInfoBox" rect="0 0 190 30" margin="0 0 0 0" layout_gravity="right top" fontname="brown_18_b" format="%s전 %s승 %s패" param1="total" param1_def="0" param2="win" param2_def="0" param3="lose" param3_def="0"/>
 		<richtext name="pvpScoreText" parent="pvpInfoBox" rect="0 0 190 30" margin="0 30 0 0" layout_gravity="left top" fontname="brown_18_b" caption="점수"/>
 		<richtext name="pvpScoreValue" parent="pvpInfoBox" rect="0 0 190 30" margin="0 30 0 0" layout_gravity="right top" fontname="brown_18_b" format="%s점" param1="score" param1_def="0"/>
-		<button name="pvpShopBtn" parent="pvpInfoBox" rect="0 0 160 45" margin="0 150 160 0" layout_gravity="right top" format="{@st66b}{s16}팀 배틀리그 상점" LBtnUpScp="PVP_INDUNINFO_OPEN_SHOP" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" skin="test_pvp_btn" oversound="button_over"/>
-		<button name="pvpCharacterRegistBtn" parent="pvpInfoBox" rect="0 0 160 45" margin="0 150 0 0" layout_gravity="right top" format="{@st66b}{s16}교체 캐릭터 등록" LBtnUpScp="PVP_INDUNINFO_CHARACTER_REGIST" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" skin="test_pvp_btn" oversound="button_over"/>
+		<button name="pvpShopBtn" parent="pvpInfoBox" rect="0 0 160 45" margin="0 150 0 0" layout_gravity="right top" format="{@st66b}{s16}팀 배틀리그 상점" LBtnUpScp="PVP_INDUNINFO_OPEN_SHOP" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" skin="test_pvp_btn" oversound="button_over"/>
 		<!-- WeeklyBoss info box -->
 		<groupbox name="WeeklyBossbox" rect="0 0 1070 500" margin="0 100 0 0" layout_gravity="center top" draw="false"/>
 		<groupbox name="rank_gb" parent="WeeklyBossbox" rect="0 0 552 500" margin="0 0 0 0" layout_gravity="left top" skin="" draw="false" hittestbox="false" scrollbar="false"/>

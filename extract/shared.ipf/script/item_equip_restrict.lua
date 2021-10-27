@@ -1407,9 +1407,8 @@ function CHECK_GODDESS_EQUIP(pc)
 	for spot, check in pairs(icorable_spot) do
 		local item = GetEquipItem(pc, spot);
 		local ret, msg = _check_equip(pc, item, check);
-		if ret == false then
-			SendSysMsg(pc, msg);
-			return false;
+		if ret == false then			
+			return false, msg;
 		end
 
 		-- two hand check
@@ -1420,9 +1419,8 @@ function CHECK_GODDESS_EQUIP(pc)
 				local sub_check = "NoOuter";
 				local sub_item = GetEquipItem(pc, sub_spot);
 				ret, msg = _check_equip(pc, sub_item, sub_check);
-				if ret == false then
-					SendSysMsg(pc, msg);
-					return false;
+				if ret == false then					
+					return false, msg;
 				end
 			end
 		end
@@ -1445,7 +1443,9 @@ function CHECK_GEAR_SCORE_FOR_CONTENTS(pc, indun_cls)
 		end
 
 		-- 가디스 장비 체크
-		if CHECK_GODDESS_EQUIP(pc) == false then
+		local ret, msg = CHECK_GODDESS_EQUIP(pc)
+		if ret == false then
+			SendSysMsg(pc, msg)
 			return false;
 		end
 		return true;
@@ -1517,7 +1517,9 @@ function CHECK_GEAR_SCORE_FOR_CONTENTS(pc, indun_cls)
 			end
 
 			-- 가디스 장비 체크
-			if CHECK_GODDESS_EQUIP(pc) == false then
+			local ret, msg = CHECK_GODDESS_EQUIP(pc)
+			if ret == false then
+				SendSysMsg(pc, msg)
 				return false;
 			end
 		end
@@ -1650,4 +1652,30 @@ function CHECK_GEAR_SCORE_FOR_GUILD_EVENT_BLOCKADE(pc, event_id)
 			end
 		end
 	end
+end
+
+-- ** 팀 배틀리그 교체 입장 제한 체크 ** --
+function CHECK_ENTERANCE_FOR_TEAM_BATTLE_LEAGUE(pc, index)
+	if pc == nil and index == nil then return false; end
+	local ablity_score = GetRegisteredCharacter_AbilityScore(pc, index);
+	local is_goddess_equip = GetRegisteredCharacter_GoddessEquip(pc, index);
+	if ablity_score < 80 then
+		SendSysMsg(pc, "LowAblityPointScore_ChangeCharacter");
+		return false;
+	end
+
+	if is_goddess_equip == 0 then
+		SendSysMsg(pc, "MustGoddessEquipWeaponArmorToEnter_ChangeCharacter");
+		return false;
+	end
+
+	local cmd = GetMGameCmd(pc);
+	if cmd ~= nil then
+		local is_character_change_start = cmd:GetUserValue("character_change_start");
+		if is_character_change_start == 0 then
+			SendSysMsg(pc, "CantChangeCharacterTime");
+			return false;
+		end
+	end
+	return true;
 end

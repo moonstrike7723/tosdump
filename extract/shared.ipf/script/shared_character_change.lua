@@ -6,6 +6,7 @@ function CHECK_CHARACTER_CHANGE_CONDITION(pc)
     if IsBuffApplied(pc, "ChangeCharacterState") == "YES" then
         return true;
     end
+    SendSysMsg(pc, "CantChangeCharacterState");
     return false;
 end
 

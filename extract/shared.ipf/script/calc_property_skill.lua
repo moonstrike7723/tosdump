@@ -736,7 +736,7 @@ function SCR_GET_SKL_COOLDOWN(skill)
             basicCoolDown = 900000
         end
 
-        if TryGetPop(skill, "ClassName", "None") == "Priest_Resurrection" then
+        if TryGetProp(skill, "ClassName", "None") == "Priest_Resurrection" then
             basicCoolDown = 900000
         end
     end

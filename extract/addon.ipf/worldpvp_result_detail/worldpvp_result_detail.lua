@@ -13,8 +13,13 @@ end
 function WROLDPVP_RESULT_DETAIL_CREATE_LIST(frame)
 	if frame == nil then return; end
 	local my_team_id = session.teambattleleauge.GetTeamBattleLeagueResultMyTeamID();
-	WROLDPVP_RESULT_DETAIL_MY_TEAM_CREATE_LIST(frame, my_team_id);
-	WORLDPVP_RESULT_DETAIL_OTHER_TEAM_CREATE_LIST(frame, my_team_id);
+	if my_team_id ~= 0 then
+		WROLDPVP_RESULT_DETAIL_MY_TEAM_CREATE_LIST(frame, my_team_id);
+		WORLDPVP_RESULT_DETAIL_OTHER_TEAM_CREATE_LIST(frame, my_team_id);
+	elseif my_team_id == 0 then
+		WROLDPVP_RESULT_DETAIL_MY_TEAM_CREATE_LIST(frame, 1);
+		WORLDPVP_RESULT_DETAIL_OTHER_TEAM_CREATE_LIST(frame, 1);
+	end
 
 	-- mvp
 	local mvp_aid = session.teambattleleauge.GetTeamBattleLeaugeResultMVPAID();
@@ -50,7 +55,7 @@ function WROLDPVP_RESULT_DETAIL_MY_TEAM_CREATE_LIST(frame, my_team_id)
 			local gbox = GET_CHILD_RECURSIVELY(frame, "gbox_team1");
 			if gbox ~= nil then
 				WORLDPVP_RESULT_DETAIL_SET_TITLE(frame, 1, my_team_id);
-				local ctrl_set = gbox:CreateControlSet("pvp_result_detail", "DETAIL_"..aid, ui.LEFT, ui.TOP, 0, 0, 0, 0);
+				local ctrl_set = gbox:CreateOrGetControlSet("pvp_result_detail", "DETAIL_"..aid, ui.LEFT, ui.TOP, 0, 0, 0, 0);
 				if ctrl_set ~= nil then
 					local pic = GET_CHILD_RECURSIVELY(ctrl_set, "pic");
 					if icon_str ~= "" and icon_str ~= "None" then
@@ -99,7 +104,7 @@ function WORLDPVP_RESULT_DETAIL_OTHER_TEAM_CREATE_LIST(frame, my_team_id)
 			local gbox = GET_CHILD_RECURSIVELY(frame, "gbox_team2");
 			if gbox ~= nil then
 				WORLDPVP_RESULT_DETAIL_SET_TITLE(frame, 2, team_id);
-				local ctrl_set = gbox:CreateControlSet("pvp_result_detail", "DETAIL_"..aid, ui.LEFT, ui.TOP, 0, 0, 0, 0);
+				local ctrl_set = gbox:CreateOrGetControlSet("pvp_result_detail", "DETAIL_"..aid, ui.LEFT, ui.TOP, 0, 0, 0, 0);
 				if ctrl_set ~= nil then
 					local pic = GET_CHILD_RECURSIVELY(ctrl_set, "pic");
 					if icon_str ~= "" and icon_str ~= "None" then
