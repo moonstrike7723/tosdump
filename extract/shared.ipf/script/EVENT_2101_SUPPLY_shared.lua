@@ -43,3 +43,11 @@ end
 function GET_EVENT_2101_SUPPLY_CONTENT_NPC_TIME()
     return 180;
 end
+
+function IS_EVENT_2101_SUPPLY_CONTENT_NPC(className)
+    if className == "Event_supply_NPC_1" or className == "Event_supply_NPC_7" then
+        return true;
+    end
+
+    return false;
+end

@@ -1,4 +1,4 @@
---- calc_property_skill.lua
+﻿--- calc_property_skill.lua
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function HAS_DRAGON_POWER(pc)
@@ -3417,6 +3417,9 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_StoneShot_Ratio(skill)
     local value = 25 + skill.Level * 5
+    if value >= 100 then
+        value = 100
+    end
     return value
 end
 

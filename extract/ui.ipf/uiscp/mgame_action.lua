@@ -79,7 +79,7 @@ function MGAME_MSG_ICON(actor, msgStr, icon,  sec)
 	for i = 1 , objCount do
 		local _obj = objList[i];
 		local obj = GetBaseObjectIES(_obj);
-		if obj.ClassName == "Event_supply_NPC_1" or obj.ClassName == "Event_supply_NPC_7" then
+		if IS_EVENT_2101_SUPPLY_CONTENT_NPC(obj.ClassName) == true then
 			return;
 		end
 	end

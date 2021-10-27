@@ -1278,7 +1278,7 @@ function EARTH_TOWER_SHOP_EXEC(parent, ctrl)
     end
 
     local remain_time = GET_CHILD_RECURSIVELY(frame, "remain_time");
-    if remain_time:IsVisible() == 1 then
+    if remain_time ~= nil and remain_time:IsVisible() == 1 then
         local remainTime = tonumber(remain_time:GetTextByKey("value"));
         if remainTime <= 0 then
             return;

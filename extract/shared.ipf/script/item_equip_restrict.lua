@@ -554,8 +554,9 @@ function CHECK_HARD_GRADE_FOR_RELIC_DUNGEON(pc)
 			SendSysMsg(pc, 'RequireSealEquip')
 			return false
 		end
-		-- 레전드, 보루타 인장 1레벨 & 근본 인장
-		ret = CHECK_SEAL_ITEM(pc, item_seal, 0, 5, {{'Boruta', 3}, {'2021NewYear', 0}})
+
+		-- 레전드, 보루타 인장 3레벨
+		ret = CHECK_SEAL_ITEM(pc, item_seal, 0, 5, { {'Boruta', 3} })
 		if ret == false then
 			SendSysMsg(pc, "RequireSealItemLowGrade");
 			return false

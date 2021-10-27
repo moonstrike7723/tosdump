@@ -281,6 +281,7 @@
 		<Class ClassID="2121" ClassName="IcorNotAdded_EP12_CANT2" Data="해당 장비에 스크롤을 사용할 수 없습니다"/>
 		<Class ClassID="2122" ClassName="Success_Opt_Change_clientScpMsg_1" Data="세트 옵션이 변경되었습니다{nl}변경된 세트 옵션 : {#3366FF} {OPTION} {/}"/>
 		<Class ClassID="2123" ClassName="Success_Opt_Change_clientScpMsg_2" Data="고정 아이커 옵션이 변경되었습니다{nl}변경된 옵션 : {#3366FF} {OPTION} {/}"/>
+		<Class ClassID="2124" ClassName="GoddessReinforceCard_Not_Equip" Data="여신 강화용 카드는 착용할 수 없습니다."/>
 	</Category>
 	<Category Name="ItemContents">
 		<Class ClassID="2200" ClassName="ClickSocketTargetItem" Data="소켓을 추가 할 아이템을 선택해주세요"/>
@@ -1648,6 +1649,7 @@
 		<Class ClassID="10577" ClassName="WeaponTypeExchange_Help" Data="무기 계열 변경을 통해 보유 중인 무기를 같은 레벨 같은 등급 무기로 변경할 수 있습니다.{nl}무기장식이 아닌 포텐셜이 0 인 무기 아이템에만 가능하며, 변경 가능한 그룹 내에 속한 장비끼리만 변경할 수 있습니다.{nl} {nl}변경 가능한 장비 그룹{nl} - 한손무기 :  한손검, 한손창, 한손둔기, 레이피어, 로드, 쇠뇌{nl} - 양손무기 : 양손검, 양손창, 양손둔기, 활, 캐논, 머스킷, 스태프{nl} - 보조무기 : 단검, 권총, 방패{nl} {nl}각 레벨에 맞는 '무기 계열 변경의 서' 아이템이 필요합니다.{nl} {nl}레벨 별로 변경 가능한 장비는 무기 게열 변경의 서 아이템 툴팁을 참고해 주세요."/>
 		<Class ClassID="10578" ClassName="ChannelIsBusy" Data="채널이 붐비고 있어 지금 당장할 수 없습니다."/>
 		<Class ClassID="10579" ClassName="misc_Relic_GemFullEnough" Data="프리즘 콜 아이템을 너무 많이 보유하고 있어 분해할 수 없습니다."/>
+		<Class ClassID="10581" ClassName="InventoryIsFull_quest_complete_fail_1" Data="인벤토리에 빈자리가 없습니다.{nl}퀘스트 완료를 위해 인벤토리 공간을 확보해주세요."/>
 	</Category>
 	<Category Name="FoodTable">
 		<Class ClassID="20001" ClassName="IncreaseHP{Value}For{Time}Minute" Data="{Time}분 동안 HP가 {Value}% 증가합니다."/>
@@ -9769,6 +9771,7 @@
 		<Class ClassID="92082" ClassName="TeamBelongingItem" Data="{#62100c}{s18}귀속됨{/}{/}"/>
 		<Class ClassID="92083" ClassName="GILTINE_START_MSG" Data="보스 등장."/>
 		<Class ClassID="92084" ClassName="GACHA_SITEM_GET_ALLMSG_8" Data="{s24}축하드립니다!{nl}{PC} 님이 신년 복주머니 큐브에서{nl}{ITEMNAME} 를(을) 획득하셨습니다!"/>
+		<Class ClassID="92085" ClassName="Relic_Spend_RP_Down_Buff_MSG" Data="[성물 제어] 버프가 부여됩니다.{nl}성물 해방에 필요한 마력 소모량이 감소합니다."/>
 	</Category>
 	<Category Name="BattleText">
 		<Class ClassID="100001" ClassName="ADD_DAMAGE_{Auto_1}!" Data="추가 대미지 {Auto_1}!"/>
@@ -14829,15 +14832,15 @@
 		<Class ClassID="302299" ClassName="EVENT_2101_SUPPLY_SEL_MSG7" Data="{#003399}육포{/}를 준다."/>
 		<Class ClassID="302300" ClassName="EVENT_2101_SUPPLY_SEL_MSG8" Data="{#003399}물{/}을 준다."/>
 		<Class ClassID="302301" ClassName="EVENT_2101_SUPPLY_SEL_MSG9" Data="{#003399}사탕{/}을 준다."/>
-		<Class ClassID="302302" ClassName="EVENT_2101_SUPPLY_SEL_MSG10" Data="{#FF0000}주간 획득량을 모두 획득하였습니다.{nl}주간 획득 제한 : 팀당 10회{/}"/>
-		<Class ClassID="302303" ClassName="EVENT_2101_SUPPLY_SEL_MSG11" Data="{#FF0000}우연히 [이벤트] 오르샤 피난민과 조우했습니다!{/}{nl}{#003399}60초 후 [이벤트] 오르샤 피난민이 사라집니다.{/}"/>
+		<Class ClassID="302302" ClassName="EVENT_2101_SUPPLY_SEL_MSG10" Data="주간 획득량을 모두 획득하였습니다.{nl}주간 획득 제한 : 팀당 10회{nl}{#ff0000}※NPC에게 다시 대화를 걸어 입장했던 곳으로 돌아가는 투표를 진행할 수 있습니다.{/}"/>
+		<Class ClassID="302303" ClassName="EVENT_2101_SUPPLY_SEL_MSG11" Data="{#FF0000}우연히 [이벤트] 오르샤 피난민과 조우했습니다!{/}{nl}{#003399}180초 후 [이벤트] 오르샤 피난민이 사라집니다.{/}"/>
 		<Class ClassID="302304" ClassName="EVENT_2101_SUPPLY_SEL_MSG12" Data="바쁘니 길을 떠난다."/>
 		<Class ClassID="302307" ClassName="EVENT_2101_SUPPLY_CHECK_MESSAGE{TICKET}{NK}" Data="왕국 재건단의 보급품{nl}[이벤트] 왕국 재건단의 보급품 교환권 일일 획득량 ({TICKET}/1000){nl}[이벤트] 오르샤 피난민의 목걸이 주간 획득량 ({NK}/10){nl}{#003399}※일일 제한은 매일 오전 06시 초기화 됩니다.{nl}※주간 획득 제한은 매주 월요일 오전 06시 초기화 됩니다.{/}"/>
 		<Class ClassID="302311" ClassName="EVENT_2101_SUPPLY_Shop4" Data="{#003399}[EP-12]{/} 아이템 스크롤 상점"/>
 		<Class ClassID="302312" ClassName="EVENT_2101_SUPPLY_Shop4_2" Data="{#0033FF}[EP-12]{/} 아이템 스크롤 상점 열기"/>
 		<Class ClassID="302313" ClassName="EVENT_2101_SUPPLY_COMPOSITION_VIBORA_TITLE" Data="재건단의 바이보라 합성점"/>
 		<Class ClassID="302314" ClassName="EVENT_2101_SUPPLY_COMPOSITION_VIBORA_NEED_ITEM" Data="LV1 바이보라 무기 혹은 아이커 2개{nl}[이벤트] 바이보라 합성권 1개"/>
-		<Class ClassID="302315" ClassName="EVENT_2101_SUPPLY_COMPOSITION_VIBORA_TIP_TEXT" Data="보유한 LV1 바이보라 무기를 이벤트 아이템과 합성하여 무작위 바이보라 무기를 획득합니다.{nl} {nl}LV2 이상 바이보라 장비는 합성이 불가능 합니다."/>
+		<Class ClassID="302315" ClassName="EVENT_2101_SUPPLY_COMPOSITION_VIBORA_TIP_TEXT" Data="보유한 LV1 바이보라 무기를 이벤트 아이템과 합성하여 무작위 바이보라 무기를 획득합니다.{nl}확률에 따라 합성 재료로 사용한 LV1 바이보라 무기와 동일한 무기를 획득할 수 있습니다.{nl} {nl}LV2 이상 바이보라 장비는 합성이 불가능 합니다."/>
 		<Class ClassID="302316" ClassName="EVENT_2101_SUPPLY_CHAT_1" Data="이런 곳에서 만나는 것도 인연이군!"/>
 		<Class ClassID="302317" ClassName="EVENT_2101_SUPPLY_CHAT_2" Data="무엇이 필요한지 말해보게나."/>
 		<Class ClassID="302318" ClassName="EVENT_2101_SUPPLY_CHAT_3" Data="만나서 반가워요."/>
@@ -16430,7 +16433,7 @@
 		<Class ClassID="1008016" ClassName="EMPTY_RELIC_GEM_SOCKET" Data="{@sti1c}{s16}빈 {NAME} 소켓{/}{/}"/>
 		<Class ClassID="1008017" ClassName="TransferAbleOnlyOverLv2RelicGem" Data="성물 젬 아이템의 레벨이 2레벨 이상인 경우에만 레벨 이전이 가능합니다."/>
 		<Class ClassID="1008018" ClassName="TransferAbleOnlyLv1RelicGem" Data="1레벨 성물 젬 아이템으로만 레벨 이전이 가능합니다."/>
-		<Class ClassID="1008020" ClassName="DO_NOT_DECOMPOSEABLE_RELIC_GEM" Data="선택한 성물 젬 중 분해가 불가능한 성물 젬이 포함되어 있습니다."/>
+		<Class ClassID="1008020" ClassName="DO_NOT_DECOMPOSEABLE_RELIC_GEM" Data="선택한 성물 젬 중 분해가 불가능하거나{nl}잠금 상태인 성물 젬이 포함되어 있습니다."/>
 		<Class ClassID="1008021" ClassName="PLZ_EQUIP_RELIC_WHEN_RELIC_GEM_REINFORCE" Data="성물 젬 강화를 시도하려면 성물을 장착해야 합니다."/>
 		<Class ClassID="1008022" ClassName="DO_NOT_REINFORCE_RELIC_GEM_ENABLE_RELIC_LV" Data="성물의 레벨이 낮아 강화할 수 없습니다."/>
 	</Category>

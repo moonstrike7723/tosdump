@@ -51,7 +51,7 @@ ClassID,JobChangePoint,ClassName,Name,EngName,CtrlType,BaseClass,RewardDay_Start
 3015,1000,Char3_15,[캐노니어],Cannoneer,Archer,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Cannoneer31_1d,,,
 3016,1000,Char3_16,[머스킷티어],Musketeer,Archer,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Musketeer37_1d,,,
 3017,1000,Char3_17,[메르겐],Mergen,Archer,,,,,,,,,
-3018,1000,Char3_18,[매트로스],Matross,Archer,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Matross19_1d,,,
+3018,1000,Char3_18,[매트로스],Matross,Archer,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Matross19_1d,Premium_AbillityArts_Matross14_1d,,
 3019,1000,Char3_19,[산포],TigerHunter,Archer,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,,,,
 3020,1000,Char3_20,[아발리스터],Arbalester,Archer,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,,,,
 3021,1000,Char3_21,[아퀴버지어],Arquebusier,Archer,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,,,,

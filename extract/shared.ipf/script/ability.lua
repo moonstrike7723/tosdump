@@ -3119,3 +3119,14 @@ function SCR_ABIL_Paladin20_INACTIVE(self, ability)
         SendSkillProperty(self, skill);
     end
 end
+
+function SCR_ABIL_Matador26_ACTIVE(self, ability)
+    local skill = GetSkill(self, "Matador_Faena")
+    if skill ~= nil then
+        AddInstSkill(self, "Matador_Muleta_Faena", skill.Level)
+    end
+end
+
+function SCR_ABIL_Matador26_INACTIVE(self, ability)
+    RemoveInstSkill(self, "Matador_Muleta_Faena")
+end

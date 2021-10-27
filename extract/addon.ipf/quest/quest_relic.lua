@@ -69,6 +69,11 @@ local function _SET_RELIC_QUEST_INFO(titleName, questInfo)
 		local index = #list
 		list[index + 1] = makeTitleInfo
 		titleInfo = list[index + 1]
+
+		-- 보상 수령 가능한 퀘스트가 존재하면 버튼 활성화
+		if clear == relicStateInfo.Reward then
+			reward_exist = true
+		end
 	end
 
 	-- 이미 들어 있으면 갱신

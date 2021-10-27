@@ -687,11 +687,11 @@ function PREMIUM_IS_SETOPTION_SCROLL_ITEM(targetObj, scrollObj)
 
 	local StringArg = TryGetProp(scrollObj, "StringArg", "None")
 	if StringArg == "SETOPTION_SCROLL_ARMOR" then
-		if TryGetProp(targetObj, "GroupName", "None") ~= "Armor" then
+		if TryGetProp(targetObj, "GroupName", "None") ~= "Armor" or TryGetProp(targetObj, "ClassType", "None") == 'Shield' then
 			return false
 		end
 	elseif StringArg == "SETOPTION_SCROLL_WEAPON" then
-		if TryGetProp(targetObj, "GroupName", "None") ~= "Weapon" and TryGetProp(targetObj, "GroupName", "None") ~= "SubWeapon"  then
+		if TryGetProp(targetObj, "GroupName", "None") ~= "Weapon" and TryGetProp(targetObj, "GroupName", "None") ~= "SubWeapon" and TryGetProp(targetObj, "ClassType", "None") ~= 'Shield' then
 			return false
 		end
 	else
