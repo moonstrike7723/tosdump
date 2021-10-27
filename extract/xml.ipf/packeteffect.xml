@@ -262,6 +262,8 @@
         <Effect Name="boss_misrus_circlewave"/>
         <Effect Name="SnowRolling_Buff"/>
         <Effect Name="Crusader_DivineHammer"/>
+        <Effect Name="Crusader_DivineHammer2"/>
+        <Effect Name="Crusader_DivineHammer3"/>
     </Category>
     <Category ID="187">
         <Effect Name="F_bg_boil002"/>
@@ -558,7 +560,12 @@
 		<Effect Name="id_firetower"/>
 	<Effect Name="F_buff_basic008_white"/>
 	<Effect Name="Mythic_Link"/>
-          </Category>
+          <Effect Name="mineloader_laser2"/>
+        <Effect Name="Mythic_Mon_Zaibas"/>
+        <Effect Name="Mythic_Mon_Fireball_santan"/>
+        <Effect Name="Mythic_boss_firewall_red"/>
+        <Effect Name="Mythic_Grinender_FirePillar"/>
+    </Category>
     <Category ID="146">
         <Effect Name="beginner"/>
         <Effect Name="Phase0"/>
@@ -3985,6 +3992,8 @@
 		<Effect Name="Elemental_Burst_Pad_Fire"/>
 		<Effect Name="Elemental_Burst_Pad_Lightning"/>
 		<Effect Name="Elemental_Burst_Pad_Fire2"/>
+        <Effect Name="E_wizard_Tiwaz_shot_line_abil#Dummy_emitter"/>
+        <Effect Name="E_wizard_Tiwaz_shot_line_abil"/>
 	</Category>
 	<Category ID="60">
 		<Effect Name="SETPOS"/>

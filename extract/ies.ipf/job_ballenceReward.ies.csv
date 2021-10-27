@@ -72,7 +72,7 @@ ClassID,JobChangePoint,ClassName,Name,EngName,CtrlType,BaseClass,RewardDay_Start
 4016,0,Char4_16,[인퀴지터],Inquisitor,Cleric,,,,,,,,,
 4018,0,Char4_18,[무녀],Miko,Cleric,,,,,,,,,
 4019,0,Char4_19,[질럿],Zealot,Cleric,,,,,,,,,
-4020,1000,Char4_20,[엑소시스트],Exorcist,Cleric,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Exorcist19_1d,,,
+4020,1000,Char4_20,[엑소시스트],Exorcist,Cleric,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Exorcist19_1d,Premium_AbillityArts_Exorcist27_1d,,
 4021,1000,Char4_21,[크루세이더],Crusader,Cleric,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Crusader15_1d,,,
 5001,0,Char5_1,[스카우트],Scout,Scout,Base,,,,,,,,
 5002,0,Char5_2,[어쌔신],Assassin,Scout,,,,,,,,,

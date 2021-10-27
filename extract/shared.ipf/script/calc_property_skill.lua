@@ -14080,7 +14080,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Chants_Ratio2(skill)
-    value = (30 + skill.Level * 6)
+    value = (20 + skill.Level * 5)
 	
     return math.floor(value)
 end
@@ -14550,9 +14550,7 @@ function SCR_GET_Crusader_Chants_Heal_Ratio(skill)
     local pc = GetSkillOwner(skill);
     local skills = GetSkill(pc, 'Crusader_Chants')
     local value = 100
-    if skills ~= nil then
-        value = 100 + skills.Level * 80
-    end
+    
     return math.floor(value)
 end
 
@@ -15072,7 +15070,7 @@ function SCR_Get_SkillFactor_Vibora_Katadikazo(skill)
     local skl = GetSkill(pc, "Exorcist_Katadikazo")
     local value = TryGetProp(skl, "SkillFactor", 0)
 
-    value = (value * 3) * 2
+    value = (value * 3) * 0.5
     
     return value
 end

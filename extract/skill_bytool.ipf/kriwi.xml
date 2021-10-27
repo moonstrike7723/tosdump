@@ -60,7 +60,20 @@
                 <Scp Client="YES" Scp="C_SOUND" Time="200" UseSleep="NO">
                     <Str Str="skl_eff_aukuras_fire"/>
                 </Scp>
-                <Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="300" UseSleep="NO">
+				<Scp Scp="SKL_BUFF" Client="NO" UseSleep="NO" Time="300">
+					<Str Str="Aukuras_Kriwi18_Buff"/>
+					<Num Num="1" UseFunc="1" FuncTxt="return obj.Level"/>
+					<Num Num="0"/>
+					<Num Num="1800000"/>
+					<Num Num="1"/>
+					<Num Num="100"/>
+					<Num Num="0"/>
+				</Scp>
+                <Scp Scp="MONSKL_REMOVE_PAD" Client="NO" UseSleep="NO" Time="250">
+                    <Str Str="Cleric_New_Aukuras"/>
+                </Scp>
+                <Scp Scp="MONSKL_CRE_PAD_ABIL" Client="NO" UseSleep="NO" Time="300">
+                    <Str Str="Kriwi34"/>
                     <Pos Angle="0" Dist="0"/>
                     <Angle Angle="0"/>
                     <Str Str="Cleric_New_Aukuras"/>

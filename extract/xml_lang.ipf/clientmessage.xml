@@ -911,6 +911,7 @@
 		<Class ClassID="4369" ClassName="IfLimitOver_misc_pvp_mine2" Data="사용 시 주간 용병단 증표 획득량을 초과합니다.{nl} {nl}정말 사용하시겠습니까?{nl}(초과된 개수는 지급되지 않습니다.)"/>
 		<Class ClassID="4370" ClassName="Use_misc_pvp_mine2_Coupon" Data="사용 시 주간 용병단 증표 획득량이 증가합니다.{nl}정말 사용하시겠습니까?"/>
  		<Class ClassID="4371" ClassName="SelectCostumeSilverGacha{ITEM}" Data="{@st66d_y}{s20}{ITEM}{/}{/} {nl}코스튬을 정말 선택하시겠습니까?{nl} {nl}코스튬은 팀 창고 이동을 제외한{nl}개인 및 마켓 거래가 불가능합니다."/>
+		<Class ClassID="4372" ClassName="BEFORE_APPLIED_YESSCP_OPEN_DO_NOT_TRADE_MSG" Data="{nl} {nl}사용으로 획득한 아이템은 되돌릴 수 없습니다.{nl} {nl}{#ff0000}획득한 아이템은 거래가 불가능합니다.{/}{/}{nl}{@st66d_y}{s20}{nl} {nl}정말 사용하시겠습니까?"/>
        </Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -1009,7 +1010,7 @@
 		<Class ClassID="5094" ClassName="tooltip_DualSword" Data=" - 카타 스트로크 스킬 레벨{img green_up_arrow 16 16}3{nl}  - 스카이라이너 스킬 레벨{img green_up_arrow 16 16}2{nl}  - 크로스 가드 블록 확률 증가 효과{img green_up_arrow 16 16}100%{nl} {nl}듀얼소드{nl} - 크로스 가드 시전 중 3초 동안 버프 활성화{nl} - 버프 중 크로스 가드 최대 유지시간 3초로 변경{nl} - 버프 중 일반 해제 가능한 모든 상태이상 저항{nl} - 버프 중 블록 성공 시 [반전베기] 시전{nl} {nl}반전베기{nl} - 정면 방향 200 거리 이내 적의 공격으로 발동{nl}   [마법진], [범위 지속형] 스킬에 발동 불가{nl} - 공격자에게 돌진{nl} - 현재 레벨의 카타 스트로크 스킬 계수 200%로 피해{nl} {nl}크로스 가드로 반전베기 성공 시 즉시 재사용 가능{nl}실패 시 3초 동안 반전베기 사용 불가"/>
 		<Class ClassID="5095" ClassName="tooltip_Javelin" Data=" - 하플라이트 모든 스킬 레벨{img green_up_arrow 16 16}1{nl}  - 투창 스킬 레벨{img green_up_arrow 16 16}2{nl}  - 탑승 중이 아닐 때, 피네스트라 시전 시 10초 동안 기본 공격이 [자벨린]으로 변경{nl} {nl}자벨린{nl} - 250 거리 이하 단일 대상에게 창을 투척{nl}(현재 레벨 투창의 50% 스킬 계수로 피해를 줌)"/>
 		<Class ClassID="5096" ClassName="tooltip_TripleStepsSingleShot" Data=" - 산포 모든 스킬 레벨{img green_up_arrow 16 16}1{nl}  - 관통 사격 스킬 광역 공격 비율{img green_up_arrow 16 16}10{nl}{nl}  - 관통 사격 스킬 범위{img green_up_arrow 16 16}100%{nl}  - 관통 사격 재사용 대기시간 10초 감소{nl} {nl}삼보방포{nl} - 연발 사격이 대상 주변 최대 10명에게 피해를 줌"/>
-		<Class ClassID="5097" ClassName="tooltip_Desition" Data=" - 카타디카조 스킬 레벨{img green_up_arrow 16 16}2{nl} {nl}종언{nl} - 카타디카조 시전 위치에 마법진 설치{nl} - 마법진 지속시간 20초{nl} - 마법진 소멸 시 창을 떨어뜨려 범위 내의 적 최대 20명에게 피해를 줌{nl}(현재 레벨의 카타디카조 스킬 계수 200%로 피해){nl} - 마법진 위에 있는 파티원에게 버프 부여{nl} - 버프 대상 [신성], [불] 속성 마법 스킬 대미지{img green_up_arrow 16 16}20%{nl} - 버프 대상 [신성], [불] 속성 마법 스킬 시전 시 마다 마법진 소멸 시간 1초씩 단축"/>
+		<Class ClassID="5097" ClassName="tooltip_Desition" Data=" - 카타디카조 스킬 레벨{img green_up_arrow 16 16}2{nl} {nl}종언{nl} - 카타디카조 시전 위치에 마법진 설치{nl} - 마법진 지속시간 20초{nl} - 마법진 소멸 시 창을 떨어뜨려 범위 내의 적 최대 20명에게 4연타 피해를 줌{nl}(현재 레벨의 카타디카조 스킬 계수 50%로 피해){nl} - 마법진 위에 있는 파티원에게 버프 부여{nl} - 버프 대상 [신성], [불] 속성 마법 스킬 대미지{img green_up_arrow 16 16}20%{nl} - 버프 대상 [신성], [불] 속성 마법 스킬 시전 시 마다 마법진 소멸 시간 1초씩 단축"/>
 		<Class ClassID="5098" ClassName="tooltip_ClusterShot" Data=" - 쿼렐슈터 모든 스킬 레벨 {img green_up_arrow 16 16} 1{nl}  - 장착 시 [클러스터 샷] 스킬 습득{nl} {nl}클러스터 샷{nl} - 전방에 폭발하는 볼트를 발사하여 피해를 줌{nl} - 캐스팅 시간 1초{nl} - 스킬 계수 현재 레벨 철거의 150%{nl} - 재사용 대기시간 15초{nl} - 최대 대상 수 30{nl} {nl}철거 1레벨 이상일 때 클러스터 샷 습득 가능"/>
 		<Class ClassID="5099" ClassName="tooltip_ExplosionEdge" Data=" - 퍼니시 스킬 레벨 {img green_up_arrow 16 16}3{nl} {nl}쐐기폭파{nl} - 퍼니시 재사용 대기시간 20초로 변경{nl} - 퍼니시 베기 속성으로 변경{nl} - 퍼니시 캐스팅 시간 1.5초로 변경{nl} - 퍼니시 넉다운 대상 판정 삭제{nl} - 퍼니시 5연타로 변경{nl} - 퍼니시가 자신 주변 다수의 적에게 피해를 줌{nl} - 최대 대상 수 30"/>
 		<Class ClassID="5100" ClassName="tooltip_OneManRush" Data=" - 캐터프랙트 모든 스킬 레벨{img green_up_arrow 16 16}1{nl}  - 돌격 스킬 범위{img green_up_arrow 16 16}100%{nl} {nl}일기당천{nl} - 돌격 채널링 3초 후 추가 타격 2회 시전(베기 속성){nl} - 추가 타격 당 스킬 계수 24000%{nl} - 추가 타격 광역 공격 비율 20{nl} {nl}추가 타격은 채널링/캐스팅으로 판정되지 않음"/>
@@ -5586,8 +5587,8 @@
 		<Class ClassID="28091" ClassName="EVENT_1807_BALL_MSG1" Data="남은 이동 횟수 : {COUNT}"/>
 		<Class ClassID="28092" ClassName="EVENT_1807_BALL_MSG2" Data="미션에 도전한다"/>
 		<Class ClassID="28093" ClassName="EVENT_1906_GUILD_MSG1" Data="이벤트 보상은 길드에 가입해야 수령할 수 있습니다"/>
-		<Class ClassID="28094" ClassName="GET_KEDORA_SUPPORT_BOX_MSG_1" Data="케도라 상단의 지원 선택 상자를 획득했습니다."/>
-		<Class ClassID="28095" ClassName="GET_KEDORA_SUPPORT_BOX_MSG_2" Data=" 케도라 상단의 지원 선택 상자 수령"/>
+		<Class ClassID="28094" ClassName="GET_KEDORA_SUPPORT_BOX_MSG_1" Data="케도라 상단의 지원 보금품을 획득했습니다."/>
+		<Class ClassID="28095" ClassName="GET_KEDORA_SUPPORT_BOX_MSG_2" Data=" 케도라 상단의 지원 보급품 수령"/>
 		<Class ClassID="28096" ClassName="GET_KEDORA_SUPPORT_BOX_MSG_3" Data="모두 받기"/>
 		<Class ClassID="28100" ClassName="EVENT_1807_RANK_MSG1" Data="접속 시간 : {MIN}분{nl}랭크 초기화 이벤트 {NAME} {COUNT}개를 획득했습니다"/>
 		<Class ClassID="28101" ClassName="EVENT_1807_RANK_MSG2" Data="교환한다({COUNT} / 2)"/>
@@ -7496,6 +7497,7 @@
 		<Class ClassID="66036" ClassName="CS_Guild_abl_reset_cant_msg2" Data="사용한 길드 특성 포인트가 없습니다."/>
 		<Class ClassID="66037" ClassName="CS_Guild_abl_reset_cant_msg3" Data="최대 인원 증가 특성은 초기화할 수 없습니다."/>
 		<Class ClassID="66038" ClassName="CS_Guild_abl_reset_done_msg1" Data="길드 마스터 [ {PC_NAME} ]님이 길드 특성을 초기화 했습니다."/>
+		<Class ClassID="66031" ClassName="GM_BK_BROADCAST_DEAD_TIMEOUT_1" Data="시간이 초과되어 기록이 저장되지 않았습니다"/>
 		<Class ClassID="66100" ClassName="RVR_BK_WORLD_MSG_BOSS_BORN_1" Data="슬리비나스 레어의 드래곤 보루타가{nl}다시 나타났습니다"/>
 		<Class ClassID="66105" ClassName="RVR_BK_WORLD_MSG_BOSS_DEAD_1" Data="슬리비나스 레어의 드래곤 보루타가{nl}구원자들에게 제압 당했습니다!"/>
 		<Class ClassID="66106" ClassName="BK_MGAME_BORUTA_CANCLE_WARP_IN" Data="결속 강화 효과를 얻었습니다."/>
@@ -10907,6 +10909,7 @@
 		<Class ClassID="112034" ClassName="QUEST_STATE_PROGRESS" Data="진행중"/>
 		<Class ClassID="112035" ClassName="QUEST_STATE_SUCCESS" Data="완료"/>
 		<Class ClassID="112036" ClassName="QUEST_STATE_IMPOSSIBLE" Data="진행불가"/>
+		<Class ClassID="112037" ClassName="QUEST_STATE_COMPLETE" Data="완료"/>
 	</Category>
 	<Category Name="JobCategoryName">
 		<Class ClassID="113001" ClassName="Char1" Data="전사 계열"/>
@@ -11472,6 +11475,7 @@
 		<Class ClassID="134100" ClassName="SoloBuffCannotBeSelected" Data="해당 버프를 선택할 수 없습니다.{nl}해당 버프를 선택한 파티원이 존재합니다."/>
 		<Class ClassID="134101" ClassName="MythicAutoHardEntranceTicketUseLimit" Data="성물 레이드 : 자동 매칭(Hard)의 입장 횟수가 이미 최대 횟수 입니다."/>
 		<Class ClassID="134102" ClassName="MythicAutoHardEntranceCountLimit" Data="성물 레이드 : 자동 매칭(Hard) 입장 횟수가 부족합니다."/>
+		<Class ClassID="134105" ClassName="MultipleRewardEnteredCountLimit" Data="입장 횟수를 초과하여 배수권을 사용할 수 없습니다."/>		
 	</Category>
 	<Category Name="AchieveReward">
 		<Class ClassID="135001" ClassName="GainAchieveHairBefore" Data="이미 업적 보상을 받았습니다."/>
@@ -16363,6 +16367,7 @@
 		<Class ClassID="1007006" ClassName="REPUTATION_QUEST_BOARD_POSSIBLEQUEST" Data="명성 일일 퀘스트 일괄 수령하기"/>
 		<Class ClassID="1007007" ClassName="REPUTATION_QUEST_BOARD_COMPLETE" Data="{#FFFF00}{COUNT}개{/}의 명성 일일 퀘스트를 시작합니다"/>
 		<Class ClassID="1007008" ClassName="REPUTATION_QUEST_BOARD_NO_QUEST" Data="수령 가능한 명성 일일 퀘스트가 없습니다"/>
+		<Class ClassID="1007009" ClassName="REPUTATION_QUEST_BOARD_SEARCH" Data="진행 가능한 명성 일일 퀘스트를 검색 중입니다..."/>
 	</Category>
 	<Category Name="relic_ui">
 		<Class ClassID="1008001" ClassName="NO_EQUIP_RELIC" Data="성물을 착용 후 이용 가능합니다."/>

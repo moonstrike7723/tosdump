@@ -590,3 +590,61 @@ function SCR_PRAKRITI_CHECK_BUFF_C(actor, skl, buffName)
 
     return 0;
 end
+
+function SCR_RINGOFLIGHT_CHECK_ABIL_WEAPON_C(actor, skl)
+    local abil = session.GetAbilityByName('Crusader22')
+    if abil ~= nil then
+        abil_obj = GetIES(abil:GetObject())
+    end
+    
+    if abil_obj ~= nil and TryGetProp(abil_obj, "ActiveState", 0) == 1 then
+        local rh = session.GetEquipItemBySpot(item.GetEquipSpotNum('RH'))
+        if rh ~= nil then
+            local rh_obj = GetIES(rh:GetObject())
+            if rh_obj ~= nil and IS_NO_EQUIPITEM(rh_obj) == 0 then
+                local class_type = TryGetProp(rh_obj, 'ClassType', 'None')	
+                if class_type == 'Mace' or class_type == 'THMace' then
+                    return 1
+                end
+            end
+        end
+        return 0
+    else
+        return 1
+    end
+end
+
+function CHECK_IS_EQUIP_PREFIX_C(actor, skl, prefix)
+	local cls = GetClass('LegendSetItem', prefix)
+	local MaxCnt = TryGetProp(cls, 'MaxOptionCount')
+	local Cnt = 0
+	local slot = {'RH', 'LH', 'SHIRT', 'PANTS', 'GLOVES', 'BOOTS'}
+
+	local TrinketSlot = session.GetEquipItemBySpot(item.GetEquipSpotNum('TRINKET'))
+	local TrinketObj = GetIES(TrinketSlot:GetObject())
+	if TryGetProp(TrinketObj, "ClassType", "None") == 'Trinket' then
+		slot[2] = 'TRINKET'
+	end
+
+	for i = 1, 6 do
+		local equip_item = session.GetEquipItemBySpot(item.GetEquipSpotNum(slot[i]))
+	    if equip_item == nil then
+	        return 0
+	    end
+
+		local item_obj = GetIES(equip_item:GetObject())
+		if item_obj == nil or IS_NO_EQUIPITEM(item_obj) == 1 then
+			return 0
+	    end
+
+		if TryGetProp(item_obj, 'LegendPrefix', 'None') == prefix then
+			Cnt = Cnt + 1
+		end
+	end
+
+    if Cnt < MaxCnt then
+        return 0
+    end
+    
+    return 1
+end

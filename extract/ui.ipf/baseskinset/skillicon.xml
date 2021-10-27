@@ -3081,6 +3081,8 @@
 		<image name="ability_cleric_Kriwi31" file="\icon\icon_ability_cleric08.tga" imgrect="384 640 128 128" CMM_Caption="[아츠]파이어티: 상급강화"/>
 		<image name="ability_cleric_Kriwi33" file="\icon\icon_ability_cleric08.tga" imgrect="512 640 128 128" CMM_Caption="[아츠]파이어티: 포커스"/>
 		<image name="ability_cleric_Kriwi32" file="\icon\icon_ability_cleric08.tga" imgrect="640 640 128 128" CMM_Caption="다이노: 강화"/>
+		<image name="ability_cleric_Exorcist28" file="\icon\icon_ability_cleric08.tga" imgrect="768 640 128 128" CMM_Caption="그랜드 크로스 : 강화"/>
+		<image name="ability_cleric_Exorcist29" file="\icon\icon_ability_cleric08.tga" imgrect="896 640 128 128" CMM_Caption="그랜드 크로스 : 상급 강화"/>
 	</imagelist>
 	<imagelist category="abilityicon_common">
 		<image name="ability_common_DaggerMastery" file="\icon\icon_ability_common.tga" imgrect="0 0 128 128" CMM_Caption="단검 마스터리"/>
