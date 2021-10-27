@@ -23,5 +23,6 @@
 		<checkbox name="showonlyhavemat" parent="" rect="0 0 150 30" margin="30 0 0 70" layout_gravity="left bottom" ConfigName="CraftMaterial" LBtnUpScp="EARTH_TOWER_SHOP_OPTION" caption="{@st42b}재료가 있는 것만 보기{/}" clicksound="button_click_big" oversound="button_over"/>
 		<checkbox name="showExchangeEnable" parent="" rect="0 0 150 30" margin="0 0 20 70" layout_gravity="right bottom" LBtnUpScp="EARTH_TOWER_SHOP_OPTION" caption="{@st42b}교환 횟수가 남은 것만 보기{/}" clicksound="button_click_big" oversound="button_over"/>
 		<button name="pointbuyBtn" rect="0 0 140 40" margin="25 85 0 0" layout_gravity="left top" LBtnUpScp="EARTHTOWERSHOP_POINT_BUY_OPEN" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" caption="{@st41b}포인트 변환" clicksound="button_click_big" oversound="button_over" skin="test_red_button" textalign="center center" textoffset="0 -2"/>
+		<groupbox name="event_gb" rect="0 0 560 60" margin="0 65 0 0" layout_gravity="center top" draw="false" scrollbar="false"/>
 	</controls>
 </uiframe>

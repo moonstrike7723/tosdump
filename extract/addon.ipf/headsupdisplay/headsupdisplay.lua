@@ -232,20 +232,65 @@ function CAUTION_DAMAGE_INFO_RELEASE()
 	hpGauge:ReleaseCautionBlink();
 end
 
-function HEADSUPDISPLAY_LBTN_UP(frame, msg, argStr, argNum)
-    SET_CONFIG_HUD_OFFSET(frame);
+function SET_CONFIG_HEADSUP_HUD_OFFSET(frame)
+    local x = frame:GetX();
+	local y = frame:GetY();
+	
+    local name = frame:GetName();
+    local width = option.GetClientWidth();
+	local height = option.GetClientHeight(); 			
+	config.SetHUDConfigRatio(name, x / width, y / height);	
 end
 
-function HUD_SET_SAVED_OFFSET(frame, msg, argStr, argNum)
-    local savedX, savedY = GET_CONFIG_HUD_OFFSET(frame, frame:GetOriginalX(), frame:GetOriginalY());
-    local _savedX, _savedY = GET_OFFSET_IN_SCREEN(savedX, savedY, frame:GetWidth(), frame:GetHeight());    
-    _savedX = math.max(_savedX, frame:GetOriginalX());
-    _savedY = math.max(_savedY, frame:GetOriginalY());    
-    frame:SetOffset(_savedX, _savedY);    
+function GET_CONFIG_HEADSUP_HUD_OFFSET(frame, defaultX, defaultY)
+    local name = frame:GetName();
+    if config.IsExistHUDConfig(name) ~= 1 then
+        return defaultX, defaultY;
+	end
+	
+	local x = math.floor(config.GetHUDConfigXRatio(name) * option.GetClientWidth());
+    local y = math.floor(config.GetHUDConfigYRatio(name) * option.GetClientHeight());
 
-    if savedX ~= _savedX or savedY ~= _savedY then
-        SET_CONFIG_HUD_OFFSET(frame);
-    end
+    return x, y;
+end
+
+function HEADSUPDISPLAY_LBTN_UP(frame, msg, argStr, argNum)
+    SET_CONFIG_HEADSUP_HUD_OFFSET(frame);
+end
+
+function POST_HUD_SET_SAVED_OFFSET(frame, msg, argStr, argNum)	
+	if frame == nil then
+		frame = ui.GetFrame('headsupdisplay')
+	end
+		
+	local savedX, savedY = GET_CONFIG_HEADSUP_HUD_OFFSET(frame, frame:GetOriginalX(), frame:GetOriginalY());	
+	local _savedX, _savedY = GET_OFFSET_IN_SCREEN(savedX, savedY, frame:GetWidth(), frame:GetHeight());    		
+    
+	_savedX = math.max(_savedX, frame:GetX() / option.GetClientWidth());
+	_savedY = math.max(_savedY, frame:GetY()/ option.GetClientHeight());  		
+	frame:SetOffset(_savedX, _savedY);
+	
+	if savedX ~= _savedX or savedY ~= _savedY then
+		SET_CONFIG_HEADSUP_HUD_OFFSET(frame);
+	end
+end
+
+function HUD_SET_SAVED_OFFSET(frame, msg, argStr, argNum)	
+	if frame == nil then
+		frame = ui.GetFrame('headsupdisplay')
+	end
+		
+	local savedX, savedY = GET_CONFIG_HEADSUP_HUD_OFFSET(frame, frame:GetOriginalX(), frame:GetOriginalY());	
+	local _savedX, _savedY = GET_OFFSET_IN_SCREEN(savedX, savedY, frame:GetWidth(), frame:GetHeight());    		
+	_savedX = math.max(_savedX, frame:GetX() / option.GetClientWidth());
+	_savedY = math.max(_savedY, frame:GetY()/ option.GetClientHeight());  		
+	frame:SetOffset(_savedX, _savedY);
+	
+	if savedX ~= _savedX or savedY ~= _savedY then
+		SET_CONFIG_HEADSUP_HUD_OFFSET(frame);
+	end
+	
+	ReserveScript('POST_HUD_SET_SAVED_OFFSET()', 1);
 end
 
 function HEDADSUPDISPLAY_CAMP_BTN_CLICK(parent, ctrl)
@@ -352,7 +397,7 @@ function HEADSUPDISPLAY_SET_CAMP_BTN(frame)
 end
 
 function HEADSUPDISPLAY_SHOW_SOUL_CRISTAL(frame, msg, argStr, argNum)
-	SHOW_SOULCRYSTAL_COUNT(frame, 1)
+	SHOW_SOULCRYSTAL_COUNT(frame, 1, argStr)
 	UPDATE_SOULCRYSTAL_COUNT(frame, 0, argNum)
 end
 
@@ -360,27 +405,53 @@ function HEADSUPDISPLAY_UPDATE_SOUL_CRISTAL(frame, msg, argStr, argNum)
 	UPDATE_SOULCRYSTAL_COUNT(frame, argNum, tonumber(argStr))
 end
 
-function SHOW_SOULCRYSTAL_COUNT(frame, isShow)
+function SHOW_SOULCRYSTAL_COUNT(frame, isShow, limitFlag)
 	local frame = ui.GetFrame('headsupdisplay');
-	local soulCrystalGbox = GET_CHILD_RECURSIVELY(frame, "soulCrystalGbox")
-	-- isShow = 0 or 1
-	soulCrystalGbox:ShowWindow(isShow)
+	if frame ~= nil then
+		local soulCrystalGbox = GET_CHILD_RECURSIVELY(frame, "soulCrystalGbox");
+		if soulCrystalGbox ~= nil then
+			soulCrystalGbox:ShowWindow(isShow);
+		end
+		
+		if limitFlag == "limited" or limitFlag == 1 then
+			frame:SetUserValue("limitFlag", 1);
+		elseif limitFlag == "unlimited" or limitFlag == 0 then
+			frame:SetUserValue("limitFlag", 0);
+		end
+	end
 end
 
 function UPDATE_SOULCRYSTAL_COUNT(frame, curCount, maxCount)
 	local frame = ui.GetFrame('headsupdisplay');
-	local soulCrystalCount = GET_CHILD_RECURSIVELY(frame, "soulCrystalCount")
+	if frame ~= nil then
+		local soulCrystalCount = GET_CHILD_RECURSIVELY(frame, "soulCrystalCount")
+		local limitFlag = frame:GetUserIValue("limitFlag");
+		if limitFlag == 1 or maxCount > 0 then
+			if limitFlag ~= 1 then
+				frame:SetUserValue("limitFlag", 1)
+			end
+			local casting_text = tolua.cast(soulCrystalCount, "ui::CRichText");
+			casting_text:SetFormat(" {@st43b}{s16}{#ff2c2c}%s{@st43b}{s16}/%s");
+			casting_text:UpdateFormat();
 
-	local count = frame:GetUserIValue('MAX_COUNT');
-	if count == 0 and maxCount ~= 0 then
-		frame:SetUserValue('SOULCRYSTAL_MAX_COUNT', maxCount);
-	else
-		maxCount = frame:GetUserIValue('SOULCRYSTAL_MAX_COUNT');
+			local count = frame:GetUserIValue('MAX_COUNT');
+			if count == 0 and maxCount ~= 0 then
+				frame:SetUserValue('SOULCRYSTAL_MAX_COUNT', maxCount);
+			else
+				maxCount = frame:GetUserIValue('SOULCRYSTAL_MAX_COUNT');
+			end
+			curCount = maxCount - curCount;
+			soulCrystalCount:SetTextByKey("curCount", curCount);
+			soulCrystalCount:SetTextByKey("maxCount", maxCount);
+		else
+			local casting_text = tolua.cast(soulCrystalCount, "ui::CRichText");
+			casting_text:SetFormat(" {@st43b}{s16}{#ff2c2c}%s{@st43b}{s16}%s");
+			casting_text:UpdateFormat();
+
+			soulCrystalCount:SetTextByKey("curCount", "");
+			soulCrystalCount:SetTextByKey("maxCount", "{img infinity_text_red 20 10}");	
+		end
+		soulCrystalCount:Invalidate();
+		SHOW_SOULCRYSTAL_COUNT(frame, 1, limitFlag);
 	end
-
-	curCount = maxCount - curCount;
-	soulCrystalCount:SetTextByKey("curCount", curCount);
-	soulCrystalCount:SetTextByKey("maxCount", maxCount);
-
-	SHOW_SOULCRYSTAL_COUNT(frame, 1);
 end

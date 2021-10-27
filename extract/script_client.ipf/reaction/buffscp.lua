@@ -104,6 +104,15 @@ function SlitheringClientScp_LEAVE(actor, obj, buff)
 end
 
 function PouncingClientScp_ENTER(actor, obj, buff)
+    local abil = session.GetAbilityByName("Barbarian41");
+
+    if abil ~= nil then
+        local abilObj = GetIES(abil:GetObject());
+        if abilObj.ActiveState == 1 then
+            return;
+        end
+    end
+
     actor:GetAnimation():SetRUNAnim("SKL_POUNCING");
     actor:GetAnimation():SetWLKAnim("SKL_POUNCING");
     actor:GetAnimation():SetTURNAnim("None");
@@ -123,28 +132,6 @@ function PouncingClientScp_LEAVE(actor, obj, buff)
 
     actor:SetAlwaysBattleState(false);
 end
-
-function PouncingAbilClientScp_ENTER(actor, obj, buff)
-    actor:GetAnimation():SetRUNAnim("SKL_POUNCING_STAND_ABIL");
-    actor:GetAnimation():SetWLKAnim("SKL_POUNCING_STAND_ABIL");
-    actor:GetAnimation():SetTURNAnim("None");
-
-    if actor:GetVehicleActor() ~= nil then
-        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_ABIL_RIDE");
-    else
-        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND_ABIL");
-    end
-
-    actor:SetAlwaysBattleState(true);
-end
-
-function PouncingAbilClientScp_LEAVE(actor, obj, buff)
-
-    ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
-
-    actor:SetAlwaysBattleState(false);
-end
-
 
 function TaglioClientScp_ENTER(actor, obj, buff)
     actor:GetAnimation():SetSTDAnim("SKL_TAGLIO_STAND");
@@ -1392,6 +1379,18 @@ end
 
 function DOLL_TINY_BUFF_LEAVE(actor, obj, buff)
 	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_tiny");
+end
+
+-- doll_lucy
+function DOLL_LUCY_BUFF_ENTER(actor, obj, buff)
+end
+
+function DOLL_LUCY_BUFF_UPDATE(actor, obj, buff)
+	SCR_CREATE_FAIRY(actor:GetHandleVal(), "doll_lucy");
+end
+
+function DOLL_LUCY_BUFF_LEAVE(actor, obj, buff)
+	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_lucy");
 end
 
 -- 2019Halloween_effect / moon effect

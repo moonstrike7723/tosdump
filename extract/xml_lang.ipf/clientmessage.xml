@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by IMC (IMCGames Co., Ltd) -->
 <idspace id="ClientMessage">
 	<Category Name="ErrorMsg">
 		<Class ClassID="1" Data="DirectX 9.0c 이상의 버전이 설치되어 있어야 합니다"/>
@@ -402,6 +402,7 @@
 		<Class ClassID="2339" ClassName="ReinforceBroke{BEFORE}{ITEM}" Data="[{BEFORE}{ITEM}] 강화에 실패하여 장비가 파괴되었습니다."/>
 		<Class ClassID="2340" ClassName="MustAddIcorToSlot" Data="장착할 아이커를 등록해야 합니다."/>
 		<Class ClassID="2341" ClassName="ExceedItemGetLimit" Data="획득 가능한 아이템 최대 수량을 초과 하였습니다."/>
+		<Class ClassID="2342" ClassName="ConvertToNoTrade{NAME}" Data="재료용 거래불가 아이템으로 변환하시겠습니까? {@st66d_y}[주의] '{NAME}' 변환시에 다시 원상복구할 수 없습니다.{/}"/>
 		<Class ClassID="2352" ClassName="GlobalCool{num}" Data="무적에 관련된 특성이나 기능은 {num}초 뒤 ON/OFF가 가능 합니다."/>
 		<Class ClassID="2356" ClassName="ExceedWeeklyMaxMiscPvPMine{count}{count1}" Data="용병단 증표 지급 중 주간 최대 획득 개수[{count}]를 초과하여 {count1}개가 소멸되었습니다."/>
 		<Class ClassID="2357" ClassName="ExceedWeeklyMaxMiscPvPMine{count}{count1}{count2}" Data="용병단 증표 {count}개 지급 중 주간 획득 개수를 초과하여 {count1}개가 제외된 {count2}개가 지급되었습니다."/>
@@ -417,6 +418,7 @@
 		<Class ClassID="2505" ClassName="DoYouWantRankReset" Data="랭크 초기화 아이템을 사용하시겠습니까?"/>
 		<Class ClassID="2506" ClassName="DoYouWantCtrlTypeReset" Data="계열 변경을 하시겠습니까?"/>
 		<Class ClassID="2507" ClassName="ArcherCannotDashInBattleState" Data="아처 클래스는 전투 중에 대시를 할 수 없습니다."/>
+		<Class ClassID="2508" ClassName="WarningPartyMemberLongDistance" Data="[경고!] 파티원과의 거리가 200 이상입니다. 파티원과 가까이 모이세요."/>
 	</Category>
 	<Category Name="CannotGetSkillMessage">
 		<Class ClassID="2600" ClassName="CannotGetSkillMessage_Doppelsoeldner_Zucken" Data="[스킬] 존하우 1레벨 이상 필요"/>
@@ -498,6 +500,10 @@
 		<Class ClassID="3060" ClassName="CanGetMiscWhenDecomposeMiscLegend" Data="아키스톤 분해 시 아키스톤 파편 10개를 획득합니다"/>
 		<Class ClassID="3061" ClassName="CanGetMiscWhenDecomposeAccEp12" Data="카랄리엔 액세서리 분해 시 재료로 사용된 바이올렛틴 크리스탈을 획득합니다."/>
 		<Class ClassID="3062" ClassName="SpecialDecompose" Data="특수 아이템 분해"/>
+		<Class ClassID="3069" ClassName="NotEnoughCompositionNeedItem" Data="합성에 필요한 아이템이 부족합니다."/>
+		<Class ClassID="3070" ClassName="CannotCompositionItem" Data="합성에 필요한 아이템이 아닙니다."/>
+		<Class ClassID="3071" ClassName="CannotCompositionUpgradeItem" Data="연성된 바이보라 장비는 합성이 불가능 합니다."/>
+		<Class ClassID="3074" ClassName="OnlyUseHavingZeroCount" Data="챌린지 모드 : 분열 특이점 입장 가능 횟수가 0 인 경우에만 사용 가능합니다."/>
 	</Category>
 	<Category Name="ItemPuzzle">
 		<Class ClassID="3501" ClassName="WouldYouSelectThisCombinationAsAlchemystryTarget?" Data="이 조합을 연금 대상으로 선택합니까?"/>
@@ -809,7 +815,7 @@
 		<Class ClassID="4306" ClassName="curtain_call_thema" Data="커튼 콜 테마"/>
 		<Class ClassID="4307" ClassName="GetPointByConsumingItem" Data="아이템을 소모하여 {@st66d_y}{COUNT}{/}포인트를 획득하시겠습니까?"/>
 		<Class ClassID="4308" ClassName="GetByPoint{Point}" Data="+{Point}점 획득"/>
-	</Category>
+		</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
 		<Class ClassID="5002" ClassName="WhenEquipToMainOrSubWeapon" Data="무기, 보조 장비 장착 시 효과"/>
@@ -1861,7 +1867,9 @@
 		<Class ClassID="21412" ClassName="PleaseSelect" Data="선택해주세요"/>
 		<Class ClassID="21413" ClassName="SoloBuffSelect" Data="개인 버프"/>
 		<Class ClassID="21414" ClassName="PartyBuffSelect" Data="파티 버프"/>
-	</Category>
+		<Class ClassID="21415" ClassName="NeedItem" Data="필요 아이템"/>
+		<Class ClassID="21416" ClassName="CoconeLoginError" Data="게임을 재시작 해주시기 바랍니다. ({ErrorMsg})"/>
+		</Category>
 	<Category Name="ChatText">
 		<Class ClassID="22001" ClassName="Guard" Data="방어"/>
 		<Class ClassID="22002" ClassName="FrontShot!" Data="전방 사격!"/>
@@ -9237,7 +9245,7 @@
 		<Class ClassID="90203" ClassName="Unique_Boss_Moringponia_TYPE1" Data="나비목 접선지: 유니크 진입(1인)"/>
 		<Class ClassID="90204" ClassName="Unique_Boss_Moringponia_TYPE2" Data="나비목 접선지: 유니크 진입(5인)"/>
 		<Class ClassID="90205" ClassName="EVENT_1909_ANCIENT_DLG1" Data="그리모어를 찢어라"/>
-		<Class ClassID="90206" ClassName="Legend_Boss_Moringponia_TYPE1" Data="나비목 접선지: 레전드 진입(Easy)"/>
+		<Class ClassID="90206" ClassName="Legend_Boss_Moringponia_TYPE1" Data="나비목 접선지: 레전드 진입(자동 매칭)"/>
 		<Class ClassID="90207" ClassName="Legend_Boss_Moringponia_TYPE2" Data="나비목 접선지: 레전드 진입(Normal)"/>
 		<Class ClassID="90208" ClassName="CasualGamble_GET_ALLMSG" Data="{s24}축하드립니다!{nl}{PC} 님이 [여신의 축복]을 통해{nl}{ITEMNAME} 를(을) {count}개 획득하셨습니다!"/>
 		<Class ClassID="90209" ClassName="F_TABLELAND_28_2_NPC_CRU_01" Data="이곳은 위험하니 조심히 벗어나시길 바랍니다."/>
@@ -9290,7 +9298,7 @@
 		<Class ClassID="90257" ClassName="WhiteDayShop2003" Data="화이트데이 이벤트 상점"/>
 		<Class ClassID="90258" ClassName="Unique_Boss_Glacier_TYPE1" Data="하얀 마녀의 숲 : 유니크 진입(1인)"/>
 		<Class ClassID="90259" ClassName="Unique_Boss_Glacier_TYPE2" Data="하얀 마녀의 숲 : 유니크 진입(5인)"/>
-		<Class ClassID="90270" ClassName="430lvupCard_MSG" Data="{nl} {nl}사용 시 1레벨에서 430레벨 도달까지 필요한 만큼의 경험치를 얻습니다.{nl} {nl}{@st66d_y}경험치 카드를 사용하시겠습니까?"/>
+		<Class ClassID="90270" ClassName="430lvupCard_MSG" Data="{nl} {nl}사용 시 1레벨에서 431레벨 도달까지 필요한 만큼의 경험치를 얻습니다.{nl} {nl}{@st66d_y}경험치 카드를 사용하시겠습니까?"/>
 		<Class ClassID="90260" ClassName="2004_UPHILL_SEL_MSG1" Data="이벤트 설명"/>
 		<Class ClassID="90261" ClassName="2004_UPHILL_SEL_MSG2" Data="이벤트 던전 입장"/>
 		<Class ClassID="90262" ClassName="2004_UPHILL_TREE_SEL_MSG1" Data="충격 버프를 받는다."/>
@@ -9328,7 +9336,7 @@
 		<Class ClassID="91025" ClassName="TELHARSHA_REMOVE_PATTERN_MSG3" Data="[열기] 패턴 제거, -1단계"/>
 		<Class ClassID="91026" ClassName="TELHARSHA_REMOVE_PATTERN_MSG4" Data="종료. 선택을 종료하고 보스 등장"/>
 		<Class ClassID="91030" ClassName="F_TABLELAND_28_2_NPC_CRU_14" Data="마족이 겁에 질려 도망갑니다."/>
-		<Class ClassID="91027" ClassName="Legend_Boss_Glacier_Easy" Data="하얀 마녀의 숲 : 레전드 레이드 (Easy)"/>
+		<Class ClassID="91027" ClassName="Legend_Boss_Glacier_Easy" Data="하얀 마녀의 숲 : 레전드 레이드 (자동 매칭)"/>
 		<Class ClassID="91028" ClassName="Legend_Boss_Glacier_Normal" Data="하얀 마녀의 숲 : 레전드 레이드 (Normal)"/>
 		<Class ClassID="91029" ClassName="Legend_Boss_Glacier_Hard" Data="하얀 마녀의 숲 : 레전드 레이드 (Hard)"/>
 		<Class ClassID="91031" ClassName="F_TABLELAND_28_2_NPC_CRU_15" Data="끼익!"/>
@@ -11145,6 +11153,10 @@
 		<Class ClassID="134076" ClassName="PVP_Mine_Reward_Info" Data="{@st66b}자원 쟁탈전에서는 쟁탈전 종료 시 승패 결과와 함께 보상으로 {#003399}용병단 증표{/}를 지급합니다.{nl} {nl}승리 팀에 2250개, 패배팀은 450개를 지급하며{nl}자신의 [광산 포인트 x 3]만큼{nl}{#003399}용병단 증표{/}를 추가로 획득할 수 있습니다.(최대 2250개){nl} {nl}MVP 보너스{nl}자원 쟁탈전 내에서 '킬 포인트' 또는 '광산 포인트'가 팀 내 5위안으로 도달했을 경우 추가로 용병단 증표를 지급됩니다.{nl} {nl}{nl}유니폼 모드에서는 {#003399}경험치 카드{/}를 추가로 지급합니다. 지급되는 경험치 카드는 플레이어의 레벨에 따라 차등 지급됩니다.{nl}Lv329이하 : Lv14 경험치 카드 x10{nl}Lv339이하 : Lv15 경험치 카드 x10{nl}Lv400이상 : Lv16 경험치 카드 x7{nl} {nl} {nl}{#8e0000}※단, 수정 반납 개수가 10개 미만인 경우에는 보상을 획득할 수 없습니다.{/}"/>
 		<Class ClassID="134077" ClassName="TEAM_BATTLE_Reward_Info" Data="{@st66b}팀 배틀 리그 참여 시{nl}{#003399}용병단 증표{/} 300개를 팀 당 1일 3회 획득할 수 있습니다.{nl} {nl}팀 배틀 리그는 매주 월요일 오전 6시 기준 순위 합산 1,2,3위에게 칭호가 부여되며 7일 기간제 코스튬이 지급됩니다.{nl} {nl}순위 보상은 [모험 일지] - [팀배틀리그 랭킹] -[보상받기]를 통해 획득할 수 있습니다.{nl} {nl}{#8e0000}※칭호 효과는 다음 시즌 초기화 전까지 유지됩니다.{/}"/>
 		<Class ClassID="134078" ClassName="AlreadyBelongToIndun" Data="이미 진행 중인 인던이 있습니다."/>
+		<Class ClassID="134079" ClassName="MustEquipWeaponArmorToAutoMatch" Data="장비를 장착하지 않은 부위가 있어서 자동 매칭을 신청할 수 없습니다."/>
+		<Class ClassID="134080" ClassName="MustEquipFixedIcorToAutoMatch" Data="고정 아이커를 장착하지 않은 아이템이 존재하여 자동 매칭을 신청할 수 없습니다."/>
+		<Class ClassID="134081" ClassName="TooLowLevelEquipToAutoMatch" Data="장착한 장비의 레벨이 낮아서 자동 매칭을 신청할 수 없습니다."/>
+		<Class ClassID="134082" ClassName="HaveNoEnterableCount" Data="입장 횟수를 초과하여 기본 보상 획득이 불가능합니다.{nl}매칭을 신청하시겠습니까?"/>
 	</Category>
 	<Category Name="AchieveReward">
 		<Class ClassID="135001" ClassName="GainAchieveHairBefore" Data="이미 업적 보상을 받았습니다."/>
@@ -14400,6 +14412,22 @@
 		<Class ClassID="302215" ClassName="FishingShop2011" Data="[낚시 이벤트] 미꾸라지 상점"/>
 		<Class ClassID="302216" ClassName="EVENT_2011_FISHING_CAT_MSG2" Data="소지하고 있는 {#0033FF}[이벤트] 꽁치{/}가 없습니다."/>
 		<Class ClassID="302217" ClassName="EVENT_2011_FISHING_CHECK_MESSAGE1{BAIT}{TRADE}" Data="[이벤트] 꽁치 낚시{nl}[이벤트] 미꾸라지 일일 수령 횟수 {#3366FF}({BAIT}/1회){/}{nl}이벤트 기간 중 [낚시 이벤트] 정체불명 떡밥통 교환 횟수{#3366FF}({TRADE}/200회){/}{nl}{#FF0000}※일일 수령 횟수는 매일 오전 6시 초기화 됩니다.{nl}※이벤트 기간 중 [낚시 이벤트] 정체불명 떡밥통의 최대 교환 횟수는 200회 입니다.(이후 교환 시 버프만 획득 가능합니다.){/}"/>
+		<Class ClassID="302218" ClassName="EVENT_2011_5TH_COLOR_TITLE" Data="{#003399}[5주년]{/}"/>
+		<Class ClassID="302219" ClassName="EVENT_2011_5TH_Offline_Acquire{POINT}" Data="오프라인 상태에서 이벤트 포인트가 {POINT}만큼 누적되었습니다."/>
+		<Class ClassID="302220" ClassName="EVENT_2011_5TH_EVENT_NOTICE" Data="이벤트 안내"/>
+		<Class ClassID="302221" ClassName="EVENT_2011_5TH_Normal_Shop" Data="이벤트 상점"/>
+		<Class ClassID="302222" ClassName="EVENT_2011_5TH_Special_Shop" Data="비밀 상점"/>
+		<Class ClassID="302223" ClassName="EVENT_2011_5TH_Special_Shop_name{GRADE}" Data="{GRADE}등급 비밀상점"/>
+		<Class ClassID="302224" ClassName="EVENT_2011_5TH_Special_Shop_Update_Tooltip" Data="[이벤트] TOS 주화 100개를 사용해 갱신합니다."/>
+		<Class ClassID="302225" ClassName="EVENT_2011_5TH_Special_Shop_Update_Type_empty" Data="갱신 가능한 상점이 없습니다."/>
+		<Class ClassID="302226" ClassName="EVENT_2011_5TH_Special_Shop_Item_MSG_1" Data="5주년 기념 주화 2000개 소비 후 구매 가능합니다."/>
+		<Class ClassID="302227" ClassName="EVENT_2011_5TH_Special_Shop_Item_MSG_2" Data="[이벤트] 바이보라 유니크 무기 계열 선택 상자 Lv.1 아이템 구입 후 구매 가능합니다."/>		
+		<Class ClassID="302228" ClassName="EVENT_2011_5TH_Special_Vibora_Shop" Data="특별한 바이보라 합성점"/>
+		<Class ClassID="302229" ClassName="EVENT_2011_5TH_Special_Vibora_Shop_title" Data="[5주년] 바이보라 합성"/>
+		<Class ClassID="302230" ClassName="EVENT_2011_5TH_Special_Vibora_Shop_tip" Data="보유한 LV1 바이보라 무기를 이벤트 주화와 합성하여 무작위 바이보라 무기를 획득합니다."/>
+		<Class ClassID="302231" ClassName="EVENT_2011_5TH_Special_Vibora_Shop_Max_Count_Over" Data="이용 가능한 합성 횟수를 모두 이용하셨습니다."/>
+		<Class ClassID="302232" ClassName="EVENT_2011_5TH_Special_Shop_Item_MSG_3" Data="현재 소비한 5주년 기념 주화 : {CNT}개"/>
+		<Class ClassID="302233" ClassName="EVENT_2011_5TH_FIREWORK_BUFF_CHECK_MESSAGE1{FIREWORK}" Data="[이벤트] 5주년 불꽃놀이{nl}TOS 5주년의 불꽃 버프 수령 횟수 {#3366FF}({FIREWORK}/3회){/}{nl}{#FF0000}※일일 버프 수령 횟수는 매일 오전 6시 초기화 됩니다.{/}"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -14602,11 +14630,11 @@
 		<Class ClassID="510335" ClassName="FISHING_STATUE_OWNER_WORSHIP_2" Data="서버 전체 루팅 찬스 300 증가(40분)"/>
 		<Class ClassID="510336" ClassName="FISHING_STATUE_OWNER_WORSHIP_3" Data="서버 전체 루팅 찬스 500 증가(20분)"/>
 		<Class ClassID="510337" ClassName="{Name}FishRubbingBuff" Data="{Name}님이 황금 동상 버프를 사용하셨습니다!{nl}{Time}분동안 루팅 찬스 {LootingChance} 증가됩니다."/>
-		<Class ClassID="510338" ClassName="YouAlreadyUseStatueBuff" Data="오늘은 더 이상 사용 할 수 없습니다."/>
-		<Class ClassID="510339" ClassName="FISHING_MANAGER_RUBBING_MSG_1" Data="탁본을 여러번 뜬다"/>
+		<Class ClassID="510338" ClassName="YouAlreadyUseStatueBuff" Data="오늘은 더 이상 사용할 수 없습니다."/>
+		<Class ClassID="510339" ClassName="FISHING_MANAGER_RUBBING_MSG_1" Data="탁본을 여러 번 뜬다"/>
 		<Class ClassID="510340" ClassName="FISHING_MANAGER_RUBBING_MSG_2" Data="한 마리만 탁본을 뜬다"/>
 		<Class ClassID="510341" ClassName="FISHING_MANAGER_RUBBING_DOTIME" Data="탁본 뜨는 중"/>
-		<Class ClassID="510342" ClassName="FISHING_MANAGER_RUBBING_COUNT" Data="탁본을 {COUNT}번 진행했어요!{nl}어디보자.."/>
+		<Class ClassID="510342" ClassName="FISHING_MANAGER_RUBBING_COUNT" Data="주문하신 탁본 {RUBB} 번 중 {COUNT}번 진행했어요!{nl}어디보자.."/>
 		<Class ClassID="510343" ClassName="FISHING_MANAGER_RUBBING_INPY_DLG_1" Data="은빛 물고기 {COUNT} 마리가 있으시군요.{nl}한 마리에 한 번씩, 최대 100번까지 탁본을 도와드릴 수 있어요.{nl}몇 번 진행하시겠어요?"/>
 		<Class ClassID="510344" ClassName="FISHING_MANAGER_RUBBING_INPY_DLG_2" Data="은빛 물고기 {COUNT} 마리가 있으시군요.{nl}한 마리에 한 번씩, 최대 {COUNT} 번 탁본을 도와드릴 수 있어요.{nl}몇 번 진행하시겠어요?"/>
 	</Category>
@@ -15774,6 +15802,22 @@
 		<Class ClassID="596021" ClassName="ImpossibleVoteObj" Data="투표가능한 대상이 아닙니다."/>
 		<Class ClassID="596022" ClassName="OnlyInputNumberText" Data="숫자만 입력해주세요"/>
 		<Class ClassID="596023" ClassName="AlreadyMaxEventCoinMsg" Data="더이상 [이벤트] 여신의 룰렛 코인을 획득하실 수 없습니다. 보상을 획득 하시겠습니까?"/>
+		<Class ClassID="596024" ClassName="EVENT_2011_5TH_TITLE" Data="5주년 이벤트"/>
+		<Class ClassID="596025" ClassName="EVENT_2011_5TH_MSG_1" Data="TOS 주화 획득처"/>
+		<Class ClassID="596026" ClassName="EVENT_2011_5TH_MSG_2" Data="5주년 기념 주화 획득처"/>
+		<Class ClassID="596027" ClassName="EventPoint" Data="이벤트 포인트"/>
+		<Class ClassID="596028" ClassName="EventLevel" Data="이벤트 레벨"/>
+		<Class ClassID="596029" ClassName="EVENT_2011_5TH_MSG_3" Data="[이벤트] TOS 주화, [이벤트] 5주년 기념 주화 일일 획득 제한은 매일 오전 06시 초기화 됩니다."/>
+		<Class ClassID="596030" ClassName="EVENT_2011_5TH_MSG_4" Data="일일 [이벤트] TOS 주화"/>
+		<Class ClassID="596031" ClassName="EVENT_2011_5TH_MSG_5" Data="현재 (보유/획득) 중인 [이벤트] 5주년 기념 주화"/>
+		<Class ClassID="596032" ClassName="EVENT_2011_5TH_MSG_6" Data="[이벤트] 5주년 기념 주화 일일 필드 사냥 제한"/>
+		<Class ClassID="596033" ClassName="EventDailyPlayTime" Data="이벤트 일일 누적 접속 시간"/>		
+		<Class ClassID="596034" ClassName="EVENT_2011_5TH_MSG_7" Data="일반 필드 몬스터 사냥 시 1% 확률로 획득 가능합니다.{nl}(챌린지 모드, 차원 붕괴, 레이드 몬스터 제외)"/>
+		<Class ClassID="596035" ClassName="EVENT_2011_5TH_MSG_8" Data="엘리트 필드 몬스터 사냥 시 5%의 확률로 획득 가능합니다.{nl}(챌린지 모드, 차원 붕괴, 레이드 몬스터 제외)"/>
+		<Class ClassID="596036" ClassName="EVENT_2011_5TH_MSG_9" Data="1시간 접속 시 마다"/>
+		<Class ClassID="596037" ClassName="EVENT_2011_5TH_MSG_10" Data="[이벤트] TOS 주화 100개 획득 시 마다"/>
+		<Class ClassID="596038" ClassName="EVENT_2011_5TH_MSG_11" Data="[이벤트] TOS 주화 100:1 교환"/>
+		<Class ClassID="596039" ClassName="EVENT_2011_5TH_MSG_12" Data="필드 몬스터 주화 획득 제한 일일 최대 100개(오전 06시 초기화){nl}캐릭터와 몬스터의 레벨이 30레벨이상 차이날 경우 주화를 획득할 수 없습니다."/>
 	</Category>
 	<Category Name="EVENT_2009_FULLMOON">
 		<Class ClassID="599000" ClassName="EventState" Data="이벤트 현황"/>

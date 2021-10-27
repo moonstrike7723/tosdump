@@ -1381,7 +1381,7 @@ end
 function INDUNINFO_TAB_CHANGE(parent, ctrl)
 	local frame = parent:GetTopParentFrame();
 	local tab = GET_CHILD_RECURSIVELY(frame, "tab");
-    local index = tab:GetSelectItemIndex();
+	local index = tab:GetSelectItemIndex();
     if index == 0 or index == 1 then
 		INDUNINFO_UI_OPEN(frame, index);
     elseif index == 2 then
@@ -1760,7 +1760,11 @@ function WEEKLY_BOSS_UI_UPDATE()
 
     -- 몬스터 정보
     local weeklybossPattern = session.weeklyboss.GetPatternInfo();
-    local monClsName = weeklybossPattern.MonsterClassName
+	local monClsName = weeklybossPattern.MonsterClassName
+	--티니 삼형제
+	if string.find(monClsName,"weekly_boss_Tiny") ~= nil then
+		monClsName = "weekly_boss_Tiny_ThreeBrothers"
+	end
     local monCls = GetClass("Monster",monClsName)
     if monCls ~= nil then
         local monster_icon_pic = GET_CHILD_RECURSIVELY(frame, 'monster_icon_pic');
@@ -2679,6 +2683,16 @@ function FIELD_BOSS_UI_OPEN(frame)
 	FIELD_BOSS_DATA_REQUEST_DAY();
 end
 
+function FIELD_BOSS_GET_SCHEDULE_CLASS()
+	local nation = config.GetServiceNation()
+	if nation ~= "GLOBAL" then
+		return GetClass("fieldboss_worldevent_schedulel",nation)
+	else
+		return GetClass("fieldboss_worldevent_schedulel",GetServerGroupID())
+	end
+	return nil
+end
+
 function FIELD_BOSS_MY_RANK_TEXT_SETTING(frame)
 	local ctrlSet = GET_CHILD_RECURSIVELY(frame,"field_boss_my_rank_control")
 	local battle_info_attr = GET_CHILD_RECURSIVELY(ctrlSet,"battle_info_attr")
@@ -2713,7 +2727,8 @@ function FIELD_BOSS_TIME_TAB_SETTING(frame)
 
 	local sub_tab = GET_CHILD_RECURSIVELY(ctrlSet,"sub_tab")
 	DELETE_ALL_TAB_ITEM(sub_tab)
-	local cls = GetClass("fieldboss_worldevent_schedulel",config.GetServiceNation())
+	local nation = config.GetServiceNation()
+	local cls = FIELD_BOSS_GET_SCHEDULE_CLASS()
 	local hour_tab_idx = 0
 	for i = 1,10 do
 		local hour = TryGetProp(cls,"StartHour_"..i) 
@@ -2734,7 +2749,7 @@ function ON_FIELD_BOSS_MONSTER_UPDATE(frame,msg,argStr,argNum)
 	local ctrlSet = GET_CHILD_RECURSIVELY(frame,"field_boss_boss_control")
     -- 몬스터 정보
 	local fieldbossPattern = session.fieldboss.GetPatternInfo();
-    local monClsName = fieldbossPattern.MonsterClassName
+	local monClsName = fieldbossPattern.MonsterClassName
 	local monCls = GetClass("Monster",monClsName)
 	if monCls ~= nil then
         local monster_icon_pic = GET_CHILD_RECURSIVELY(ctrlSet, 'monster_icon_pic');
@@ -2915,7 +2930,7 @@ function FIELD_BOSS_ENTER_TIMER_SETTING(ctrlSet)
 		gauge:SetSkinName("gauge_barrack_defence")
 		textstr = GET_TIME_TXT(-diff) .." ".. ClMsg("After_Start");
 	elseif diff > 0 then
-		local cls = GetClass("fieldboss_worldevent_schedulel",config.GetServiceNation())
+		local cls = FIELD_BOSS_GET_SCHEDULE_CLASS()
 		local dur = TryGetProp(cls,"EnteranceDurationSecond",1)
 		gauge:SetPoint(diff,dur)
 		gauge:SetSkinName("test_gauge_barrack_defence")
@@ -2950,7 +2965,7 @@ function GET_FIELD_BOSS_DATE()
 		return now_time;
 	end
 	local hour_tabidx = hour_tabcontrol:GetSelectItemIndex();
-	local cls = GetClass("fieldboss_worldevent_schedulel",config.GetServiceNation())
+	local cls = FIELD_BOSS_GET_SCHEDULE_CLASS()
 	local hour = TryGetProp(cls,"StartHour_"..(hour_tabidx+1)) 
 	now_time.wHour = hour
 	now_time.wMinute = 0

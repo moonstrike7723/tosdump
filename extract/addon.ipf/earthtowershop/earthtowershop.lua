@@ -116,6 +116,18 @@ function EARTHTOWERSHOP_BUY_ITEM(frame, msg, itemName, itemCount)
         exchangeCountText:SetTextByKey("value", cntText);
     end
 
+    local shopType = frame:GetUserValue("SHOP_TYPE");
+    if string.find(shopType, "EVENT_2011_5TH_Special_Shop") ~= nil then
+        local ctrlSet = GET_CHILD_RECURSIVELY(frame, "EVENT_CONTROL_SET");
+    
+        local coinTOS_text = GET_CHILD(ctrlSet, "coinTOS_text", "ui::CRichText");
+        local coinTOS_count = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_2011_TOS_Coin"}}, false);
+        coinTOS_text:SetTextByKey("value", coinTOS_count);
+
+        local coin5TH_text = GET_CHILD(ctrlSet, "coin5TH_text", "ui::CRichText");
+        local coin5TH_count = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_2011_5th_Coin"}}, false);
+        coin5TH_text:SetTextByKey("value", coin5TH_count);
+    end
 end
 function REQ_EARTH_TOWER_SHOP_OPEN()
 
@@ -271,6 +283,8 @@ function REQ_EVENT_2002_FISHING_SHOP_OPEN()
 end
 
 function REQ_EVENT_SHOP_OPEN_COMMON(shopType)
+    ui.CloseFrame('earthtowershop');
+
     local frame = ui.GetFrame("earthtowershop");
     frame:SetUserValue("SHOP_TYPE", shopType);
     ui.OpenFrame('earthtowershop');
@@ -324,12 +338,18 @@ function EARTH_TOWER_INIT(frame, shopType)
 
     INVENTORY_SET_CUSTOM_RBTNDOWN("None");
     RESET_INVENTORY_ICON();
-
+   
     local propertyRemain = GET_CHILD_RECURSIVELY(frame,"propertyRemain")
     local pointbuyBtn = GET_CHILD_RECURSIVELY(frame,"pointbuyBtn")
+    local event_gb = GET_CHILD_RECURSIVELY(frame, "event_gb")
 
     propertyRemain:ShowWindow(0)
     pointbuyBtn:ShowWindow(0)
+
+    if shopType ~= "EVENT_2011_5TH_Normal_Shop" and string.find(shopType, "EVENT_2011_5TH_Special_Shop") == nil then
+        event_gb:RemoveAllChild();
+        event_gb:ShowWindow(0);
+    end
 
     local title = GET_CHILD(frame, 'title', 'ui::CRichText')
     local close = GET_CHILD(frame, 'close');
@@ -406,6 +426,56 @@ function EARTH_TOWER_INIT(frame, shopType)
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("SilverGachaShopName")));
         EARTH_TOWER_SET_PROPERTY_COUNT(propertyRemain, 'misc_silver_gacha_mileage', "Mileage_SilverGacha")
         pointbuyBtn:ShowWindow(1)
+    elseif shopType == "EVENT_2011_5TH_Normal_Shop" then
+        title:SetText('{@st43}'..ScpArgMsg(shopType));
+        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
+
+        local ctrlSet = event_gb:CreateOrGetControlSet("event_5th_special_shop_controlset", "EVENT_CONTROL_SET", 0, 0);        
+
+        local coinTOS = GetClass("Item", "Event_2011_TOS_Coin");
+        local coinTOS_text = GET_CHILD(ctrlSet, "coinTOS_text", "ui::CRichText");
+        local coinTOS_count = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_2011_TOS_Coin"}}, false);
+        coinTOS_text:SetTextByKey("name", coinTOS.Name);
+        coinTOS_text:SetTextByKey("value", coinTOS_count);
+
+        local coin5TH = GetClass("Item", "Event_2011_5th_Coin");
+        local coin5TH_text = GET_CHILD(ctrlSet, "coin5TH_text", "ui::CRichText");
+        local coin5TH_count = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_2011_5th_Coin"}}, false);
+        coin5TH_text:SetTextByKey("name", coin5TH.Name);
+        coin5TH_text:SetTextByKey("value", coin5TH_count);
+
+        local btn = GET_CHILD(ctrlSet, "update_Btn");
+        btn:ShowWindow(0);
+
+        event_gb:ShowWindow(1);
+    elseif string.find(shopType, "EVENT_2011_5TH_Special_Shop") ~= nil then
+        local common, shopStr = string.match(shopType,'(EVENT_2011_5TH_Special_Shop_)(.+)');
+        local shopStrlist = StringSplit(shopStr, "_");
+        local grade = shopStrlist[1];
+
+        title:SetText('{@st43}'..ScpArgMsg("EVENT_2011_5TH_Special_Shop_name{GRADE}", "GRADE", grade));
+        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
+
+        local ctrlSet = event_gb:CreateOrGetControlSet("event_5th_special_shop_controlset", "EVENT_CONTROL_SET", 0, 0);
+        
+        local coinTOS = GetClass("Item", "Event_2011_TOS_Coin");
+        local coinTOS_text = GET_CHILD(ctrlSet, "coinTOS_text", "ui::CRichText");
+        local coinTOS_count = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_2011_TOS_Coin"}}, false);
+        coinTOS_text:SetTextByKey("name", coinTOS.Name);
+        coinTOS_text:SetTextByKey("value", coinTOS_count);
+
+        local coin5TH = GetClass("Item", "Event_2011_5th_Coin");
+        local coin5TH_text = GET_CHILD(ctrlSet, "coin5TH_text", "ui::CRichText");
+        local coin5TH_count = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_2011_5th_Coin"}}, false);
+        coin5TH_text:SetTextByKey("name", coin5TH.Name);
+        coin5TH_text:SetTextByKey("value", coin5TH_count);
+
+        local btn = GET_CHILD(ctrlSet, "update_Btn");
+        btn:SetEventScript(ui.LBUTTONUP, "EVENT_2011_5TH_SPECIAL_SHOP_UPDATE_BTN_CLICK");
+        btn:SetTextTooltip(ClMsg("EVENT_2011_5TH_Special_Shop_Update_Tooltip"));
+        btn:ShowWindow(1);
+        
+        event_gb:ShowWindow(1);
     else
         title:SetText('{@st43}'..ScpArgMsg(shopType));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
@@ -786,6 +856,13 @@ function EXCHANGE_CREATE_TREE_PAGE(tree, slotHeight, groupName, classType, cls, 
         lableLine:SetVisible(0);
         exchangeCountText:SetVisible(0);
     end;
+
+
+    local tradeBtn = GET_CHILD(ctrlset, "tradeBtn");
+    local textTooltip = TryGetProp(recipecls, "TradeBtnTextTooltip", "None");
+    if tradeBtn:IsVisible() == 1 and textTooltip ~= "None" then
+        tradeBtn:SetTextTooltip(ClMsg(textTooltip))
+    end
 
     ctrlset:Resize(ctrlset:GetWidth(), height);
     GBOX_AUTO_ALIGN(groupbox, 0, 0, 10, true, false);
@@ -1302,4 +1379,41 @@ function EARTHTOWERSHOP_POINT_BUY_OPEN()
         REQ_ITEM_POINT_EXTRACTOR_OPEN("Mileage_SilverGacha")
         ui.GetFrame('item_point_extractor'):SetMargin(575, 5, 0, 0)
     end
+end
+
+---------------------- EVENT_2011_5TH
+function EVENT_2011_5TH_SPECIAL_SHOP_UPDATE_BTN_CLICK(parent, ctrl, argStr, argNum)
+	if ui.CheckHoldedUI() == true then
+		return;
+    end
+    
+    local coinTOS_count = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_2011_TOS_Coin"}}, false);
+    if coinTOS_count < GET_EVENT_2011_5TH_SPECIAL_SHOP_UPDATE_NEED_COIN_COUNT() then
+        ui.SysMsg(ClMsg("NotEnoughRecipe"));
+        return;
+    end
+
+    ui.SetHoldUI(true);
+    ReserveScript("RELEASE_2011_5TH_SPECIAL_SHOP_UPDATE_HOLD()", 2);
+    ctrl:SetEnable(0);
+
+    control.CustomCommand("REQ_EVENT_2011_5TH_SPECIAL_SHOP_UPDATE", 0);
+end
+
+function RELEASE_2011_5TH_SPECIAL_SHOP_UPDATE_HOLD()
+    local frame = ui.GetFrame("earthtowershop");
+    local shopType = frame:GetUserValue("SHOP_TYPE");
+    if string.find(shopType, "EVENT_2011_5TH_Special_Shop") == nil then
+        return;
+    end
+
+    local ctrlSet = GET_CHILD_RECURSIVELY(frame, "EVENT_CONTROL_SET");
+    if ctrlSet ~= nil then
+        local ctrl = GET_CHILD(ctrlSet, "EVENT_CONTROL_SET");
+    end
+
+    local btn = GET_CHILD(ctrlSet, "update_Btn");
+    btn:SetEnable(1);
+
+    ui.SetHoldUI(false);
 end

@@ -303,12 +303,7 @@
         </KeyInput>
         <KeyInputStart>
             <ToolScp Scp="SKL_BUFF" Client="NO" UseSleep="NO">
-                <Str Str="Pouncing_Buff" UseFunc="1" FuncTxt="local value = &quot;Pouncing_Buff&quot;
-                local abil = GetAbility(self, &quot;Barbarian41&quot;)
-                if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;, 0) == 1 then
-                value = &quot;Pouncing_Abil_Buff&quot;
-                end
-                return value"/>
+                <Str Str="Pouncing_Buff"/>
                 <Num Num="1" UseFunc="1" FuncTxt="return obj.Level"/>
                 <Num Num="0"/>
                 <Num Num="0"/>
@@ -336,13 +331,14 @@
                 <Str Str="Barbarian41"/>
                 <Num Num="1"/>
             </ToolScp>
+            <ToolScp Scp="C_SKL_LOCK_ROTATE_ABIL" Client="YES" UseSleep="NO">
+                <Str Str="Barbarian41"/>
+                <Num Num="1"/>
+            </ToolScp>
         </KeyInputStart>
         <KeyInputEnd>
             <ToolScp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO">
                 <Str Str="Pouncing_Buff"/>
-            </ToolScp>
-            <ToolScp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO">
-                <Str Str="Pouncing_Abil_Buff"/>
             </ToolScp>
             <ToolScp Scp="MONSKL_REMOVE_PAD" Client="NO" UseSleep="NO">
                 <Str Str="Barbarian_Pouncing"/>
@@ -355,6 +351,9 @@
                 <Str Str="voice_war_atk_long_cast"/>
             </ToolScp>
             <ToolScp Scp="C_SKL_LOCK_MOVE" Client="YES" UseSleep="NO">
+                <Num Num="0"/>
+            </ToolScp>
+            <ToolScp Scp="C_SKL_LOCK_ROTATE" Client="YES" UseSleep="NO">
                 <Num Num="0"/>
             </ToolScp>
         </KeyInputEnd>
