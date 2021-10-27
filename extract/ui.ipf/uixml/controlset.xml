@@ -5876,7 +5876,7 @@
 		</controls>
 	</controlset>
 	<controlset name="item_equip_helper_ctrl" hittest="true" width="465" height="37" draw="false">
-		<userconfig FONT_GRADE_1="{@st42b}{s20}{#ffffff}" FONT_GRADE_2="{@st42b}{s20}{#0e7fe8}" FONT_GRADE_3="{@st42b}{s20}{#a124d0}" FONT_GRADE_4="{@st42b}{s20}{#d92400}" FONT_GRADE_5="{@st42b}{s20}{#ffcd00}" FONT_NOT_EQUIP="{@st42b}{s20}"/>
+		<userconfig FONT_GRADE_1="{@st42b}{s20}{#ffffff}" FONT_GRADE_2="{@st42b}{s20}{#0e7fe8}" FONT_GRADE_3="{@st42b}{s20}{#a124d0}" FONT_GRADE_4="{@st42b}{s20}{#d92400}" FONT_GRADE_5="{@st42b}{s20}{#ffcd00}" FONT_GRADE_6="{@st42b}{s20}{#66d28b}" FONT_NOT_EQUIP="{@st42b}{s20}"/>
 		<controls>
 			<groupbox name="equip_helper_bg" rect="0 0 465 30" margin="0 0 0 0" layout_gravity="left top" skin="equipment_info_bg" hittest="true"/>
 			<groupbox name="equip_spot_bg" rect="0 0 80 30" margin="0 0 0 0" layout_gravity="left top" parent="equip_helper_bg" hittest="true" skin="equipment_info_title"/>
@@ -5973,9 +5973,8 @@
 	</controlset>
 	<controlset name="house_craft_furniture" hittest="true" hittestset="false" skin="" draw="false" width="276" height="278">
 		<controls>
-			<groupbox name="bggroupbox" rect="0 0 276 264" margin="0 0 0 0" layout_gravity="center top" skin="housing_property_list_bg" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false"/> -->
-			<groupbox name="labelline1" rect="0 0 216 11" margin="0 35 0 0" layout_gravity="center top" skin="housing_property_name_labelline"/>
-
+			<groupbox name="bggroupbox" rect="0 0 276 264" margin="0 0 0 0" layout_gravity="center top" skin="housing_property_list_bg" draw="true" resizebyparent="false" scrollbar="false"/> 
+			<groupbox name="labelline1" rect="0 0 216 11" margin="0 35 0 0" layout_gravity="center top" skin="housing_property_name_labelline" hittestbox="false"/>
 			<richtext name="infoName" rect="0 0 224 35" margin="0 13 0 0" layout_gravity="center top" format="{@st66b}{s16}%s" param1="name" param1_def="스팀 펑크 전등" fixwidth="true" resizebytext="true" hittest="false" textalign="center center"/>
 			<picture name="item_bg" rect="0 0 154 154" margin="0 58 0 0" image="housing_property_item_showbg" layout_gravity="center top" stretch="true"/>
 			<picture name="icon" parent="item_bg" rect="0 0 150 150" margin="0 0 0 0" layout_gravity="center center" image="" stretch="true"/>

@@ -3171,7 +3171,11 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_ShieldTrain_Ratio(skill)
+    local pc = GetSkillOwner(skill);
     local value = 10
+    if IsPVPField(self) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
     return value
 end
 
@@ -4701,7 +4705,11 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_IciclePike_Ratio(skill)
+    local pc = GetSkillOwner(skill);
     local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
     return value
 end
 
@@ -4843,12 +4851,18 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_FrostCloud_Ratio2(skill)
     local pc = GetSkillOwner(skill);
+    local value = 12 + skill.Level * 2
+
     local abil = GetAbility(pc, "Elementalist40")
     if abil ~= nil and TryGetProp(abil, "ActiveState", 0) == 1 then
-        return 6 + skill.Level * 1
+        value = 6 + skill.Level * 1
     end
-    return 12 + skill.Level * 2
 
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
@@ -5702,6 +5716,12 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_HoleOfDarkness_Ratio(skill)
     local value = 10
+
+    local pc = GetSkillOwner(skill);
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return math.floor(value)
 end
 
@@ -6397,16 +6417,6 @@ function SCR_GET_IncreaseMagicDEF_Ratio2(skill)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
-function SCR_GET_Incineration_Ratio(skill)
-    local pc = GetSkillOwner(skill);
-    local abil = GetAbility(pc, "PlagueDoctor2") 
-    local value = 0
-    if abil ~= nil then 
-        return SCR_ABIL_ADD_SKILLFACTOR_TOOLTIP(abil);
-    end
-end
-
--- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Incineration_Ratio2(skill)
     local value = 10
 
@@ -6985,7 +6995,11 @@ function SCR_GET_SR_LV_Skarphuggning(skill)
     if abil ~= nil and abil.ActiveState == 1 then
         value = value + abil.Level
     end
-    
+
+    if IsPVPField(pc) == 1 and value > 4 then
+        value = math.floor((math.max(0, value-4)^0.5))+math.min(4, value)
+    end
+
     return value
 end
 
@@ -7527,7 +7541,11 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_SnowRolling_Ratio(skill)
     local value = skill.Level * 2
-    
+    local pc = GetSkillOwner(skill);
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return math.floor(value);
 end
 
@@ -7730,7 +7748,13 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_PsychicPressure_Ratio(skill)
-    return skill.Level + 4
+    local value = skill.Level + 4
+    local pc = GetSkillOwner(skill);
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
@@ -7766,12 +7790,13 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_GravityPole_Ratio(skill)
+    local value = 10 + skill.Level * 1
     local pc = GetSkillOwner(skill);
-    if IsPVPServer(pc) == 1 then
-        return skill.Level * 1
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
     end
-    
-    return 10 + skill.Level * 1
+
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
@@ -9073,7 +9098,10 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_DeathVerdict_Ratio2(skill)
     local value = 5 + skill.Level
-    
+    local pc = GetSkillOwner(skill);
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
     return value
 end
 
@@ -11574,6 +11602,11 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_Get_Electrocute_Ratio(skill)
     local value = 1 + (2 + skill.Level * 0.5)
+    local pc = GetSkillOwner(skill);
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return math.floor(value);
 end
 
@@ -11830,6 +11863,10 @@ function SCR_GET_SR_LV(skill)
     end
 
     local value = pc.SR + skill.SklSR;
+
+    if IsPVPField(pc) == 1 and value > 4 then
+        value = math.floor((math.max(0, value-4)^0.5))+math.min(4, value)
+    end
     
     if value < 1 then
         value = 1
@@ -11924,17 +11961,20 @@ function SCR_GET_SR_LV_RestInPeace(skill)
     local pc = GetSkillOwner(skill);
     local value = pc.SR + skill.SklSR;
     
-    if value < 1 then
-        value = 1
-    end
-    
     local abil = GetAbility(pc, "Bulletmarker13")
     if abil ~= nil and abil.ActiveState == 1 then
         value = value + 5
     end
-    
+
+    if IsPVPField(pc) == 1 and value > 4 then
+        value = math.floor((math.max(0, value-4)^0.5))+math.min(4, value)
+    end
+
+    if value < 1 then
+        value = 1
+    end
+
     return value
-    
 end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
@@ -12592,17 +12632,17 @@ end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_DownFall_Ratio(skill)
-    local value = 3 + skill.Level * 0.5;
+    local value = 3.5 + skill.Level * 0.5;
     return value;
 end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_DownFall_Ratio2(skill)
-    local value = 0.2
+    local value = 1
     local pc = GetSkillOwner(skill)
     local abil = GetAbility(pc, "Mergen14")
     if abil ~= nil and TryGetProp(abil, "ActiveState") == 1 then
-        value = 0.3
+        value = 1.8
     end
     
     return value;
@@ -12719,8 +12759,8 @@ function SCR_GET_FishingNetsDraw_Ratio2(skill)
     local pc = GetSkillOwner(skill);
     local value = 3 + skill.Level * 3;
     
-    if IsPVPServer(pc) == 1 then
-        value = value / 3
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
     end
     
     return value;
@@ -12751,8 +12791,8 @@ function SCR_GET_ThrowingFishingNet_Ratio2(skill)
         value = value * 2
     end
 
-    if IsPVPServer(pc) == 1 then
-        value = value / 3
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
     end
     
     return value;
@@ -12823,6 +12863,10 @@ end
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_WhiteTigerHowling_Ratio(skill)
     local value = 4 + skill.Level
+    local pc = GetSkillOwner(skill);
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
     return value
 end
 
@@ -13122,7 +13166,10 @@ end
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Friedenslied_Ratio(skill)
     local value = 4 + skill.Level
-    
+    local pc = GetSkillOwner(skill);
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
     return value;
 end
 
@@ -13201,6 +13248,10 @@ function SCR_GET_Rubric_Ratio(skill)
     local abilExorcist2 = GetAbility(pc, "Exorcist2");
     if abilExorcist2 ~= nil and TryGetProp(abilExorcist2, "ActiveState") == 1 then
         value = value + abilExorcist2.Level;
+    end
+
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
     end
     
     return value;
@@ -13326,7 +13377,11 @@ function SCR_GET_BreastRipper_Ratio(skill)
         strValue = 0
     end
     value = value + strValue
-    
+
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return math.floor(value)
 end
 
@@ -13440,8 +13495,13 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Aggress_Ratio(skill)
+    local pc = GetSkillOwner(skill)
     local value = skill.Level * 3
     
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return value;
 end
 
@@ -13735,6 +13795,10 @@ function SCR_GET_SR_LV_Hackapell_GrindCutter(skill)
     local pc = GetSkillOwner(skill);
     local value = pc.SR + skill.SklSR;
     
+    if IsPVPField(pc) == 1 and value > 4 then
+        value = math.floor((math.max(0, value-4)^0.5))+math.min(4, value)
+    end
+
     if value < 1 then
         value = 1
     end
@@ -13806,6 +13870,10 @@ function SCR_GET_Explosion_Ratio(skill)
     if IsBuffApplied(pc, "Bazooka_Buff") == "YES" then
         value = value * 2
     end
+
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
     
     return value
 end
@@ -13826,8 +13894,9 @@ end
 function SCR_GET_MenaceShot_Ratio(skill)
     local pc = GetSkillOwner(skill)
     local value = 3 + skill.Level;
-    if IsPVPServer(pc) == 1 or IsPVPField(pc) == 1 then
-        value = 3;
+
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
     end
     
     return value;
@@ -13864,6 +13933,12 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_CanisterShot_Ratio(skill)
     local value = 10
+
+    local pc = GetSkillOwner(skill);
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return value
 end
 
@@ -14020,16 +14095,24 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Fanning_Ratio(skill)
     local pc = GetSkillOwner(skill)
-    local value = math.floor(TryGetProp(pc, 'SR', 0) / 2) + 4
-    value = math.min(value, 10)
+    local value = math.min(4 + math.floor(TryGetProp(self, 'SR', 0) / 2), 10);
+
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Fanning_Ratio2(skill)
     local pc = GetSkillOwner(skill)
-    local value = math.floor(TryGetProp(pc, 'SR', 0) / 3) + 4
-    value = math.min(value, 10)
+    local value = math.min(4 + math.floor(TryGetProp(pc, 'SR', 0) / 3), 10)
+
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return value
 end
 
@@ -14266,31 +14349,61 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_ProtectionOfGoddess_SR_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    return math.floor(4 + pc.SR/3)
+
+    local value = math.floor(4 + pc.SR/3)
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Sacred_SR_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    return math.floor(3 + pc.SR/3)
+
+    local value = math.floor(3 + pc.SR/3)
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Retaliation_SR_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    return math.floor(3 + pc.SR/3)
+
+    local value = math.floor(3 + pc.SR/3)
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Condemn_SR_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    return math.floor(3 + pc.SR/3)
+
+    local value = math.floor(3 + pc.SR/3)
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_RingOfLight_SR_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    return math.floor(2 + pc.SR/3)
+
+    local value = math.floor(2 + pc.SR/3)
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
@@ -14397,6 +14510,9 @@ end
 function SCR_GET_Keletihan_Ratio2(skill)
     local pc = GetSkillOwner(skill)
     local value = 7 + (pc.SR/5);
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
     return math.floor(value)
 end
 
@@ -14463,6 +14579,10 @@ function SCR_GET_DeadZone_Ratio(skill)
         value = 7
     end
 
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return value
 end
 
@@ -14484,6 +14604,11 @@ end
 function SCR_GET_ShiningBurst_Ratio(skill)
     local pc = GetSkillOwner(skill);
     local value = math.floor(7 + TryGetProp(pc, "SR", 0)/3)
+
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return value
 end
 
@@ -15470,7 +15595,7 @@ end
 function SCR_Get_SkillFactor_ViboraGravity_Finish(skill)
     local pc = GetSkillOwner(skill)
     local Teardown = GetSkill(pc, "Psychokino_GravityPole")
-    local value = TryGetProp(Teardown, "SkillFactor", 0) * 10
+    local value = TryGetProp(Teardown, "SkillFactor", 0) * 5
 
     return value
 end
@@ -15570,7 +15695,6 @@ function SCR_Get_SkillFactor_Vibora_Matross(skill)
     local pc = GetSkillOwner(skill)
     local Explosion = GetSkill(pc, "Matross_Explosion")
     local value = math.floor(TryGetProp(Explosion, "SkillFactor", 0) * 0.3)
-
     return value
 end
 
@@ -15913,7 +16037,13 @@ end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_ClownWalk_Ratio(skill)
+    local pc = GetSkillOwner(skill);
     local value = TryGetProp(skill, "Level", 1)
+
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+
     return value
 end
 
@@ -16303,4 +16433,655 @@ function SCR_GET_HighMagnifyingGlass_Ratio(skill)
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
 
     return value;
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_SkillFactor_Vibora_Assassin(skill)
+    local pc = GetSkillOwner(skill)
+    local skl = GetSkill(pc, "Assassin_PiercingHeart")
+    local value = math.floor(TryGetProp(skl, "SkillFactor", 0))
+
+    value = value * 0.465
+    
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_SKL_COOLDOWN_Annihilation(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = TryGetProp(skill, "BasicCoolDown", 0)
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    
+
+    if GetExProp(pc, "ITEM_VIBORA_SuddenDeath_Lv4") > 0 then
+        basicCoolDown = basicCoolDown - 15000;
+    end
+ 
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+
+    return math.floor(basicCoolDown);
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_SkillFactor_DarkspiritExplosion(skill)
+    local pc = GetSkillOwner(skill)
+    local skl = GetSkill(pc, "Warlock_Invocation")
+    local value = math.floor(TryGetProp(skl, "SkillFactor", 0) * 2)
+    
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_ShieldLob_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 8
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Pouncing_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 5
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Impaler_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_FrenziedSlash_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_BalestraFente_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_DragonFall_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 30
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Joust_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_CorridaFinale_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_InfiniteAssault_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 12
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_FlameGround_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_FirePillar_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 7
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_HellBreath_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 7
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Prominence_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 3
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_IcePillar_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 20
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_MagneticForce_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_HeavyGravity_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 13
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Stop_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 5
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_Slow_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 3
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_ElementalEssence_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_MicroDimension_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 3
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_UltimateDimension_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_DimensionCompression_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_PoleofAgony_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 4
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Mastema_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 7
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Ngadhundi_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_KundelaSlash_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Hagalaz_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 8
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Stan_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 3
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_ShadowConjuration_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_ShadowCondensation_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 5
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_GreenwoodShikigami_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Toyou_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_YinYangConsonance_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_CrystalballShikigami_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 7
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_CreepingDeath_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 3
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_PhantomEradication_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_HornOfGolem_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_ThrowGuPot_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 6
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_MagicArrow_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 3
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Pheasant_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_CoveringFire_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 6
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Zaibas_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 4
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_DivineStigma_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 5
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Chortasmata_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 9
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Seedbomb_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 5
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Seedbomb_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_AstralBodySmite_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 5
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Incineration_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 4
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_PlagueVapours_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 4
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Merkabah_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 3
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Hamaya_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_FanaticIllusion_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 6
+
+    local abil = GetAbility(pc, "Zealot16")
+    if abil ~= nil and TryGetProp(abil, "ActiveState", 0) == 1 then
+        value = value * 2
+    end
+
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_EmphasisTrust_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_AquaBenedicta_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Gregorate_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 5
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Koinonia_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_AssaultFire_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_TreGranata_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 15
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Rawa_Ratio3(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 6
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_FatalRoulette_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 7
+    if IsPVPField(pc) == 1 and value > 2 then
+        value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+    end
+    return value
+end
+
+function SCR_Get_SkillFactor_Vibora_Mergen(skill)
+    local pc = GetSkillOwner(skill)
+    local Explosion = GetSkill(pc, "Mergen_ArrowRain")
+    local value = math.floor(TryGetProp(Explosion, "SkillFactor", 0))
+
+    return value
 end

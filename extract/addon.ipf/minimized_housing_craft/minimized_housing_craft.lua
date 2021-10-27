@@ -1,5 +1,6 @@
 function MINIMIZED_HOUSING_CRAFT_ON_INIT(addon, frame)
 	addon:RegisterMsg('GAME_START', 'MINIMIZED_HOUSING_CRAFT_OPEN_EDIT_MODE');
+	addon:RegisterMsg('HOUSINGCRAFT_UPDATE_ENDTIME', 'MINIMIZED_HOUSING_CRAFT_UPDATE_ENDTIME');
 	addon:RegisterMsg('ENTER_PERSONAL_HOUSE', 'MINIMIZED_HOUSING_CRAFT_OPEN_EDIT_MODE');
 end
 
@@ -15,12 +16,14 @@ function MINIMIZED_HOUSING_CRAFT_OPEN_EDIT_MODE(frame, msg, argStr, argNum)
 	
 	if argStr == "YES" then
 		frame:ShowWindow(1);
-		frame:RunUpdateScript("UPDATE_HOUSING_CRAFT_WHEN_END_TIME", 60);
 	else
 		frame:ShowWindow(0);
 	end
 end
 
+function MINIMIZED_HOUSING_CRAFT_UPDATE_ENDTIME(frame, msg)
+	frame:RunUpdateScript("UPDATE_HOUSING_CRAFT_WHEN_END_TIME", 60);
+end
 function BTN_MINIMIZED_HOUSING_CRAFT_OPEN_EDIT_MODE(parent, btn)
 	local mapprop = session.GetCurrentMapProp();
 	local mapCls = GetClassByType("Map", mapprop.type);
