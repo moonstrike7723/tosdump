@@ -631,6 +631,11 @@ function GET_TOOLTIP_ITEM_OBJECT(strarg, guid, numarg1)
 		end
 
 		return viewObj, 1;
+	elseif strarg == 'char_belonging' then
+		local itemObj = GetClassByType('Item', numarg1)		
+		viewObj = CloneIES_UseCP(itemObj)
+		viewObj.CharacterBelonging = 1
+		return viewObj, 1
 	elseif strarg == 'team_belonging' then
 		local itemObj = GetClassByType('Item', numarg1)		
 		viewObj = CloneIES_UseCP(itemObj)

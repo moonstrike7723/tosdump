@@ -8859,6 +8859,7 @@
 		<image name="aether_icon_equip" file="\skin\pip_test.tga" imgrect="514 1126 26 26" CMM_Caption="에테르젬 장비 아이콘"/>
 		<image name="aether_icon_inventory" file="\skin\pip_test.tga" imgrect="541 1126 26 26" CMM_Caption="에테르젬 인벤토리 아이콘"/>
 		<image name="goddess_Evolve_Circle" file="\skin\goddess_Evolve_Circle.tga" imgrect="0 0 624 624" CMM_Caption="가디스 마법진"/>
+		<image name="token_skin3" file="\skin\paid_skin.tga" imgrect="1320 802 316 165" CMM_Caption="각인 슬롯 확장권 팝업스킨"/>
 	</imagelist>
 	<imagelist category="je_button">
 		<image name="menu_guild_info" file="\skin\guild_skin.tga" imgrect="165 298 45 45" CMM_Caption="길드 정보"/>
@@ -9819,7 +9820,7 @@
 		<image name="hero_pointBtn_allin_clicked" file="\skin\hero_skin.tga" imgrect="465 371 154 84"/>
 		<image name="hero_object_gauge" file="\skin\hero_object_gauge.png" imgrect="0 0 180 250" CMM_Caption="배제의 빛 이미지"/>
 		<image name="hero_bosscountdown" file="\skin\hero_bosscountdown.png" imgrect="0 0 90 90" CMM_Caption="카운트 다운 보스 이미지"/>
-	<image name="hero_icon_hiddenbuff" file="\skin\hero_skin.tga" imgrect="567 153 23 24" CMM_Caption="히든 버프 표시 아이콘"/>
+		<image name="hero_icon_hiddenbuff" file="\skin\hero_skin.tga" imgrect="567 153 23 24" CMM_Caption="히든 버프 표시 아이콘"/>
 	</imagelist>
 	<imagelist category="testmin_image">
 		<image name="clock_inven" file="\skin\pip_test.tga" imgrect="403 698 50 50" CMM_Caption="기간제 시계 아이콘 및 날짜 뒷배경"/>

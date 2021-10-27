@@ -3535,6 +3535,8 @@ function GET_AUTO_MEMBER_JOIN_GUILD_IDX(groupid, nation)
             return '693014448046952'
         elseif groupid == 1005 then
             return '578656648822807' 
+        elseif groupid == 1201 then
+            return '103371272880147'
         end
     end
 

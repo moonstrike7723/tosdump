@@ -128,8 +128,8 @@ item_goddess_craft.check_enable_inherit_item = function(item)
 	end
 
 	-- 무기/방어구인지 체크
-	local group_name = TryGetProp(item, 'GroupName', 'None')
-	if group_name ~= 'Weapon' and group_name ~= 'SubWeapon' then
+	local equip_group = TryGetProp(item, 'EquipGroup', 'None')
+	if equip_group ~= 'Weapon' and equip_group ~= 'THWeapon' and equip_group ~= 'SubWeapon' then
 		local _type_list = { 'SHIRT', 'PANTS', 'GLOVES', 'BOOTS' }
 		local equip_type = TryGetProp(item, 'EqpType', 'None')
 		if table.find(_type_list, equip_type) == 0 then
@@ -216,6 +216,13 @@ item_goddess_craft.get_inherit_target_item_list = function(item)
 	if group_name == 'SubWeapon' then
 		group_name = 'Weapon'
 	end
+
+	-- 방패 예외 처리
+	local class_type = TryGetProp(item, 'ClassType', 'None')
+	if class_type == 'Shield' then
+		group_name = 'Weapon'
+	end
+
 
 	if item_goddess_inherit_target_list[target_lv][group_name] == nil then
 		return nil

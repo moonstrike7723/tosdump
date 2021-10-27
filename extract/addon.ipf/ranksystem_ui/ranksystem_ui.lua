@@ -54,6 +54,9 @@ function ON_RANK_SYSTEM_DATA(parent, ctrl, argStr, argNum)
     local now_page = 1
     if argStr ~= "NO_DATA" then
         max_page = math.min(math.ceil(tonumber(argStr) / 10), 10)
+        if max_page > 5 then
+            max_page = 5
+        end
         now_page = argNum
     end
 
@@ -61,7 +64,7 @@ function ON_RANK_SYSTEM_DATA(parent, ctrl, argStr, argNum)
     local frameName = frame:GetUserValue("TARGET_FRAME")
     ui.OpenFrame(frameName)
 
-    RANKSYSTEM_UI_INIT(now_page, max_page)
+    RANKSYSTEM_UI_INIT(now_page, max_page, argStr)
 end
 
 function ON_RANK_SYSTEM_MY_DATA(parent, msg, argStr, argNum)
@@ -195,7 +198,7 @@ function RANKSYSTEM_MY_DATA_INIT(argStr)
     controlset:SetUserValue("GUILD_ID", guildID)
 end
 
-function RANKSYSTEM_UI_INIT(now_page, max_page)
+function RANKSYSTEM_UI_INIT(now_page, max_page, argStr)
     local frame = ui.GetFrame("ranksystem_ui")
     if frame == nil then
         return
@@ -242,6 +245,10 @@ function RANKSYSTEM_UI_INIT(now_page, max_page)
     local season_num = session.rank.GetSeasonNum()
     for idx = 0, tabCnt - 1 do
         tab:ChangeCaptionOnly(idx, "{@st42b}{s16}"..(season_num - idx), false)
+    end
+
+    if argStr == "NO_DATA" then
+        return;
     end
 
     for idx = 0, 9 do
@@ -310,9 +317,6 @@ function RANKSYSTEM_UI_INIT(now_page, max_page)
         -- 높이 조정
         height = height + controlset:GetHeight() - 4
     end
-
- 
-
 end
 
 function RANKSYSTEM_UI_SEASON_SELECT(oarent, self)

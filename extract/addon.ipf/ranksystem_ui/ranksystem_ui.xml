@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
-<uiframe name="ranksystem_ui" x="0" y="0" width="550" height="880">
+<uiframe name="ranksystem_ui" x="0" y="0" width="550" height="908">
 	<frame fullheight="false" layout_gravity="center center" margin="0 0 0 0"/>
 	<skin frameskin="test_frame_low"/>
 	<layer layerlevel="102"/>
@@ -14,7 +14,7 @@
 		<richtext name="title" margin="0 2 0 0" rect="0 0 120 30" parent="title_bg" format="{@st44}{s24}%s{/}" param1="title" param1_def="랭킹 정보" textalign="center center" layout_gravity="center center"/>
 		<button name="close" rect="0 0 44 44" margin="0 22 29 0" layout_gravity="right top" LBtnUpScp="ui.CloseFrame(&apos;ranksystem_ui&apos;)" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" clicksound="button_click_big" image="testclose_button" oversound="button_over" texttooltip="{@st59}창을 닫습니다{/}"/>
         <groupbox name="my_bg" margin="25 65 0 0" rect="0 0 470 70" layout_gravity="center top" draw="true" hittestbox="false" skin="test_frame_midle"/>
-        <groupbox name="score_bg" margin="25 140 0 0" rect="0 0 470 656" layout_gravity="center top" draw="true" hittestbox="false" skin="test_frame_midle"/>
+        <groupbox name="score_bg" margin="25 140 0 0" rect="0 0 470 684" layout_gravity="center top" draw="true" hittestbox="false" skin="test_frame_midle" scrollbar="false"/>
         <groupbox name="score_top" margin="0 4 0 0" rect="0 0 462 35" parent="score_bg" layout_gravity="center top" skin="hero_rankingBar"/>
         <picture name="labelline1" margin="100 0 0 0" rect="0 0 2 28" parent="score_top" layout_gravity="left center" image="hero_line"/>
         <picture name="labelline2" margin="0 0 100 0" rect="0 0 2 28" parent="score_top" layout_gravity="right center" image="hero_line"/>

@@ -3307,12 +3307,12 @@ function GODDESS_MGR_SOCKET_REQ_NORMAL_ENABLE(parent, btn)
 	local frame = parent:GetTopParentFrame()
 	local slot = GET_CHILD_RECURSIVELY(frame, 'socket_slot')
 	local guid = slot:GetUserValue('ITEM_GUID')
+	local isMaterial = 1
 	if guid ~= 'None' then
 		local inv_item = session.GetInvItemByGuid(guid)
 		if inv_item == nil then return end
 
 		local index = parent:GetUserValue('SLOT_INDEX')
-		local isMaterial = true
 		local name = 'None'
 		local value = 0
 		local item_obj = GetIES(inv_item:GetObject())
@@ -3329,9 +3329,9 @@ function GODDESS_MGR_SOCKET_REQ_NORMAL_ENABLE(parent, btn)
 					if cur_count == 'None' then
 						cur_count = '0'
 					end
-
+					
 					if math.is_larger_than(cur_count, tostring(_value)) ~= 1 then
-						isMaterial = false
+						isMaterial = 0
 					end
 
 					name = _name
@@ -3341,7 +3341,7 @@ function GODDESS_MGR_SOCKET_REQ_NORMAL_ENABLE(parent, btn)
 					if inv_item == nil then return end
 			
 					if inv_item.count < _value then
-						isMaterial = false
+						isMaterial = 0
 					end
 				end
 			end
@@ -3355,14 +3355,14 @@ function GODDESS_MGR_SOCKET_REQ_NORMAL_ENABLE(parent, btn)
 
 		local img = '{img '.. icon ..' 32 32}'
 
-		local yesscp = string.format('_GODDESS_MGR_SOCKET_REQ_NORMAL_ENABLE(%s)', index, isMaterial)
+		local yesscp = string.format('_GODDESS_MGR_SOCKET_REQ_NORMAL_ENABLE(%s, %d)', index, isMaterial)
 		local msgbox = ui.MsgBox(ScpArgMsg('ReallyMakeSocketGoddess{img}{value}', 'img', img, 'value', value), yesscp, '')
 		SET_MODAL_MSGBOX(msgbox)
 	end
 end
 
 function _GODDESS_MGR_SOCKET_REQ_NORMAL_ENABLE(index, isMaterial)
-	if isMaterial == true then
+	if isMaterial == 1 then
 		local frame = ui.GetFrame('goddess_equip_manager')
 		local slot = GET_CHILD_RECURSIVELY(frame, 'socket_slot')
 		local guid = slot:GetUserValue('ITEM_GUID')

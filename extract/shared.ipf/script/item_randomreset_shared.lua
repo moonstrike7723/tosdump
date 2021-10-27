@@ -38,8 +38,8 @@ end
 
 function SCR_NEWCLE_MATERIAL(item)
 
- 	local itemGradeRatio = {75, 50, 35, 20, 20};
-    local itemMaxRatio = {1.4, 1.5, 1.8, 2, 2};
+ 	local itemGradeRatio = {75, 50, 35, 20, 20, 20};
+    local itemMaxRatio = {1.4, 1.5, 1.8, 2, 2, 2};
 
 	local itemLv = TryGetProp(item, "UseLv")
 	if itemLv == nil then

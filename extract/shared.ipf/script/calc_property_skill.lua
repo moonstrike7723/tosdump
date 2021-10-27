@@ -15971,7 +15971,7 @@ end
 function SCR_Get_SkillFactor_Vibora_Leventador(skill)
     local pc = GetSkillOwner(skill)
     local skl = GetSkill(pc, "Fencer_BalestraFente")
-    local value = math.floor(TryGetProp(skl, "SkillFactor", 0) * 0.1)
+    local value = math.floor(TryGetProp(skl, "SkillFactor", 0) * 4 * 0.1)
 
     return value
 end
@@ -17243,4 +17243,15 @@ end
 function SCR_GET_Blink_Ratio(skill)
     local value = 100 + skill.Level * 10
     return value
+end
+
+function SCR_Get_SkillFactor_Skarphuggning(skill)
+    local pc = GetSkillOwner(skill)
+    local value = 0
+    local skarphuggningSkill = GetSkill(pc, "Hackapell_Skarphuggning")
+    if skarphuggningSkill ~= nil then
+        value = TryGetProp(skarphuggningSkill, "SkillFactor", 0)
+    end
+    
+    return value;
 end

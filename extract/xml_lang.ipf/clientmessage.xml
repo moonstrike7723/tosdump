@@ -615,6 +615,7 @@
 		<Class ClassID="3086" ClassName="AlreadyExtractedProperty" Data="(추출불가)"/>
 		<Class ClassID="3087" ClassName="EvolvedItem" Data="[진화]"/>
 		<Class ClassID="3088" ClassName="ReallyMakeSocketGoddess{img}{value}" Data="소켓을 추가하시겠습니까?{nl} {nl}{img}  {value}개"/>
+		<Class ClassID="3089" ClassName="OnlyGoddessEquipManagement" Data="가디스 장비 관리에서만 가능합니다."/>
 	</Category>
 	<Category Name="ItemPuzzle">
 		<Class ClassID="3501" ClassName="WouldYouSelectThisCombinationAsAlchemystryTarget?" Data="이 조합을 연금 대상으로 선택합니까?"/>
@@ -1806,6 +1807,7 @@
 		<Class ClassID="10585" ClassName="CannotUseCostumeEvent" Data="해당 연출 중에는 사용할 수 없습니다."/>
 		<Class ClassID="10586" ClassName="NeedRegisterToCabinet" Data="등록되지 않은 아이템입니다."/>
 		<Class ClassID="10587" ClassName="CanNotUseItemLv" Data="장비의 레벨이 알맞지 않습니다."/>
+		<Class ClassID="10588" ClassName="{num}SilverLimitOver" Data="실버를 {num} 이상 소지시 사용이 불가능합니다."/>
 		<Class ClassID="10589" ClassName="LuciferiExtract_Help" Data="루시페리 계열 액세서리의 강화/초월/포텐셜을 추출하여 속성이 저장된 2장의 스크롤을 생성합니다{nl}{nl}해당 스크롤은 캐릭터 귀속된 같은 종류의 루시페리 계열 액세서리에 사용 가능합니다.{nl}속성이 추출된 액세서리만 액세서리 분해가 가능합니다."/>
 	</Category>
 	<Category Name="FoodTable">

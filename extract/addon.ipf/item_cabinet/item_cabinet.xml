@@ -7,7 +7,7 @@
 	<input moveable="true" hittestframe="true"/>
 	<script OpenScp="ITEM_CABINET_OPEN" CloseScp="ITEM_CABINET_CLOSE"/>
 	<sound opensound="sys_popup_open_1" closesound="character_item_window_close"/>
-	<layer layerlevel="95"/>
+	<layer layerlevel="94"/>
 	<controls>
 		<groupbox name="gFrame" rect="0 0 1050 720" margin="0 0 0 0" layout_gravity="center center" draw="false" hittestbox="false" resizebyparent="false"/>
 		<groupbox name="gbox" parent="gFrame" rect="0 0 1050 720" margin="0 0 0 0" layout_gravity="left center" skin="test_frame_low" draw="true" hittestbox="false" resizebyparent="false" scrollbar="false"/>
