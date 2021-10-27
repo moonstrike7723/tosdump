@@ -255,7 +255,11 @@ return value"/>
                             <Num Num="0"/>
                             <Num Num="150"/>
                             <Num Num="30"/>
-                            <Num Num="20" UseFunc="1" FuncTxt="return 10 + obj.Level * 1;"/>
+                            <Num Num="20" UseFunc="1" FuncTxt="local value = 10 + obj.Level * 1;
+							if IsPVPField(self) == 1 and value > 2 then
+							value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
+							end
+							return value"/>
                             <Num Num="2"/>
                         </Scp>
                         <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="0">

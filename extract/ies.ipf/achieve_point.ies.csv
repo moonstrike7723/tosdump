@@ -87,6 +87,10 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 2514,Giltine_clear_gold,[마신의 성소 : 레전드] 3분 이내 클리어,NO,NO
 2515,Giltine_clear_silver,[마신의 성소 : 레전드] 10분 이내 클리어,NO,NO
 2516,Giltine_clear_bronze,[마신의 성소 : 레전드] 클리어,NO,NO
+2517,Vasilissa_first_kill,[성자의 기도소 : 가디스] 서버별 최초 클리어,NO,NO
+2518,Vasilissa_clear_gold,[성자의 기도소 : 가디스] 3분 이내 클리어,NO,NO
+2519,Vasilissa_clear_silver,[성자의 기도소 : 가디스] 10분 이내 클리어,NO,NO
+2520,Vasilissa_clear_bronze,[성자의 기도소 : 가디스] 클리어,NO,NO
 3001,HairShop,미용실,NO,NO
 3002,Connection,접속 횟수,NO,NO
 3003,INDUN,인던입장횟수,NO,NO
@@ -229,6 +233,9 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 6156,EVENT_2103_Title_13,칭호- 마리아의 친구,NO,NO
 6157,EVENT_2103_Title_14,칭호- 워시스의 친구,NO,NO
 6158,EVENT_2103_Title_15,칭호- 갈홍의 친구,NO,NO
+6159,EVENT_2106_Title_1,칭호 - Golden Watermelon,NO,NO
+6160,EVENT_2106_Title_2,칭호 - Silver Watermelon,NO,NO
+6161,EVENT_2106_Title_3,칭호 - Bronze Watermelon,NO,NO
 7001,PardonerAbility,기부 레벨,NO,NO
 7002,TaxAbility,세금 납부 레벨,NO,NO
 8001,FreeDungeon_under_68_1,시카리오스 기믹,NO,NO
@@ -268,9 +275,9 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 21003,Ancient_3,챌린지 모드 자동 매칭 300회 클리어,NO,NO
 21004,Ancient_4,차원 붕괴 지점 10단계 50회 클리어,NO,NO
 21005,Ancient_5,400 레벨 던전 50회 클리어,NO,NO
-21006,Ancient_6,베르니케의 파편 던전 80단계 이상 10회 도전,NO,NO
+21006,Ancient_6,베르니케의 파편 던전 30단계 이상 10회 도전,NO,NO
 21007,Ancient_7,업힐 디펜스 : 매우 어려움 50회 클리어,NO,NO
-21008,Ancient_8,자원 쟁탈전 20회 승리,NO,NO
+21008,Ancient_8,자원 쟁탈전 또는 팀 배틀 리그 20회 승리,NO,NO
 21009,Ancient_9,팀 배틀 리그 20회 승리,NO,NO
 21010,Ancient_10,주간 보스 레이드 50회 참여,NO,NO
 21011,Ancient_11,성물 레이드 : 자동 매칭(Hard) 30회 클리어,NO,NO
@@ -280,3 +287,4 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 22003,Boss_Co_Op_3,보스 협동전 훈장 칭호,NO,NO
 22004,Boss_Co_Op_4,보스 협동전 훈장 칭호,NO,NO
 22005,Boss_Co_Op_5,보스 협동전 훈장 칭호,NO,NO
+40001,Achieve_TOSHero_1,영웅담 클리어,NO,NO

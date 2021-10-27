@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionDesc>
+    <Sound frame="0.00" soundFile="mon_voice_vasilissa_born_script"/>
+    <Sound frame="0.41" soundFile="skl_eff_waterburstup"/>
+    <Sound frame="14.48" soundFile="skl_eff_atk_move_l_21"/>
+    <Sound frame="24.42" soundFile="skl_eff_atk_move_l_23"/>
+    <Sound frame="37.66" soundFile="skl_eff_atk_move_l_20"/>
+    <Sound frame="58.89" soundFile="skl_eff_atk_move_l_22"/>
+    <Sound frame="78.22" soundFile="skl_eff_atk_move_l_10"/>
+</ActionDesc>

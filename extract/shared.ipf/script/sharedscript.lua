@@ -103,8 +103,14 @@ function init_random_option_range_table_for_lv(item_lv)
                 if log == true then
                     str_equip = str_equip .. '\t' .. equip
                 end
-
+                
                 local before_weight = random_equip_weight[equip] * 1000000
+                if item_lv >= 460 then
+                    if equip == 'Trinket' or equip == 'THWeapon' then
+                        before_weight = 1.5 * 1000000
+                    end
+                end
+
                 local weight = tonumber(string.format('%.8f', ((before_weight/1000000) / total_equip_weight)))
                 local max_value = math.ceil(total * weight)
                 local min_value = math.ceil(max_value * 0.3)
@@ -151,6 +157,7 @@ local function init_random_option_range_table()
     init_random_option_range_table_for_lv(430)
     init_random_option_range_table_for_lv(440)
     init_random_option_range_table_for_lv(460)
+    init_random_option_range_table_for_lv(490)
 end
 -- end of 초기 정보 (min, max) 세팅 함수 ----------------------------------------------
 
@@ -165,14 +172,14 @@ init_random_option_range_table()
 function get_item_grade_ratio(grade)
     local ret = 0.2
 
-    if grade > 4 then 
-        grade = 4
-    end
-
     if grade == 3 then  -- 레어 등급은 min은 max의 20%
         ret = 0.2
     elseif grade == 4 then
         ret = 0.8       -- 유니크 등급 min은 max의 80%
+    elseif grade == 5 then
+        ret = 0.8       -- 레전드 등급 min은 max의 80%
+    elseif grade == 6 then
+        ret = 0.5       -- 가디스 등급 min은 max의 50%
     end
 
     if ret > 0.8 then
@@ -197,10 +204,14 @@ function GET_RANDOM_OPTION_VALUE_VER2(item, option_name)
 
     if g_random_option_range_table[item_lv] == nil then
         return nil, nil
+    elseif g_random_option_range_table[item_lv][option_name] == nil then
+        return nil, nil
+    elseif g_random_option_range_table[item_lv][option_name][equip_group] == nil then
+        return nil, nil
     else
         local item_grade = TryGetProp(item, 'ItemGrade', 1)
         local grade_ratio = get_item_grade_ratio(item_grade)  -- 아이템 등급에 따른 min 비율
-        local max = g_random_option_range_table[item_lv][option_name][equip_group][2]     
+        local max = g_random_option_range_table[item_lv][option_name][equip_group][2]
         local min = math.ceil(max * grade_ratio)
         return min, max
     end
@@ -2096,8 +2107,8 @@ function GET_RECIPE_REQITEM_CNT(cls, propname,pc)
 
     if recipeType == "Anvil" or recipeType == "Grill" then
         return cls[propname .. "_Cnt"], TryGet(cls, propname .. "_Level");
-    elseif recipeType == "Drag" or recipeType == "Upgrade" then
-        return cls[propname .. "_Cnt"], TryGet(cls, propname .. "_Level");
+    elseif recipeType == "Drag" or recipeType == "Upgrade" then        
+        return TryGetProp(cls, propname .. "_Cnt", 0), TryGetProp(cls, propname .. "_Level", 0);
     end
 
     return 0;
@@ -3435,7 +3446,7 @@ function IS_ARTSRESET_ITEM(itemClsName)
         local strArg = TryGetProp(itemCls, 'StringArg', 'None')
         local numArg1 = TryGetProp(itemCls, 'NumberArg1', -1)
         local numArg2 = TryGetProp(itemCls, 'NumberArg2', -1)
-        if strArg == 'AbilityPointReset_Arts' and numArg1 > 0 and numArg2 > 0 then
+        if strArg == 'AbilityPointReset_Arts' then
             return true
         end
     end
@@ -3493,6 +3504,12 @@ function GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX()
     local nation = GetServerNation();
     local groupid = GetServerGroupID();
 
+    return GET_AUTO_MEMBER_JOIN_GUILD_IDX(groupid, nation)      
+end
+
+function GET_AUTO_MEMBER_JOIN_GUILD_IDX(groupid, nation)
+    groupid = tonumber(groupid)
+
     if nation == "KOR" then
         if groupid == 1006 then -- qa
             return "518402552627671";
@@ -3504,6 +3521,20 @@ function GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX()
             return "1137006692273513";
         elseif groupid == 1002 then -- 바이보라
             return "1137058231881971";
+        end
+    elseif nation == 'GLOBAL_JP' then
+        if groupid == 1202 then
+            return '32461362823197'
+        end
+    elseif nation == 'GLOBAL' then
+        if groupid == 1001 then
+            return '506544147923578'
+        elseif groupid == 1003 then
+            return '377991481786398'
+        elseif groupid == 1004 then 
+            return '693014448046952'
+        elseif groupid == 1005 then
+            return '578656648822807' 
         end
     end
 
@@ -3557,4 +3588,127 @@ function SCR_IS_LEVEL_DUNGEON(pc)
 	end
 
 	return 'NO'
+end
+
+
+function IS_TOS_HERO_ZONE(pc)
+	local keyword
+
+	if IsServerSection() == 1 then
+		local map = GetMapProperty(pc)
+		keyword = TryGetProp(map, "Keyword", "None")
+	else
+		local mapClassName = session.GetMapName()
+		if mapClassName ~= nil then
+			local clsList = GetClassList("Map")
+			if clsList ~= nil then
+				local cls = GetClassByNameFromList(clsList, mapClassName)
+				keyword = TryGetProp(cls, "Keyword", "None")
+			end
+		end
+	end
+
+	local split = SCR_STRING_CUT(keyword, ';')
+	
+	for i = 1, #split do
+		if split[i] == 'TOSHero' then
+			return 'YES'
+		end
+	end
+
+	return 'NO'
+end
+
+function IS_LEFT_SUBFRAME_ACC(item)
+    local str = TryGetProp(item, 'StringArg', 'None')
+    local ClsName = TryGetProp(item, 'ClassName', 'None')
+    if str == 'Half_Acc_EP12' or str == 'Luciferi' or str == 'Acc_EP12' or (str == 'pvp_Mine' and nil ~= string.find(ClsName, 'PVP_EP12')) then
+        return true
+    else
+        return false
+    end
+end
+
+-- 테섭 상점용(무조건 100실버로 할 것!)
+function GET_FIXEDPRICE(shopName)
+	local price = 0
+
+	if string.find(shopName, "Test_Kupole_") ~= nil then return 100 end
+
+	return price
+end
+
+function GET_EQUIP_GROUP_NAME(item)
+    local name = TryGetProp(item, 'EquipGroup', 'None')
+
+    if name == 'Weapon' or name == 'THWeapon' or name == 'SubWeapon' then
+        return 'Weapon'
+    end
+
+    if name == 'SHIRT' or name == 'PANTS' or name == 'BOOTS' or name == 'GLOVES' then
+        return 'Armor'
+    end
+
+    if name == 'Seal' then
+        return 'Seal'
+    end
+
+    if name == 'Ark' then
+        return 'Ark'
+    end
+
+    if name == 'Relic' then
+        return 'Relic'
+    end
+
+    name = TryGetProp(item, 'DefaultEqpSlot', 'None')
+
+    if name == 'NECK' or name == 'RING' then
+        return 'Acc'
+    end
+
+    return 'None'
+end
+
+-- 각종 워프 기능을 이용 가능한 상태인지 검사. 워프 상점, 스크롤, 귀환석, 토큰 이동, 콘텐츠 현황판 이동 등
+function ENABLE_WARP_CHECK(pc)
+	if IsBuffApplied(pc, 'BountyHunt_BUFF') == 'YES' then
+		return false;
+	end
+
+    -- DisableWarp KeywordCheck
+    local zone_name = "None";
+    if IsServerSection() == 0 then zone_name = GetZoneName();
+    else zone_name = GetZoneName(pc); end
+    if zone_name ~= "None" then
+        local map_class = GetClass("Map", zone_name);
+        if map_class ~= nil then
+            local keyword = TryGetProp(map_class, "Keyword", "None");
+            if keyword ~= "" and keyword ~= "None" then
+                local keyword_list = StringSplit(keyword, ';');
+                if keyword_list ~= nil and #keyword_list >= 1 then
+                    local index = table.find(keyword_list, "DisableWarp");
+                    if index ~= 0 then
+                        return false;
+	end
+                end
+            end
+        end
+    end
+	return true;
+end
+
+function TRIM_STRING_WITH_SPACING(str)
+	local words = {}
+	str = string.gsub(str,"　","")
+	
+	for word in str:gmatch("[%w\128-\255]+") do table.insert(words, word) end
+	str = ""
+	for k,v in pairs(words) do
+		str = str..v
+		if k ~= #words then
+			str = str.." "
+		end
+	end
+	return str
 end

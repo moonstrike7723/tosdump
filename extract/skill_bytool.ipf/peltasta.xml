@@ -12,7 +12,8 @@
                     <Num Num="0"/>
                     <Num Num="15000" UseFunc="1" FuncTxt="local value = 15000;
 local isItem = GetExProp(self, &quot;ITEM_GUARDIAN_DURATIONTIMEUP&quot;);
-if isItem == 1 then
+local isItem2 = GetExProp(self, &quot;ITEM_VIBORA_SawbladeShield_Lv4&quot;);
+if isItem == 1 or isItem2 == 1 then
 value = value * 2
 end
 return value"/>
@@ -254,8 +255,8 @@ return value"/>
                     <Pos Angle="0" Dist="0"/>
                     <Num Num="400"/>
                     <Num Num="5" UseFunc="1" FuncTxt="local value = 4 * obj.Level;
-                    if IsPVPField(self) == 1 then
-                    value = obj.Level
+                    if IsPVPField(self) == 1 and value > 2 then
+                    value = math.floor((math.max(0, value-2)^0.5))+math.min(2, value)
                     end
                     return value"/>
                     <Num Num="2"/>

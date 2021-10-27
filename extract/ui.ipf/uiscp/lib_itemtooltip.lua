@@ -43,7 +43,28 @@ function IS_NEED_DRAW_GEM_TOOLTIP(itemObj)
 		return false;
 	end
 	return true
+end
 
+function IS_NEED_DRAW_RELIC_GEM_TOOLTIP(itemObj)
+	local invitem = GET_INV_ITEM_BY_ITEM_OBJ(itemObj)
+	if invitem == nil then
+		return false
+	end
+	if itemObj.ItemGrade < 6 then
+		return false
+	end
+	if invitem:IsAvailableSocket(itemObj.MaxSocket_COUNT) == false then
+		return false
+	end
+	return true
+end
+
+function IS_NEED_DRAW_AETHER_GEM_TOOPTIP(item_obj)
+	local inv_item = GET_INV_ITEM_BY_ITEM_OBJ(item_obj);
+	if inv_item == nil then return false; end
+	if item_obj.ItemGrade < 6 then return false; end
+	if inv_item:IsAvailableSocket(item_obj.MaxSocket_COUNT) == false then return false; end
+	return true;
 end
 
 function IS_NEED_DRAW_MAGICAMULET_TOOLTIP(invitem)
@@ -249,14 +270,13 @@ function ENABLE_ARMOR_EQUIP_CHANGE(equipItem)
 end
 
 function ADD_ITEM_PROPERTY_TEXT(GroupCtrl, txt, xmargin, yPos )
-
 	if GroupCtrl == nil then
 		return 0;
 	end
 
 	local cnt = GroupCtrl:GetChildCount();
-	local ControlSetObj			= GroupCtrl:CreateControlSet('tooltip_item_prop_richtxt', "ITEM_PROP_" .. cnt , 0, yPos);
-	local ControlSetCtrl		= tolua.cast(ControlSetObj, 'ui::CControlSet');
+	local ControlSetObj	= GroupCtrl:CreateControlSet('tooltip_item_prop_richtxt', "ITEM_PROP_" .. cnt , 0, yPos);
+	local ControlSetCtrl = tolua.cast(ControlSetObj, 'ui::CControlSet');
 	local richText = GET_CHILD(ControlSetCtrl, "text", "ui::CRichText");
 	richText:SetTextByKey('text', txt);
 	ControlSetCtrl:Resize(ControlSetCtrl:GetWidth(), richText:GetHeight());
@@ -264,7 +284,6 @@ function ADD_ITEM_PROPERTY_TEXT(GroupCtrl, txt, xmargin, yPos )
 
 	GroupCtrl:Resize(GroupCtrl:GetWidth(),GroupCtrl:GetHeight() + ControlSetObj:GetHeight())
 	return ControlSetCtrl:GetHeight() + ControlSetCtrl:GetY();
-
 end
 
 function SET_GRADE_TOOLTIP(parent, invitem, starsize)
@@ -572,12 +591,12 @@ function GET_TOOLTIP_ITEM_OBJECT(strarg, guid, numarg1)
 			viewObj.Level = temp_obj.AppendPropertyStatus;			
 			return viewObj, 1;
 		end
-	elseif strarg == 'ItemTradeShop' then
+	elseif strarg == 'ItemTradeShop' then		
 		local itemObj = GetClassByType('Item', guid)
 		viewObj = CloneIES_UseCP(itemObj);
 		if itemObj.StringArg == 'EnchantJewell' then
 			local temp_obj = GetClassByType('ItemTradeShop', numarg1)
-			viewObj.Level = temp_obj.TargetItemAppendValue;			
+			viewObj.Level = temp_obj.TargetItemAppendValue;					
 			return viewObj, 1;
 		end
 	elseif strarg == 'Tradeselectitem' then
@@ -612,6 +631,11 @@ function GET_TOOLTIP_ITEM_OBJECT(strarg, guid, numarg1)
 		end
 
 		return viewObj, 1;
+	elseif strarg == 'team_belonging' then
+		local itemObj = GetClassByType('Item', numarg1)		
+		viewObj = CloneIES_UseCP(itemObj)
+		viewObj.TeamBelonging = 1
+		return viewObj, 1
 	else
 		invitem = GET_ITEM_BY_GUID(guid, 0);
 	end
@@ -1104,7 +1128,6 @@ function ABILITY_DESC_PLUS(desc, cur)
     else
     	return string.format(" - %s "..ScpArgMsg("PropUp").."%d", desc, math.abs(cur));
 	end
-
 end
 
 function AWAKEN_ABILITY_DESC_PLUS(desc, cur)   
@@ -1266,13 +1289,13 @@ function IS_DISABLED_TRADE(invitem, type)
 	if type == TRADE_TYPE_USER then
 		if invitem.MaxStack <= 1 and prCount <= 0 and (GetTradeLockByProperty(invitem) ~= "None" or 0 < blongCnt) or 
 		(invitem.MaxStack <= 1 and (GetTradeLockByProperty(invitem) ~= "None" or 0 < blongCnt)) or
-		(invitem.ItemType == 'Equip' and invitem.ClassType ~= 'Helmet' and invitem.ClassType ~= 'Armband' and prCount <= 0) or
+		(invitem.ItemType == 'Equip' and invitem.ClassType ~= 'Hair' and invitem.ClassType ~= 'Helmet' and invitem.ClassType ~= 'Armband' and prCount <= 0) or
 		(invitem.ItemType == 'Equip' and invitem.Transcend > 0) then
 			return true;
 		end
 	elseif type == TRADE_TYPE_MARKET then
 		if invitem.MaxStack <= 1 and 
-		((invitem.ItemType == 'Equip' and invitem.ClassType ~= 'Helmet' and invitem.ClassType ~= 'Armband' and prCount <= 0) or 
+		((invitem.ItemType == 'Equip' and invitem.ClassType ~= 'Hair' and invitem.ClassType ~= 'Helmet' and invitem.ClassType ~= 'Armband' and prCount <= 0) or 
 		0 < blongCnt or 
 		(TryGetProp(invitem, 'ClassType', 'None') == 'Armband' and invitem.MarketTrade == "NO")) then
 			return true;
@@ -1302,7 +1325,7 @@ function IS_ENABLED_USER_TRADE_ITEM(invitem)
         return false;
 	elseif true == IS_DISABLED_TRADE(invitem, TRADE_TYPE_USER) then
 		return false;
-	elseif TryGetProp(invitem, 'TeamBelonging', 0) ~= 0 then
+	elseif TryGetProp(invitem, 'TeamBelonging', 0) ~= 0 or TryGetProp(invitem, 'CharacterBelonging', 0) ~= 0 then
 		return false;
     else
         return true;
@@ -1316,7 +1339,7 @@ function IS_ENABLED_MARKET_TRADE_ITEM(invitem)
         return false;
     elseif true == IS_DISABLED_TRADE(invitem, TRADE_TYPE_MARKET) then
 		return false;
-	elseif TryGetProp(invitem, 'TeamBelonging', 0) ~= 0 then
+	elseif TryGetProp(invitem, 'TeamBelonging', 0) ~= 0 or TryGetProp(invitem, 'CharacterBelonging', 0) ~= 0 then
 		return false;
     else
         return true;
@@ -1329,7 +1352,9 @@ function IS_ENABLED_TEAM_TRADE_ITEM(invitem)
     if false == itemProp:IsEnableTeamTrade() then
         return false;
     elseif true == IS_DISABLED_TRADE(invitem, TRADE_TYPE_TEAM) then
-        return false;
+		return false;
+	elseif TryGetProp(invitem, 'CharacterBelonging', 0) ~= 0 then -- 캐릭터 귀속
+		return false
     else
         return true;
 	end
@@ -1361,4 +1386,39 @@ function GET_ITEM_NAME_WITH_LEVEL(item, itemLv)
 	end
 
 	return item.Name;
+end
+
+function SET_EVOLVED_TEXT(gBox, invitem, yPos, isEquiped)
+    if isEquiped == nil then
+		isEquiped = 0;
+	end
+
+	local pc = GetMyPCObject();
+	
+	local evolved = TryGetProp(invitem, "EvolvedItemLv", 0);
+	local use = TryGetProp(invitem, "UseLV", 0);
+	if evolved > use then
+		local y = GET_CHILD_MAX_Y(gBox);
+
+		local propValue = GET_EVOLVED_ATK(invitem);
+		if propValue > 0 then
+			local mhpText = gBox:CreateOrGetControl('richtext', "EVOLVED_TEXT", 20, yPos, gBox:GetWidth() - 30, 20);
+			mhpText = AUTO_CAST(mhpText);
+			mhpText:SetTextFixWidth(1);
+			local text = "{#004123}- " .. ScpArgMsg('EvolvedBy');
+			mhpText:SetText(text);
+		
+			local hpUpValue = gBox:CreateOrGetControl('richtext', "EVOLVED_VALUE", 200, yPos, 200, 20);
+			hpUpValue = AUTO_CAST(hpUpValue);
+			hpUpValue:SetTextFixWidth(1);
+			hpUpValue:SetTextAlign("right", "center");
+
+			local valueText = string.format("{#004123}"..ScpArgMsg("PropUp").."%d", propValue)
+			hpUpValue:SetText(valueText)
+
+			yPos = yPos + mhpText:GetHeight();
+		end
+	end
+
+	return yPos;
 end
