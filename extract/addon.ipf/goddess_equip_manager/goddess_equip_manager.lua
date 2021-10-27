@@ -2344,8 +2344,8 @@ function GODDESS_MGR_RANDOMOPTION_APPLY_COST_UPDATE(frame)
 		cost_bg:Resize(cost_bg:GetWidth(), origin_height)
 	end
 
-	local rand_apply_bg = GET_CHILD_RECURSIVELY(frame, 'rand_apply_bg')
-	rand_apply_bg:SetUserValue('COIN_TYPE', coin_type)
+	local rand_apply_bg = GET_CHILD_RECURSIVELY(frame, 'rand_apply_bg')	
+	rand_apply_bg:SetUserValue('COIN_TYPE', coin_type)	
 	rand_apply_bg:SetUserValue('REQ_COST', apply_cost)
 end
 
@@ -2634,14 +2634,16 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_COST_UPDATE(frame)
 	local rand_do_icor = GET_CHILD_RECURSIVELY(frame, 'rand_do_icor')
 
 	local slot = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot')
-	local guid = slot:GetUserValue('ITEM_GUID')
+	local guid = slot:GetUserValue('ITEM_GUID')	
 	if guid ~= 'None' then
 		local rate = slot:GetUserValue('DEFAULT_RATE')
 		local coin = slot:GetUserValue('COIN_TYPE')
 		local cost = slot:GetUserValue('REQ_COST')
-	
-		rand_icor_prob_text:SetTextByKey('total', rate)
-	
+		
+		rand_icor_prob_text:SetTextByKey('total', rate)	
+		if cost == 'None' then
+			cost = '0'
+		end
 		rand_icor_cost:SetTextByKey('value', cost)
 	
 		local coin_cls = GetClass('accountprop_inventory_list', coin)
@@ -2685,6 +2687,7 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_REG_ITEM(frame, inv_item, item_ob
 	local slot = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot')
 	SET_SLOT_ITEM(slot, inv_item)
 	slot:SetUserValue('ITEM_GUID', inv_item:GetIESID())
+	slot:SetUserValue('ITEM_CLASSNAME', TryGetProp(item_obj, 'ClassName', 'None'))	
 	slot:SetUserValue('ITEM_USE_LEVEL', TryGetProp(inherit_item, 'UseLv', 0))
 	slot:SetUserValue('DEFAULT_RATE', def_rate)
 	slot:SetUserValue('EQUIP_SPOT', spot)
@@ -2710,29 +2713,34 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_ITEM_REMOVE(parent, ctrl)
 	GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_CLEAR(frame)
 end
 
-function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC(parent, btn)
+function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC(parent, btn)	
 	local frame = parent:GetTopParentFrame()
 
 	local rand_icor_slot = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot')
 	local coin_type = rand_icor_slot:GetUserValue('COIN_TYPE')
 	local acc = GetMyAccountObj()
 	if acc == nil then return end
-
+	
 	local cur_coin = TryGetProp(acc, coin_type, '0')
 	if cur_coin == 'None' then
 		cur_coin = '0'
 	end
+	
 	local cost = rand_icor_slot:GetUserValue('REQ_COST')
-	if math.is_larger_than(cur_coin, cost) ~= 1 then
+	if cost == 'None' then
+		cost = '0'
+	end
+	
+	if math.is_larger_than(cost, cur_coin) == 1 then
 		ui.SysMsg(ClMsg('NOT_ENOUGH_MONEY'))
 		return
 	end
-
+	
 	if rand_icor_slot:GetUserIValue('IS_SAME_OPTION') == 1 then
 		ui.SysMsg(ClMsg('SameOptionEngravedAlready'))
 		return
 	end
-
+	
 	local yesscp = string.format('_GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC()')
 	local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetEngrave'), yesscp, 'None')
 	SET_MODAL_MSGBOX(msgbox)
@@ -2766,7 +2774,7 @@ function _GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC()
 	arg_list:Add(index)
 
 	local result_list = session.GetItemIDList()
-	item.DialogTransaction('ICOR_PRESET_ENGRAVE_ICOR', result_list, '', arg_list)
+	item.DialogTransaction('ICOR_PRESET_ENGRAVE_ICOR', result_list, '', arg_list)	
 end
 
 function GODDESS_MGR_ENGRAVE_ICOR_CLEAR_BTN(parent, btn)
@@ -2782,13 +2790,15 @@ function ON_SUCCESS_RANDOMOPTION_ENGRAVE_ICOR(frame, msg, arg_str, arg_num)
 	rand_do_engrave:ShowWindow(0)
 
 	local ref_slot = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot')
-	local guid = ref_slot:GetUserValue('ITEM_GUID')
-	local inv_item = session.GetInvItemByGuid(guid)
-	local item_obj = GetIES(inv_item:GetObject())
-	local icon = TryGetProp(item_obj, 'Icon', 'None')
-
 	local left, top = _GET_EFFECT_UI_MARGIN()
-
+	local class_name = ref_slot:GetUserValue('ITEM_CLASSNAME')
+	print(class_name)
+	local cls = GetClass('Item', class_name)
+	local icon = nil
+	if cls ~= nil then
+		icon = TryGetProp(cls, 'Icon', 'None')
+	end
+	
 	local success_scp = string.format('RESULT_EFFECT_UI_RUN_SUCCESS(\'%s\', \'%s\', \'%d\', \'%d\')', '_END_RAMDOMOPTION_ENGRAVE_ICOR_EXEC', icon, left, top)
 	ReserveScript(success_scp, 0)
 end
