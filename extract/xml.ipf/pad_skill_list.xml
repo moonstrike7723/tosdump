@@ -646,11 +646,10 @@ return value"/>
             <ToolScp Scp="PAD_ACTIVATE" Client="NO" UseSleep="NO">
                 <Str Str="ENEMY"/>
             </ToolScp>
-            <ToolScp Scp="PAD_TGT_BUFF_AFTER_CHECK_BUFF" Client="NO" UseSleep="NO">
+            <ToolScp Scp="PAD_TGT_BUFF" Client="NO" UseSleep="NO">
                 <Str Str="ENEMY"/>
                 <Num Num="0"/>
                 <Num Num="0"/>
-                <Str Str="JincanGu_Debuff"/>
                 <Str Str="JincanGu_Debuff"/>
                 <Num Num="1" UseFunc="1" FuncTxt="return obj.Level;"/>
                 <Num Num="0"/>
@@ -740,11 +739,10 @@ return value"/>
             <ToolScp Scp="PAD_ACTIVATE" Client="NO" UseSleep="NO">
                 <Str Str="ENEMY"/>
             </ToolScp>
-            <ToolScp Scp="PAD_TGT_BUFF_AFTER_CHECK_BUFF" Client="NO" UseSleep="NO">
+            <ToolScp Scp="PAD_TGT_BUFF" Client="NO" UseSleep="NO">
                 <Str Str="ENEMY"/>
                 <Num Num="0"/>
                 <Num Num="0"/>
-                <Str Str="JincanGu_Abil_Debuff"/>
                 <Str Str="JincanGu_Abil_Debuff"/>
 		<Num Num="1" UseFunc="1" FuncTxt="return obj.Level;"/>
                 <Num Num="0"/>
@@ -1277,6 +1275,9 @@ return value"/>
                 <Num Num="5"/>
             </ToolScp>
             <ToolScp Scp="PAD_USEABLE_RELATION_ENEMY" Client="NO" UseSleep="NO"/>
+            <ToolScp Scp="PAD_FUNC_UPDATE_RUNSCRIPT" Client="NO" UseSleep="NO">
+                <Str Str="SCR_BARBARIAN_POUNCING"/>
+            </ToolScp>
         </createEvent>
         <updateEvent>
             <ToolScp Scp="PAD_DAMAGE_ENEMY" Client="NO" UseSleep="NO">
@@ -1292,6 +1293,9 @@ return value"/>
     </PadSkill>
     <PadSkill Name="Barbarian_Pouncing_Abil" CheckerType="1" Range="80" InnerRange="45" UpdateTerm="300" AutoPos="1" AutoDir="1" ApplyFlyMon="1" AllowOverlap="1" EnableSearch="0">
         <createEvent>
+            <ToolScp Scp="PAD_FUNC_UPDATE_RUNSCRIPT" Client="NO" UseSleep="NO">
+                <Str Str="SCR_BARBARIAN_POUNCING"/>
+            </ToolScp>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
                 <Num Num="10000000"/>
                 <Num Num="1"/>
@@ -1392,7 +1396,17 @@ return value"/>
                 <Num Num="0"/>
             </ToolScp>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
-                <Num Num="3000"/>
+                <Num Num="0" UseFunc="1" FuncTxt="    local time = 3000
+
+    if IsBuffApplied(self, &quot;StartUp_Abil_Buff&quot;) == &quot;YES&quot; then
+
+        time = 3250
+
+    end
+
+    
+
+    return time"/>
                 <Num Num="99990"/>
             </ToolScp>
             <ToolScp Scp="PAD_DESTROY_EFFECT_BLENDTIME" Client="NO" UseSleep="NO">
@@ -9940,7 +9954,7 @@ return time;"/>
                 <Num Num="0"/>
             </ToolScp>
             <ToolScp Scp="PAD_DAMAGE_ENEMY_BY_RATE" Client="NO" UseSleep="NO">
-                <Num Num="0.050000001"/>
+                <Num Num="0.07"/>
                 <Num Num="0"/>
                 <Num Num="0"/>
                 <Str_Arg Str="None" Arg="1"/>
@@ -10865,6 +10879,7 @@ return obj.Level"/>
                 <Str_Arg Str="None" Arg="1"/>
                 <Num Num="1"/>
             </ToolScp>
+            <ToolScp Scp="PAD_USEABLE_PC" Client="NO" UseSleep="NO"/>
         </createEvent>
         <updateEvent>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
@@ -18226,13 +18241,13 @@ end"/>
         <createEvent>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
                 <Num Num="800"/>
-                <Num Num="999"/>
+                <Num Num="5"/>
             </ToolScp>
         </createEvent>
         <enterEvent>
             <ToolScp Scp="PAD_TGT_BUFF_ORACLE_HIDDEN" Client="NO" UseSleep="NO">
                 <Num Num="0"/>
-                <Num Num="0"/>
+                <Num Num="-1"/>
                 <Num Num="1" UseFunc="1" FuncTxt="return obj.Level"/>
                 <Num Num="0"/>
                 <Num Num="10000"/>
@@ -20812,7 +20827,7 @@ return 30000 + obj.Level * 5000"/>
                 <Str Str="Stun"/>
                 <Num Num="1"/>
                 <Num Num="0"/>
-                <Num Num="4000"/>
+                <Num Num="1500"/>
                 <Num Num="1"/>
                 <Num Num="100" UseFunc="1" FuncTxt="local value = 0 
 				local Sage18_abil = GetAbility(self, &apos;Sage18&apos;)
@@ -24743,6 +24758,41 @@ return 3 + obj.Level * 0.5"/>
             </ToolScp>
         </updateEvent>
     </PadSkill>
+    <PadSkill Name="ThrouwingSpear_Hoplite33_Pad" CheckerType="0" Range="65" UpdateTerm="2000" AllowOverlap="1" IsMagicType="0">
+        <createEvent>
+            <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
+                <Num Num="2000"/>
+                <Num Num="99"/>
+            </ToolScp>
+            <ToolScp Scp="PAD_CONCURRENT_USE_COUNT" Client="NO" UseSleep="NO">
+                <Num Num="8"/>
+            </ToolScp>
+            <ToolScp Scp="PAD_USEABLE_RELATION_ENEMY" Client="NO" UseSleep="NO"/>
+        </createEvent>
+        <destroyEvent>
+            <ToolScp Scp="C_PAD_DESTROY_EFFECT_POS" Client="YES" UseSleep="NO">
+                <Pos Angle="0" Dist="0"/>
+                <Str_Arg Str="F_smoke177_2" Arg="3"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+            </ToolScp>
+        </destroyEvent>
+        <updateEvent>
+            <ToolScp Scp="PAD_DAMAGE_DADAK_ENEMY" Client="NO" UseSleep="NO">
+                <Num Num="1"/>
+                <Num Num="0.5"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+                <Str_Arg Str="None" Arg="1"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+            </ToolScp>
+            <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
+                <Num Num="-2000"/>
+                <Num Num="0"/>
+            </ToolScp>
+        </updateEvent>
+    </PadSkill>
     <PadSkill Name="TombMaiden_circlewave" CheckerType="4" PadHeight="12" Range="20" InnerRange="10" UpdateTerm="300" EnableSearch="0">
         <createEvent>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
@@ -26237,6 +26287,7 @@ end"/>
                 <Str_Arg Str="None" Arg="1"/>
                 <Num Num="1"/>
             </ToolScp>
+            <ToolScp Scp="PAD_USEABLE_PC" Client="NO" UseSleep="NO"/>
         </createEvent>
         <updateEvent>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">

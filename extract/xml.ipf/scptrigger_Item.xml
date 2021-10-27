@@ -12119,6 +12119,24 @@ end"/>
 			</Trigger>
 		</TriggerList>
 	</SpcItem>
+	<SpcItem Name="Ark_pc_storm">
+		<TriggerList Act="Equip">
+			<Trigger>
+				<ExecList>
+					<ToolScp Scp="equip_Ark_pc_storm" Client="NO" UseSleep="NO">            
+          </ToolScp>
+				</ExecList>
+			</Trigger>
+		</TriggerList>
+		<TriggerList Act="UnEquip">
+			<Trigger>
+				<ExecList>
+					<ToolScp Scp="unequip_Ark_pc_storm" Client="NO" UseSleep="NO">            
+          </ToolScp>
+				</ExecList>
+			</Trigger>
+		</TriggerList>
+	</SpcItem>
 	<SpcItem Name="EP12_STF04_001">
 		<TriggerList Act="Equip">
 			<Trigger>
@@ -14752,6 +14770,32 @@ end"/>
 					<ToolScp Scp="SPCI_SEAL_UNEQUIP_ADD_EXPROP_NUM" Client="NO" UseSleep="NO"/>
 					<ToolScp Scp="SPCI_REMOVE_BUFF_UNEQUIP" Client="NO" UseSleep="NO">
 						<Str Str="premium_seal_2021_buff"/>
+					</ToolScp>
+				</ExecList>
+			</Trigger>
+		</TriggerList>
+	</SpcItem>
+	<SpcItem Name="wing_botruta">
+		<TriggerList Act="Equip">
+			<Trigger>
+				<ExecList>
+					<ToolScp Scp="SPCI_BUFF_EQUIPITEM" Client="NO" UseSleep="NO">
+						<Str Str="Equip_Boruta_Wing"/>
+						<Num Num="99"/>
+						<Num Num="0"/>
+						<Num Num="0"/>
+						<Num Num="1"/>
+						<Num Num="100"/>
+						<Num Num="-1"/>
+					</ToolScp>
+				</ExecList>
+			</Trigger>
+		</TriggerList>
+		<TriggerList Act="UnEquip">
+			<Trigger>
+				<ExecList>
+					<ToolScp Scp="SPCI_REMOVE_BUFF_UNEQUIP" Client="NO" UseSleep="NO">
+						<Str Str="Equip_Boruta_Wing"/>
 					</ToolScp>
 				</ExecList>
 			</Trigger>

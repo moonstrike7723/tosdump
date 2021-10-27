@@ -1712,6 +1712,11 @@ function TRY_TO_USE_WARP_ITEM(invitem, itemobj)
 		ui.SysMsg(ScpArgMsg("CannotUseThieInThisMap"));
 		return 0;
 	end
+
+	if IsInstrumentState(pc) == "YES" then
+		ui.SysMsg(ScpArgMsg("ImpossibleInstrumentState"));
+		return 0;
+	end
 	
 	-- 워프 주문서 예외처리. 실제 워프가 이루어질때 아이템이 소비되도록.
 	local warpscrolllistcls = GetClass("warpscrolllist", itemobj.ClassName);
@@ -1753,7 +1758,6 @@ function TRY_TO_USE_WARP_ITEM(invitem, itemobj)
 			return 1;
 		end
 		
-		local pc = GetMyPCObject();
         local warpFrame = ui.GetFrame('worldmap2_mainmap');
         warpFrame:SetUserValue('WARP_TYPE', "ITEM")
 		warpFrame:SetUserValue('SCROLL_WARP', itemobj.ClassName)
@@ -2132,6 +2136,38 @@ function REQUEST_SUMMON_BOSS_TX()
 	
 	item.UseByGUID(invItem:GetIESID());
 end
+
+
+function BEFORE_USE_TEST_SCROLL_TX()
+	local invFrame = ui.GetFrame("inventory");
+	local itemGuid = invFrame:GetUserValue("REQ_USE_ITEM_GUID");
+	local invItem = session.GetInvItemByGuid(itemGuid)
+	
+	if nil == invItem then
+		return;
+	end
+	
+	if true == invItem.isLockState then
+		ui.SysMsg(ClMsg("MaterialItemIsLock"));
+		return;
+	end
+	
+	local stat = info.GetStat(session.GetMyHandle());		
+	if stat.HP <= 0 then
+		return;
+	end
+	
+	local itemtype = invItem.type;
+	local curTime = item.GetCoolDown(itemtype);
+	if curTime ~= 0 then
+		imcSound.PlaySoundEvent("skill_cooltime");
+		return;
+	end
+	
+	item.UseByGUID(invItem:GetIESID());
+end
+
+
 
 --아이템의 사용
 function INVENTORY_RBDOUBLE_ITEMUSE(frame, object, argStr, argNum)
@@ -4154,6 +4190,11 @@ function DO_WEAPON_SWAP(frame, index)
 	if pc == nil then
 		return;
 	end
+
+	if IS_INDUN_AUTOMATCH_WAITING() == true then
+		ui.SysMsg(ClMsg('EscapeDisabledDuringMatching'))
+		return;
+	end
 	
 	if IsBuffApplied(pc, 'Instrument_Use_Buff') == 'YES' then
 		return;
@@ -4479,6 +4520,45 @@ function INVENTORY_TREE_OPENOPTION_CHANGE(parent, ctrl, strarg, numarg)
 		end
 	end
 end
+
+function BEFORE_USE_QUEST_CLEAR_SCROLL(invItem)	
+	if invItem == nil then
+		return;
+	end
+
+	local invFrame = ui.GetFrame("inventory");	
+	local itemobj = GetIES(invItem:GetObject());
+	if itemobj == nil then
+		return;
+	end
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
+	
+	local pc = GetMyPCObject();
+
+	local textmsg = string.format("{#ff0000}[ %s ]{/}{nl}%s", itemobj.Name, ScpArgMsg("isrealUseQuestClearScroll_Msg_1"));
+	ui.MsgBox_NonNested(textmsg, itemobj.Name, "REQUEST_USE_QUEST_CLEAR_SCROLL_TX", "None");
+	return;
+end
+
+function BEFORE_USE_TEST_SCROLL(invItem)	
+	if invItem == nil then
+		return;
+	end
+
+	local invFrame = ui.GetFrame("inventory");	
+	local itemobj = GetIES(invItem:GetObject());
+	if itemobj == nil then
+		return;
+	end
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
+	
+	local pc = GetMyPCObject();
+
+	local textmsg = string.format("{#ff0000}[ %s ]{/}{nl}%s", itemobj.Name, ScpArgMsg("isrealUseQuestClearScroll_Msg_1"));
+	ui.MsgBox_NonNested(textmsg, itemobj.Name, "BEFORE_USE_TEST_SCROLL_TX", "None");
+	return;
+end
+
 
 function BEFORE_APPLIED_NON_EQUIP_ITEM_OPEN(invItem)	
 	if invItem == nil then

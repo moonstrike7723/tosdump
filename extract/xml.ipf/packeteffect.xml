@@ -158,6 +158,7 @@
         <Effect Name="F_hit009_fire_puple"/>
         <Effect Name="F_smoke169_shockwave_red_2"/>
         <Effect Name="F_hit012_dark"/>
+        <Effect Name="ThrouwingSpear_Hoplite33_Pad"/>
     </Category>
     <Category ID="132">
         <Effect Name="I_arrow005_mash2_red#Dummy_back_arrow04"/>
@@ -823,6 +824,8 @@
         <Effect Name="F_ground174_darkRed"/>
         <Effect Name="F_line002_dark_red"/>
         <Effect Name="F_rize004_dark_damballa"/>
+        <Effect Name="F_moru_5"/>
+        <Effect Name="F_moru_4"/>
     </Category>
     <Category ID="144">
         <Effect Name="F_pc_CardBook_ground_dark"/>

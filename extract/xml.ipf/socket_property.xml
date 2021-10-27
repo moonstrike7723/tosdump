@@ -2276,8 +2276,8 @@
 		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/서번트 소환 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
 	</Item>
 	<Item Name="GEM_Chronomancer_Pass">
-		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/패스 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
-		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/패스 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
+		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/패스 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/패스 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
+		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/패스 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/패스 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
 	</Item>
 	<Item Name="GEM_Chronomancer_QuickCast">
 		<Level Level="0" PropList_TopLeg="OptDesc/퀵 캐스트 스킬 레벨 + 1" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
@@ -2328,8 +2328,8 @@
 		<Level Level="1" PropList_TopLeg="OptDesc/인력의 룬 스킬 레벨 + 1" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
 	</Item>
 	<Item Name="GEM_RuneCaster_Berkana">
-		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/태초의 룬 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
-		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/태초의 룬 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
+		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/태초의 룬 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/태초의 룬 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
+		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/태초의 룬 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/태초의 룬 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
 	</Item>
 	<Item Name="GEM_Sage_Portal">
 		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/포탈 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
@@ -2360,8 +2360,8 @@
 		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/섀도우 페터 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
 	</Item>
 	<Item Name="GEM_Shadowmancer_InfernalShadow">
-		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/인퍼널 섀도우 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
-		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/인퍼널 섀도우 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
+		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/인퍼널 섀도우 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/인퍼널 섀도우 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
+		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/인퍼널 섀도우 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/인퍼널 섀도우 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
 	</Item>
 	<Item Name="GEM_Onmyoji_GenbuArmor">
 		<Level Level="0" PropList_TopLeg="OptDesc/현무갑 스킬 레벨 + 1" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
@@ -2372,8 +2372,8 @@
 		<Level Level="1" PropList_TopLeg="OptDesc/식신령의 정수 스킬 레벨 + 1" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
 	</Item>
 	<Item Name="GEM_Daoshi_LightningCharm">
-		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/강화부 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
-		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/강화부 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
+		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/강화부 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/강화부 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
+		<Level Level="1" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="OptDesc/강화부 스킬 레벨 + 1" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/강화부 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
 	</Item>
 	<Item Name="GEM_Daoshi_FlameRadiation">
 		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/멸화부 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
@@ -2662,10 +2662,6 @@
 	<Item Name="GEM_Assassin_HallucinationSmoke">
 		<Level Level="0" PropList_TopLeg="OptDesc/두칸 알힐루사 스킬 레벨 + 1" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
 		<Level Level="1" PropList_TopLeg="OptDesc/두칸 알힐루사 스킬 레벨 + 1" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
-	</Item>
-	<Item Name="GEM_OutLaw_Aggress">
-		<Level Level="0" PropList_TopLeg="OptDesc/시비걸기 스킬 레벨 + 1" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
-		<Level Level="1" PropList_TopLeg="OptDesc/시비걸기 스킬 레벨 + 1" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="None" PropList_HandOrFoot_Penalty="None"/>
 	</Item>
 	<Item Name="GEM_Squire_Repair">
 		<Level Level="0" PropList_TopLeg="None" PropList_TopLeg_Penalty="None" PropList_MainOrSubWeapon="None" PropList_MainOrSubWeapon_Penalty="None" PropList_HandOrFoot="OptDesc/수리 스킬 레벨 + 1" PropList_HandOrFoot_Penalty="None"/>
