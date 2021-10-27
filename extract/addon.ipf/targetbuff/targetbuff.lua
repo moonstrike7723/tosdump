@@ -1,4 +1,4 @@
--- targetbuff.lua
+﻿-- targetbuff.lua
 t_buff_ui = {};
 t_buff_ui["buff_group_cnt"] = 3;
 t_buff_ui["slotsets"] = {};
@@ -30,10 +30,21 @@ function INIT_TARGETBUFF(frame)
 		button:SetTextTooltip(ClMsg("TargetBuffButtonToolTipMin"));
 	end
 
+	local timer = GET_CHILD_RECURSIVELY(frame, "addontimer");
+	tolua.cast(timer, "ui::CAddOnTimer");
+	timer:SetUpdateScript("TARGET_BUFF_UPDATE");
+	timer:Start(0.45);
+
 	local pos = ui.GetCatchMovePos(frame:GetName());
 	if pos.x ~= 0 and pos.y ~= 0 then
 		frame:MoveFrame(pos.x, pos.y);
 	end
+
+	local handle = session.GetMyHandle();
+	local colLimit = tonumber(frame:GetUserConfig("DEBUFF_COL_LIMIT"));	
+	ui.buff.SetTargetDebuffColLimitCount(frame:GetName(), handle, colLimit);
+
+	TARGETBUFF_RESIZE(frame, t_buff_ui);
 end 
 
 function TARGET_BUFF_UPDATE(frame, timer, argStr, argNum, passedTime)
@@ -44,12 +55,15 @@ end
 function TARGETBUFF_ON_MSG(frame, msg, argStr, argNum)
 	local handle = session.GetTargetHandle();
 	if msg == "TARGET_BUFF_ADD" then
+		if TARGETDEBUFF_SELFAPPLIED_CHECK(handle, argNum) == true then return; end
 		if TARGETBUFF_DEBUFF_LIMIT(frame, handle, argNum) == false then 
 		COMMON_BUFF_MSG(frame, "ADD", argNum, handle, t_buff_ui, argStr);
 		end
 	elseif msg == "TARGET_BUFF_REMOVE" then
+		if TARGETDEBUFF_SELFAPPLIED_CHECK(handle, argNum) == true then return; end
 		COMMON_BUFF_MSG(frame, "REMOVE", argNum, handle, t_buff_ui, argStr);
 	elseif msg == "TARGET_BUFF_UPDATE" then
+		if TARGETDEBUFF_SELFAPPLIED_CHECK(handle, argNum) == true then return; end
 		COMMON_BUFF_MSG(frame, "UPDATE", argNum, handle, t_buff_ui, argStr);
 	elseif msg == "TARGET_SET" then
 		if s_lsgmsg == msg and s_lasthandle == handle then
@@ -60,7 +74,7 @@ function TARGETBUFF_ON_MSG(frame, msg, argStr, argNum)
 		COMMON_BUFF_MSG(frame, "CLEAR", argNum, handle, t_buff_ui);		
 		local isLimitDebuff = tonumber(frame:GetUserValue("IS_LIMIT_DEBUFF"));
 		if isLimitDebuff == 1 then
-			ui.TargetBuffAddonMsg("SET", handle);
+			ui.TargetDebuffMinimizeAddonMsg(frame:GetName(), "SET", handle);
 		else
 		COMMON_BUFF_MSG(frame, "SET", argNum, handle, t_buff_ui);
 		end
@@ -83,8 +97,12 @@ function TARGETBUFF_RESIZE(frame, buff_ui)
 	local buff_slotsets = buff_ui["slotsets"][1];
 	local debuff_slotsets = buff_ui["slotsets"][2];
 	local buffcount_subslotsets = buff_ui["slotsets"][3];
+	if buffcount_slotsets == nil or buff_slotsets == nil or debuff_slotsets == nil or buffcount_subslotsets == nil then
+		return; 
+	end
+
 	local height = buffcount_slotsets:GetHeight() + buffcount_subslotsets:GetHeight() + buff_slotsets:GetHeight() + debuff_slotsets:GetHeight();
-	frame:Resize(frame:GetWidth(), height + 30);
+	frame:Resize(frame:GetWidth(), height + 55);
 end
 
 --------------------------------------------------------------------------------------------------
@@ -166,10 +184,13 @@ function TARGETBUFF_DEBUFF_BUTTON_UPDATE()
 				button:SetTextTooltipByTargetBuff(ClMsg("TargetBuffButtonToolTipMin"));
 				ui.ChangeTooltipTextByTargetBuff(ClMsg("TargetBuffButtonToolTipMin"));
 			end
+
+			if button:IsVisible() == 1 then
 			button:Resize(26, 26);
 			button:Invalidate();
 		end
 	end
+end
 end
 
 function TARGETBUFF_DBUFF_SLOTSET_MINIMIZE()

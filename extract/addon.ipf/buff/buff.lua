@@ -261,6 +261,10 @@ function GET_BUFF_SLOT_INDEX(j, colcnt)
 end
 
 function get_exist_debuff_in_slotlist(slotlist, buff_id)
+	if slotlist == nil then 
+		return nil;
+	end
+
     for k = 0, #slotlist - 1 do
         local slot =  slotlist[k];
         if slot ~= nil then
@@ -280,6 +284,10 @@ function get_exist_debuff_in_slotlist(slotlist, buff_id)
 end
 
 function BUFF_TOTAL_COUNT_CHECK(frame, msg, buffType, handle, buff_ui, buffIndex)
+	if frame == nil then
+		return;
+	end
+
 	local buffCls = GetClassByType('Buff', buffType);
 	if buffCls == nil or buffCls.ShowIcon == "FALSE" then
 		return;
@@ -292,40 +300,52 @@ function BUFF_TOTAL_COUNT_CHECK(frame, msg, buffType, handle, buff_ui, buffIndex
 		apply_limit_count_buff = 0;
 	end
 
+	local totalCount = 0;
+	local buff_ui_index = 0;
+
+	if frame:GetName() == "targetdebuff_selfapplied" then
+		local debuff_totalcnt = frame:GetUserIValue("DEBUFF_TOTAL_CNT");
+		if buffCls.Group1 == "Debuff" then
+			debuff_totalcnt = info.GetBuffcountByProperty(handle, buffCls.Group1, apply_limit_count_buff, 1, 1);
+			buff_ui_index = 0;
+			frame:SetUserValue("DEBUFF_TOTAL_CNT", debuff_totalcnt);
+			totalCount = debuff_totalcnt;
+		end
+	else
 	local buffcount_totalcnt = frame:GetUserIValue("BUFF_COUNT_TOTAL_CNT"); 
 	local buff_totalcnt = frame:GetUserIValue("BUFF_TOTAL_CNT"); 
 	local debuff_totalcnt = frame:GetUserIValue("DEBUFF_TOTAL_CNT"); 
-	local totalCount = 0;
-	local buff_ui_index = 0;
 	if buffCls.Group1 == "Debuff" then
-		debuff_totalcnt = info.GetBuffcountByProperty(handle, buffCls.Group1, apply_limit_count_buff, 1);
+			debuff_totalcnt = info.GetBuffcountByProperty(handle, buffCls.Group1, apply_limit_count_buff, 1, 0);
 		buff_ui_index = 2;
 		frame:SetUserValue("DEBUFF_TOTAL_CNT", debuff_totalcnt);
 		totalCount = debuff_totalcnt;
 	else
 		if apply_limit_count_buff == 1 then
-			buffcount_totalcnt = info.GetBuffcountByProperty(handle, buffCls.Group1, apply_limit_count_buff, 1);
+				buffcount_totalcnt = info.GetBuffcountByProperty(handle, buffCls.Group1, apply_limit_count_buff, 1, 0);
 			buff_ui_index = 0;
 			frame:SetUserValue("BUFF_COUNT_TOTAL_CNT", buffcount_totalcnt);
 			totalCount = buffcount_totalcnt;
 		else
-			buff_totalcnt = info.GetBuffcountByProperty(handle, buffCls.Group1, apply_limit_count_buff, 1);
+				buff_totalcnt = info.GetBuffcountByProperty(handle, buffCls.Group1, apply_limit_count_buff, 1, 0);
 			buff_ui_index = 1;
 			frame:SetUserValue("BUFF_TOTAL_CNT", buff_totalcnt);
 			totalCount = buff_totalcnt;
 		end
 	end
+	end
 
-	local row = buff_ui["slotsets"][buff_ui_index]:GetRow();
-	local col = buff_ui["slotsets"][buff_ui_index]:GetCol();
-	
+	local slotset =  buff_ui["slotsets"][buff_ui_index];
+	if slotset ~= nil then
+		local row = slotset:GetRow();
+		local col = slotset:GetCol();
 	if msg == "ADD" and totalCount > col * row then
-		buff_ui["slotsets"][buff_ui_index]:ExpandRow();
+			slotset:ExpandRow();
 		UPDATE_BUFF_UI_SLOTSET(frame, buff_ui, buff_ui_index);
 	end
-	
-	buff_ui["slotsets"][buff_ui_index]:AutoCheckDecreaseRow();
-	buff_ui["slotsets"][buff_ui_index]:Invalidate();
+		slotset:AutoCheckDecreaseRow();
+		slotset:Invalidate();
+	end
 end
 
 function COMMON_BUFF_MSG(frame, msg, buffType, handle, buff_ui, buffIndex)
@@ -335,6 +355,7 @@ function COMMON_BUFF_MSG(frame, msg, buffType, handle, buff_ui, buffIndex)
 		for i = 0, buffCount - 1 do
 			local buff = info.GetBuffIndexed(handle, i);
 			if buff ~= nil then
+				if TARGETDEBUFF_SELFAPPLIED_SET_ADDON_MSG_CHECK(frame:GetName(), handle, buff.buffID) == true then return; end
 				COMMON_BUFF_MSG(frame, "ADD", buff.buffID, handle, buff_ui, buff.index);
 			end
 		end
@@ -369,6 +390,12 @@ function COMMON_BUFF_MSG(frame, msg, buffType, handle, buff_ui, buffIndex)
 		return;
 	end
 
+	if frame:GetName() == "targetdebuff_selfapplied" then
+		if class.Group1 ~= "Debuff" then
+			return;
+		end
+	end
+
 	local slotlist;
 	local slotcount;
 	local captionlist;
@@ -385,17 +412,35 @@ function COMMON_BUFF_MSG(frame, msg, buffType, handle, buff_ui, buffIndex)
 	end
 
 	if class.Group1 == 'Debuff' then
-		slotlist = buff_ui["slotlist"][2];
-		slotcount = buff_ui["slotcount"][2];
-		captionlist = buff_ui["captionlist"][2];
-		if nil ~= buff_ui["slotsets"][2] then
-			colcnt = buff_ui["slotsets"][2]:GetCol();
+		local slotlistIndex = 2;
+		if frame:GetName() == "targetdebuff_selfapplied" then
+			slotlistIndex = 0;
+		--[[ else
+			local customindex = ui.buff.GetBuffLineByBuffUserCustomList(buffType);
+			if customindex ~= -1 then
+				slotlistIndex = customindex;
+			end ]]
+		end
+
+		slotlist = buff_ui["slotlist"][slotlistIndex];
+		slotcount = buff_ui["slotcount"][slotlistIndex];
+		captionlist = buff_ui["captionlist"][slotlistIndex];
+
+		if nil ~= buff_ui["slotsets"][slotlistIndex] then
+			colcnt = buff_ui["slotsets"][slotlistIndex]:GetCol();
 		end
 	else
 		if class.ApplyLimitCountBuff == 'YES' then
 			local slotlistIndex = 0;
 			if isOtherCastBuff == true then
 				slotlistIndex = 3;
+			end
+
+			if slotlistIndex ~= 3 then
+				--[[ local customindex = ui.buff.GetBuffLineByBuffUserCustomList(buffType);
+				if customindex ~= -1 then
+					slotlistIndex = customindex;
+				end ]]
 			end
 
 			slotlist = buff_ui["slotlist"][slotlistIndex];
@@ -410,6 +455,13 @@ function COMMON_BUFF_MSG(frame, msg, buffType, handle, buff_ui, buffIndex)
 				slotlistIndex = 3;
 			end
 
+			if slotlistIndex ~= 3 then
+				--[[ local customindex = ui.buff.GetBuffLineByBuffUserCustomList(buffType);
+				if customindex ~= -1 then
+					slotlistIndex = customindex;
+				end ]]
+			end
+
 			slotlist = buff_ui["slotlist"][slotlistIndex];
 			slotcount = buff_ui["slotcount"][slotlistIndex];
 			captionlist = buff_ui["captionlist"][slotlistIndex];
@@ -419,6 +471,10 @@ function COMMON_BUFF_MSG(frame, msg, buffType, handle, buff_ui, buffIndex)
 			ApplyLimitCountBuff = "NO";
 		end
 	end
+
+	if slotlist == nil then return; end
+	if slotcount == nil then return; end
+	if captionlist == nil then return; end
 
 	if msg == 'ADD' then
         local skip = false
@@ -688,6 +744,10 @@ function BUFF_ON_MSG(frame, msg, argStr, argNum)
 		return;
 	end
 
+	--[[ if BUFF_CHECK_RAID(argNum) == true then
+		return;
+	end ]]
+
 	if msg == "BUFF_ADD" then
 		COMMON_BUFF_MSG(frame, "ADD", argNum, handle, s_buff_ui, argStr);
 	elseif msg == "BUFF_REMOVE" then
@@ -701,12 +761,18 @@ function BUFF_ON_MSG(frame, msg, argStr, argNum)
 end
 
 function BUFF_RESIZE(frame, buff_ui)
+	if frame == nil and buff_ui == nil then
+		return;
+	end
+
 	local buffcount_slotsets = buff_ui["slotsets"][0];
 	local buff_slotsets = buff_ui["slotsets"][1];
 	local debuff_slotsets = buff_ui["slotsets"][2];
 	local buffcount_subslotsets = buff_ui["slotsets"][3];
+	if buffcount_slotsets == nil or buff_slotsets == nil or debuff_slotsets == nil or buffcount_subslotsets == nil then
+		return;
+	end
 
 	local height = buffcount_slotsets:GetHeight() + buffcount_subslotsets:GetHeight() + buff_slotsets:GetHeight() + debuff_slotsets:GetHeight();
-
 	frame:Resize(frame:GetWidth(), height + 20);
 end

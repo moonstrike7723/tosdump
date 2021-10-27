@@ -15,7 +15,7 @@
 				</Scp>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="700">
 					<Str_Arg Str="I_swordtrail053_Dark_reverse" Arg="3"/>
-					<Str Str="None"/>
+					<Str Str="Dummy_eff_skl1"/>
 					<Num Num="0"/>
 				</Scp>
 			</EtcList>
@@ -43,7 +43,16 @@
 					<Num Num="0"/>
 					<Num Num="0"/>
 				</Scp>
+                		<Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
+                		    <Str Str="skl_eff_spread_10"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="700">
+		                    <Str Str="skl_eff_spread_13"/>
+		                </Scp>
 				<Anim Time="1000" Anim="skl2" Speed="1"/>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1100">
+		                    <Str Str="skl_eff_holeofdarkness_ground_end"/>
+		                </Scp>
 				<Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="1400">
 					<Pos Angle="0" Dist="80"/>
 					<Str_Arg Str="I_spread_in001_dark2##0.5" Arg="2"/>
@@ -60,11 +69,17 @@
 					<Num Num="0"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="2300">
+		                    <Str Str="skl_explosion01"/>
+		                </Scp>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="2400">
 					<Str_Arg Str="F_explosion001_dark" Arg="3"/>
 					<Str Str="Bip01 L Hand"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="2900">
+		                    <Str Str="skl_eff_smokeshell"/>
+		                </Scp>
 			</EtcList>
 		</MainSkl>
 	</Skill>
@@ -90,7 +105,19 @@
 					<Num Num="40"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
+		                    <Str Str="skl_eff_lightning_line_1"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
+		                    <Str Str="skl_eff_debuff_3"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1100">
+		                    <Str Str="skl_eff_spread_13"/>
+		                </Scp>
 				<Anim Time="1500" Anim="skl3" Speed="1"/>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="2000">
+		                    <Str Str="skl_eff_dark_keep"/>
+		                </Scp>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="2500">
 					<Str_Arg Str="F_spin037_red" Arg="3"/>
 					<Str Str="Bone_giltine_FR001"/>
@@ -181,6 +208,9 @@
 					<Num Num="40"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="3500">
+		                    <Str Str="skl_explosion01"/>
+		                </Scp>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="3600">
 					<Str_Arg Str="F_spread_out056_leaf2_1" Arg="3.5"/>
 					<Str Str="Bone_giltine_FR001"/>
@@ -221,6 +251,12 @@
 					<Num Num="0"/>
 					<Num Num="100"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
+		                    <Str Str="skl_eff_debuff_10"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1000">
+		                    <Str Str="skl_eff_shot_smoke_2"/>
+		                </Scp>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="1200">
 					<Str_Arg Str="I_swordtrail035_dark" Arg="2"/>
 					<Str Str="None"/>
@@ -258,6 +294,9 @@
 					<Num Num="0"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1200">
+		                    <Str Str="skl_eff_force_whoosh_3"/>
+		                </Scp>
 				<Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="1300">
 					<Pos Angle="0" Dist="130"/>
 					<Str_Arg Str="None" Arg="1"/>
@@ -290,6 +329,12 @@
 					<Num Num="0"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1800">
+		                    <Str Str="skl_eff_dark_hit"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="2200">
+		                    <Str Str="skl_eff_whirlwind_smoke"/>
+		                </Scp>
 			</EtcList>
 		</MainSkl>
 	</Skill>
@@ -334,6 +379,9 @@
 					<Num Num="0"/>
 					<Num Num="1"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="100">
+		                    <Str Str="skl_eff_darksight_cast"/>
+		                </Scp>
 				<Scp Scp="SKL_TGT_MSL_THROW" Client="NO" UseSleep="YES" Time="100">
 					<Str_Arg Str="I_smoke001_dark_loop#weapon_Point" Arg="0.5"/>
 					<Str_Arg Str="F_wizard_attackground_shot_smoke" Arg="1"/>
@@ -408,6 +456,9 @@
 					<Str Str="ENEMY"/>
 					<Str Str="MSL_APPLIED_BUFF_CallBack"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="400">
+		                    <Str Str="skl_eff_debuff_21"/>
+		                </Scp>
 				<Scp Scp="SKL_TGT_MSL_THROW" Client="NO" UseSleep="YES" Time="400">
 					<Str_Arg Str="I_smoke001_dark_loop#weapon_Point" Arg="0.5"/>
 					<Str_Arg Str="F_wizard_attackground_shot_smoke" Arg="1"/>
@@ -431,6 +482,15 @@
 					<Str Str="ENEMY"/>
 					<Str Str="MSL_APPLIED_BUFF_CallBack"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="400">
+		                    <Str Str="skl_eff_gematria_hand_light"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="400">
+		                    <Str Str="skl_eff_mon_debuff_1"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="500">
+		                    <Str Str="skl_eff_mon_debuff_1"/>
+		                </Scp>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="500">
 					<Str_Arg Str="F_spread_in020_dark" Arg="2"/>
 					<Str Str="Wing_Guilty"/>
@@ -459,6 +519,9 @@
 					<Str Str="ENEMY"/>
 					<Str Str="MSL_APPLIED_BUFF_CallBack"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="600">
+		                    <Str Str="skl_eff_mon_debuff_1"/>
+		                </Scp>
 				<Scp Scp="SKL_TGT_MSL_THROW" Client="NO" UseSleep="YES" Time="600">
 					<Str_Arg Str="I_smoke001_dark_loop#weapon_Point" Arg="0.5"/>
 					<Str_Arg Str="F_wizard_attackground_shot_smoke" Arg="1"/>
@@ -600,6 +663,18 @@
 					<Str Str="Bip01 Spine2"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1200">
+		                    <Str Str="skl_eff_spread_4"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1500">
+		                    <Str Str="skl_eff_stormcalling_cast_1"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1700">
+		                    <Str Str="mon_ghost_girl_dead"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1800">
+		                    <Str Str="skl_eff_thunder_1_far"/>
+		                </Scp>
 				<Anim Time="1800" Anim="skl6" Speed="1.5" StartTime="1.2"/>
 				<Scp Scp="MONSKL_PAD_LOOK_DIR_MSL" Client="NO" UseSleep="YES" Time="2000">
 					<Pos Angle="0" Dist="-1.0717497e-30"/>
@@ -703,6 +778,12 @@
 					<Num Num="0"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="2200">
+		                    <Str Str="skl_eff_lightning_line_1"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="2400">
+		                    <Str Str="skl_eff_smokegrenade_fog"/>
+		                </Scp>
 			</EtcList>
 		</MainSkl>
 	</Skill>
@@ -712,15 +793,24 @@
 				<Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
 			</HitList>
 			<EtcList>
+	                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
+	                    <Str Str="skl_eff_debuff_19"/>
+	                </Scp>
 				<Anim Time="500" Anim="skl10" Speed="1"/>
+	                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="700">
+	                    <Str Str="skl_eff_spread_1"/>
+	                </Scp>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="1000">
 					<Str_Arg Str="F_burstup024_dark" Arg="9"/>
 					<Str Str="None"/>
 					<Num Num="0"/>
 				</Scp>
+	                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="2100">
+	                    <Str Str="skl_eff_spread_13"/>
+	                </Scp>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="2500">
 					<Str_Arg Str="I_swordtrail035_dark" Arg="2"/>
-					<Str Str="None"/>
+	   		                <Str Str="Dummy_eff_skl7"/>
 					<Num Num="0"/>
 				</Scp>
 				<Scp Scp="C_SHOCKWAVE" Client="YES" UseSleep="NO" Time="2500">
@@ -770,6 +860,12 @@
 					<Str Str="Wing_Guilty"/>
 					<Num Num="1"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
+		                    <Str Str="skl_eff_debuff_2"/>
+		                </Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="800">
+		                    <Str Str="skl_eff_exorcist_entity_spread"/>
+		                </Scp>
 				<Anim Time="1000" Anim="skl8" Speed="1"/>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="1500">
 					<Str_Arg Str="I_smoke012_dark" Arg="6"/>
@@ -781,6 +877,9 @@
 					<Str Str="Bip01 Spine2"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="1800">
+		                    <Str Str="skl_eff_spread_10"/>
+		                </Scp>
 				<Scp Scp="SKL_SETPOS_TARGET" Client="NO" UseSleep="NO" Time="2000">
 					<Str_Arg Str="None" Arg="1"/>
 					<Num Num="0"/>
@@ -791,7 +890,7 @@
 				<Anim Time="2000" Anim="skl8" Speed="1.5" StartTime="1"/>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="2500">
 					<Str_Arg Str="I_swordtrail035_dark" Arg="3"/>
-					<Str Str="None"/>
+		                        <Str Str="Dummy_eff_skl8"/>
 					<Num Num="0"/>
 				</Scp>
 				<Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="2500">
@@ -810,6 +909,9 @@
 					<Num Num="10"/>
 					<Num Num="0"/>
 				</Scp>
+		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="2800">
+		                    <Str Str="skl_eff_exorcist_entity_spread"/>
+		                </Scp>
 				<Anim Time="3000" Anim="skl8" Speed="1.2"/>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="3200">
 					<Str_Arg Str="I_smoke012_dark" Arg="6"/>
@@ -821,6 +923,9 @@
 					<Str Str="Bip01 Spine2"/>
 					<Num Num="0"/>
 				</Scp>
+ 		                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="3500">
+		                    <Str Str="skl_eff_spread_10"/>
+		                </Scp>
 				<Scp Scp="SKL_SETPOS_TARGET" Client="NO" UseSleep="NO" Time="3700">
 					<Str_Arg Str="None" Arg="1"/>
 					<Num Num="0"/>
@@ -831,7 +936,7 @@
 				<Anim Time="3700" Anim="skl8" Speed="1.5" StartTime="1.2"/>
 				<Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="4000">
 					<Str_Arg Str="I_swordtrail035_dark" Arg="3"/>
-					<Str Str="None"/>
+		                        <Str Str="Dummy_eff_skl8"/>
 					<Num Num="0"/>
 				</Scp>
 				<Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="4000">

@@ -159,6 +159,7 @@ function TGTINFO_TARGET_SET(frame, msg, argStr, argNum)
 			eliteBuffMob = ClMsg("TargetNameElite") .. " ";
 		end		
 	end
+
     local nametext = GET_CHILD_RECURSIVELY(frame, "name", "ui::CRichText");
 	local mypclevel = GETMYPCLEVEL();
     local levelColor = "";
@@ -169,8 +170,13 @@ function TGTINFO_TARGET_SET(frame, msg, argStr, argNum)
     else
         nametext:SetTextByKey('color', frame:GetUserConfig("MON_NAME_COLOR_DEFAULT"));
 	end
-    nametext:SetTextByKey('lv', targetinfo.level);
-    nametext:SetTextByKey('name', eliteBuffMob..targetinfo.name);
+	nametext:SetTextByKey('lv', targetinfo.level);
+
+	if targetinfo.familyName ~= "None" then
+		nametext:SetTextByKey('name', eliteBuffMob..targetinfo.familyName);
+	else
+		nametext:SetTextByKey('name', eliteBuffMob..targetinfo.name);
+	end
 		
 	-- race
     local monsterRaceSet = TARGETINFO_GET_RACE_CONTROL(frame, targetinfo, targetHandle);

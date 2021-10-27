@@ -617,12 +617,17 @@ function CRAFT_BEFORE_START_CRAFT(ctrl, ctrlset, recipeName, artNum)
     local targetItem = GetClass('Item', targetItemName,'None')
     local targetItemGrade = TryGetProp(targetItem, 'ItemGrade', 0)
     
+	local parentFrame = ctrl:GetTopParentFrame()
+	local isTincturing = 0 
+	if parentFrame:GetName() == 'itemcraft_alchemist' then
+		isTincturing = 1
+	end
 
 	if someflag > 0  then
-		local yesScp = string.format("CRAFT_START_CRAFT(\'%s\', \'%s\', %d)",idSpace, recipeName, totalCount);        
+		local yesScp = string.format("CRAFT_START_CRAFT(\'%s\', \'%s\', %d, %d)",idSpace, recipeName, totalCount, isTincturing);        
 		ui.MsgBox(ScpArgMsg("IsValueAbleItem"), yesScp, "None");
 	else   
-		CRAFT_START_CRAFT(idSpace, recipeName, totalCount, upDown)        
+		CRAFT_START_CRAFT(idSpace, recipeName, totalCount, upDown, isTincturing)        
 	end
 end
 
@@ -737,8 +742,8 @@ local function CHECK_MATERIAL_COUNT(recipecls, totalCount)
     return true, 0 -- 조건 만족
 end
 
-function CRAFT_START_CRAFT(idSpace, recipeName, totalCount, upDown)    
-	if control.IsRestSit() == false then
+function CRAFT_START_CRAFT(idSpace, recipeName, totalCount, upDown, isTincturing)
+	if isTincturing ~= 1 and control.IsRestSit() == false then
 		addon.BroadMsg("NOTICE_Dm_!", ClMsg("AvailableOnlyWhileResting"), 3);
 		return
 	end
