@@ -1387,12 +1387,13 @@ function CHECK_HIDDEN_ABILITY(pc, abil_count, goal_lv)
 	return false
 end
 
--- ** gear score 으로 체크 방식 : 콘텐츠 장비 제한 ** --
+-- ** gear score / ablity_score 으로 체크 방식 : 콘텐츠 장비 제한 ** --
 function CHECK_GEAR_SCORE_FOR_CONTENTS(pc, indun_cls)
 	if pc == nil and indun_cls == nil then return false; end
 	local gear_score = GET_PLAYER_GEAR_SCORE(pc);
+	local ablity_score = GET_PLAYER_ABILITY_SCORE(pc)
 	local acc = GetAccountObj(pc)
-
+	
 	if TryGetProp(indun_cls, 'UnitPerReset', 'None') == 'ACCOUNT' and TryGetProp(indun_cls, 'TicketingType', 'None') == 'Entrance_Ticket' and TryGetProp(indun_cls, 'CheckCountName', 'None') ~= 'None' then
 		local remain_count = TryGetProp(acc, TryGetProp(indun_cls, 'CheckCountName', 'None'), 0)
 		if remain_count < 1 then
@@ -1436,8 +1437,23 @@ function CHECK_GEAR_SCORE_FOR_CONTENTS(pc, indun_cls)
 					return false;
 				end
 			elseif indun_cls.ClassName == "Goddess_Raid_Vasilissa_Auto" then
-				if gear_score < 430 then
+				if gear_score < 445 then
 					SendSysMsg(pc, "LowEquipedItemGearScore");
+					return false;
+				end
+				-- 특성 달성률 제한
+				if tonumber(ablity_score) < 100 then
+					SendSysMsg(pc, "LowAblityPointScore");
+					return false;
+				end
+			elseif indun_cls.ClassName == "Goddess_Raid_Vasilissa_Solo" then
+				if gear_score < 420 then
+					SendSysMsg(pc, "LowEquipedItemGearScore");
+					return false;
+				end
+				-- 특성 달성률 제한
+				if tonumber(ablity_score) < 59.99 then
+					SendSysMsg(pc, "LowAblityPointScore");
 					return false;
 				end
 			end
@@ -1509,7 +1525,7 @@ function CHECK_GEAR_SCORE_FOR_CONTENTS(pc, indun_cls)
 		-- challenge solo & auto
 		if dungeon_type == "Challenge_Solo" or dungeon_type == "Challenge_Auto" then
 			if indun_cls.ClassName == "Challenge_Normal_Solo" then -- solo
-				if gear_score < 430 then
+				if gear_score < 420 then
 					SendSysMsg(pc, "LowEquipedItemGearScore");
 					return false;
 				end
@@ -1519,7 +1535,7 @@ function CHECK_GEAR_SCORE_FOR_CONTENTS(pc, indun_cls)
 					return false;
 				end
 			elseif indun_cls.ClassName == "Challenge_Auto_Hard_Party" then -- auto hard
-				if gear_score < 430 then
+				if gear_score < 420 then
 					SendSysMsg(pc, "LowEquipedItemGearScore");
 					return false;
 				end

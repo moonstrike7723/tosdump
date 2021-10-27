@@ -860,7 +860,8 @@
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="156162" Pos="-4881.04#231.83#3933.49" genCount="1" genTime="20000" objectKey="0" propList="&apos;Dialog&apos; &apos;NPC_DUNGEON_GACHA_CUBE&apos; "/>
+                    <Obj Type="Monster" MonType="156162" Pos="5224.00#240.41#-3844.00" genCount="1" genTime="20000" objectKey="0" propList="&apos;Dialog&apos; &apos;NPC_DUNGEON_GACHA_CUBE&apos; "/>
+                    <Obj Type="Monster" MonType="160065" Pos="5199.00#212.03#-2536.00" genCount="1" genTime="20000" objectKey="1"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="LEAVE">

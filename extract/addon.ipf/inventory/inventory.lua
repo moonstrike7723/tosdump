@@ -30,7 +30,7 @@ local invenTitleName = nil
 local clickedLockItemSlot = nil
 
 g_shopList = {"companionshop", "housing_shop", "shop", "exchange", "oblation_sell"};
-g_invenTypeStrList = {"All", "Equip", "Consume", "Recipe", "Card", "Etc", "Gem", "Premium", "Housing"};
+g_invenTypeStrList = {"All", "Equip", "Consume", "Recipe", "Card", "Etc", "Gem", "Premium", "Housing", "Quest"};
 
 local _invenCatOpenOption = {}; -- key: cid, value: {key: CategoryName, value: IsToggle}
 local _invenTreeOpenOption = {}; -- key: cid, value: {key: TreegroupName, value: IsToggle}
@@ -126,8 +126,6 @@ function CHECK_INVENTORY_OPTION_ETC(itemCls)
 	local optionConfig = 0
 	if itemCategory == "Misc_Usual" or itemCategory == "Misc_MiscSkill" then
 		optionConfig = config.GetXMLConfig("InvOption_Etc_Usual")
-	elseif itemCategory == "Misc_Quest" then
-		optionConfig = config.GetXMLConfig("InvOption_Etc_Quest")
 	elseif itemCategory == "Misc_Special" or itemCategory == "OPTMisc_IcorWeapon" or itemCategory == "OPTMisc_IcorArmor" then
 		optionConfig = config.GetXMLConfig("InvOption_Etc_Special")
 	elseif itemCategory == "Misc_Collect" then
@@ -195,7 +193,7 @@ function INVENTORY_ON_INIT(addon, frame)
 	addon:RegisterMsg('TOGGLE_ITEM_SLOT_ON', 'TOGGLE_ITEM_SLOT_INVEN_ON_MSG');
 	addon:RegisterMsg('TOGGLE_ITEM_SLOT_OFF', 'TOGGLE_ITEM_SLOT_INVEN_ON_MSG');
 	addon:RegisterOpenOnlyMsg('WEIGHT_UPDATE', 'INVENTORY_WEIGHT_UPDATE');
-	addon:RegisterOpenOnlyMsg('SLOTCOUNT_UPDATE', 'INVENTORY_SLOTCOUNT_UPDATE');
+	--addon:RegisterOpenOnlyMsg('SLOTCOUNT_UPDATE', 'INVENTORY_SLOTCOUNT_UPDATE');
 	
 	addon:RegisterMsg('UPDATE_ITEM_REPAIR', 'INVENTORY_ON_MSG');
 	addon:RegisterMsg('UPDATE_ITEM_APPRAISAL', 'INVENTORY_ON_MSG');
@@ -227,11 +225,13 @@ end
 
 function IS_SHOP_FRAME_OPEN()
 	for i = 1, #g_shopList do
-		if ui.GetFrame(g_shopList[i]):IsVisible() == 1 then
-			return true;
+		local frame = ui.GetFrame(g_shopList[i])
+	 	if frame ~= nil then
+			  if frame:IsVisible() == 1 then
+	 	 		return true;
+	 	 	end
 		end
 	end
-
 	return false;
 end
 
@@ -373,6 +373,9 @@ function INVENTORY_MYPC_CHANGE_SHAPE(frame)
 end
 
 function UPDATE_SHIHOUETTE_IMAGE(frame)
+	if frame:IsVisible() ~= 1 then
+		return
+	end
 
 	local equipgroup = GET_CHILD_RECURSIVELY(frame, 'equip', 'ui::CGroupBox')
 	local shihouette = GET_CHILD_RECURSIVELY(equipgroup, 'shihouette', "ui::CPicture");
@@ -442,6 +445,8 @@ function INVENTORY_CLOSE()
 	ui.CloseFrame("accountprop_inventory")
 	ui.CloseFrame("relicmanager")
 	ui.CloseFrame("item_equip_helper")
+	ui.CloseFrame("warehouse")
+	ui.CloseFrame("accountwarehouse")
 end
 
 function INVENTORY_FRONT_IMAGE_CLEAR(frame)
@@ -505,11 +510,20 @@ function INVENTORY_WEIGHT_UPDATE(frame)
 		rate = math.floor(pc.NowWeight * 100 / pc.MaxWeight)
 	end
 		
+	local invItemList = GetInvItemList(pc)
+	local curCount = #invItemList
+	if tonumber(GET_TOTAL_MONEY_STR()) > 0 then
+		curCount = curCount - 1
+	end
+	local maxCount = 2000
+
 	local weightscptext = ScpArgMsg("Weight{All}{Max}", "All", string.format("%.1f", pc.NowWeight), "Max", string.format("%.1f", pc.MaxWeight))
+	local slotscptext = ScpArgMsg("slotcount{All}{Max}", "All", curCount, "Max", maxCount)
+
 	local weightratetext = ScpArgMsg("Weight{Rate}", "Rate", tostring(rate))
 
 	local weightGbox = GET_CHILD_RECURSIVELY(bottomgroup, 'weightGbox','ui::CGroupBox')
-	weightGbox:SetTextTooltip(weightscptext)
+	weightGbox:SetTextTooltip(weightscptext..'{nl}'..slotscptext)
 
 	local weighttext = GET_CHILD_RECURSIVELY(bottomgroup, 'invenweight','ui::CRichText')
 	weighttext:SetText(weightratetext)
@@ -519,27 +533,6 @@ function INVENTORY_WEIGHT_UPDATE(frame)
 	else
 		SYSMENU_INVENTORY_WEIGHT_NOTICE_CLOSE()
 	end
-end
-
-function INVENTORY_SLOTCOUNT_UPDATE(frame)
-	local bottomgroup = GET_CHILD_RECURSIVELY(frame, 'bottomGbox', 'ui::CGroupBox')
-	local pc = GetMyPCObject()
-	local invItemList = GetInvItemList(pc)
-	local curCount = #invItemList
-	if tonumber(GET_TOTAL_MONEY_STR()) > 0 then
-		curCount = curCount - 1
-	end
-	local maxCount = 2000
-	local rate = math.floor(curCount * 100 / maxCount)
-
-	local slotscptext = ScpArgMsg("slotcount{All}{Max}", "All", curCount, "Max", maxCount)
-	local slotratetext = ScpArgMsg("slotcount{Rate}", "Rate", tostring(rate))
-
-	local slotGbox = GET_CHILD_RECURSIVELY(bottomgroup, 'slotcountGbox','ui::CGroupBox')
-	slotGbox:SetTextTooltip(slotscptext)
-
-	local slotttext = GET_CHILD_RECURSIVELY(bottomgroup, 'invenslotcount','ui::CRichText')
-	slotttext:SetText(slotratetext)
 
 	if curCount >= maxCount then
 		SYSMENU_INVENTORY_SLOTCOUNT_NOTICE()
@@ -547,6 +540,33 @@ function INVENTORY_SLOTCOUNT_UPDATE(frame)
 		SYSMENU_INVENTORY_SLOTCOUNT_NOTICE_CLOSE()
 	end
 end
+
+--function INVENTORY_SLOTCOUNT_UPDATE(frame)	
+--	local bottomgroup = GET_CHILD_RECURSIVELY(frame, 'bottomGbox', 'ui::CGroupBox')
+--	local pc = GetMyPCObject()
+--	local invItemList = GetInvItemList(pc)
+--	local curCount = #invItemList
+--	if tonumber(GET_TOTAL_MONEY_STR()) > 0 then
+--		curCount = curCount - 1
+--	end
+--	local maxCount = 2000
+--	local rate = math.floor(curCount * 100 / maxCount)
+--
+--	local slotscptext = ScpArgMsg("slotcount{All}{Max}", "All", curCount, "Max", maxCount)
+--	local slotratetext = ScpArgMsg("slotcount{Rate}", "Rate", tostring(rate))
+--
+--	local slotGbox = GET_CHILD_RECURSIVELY(bottomgroup, 'slotcountGbox','ui::CGroupBox')
+--	slotGbox:SetTextTooltip(slotscptext)
+--
+--	local slotttext = GET_CHILD_RECURSIVELY(bottomgroup, 'invenslotcount','ui::CRichText')
+--	slotttext:SetText(slotratetext)
+--
+--	if curCount >= maxCount then
+--		SYSMENU_INVENTORY_SLOTCOUNT_NOTICE()
+--	else
+--		SYSMENU_INVENTORY_SLOTCOUNT_NOTICE_CLOSE()
+--	end
+--end
 
 function INVITEM_INVINDEX_CHANGE(itemGuid)
 
@@ -662,7 +682,7 @@ function INVENTORY_ON_MSG(frame, msg, argStr, argNum)
 	
 	if msg == 'INV_ITEM_ADD' then
 		TEMP_INV_ADD(frame, argNum);
-		INVENTORY_SLOTCOUNT_UPDATE(frame);
+		--INVENTORY_SLOTCOUNT_UPDATE(frame);
 	end
 	
 	if  msg == 'EQUIP_ITEM_LIST_GET' then
@@ -681,7 +701,8 @@ function INVENTORY_ON_MSG(frame, msg, argStr, argNum)
 		STATUS_EQUIP_SLOT_SET(frame);
 		DRAW_MEDAL_COUNT(frame)
 		INVENTORY_WEIGHT_UPDATE(frame);
-		INVENTORY_SLOTCOUNT_UPDATE(frame);
+		--INVENTORY_SLOTCOUNT_UPDATE(frame);
+		DRAW_SEASON_COIN(frame)
     end
 
 	if msg == 'INV_ITEM_CHANGE_COUNT' then
@@ -693,11 +714,12 @@ function INVENTORY_ON_MSG(frame, msg, argStr, argNum)
 	end
 
 	if msg == 'INV_ITEM_POST_REMOVE' then
-		INVENTORY_SLOTCOUNT_UPDATE(frame);
+		--INVENTORY_SLOTCOUNT_UPDATE(frame);
 	end
 
 	if msg == 'ACCOUNT_UPDATE' then
 		DRAW_MEDAL_COUNT(frame)
+		DRAW_SEASON_COIN(frame)
 	end
 
 	if msg == 'INV_DRAW_MONEY_TEXT' then
@@ -1446,7 +1468,7 @@ function INVENTORY_TOTAL_LIST_GET(frame, setpos, isIgnorelifticon, invenTypeStr)
 	local i_cnt = 0	
 	for i = 1, #invenTitleName do
 		local category = invenTitleName[i]
-		for j = 1 , #invItemList do			
+		for j = 1 , #invItemList do 
 			local invItem = invItemList[j];
 			if invItem ~= nil then
 				local itemCls = GetIES(invItem:GetObject())
@@ -1498,18 +1520,18 @@ function INVENTORY_TOTAL_LIST_GET(frame, setpos, isIgnorelifticon, invenTypeStr)
 							end						
 
 							if makeSlot == true and viewOptionCheck == 1 then
-								
-						
 								if invItem.count > 0 and baseidcls.ClassName ~= 'Unused' then -- Unused로 설정된 것은 안보임
 									if invenTypeStr == nil or invenTypeStr == typeStr then
 										local tree_box = GET_CHILD_RECURSIVELY(group, 'treeGbox_'.. typeStr,'ui::CGroupBox')
 										local tree = GET_CHILD_RECURSIVELY(tree_box, 'inventree_'.. typeStr,'ui::CTreeControl')								
 										INSERT_ITEM_TO_TREE(frame, tree, invItem, itemCls, baseidcls);
 									end
-
-									local tree_box_all = GET_CHILD_RECURSIVELY(group, 'treeGbox_All','ui::CGroupBox')
-									local tree_all = GET_CHILD_RECURSIVELY(tree_box_all, 'inventree_All','ui::CTreeControl')	
-									INSERT_ITEM_TO_TREE(frame, tree_all, invItem, itemCls, baseidcls);
+									-- Request #95788 / 퀘스트 항목은 모두 보기 탭에서 보이지 않도록 함
+									if typeStr ~= "Quest" then
+										local tree_box_all = GET_CHILD_RECURSIVELY(group, 'treeGbox_All','ui::CGroupBox')
+										local tree_all = GET_CHILD_RECURSIVELY(tree_box_all, 'inventree_All','ui::CTreeControl')	
+										INSERT_ITEM_TO_TREE(frame, tree_all, invItem, itemCls, baseidcls);
+									end
 								end
 							else
 								if customFunc ~= nil then
@@ -1525,14 +1547,15 @@ function INVENTORY_TOTAL_LIST_GET(frame, setpos, isIgnorelifticon, invenTypeStr)
 									if invenTypeStr == nil or invenTypeStr == typeStr then
 										local tree_box = GET_CHILD_RECURSIVELY(group, 'treeGbox_'.. typeStr,'ui::CGroupBox');
 										local tree = GET_CHILD_RECURSIVELY(tree_box, 'inventree_'.. typeStr,'ui::CTreeControl');
-		
 										EMPTY_TREE_INVENTORY_OPTION_TEXT(baseidcls, tree);		-- 해당 아이템이 속한 탭
 									end
 	
-									local tree_box_all = GET_CHILD_RECURSIVELY(group, 'treeGbox_All','ui::CGroupBox');
-									local tree_all = GET_CHILD_RECURSIVELY(tree_box_all, 'inventree_All','ui::CTreeControl');
-	
-									EMPTY_TREE_INVENTORY_OPTION_TEXT(baseidcls, tree_all);	-- ALL 탭 
+									-- Request #95788 / 퀘스트 항목은 모두 보기 탭에서 보이지 않도록 함
+									if typeStr ~= "Quest" then
+										local tree_box_all = GET_CHILD_RECURSIVELY(group, 'treeGbox_All','ui::CGroupBox');
+										local tree_all = GET_CHILD_RECURSIVELY(tree_box_all, 'inventree_All','ui::CTreeControl');
+										EMPTY_TREE_INVENTORY_OPTION_TEXT(baseidcls, tree_all);	-- ALL 탭 
+									end
 								end
 							end
 						end
@@ -2308,6 +2331,35 @@ function DRAW_TOTAL_VIS(frame, childname, remove)
 	local moneyGbox = bottomGbox:GetChild('moneyGbox');
 	local INVENTORY_CronCheck = GET_CHILD_RECURSIVELY(moneyGbox, childname, 'ui::CRichText');
     INVENTORY_CronCheck:SetText('{@st41b}'..GET_COMMAED_STRING(silverAmountStr))
+end
+
+function DRAW_SEASON_COIN(frame)
+	local aObj = GetMyAccountObj()
+	local Cls = GetClassByStrProp('accountprop_inventory_list', 'IsNowSeason', 'YES')
+	local PropName = TryGetProp(Cls, 'ClassName', 'None')
+	if PropName == 'None' then
+		PropName = 'GabijaCertificate'
+	end
+
+	local InvIcon = TryGetProp(Cls, 'InvIcon', 'None')
+	if InvIcon == 'None' then
+		InvIcon = 'inventory_coin_gabia_pic'
+	end
+
+	local CoinAmountStr = TryGetProp(aObj, PropName, 'None')
+
+	if CoinAmountStr == 'None' then
+		CoinAmountStr = '0'
+	end
+
+	local bottomGbox = frame:GetChild('bottomGbox');
+	local CoinGbox = bottomGbox:GetChild('SeasonCoinGbox');
+
+	local INVENTORY_CronCheck = GET_CHILD_RECURSIVELY(CoinGbox, 'sesasonCoinText', 'ui::CRichText');
+    INVENTORY_CronCheck:SetText('{@st41b}'..GET_COMMAED_STRING(CoinAmountStr))
+
+	local Coin_Icon = GET_CHILD_RECURSIVELY(CoinGbox, 'SeasonCoin_Img')
+	Coin_Icon:SetImage(InvIcon)
 end
 
 function DRAW_MEDAL_COUNT(frame)
@@ -3243,7 +3295,7 @@ function CLIENT_CONVERT_TO_NOTRADE(item_obj)
 	end
 
 	local yesscp = string.format('CHECK_CLIENT_CONVERT_TO_NOTRADE("%s")', invItem:GetIESID());
-	ui.MsgBox(ScpArgMsg('ConvertToNoTrade{NAME}', 'NAME', TryGetProp(item, 'Name', 'None')), yesscp, 'None');
+	WARNINGMSGBOX_FRAME_OPEN(ScpArgMsg('ConvertToNoTradeWarning{NAME}', 'NAME', TryGetProp(item, 'Name', 'None')), yesscp, 'None', nil, ScpArgMsg('WarningTeamBelonging'));
 end
 
 function CHECK_CLIENT_CONVERT_TO_NOTRADE(item_id)
@@ -4518,7 +4570,7 @@ function ON_UPDATE_TRUST_POINT(frame, msg, argStr, trustPoint)
 
 	trustPoint = math.min(trustPoint + 1, 6);
 	trustPointImg:SetImage("icon_credit_grade_" .. trustPoint);
-	trustPointText:SetTextByKey("trustPoint", trustPoint - 1);
+	trustPointText:SetTextByKey("trustPoint", "{img icon_credit_grade_" .. trustPoint .." 25 29}".." "..trustPoint - 1);
 	trustPointGbox:SetTooltipType('trust_point');
 	trustPointGbox:SetTooltipOverlap(1);
 	if config.GetServiceNation() == "GLOBAL" then
@@ -4794,6 +4846,10 @@ function BEFORE_APPLIED_YESSCP_OPEN_BASIC_MSG_VIBORA(invItem)
 	local cls = GetClass('Item', name)
 	if TryGetProp(cls, 'StringArg', 'None') ~= 'Vibora' then
 		return
+	else
+		if TryGetProp(cls, 'NumberArg1', 0) > 1 then
+			return
+		end
 	end
 
 	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
@@ -5105,7 +5161,7 @@ function CLIENT_CONVERT_TO_HIDDEN_ABILITY(item_obj)
 	end
 
 	local yesscp = string.format('CHECK_CLIENT_CONVERT_TO_HIDDEN_ABILITY("%s")', invItem:GetIESID());
-	ui.MsgBox(ScpArgMsg('ConvertToNoTrade{NAME}', 'NAME', TryGetProp(item, 'Name', 'None')), yesscp, 'None');
+	WARNINGMSGBOX_FRAME_OPEN(ScpArgMsg('ConvertToNoTradeWarning{NAME}', 'NAME', TryGetProp(item, 'Name', 'None')), yesscp, 'None', nil, ScpArgMsg('WarningTeamBelonging'));
 end
 
 function CHECK_CLIENT_CONVERT_TO_HIDDEN_ABILITY(item_id)
@@ -5456,4 +5512,34 @@ function RUN_CLIENT_USE_MULTIPLE_ARTS_ABILITY(count)
 	session.AddItemID(multiple_arts_ability_item_id, count)   	
     local resultlist = session.GetItemIDList()
 	item.DialogTransaction("MULTIPLE_USE_ARTS_ABILITY", resultlist)	
+end
+
+function BEFORE_APPLIED_CHANGE_VIBORA(invItem)
+	if invItem == nil then
+		return;
+	end
+	
+	local invFrame = ui.GetFrame("inventory");	
+	local itemobj = GetIES(invItem:GetObject());
+	if itemobj == nil then
+		return;
+	end
+	
+	if TryGetProp(itemobj, 'StringArg', 'None') ~= 'Vibora' then
+		return
+	else
+		if TryGetProp(cls, 'NumberArg1', 0) > 1 then
+			return
+		end
+	end
+
+	local itemClassName = TryGetProp(itemobj, "ClassName", "None")
+	if itemClassName ~= 'SWD04_126_3' and itemClassName ~= 'DAG04_123_4' and itemClassName ~= 'SHD04_122_1' and itemClassName ~= 'DAG04_123_6' and itemClassName ~= 'SHD04_122_2' then
+		return
+	end
+	
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
+	
+	local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg("YESSCP_OPEN_BASIC_MSG"));
+	ui.MsgBox_NonNested(textmsg, itemobj.Name, 'REQUEST_SUMMON_BOSS_TX', "None");
 end

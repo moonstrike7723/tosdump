@@ -3525,6 +3525,10 @@ function GET_AUTO_MEMBER_JOIN_GUILD_IDX(groupid, nation)
     elseif nation == 'GLOBAL_JP' then
         if groupid == 1202 then
             return '32461362823197'
+        elseif groupid == 1007 then
+            return '1295027129097010'
+        elseif groupid == 1008 then
+            return '1294769431133037'
         end
     elseif nation == 'GLOBAL' then
         if groupid == 1001 then
@@ -3537,7 +3541,7 @@ function GET_AUTO_MEMBER_JOIN_GUILD_IDX(groupid, nation)
             return '578656648822807' 
         elseif groupid == 1201 then
             return '103371272880147'
-        end
+        end    
     end
 
     return "0";

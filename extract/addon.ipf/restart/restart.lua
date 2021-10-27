@@ -131,7 +131,12 @@ function AUTORESIZE_RESTART(frame)
 		return;
 	end
 	campGroup:RemoveAllChild();	
-	campGroup:SetOffset(campGroup:GetX(), ctrly);	
+	campGroup:SetOffset(campGroup:GetX(), ctrly);
+
+	if GetExProp(GetMyPCObject(), 'BOUNTYHUNT_PLAYING') == 1 then
+		frame:Resize(frame:GetWidth(), maxy + 40);
+		return;
+	end
 
 	-- 파티원이 존재 할 때
 	if 0 < count then
@@ -235,7 +240,6 @@ function RESTART_MOVE_INDEX(frame, isDown)
 end
 
 function RESTART_ON_MSG(frame, msg, argStr, argNum)
-
 	local minigameover = ui.GetFrame('minigameover');	
 	if minigameover:IsVisible() == 1 then
 		return;
@@ -306,9 +310,40 @@ function RESTART_ON_MSG(frame, msg, argStr, argNum)
 					restart1btn:ShowWindow(0);
 				end
 
+				-- start point restart
+				local use_start_point = 1;
+				if argStr ~= "" then
+					local restart_class = GetClass("resurrect_return_control", argStr);
+					if restart_class ~= nil then
+						use_start_point = TryGetProp(restart_class, "StartPoint", 1);
+					end
+				end
+
 				local restart10btn = GET_CHILD(frame, "restart10btn", "ui::CButton");
 				if restart10btn ~= nil then
-					restart10btn:ShowWindow(1);
+					if use_start_point == 1 then
+						restart10btn:ShowWindow(1);
+					else
+						restart10btn:ShowWindow(0);
+					end
+				end
+
+				-- return city restart
+				local use_save_point = 0;
+				if argStr ~= "" then
+					local restart_class = GetClass("resurrect_return_control", argStr);
+					if restart_class ~= nil then
+						use_save_point = TryGetProp(restart_class, "SavePoint", 0);
+					end
+				end
+
+				local restart1btn = GET_CHILD(frame, "restart1btn", "ui::CButton");
+				if restart1btn ~= nil then
+					if use_save_point == 1 then
+						restart1btn:ShowWindow(1);
+					else
+						restart1btn:ShowWindow(0);
+					end
 				end
 			end
 		else

@@ -13,7 +13,6 @@
                                 <Num Num="1"/>
                                 <Num Num="5"/>
                             </ToolScp>
-                            <ToolScp Scp="SCR_RAID_CLEAR_TIME_START_SETTING" Client="NO" UseSleep="NO"/>
                             <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
                                 <Str Str="Goddess_Raid_Vasilissa"/>
                                 <Str Str="StageStart"/>
@@ -110,12 +109,8 @@
                                 <Str Str="NO"/>
                            </ToolScp>
                             <ToolScp Scp="SCR_LEGEND_RAID_CLEAR_CHECK" Client="NO" UseSleep="NO">
-                                <Str Str=" Goddess_Raid_Vasilissa"/>
+                                <Str Str="가디스 레이드 : 성자의 기도소(5인)"/>
                                 <Str Str="Vasilissa_first_kill"/>
-                            </ToolScp>
-                            <ToolScp Scp="SCR_LEGEND_RAID_CLEAR_CHECK" Client="NO" UseSleep="NO">
-                                <Str Str=" Goddess_Raid_Vasilissa"/>
-                                <Str Str="Vasilisa_first_kill"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EXEC_GIVE_TAKE_SOBJ_ACHIEVE2_TX" Client="NO" UseSleep="NO">
                                 <Str Str="None"/>
@@ -445,6 +440,7 @@
                                 <MGameObj List="Vasilissa/0"/>
                                 <Str Str="SCR_GODDESS_RAID_VASILISSA_MOVE_PC"/>
                             </ToolScp>
+                            <ToolScp Scp="SCR_RAID_CLEAR_TIME_START_SETTING" Client="NO" UseSleep="NO"/>
                         </execList>
                     </Event>
                     <Event eventName="Vasilissa_Stun_Check">
@@ -461,7 +457,7 @@
                         </execList>
                     </Event>
                     <Event eventName="timer_start">
-                        <condList>
+                        <condList>                        
                             <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="TIMER_REMAIN_TIME"/>
                                 <Str Str="OVER"/>
@@ -768,7 +764,7 @@
                                 <Str Str="OVER"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK_START" Client="NO" UseSleep="NO">
-                                <Num Num="40"/>
+                                <Num Num="30"/>
                             </ToolScp>
                         </condList>
                         <execList>

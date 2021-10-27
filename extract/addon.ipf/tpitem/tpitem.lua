@@ -2812,12 +2812,26 @@ function TPSHOP_ITEM_TO_BASKET_PREPROCESSOR(parent, control, tpitemname, tpitem_
 	if isHave == true then
 		ui.MsgBox(ClMsg("AlearyHaveItemReallyBuy?"), string.format("TPSHOP_ITEM_TO_BASKET('%s', %d)", tpitemname, classid), "None");
     elseif limit == 'ACCOUNT' then
-		local curBuyCount = session.shop.GetCurrentBuyLimitCount(0, obj.ClassID, classid);
-		if curBuyCount >= obj.AccountLimitCount then
-			ui.MsgBox_OneBtnScp(ScpArgMsg("PurchaseItemExceeded","Value", obj.AccountLimitCount), "")
-            return false;
+		if TryGetProp(obj, 'ItemSocial', 'None') == 'Gesture' then		
+			local pc = GetMyPCObject()
+			if pc ~= nil then	
+				local accObj = GetMyAccountObj(pc)
+				local pose_prop = TryGetProp(GetClass('Pose', TryGetProp(itemobj, "StringArg", "None")), 'RewardName', 'None')				
+				if pose_prop ~= nil and pose_prop ~= 'None' then
+					if TryGetProp(accObj, pose_prop, 0) ~= 0 then
+						ui.SysMsg(ClMsg('AlreadyHaveGesture'))
+						return false
+					else TPSHOP_ITEM_TO_BASKET(tpitemname, classid)	end
+				end
+			end
 		else
-			ui.MsgBox(ScpArgMsg("SelectPurchaseRestrictedItem","Value", obj.AccountLimitCount - curBuyCount), string.format("TPSHOP_ITEM_TO_BASKET('%s', %d)", tpitemname, classid), "None");
+			local curBuyCount = session.shop.GetCurrentBuyLimitCount(0, obj.ClassID, classid);
+			if curBuyCount >= obj.AccountLimitCount then
+				ui.MsgBox_OneBtnScp(ScpArgMsg("PurchaseItemExceeded","Value", obj.AccountLimitCount), "")
+				return false;
+			else
+				ui.MsgBox(ScpArgMsg("SelectPurchaseRestrictedItem","Value", obj.AccountLimitCount - curBuyCount), string.format("TPSHOP_ITEM_TO_BASKET('%s', %d)", tpitemname, classid), "None");
+			end
 		end
     elseif limit == 'MONTH' then
         local curBuyCount = session.shop.GetCurrentBuyLimitCount(0, obj.ClassID, classid);
@@ -2831,14 +2845,14 @@ function TPSHOP_ITEM_TO_BASKET_PREPROCESSOR(parent, control, tpitemname, tpitem_
 		ui.MsgBox(ClMsg("AleadyPutInBasketReallyBuy?"), string.format("TPSHOP_ITEM_TO_BASKET('%s', %d)", tpitemname, classid), "None");	
 	elseif TryGetProp(obj, 'ItemSocial', 'None') == 'Gesture' then
 		local pc = GetMyPCObject()
-		if pc == nil then return end
+		if pc == nil then return false end
 
 		local accObj = GetMyAccountObj(pc)
-		local pose_prop = TryGetProp(GetClass('Pose', TryGetProp(itemobj, "StringArg", "None")), 'RewardName', 'None')
-		if pose_prop ~= nil and pose_prop ~= 'None' then
+		local pose_prop = TryGetProp(GetClass('Pose', TryGetProp(itemobj, "StringArg", "None")), 'RewardName', 'None')		
+		if pose_prop ~= nil and pose_prop ~= 'None' then			
 			if TryGetProp(accObj, pose_prop, 0) ~= 0 then
 				ui.SysMsg(ClMsg('AlreadyHaveGesture'))
-				return
+				return false
 			else TPSHOP_ITEM_TO_BASKET(tpitemname, classid)	end
 		end
 	else

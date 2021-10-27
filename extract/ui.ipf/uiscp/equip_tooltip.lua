@@ -460,6 +460,17 @@ function DRAW_EQUIP_COMMON_TOOLTIP_SMALL_IMG(tooltipframe, invitem, mainframenam
 		itemPicture:SetColorTone("FF111111");
 	end
 
+	-- 바이보라 비전
+	local faceID = TryGetProp(invitem, 'BriquettingIndex')
+	if faceID > 0 then
+	local bri_cls = GetClassByType('Item', faceID)
+	if TryGetProp(bri_cls, "ClassType", "None") == "Arcane" and TryGetProp(bri_cls, "StringArg", "None") == "Vibora" then
+		local filename = TryGetProp(bri_cls, "FileName", "None")
+		local vibora_cls = GetClassByStrProp2('Item', "FileName", filename, "StringArg", "WoodCarving")
+		invitem.TooltipImage  = vibora_cls.TooltipImage
+	end
+	end
+
 	if invitem.TooltipImage ~= nil and invitem.TooltipImage ~= 'None' then
 	
     	if invitem.ClassType ~= 'Outer' and invitem.ClassType ~= 'SpecialCostume' then
@@ -831,9 +842,9 @@ function DRAW_EQUIP_ATK_N_DEF(tooltipframe, invitem, yPos, mainframename, strarg
 	    typeiconname = 'test_sword_icon'
 		typestring = ScpArgMsg("Magic_Atk")
 		reinforceaddvalue = math.floor( GET_REINFORCE_ADD_VALUE_ATK(invitem, ignoreReinf, bonusReinf + overReinf, basicProp) )
-		socketaddvalue =  _GET_ITEM_SOCKET_ADD_VALUE(basicProp, invitem)
-		arg1 = invitem.MATK - reinforceaddvalue;
-		arg2 = invitem.MATK - reinforceaddvalue;
+		socketaddvalue =  _GET_ITEM_SOCKET_ADD_VALUE("ADD_MATK", invitem)
+		arg1 = invitem.MATK - reinforceaddvalue + socketaddvalue;
+		arg2 = invitem.MATK - reinforceaddvalue + socketaddvalue;
 	else
 		typeiconname = 'test_shield_icon'
 		typestring = ScpArgMsg(basicProp);
@@ -1260,9 +1271,18 @@ function DRAW_EQUIP_FIXED_ICHOR(invitem, inheritanceItem, property_gbox, inner_y
 	        local TOSHeroEquipOption = TryGetProp(invitem, 'TOSHeroEquipOption_' .. tostring(idx), 'None')
 			if TOSHeroEquipOption ~= 'None' then
 	            local cls_TOShero = GetClass('TOSHeroEquipOption', TOSHeroEquipOption)
-	                if cls_TOShero ~= nil then
-						inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, TryGetProp(cls_TOShero, 'EffectDesc', ' '), 0, inner_yPos)
+				if cls_TOShero == nil then return end
+
+				local Desc = TryGetProp(cls_TOShero, 'EffectDesc', ' ')
+
+				local name = TryGetProp(cls_TOShero, "ClassName", "None")
+				if (name == 'Tear1_Ballista' or name == 'Tear1_Ballista_2' or  name == 'Tear2_Ballista' or  name =='Tear3_Ballista') and (keyboard.IsKeyPressed('LALT') == 1 or keyboard.IsKeyDown('LALT') == 1) then
+					Desc = Desc..ClMsg('TOSHeroEquipTooltip_Ballista')
+				elseif (name == 'Tear1_Ballista' or name == 'Tear1_Ballista_2' or  name == 'Tear2_Ballista' or  name =='Tear3_Ballista') then
+					Desc = Desc..ClMsg('TOSHeroEquipTooltip_Ballista_ALT')
 					end
+
+				inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, Desc, 0, inner_yPos)
 	        end
 	    end
 	end

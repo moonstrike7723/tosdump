@@ -9,6 +9,7 @@ function LOGGING_ABILITY_CHECK(isEnableLogging, abilityName, logMsg)
     end
 end
 
+-- CAbilityList::CheckAbilityLock(imcIES::ClassID abilID)
 function CHECK_ABILITY_LOCK(pc, ability, isEnableLogging)    
     if IsServerSection(pc) == 1 then
         if IS_REAL_PC(pc) == 'NO' then  -- 진짜 PC가 ??니??--
@@ -236,9 +237,7 @@ function SCR_ABIL_HIGHLANDER9_ACTIVE(self, ability)
         cnt = math.min(cnt + 1, 2)
     end
 
-    if cnt > 0 then
-        AddBuff(self, self, "Highlander9_Buff", cnt);
-    end
+    AddBuff(self, self, "Highlander9_Buff", cnt);
 end
 
 function SCR_ABIL_HIGHLANDER9_INACTIVE(self, ability)
@@ -1045,11 +1044,8 @@ end
 
 function SCR_ABIL_MACE_ACTIVE(self, ability)
     local addHeaLPwrRate = 0;
-    local rItem  = GetEquipItem(self, 'RH');
-    if TryGetProp(rItem, "ClassType") == "Mace" then
-        addHeaLPwrRate = ability.Level * 0.02
-    end
-    
+    addHeaLPwrRate = ability.Level * 0.02
+
     SetExProp(self, "ABIL_MACE_ADDHEAL", addHeaLPwrRate);
 end
 

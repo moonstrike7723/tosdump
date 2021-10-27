@@ -133,7 +133,7 @@ function SENDOK_ITEM_SANDRA_ONELINE_REVERT_RANDOM_UI()
 	bodyGbox2:ShowWindow(0)
 	local bodyGbox2_1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox2_1');
 	bodyGbox2_1:RemoveAllChild();
-
+	
 	ITEM_SANDRA_ONELINE_REVERT_RANDOM_REG_TARGETITEM(frame, iconInfo:GetIESID())
 end
 
@@ -225,11 +225,17 @@ function ITEM_SANDRA_ONELINE_REVERT_RANDOM_REG_TARGETITEM(frame, itemID)
 
 		if obj[propValue] ~= 0 and obj[propName] ~= "None" then
 			local opName = string.format("%s %s", ClMsg(clientMessage), ScpArgMsg(obj[propName]));
-			local strInfo = ABILITY_DESC_NO_PLUS(opName, obj[propValue], 0);
+			local isMax = 0;
+			local min, max = GET_RANDOM_OPTION_VALUE_VER2(obj, obj[propName])
+			if obj[propValue] == max then
+				isMax = 1;
+			end
+			local strInfo = ABILITY_DESC_NO_PLUS(opName, obj[propValue], isMax);
 			local itemClsCtrl = gBox:CreateOrGetControlSet('eachproperty_in_itemrandomreset_sandra', 'PROPERTY_CSET_'..i, 0, 0);
 			itemClsCtrl = AUTO_CAST(itemClsCtrl)
 			local pos_y = itemClsCtrl:GetUserConfig("POS_Y")
 			itemClsCtrl:Move(0, i * pos_y);
+			itemClsCtrl:SetUserValue('OPTION_INDEX', i)
 
 			local propertyList = GET_CHILD_RECURSIVELY(itemClsCtrl, "property_name", "ui::CRichText");
 			propertyList:SetText(strInfo);
@@ -237,7 +243,7 @@ function ITEM_SANDRA_ONELINE_REVERT_RANDOM_REG_TARGETITEM(frame, itemID)
 			local checkbox = GET_CHILD_RECURSIVELY(itemClsCtrl, "checkbox", "ui::CCheckBox");
 			checkbox:SetEventScript(ui.LBUTTONDOWN, 'ITEM_SANDRA_ONELINE_REVERT_RANDOM_CHECK_BOX_CLICK')
 			checkbox:SetEventScriptArgNumber(ui.LBUTTONDOWN, i);
-			if frame:GetUserIValue("IS_CHECKED_" .. i) == 1 then
+			if isMax == 0 and frame:GetUserIValue("IS_CHECKED_" .. i) == 1 then
 				checkbox:SetCheck(1);
 				ITEM_SANDRA_ONELINE_REVERT_RANDOM_CHECK_BOX_CLICK(frame, checkbox);
 			else
@@ -442,7 +448,12 @@ function _SUCCESS_SANDRA_ONELINE_REVERT_RANDOM_OPTION()
 
 		if obj[propValue] ~= 0 and obj[propName] ~= "None" then
 			local opName = string.format("%s %s", ClMsg(clientMessage), ScpArgMsg(obj[propName]));
-			local strInfo = ABILITY_DESC_NO_PLUS(opName, obj[propValue], 0);
+			local isMax = 0;
+			local min, max = GET_RANDOM_OPTION_VALUE_VER2(obj, obj[propName])
+			if obj[propValue] == max then
+				isMax = 1;
+			end
+			local strInfo = ABILITY_DESC_NO_PLUS(opName, obj[propValue], isMax);
 			local itemClsCtrl = gBox:CreateOrGetControlSet('eachproperty_in_itemrandomreset', 'PROPERTY_CSET_'..i, 0, 0);
 			itemClsCtrl = AUTO_CAST(itemClsCtrl)
 			local pos_y = itemClsCtrl:GetUserConfig("POS_Y")
@@ -506,8 +517,21 @@ function ITEM_SANDRA_ONELINE_REVERT_RANDOM_INV_RBTN(itemObj, slot)
 	ITEM_SANDRA_ONELINE_REVERT_RANDOM_REG_TARGETITEM(frame, iconInfo:GetIESID()); 
 end
 
-function ITEM_SANDRA_ONELINE_REVERT_RANDOM_CHECK_BOX_CLICK(frame, ctrl, str, num)
-	frame = frame:GetTopParentFrame();
+function ITEM_SANDRA_ONELINE_REVERT_RANDOM_CHECK_BOX_CLICK(parent, ctrl, str, num)
+	local frame = parent:GetTopParentFrame();
+	local slot = GET_CHILD_RECURSIVELY(frame, "slot")
+	local invItem = GET_SLOT_ITEM(slot)
+	if invItem == nil then return end
+
+	local itemObj = GetIES(invItem:GetObject())
+	local option_index = parent:GetUserValue('OPTION_INDEX')
+	local propName = "RandomOption_"..option_index
+	local propValue = "RandomOptionValue_"..option_index
+	local isMax = 0
+	local min, max = GET_RANDOM_OPTION_VALUE_VER2(itemObj, itemObj[propName])
+	if itemObj[propValue] == max then
+		isMax = 1
+	end
 
 	local cnt = frame:GetUserIValue("CHECKBOX_COUNT");
 	if ctrl:IsChecked() == 0 then		-- check box 선택 해제
@@ -523,6 +547,11 @@ function ITEM_SANDRA_ONELINE_REVERT_RANDOM_CHECK_BOX_CLICK(frame, ctrl, str, num
 			ctrl:SetCheck(0);
 			ui.SysMsg(ClMsg('PleaseSlectChangePropertyOnlyOne'))
 		else
+			if isMax == 1 then
+				ctrl:SetCheck(0)
+				ui.SysMsg(ClMsg('AlreadyMaxOptionValue'))
+				return
+			end
 			-- checkbox 선택
 			frame:SetUserValue("CHECKBOX_COUNT", cnt + 1);
 		end

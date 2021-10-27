@@ -1,5 +1,6 @@
 function CUSTOM_COIN_SHOP_ON_INIT(addon, frame)
 	addon:RegisterMsg("OPEN_DLG_CUSTOM_COIN_SHOP", "CUSTOM_COIN_SHOP_OPEN");
+	addon:RegisterMsg("CLOSE_DLG_CUSTOM_COIN_SHOP", "CLOSE_CUSTOM_COIN_SHOP");
 end
 
 function CUSTOM_COIN_SHOP_OPEN(frame,msg,argStr,argNum)
@@ -27,6 +28,7 @@ end
 function CLOSE_CUSTOM_COIN_SHOP(frame)
 	local slotset = GET_CHILD_RECURSIVELY(frame,"buyitemslot")
 	CUSTOM_COIN_SHOP_CLEAR_BUYLIST(frame,slotset)
+	frame:ShowWindow(0)
 end
 
 function CUSTOM_COIN_SHOP_GET_NAME(ctrl)

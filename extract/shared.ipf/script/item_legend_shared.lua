@@ -281,6 +281,22 @@ function IS_ENABLE_RELEASE_OPTION(item)
 
     if TryGetProp(item, 'ItemType', 'None') == 'Equip' then
         if TryGetProp(item, 'InheritanceItemName', 'None') ~= 'None' or TryGetProp(item, 'InheritanceRandomItemName', 'None') ~= 'None' then
+            return true, 'CantInheritIcorEquip'
+        end
+    end
+
+    return false;
+end;
+
+-- 가디스 계승 전용
+function IS_ENABLE_RELEASE_OPTION_2(item)   
+    if TryGetProp(item, 'ItemGrade', 0) > 5 then
+        return false
+    end
+
+    if TryGetProp(item, 'ItemType', 'None') == 'Equip' then
+        local name = TryGetProp(item, 'InheritanceItemName', 'None')
+        if (string.find(name, 'Galimybe') == nil and name ~= 'None') or TryGetProp(item, 'InheritanceRandomItemName', 'None') ~= 'None' then
             return true        
         end
     end

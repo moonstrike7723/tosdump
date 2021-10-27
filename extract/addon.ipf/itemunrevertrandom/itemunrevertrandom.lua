@@ -120,7 +120,12 @@ function SENDOK_ITEM_UNREVERT_RANDOM_UI()
 	local bodyGbox2_1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox2_1');
 	bodyGbox2_1:RemoveAllChild();
 
-	ITEM_UNREVERT_RANDOM_REG_TARGETITEM(frame, iconInfo:GetIESID())
+	local reset_flag = frame:GetUserValue('RESET_FLAG')
+	if reset_flag == 'YES' then
+		CLEAR_ITEM_UNREVERT_RANDOM_UI()
+	else
+		ITEM_UNREVERT_RANDOM_REG_TARGETITEM(frame, iconInfo:GetIESID())
+	end
 end
 
 function ITEM_UNREVERT_RANDOM_DROP(frame, icon, argStr, argNum)
@@ -287,6 +292,8 @@ function SUCCESS_UNREVERT_RANDOM_OPTION(frame, msg, argStr, argNum)
 	if pic_bg == nil then
 		return;
 	end
+
+	frame:SetUserValue('RESET_FLAG', argStr)
 	
 	pic_bg:PlayUIEffect(RESET_SUCCESS_EFFECT_NAME, EFFECT_SCALE, 'RESET_SUCCESS_EFFECT');
 

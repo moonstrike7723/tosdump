@@ -190,6 +190,10 @@ function TOSHERO_INFO_REINFORCE_REQUEST_ADD()
     g_toshero_reinforce_image = TryGetProp(GetIES(invItem:GetObject()), "Icon", "None") -- toshero_info.lua image setting
 
     toshero.RequestReinforce(itemID)
+	
+	imcSound.PlaySoundEvent("sys_class_change")
+	slot:PlayUIEffect('UI_item_parts', 1.2, 'DO_SUCCESS_EFFECT')
+	ReserveScript("_TOSHERO_INFO_REINFORCE_REQUEST_CHANGE()", 1)
 end
 
 function TOSHERO_INFO_REINFORCE_REQUEST_CHANGE(parent, self, argStr, index)
@@ -212,4 +216,22 @@ function TOSHERO_INFO_REINFORCE_REQUEST_CHANGE(parent, self, argStr, index)
     g_toshero_reinforce_image = TryGetProp(GetIES(invItem:GetObject()), "Icon", "None") -- toshero_info.lua image setting
 
     toshero.RequestChangeEquipOption(itemID, index)
+
+	imcSound.PlaySoundEvent("sys_class_change")
+	slot:PlayUIEffect('UI_item_parts', 1.2, 'DO_SUCCESS_EFFECT')
+	ReserveScript("_TOSHERO_INFO_REINFORCE_REQUEST_CHANGE()", 1)
+end
+
+function _TOSHERO_INFO_REINFORCE_REQUEST_CHANGE()
+	local frame = ui.GetFrame("toshero_info_reinforce")
+	if frame:IsVisible() == 0 then
+		return
+	end
+	
+	local slot = GET_CHILD_RECURSIVELY(frame, 'equip')
+	if slot == nil then
+		return
+	end
+	
+	slot:StopUIEffect('DO_SUCCESS_EFFECT', true, 0.5)
 end

@@ -4,7 +4,7 @@ function TOSHERO_INFO_BUFFSHOP_ON_INIT(addon, frame)
     addon:RegisterMsg('TOSHERO_INFO_BUFFSHOP', 'ON_TOSHERO_INFO_BUFFSHOP_DATA')
     addon:RegisterMsg('TOSHERO_INFO_COMBINE_SUCCESS', 'ON_TOSHERO_INFO_BUFFSHOP_COMBINE_SUCCESS')
 end
-
+local TOSHERO_RANDOMBUFF_INDEX = 9999
 local s_combine_table =
 {
     [1] = {["from"] = "None", ["type"] = 0},
@@ -235,6 +235,9 @@ function TOSHERO_INFO_BUFFSHOP_SET_SHOP()
     local shopList = GetTOSHeroBuffShopList()
     for i = 1, #shopList do
         local buffCls = GetClassByType("Buff", shopList[i] + g_toshero_group_index)
+        if shopList[i] == 0 then
+            buffCls = GetClassByType("Buff", TOSHERO_RANDOMBUFF_INDEX + g_toshero_group_index)
+        end
         local buffPrice = GetTOSHeroBuffShopPrice(shopList[i])
 
         local controlSet = shopBG:CreateOrGetControlSet("toshero_buffshop_info", "shop_info_"..i, ui.LEFT, ui.TOP, width, height, 0, 0)
@@ -463,6 +466,7 @@ function TOSHERO_INFO_BUFFSHOP_RESULT_EFFECT()
 		return
     end
     
+	imcSound.PlaySoundEvent("sys_class_change")
 	combine_result:PlayUIEffect(RESULT_EFFECT_NAME, RESULT_EFFECT_SCALE, 'RESULT_EFFECT')
     ReserveScript("_TOSHERO_INFO_BUFFSHOP_RESULT_EFFECT()", RESULT_EFFECT_DURATION)
 end

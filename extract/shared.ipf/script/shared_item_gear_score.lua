@@ -219,12 +219,24 @@ function GET_GEAR_SCORE(item)
         local set_option = 1
         local set_advantage = 0.9
 
+        local base_acc = false
         if use_lv == 1 and TryGetProp(item, 'ItemGrade', 1) == 5 then
             use_lv = math.floor(PC_MAX_LEVEL * 0.85)
+            base_acc = true
         end
 
+        local add_acc = 0
         if type == 'NECK' or type == 'RING' then            
             avg_lv = use_lv
+            if base_acc == false then
+                if TryGetProp(item, 'StringArg', 'None') == 'Luciferi' then
+                    add_acc = 50
+                elseif TryGetProp(item, 'StringArg', 'None') == 'Acc_EP12' then
+                    add_acc = 40
+                else
+                    add_acc = 30
+                end
+            end
         else
             local prefix = TryGetProp(item, 'LegendPrefix', 'None')            
             if prefix ~= 'None' then                
@@ -243,7 +255,7 @@ function GET_GEAR_SCORE(item)
         end        
         set_option = 1 - random_option_penalty - enchant_option_penalty        
         local ret = 0.5 * ( (4*transcend) + (3*reinforce)) + ( (30*grade) + (1.66*avg_lv) )*0.5
-        ret = ret * set_option * set_advantage
+        ret = ret * set_option * set_advantage + add_acc
         
         return math.floor(ret + 0.5)
     end
@@ -410,4 +422,70 @@ function GET_GEAR_SCORE_BY(type, transcend, reinforce, grade, use_lv, item_lv)
     end
 
     return 0
+end
+
+function GET_PLAYER_ABILITY_SCORE(pc)
+    local job_list = GetJobHistoryList(pc)
+
+    local total_score_list = {}
+    table.insert(total_score_list, 600000)
+    table.insert(total_score_list, 600000)
+    table.insert(total_score_list, 600000)
+    table.insert(total_score_list, 600000)
+
+    for i = 1, #job_list do
+        local ability_point_score = GetClassByType('ability_point_score', job_list[i])
+        if ability_point_score ~= nil then
+            local require_score = TryGetProp(ability_point_score, 'RequireScore', 600000)
+            total_score_list[i] = require_score
+        end
+    end
+
+    local total_score = 0
+    for i = 1, #total_score_list do
+        total_score = total_score + total_score_list[i]
+    end
+
+    if total_score <= 0 then
+        total_score = 1
+    end
+
+    local use_point = 0
+    
+    if IsServerSection() == 1 then
+        local abilList = GetAbilityNames(pc)
+        for i = 1, #abilList do
+            local abil_obj = GetAbilityIESObject(pc, abilList[i]);            
+            local name = TryGetProp(abil_obj, 'ClassName', 'None') -- 특성 이름
+            local score = GET_MAX_REQUIRED_ABILITY_POINT(pc, name)                
+            if score ~= nil then
+                local now = GET_ABILITY_POINT_BY_NAME(pc, name)
+                use_point = use_point + now
+            end 
+        end
+    else
+        pc = GetMyPCObject()
+
+        local abilList = session.GetAbilityList();
+        local abilListCnt = abilList:Count();
+            
+        for i = 0, abilListCnt - 1 do
+            local abil = session.GetAbilityByIndex(i);
+            if abil ~= nil then
+                local abil_obj = GetIES(abil:GetObject());
+                local name = TryGetProp(abil_obj, 'ClassName', 'None') -- 특성 이름
+                local score = GET_MAX_REQUIRED_ABILITY_POINT(pc, name)                
+                if score ~= nil then
+                    local now = GET_ABILITY_POINT_BY_NAME(pc, name)
+                    use_point = use_point + now
+                end                
+            end
+        end
+    end    
+
+    local ret = use_point / total_score * 100
+        if ret >= 100 then
+            ret = 100
+        end
+    return string.format('%.2f', ret)
 end

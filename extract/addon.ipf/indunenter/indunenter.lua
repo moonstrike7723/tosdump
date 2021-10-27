@@ -1503,7 +1503,7 @@ function INDUNENTER_AUTOMATCH_TYPE(indunType, needUnderstaffAllow)
         local indunCls = GetClassByType('Indun', indunType)
         if indunCls ~= nil then
             local dungeonType = TryGetProp(indunCls, 'DungeonType', 'None')
-            local bannedDungeonType = {'Raid','GTower','Challenge_Auto','MythicDungeon_Auto','MythicDungeon_Auto_Hard'}
+            local bannedDungeonType = {'GTower','Challenge_Auto','MythicDungeon_Auto','MythicDungeon_Auto_Hard'}
             if table.find(bannedDungeonType,dungeonType) ~= 0 then
                 needUnderstaffAllow = 0;
             end
@@ -2291,6 +2291,12 @@ function INDUN_ALREADY_PLAYING()
     local yesScp = string.format("AnsGiveUpPrevPlayingIndun(%d)", 1);
     local noScp = string.format("AnsGiveUpPrevPlayingIndun(%d)", 0);
     ui.MsgBox(ClMsg("IndunAlreadyPlaying_AreYouGiveUp"), yesScp, noScp);
+end
+
+function INDUN_ALREADY_PLAYING_PARTY()
+    local yes_scp = string.format("AnsGiveUpPrevPlayingIndunParty(%d)", 1);
+    local no_scp = string.format("AnsGiveUpPrevPlayingIndunParty(%d)", 0);
+    ui.MsgBox(ClMsg("IndunAlreadyPlaying_AreYouGiveUp"), yes_scp, no_scp);
 end
 
 function IS_EXIST_CLASSNAME_IN_LIST(list, value)

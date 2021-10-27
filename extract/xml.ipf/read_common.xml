@@ -1,4 +1,4 @@
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <Category>
 	<ReadXml Name="bonescale"/>
 	<ReadXml Name="item_goddess_reinforce"/>
@@ -337,5 +337,8 @@
 	<ReadXml Name="Monster_BountyHunt"/>
 	<ReadXml Name="goddess_recipe"/>
 	<ReadXml Name="goddess_evolve"/>
-	<ReadXml Name="fieldboss_worldevent_reward_count"/>	
+	<ReadXml Name="fieldboss_worldevent_reward_count"/>
+	<ReadXml Name="itemdecompose_mistake"/>
+	<ReadXml Name="resurrect_return_control"/>
+	<ReadXml Name="ability_point_score"/>	
 </Category>

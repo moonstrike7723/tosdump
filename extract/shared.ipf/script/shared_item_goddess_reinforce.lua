@@ -310,95 +310,95 @@ function setting_lv460_material(mat_list_by_lv)
 	local medusaReinforceMisc = "misc_vasilisa_NoTrade" -- 정제된 바실리사의 비늘
 
 	-- 여기서 레벨별 재료를 세팅한다.
-	mat_list_by_lv[460][1][seasonCoin] = 657
-	mat_list_by_lv[460][1][medusaReinforceMisc] = 5
+	mat_list_by_lv[460][1][seasonCoin] = 263
+	mat_list_by_lv[460][1][medusaReinforceMisc] = 3
 
-	mat_list_by_lv[460][2][seasonCoin] = 657
-	mat_list_by_lv[460][2][medusaReinforceMisc] = 5
+	mat_list_by_lv[460][2][seasonCoin] = 263
+	mat_list_by_lv[460][2][medusaReinforceMisc] = 3
 
-	mat_list_by_lv[460][3][seasonCoin] = 657
-	mat_list_by_lv[460][3][medusaReinforceMisc] = 5
+	mat_list_by_lv[460][3][seasonCoin] = 263
+	mat_list_by_lv[460][3][medusaReinforceMisc] = 3
 	
-	mat_list_by_lv[460][4][seasonCoin] = 657
-	mat_list_by_lv[460][4][medusaReinforceMisc] = 5
+	mat_list_by_lv[460][4][seasonCoin] = 263
+	mat_list_by_lv[460][4][medusaReinforceMisc] = 3
 
-	mat_list_by_lv[460][5][seasonCoin] = 1125
-	mat_list_by_lv[460][5][medusaReinforceMisc] = 7
+	mat_list_by_lv[460][5][seasonCoin] = 450
+	mat_list_by_lv[460][5][medusaReinforceMisc] = 3
 
-	mat_list_by_lv[460][6][seasonCoin] = 1125
-	mat_list_by_lv[460][6][medusaReinforceMisc] = 7
+	mat_list_by_lv[460][6][seasonCoin] = 450
+	mat_list_by_lv[460][6][medusaReinforceMisc] = 5
 	
-	mat_list_by_lv[460][7][seasonCoin] = 1125
-	mat_list_by_lv[460][7][medusaReinforceMisc] = 7
+	mat_list_by_lv[460][7][seasonCoin] = 450
+	mat_list_by_lv[460][7][medusaReinforceMisc] = 5
 
-	mat_list_by_lv[460][8][seasonCoin] = 1125
-	mat_list_by_lv[460][8][medusaReinforceMisc] = 7
+	mat_list_by_lv[460][8][seasonCoin] = 450
+	mat_list_by_lv[460][8][medusaReinforceMisc] = 5
 
-	mat_list_by_lv[460][9][seasonCoin] = 1125
-	mat_list_by_lv[460][9][medusaReinforceMisc] = 7
+	mat_list_by_lv[460][9][seasonCoin] = 450
+	mat_list_by_lv[460][9][medusaReinforceMisc] = 5
 	
-	mat_list_by_lv[460][10][seasonCoin] = 1682
-	mat_list_by_lv[460][10][medusaReinforceMisc] = 9
+	mat_list_by_lv[460][10][seasonCoin] = 673
+	mat_list_by_lv[460][10][medusaReinforceMisc] = 5
 
-	mat_list_by_lv[460][11][seasonCoin] = 1682
-	mat_list_by_lv[460][11][medusaReinforceMisc] = 9
+	mat_list_by_lv[460][11][seasonCoin] = 673
+	mat_list_by_lv[460][11][medusaReinforceMisc] = 7
 
-	mat_list_by_lv[460][12][seasonCoin] = 1682
-	mat_list_by_lv[460][12][medusaReinforceMisc] = 9
+	mat_list_by_lv[460][12][seasonCoin] = 673
+	mat_list_by_lv[460][12][medusaReinforceMisc] = 7
 
-	mat_list_by_lv[460][13][seasonCoin] = 1682
-	mat_list_by_lv[460][13][medusaReinforceMisc] = 9
+	mat_list_by_lv[460][13][seasonCoin] = 673
+	mat_list_by_lv[460][13][medusaReinforceMisc] = 7
 
-	mat_list_by_lv[460][14][seasonCoin] = 1682
-	mat_list_by_lv[460][14][medusaReinforceMisc] = 9
+	mat_list_by_lv[460][14][seasonCoin] = 673
+	mat_list_by_lv[460][14][medusaReinforceMisc] = 7
 
-	mat_list_by_lv[460][15][seasonCoin] = 2318
-	mat_list_by_lv[460][15][medusaReinforceMisc] = 11
+	mat_list_by_lv[460][15][seasonCoin] = 927
+	mat_list_by_lv[460][15][medusaReinforceMisc] = 7
 
-	mat_list_by_lv[460][16][seasonCoin] = 2318
-	mat_list_by_lv[460][16][medusaReinforceMisc] = 11
+	mat_list_by_lv[460][16][seasonCoin] = 927
+	mat_list_by_lv[460][16][medusaReinforceMisc] = 8
 
-	mat_list_by_lv[460][17][seasonCoin] = 3029
-	mat_list_by_lv[460][17][medusaReinforceMisc] = 13
+	mat_list_by_lv[460][17][seasonCoin] = 1212
+	mat_list_by_lv[460][17][medusaReinforceMisc] = 8
 
-	mat_list_by_lv[460][18][seasonCoin] = 3808
-	mat_list_by_lv[460][18][medusaReinforceMisc] = 15
+	mat_list_by_lv[460][18][seasonCoin] = 1523
+	mat_list_by_lv[460][18][medusaReinforceMisc] = 8
 	
-	mat_list_by_lv[460][19][seasonCoin] = 4653
-	mat_list_by_lv[460][19][medusaReinforceMisc] = 17
+	mat_list_by_lv[460][19][seasonCoin] = 1861
+	mat_list_by_lv[460][19][medusaReinforceMisc] = 8
 
-	mat_list_by_lv[460][20][seasonCoin] = 5559
-	mat_list_by_lv[460][20][medusaReinforceMisc] = 19
+	mat_list_by_lv[460][20][seasonCoin] = 2224
+	mat_list_by_lv[460][20][medusaReinforceMisc] = 8
 
-	mat_list_by_lv[460][21][seasonCoin] = 6465
-	mat_list_by_lv[460][21][medusaReinforceMisc] = 22
+	mat_list_by_lv[460][21][seasonCoin] = 2586
+	mat_list_by_lv[460][21][medusaReinforceMisc] = 10
 	
-	mat_list_by_lv[460][22][seasonCoin] = 7371
-	mat_list_by_lv[460][22][medusaReinforceMisc] = 25
+	mat_list_by_lv[460][22][seasonCoin] = 2948
+	mat_list_by_lv[460][22][medusaReinforceMisc] = 11
 
-	mat_list_by_lv[460][23][seasonCoin] = 8277
-	mat_list_by_lv[460][23][medusaReinforceMisc] = 28
+	mat_list_by_lv[460][23][seasonCoin] = 3311
+	mat_list_by_lv[460][23][medusaReinforceMisc] = 12
 
-	mat_list_by_lv[460][24][seasonCoin] = 9183
-	mat_list_by_lv[460][24][medusaReinforceMisc] = 31
+	mat_list_by_lv[460][24][seasonCoin] = 3673
+	mat_list_by_lv[460][24][medusaReinforceMisc] = 13
 	
-	mat_list_by_lv[460][25][seasonCoin] = 10089
-	mat_list_by_lv[460][25][medusaReinforceMisc] = 34
+	mat_list_by_lv[460][25][seasonCoin] = 4036
+	mat_list_by_lv[460][25][medusaReinforceMisc] = 14
 
-	mat_list_by_lv[460][26][seasonCoin] = 10995
-	mat_list_by_lv[460][26][medusaReinforceMisc] = 38
+	mat_list_by_lv[460][26][seasonCoin] = 4398
+	mat_list_by_lv[460][26][medusaReinforceMisc] = 15
 
-	mat_list_by_lv[460][27][seasonCoin] = 11901
-	mat_list_by_lv[460][27][medusaReinforceMisc] = 53
+	mat_list_by_lv[460][27][seasonCoin] = 4760
+	mat_list_by_lv[460][27][medusaReinforceMisc] = 16
 
-	mat_list_by_lv[460][28][seasonCoin] = 12807
-	mat_list_by_lv[460][28][medusaReinforceMisc] = 59
+	mat_list_by_lv[460][28][seasonCoin] = 5123
+	mat_list_by_lv[460][28][medusaReinforceMisc] = 17
 
-	mat_list_by_lv[460][29][seasonCoin] = 13713
-	mat_list_by_lv[460][29][medusaReinforceMisc] = 66
+	mat_list_by_lv[460][29][seasonCoin] = 5485
+	mat_list_by_lv[460][29][medusaReinforceMisc] = 18
 
-	mat_list_by_lv[460][30][seasonCoin] = 14619
-	mat_list_by_lv[460][30][medusaReinforceMisc] = 74
+	mat_list_by_lv[460][30][seasonCoin] = 5848
+	mat_list_by_lv[460][30][medusaReinforceMisc] = 19
 end
 
 function make_item_goddess_reinforce_material_list()
@@ -527,6 +527,10 @@ end
 
 -- 초월 --
 function GET_MAX_TRANSCEND_POINT()
+	local cls_list = GetClassList("ItemTranscend")
+	if cls_list == nil then
+		return 10
+	end
 	return GetClassCount("ItemTranscend")
 end
 
@@ -544,7 +548,7 @@ local item_goddess_transcend_material_list = nil
 
 function setting_lv460_transcend_material(mat_list_by_lv)
 	local transcend_misc = "Premium_item_transcendence_Stone" -- 여신의 축복석
-
+	
 	-- 여기서 레벨별 누적 재료를 세팅한다.
 	mat_list_by_lv[460][1][transcend_misc] = 1
 

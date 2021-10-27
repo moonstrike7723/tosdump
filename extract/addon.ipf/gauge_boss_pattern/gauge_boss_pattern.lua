@@ -46,7 +46,9 @@ end
 function GAUAGE_BOSS_PATTERN_OPEN_BY_BUFF(frame, msg, arg_str, arg_num)
     if frame == nil then return; end
     if msg == "OPEN_GAUGE_BOSS_PATTERN_BUFF" then
-        ui.OpenFrame("gauge_boss_pattern");
+        if arg_str ~= "First" then
+            ui.OpenFrame("gauge_boss_pattern");
+        end
         local gauge = GET_CHILD_RECURSIVELY(frame, "charge_gauge");
         if gauge ~= nil then
             gauge:SetSkinName("reinforce_gauge_green");

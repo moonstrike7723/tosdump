@@ -29,6 +29,7 @@ function AETHER_GEM_REINFORCE_INIT_VISIBLE(frame)
 	AETHER_GEM_REINFORCE_SET_VISIBLE_BY_RATIO(frame, 0);
 	AETHER_GEM_REINFORCE_SET_VISIBLE_BY_REINFORCE_BUTTON(frame, 0);
 	AETHER_GEM_REINFORCE_SET_VISIBLE_BY_SUMMIT_BUTTON(frame, 0);
+	AETHER_GEM_REINFORCE_SET_HITTEST_SELECT_GEM(frame, 1);
 	AETHER_GEM_REINFORCE_TAB_INIT(frame);
 end
 
@@ -88,6 +89,8 @@ end
 -- clear stage info
 function AETHER_GEM_REINFORCE_SET_VISIBLE_BY_CLEARSTAGE(frame, visible)
 	if frame == nil then return; end
+	local clear_stage_gb = GET_CHILD_RECURSIVELY(frame, "clear_stage_gb");
+	clear_stage_gb:ShowWindow(visible);
 	local clearstage_text = GET_CHILD_RECURSIVELY(frame, "clearstage_text");
 	clearstage_text:ShowWindow(visible);
 end
@@ -175,7 +178,7 @@ function AETHER_GEM_REINFORCE_CREATE_GEM_LIST_BY_EQUIPMENT(gem_slot_list)
 		for i = 0, count - 1 do
 			local guid = equip_guid_list:Get(i);
 			local equip_item = equip_item_list:GetItemByGuid(guid);
-			if equip_item ~= nil and equip_item:GetObject() ~= nil and equip_item.isLockState == false then
+			if equip_item ~= nil and equip_item:GetObject() ~= nil then
 				local gem_class, gem_level, index, guid = GET_AETHER_GEM_REINFORCE_EQUIP_GEM_INFO(equip_item);
 				if gem_class ~= nil and gem_level ~= 0 then
 					local gem_info = { gem_class, gem_level, index, guid };
@@ -261,7 +264,7 @@ function AETHER_GEM_REINFORCE_CREATE_GEM_LIST_BY_INVENTORY(gem_slot_list)
 		for i = 0, count - 1 do
 			local guid = inv_guid_list:Get(i);
 			local inv_item = inv_item_list:GetItemByGuid(guid);
-			if inv_item ~= nil and inv_item:GetObject() ~= nil and inv_item.isLockState == false then
+			if inv_item ~= nil and inv_item:GetObject() ~= nil then
 				local inv_item_object = GetIES(inv_item:GetObject());
 				local group_name = TryGetProp(inv_item_object, "GroupName", "None");
 				if group_name == "Gem_High_Color" then
@@ -319,10 +322,6 @@ function AETHER_GEM_REINFORCE_SELECT_GEM_UPDATE(frame, slot, is_equip)
 		if guid ~= nil and guid ~= "None" then
 			local inv_item = session.GetInvItemByGuid(guid);
 			if inv_item ~= nil then
-				if inv_item.isLockState == true then
-					ui.SysMsg(ClMsg('MaterialItemIsLock'));
-					return;
-				end
 				AETHER_GEM_REINFORCE_CREATE_GEM_INFO(top_frame, inv_item, is_equip);
 			end
 		end
@@ -367,7 +366,7 @@ function AETHER_GEM_REINFORCE_CREATE_GEM_INFO(frame, inv_item, is_equip)
 		end
 
 		-- ratio
-		AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, item_object);
+		AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, item_object, is_equip);
 
 		-- clear stage
 		AETHER_GEM_REINFORCE_CLEAR_STAGE_UPDATE(frame);
@@ -416,7 +415,7 @@ function AETHER_GEM_REINFORCE_CREATE_GEM_INFO_BY_EQUIP(frame, slot, is_equip)
 		end
 
 		-- ratio
-		AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, item_class);
+		AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, item_class, is_equip);
 
 		-- clear stage
 		AETHER_GEM_REINFORCE_CLEAR_STAGE_UPDATE(frame);
@@ -466,17 +465,34 @@ function AETHER_GEM_REINFORCE_SUCCESS_RATIO_FONT_COLOR(ratio)
 	return color_sour, color_dest;
 end
 
-function AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, item)
+function AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, item, is_equip)
 	if frame == nil then return; end
 	local pc = GetMyPCObject();
 	if pc ~= nil then
-		local ratio = get_ratio_success_aether_gem(pc, item);
-		local select_gem_success_ratio_text = GET_CHILD_RECURSIVELY(frame, "select_gem_success_ratio_text");
-		local text = ScpArgMsg("success_ratio", "ratio", ratio);
-		local color_sour, color_dest = AETHER_GEM_REINFORCE_SUCCESS_RATIO_FONT_COLOR(ratio);
-		select_gem_success_ratio_text:SetTextByKey("value", text);
-		select_gem_success_ratio_text:StopColorBlend();
-		select_gem_success_ratio_text:SetColorBlend(2, color_sour, color_dest, true);
+		local ratio = nil;
+		if is_equip == 1 then
+			local gem_slot = GET_CHILD_RECURSIVELY(frame, "gem_slot");
+			if gem_slot ~= nil then
+				local guid = gem_slot:GetUserValue("select_gem_parent_guid");
+				local index = gem_slot:GetUserIValue("select_gem_socket_index");
+				local equip_item = session.GetEquipItemByGuid(guid);
+				if equip_item ~= nil then
+					local equip_item_lv = equip_item:GetEquipGemLv(index);
+					ratio = get_ratio_success_aether_gem_equip(pc, equip_item_lv);
+				end
+			end
+		else
+			ratio = get_ratio_success_aether_gem(pc, item);
+		end
+
+		if ratio ~= nil then
+			local select_gem_success_ratio_text = GET_CHILD_RECURSIVELY(frame, "select_gem_success_ratio_text");
+			local text = ScpArgMsg("success_ratio", "ratio", ratio);
+			local color_sour, color_dest = AETHER_GEM_REINFORCE_SUCCESS_RATIO_FONT_COLOR(ratio);
+			select_gem_success_ratio_text:SetTextByKey("value", text);
+			select_gem_success_ratio_text:StopColorBlend();
+			select_gem_success_ratio_text:SetColorBlend(2, color_sour, color_dest, true);
+		end
 	end
 end
 
@@ -499,10 +515,6 @@ function AETHER_GEM_REINFORCE_SELECT_GEM_DROP(frame, slot, arg_str, arg_num)
 			if guid ~= nil then
 				local inv_item = session.GetInvItemByGuid(guid);
 				if inv_item ~= nil then
-					if inv_item.isLockState == true then
-						ui.SysMsg(ClMsg('MaterialItemIsLock'));
-						return;
-					end
 					AETHER_GEM_REINFORCE_SELECT_GEM_PRE_SETTING(top_frame, slot);
 					AETHER_GEM_REINFORCE_CREATE_GEM_INFO(top_frame, inv_item);
 				end
@@ -551,11 +563,7 @@ function AETHER_GEM_REINFORCE_EXEC(frame)
 
 				local gem_object = GetIES(gem_item:GetObject());
 				if gem_object == nil then return; end
-
-				if gem_item.isLockState == true then
-					ui.SysMsg(ClMsg('MaterialItemIsLock'))
-					return;
-				end
+				
 				_AETHER_GEM_REINFORCE_EXEC(guid);
 			end
 		else
@@ -573,6 +581,7 @@ function _AETHER_GEM_REINFORCE_EXEC(guid)
 		item.RequestAetherGemReinforce(guid);
 		local frame = ui.GetFrame("aether_gem_reinforce");
 		if frame ~= nil then
+			AETHER_GEM_REINFORCE_EFFECT(frame);
 			AETHER_GEM_REINFORCE_SET_HITTEST_SELECT_GEM(frame, 0);
 		end
 	end
@@ -585,9 +594,34 @@ function _AETHER_GEM_REINFORCE_EXEC_BY_EQUIP(index, guid)
 			item.RequestAetherGemReinforceByEquip(index, guid);
 			local frame = ui.GetFrame("aether_gem_reinforce");
 			if frame ~= nil then
+				AETHER_GEM_REINFORCE_EFFECT(frame);
 				AETHER_GEM_REINFORCE_SET_HITTEST_SELECT_GEM(frame, 0);
 			end
 		end
+	end
+end
+
+function AETHER_GEM_REINFORCE_EFFECT(frame)
+	if frame ~= nil then
+		local effect_name = frame:GetUserConfig("DO_SUCCESS_EFFECT");
+		local effect_scale = tonumber(frame:GetUserConfig("SUCCESS_EFFECT_SCALE"));
+		local effect_duration = tonumber(frame:GetUserConfig("SUCCESS_EFFECT_DURATION"));
+		local gem_slot_bg = GET_CHILD_RECURSIVELY(frame, "gem_slot_bg");
+		if gem_slot_bg ~= nil then
+			gem_slot_bg:PlayUIEffect(effect_name, effect_scale, "DoReinforceEffect");
+			ReserveScript("_AETHER_GEM_REINFORCE_EFFECT()", effect_duration);
+		end
+	end
+end
+
+function _AETHER_GEM_REINFORCE_EFFECT()
+	local frame = ui.GetFrame("aether_gem_reinforce");
+	if frame == nil then return; end
+	if frame:IsVisible() == 0 then return; end
+	local gem_slot_bg = GET_CHILD_RECURSIVELY(frame, "gem_slot_bg");
+	if gem_slot_bg ~= nil then
+		gem_slot_bg:StopUIEffect("DoReinforceEffect", true, 0.5);
+		ui.SetHoldUI(false);
 	end
 end
 
@@ -595,9 +629,9 @@ end
 function ON_AETHER_GEM_REINFORCE_RESULT(frame, msg, arg_str, arg_num)
 	if frame == nil then return; end
 	if arg_str == "SUCCESS" then
-		ReserveScript("AETHER_GEM_REINFORCE_SUCCESS()", 0);
+		ReserveScript("AETHER_GEM_REINFORCE_SUCCESS()", 1.0);
 	elseif arg_str == "FAILED" then
-		ReserveScript("AETHER_GEM_REINFORCE_FAILED()", 0);
+		ReserveScript("AETHER_GEM_REINFORCE_FAILED()", 1.0);
 	end
 end
 
@@ -632,7 +666,9 @@ function AETHER_GEM_REINFORCE_SUCCESS()
 			local item = session.GetInvItemByGuid(guid);
 			if item ~= nil then
 				local object = GetIES(item:GetObject());
-				result_item_img:SetImage(TryGetProp(object, "Icon", "None"));	
+				if object ~= nil then
+					result_item_img:SetImage(TryGetProp(object, "Icon", "None"));	
+				end
 			end
 		else
 			local guid = gem_slot:GetUserValue("select_gem_parent_guid");
@@ -642,7 +678,9 @@ function AETHER_GEM_REINFORCE_SUCCESS()
 				local gem_id = euqip_item:GetEquipGemID(index);
 				if gem_id ~= nil then
 					local gem_class = GetClassByType("Item", gem_id);
-					result_item_img:SetImage(TryGetProp(gem_class, "Icon", "None"));
+					if gem_class ~= nil then
+						result_item_img:SetImage(TryGetProp(gem_class, "Icon", "None"));
+					end
 				end
 			end
 		end
@@ -695,6 +733,37 @@ function AETHER_GEM_REINFORCE_FAILED()
 	-- result control
 	AETHER_GEM_REINFORCE_SET_VISIBLE_BY_SUCCESS_RESULT(frame, 0);
 	AETHER_GEM_REINFORCE_SET_VISIBLE_BY_FAILED_RESULT(frame, 1);
+
+	-- result img
+	local result_item_img = GET_CHILD_RECURSIVELY(frame, "result_item_img");
+	result_item_img:ShowWindow(1);
+	local gem_slot = GET_CHILD_RECURSIVELY(frame, "gem_slot");
+	if gem_slot ~= nil then
+		local is_equip = gem_slot:GetUserIValue("select_gem_is_equip");
+		if is_equip == 0 then
+			local guid = gem_slot:GetUserValue("select_gem_guid");
+			local item = session.GetInvItemByGuid(guid);
+			if item ~= nil then
+				local object = GetIES(item:GetObject());
+				if object ~= nil then
+					result_item_img:SetImage(TryGetProp(object, "Icon", "None"));	
+				end
+			end
+		else
+			local guid = gem_slot:GetUserValue("select_gem_parent_guid");
+			local euqip_item = session.GetEquipItemByGuid(guid);
+			if euqip_item ~= nil then
+				local index = gem_slot:GetUserIValue("select_gem_socket_index");
+				local gem_id = euqip_item:GetEquipGemID(index);
+				if gem_id ~= nil then
+					local gem_class = GetClassByType("Item", gem_id);
+					if gem_class ~= nil then
+						result_item_img:SetImage(TryGetProp(gem_class, "Icon", "None"));
+					end
+				end
+			end
+		end
+	end
 
 	-- reinforce count
 	AETHER_GEM_REINFORCE_DO_REINFORCE_BTN_UPDATE(frame);
@@ -763,12 +832,21 @@ function AETHER_GEM_REINFORCE_RESULT_GEM_LIST_BY_EQUIPMENT_UPDATE(gem_slot_list)
 				local class_id = slot:GetUserIValue("gem_class_id");
 				local gem_class = GetClassByType("Item", class_id);
 				if gem_class ~= nil then
+					local parent_guid = slot:GetUserValue("gem_parent_guid");
+					local index = slot:GetUserIValue("gem_socket_index");
+					local euqip_item = session.GetEquipItemByGuid(parent_guid);
+					if euqip_item ~= nil then
+						equip_item_lv = euqip_item:GetEquipGemLv(index);
+						slot:SetUserValue("gem_level", equip_item_lv);
+						slot:SetText("{s14}{ol}{#FFFFFF}{b}Lv."..equip_item_lv, "count", ui.LEFT, ui.TOP, 3, 2);
+					end
+
 					SET_SLOT_ITEM_CLS(slot, gem_class);
 					local icon = slot:GetIcon();
 					if icon ~= nil then
-						local parent_guid = slot:GetUserValue("gem_parent_guid");
 						icon:SetTooltipArg(parent_guid, class_id, 0);
 					end
+
 					local is_gem_equip = slot:GetUserIValue("is_gem_equip");
 					AETHER_GEM_REINFORCE_SELECT_GEM_PRE_SETTING(frame, slot);
 					AETHER_GEM_REINFORCE_SELECT_GEM_UPDATE(frame, slot, is_gem_equip);
@@ -811,19 +889,23 @@ function AETHER_GEM_REINFORCE_RESULT_SUCCESS_RATIO_UPDATE(frame)
 		local is_equip = gem_slot:GetUserIValue("select_gem_is_equip");
 		if is_equip == 0 then
 			local guid = gem_slot:GetUserValue("select_gem_guid");
-			local gem = session.GetInvItemByGuid(guid);
-			if gem ~= nil then
-				local gem_class = GetIES(gem:GetObject());
-				AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, gem_class);
+			if guid ~= nil and guid ~= "None" then
+				local gem = session.GetInvItemByGuid(guid);
+				if gem ~= nil then
+					local gem_class = GetIES(gem:GetObject());
+					AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, gem_class, is_equip);
+				end
 			end
 		else
 			local guid = gem_slot:GetUserValue("select_gem_parent_guid");
-			local euqip_item = session.GetEquipItemByGuid(guid);
-			local index = gem_slot:GetUserIValue("select_gem_socket_index");
-			local gem_id = euqip_item:GetEquipGemID(index);
-			if gem_id ~= nil then
-				local gem_class = GetClassByType("Item", gem_id);
-				AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, gem_class);
+			if guid ~= nil and guid ~= "None" then
+				local euqip_item = session.GetEquipItemByGuid(guid);
+				local index = gem_slot:GetUserIValue("select_gem_socket_index");
+				local gem_id = euqip_item:GetEquipGemID(index);
+				if gem_id ~= nil then
+					local gem_class = GetClassByType("Item", gem_id);
+					AETHER_GEM_REINFORCE_SUCCESS_RATIO_UPDATE(frame, gem_class, is_equip);
+				end
 			end
 		end
 	end
@@ -842,24 +924,18 @@ end
 
 function AETHER_GEM_REINFORCE_SET_HITTEST_SELECT_GEM(frame, enable)
 	if frame ~= nil then 
-		local tab = GET_CHILD_RECURSIVELY(frame, "tab");
-		if tab ~= nil then
-			local tab_index = tab:GetSelectItemIndex();
-			if tab_index == 0 then
-				local gem_slot_list = GET_CHILD_RECURSIVELY(frame, "gem_slot_list");
-				if gem_slot_list ~= nil then
-					gem_slot_list:EnableHitTest(enable);
-					gem_slot_list = tolua.cast(gem_slot_list, "ui::CSlotSet");
-					gem_slot_list:EnableSelection(enable);
-				end
-			elseif tab_index == 1 then
-				local gem_slot_list = GET_CHILD_RECURSIVELY(frame, "gem_slot_list_inven");
-				if gem_slot_list ~= nil then
-					gem_slot_list:EnableHitTest(enable);
-					gem_slot_list = tolua.cast(gem_slot_list, "ui::CSlotSet");
-					gem_slot_list:EnableSelection(enable);
-				end
-			end
+		local gem_slot_list = GET_CHILD_RECURSIVELY(frame, "gem_slot_list");
+		if gem_slot_list ~= nil then
+			gem_slot_list:EnableHitTest(enable);
+			gem_slot_list = tolua.cast(gem_slot_list, "ui::CSlotSet");
+			gem_slot_list:EnableSelection(enable);
+		end
+
+		local gem_slot_list_inven = GET_CHILD_RECURSIVELY(frame, "gem_slot_list_inven");
+		if gem_slot_list_inven ~= nil then
+			gem_slot_list_inven:EnableHitTest(enable);
+			gem_slot_list_inven = tolua.cast(gem_slot_list_inven, "ui::CSlotSet");
+			gem_slot_list_inven:EnableSelection(enable);
 		end
 	end
 end

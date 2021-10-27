@@ -36,22 +36,16 @@ function get_ratio_success_aether_gem(self, item)
     if item ~= nil then
         local value = 0;
         if IsServerSection() == 0 then
-            local account_obj = GetMyAccountObj();
-            if account_obj ~= nil then
-                local level = TryGetProp(item, "AetherGemLevel");
-                local clear_stage = get_solo_dungeon_etc_clear_stage();
-                if level ~= nil and clear_stage ~= nil then
-                    value = clear_stage - level; 
-                end
+            local level = TryGetProp(item, "AetherGemLevel");
+            local clear_stage = get_solo_dungeon_etc_clear_stage();
+            if level ~= nil and clear_stage ~= nil then
+                value = clear_stage - level; 
             end
         else
-            local account_obj = GetAccountObj(self);
-            if account_obj ~= nil then
-                local level = TryGetProp(item, "AetherGemLevel");
-                local clear_stage = get_solo_dungeon_etc_clear_stage(self);
-                if level ~= nil and clear_stage ~= nil then
-                    value = clear_stage - level;
-                end
+            local level = TryGetProp(item, "AetherGemLevel");
+            local clear_stage = get_solo_dungeon_etc_clear_stage(self);
+            if level ~= nil and clear_stage ~= nil then
+                value = clear_stage - level;
             end
         end
 
@@ -90,20 +84,14 @@ end
 function get_ratio_success_aether_gem_equip(self, level)
     local value = 0;
     if IsServerSection() == 0 then
-        local account_obj = GetMyAccountObj();
-        if account_obj ~= nil then
-            local clear_stage = get_solo_dungeon_etc_clear_stage();
-            if level ~= nil and clear_stage ~= nil then
-                value = clear_stage - level; 
-            end
+        local clear_stage = get_solo_dungeon_etc_clear_stage();
+        if level ~= nil and clear_stage ~= nil then
+            value = clear_stage - level; 
         end
     else
-        local account_obj = GetAccountObj(self);
-        if account_obj ~= nil then
-            local clear_stage = get_solo_dungeon_etc_clear_stage(self);
-            if level ~= nil and clear_stage ~= nil then
-                value = clear_stage - level;
-            end
+        local clear_stage = get_solo_dungeon_etc_clear_stage(self);
+        if level ~= nil and clear_stage ~= nil then
+            value = clear_stage - level;
         end
     end
 
@@ -140,7 +128,7 @@ end
 -- by gem item
 function is_max_aether_gem_level(item)
     if item == nil then return false; end
-    local max_level = 100;
+    local max_level = 120;
     local cur_level = TryGetProp(item, "AetherGemLevel", 1);
     if cur_level >= max_level then return true;
     else return false; end
@@ -150,9 +138,8 @@ end
 -- by gem level
 function is_max_aether_gem_level_equip(level)
     if item == nil then return false; end
-    local max_level = 100;
-    local cur_level = TryGetProp(item, "AetherGemLevel", 1);
-    if cur_level >= max_level then return true;
+    local max_level = 120;
+    if level >= max_level then return true;
     else return false; end
     return false;
 end
@@ -239,4 +226,13 @@ end
 -- 에테르 젬(체력) --
 function get_aether_gem_CON_prop(level)
     return "CON", level * 2, true; -- prop_name, prop_value, use_operator   
+end
+
+-- 테스트
+function test_reset_aether_gem_reinforce_count(self)
+    exprop_set_aether_gem_reinforce_max_count(self, 5);
+    SendAddOnMsg(self, "AETHER_GEM_REINFORCE_MAX_COUNT", "", 5);
+    if IsRunningScript(self, "tx_set_aether_gem_reinforce_count") ~= 1 then
+        RunScript("tx_set_aether_gem_reinforce_count", self, 5);
+    end
 end

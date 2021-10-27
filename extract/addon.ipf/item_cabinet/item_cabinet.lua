@@ -102,6 +102,7 @@ function ITEM_CABINET_SHOW_UPGRADE_UI(frame, isShow)
 	GET_CHILD_RECURSIVELY(frame,"pricetxt"):ShowWindow(isShow);
 	GET_CHILD_RECURSIVELY(frame,"optionGbox"):ShowWindow(isShow);
 	GET_CHILD_RECURSIVELY(frame,"belongingtxt"):ShowWindow(isShow);
+	GET_CHILD_RECURSIVELY(frame,"next_item_gb"):ShowWindow(isShow);
 	
 	if isShow == 1 then
 		ITEM_CABINET_UPGRADE_TAB(frame);
@@ -120,7 +121,7 @@ function ITEM_CABINET_ITEM_TAB_INIT(listCls, itemTabCtrl)
 	local get_name_func = _G[TryGetProp(listCls, 'GetItemFunc', 'None')];
 	if get_name_func == nil then return; end
 
-	local itemClsName = get_name_func(listCls, GetMyAccountObj());
+	local itemClsName = get_name_func(listCls, GetMyAccountObj());	
 	if itemClsName == 'None' then return; end
 
 	local itemCls = GetClass('Item', itemClsName);
@@ -203,7 +204,7 @@ function ITEM_CABINET_SELECT_ITEM(parent, self)
 	local index = tab:GetSelectItemIndex();
 	local aObj = GetMyAccountObj();
 	local category = ITEM_CABINET_GET_CATEGORY(parent);
-	local itemType = parent:GetUserIValue("ITEM_TYPE");
+	local itemType = parent:GetUserIValue("ITEM_TYPE");	
 	local itemCls = GetClassByType("cabinet_"..string.lower(category), itemType);
 	local itemName = itemCls.ClassName;
 	local curLv = TryGetProp(aObj, itemCls.UpgradeAccountProperty, 0);
@@ -222,11 +223,7 @@ function ITEM_CABINET_SELECT_ITEM(parent, self)
 	ITEM_CABINET_ICOR_SECTION(frame, self, itemCls);
 end
 
-function ITEM_CABINET_ICOR_SECTION(frame, self, itemCls)
-	local silverText = GET_CHILD_RECURSIVELY(frame,"pricetxt");
-	local price = GET_COMMA_SEPARATED_STRING_FOR_HIGH_VALUE(itemCls.MakeCostSilver);
-	silverText:SetTextByKey("price", price);
-
+function ITEM_CABINET_ICOR_SECTION(frame, self, entry_cls)
 	local itemslot = GET_CHILD_RECURSIVELY(self:GetParent(), "itemIcon");
 	local iconinfo = itemslot:GetIcon():GetInfo();
 	local itemCls = GetClassByType('Item', iconinfo.type);
@@ -243,6 +240,17 @@ function ITEM_CABINET_ICOR_SECTION(frame, self, itemCls)
 	optionGbox:RemoveChild('item_tooltip_ark')
 	optionGbox:RemoveChild('tooltip_ark_lv')
 
+	local silverText = GET_CHILD_RECURSIVELY(frame,"pricetxt");
+	local cost = tonumber(entry_cls.MakeCostSilver)
+	local category = frame:GetUserValue("CATEGORY")
+	
+	if string.lower(category) == 'accessory' then		
+		cost = GET_ACC_CABINET_COST(entry_cls, GetMyAccountObj())
+	end
+
+	local price = GET_COMMA_SEPARATED_STRING_FOR_HIGH_VALUE(cost);	
+	silverText:SetTextByKey("price", price);
+	
 	ITEM_CABINET_OPTION_INFO(optionGbox, itemCls)
 end
 
@@ -311,9 +319,11 @@ function ITEM_CABINET_UPGRADE_TAB(parent)
 		GET_CHILD_RECURSIVELY(frame,"pricetxt"):ShowWindow(0);
 		GET_CHILD_RECURSIVELY(frame,"optionGbox"):ShowWindow(0);
 		GET_CHILD_RECURSIVELY(frame,"belongingtxt"):ShowWindow(0);
+		GET_CHILD_RECURSIVELY(frame,"next_item_gb"):ShowWindow(1);
 
-		local max = GET_CHILD_RECURSIVELY(frame, 'registerbtn'):GetTextByKey("name");
+		local max = GET_CHILD_RECURSIVELY(frame, 'registerbtn'):GetTextByKey("name");		
 		if max == "MAX" then
+			GET_CHILD_RECURSIVELY(frame,"next_item_gb"):ShowWindow(0);
 			INVENTORY_SET_CUSTOM_RBTNDOWN("None");
 		else
 			INVENTORY_SET_CUSTOM_RBTNDOWN("ITEM_CABINET_MATERIAL_INV_BTN");
@@ -333,6 +343,8 @@ function ITEM_CABINET_UPGRADE_TAB(parent)
 		GET_CHILD_RECURSIVELY(frame,"acctxt"):ShowWindow(0);
 		GET_CHILD_RECURSIVELY(frame,"pricetxt"):ShowWindow(1);
 		GET_CHILD_RECURSIVELY(frame,"optionGbox"):ShowWindow(1);
+		GET_CHILD_RECURSIVELY(frame,"next_item_gb"):ShowWindow(0);
+
 		ITEM_CABINET_ENCHANT_TEXT_SETTING(frame, category, index);
 
 		if category == "Weapon" or category == "Armor" then
@@ -359,13 +371,13 @@ function ITEM_CABINET_REGISTER_SECTION(frame, category, itemType, curLv)
 	local itemCls = GetClassByType("cabinet_"..string.lower(category), itemType);
 	local itemName = itemCls.ClassName;
 	local isRegister = TryGetProp(aObj, itemCls.AccountProperty, 0);
-	local maxLv = itemCls.MaxUpgrade;
+	local maxLv = itemCls.MaxUpgrade;	
 	local registerBtn = GET_CHILD_RECURSIVELY(frame, 'registerbtn');
 	local upgrade_tab = GET_CHILD_RECURSIVELY(frame, 'upgrade_tab');
 	registerBtn:SetTextByKey("name", "MAX");
-	registerBtn:SetEnable(0);
+	registerBtn:SetEnable(0);	
 	GET_CHILD_RECURSIVELY(frame, "upgradegbox"):RemoveAllChild();	
-	if (category == "Weapon" or category == "Armor") and maxLv ~= 1 then
+	if (category == "Weapon" or category == "Armor" or category == 'Accessory') and maxLv ~= 1 then		
 		if curLv == maxLv and isRegister == 1 then
 			upgrade_tab:ChangeCaptionOnly(1,"{@st66b}{s16}"..ClMsg("Upgrade"),false)
 			return;
@@ -377,11 +389,8 @@ function ITEM_CABINET_REGISTER_SECTION(frame, category, itemType, curLv)
 		end
 	end
 	registerBtn:SetEnable(1);
-	if itemName == "EP12_NECK06_HIGH_003" then -- 칸트리베는 레시피가 두개임 
-		curLv = frame:GetUserIValue("TARGET_LV");
-		frame:SetUserValue("TARGET_LV", curLv + 1);
-	end
-	local materialTable = GET_REGISTER_MATERIAL(category, itemName, curLv+1);	
+
+	local materialTable = GET_REGISTER_MATERIAL(category, itemName, curLv+1);		
 	ITEM_CABINET_DRAW_MATERIAL(frame, materialTable, curLv+1, maxLv);
 end
 
@@ -431,18 +440,47 @@ function ITEM_CABINET_DRAW_MATERIAL(frame, materialTable, targetLV, maxLv)
 	local registerBtn = GET_CHILD_RECURSIVELY(frame, "registerbtn");
 	local registerTxt = GET_CHILD_RECURSIVELY(frame, "registertxt");
 	local upgrade_tab = GET_CHILD_RECURSIVELY(frame, 'upgrade_tab');
+	local next_item_txt = GET_CHILD_RECURSIVELY(frame, 'next_item_txt');
 
 	local pc = GetMyPCObject();
 	local aObj = GetMyAccountObj();
 
+	local clMsg = "" 
 	if targetLV > 1 and maxLv ~= 1 then
-		registerBtn:SetTextByKey("name", ClMsg("Upgrade"));
-		upgrade_tab:ChangeCaptionOnly(1,"{@st66b}{s16}"..ClMsg("Upgrade"),false)
+		clMsg = ClMsg("Upgrade")
 
 	else
-		registerBtn:SetTextByKey("name", ClMsg("Register"));
-		upgrade_tab:ChangeCaptionOnly(1,"{@st66b}{s16}"..ClMsg("Register"),false)
+		clMsg = ClMsg("Register")
 	end
+
+	registerBtn:SetTextByKey("name", clMsg);
+	next_item_txt:SetTextByKey("name", clMsg);
+	upgrade_tab:ChangeCaptionOnly(1,"{@st66b}{s16}"..clMsg,false)
+
+	local category = frame:GetUserValue("CATEGORY");
+	local itemType = frame:GetUserIValue("ITEM_TYPE");
+	local targetItemCls = GetClassByType("cabinet_"..string.lower(category), itemType);
+	local itemClsName = ""
+
+	local get_name_func = _G[TryGetProp(targetItemCls, 'GetUpgradeItemFunc', 'None')];
+	if get_name_func ~= nil then 
+		itemClsName = get_name_func(targetItemCls, targetLV);	
+	else
+		itemClsName = targetItemCls.ClassName
+	end
+
+	local next_item_cls = GetClass("Item", itemClsName)
+
+	local slot = GET_CHILD_RECURSIVELY(frame, 'slot3');
+	local next_item_txt = GET_CHILD_RECURSIVELY(frame, 'next_item_name');
+
+	next_item_txt:SetTextByKey("name", next_item_cls.Name)
+
+	local icon = CreateIcon(slot);
+	icon:SetImage(next_item_cls.Icon);
+	icon:SetTooltipType('wholeitem');
+	icon:SetTooltipNumArg(next_item_cls.ClassID);
+	icon:SetTooltipStrArg('char_belonging')
 
 	g_materialItem = {}
 	for k,v in pairs(materialTable) do
@@ -520,10 +558,8 @@ function ITEM_CABINET_MATERIAL_INV_BTN(itemObj, slot)
 	end
 end
 
-local selected_slot = nil
 
 function ITEM_CABINET_REG_MATERIAL(frame, slot)	
-	selected_slot = nil
 	local icon = slot:GetIcon();
 	local iconInfo = icon:GetInfo();
 	local itemID = iconInfo:GetIESID();
@@ -594,16 +630,25 @@ function ITEM_CABINET_INPUT_MATERIAL_CNT_BOX(invItem, index, guid, slot)
     local inputstringframe = ui.GetFrame("inputstring");
 	inputstringframe:SetUserValue("CTRL_INDEX", index);
 	inputstringframe:SetUserValue("GUID", guid);
-	selected_slot = slot
+	inputstringframe:SetUserValue("SLOT_CATE", slot:GetParent():GetName());
+	inputstringframe:SetUserValue("SLOT_NAME", slot:GetName());
+
 	INPUT_NUMBER_BOX(inputstringframe, titleText, "ITEM_CABINET_INPUT_MATERIAL_CONFIRM", 1, 1, invItem.count, 1);	
 end
 
 function ITEM_CABINET_INPUT_MATERIAL_CONFIRM(parent, count)
 	local index = parent:GetUserValue("CTRL_INDEX");
 	local guid = parent:GetUserValue("GUID"); 
+	local slotCate = parent:GetUserValue("SLOT_CATE")
+	local slotName = parent:GetUserValue("SLOT_NAME"); 
 	ITEM_CABINET_MATERIAL_CNT_UPDATE(index, count, guid);
-	if selected_slot ~= nil then
-		ITEM_CABINET_SET_SLOT_ITEM(selected_slot, 1, index);		
+	
+	local frame = ui.GetFrame("inventory")
+	local slotParent = GET_CHILD_RECURSIVELY(frame, slotCate)
+	local slot = GET_CHILD_RECURSIVELY(slotParent, slotName)
+
+	if slot ~= nil then
+		ITEM_CABINET_SET_SLOT_ITEM(slot, 1, index);		
 	end
 end
 

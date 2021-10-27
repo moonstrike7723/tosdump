@@ -163,7 +163,6 @@ ClassID,SellRate,Count,Price,ShopName,IDSpace,ItemName,Description,NeedProperty
 1409,1,1,1,Master_Alchemist,Item,Legend_ExpPotion_2,,
 1410,1,1,1,Master_Alchemist,Item,misc_wakepowder,,
 1411,1,1,1,Master_Alchemist,Item,Book10_1,,
-1412,1,1,1,Master_Alchemist,Item,SubExpOrb,,
 1413,1,1,1,Master_Alchemist,Item,misc_darkiron,,
 1414,1,1,1,Master_Alchemist,Item,misc_hp_herbs,,
 1415,1,1,1,Master_Alchemist,Item,misc_sp_herbs,,
