@@ -2468,10 +2468,6 @@ function SCR_MON_STAT_RATE(self, prop)
         local statTypeClass = GetClass("Stat_Monster_Type", statType);
         if statTypeClass ~= nil then
             statTypeRate = TryGetProp(statTypeClass, prop, statTypeRate);
-            --QA DPS TEST MON Stat Set
-            if statType == "Weekly_Boss" and self.StrArg1 == "TEST" then
-                statTypeRate = 148
-            end
         end
     end
     

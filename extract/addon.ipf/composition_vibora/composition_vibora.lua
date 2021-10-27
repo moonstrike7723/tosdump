@@ -407,6 +407,13 @@ function EVENT_2011_5TH_SPECIAL_VIBORA_BTN_CLLICK()
 		return;
 	end
 
+	local lv = GETMYPCLEVEL();
+	local limitLv = GET_EVENT_2011_5TH_VIBORA_COMPOSITE_LV_LIMIT();
+	if lv < limitLv then
+		ui.SysMsg(ScpArgMsg("Enable_Pc_{LV}", "LV", limitLv));
+		return;
+	end
+
 	local aObj = GetMyAccountObj();
 	local cnt = TryGetProp(aObj, "EVENT_2011_5TH_SPECIAL_VIBORA_SHOP_USE_COUNT", 9999999);
 	if GET_EVENT_2011_5TH_VIBORA_COMPOSITE_MAX_COUNT() <= cnt then
@@ -416,9 +423,10 @@ function EVENT_2011_5TH_SPECIAL_VIBORA_BTN_CLLICK()
 
 	local frame = ui.GetFrame("composition_vibora");
 	session.ResetItemList();
-	for i = 1, 1 do 
+	for i = 1, 3 do 
 		local slot = GET_CHILD(frame, "slot_"..i);
 		if slot:GetIcon() == nil then
+			ui.SysMsg(ClMsg("NotEnoughCompositionNeedItem"));
 			return;
 		end
 
@@ -433,11 +441,11 @@ function EVENT_2011_5TH_SPECIAL_VIBORA_BTN_CLLICK()
 			local guid = slot:GetUserValue("GUID");
 			session.AddItemID(guid, 1);
 		elseif i == 2 then
-			if itemObj.ClassName ~= "Event_Roulette_Coin_2" then
+			if itemObj.ClassName ~= "Event_2011_TOS_Coin" then
 				return;
 			end
 		elseif i == 3 then
-			if itemObj.ClassName ~= "Event_Roulette_Coin_2" then
+			if itemObj.ClassName ~= "Event_2011_5th_Coin" then
 				return;
 			end
 		end

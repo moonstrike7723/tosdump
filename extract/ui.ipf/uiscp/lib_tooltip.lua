@@ -89,7 +89,7 @@ function GET_STAR_TXT(imgSize, count, obj, isEquiped)
 	    if obj ~= nil and transcend > 0 then
 	        gradeString = gradeString .. string.format("{img star_mark3 %d %d}", imgSize, imgSize);
 		else
-			if obj ~= nil and obj.ToolTipScp == 'LEGEND_BOSSCARD' then
+			if obj ~= nil and (obj.ToolTipScp == 'LEGEND_BOSSCARD' or obj.ToolTipScp == 'GODDESSCARD') then
 				gradeString = gradeString .. string.format("{img mon_legendstar %d %d}", imgSize, imgSize);
 			else
 				gradeString = gradeString .. string.format("{img star_mark %d %d}", imgSize, imgSize);
