@@ -8,7 +8,7 @@
 	<input moveable="true"/>
 	<option closebutton="false" hideable="true" useimageitem="true"/>
 	<sound opensound="win_open" closesound="win_close"/>
-	<script OpenScp="CHAT_EMOTICON_OPEN" lostFocusScp="CHAT_EMOTICON_CLOSE"/>
+	<script OpenScp="ON_CHAT_EMOTICON_OPEN" lostFocusScp="EMT_CLOSE"/>
 	<controls>
 		<groupbox name="gbox" rect="0 0 450 240" margin="0 0 0 0" layout_gravity="center center" draw="false" scrollbar="true"/>
 		<slotset name="emoticons" parent="gbox" rect="0 0 420 20" margin="3 0 0 0" layout_gravity="left top" LBtnUpScp="CHAT_EMOTICON_SELECT" col="10" cursoronresize="true" dropsound="icon_get_down" enablepop="false" enableselect="true" hideindrag="true" maxselect="4" movepop="false" picksound="icon_pick_up" row="6" size="42 42" skin="invenslot" spc="0 0"/>

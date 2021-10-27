@@ -26,6 +26,8 @@ function GODDESS_EQUIP_MANAGER_ON_INIT(addon, frame)
 	addon:RegisterMsg('MSG_FAILED_GODDESS_MAKE_EXEC', 'ON_FAILED_GODDESS_MAKE_EXEC')
 	addon:RegisterMsg('MSG_SUCCESS_GODDESS_INHERIT_EXEC', 'ON_SUCCESS_GODDESS_INHERIT_EXEC')
 	addon:RegisterMsg('MSG_SUCCESS_GODDESS_CONVERT_EXEC', 'ON_SUCCESS_GODDESS_CONVERT_EXEC')
+
+	addon:RegisterMsg('ON_UI_TUTORIAL_NEXT_STEP', 'GODDESS_EQUIP_UI_TUTORIAL_CHECK')
 end
 
 function TOGGLE_GODDESS_EQUIP_MANAGER()
@@ -99,6 +101,15 @@ end
 
 function GODDESS_EQUIP_MANAGER_OPEN(frame)
 	ui.CloseFrame('rareoption')
+	ui.CloseFrame('item_cabinet')
+	for i = 1, #revertrandomitemlist do
+		local revert_name = revertrandomitemlist[i]
+		local revert_frame = ui.GetFrame(revert_name)
+		if revert_frame ~= nil and revert_frame:IsVisible() == 1 then
+			ui.CloseFrame(revert_name)
+		end
+	end
+
 	local main_tab = GET_CHILD_RECURSIVELY(frame, 'main_tab')
 	main_tab:SelectTab(0)
 	CLEAR_GODDESS_EQUIP_MANAGER(frame)
@@ -114,6 +125,97 @@ function GODDESS_EQUIP_MANAGER_CLOSE(frame)
 	INVENTORY_SET_CUSTOM_RBTNDOWN('None')
 	frame:ShowWindow(0)
 	control.DialogOk()
+	TUTORIAL_TEXT_CLOSE()
+end
+
+function GODDESS_REINFORCE_TUTORIAL_OPEN(frame, open_flag)
+	local prop_name = "UITUTO_GODDESSEQUIP1"
+	frame:SetUserValue('TUTO_PROP', prop_name)
+	local tuto_step = GetUITutoProg(prop_name)
+	if tuto_step >= 100 then return end
+
+	local tuto_cls = GetClass('UITutorial', prop_name .. '_' .. tuto_step + 1)
+	if tuto_cls == nil then
+		tuto_cls = GetClass('UITutorial', prop_name .. '_100')
+		if tuto_cls == nil then return end
+	end
+
+	local ctrl_name = TryGetProp(tuto_cls, 'ControlName', 'None')
+	local title = dic.getTranslatedStr(TryGetProp(tuto_cls, 'Title', 'None'))
+	local text = dic.getTranslatedStr(TryGetProp(tuto_cls, 'Note', 'None'))
+	local ctrl = GET_CHILD_RECURSIVELY(frame, ctrl_name)
+	if ctrl == nil then return end
+
+	if open_flag == true then
+		
+	end
+
+	TUTORIAL_TEXT_OPEN(ctrl, title, text, prop_name)
+end
+
+function GODDESS_ENCHANT_TUTORIAL_OPEN(frame, open_flag)
+	local prop_name = "UITUTO_GODDESSEQUIP2"
+	frame:SetUserValue('TUTO_PROP', prop_name)
+	local tuto_step = GetUITutoProg(prop_name)
+	if tuto_step >= 100 then return end
+
+	local tuto_cls = GetClass('UITutorial', prop_name .. '_' .. tuto_step + 1)
+	if tuto_cls == nil then
+		tuto_cls = GetClass('UITutorial', prop_name .. '_100')
+		if tuto_cls == nil then return end
+	end
+
+	local ctrl_name = TryGetProp(tuto_cls, 'ControlName', 'None')
+	local title = dic.getTranslatedStr(TryGetProp(tuto_cls, 'Title', 'None'))
+	local text = dic.getTranslatedStr(TryGetProp(tuto_cls, 'Note', 'None'))
+	local ctrl = GET_CHILD_RECURSIVELY(frame, ctrl_name)
+	if ctrl == nil then return end
+
+	if open_flag == true then
+		
+	end
+
+	TUTORIAL_TEXT_OPEN(ctrl, title, text, prop_name)
+end
+
+function GODDESS_EQUIP_UI_TUTORIAL_CHECK(frame, msg, arg_str, arg_num)
+	if frame == nil or frame:IsVisible() == 0 then return end
+
+	if session.shop.GetEventUserType() == 0 then return end
+
+	if arg_num == 100 then
+		if arg_str == 'UITUTO_GODDESSEQUIP1' then
+			local tuto_icon_1 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_1")
+			tuto_icon_1:ShowWindow(0)
+		elseif arg_str == 'UITUTO_GODDESSEQUIP2' then
+			local tuto_icon_2 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_2")
+			tuto_icon_2:ShowWindow(0)
+		end
+
+		TUTORIAL_TEXT_CLOSE(frame)
+		return
+	end
+
+	local open_flag = false
+	if msg == nil then
+		open_flag = true
+	end
+
+	local main_tab = GET_CHILD_RECURSIVELY(frame, "main_tab")
+	local main_index = main_tab:GetSelectItemIndex()
+	if main_index == 0 then
+		local reforge_tab = GET_CHILD_RECURSIVELY(frame, "reforge_tab")
+		local reforge_index = reforge_tab:GetSelectItemIndex()
+		if reforge_index == 0 then
+			GODDESS_REINFORCE_TUTORIAL_OPEN(frame, open_flag)
+		elseif reforge_index == 1 then
+			GODDESS_ENCHANT_TUTORIAL_OPEN(frame, open_flag)
+		else
+			TUTORIAL_TEXT_CLOSE(frame)
+		end
+	else
+		TUTORIAL_TEXT_CLOSE(frame)
+	end
 end
 
 function CLEAR_GODDESS_EQUIP_MANAGER(frame)
@@ -147,6 +249,8 @@ function TOGGLE_GODDESS_EQUIP_MANAGER_TAB(frame, index)
 	elseif index == 5 then
 		GODDESS_MGR_CONVERT_OPEN(frame)
 	end
+
+	GODDESS_EQUIP_UI_TUTORIAL_CHECK(frame)
 end
 
 function GODDESS_EQUIP_MANAGER_ON_MSG(frame, msg, arg_str, arg_num)
@@ -183,10 +287,26 @@ function GODDESS_MGR_REFORGE_CLEAR(frame)
 	local ref_item_trans_text = GET_CHILD_RECURSIVELY(frame, 'ref_item_trans_text')
 	ref_item_trans_text:SetTextByKey('value', 0)
 
+	local tuto_icon_1 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_1")
+	local tuto_prop_1 = GetUITutoProg("UITUTO_GODDESSEQUIP1")
+	if tuto_prop_1 == 100 then
+		tuto_icon_1:ShowWindow(0)
+	else
+		tuto_icon_1:ShowWindow(1)
+	end
+	
+	local tuto_icon_2 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_2")
+	local tuto_prop_2 = GetUITutoProg("UITUTO_GODDESSEQUIP2")
+	if tuto_prop_2 == 100 then
+		tuto_icon_2:ShowWindow(0)
+	else
+		tuto_icon_2:ShowWindow(1)
+	end
+
 	GODDESS_MGR_REFORGE_TAB_CHANGE(frame, reforge_tab)
 end
 
--- 제련 탭 아이템 등록
+-- 재련 탭 아이템 등록
 function GODDESS_MGR_REFORGE_INV_RBTN(item_obj, slot, guid)	
 	local frame = ui.GetFrame('goddess_equip_manager')
 
@@ -285,6 +405,14 @@ function GODDESS_MGR_REFORGE_REG_ITEM(frame, inv_item, item_obj)
 	elseif index == 3 then		
 		GODDESS_MGR_REFORGE_EVOLUTION_UPDATE(frame)
 	end
+
+	local tuto_prop = frame:GetUserValue('TUTO_PROP')
+	if tuto_prop ~= 'None' then
+		local tuto_value = GetUITutoProg(tuto_prop)
+		if tuto_value == 0 then
+			pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+		end
+	end
 end
 
 function GODDESS_MGR_REFORGE_ITEM_REMOVE(parent, slot)
@@ -339,9 +467,33 @@ function GODDESS_MGR_REFORGE_TAB_CHANGE(parent, tab)
 	elseif index == 3 then
 		GODDESS_MGR_REFORGE_EVOLUTION_OPEN(frame)
 	end
+
+	GODDESS_EQUIP_UI_TUTORIAL_CHECK(frame)
 end
 
 -- 재련 - 강화
+function GODDESS_REINFORCE_MAT_CHECK(frame)
+	local all_selected = true
+	local mat_bg = GET_CHILD_RECURSIVELY(frame, 'reinf_main_mat_bg')
+	for i = 0, mat_bg:GetChildCount() - 1 do
+		local ctrlset = GET_CHILD(mat_bg, 'GODDESS_REINF_MAT_' .. i)
+		if ctrlset ~= nil and ctrlset:GetUserValue('MATERIAL_IS_SELECTED') ~= 'selected' then
+			all_selected = false
+			break
+		end
+	end
+
+	if all_selected == true then
+		local tuto_prop = frame:GetUserValue('TUTO_PROP')
+		if tuto_prop == 'UITUTO_GODDESSEQUIP1' then
+			local tuto_value = GetUITutoProg(tuto_prop)
+			if tuto_value == 1 then
+				pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+			end
+		end
+	end
+end
+
 function GODDESS_MGR_REFORGE_REINFORCE_REG_MAT(ctrlset, btn)		
 	local item_name = ctrlset:GetUserValue('ITEM_NAME')
 
@@ -379,6 +531,9 @@ function GODDESS_MGR_REFORGE_REINFORCE_REG_MAT(ctrlset, btn)
 
     local invframe = ui.GetFrame('inventory')
     btn:ShowWindow(0)
+	
+	local frame = ctrlset:GetTopParentFrame()
+	GODDESS_REINFORCE_MAT_CHECK(frame)
 end
 
 function GODDESS_REINFORCE_MAT_ON_DROP(ctrlset, ctrl, arg_str, arg_num)		
@@ -406,6 +561,9 @@ function GODDESS_REINFORCE_MAT_ON_DROP(ctrlset, ctrl, arg_str, arg_num)
 
 	local invframe = ui.GetFrame('inventory')
 	INVENTORY_UPDATE_ICONS(invframe)
+
+	local frame = ctrlset:GetTopParentFrame()
+	GODDESS_REINFORCE_MAT_CHECK(frame)
 end
 
 function GODDESS_REINFORCE_MAT_CANCEL(ctrlset, slot, arg_str, arg_num)
@@ -626,6 +784,16 @@ function SCR_LBTNDOWN_GODDESS_REINFORCE_EXTRA_MAT(slotset, slot)
 
 	slotset:SetUserValue('NORMAL_MAT_COUNT', normal_cnt)
 	slotset:SetUserValue('PREMIUM_MAT_COUNT', premium_cnt)
+
+	if normal_cnt > 0 or premium_cnt > 0 then
+		local tuto_prop = frame:GetUserValue('TUTO_PROP')
+		if tuto_prop == 'UITUTO_GODDESSEQUIP1' then
+			local tuto_value = GetUITutoProg(tuto_prop)
+			if tuto_value == 2 then
+				pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+			end
+		end
+	end
 
 	GODDESS_MGR_REINFORCE_RATE_UPDATE(frame)
 end
@@ -910,6 +1078,14 @@ function GODDESS_MGR_REINFORCE_CLEAR_BTN(parent, btn)
 			GODDESS_MGR_REINFORCE_RATE_UPDATE(frame)
 		end
 	end
+
+	local tuto_prop = frame:GetUserValue('TUTO_PROP')
+	if tuto_prop == 'UITUTO_GODDESSEQUIP1' then
+		local tuto_value = GetUITutoProg(tuto_prop)
+		if tuto_value == 4 then
+			pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+		end
+	end
 end
 
 function ON_SUCCESS_REFORGE_REINFORCE_EXEC(frame, msg, arg_str, arg_num)
@@ -946,6 +1122,14 @@ function _END_REFORGE_REINFORCE_EXEC()
 	local frame = ui.GetFrame('goddess_equip_manager')
 	local ref_ok_reinforce = GET_CHILD_RECURSIVELY(frame, 'ref_ok_reinforce')
 	ref_ok_reinforce:ShowWindow(1)
+
+	local tuto_prop = frame:GetUserValue('TUTO_PROP')
+	if tuto_prop == 'UITUTO_GODDESSEQUIP1' then
+		local tuto_value = GetUITutoProg(tuto_prop)
+		if tuto_value == 3 then
+			pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+		end
+	end
 end
 -- 재련 - 강화 끝
 
@@ -1023,6 +1207,14 @@ function GODDESS_MGR_REFORGE_ENCHANT_REG_MAT_ITEM(frame, inv_item, item_obj)
 	name_text:ShowWindow(1)
 
 	GODDESS_MGR_REFORGE_ENCHANT_MAT_COUNT(frame)
+
+	local tuto_prop = frame:GetUserValue('TUTO_PROP')
+	if tuto_prop == 'UITUTO_GODDESSEQUIP2' then
+		local tuto_value = GetUITutoProg(tuto_prop)
+		if tuto_value == 1 then
+			pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+		end
+	end
 end
 
 function GODDESS_MGR_REFORGE_ENCHANT_MAT_REMOVE(parent, slot)
@@ -1111,6 +1303,14 @@ function GODDESS_MGR_REFORGE_ENCHANT_CLEAR_AFTER_EXEC(parent, btn)
 	GODDESS_MGR_REFORGE_ENCHANT_MAT_COUNT(frame)
 
 	GODDESS_MGR_REFORGE_ENCHANT_UPDATE(frame)
+
+	local tuto_prop = frame:GetUserValue('TUTO_PROP')
+	if tuto_prop == 'UITUTO_GODDESSEQUIP2' then
+		local tuto_value = GetUITutoProg(tuto_prop)
+		if tuto_value == 4 then
+			pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+		end
+	end
 end
 
 function GODDESS_MGR_REFORGE_ENCHANT_OPEN(frame)
@@ -1250,6 +1450,14 @@ function _SUCCESS_REFORGE_ENCHANT_EXEC()
 	
 	local ref_enchant_send_ok = GET_CHILD_RECURSIVELY(frame, 'ref_enchant_send_ok')
 	ref_enchant_send_ok:ShowWindow(1)
+
+	local tuto_prop = frame:GetUserValue('TUTO_PROP')
+	if tuto_prop == 'UITUTO_GODDESSEQUIP2' then
+		local tuto_value = GetUITutoProg(tuto_prop)
+		if tuto_value == 3 then
+			pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+		end
+	end
 
 	local ref_enchant_after_sub = GET_CHILD_RECURSIVELY(frame, 'ref_enchant_after_sub')
 	ref_enchant_after_sub:RemoveAllChild()
@@ -1904,7 +2112,7 @@ local function _GODDESS_MGR_RANDOMOPTION_GET_PAGE_NAME(index)
 	end
 end
 
-local function _GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(gBox, item_obj, option_list)
+function _GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(gBox, item_obj, option_list)
 	local tooltip_equip_property_CSet = gBox:CreateOrGetControlSet('tooltip_equip_property_narrow', 'tooltip_equip_property_narrow', 0, 0)
 	local labelline = GET_CHILD_RECURSIVELY(tooltip_equip_property_CSet, 'labelline')
 	labelline:ShowWindow(0)
@@ -2299,6 +2507,11 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_REG_ITEM(frame, inv_item, item_obj, sp
 	local randomoption_bg = GET_CHILD_RECURSIVELY(frame, 'randomoption_bg')
 	local index = randomoption_bg:GetUserValue('PRESET_INDEX')
 	local before_option = GET_ENGRAVED_OPTION_BY_INDEX_SPOT(etc, index, spot)
+	if before_option ~= nil then
+		slot:SetUserValue('BEFORE_OPTION_EXIST', 1)
+	else
+		slot:SetUserValue('BEFORE_OPTION_EXIST', 0)
+	end
 	local rand_engrave_before_inner = GET_CHILD_RECURSIVELY(frame, 'rand_engrave_before_inner')
 	rand_engrave_before_inner:RemoveChild('tooltip_equip_property_narrow')
 	_GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(rand_engrave_before_inner, nil, before_option)
@@ -2327,8 +2540,13 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_EXEC(parent, btn)
 	end
 
 	local yesscp = string.format('_GODDESS_MGR_RANDOMOPTION_ENGRAVE_EXEC()')
-	local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetEngrave'), yesscp, 'None')
-	SET_MODAL_MSGBOX(msgbox)
+	local before_option = rand_engrave_slot:GetUserIValue('BEFORE_OPTION_EXIST')
+	if before_option == 1 then
+		WARNINGMSGBOX_EX_ENGRAVE_OPEN()
+	else
+		local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetEngrave'), yesscp, 'None')
+		SET_MODAL_MSGBOX(msgbox)
+	end
 end
 
 function _GODDESS_MGR_RANDOMOPTION_ENGRAVE_EXEC()
@@ -3812,9 +4030,9 @@ local function GODDESS_MAKE_DROPLIST_INIT(frame)
     local group_list = GET_CHILD_RECURSIVELY(frame, 'make_item_kind_droplist')
     group_list:ClearItems()
     local group_index = 1
-    group_list:AddItem(0, ClMsg('PartyShowAll'))
+    group_list:AddItem(0, '{@st42b}'..ClMsg('PartyShowAll')..'{/}')
 	for _group, list in pairsByKeys(_goddessRecipeTable) do
-    	group_list:AddItem(group_index, _group)
+    	group_list:AddItem(group_index, '{@st42b}'.._group..'{/}')
     	group_list:SetUserValue('GROUP_INDEX_' .. group_index, _group)
     	group_index = group_index + 1
    	end
@@ -3822,10 +4040,10 @@ local function GODDESS_MAKE_DROPLIST_INIT(frame)
     local type_list = GET_CHILD_RECURSIVELY(frame, 'make_item_type_droplist')
     type_list:ClearItems()
     local type_index = 1
-    type_list:AddItem(0, ClMsg('PartyShowAll'))
+    type_list:AddItem(0, '{@st42b}'..ClMsg('PartyShowAll')..'{/}')
     for _type, list in pairsByKeys(_goddessRecipeTableByGroupName) do
 		if _type ~= 'Armor' then -- 방어구는 재료별로 따로 하기로 함
-	    	type_list:AddItem(type_index, ClMsg(_type))
+	    	type_list:AddItem(type_index, '{@st42b}'..ClMsg(_type)..'{/}')
 	    	type_list:SetUserValue('GROUPNAME_INDEX_' .. type_index, _type)
 	    	type_index = type_index + 1
     	end
@@ -3836,7 +4054,7 @@ local function GODDESS_MAKE_DROPLIST_INIT(frame)
 		if material ~= 'None' then
 			clmsg = clmsg..'-'..ClMsg(material)
 		end
-		type_list:AddItem(type_index, clmsg)
+		type_list:AddItem(type_index, '{@st42b}'..clmsg..'{/}')
 	    type_list:SetUserValue('GROUPNAME_INDEX_' .. type_index, 'Armor')
 	    type_list:SetUserValue('MATERIAL_OPTION_' .. type_index, material)
 	    type_index = type_index + 1
@@ -4139,10 +4357,20 @@ end
 
 function ON_SUCCESS_GODDESS_MAKE_EXEC(frame, msg, arg_str, arg_num)
 	ui.SetHoldUI(false)
+	local main_tab = GET_CHILD_RECURSIVELY(frame, 'main_tab')
+	local index = main_tab:GetSelectItemIndex()
+	if index == 4 then
+		GODDESS_MGR_INHERIT_CLEAR(frame)
+	end
 end
 
 function ON_FAILED_GODDESS_MAKE_EXEC(frame, msg, arg_str, arg_num)
 	ui.SetHoldUI(false)
+	local main_tab = GET_CHILD_RECURSIVELY(frame, 'main_tab')
+	local index = main_tab:GetSelectItemIndex()
+	if index == 4 then
+		GODDESS_MGR_INHERIT_CLEAR(frame)
+	end
 end
 -- 제작 끝
 
@@ -4367,12 +4595,21 @@ function GODDESS_MGR_INHERIT_REG_ITEM(frame, inv_item, item_obj)
 
 	local name_str = dic.getTranslatedStr(TryGetProp(item_obj, 'Name', 'None'))
 	local before_reinf = TryGetProp(item_obj, 'Reinforce_2', 0)
+	local before_trans = TryGetProp(item_obj, 'Transcend', 0)
 	if before_reinf > 0 then
 		name_str = string.format('+%d %s', before_reinf, name_str)
 	end
 	local before_name = GET_CHILD_RECURSIVELY(frame, 'inherit_before_item_name')
 	before_name:SetTextByKey('name', name_str)
 
+	local before_reinf_txt = GET_CHILD_RECURSIVELY(frame, 'inherit_before_item_reinf')
+	before_reinf_txt:SetTextByKey('value', before_reinf)
+	before_reinf_txt:ShowWindow(1)
+
+	local before_trans_txt = GET_CHILD_RECURSIVELY(frame, 'inherit_before_item_trans')
+	before_trans_txt:SetTextByKey('value', before_trans)
+	before_trans_txt:ShowWindow(1)
+	
 	local before_enchant = GET_CHILD_RECURSIVELY(frame, 'inherit_before_item_enchant')
 	local enchant_txt = GET_RANDOM_OPTION_RARE_CLIENT_TEXT(item_obj)
 	before_enchant:SetTextByKey('value', enchant_txt)
@@ -4396,6 +4633,14 @@ function GODDESS_MGR_INHERIT_CLEAR(frame)
 	local before_name = GET_CHILD_RECURSIVELY(frame, 'inherit_before_item_name')
 	before_name:SetTextByKey('name', '')
 
+	local before_reinf = GET_CHILD_RECURSIVELY(frame, 'inherit_before_item_reinf')
+	before_reinf:SetTextByKey('value', 0)
+	before_reinf:ShowWindow(0)
+
+	local before_trans = GET_CHILD_RECURSIVELY(frame, 'inherit_before_item_trans')
+	before_trans:SetTextByKey('value', 0)
+	before_trans:ShowWindow(0)
+	
 	local before_enchant = GET_CHILD_RECURSIVELY(frame, 'inherit_before_item_enchant')
 	before_enchant:SetTextByKey('value', '')
 
@@ -4441,71 +4686,95 @@ function GODDESS_MGR_INHERIT_EXEC(parent, btn)
 	local selected_id = list_bg:GetUserIValue('NOW_SELECT_ITEM_ID')
 	if selected_id <= 0 then return end
 
-	local selected_lv = TryGetProp(GetClassByNumProp("Item", "ClassID", selected_id), "UseLv", 1)	
+	local selected_cls = GetClassByType("Item", selected_id)
+	if selected_cls == nil then return end
+
+	local selected_lv = TryGetProp(selected_cls, "UseLv", 1)
 	if TryGetProp(GetMyPCObject(), 'Lv', 1) < tonumber(selected_lv) then
-		ui.SysMsg(ScpArgMsg("CannotBecauseLowLevel{LEVEL}", "LEVEL", selected_lv));
+		ui.SysMsg(ScpArgMsg("CannotBecauseLowLevel{LEVEL}", "LEVEL", selected_lv))
 		return	
 	end
 
-	local clmsg = ScpArgMsg('ReallyDoCraftByInherit{mat}', 'mat', item_name)
+	local clmsg = 'AllItemPropertyResetAlert'
 	if TryGetProp(item_obj, 'Transcend', 'None') == 10 and TryGetProp(item_obj, 'Reinforce_2', 'None') > 10 then
-		clmsg = ScpArgMsg('ReallyDoCraftByInheritAddReinforce{mat}', 'mat', item_name)
+		clmsg = 'AllItemPropertyAlert'
 	end
 
-	local yesscp = string.format('WARNINGMSGBOX_FRAME_INHERIT(%d, %d)', TryGetProp(item_obj, 'ClassID', 0), selected_id)
-	local msgbox = ui.MsgBox(clmsg, yesscp, '')
-	SET_MODAL_MSGBOX(msgbox)
+	local item_classtype = TryGetProp(item_obj, 'ClassType', 'None')
+	local select_classtype = TryGetProp(selected_cls, 'ClassType', 'None')
+	local yesscp = '_GODDESS_MGR_INHERIT_EXEC'
+	if item_classtype ~= select_classtype then
+		yesscp = 'WARNINGMSGBOX_FRAME_INHERIT'
 	end
 
-function WARNINGMSGBOX_FRAME_INHERIT(itemid, selected_id)
-	local itemType = TryGetProp(GetClassByNumProp("Item", "ClassID", itemid), "ClassType", "None")
-	local selectedType = TryGetProp(GetClassByNumProp("Item", "ClassID", selected_id), "ClassType", "None")
+	local option = {}
+	option.ChangeTitle = "TitleAllItemPropertyResetAlert"
+	option.CompareTextColor = nil
+	option.CompareTextDesc = ClMsg('ReallyGoddessInherit')
+
+	WARNINGMSGBOX_EX_FRAME_OPEN(frame, nil, clmsg .. ';Succession/' .. yesscp, 0, option)
+end
+
+function WARNINGMSGBOX_FRAME_INHERIT()
+	local from_frame = ui.GetFrame('goddess_equip_manager')
+	if from_frame:IsVisible() == 0 then return end
+
+	local slot = GET_CHILD_RECURSIVELY(from_frame, 'inherit_slot_before')
+	local guid = slot:GetUserValue('ITEM_GUID')
+	if guid == 'None' then return end
 	
-	if itemType ~= selectedType then
-	ui.OpenFrame("warningmsgbox")
-		local itemName = TryGetProp(GetClassByNumProp("Item", "ClassID", itemid), "Name", "None")
-		local selectedName = TryGetProp(GetClassByNumProp("Item", "ClassID", selected_id), "Name", "None")
+	local inv_item = session.GetInvItemByGuid(guid)
+	if inv_item == nil then return end
 
-		local clmsg = ScpArgMsg('OtherSlotEquipMent{ITEM1}{ITEM2}', 'ITEM1', itemName, 'ITEM2', selectedName);
+	local item_obj = GetIES(inv_item:GetObject())
+
+	local list_bg = GET_CHILD_RECURSIVELY(from_frame, 'inherit_inner_bg')
+	local selected_id = list_bg:GetUserIValue('NOW_SELECT_ITEM_ID')
+	if selected_id <= 0 then return end
+
+	local selected_cls = GetClassByType("Item", selected_id)
+	if selected_cls == nil then return end
+	
+	ui.OpenFrame("warningmsgbox")
+	local itemName = TryGetProp(item_obj, "Name", "None")
+	local selectedName = TryGetProp(selected_cls, "Name", "None")
+
+	local clmsg = ScpArgMsg('OtherSlotEquipMent{ITEM1}{ITEM2}', 'ITEM1', itemName, 'ITEM2', selectedName)
 
 	local frame = ui.GetFrame('warningmsgbox')
-		frame:EnableHide(1);
+	frame:EnableHide(1)
 	
 	local warningText = GET_CHILD_RECURSIVELY(frame, "warningtext")
 	warningText:SetText(clmsg)
 
 	local yesBtn = GET_CHILD_RECURSIVELY(frame, "yes")
-		tolua.cast(yesBtn, "ui::CButton");
+	tolua.cast(yesBtn, "ui::CButton")
 	local noBtn = GET_CHILD_RECURSIVELY(frame, "no")
-		tolua.cast(noBtn, "ui::CButton");
+	tolua.cast(noBtn, "ui::CButton")
 
-		yesBtn:SetEventScript(ui.LBUTTONUP, '_GODDESS_MGR_INHERIT_EXEC');
-		yesBtn:SetEventScriptArgNumber(ui.LBUTTONUP, selected_id);
+	yesBtn:SetEventScript(ui.LBUTTONUP, '_GODDESS_MGR_INHERIT_EXEC')
 
 	local buttonMargin = noBtn:GetMargin()
 	local warningbox = GET_CHILD_RECURSIVELY(frame, 'warningbox')
 	local totalHeight = warningbox:GetY() + warningText:GetY() + warningText:GetHeight() + noBtn:GetHeight() + 2 * buttonMargin.bottom
 
-		yesBtn:ShowWindow(1);
-		noBtn:ShowWindow(1);
+	yesBtn:ShowWindow(1)
+	noBtn:ShowWindow(1)
 
 	local input_frame = GET_CHILD_RECURSIVELY(frame, "input")
 	local showTooltipCheck = GET_CHILD_RECURSIVELY(frame, "cbox_showTooltip")
 	local okBtn = GET_CHILD_RECURSIVELY(frame, "ok")
 	showTooltipCheck:ShowWindow(0)
 	input_frame:ShowWindow(0)
-		okBtn:ShowWindow(0);
+	okBtn:ShowWindow(0)
 
 	local bg = GET_CHILD_RECURSIVELY(frame, 'bg')
 	warningbox:Resize(warningbox:GetWidth(), totalHeight)
 	bg:Resize(bg:GetWidth(), totalHeight)
 	frame:Resize(frame:GetWidth(), totalHeight)
-	else
-		_GODDESS_MGR_INHERIT_EXEC(0, 0, 0, selected_id)
-	end
 end
 
-function _GODDESS_MGR_INHERIT_EXEC(notuse1, notuse2, notuse3, class_id)
+function _GODDESS_MGR_INHERIT_EXEC()
 	ui.CloseFrame("warningmsgbox")
 
 	local frame = ui.GetFrame('goddess_equip_manager')
@@ -4513,7 +4782,11 @@ function _GODDESS_MGR_INHERIT_EXEC(notuse1, notuse2, notuse3, class_id)
 	local guid = slot:GetUserValue('ITEM_GUID')
 	if guid == 'None' then return end
 
-	local arg_list = string.format('%d', class_id)
+	local list_bg = GET_CHILD_RECURSIVELY(frame, 'inherit_inner_bg')
+	local selected_id = list_bg:GetUserIValue('NOW_SELECT_ITEM_ID')
+	if selected_id <= 0 then return end
+	
+	local arg_list = string.format('%d', selected_id)
 
 	pc.ReqExecuteTx_Item('GODDESS_CRAFT_EQUIP_BY_INHERIT', guid, arg_list)
 end

@@ -1,4 +1,4 @@
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <Category>
 	<ReadXml Name="bonescale"/>
 	<ReadXml Name="item_goddess_reinforce"/>
@@ -283,6 +283,7 @@
 	<ReadXml Name="Beauty_Shop_Designcut_Dye"/>
 	<ReadXml Name="housing_furniture_group"/>
 	<ReadXml Name="gamble_list"/>
+	<ReadXml Name="status_ranking_list"/>  
 	<ReadXml Name="skill_casting_drawrange"/>
 	<ReadXml Name="worldmap2_data"/>
 	<ReadXml Name="worldmap2_submap_data"/>
@@ -332,6 +333,7 @@
 	<ReadXml Name="item_ark_material"/>
 	<ReadXml Name="item_ark_material_belong"/>
 	<ReadXml Name="item_gem_bernice"/>
+	<ReadXml Name="ride_pet"/>
 	<ReadXml Name="rank_system\KOR_rank_system_season_table"/>
 	<ReadXml Name="rank_system_reward_list"/>
 	<ReadXml Name="Monster_BountyHunt"/>
@@ -340,5 +342,6 @@
 	<ReadXml Name="fieldboss_worldevent_reward_count"/>
 	<ReadXml Name="itemdecompose_mistake"/>
 	<ReadXml Name="resurrect_return_control"/>
-	<ReadXml Name="ability_point_score"/>	
+	<ReadXml Name="ability_point_score"/>
+	<ReadXml Name="ui_tutorial"/>
 </Category>
