@@ -769,7 +769,7 @@
                                 <Str Str="OVER"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK_START" Client="NO" UseSleep="NO">
-                                <Num Num="90"/>
+                                <Num Num="110"/>
                             </ToolScp>
                         </condList>
                         <execList>

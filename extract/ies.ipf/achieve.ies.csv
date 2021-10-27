@@ -225,7 +225,7 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 8015,1,Giltine_clear,AchievePoint,킬,Wing Breaker,각 서버에서 [마신의 성소: 레전드]를 일정 기간 내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Wing Breaker,,True,Giltine_clear,YES,,,,,,NO,plate_achieve_Giltine_clear
 8016,1,Giltine_auto_clear,AchievePoint,킬,Feather Picker,일정 기간 내에 [마신의 성소 (자동 매칭)]을 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Feather Picker,,False,Giltine_auto_clear,YES,,,,,,NO,plate_achieve_Giltine_auto_clear
 8017,1,Giltine_Reorganization_first_kill,AchievePoint,킬,Death Empress,각 서버에서 최초로 [마신의 성소: 레전드] 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Death Empress,,True,Giltine_Reorganization_first_kill,YES,,,,,,NO,plate_achieve_Giltine_first_kill_2
-8018,1,Giltine_clear_gold,AchievePoint,킬,Begin A Prelude[Gold],[마신의 성소: 레전드] 5분 이내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Begin A Prelude,,True,Giltine_clear_gold,YES,,,,,,NO,plate_achieve_Giltine_clear_2
+8018,1,Giltine_clear_gold,AchievePoint,킬,Begin A Prelude[Gold],[마신의 성소: 레전드] 3분 이내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Begin A Prelude,,True,Giltine_clear_gold,YES,,,,,,NO,plate_achieve_Giltine_clear_2
 8019,1,Giltine_clear_silver,AchievePoint,킬,Begin A Prelude[Silver],[마신의 성소: 레전드] 10분 이내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Begin A Prelude,,True,Giltine_clear_silver,YES,,,,,,NO,plate_achieve_Giltine_clear_2_02
 8020,1,Giltine_clear_bronze,AchievePoint,킬,Begin A Prelude[Bronze],[마신의 성소: 레전드] 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Begin A Prelude,,True,Giltine_clear_bronze,YES,,,,,,NO,plate_achieve_Giltine_clear_2_01
 9001,1,WEEKLY_BOSS_RANK_1,AchievePoint,랭킹,Iron Lord,"주간 보스 [자우라] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Iron Lord,,True,WeeklyRank_1,YES,,,,,,NO,plate_achieve_weeklyrank_1
@@ -320,5 +320,5 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 110008,20,Ancient_8,AchievePoint,어시스터 코스트,광부,[자원 쟁탈전]에서 20회 승리하였습니다.,icon_item_Misc_00021,NO,자원 쟁탈전 20회 승리,,True,Ancient_8,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
 110009,20,Ancient_9,AchievePoint,어시스터 코스트,배틀 비기너,[팀 배틀 리그]에서 20회 승리하였습니다.,icon_item_Misc_00021,NO,팀 배틀 리그 20회 승리,,True,Ancient_9,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
 110010,50,Ancient_10,AchievePoint,어시스터 코스트,피규어 수집가,[주간 보스 레이드]에 50회 참여하였습니다.,icon_item_Misc_00021,NO,주간 보스 레이드 50회 참여,,True,Ancient_10,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
-110011,30,Ancient_11,AchievePoint,어시스터 코스트,끝없는 성장,[성물 레이드 : Hard]를 30회 클리어하였습니다.,icon_item_Misc_00021,NO,성물 레이드 : Hard 30회 클리어,,True,Ancient_11,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
+110011,30,Ancient_11,AchievePoint,어시스터 코스트,끝없는 성장,[성물 레이드 : 파티(Hard)]를 30회 클리어하였습니다.,icon_item_Misc_00021,NO,성물 레이드 : 파티(Hard) 30회 클리어,,True,Ancient_11,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
 110012,50,Ancient_12,AchievePoint,어시스터 코스트,레이드 숙련자,"[나비목 접선지 : Hard, 하얀 마녀의 숲 : Hard, 마신의 성소 : 파티]을 총50회 클리어하였습니다.",icon_item_Misc_00021,NO,특정 레전드 레이드 50회 클리어,,True,Ancient_12,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,

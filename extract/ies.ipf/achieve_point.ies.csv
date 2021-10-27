@@ -84,7 +84,7 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 2511,Giltine_clear,[마신의 성소] 일정 기간 내 클리어,NO,NO
 2512,Giltine_auto_clear,[마신의 성소 (자동 매칭)] 일정 기간 내 클리어,NO,NO
 2513,Giltine_Reorganization_first_kill,[마신의 성소 : 레전드] 서버별 최초 클리어,NO,NO
-2514,Giltine_clear_gold,[마신의 성소 : 레전드] 5분 이내 클리어,NO,NO
+2514,Giltine_clear_gold,[마신의 성소 : 레전드] 3분 이내 클리어,NO,NO
 2515,Giltine_clear_silver,[마신의 성소 : 레전드] 10분 이내 클리어,NO,NO
 2516,Giltine_clear_bronze,[마신의 성소 : 레전드] 클리어,NO,NO
 3001,HairShop,미용실,NO,NO
@@ -273,5 +273,5 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 21008,Ancient_8,자원 쟁탈전 20회 승리,NO,NO
 21009,Ancient_9,팀 배틀 리그 20회 승리,NO,NO
 21010,Ancient_10,주간 보스 레이드 50회 참여,NO,NO
-21011,Ancient_11,성물 레이드 : Hard 30회 클리어,NO,NO
+21011,Ancient_11,성물 레이드 : 파티(Hard) 30회 클리어,NO,NO
 21012,Ancient_12,특정 레전드 레이드 50회 클리어,NO,NO

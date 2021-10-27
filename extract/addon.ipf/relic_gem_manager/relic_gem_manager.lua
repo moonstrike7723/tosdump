@@ -128,6 +128,12 @@ local function _REINFORCE_PRICE_UPDATE(frame, price, discountStone)
 	if gem_lv ~= nil then
 		local _, stone_name = shared_item_relic.get_gem_reinforce_mat_name(gem_lv)
 		local stone_cnt = shared_item_relic.get_gem_reinforce_mat_stone(gem_lv)
+
+		if discountStone == stone_cnt then
+			local textmsg = string.format("[ %s ]{nl}%s", ClMsg('RELIC_GEM_UPGRADE_TITLE_MSG'), ScpArgMsg("Enough_Relic_Gem_DiscountStone"))
+			ui.MsgBox(textmsg, yesScp, "None")
+		end
+
 		if discountStone > 0 then
 			stone_cnt = stone_cnt - discountStone
 			if stone_cnt < 0 then
@@ -258,9 +264,10 @@ function RELIC_GEM_MANAGER_REINFORCE_DISCOUNT_CLICK(slotSet, slot)
 	local adjustStone = totalStone - discountStone
 
 	-- 할인가가 0보다 작을 경우
-	local stone = tonumber(slot:GetUserValue("DISCOUNT_STONE"))
-	if stone ~= nil and stone > 0 then
-		if IsGreaterThanForBigNumber(0, adjustValue) == 1 then
+	if IsGreaterThanForBigNumber(0, adjustValue) == 1 then
+		local stone = tonumber(slot:GetUserValue("DISCOUNT_STONE"))
+		-- 축석 할인 있음 -> 촉매제
+		if stone ~= nil and stone > 0 then
 			local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
 			if point == nil or point == 0 then
 				return
@@ -269,36 +276,36 @@ function RELIC_GEM_MANAGER_REINFORCE_DISCOUNT_CLICK(slotSet, slot)
 			local nowCount = slot:GetSelectCount()
 			local adjustByPoint = math.floor(tonumber(DivForBigNumberInt64(adjustValue, point)))
 			local adjustByStone = math.floor(adjustStone / stone)
-			if adjustByPoint < 0 and adjustStone < 0 then
+			if adjustByPoint <= 0 and adjustByStone < 0 then
 				local adjustCount = math.max(adjustByPoint, adjustByStone)
-				adjustCount = math.max(nowCount + adjustCount, 0)
-				slot:SetSelectCount(adjustCount)
-			else
-				local _adjustValue = adjustValue
-				for i = 0, slotSet:GetSelectedSlotCount() - 1 do
-					local _slot = slotSet:GetSelectedSlot(i)
-					local _point = tonumber(_slot:GetUserValue("DISCOUNT_POINT"))
-					local _stone = tonumber(_slot:GetUserValue("DISCOUNT_STONE"))
-					if _stone == 0 then
-						local _nowCount = slot:GetSelectCount()
-						local _adjustCount = math.floor(tonumber(DivForBigNumberInt64(_adjustValue, _point)))
-						_adjustCount = math.max(_nowCount + _adjustCount, 0)
-						_slot:SetSelectCount(_adjustCount)
+				local adjustedCount = math.max(nowCount + adjustCount, 0)
+				slot:SetSelectCount(adjustedCount)
+				adjustValue = SumForBigNumberInt64(adjustValue, tostring(adjustCount * point * -1))
+			end
 
-						if _adjustCount == 0 then
-							_slot:Select(0)
-						end
+			-- 일반 강화 쿠폰 감소 처리
+			local _adjustValue = adjustValue
+			for i = 0, slotSet:GetSelectedSlotCount() - 1 do
+				local _slot = slotSet:GetSelectedSlot(i)
+				local _point = tonumber(_slot:GetUserValue("DISCOUNT_POINT"))
+				local _stone = tonumber(_slot:GetUserValue("DISCOUNT_STONE"))
+				if _stone == 0 then
+					local _nowCount = _slot:GetSelectCount()
+					local _adjustCount = math.floor(tonumber(DivForBigNumberInt64(_adjustValue, _point)))
+					local _adjustedCount = math.max(_nowCount + _adjustCount, 0)
+					_slot:SetSelectCount(_adjustedCount)
 
-						_adjustValue = _adjustValue - (_adjustCount * _point)
-						if _adjustValue <= 0 then
-							break
-						end
+					if _adjustedCount == 0 then
+						_slot:Select(0)
+					end
+
+					_adjustValue = _adjustValue - (_adjustedCount * _point)
+					if _adjustValue >= 0 then
+						break
 					end
 				end
 			end
-		end
-	else
-		if IsGreaterThanForBigNumber(0, adjustValue) == 1 then
+		else
 			local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
 			if point == nil or point == 0 then
 				return
@@ -1015,9 +1022,10 @@ function RELIC_GEM_MANAGER_COMPOSE_DISCOUNT_CLICK(slotSet, slot)
 	local adjustStone = totalStone - discountStone
 
 	-- 할인가가 0보다 작을 경우
-	local stone = tonumber(slot:GetUserValue("DISCOUNT_STONE"))
-	if stone > 0 then
-		if IsGreaterThanForBigNumber(0, adjustValue) == 1 then
+	if IsGreaterThanForBigNumber(0, adjustValue) == 1 then
+		local stone = tonumber(slot:GetUserValue("DISCOUNT_STONE"))
+		-- 축석 할인 있음 -> 촉매제
+		if stone ~= nil and stone > 0 then
 			local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
 			if point == nil or point == 0 then
 				return
@@ -1026,41 +1034,41 @@ function RELIC_GEM_MANAGER_COMPOSE_DISCOUNT_CLICK(slotSet, slot)
 			local nowCount = slot:GetSelectCount()
 			local adjustByPoint = math.floor(tonumber(DivForBigNumberInt64(adjustValue, point)))
 			local adjustByStone = math.floor(adjustStone / stone)
-			if adjustByPoint < 0 and adjustStone < 0 then
+			if adjustByPoint <= 0 and adjustByStone < 0 then
 				local adjustCount = math.max(adjustByPoint, adjustByStone)
-				adjustCount = math.max(nowCount + adjustCount, 0)
-				slot:SetSelectCount(adjustCount)
-			else
-				local _adjustValue = adjustValue
-				for i = 0, slotSet:GetSelectedSlotCount() - 1 do
-					local _slot = slotSet:GetSelectedSlot(i)
-					local _point = tonumber(_slot:GetUserValue("DISCOUNT_POINT"))
-					local _stone = tonumber(_slot:GetUserValue("DISCOUNT_STONE"))
-					if _stone == 0 then
-						local _nowCount = slot:GetSelectCount()
-						local _adjustCount = math.floor(tonumber(DivForBigNumberInt64(_adjustValue, _point)))
-						_adjustCount = math.max(_nowCount + _adjustCount, 0)
-						_slot:SetSelectCount(_adjustCount)
+				local adjustedCount = math.max(nowCount + adjustCount, 0)
+				slot:SetSelectCount(adjustedCount)
+				adjustValue = SumForBigNumberInt64(adjustValue, tostring(adjustCount * point * -1))
+			end
 
-						if _adjustCount == 0 then
-							_slot:Select(0)
-						end
+			-- 일반 강화 쿠폰 감소 처리
+			local _adjustValue = adjustValue
+			for i = 0, slotSet:GetSelectedSlotCount() - 1 do
+				local _slot = slotSet:GetSelectedSlot(i)
+				local _point = tonumber(_slot:GetUserValue("DISCOUNT_POINT"))
+				local _stone = tonumber(_slot:GetUserValue("DISCOUNT_STONE"))
+				if _stone == 0 then
+					local _nowCount = _slot:GetSelectCount()
+					local _adjustCount = math.floor(tonumber(DivForBigNumberInt64(_adjustValue, _point)))
+					local _adjustedCount = math.max(_nowCount + _adjustCount, 0)
+					_slot:SetSelectCount(_adjustedCount)
 
-						_adjustValue = _adjustValue - (_adjustCount * _point)
-						if _point + _adjustValue >= 0 then
-							break
-						end
+					if _adjustedCount == 0 then
+						_slot:Select(0)
+					end
+
+					_adjustValue = _adjustValue - (_adjustedCount * _point)
+					if _adjustValue >= 0 then
+						break
 					end
 				end
 			end
-		end
-	else
-		if IsGreaterThanForBigNumber(0, adjustValue) == 1 then
+		else
 			local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
 			if point == nil or point == 0 then
 				return
 			end
-	
+			
 			local nowCount = slot:GetSelectCount()
 			local adjustCount = math.floor(tonumber(DivForBigNumberInt64(adjustValue, point)))
 			adjustCount = math.max(nowCount + adjustCount, 0)
