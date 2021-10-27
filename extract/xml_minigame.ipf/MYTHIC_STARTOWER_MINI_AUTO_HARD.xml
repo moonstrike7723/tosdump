@@ -255,13 +255,8 @@
                 </StageEvents>
             </Stage>
             <Stage Name="SUCCESS">
-				<StartScpList>
-                    <ToolScp Scp="MGAME_SUCCESS_STAGE_SCP" Client="NO" UseSleep="NO">
-                        <Str Str="Mythic"/>
-                    </ToolScp>
-                </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="160065" Pos="-2022.13#-106.10#-1402.93" genCount="1" genTime="20000" objectKey="1"/>
+                    <Obj Type="Monster" MonType="160065" Pos="-2022.13#-106.10#-1402.93" genCount="1" genTime="20000" autoGen="0" objectKey="1"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Clear">
@@ -286,6 +281,9 @@
                                 <Num Num="30"/>
                                 <Str Str="MythicDungeon_Auto_Hard"/>
                             </ToolScp>
+                            <ToolScp Scp="GAME_EVT_ON_BYNAME" Client="NO" UseSleep="NO">
+                                <Str Str="EVENT_2101_SUPPLY"/>
+                            </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="MYTHIC_DUNGEON_CLEAR"/>
                             </ToolScp>
@@ -294,6 +292,26 @@
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
                                 <Str Str="END"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="SUCCESS/1"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="EVENT_2101_SUPPLY" execWithStart="0" isEnabled="0">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
+                                <Str Str="EVENT_2101_SUPPLY"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
+                                <Str Str="SUCCESS"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -400,6 +418,14 @@
                         </execList>
                     </Event>
                 </StageEvents>
+            </Stage>
+            <Stage Name="EVENT_2101_SUPPLY" AutoStart="0">
+                <StartScpList>
+                    <ToolScp Scp="MGAME_SUCCESS_STAGE_SCP" Client="NO" UseSleep="NO">
+                        <Str Str="Mythic"/>
+                            </ToolScp>
+                </StartScpList>
+                <ObjList/>
             </Stage>
         </StageList>
         <EnterList>
