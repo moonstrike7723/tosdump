@@ -184,13 +184,18 @@ item_goddess_craft.get_inherit_option_value = function(item)
 
 	local enchant_name = TryGetProp(item, 'RandomOptionRare', 'None')
 	local enchant_value = TryGetProp(item, 'RandomOptionRareValue', 0)
-	enchant_value = math.floor(enchant_value * 2 / 3)
-	-- 이동속도/광공비는 사실상 계승 불가
+	-- 이동속도/광공비 체크해서 해당 옵션이면 3일 경우에만 2로 계승, 그 외에는 제거
 	if enchant_name == 'RareOption_MSPD' or enchant_name == 'RareOption_SR' then
-		if enchant_value < 3 then
+		if enchant_value < 2 then
 			enchant_name = 'None'
 			enchant_value = 0
+		elseif enchant_value == 2 then
+			enchant_value = 1
+		elseif enchant_value == 3 then
+			enchant_value = 2
 		end
+	else
+		enchant_value = math.floor(enchant_value * 2 / 3)
 	end
 
 	return reinf_value, enchant_name, enchant_value

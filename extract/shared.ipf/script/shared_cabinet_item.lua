@@ -82,7 +82,7 @@ local function make_cabinet_required_item_list()
                         end
 
                         if lv == 1 or lv == 3 then
-                            g_cabinet_required_item_list['Armor'][item_name][lv]['misc_archenium'] = 1 -- 아케늄
+                            g_cabinet_required_item_list['Armor'][item_name][lv]['misc_archenium_NoTrade'] = 1 -- 아케늄
                             g_cabinet_required_item_list['Armor'][item_name][lv]['evil_misc'] = 1 -- 검붉은
                             g_cabinet_required_item_list['Armor'][item_name][lv]['goddess_misc'] = 1 -- 신력                        
                         end
@@ -164,7 +164,7 @@ local function make_cabinet_required_item_list()
                         g_cabinet_required_item_list[category][item_name][lv+1]['NECK05_005'] = 1
                         g_cabinet_required_item_list[category][item_name][lv+1]['BRC05_005__1'] = 1
                         g_cabinet_required_item_list[category][item_name][lv+1]['BRC05_005__2'] = 1
-                        g_cabinet_required_item_list[category][item_name][lv+1]['misc_luferium'] = 1
+                        g_cabinet_required_item_list[category][item_name][lv+1]['misc_luferium_NoTrade'] = 1
                         g_cabinet_required_item_list[category][item_name][lv+1]['misc_mothstone'] = 1
                         g_cabinet_required_item_list[category][item_name][lv+1]['misc_Telharsha_neck'] = 72
                     elseif item_name == 'EP12_NECK06_HIGH_005' or item_name == 'EP12_BRC06_HIGH_005' then
@@ -190,7 +190,7 @@ local function make_cabinet_required_item_list()
                         g_cabinet_required_item_list[category][item_name][lv]['BRC05_003__2'] = 1
                     end
 
-                    g_cabinet_required_item_list[category][item_name][lv]['misc_luferium'] = 1
+                    g_cabinet_required_item_list[category][item_name][lv]['misc_luferium_NoTrade'] = 1
                     g_cabinet_required_item_list[category][item_name][lv]['misc_mothstone'] = 1
                     g_cabinet_required_item_list[category][item_name][lv]['misc_Telharsha_neck'] = 72
                 end
@@ -217,7 +217,7 @@ local function make_cabinet_required_item_list()
                     if g_cabinet_required_item_list[category][item_name][lv] == nil then
                         g_cabinet_required_item_list[category][item_name][lv] = {}  -- 레벨별 재료
                     end
-                    g_cabinet_required_item_list[category][item_name][lv]['misc_thierrynium'] = 1
+                    g_cabinet_required_item_list[category][item_name][lv]['misc_thierrynium_NoTrade'] = 1
                     g_cabinet_required_item_list[category][item_name][lv]['Piece_LegendMisc'] = 4
                 end
             end

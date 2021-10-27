@@ -3975,12 +3975,17 @@ function GODDESS_MGR_INHERIT_REG_TARGET(frame)
 		if reinf_value > 0 then
 			name_str = string.format('+%d %s', reinf_value, name_str)
 		end
-
-		local enchant_str = _GET_RANDOM_OPTION_RARE_CLIENT_TEXT(enchant_name, enchant_value)
-		if enchant_str ~= nil then
-			after_enchant:SetTextByKey('value', enchant_str)
-			after_enchant:ShowWindow(1)
+		
+		if enchant_name ~= 'None' or enchant_value ~= 0 then
+			local enchant_str = _GET_RANDOM_OPTION_RARE_CLIENT_TEXT(enchant_name, enchant_value)
+			if enchant_str ~= nil then
+				after_enchant:SetTextByKey('value', enchant_str)
+				after_enchant:ShowWindow(1)
+			end
+		else
+			after_enchant:ShowWindow(0)
 		end
+
 	else
 		after_enchant:ShowWindow(0)
 	end

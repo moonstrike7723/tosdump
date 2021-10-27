@@ -330,7 +330,7 @@
 		<Class ClassID="2207" ClassName="ItemDeletedByOptionExtract" Data="옵션 추출로 인해 장비가 소멸되었습니다."/>
 		<Class ClassID="2208" ClassName="{LEVEL}LimitEquip" Data="{LEVEL} 레벨 이상 레전드 아이템에 장착 가능"/>
 		<Class ClassID="2209" ClassName="NotExistRewardInfo" Data="보상 정보가 없습니다."/>
-		<Class ClassID="2210" ClassName="ReallyDecomposeLEgendItemFor{ITEM}?" Data="해당 아이템을 분해할 경우{nl}레전드 아이템은 사라지며 일정 확률로{nl}'{ITEM}' 또는 '레전드 쥬얼' 아이템이 지급됩니다.{nl}분해하시겠습니까?"/>
+		<Class ClassID="2210" ClassName="ReallyDecomposeLEgendItemFor{ITEM}?" Data="해당 아이템을 분해할 경우{nl}레전드 아이템은 사라지며{nl}'{ITEM}' 아이템이 지급됩니다.{nl}분해하시겠습니까?"/>
 		<Class ClassID="2211" ClassName="ClickItemToTranscendByScroll" Data="초월할 아이템을 클릭해주세요."/>
 		<Class ClassID="2212" ClassName="TranscendScrollSetDisabledItem" Data="초월할 수 없는 아이템입니다."/>
 		<Class ClassID="2213" ClassName="TranscendScrollAddDisabledItem" Data="초월할 수 없는 아이템입니다."/>
@@ -1160,7 +1160,7 @@
 		<Class ClassID="5131" ClassName="tooltip_BlossomBlader_BlossomSlash_Lv4" Data="{nl} {nl}{@st66d}{s15} - 어검술 최종 대미지 {img green_up_arrow 16 16}100%"/>
 		<Class ClassID="5132" ClassName="tooltip_DualSword_Lv4" Data="{nl} {nl}{@st66d}{s15} - 뮬리넷 최종 대미지 {img green_up_arrow 16 16}100%"/>
 		<Class ClassID="5133" ClassName="tooltip_WickedDesire_Lv4" Data="{nl} {nl}{@st66d}{s15} - 이보케이션 재사용 대기시간 10초 감소"/>
-		<Class ClassID="5134" ClassName="tooltip_EternalFrozenLand_Lv4" Data="{nl} {nl}{@st66d}{s15} - 아이스 블래스트 연타 수 {img green_up_arrow 16 16}2"/>
+		<Class ClassID="5134" ClassName="tooltip_EternalFrozenLand_Lv4" Data="{nl} {nl}{@st66d}{s15} - 아이스 블래스트 연타 수 2배"/>
 		<Class ClassID="5135" ClassName="tooltip_OrbitalArrow_Lv4" Data="{nl} {nl}{@st66d}{s15} - 스프레드 샷 재사용 대기시간 10초 감소"/>
 		<Class ClassID="5136" ClassName="tooltip_DoubleMarking_Lv4" Data="{nl} {nl}{@st66d}{s15} - 데드 존 최종 대미지 {img green_up_arrow 16 16}100%"/>
 		<Class ClassID="5137" ClassName="tooltip_Outrage_Lv4" Data="{nl} {nl}{@st66d}{s15} - 브레스트 리퍼 재사용 대기시간 25초 감소"/>

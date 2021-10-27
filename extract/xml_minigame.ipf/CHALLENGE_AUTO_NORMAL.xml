@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GameList>
-    <Game Name="CHALLENGE_AUTO_NORMAL" minLv="0" maxLv="0" mapName="Challenge_shadow_raid_main" playerCountCheckDestroy="0" startWaitSec="-1">
+    <Game Name="CHALLENGE_AUTO_NORMAL" minLv="0" maxLv="0" mapName="Challenge_shadow_raid_main" playerCountCheckDestroy="1" startWaitSec="-1">
         <StageList>
             <Stage Name="Start">
                 <ObjList>
