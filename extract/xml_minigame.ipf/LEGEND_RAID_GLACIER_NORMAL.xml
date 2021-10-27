@@ -155,6 +155,13 @@
                             </ToolScp>
                         </execList>
                     </Event>
+                    <Event execCount="1" eventName="ForLog">
+                        <execList>
+                            <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_LEGEND_RAID_DPS_RESULT"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
                 </StageEvents>
             </Stage>
             <Stage Name="Fail" AutoStart="0">
@@ -234,6 +241,13 @@
                                 <Num Num="1"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_RETURN" Client="NO" UseSleep="NO"/>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="ForLog">
+                        <execList>
+                            <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_LEGEND_RAID_DPS_RESULT"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -856,6 +870,13 @@
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Boss_Glacier/0"/>
                                 <Str Str="SCR_LEGEND_TOP_HATER_CHECK"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="ForLog">
+                        <execList>
+                            <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_LEGEND_RAID_DPS_START_PC"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -1620,7 +1641,39 @@
                     </Event>
                 </StageEvents>
             </Stage>
+            <Stage Name="START_BUFF_SET">
+                <ObjList/>
+                <StageEvents>
+                    <Event execCount="1" eventName="select_buff">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="5"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EXEC_SELECT_BUFF_PARTY" Client="NO" UseSleep="NO">
+                                <Num Num="60"/>
+                                <Str Str="AUTO_MATCHING_PARTY_ATTACK_BUFF"/>
+                                <Str Str="AUTO_MATCHING_PARTY_DEFENCE_BUFF"/>
+                                <Str Str="AUTO_MATCHING_PARTY_HEAL_BUFF"/>
+                                <Str Str="AUTO_MATCHING_PARTY_HEAL2_BUFF"/>
+                                <Str Str="None"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                </StageEvents>
+            </Stage>
         </StageList>
+        <EnterList>
+            <ToolScp Scp="MGAME_ZONE_ENTER_SELECT_BUFF_SOLO" Client="NO" UseSleep="NO">
+                <Num Num="60"/>
+                <Str Str="AUTO_MATCHING_TANKER_BUFF"/>
+                <Str Str="AUTO_MATCHING_RECOVERY_BEAD_BUFF"/>
+                <Str Str="AUTO_MATCHING_HEALER_BUFF"/>
+                <Str Str="AUTO_MATCHING_DAMAGE_BUFF"/>
+                <Str Str="AUTO_MATCHING_DAMAGE2_BUFF"/>
+            </ToolScp>
+        </EnterList>
         <WorldInitList>
             <ToolScp Scp="MGAME_INIT_CHANGE_VIEW" Client="NO" UseSleep="NO">
                 <Num Num="1500"/>

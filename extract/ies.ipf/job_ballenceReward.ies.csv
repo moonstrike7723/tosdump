@@ -64,7 +64,7 @@ ClassID,JobChangePoint,ClassName,Name,EngName,CtrlType,BaseClass,RewardDay_Start
 4009,1000,Char4_9,[몽크],Monk,Cleric,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,,,,
 4010,0,Char4_10,[파드너],Pardoner,Cleric,,,,,,,,,
 4011,1000,Char4_11,[팔라딘],Paladin,Cleric,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,,,,
-4012,1000,Char4_12,[채플린],Chaplain,Cleric,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,,,,
+4012,1000,Char4_12,[채플린],Chaplain,Cleric,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Chaplain21_1d,,,
 4013,0,Char4_13,[양치기],Shepherd,Cleric,,,,,,,,,
 4014,0,Char4_14,[플레이그닥터],PlagueDoctor,Cleric,,,,,,,,,
 4015,0,Char4_15,[카발리스트],Kabbalist,Cleric,,,,,,,,,

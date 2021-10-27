@@ -646,7 +646,7 @@
 		<Class ClassID="4141" ClassName="ThisIsEndedEvent" Data="종료 기한이 지난 이벤트입니다."/>
 		<Class ClassID="4142" ClassName="THMace" Data="양손둔기"/>
 		<Class ClassID="4143" ClassName="Event_Select_Acc_Box_Title" Data="슈페리어 브레이슬릿(15일) 상자"/>
-		<Class ClassID="4144" ClassName="LeticiaGacha{CONSUME}" Data="큐브 개봉시{nl}{CONSUME}  소모됩니다.{nl}정말 개봉하시겠습니까?{nl} {nl}{@st66d_y}{s20}현재 개봉 횟수{nl}{COUNT}{/}{/}"/>
+		<Class ClassID="4144" ClassName="LeticiaGacha{CONSUME}" Data="큐브 개봉시{nl}{CONSUME}  소모됩니다.{nl}정말 개봉하시겠습니까?{nl} {nl}{@st66d_y}{s20}현재 개봉 횟수{nl}{COUNT}{/}{/}{nl} {nl}개봉 횟수는 200회마다 초기화됩니다."/>
 		<Class ClassID="4145" ClassName="SelectCostume{ITEM}" Data="{@st66d_y}{s20}{ITEM}{/}{/} {nl}코스튬을 정말 선택하시겠습니까?{nl} {nl}선택 후에는 다른 코스튬으로{nl}교환할 수 없습니다."/>
 		<Class ClassID="4146" ClassName="Card_Summon_Check_god" Data="여신상 주변에서는 사용하실 수 없습니다."/>
 		<Class ClassID="4147" ClassName="Card_Summon_check_Boss" Data="보스 몬스터 주변에서는 사용하실 수 없습니다."/>
@@ -1859,6 +1859,8 @@
 		<Class ClassID="21410" ClassName="ChatType_9" Data="길드 강조"/>
 		<Class ClassID="21411" ClassName="ChatType_9_ToolTip" Data="/gn 할말"/>
 		<Class ClassID="21412" ClassName="PleaseSelect" Data="선택해주세요"/>
+		<Class ClassID="21413" ClassName="SoloBuffSelect" Data="개인 버프"/>
+		<Class ClassID="21414" ClassName="PartyBuffSelect" Data="파티 버프"/>
 	</Category>
 	<Category Name="ChatText">
 		<Class ClassID="22001" ClassName="Guard" Data="방어"/>
@@ -9506,6 +9508,10 @@
 		<Class ClassID="92055" ClassName="Event_2010_LVUP_MSG4" Data="성장 지원을 받는다. [ 팀 기준 남은 횟수 : {#FF0000}{COUNT}{/} ] 회"/>
 		<Class ClassID="92056" ClassName="Event_2010_LVUP_MSG5" Data="이미 성장지원을 받은 캐릭터 입니다."/>
 		<Class ClassID="92057" ClassName="Event_2010_LVUP_MSG6" Data="더 이상 성장지원을 받을 수 없습니다."/>
+		<Class ClassID="92064" ClassName="GACHA_SITEM_GET_ALLMSG_7" Data="{s24}축하드립니다!{nl}{PC} 님이 복각II: 축복받은 여신의 큐브에서{nl}{ITEMNAME} 를(을) 획득하셨습니다!"/>
+		<Class ClassID="92065" ClassName="AUTO_MATCHING_PARTY_BUFF_SELECT_MSG" Data="파티 버프를 선택해주세요.{nl}파티원이 가장 많이 선택한 버프가 모든 파티원에게 부여됩니다.{nl}선택하지 않을 경우 랜덤한 버프로 결정됩니다."/>
+		<Class ClassID="92066" ClassName="AUTO_MATCHING_BUFF_SELECT_MSG" Data="파티 버프를 선택해주세요.{nl}파티원이 가장 많이 선택한 버프가 모든 파티원에게 부여됩니다.{nl}선택하지 않을 경우 랜덤한 버프로 결정됩니다."/>
+		<Class ClassID="92067" ClassName="AUTO_MATCHING_ADD_BUFF_MSG" Data="{BuffName}버프가 선택되었습니다."/>
 	</Category>
 	<Category Name="BattleText">
 		<Class ClassID="100001" ClassName="ADD_DAMAGE_{Auto_1}!" Data="추가 대미지 {Auto_1}!"/>
@@ -14387,6 +14393,13 @@
 		<Class ClassID="302208" ClassName="EVENT_2010_GUILD_TOWER_MSG3" Data="해당 길드는 기존 서버에서 창설되었습니다."/>
 		<Class ClassID="302209" ClassName="SeasonServer" Data="시즌서버"/>
 		<Class ClassID="302210" ClassName="NotSeasonServer" Data="기존서버"/>
+		<Class ClassID="302211" ClassName="EVENT_2011_FISHING_SEL_MSG1" Data="{#0033FF}[낚시 이벤트]{/} 이벤트 안내"/>
+		<Class ClassID="302212" ClassName="EVENT_2011_FISHING_SEL_MSG2" Data="{#0033FF}[낚시 이벤트]{/} [이벤트] 미꾸라지 수령하기"/>
+		<Class ClassID="302213" ClassName="EVENT_2011_FISHING_SEL_MSG3" Data="{#0033FF}[낚시 이벤트]{/} [이벤트] 미꾸라지 추가 구매하기"/>
+		<Class ClassID="302214" ClassName="EVENT_2011_FISHING_CAT_MSG1" Data="교환 가능 개수 1~{MAX}"/>
+		<Class ClassID="302215" ClassName="FishingShop2011" Data="[낚시 이벤트] 미꾸라지 상점"/>
+		<Class ClassID="302216" ClassName="EVENT_2011_FISHING_CAT_MSG2" Data="소지하고 있는 {#0033FF}[이벤트] 꽁치{/}가 없습니다."/>
+		<Class ClassID="302217" ClassName="EVENT_2011_FISHING_CHECK_MESSAGE1{BAIT}{TRADE}" Data="[이벤트] 꽁치 낚시{nl}[이벤트] 미꾸라지 일일 수령 횟수 {#3366FF}({BAIT}/1회){/}{nl}이벤트 기간 중 [낚시 이벤트] 정체불명 떡밥통 교환 횟수{#3366FF}({TRADE}/200회){/}{nl}{#FF0000}※일일 수령 횟수는 매일 오전 6시 초기화 됩니다.{nl}※이벤트 기간 중 [낚시 이벤트] 정체불명 떡밥통의 최대 교환 횟수는 200회 입니다.(이후 교환 시 버프만 획득 가능합니다.){/}"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -14590,6 +14603,12 @@
 		<Class ClassID="510336" ClassName="FISHING_STATUE_OWNER_WORSHIP_3" Data="서버 전체 루팅 찬스 500 증가(20분)"/>
 		<Class ClassID="510337" ClassName="{Name}FishRubbingBuff" Data="{Name}님이 황금 동상 버프를 사용하셨습니다!{nl}{Time}분동안 루팅 찬스 {LootingChance} 증가됩니다."/>
 		<Class ClassID="510338" ClassName="YouAlreadyUseStatueBuff" Data="오늘은 더 이상 사용 할 수 없습니다."/>
+		<Class ClassID="510339" ClassName="FISHING_MANAGER_RUBBING_MSG_1" Data="탁본을 여러번 뜬다"/>
+		<Class ClassID="510340" ClassName="FISHING_MANAGER_RUBBING_MSG_2" Data="한 마리만 탁본을 뜬다"/>
+		<Class ClassID="510341" ClassName="FISHING_MANAGER_RUBBING_DOTIME" Data="탁본 뜨는 중"/>
+		<Class ClassID="510342" ClassName="FISHING_MANAGER_RUBBING_COUNT" Data="탁본을 {COUNT}번 진행했어요!{nl}어디보자.."/>
+		<Class ClassID="510343" ClassName="FISHING_MANAGER_RUBBING_INPY_DLG_1" Data="은빛 물고기 {COUNT} 마리가 있으시군요.{nl}한 마리에 한 번씩, 최대 100번까지 탁본을 도와드릴 수 있어요.{nl}몇 번 진행하시겠어요?"/>
+		<Class ClassID="510344" ClassName="FISHING_MANAGER_RUBBING_INPY_DLG_2" Data="은빛 물고기 {COUNT} 마리가 있으시군요.{nl}한 마리에 한 번씩, 최대 {COUNT} 번 탁본을 도와드릴 수 있어요.{nl}몇 번 진행하시겠어요?"/>
 	</Category>
 	<Category Name="FieldBossMessage">
 		<Class ClassID="510500" ClassName="FieldBoss{Name}WillAppear" Data="잠시 후 필드 보스가 등장합니다 : {Name}"/>
@@ -15195,7 +15214,7 @@
 		<Class ClassID="1002054" ClassName="NotVisibleHairAcc_Hair" Data="해당 헤어 구매 시 {nl}일부 {@st66d_y}헤어 코스튬 아이템이{nl} 보이지 않거나 위치가 어긋날 수 있습니다.{/}{nl}그래도 구매하시겠습니까?"/>
 		<Class ClassID="1002055" ClassName="BEAUTY_SHOP_HAIR_M4" Data="남자 디자인 컷 구매"/>
 		<Class ClassID="1002056" ClassName="BEAUTY_SHOP_HAIR_F4" Data="여자 디자인 컷 구매"/>
-		<Class ClassID="1002057" ClassName="DesigncutDyeWarning" Data="해당 헤어는 구매시 {@st66d_y}지정된 색상 외의 염색약 적용이 불가능합니다.{/}{nl}"/>
+		<Class ClassID="1002057" ClassName="DesigncutDyeWarning" Data="디자인 컷 착용 후  {#FF0900}인벤토리 내 가발 슬롯 좌측 화살표를 클릭하면 지정된 색상 중 원하는 색으로 변경{/}하실 수 있습니다.{nl} {nl}* 지정된 색상 외의 염색약 적용이 불가능합니다."/>
 		<Class ClassID="1002058" ClassName="PREVIEW_LETICIA" Data="레티샤 상품 입어보기"/>
 		<Class ClassID="1002059" ClassName="PREVIEW_SILVERGACHA" Data="마신의 유혹 상품 입어보기"/>
 	</Category>
@@ -15615,6 +15634,7 @@
 		<Class ClassID="560036" ClassName="malsuns_emotion84" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560037" ClassName="malsuns_emotion86" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560038" ClassName="malsuns_emotion87" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560039" ClassName="Hitomico_emoticon_01" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 	</Category>
 	<Category Name="Gesture">
 		<Class ClassID="570000" ClassName="Already_Gesture" Data="이미 보유한 제스처입니다."/>

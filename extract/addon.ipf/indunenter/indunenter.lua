@@ -1069,7 +1069,7 @@ function INDUNENTER_ENTER(frame, ctrl)
     end
     
     local topFrame = frame:GetTopParentFrame();
-    if INDUNENTER_CHECK_ADMISSION_ITEM(topFrame) == false then
+    if INDUNENTER_CHECK_ADMISSION_ITEM(topFrame, 1) == false then
         return;
     end
 
@@ -1113,13 +1113,13 @@ function INDUNENTER_AUTOMATCH(frame, ctrl)
     end
     end
     
-    local topFrame = frame:GetTopParentFrame();
-    if INDUNENTER_CHECK_ADMISSION_ITEM(topFrame) == false then
-        return;
-    end
-
     local textCount = topFrame:GetUserIValue("multipleCount");
     if topFrame:GetUserValue('AUTOMATCH_MODE') == 'NO' then
+        local topFrame = frame:GetTopParentFrame();
+        if INDUNENTER_CHECK_ADMISSION_ITEM(topFrame, 2) == false then
+            return;
+        end
+        
         ReqMoveToIndun(2, textCount);
     else
         INDUNENTER_AUTOMATCH_CANCEL();
@@ -1877,9 +1877,12 @@ function INDUNENTER_CHECK_UNDERSTAFF_MODE_WITH_PARTY(frame)
     return true;
 end
 
-function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
+function INDUNENTER_CHECK_ADMISSION_ITEM(frame, matchType)
     local indunType = frame:GetUserIValue('INDUN_TYPE');
     local indunCls = GetClassByType('Indun', indunType);
+    if matchType == nil then
+        matchType = 1
+    end
     
     if indunCls ~= nil and indunCls.AdmissionItemName ~= 'None' then
         local user = GetMyPCObject();
@@ -1926,7 +1929,7 @@ function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
                 return true;
             else
                 local multipleCnt = frame:GetUserIValue("multipleCount");
-                local yesScp = string.format("ReqMoveToIndun(%d,%d)", 1, multipleCnt);
+                local yesScp = string.format("ReqMoveToIndun(%d,%d)", matchType, multipleCnt);
                 local itemCls = GetClass("Item", admissionItemName);
                 local itemName = TryGetProp(itemCls, "Name");
 

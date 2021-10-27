@@ -104,40 +104,14 @@ function SlitheringClientScp_LEAVE(actor, obj, buff)
 end
 
 function PouncingClientScp_ENTER(actor, obj, buff)
-    local abil = session.GetAbilityByName("Barbarian41");
-    if abil ~= nil then
-        local abilObj = GetIES(abil:GetObject());
-        if abilObj.ActiveState == 1 then
-            actor:GetAnimation():SetRUNAnim("SKL_POUNCING_STAND_ABIL");
-            actor:GetAnimation():SetWLKAnim("SKL_POUNCING_STAND_ABIL");
-            actor:GetAnimation():SetTURNAnim("None");
+    actor:GetAnimation():SetRUNAnim("SKL_POUNCING");
+    actor:GetAnimation():SetWLKAnim("SKL_POUNCING");
+    actor:GetAnimation():SetTURNAnim("None");
 
-            if actor:GetVehicleActor() ~= nil then
-                actor:GetAnimation():SetSTDAnim("SKL_POUNCING_ABIL_RIDE");
-            else
-                actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND_ABIL");
-            end
-        else
-            actor:GetAnimation():SetRUNAnim("SKL_POUNCING");
-            actor:GetAnimation():SetWLKAnim("SKL_POUNCING");
-            actor:GetAnimation():SetTURNAnim("None");
-        
-            if actor:GetVehicleActor() ~= nil then
-                actor:GetAnimation():SetSTDAnim("SKL_POUNCING_RIDE");
-            else
-                actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND");
-            end
-        end
+    if actor:GetVehicleActor() ~= nil then
+        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_RIDE");
     else
-        actor:GetAnimation():SetRUNAnim("SKL_POUNCING");
-        actor:GetAnimation():SetWLKAnim("SKL_POUNCING");
-        actor:GetAnimation():SetTURNAnim("None");
-    
-        if actor:GetVehicleActor() ~= nil then
-            actor:GetAnimation():SetSTDAnim("SKL_POUNCING_RIDE");
-        else
-            actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND");
-        end
+        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND");
     end
 
     actor:SetAlwaysBattleState(true);
@@ -149,6 +123,28 @@ function PouncingClientScp_LEAVE(actor, obj, buff)
 
     actor:SetAlwaysBattleState(false);
 end
+
+function PouncingAbilClientScp_ENTER(actor, obj, buff)
+    actor:GetAnimation():SetRUNAnim("SKL_POUNCING_STAND_ABIL");
+    actor:GetAnimation():SetWLKAnim("SKL_POUNCING_STAND_ABIL");
+    actor:GetAnimation():SetTURNAnim("None");
+
+    if actor:GetVehicleActor() ~= nil then
+        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_ABIL_RIDE");
+    else
+        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND_ABIL");
+    end
+
+    actor:SetAlwaysBattleState(true);
+end
+
+function PouncingAbilClientScp_LEAVE(actor, obj, buff)
+
+    ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
+
+    actor:SetAlwaysBattleState(false);
+end
+
 
 function TaglioClientScp_ENTER(actor, obj, buff)
     actor:GetAnimation():SetSTDAnim("SKL_TAGLIO_STAND");

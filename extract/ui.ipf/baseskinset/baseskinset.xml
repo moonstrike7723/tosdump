@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <skinset name="Base">
 	<skinlist category="frames">
@@ -4597,6 +4597,39 @@
 			<img name="bottomcore" imgrect="655 579 21 1"/>
 			<img name="bottomright" imgrect="677 579 97 1"/>
 		</skin>
+		<skin name="wedge_frame01" texture="\skin\wedge_dungeon.tga">
+			<img name="topleft" imgrect="0 0 30 28"/>
+			<img name="topcore" imgrect="31 0 27 28"/>
+			<img name="topright" imgrect="59 0 30 28"/>
+			<img name="bodyleft" imgrect="0 29 30 27"/>
+			<img name="bodycore" imgrect="31 29 27 27"/>
+			<img name="bodyright" imgrect="59 29 30 27"/>
+			<img name="bottomleft" imgrect="0 57 30 28"/>
+			<img name="bottomcore" imgrect="31 57 27 28"/>
+			<img name="bottomright" imgrect="59 57 30 28"/>
+		</skin>
+		<skin name="wedge_frame02" texture="\skin\wedge_dungeon.tga">
+			<img name="topleft" imgrect="259 132 24 24"/>
+			<img name="topcore" imgrect="284 132 24 24"/>
+			<img name="topright" imgrect="309 132 24 24"/>
+			<img name="bodyleft" imgrect="259 157 24 24"/>
+			<img name="bodycore" imgrect="284 157 24 24"/>
+			<img name="bodyright" imgrect="309 157 24 24"/>
+			<img name="bottomleft" imgrect="259 182 24 24"/>
+			<img name="bottomcore" imgrect="284 182 24 24"/>
+			<img name="bottomright" imgrect="309 182 24 24"/>
+		</skin>
+		<skin name="wedge_frame03" texture="\skin\wedge_dungeon.tga">
+			<img name="topleft" imgrect="0 88 30 12"/>
+			<img name="topcore" imgrect="31 88 27 12"/>
+			<img name="topright" imgrect="59 88 30 12"/>
+			<img name="bodyleft" imgrect="0 101 30 13"/>
+			<img name="bodycore" imgrect="31 101 27 13"/>
+			<img name="bodyright" imgrect="59 101 30 13"/>
+			<img name="bottomleft" imgrect="0 115 30 13"/>
+			<img name="bottomcore" imgrect="31 115 27 13"/>
+			<img name="bottomright" imgrect="59 115 30 13"/>
+		</skin>
 	</skinlist>
 	<skinlist category="yiseul_buttons">
 		<skin name="worldmap2_btn_round" texture="\skin\worldmap2.tga">
@@ -6361,6 +6394,14 @@
 			<img name="barmiddle" imgrect="1004 1324 332 10"/>
 			<img name="barright" imgrect="1336 1313 1 10"/>
 		</skin>
+		<skin name="buffselect_guage" texture="\skin\wedge_dungeon.tga">
+			<img name="bgleft" imgrect="356 557 1 12"/>
+			<img name="bgmiddle" imgrect="357 557 410 12"/>
+			<img name="bgright" imgrect="767 557 1 12"/>
+			<img name="barleft" imgrect="356 557 1 12"/>
+			<img name="barmiddle" imgrect="354 547 410 8"/>
+			<img name="barright" imgrect="767 557 1 12"/>
+		</skin>
 	</skinlist>
 	<skinlist category="labellines">
 		<skin name="labelline_def_5" texture="\skin\tooltip_skin_3.tga">
@@ -7991,6 +8032,19 @@
 		<image name="bonus_rank_B" file="\skin\gacha_ui.tga" imgrect="513 373 100 100" CMM_Caption="회차 보너스 등급 B 마크"/>
 		<image name="craft_reinforce" file="\skin\pip_test_item.tga" imgrect="603 1136 80 80" CMM_Caption="강화 수치 아이콘"/>
 		<image name="craft_transcend" file="\skin\pip_test_item.tga" imgrect="684 1136 80 80" CMM_Caption="초월 수치 아이콘"/>
+		<image name="wedge_titlebg" file="\skin\wedge_dungeon.tga" imgrect="0 132 256 60" CMM_Caption="쐐기던전_맵이름배경"/>
+		<image name="wedge_line" file="\skin\wedge_dungeon.tga" imgrect="0 196 256 0" CMM_Caption="쐐기던전_구분선"/>
+		<image name="wedge_icon_grade" file="\skin\wedge_dungeon.tga" imgrect="290 42 20 20" CMM_Caption="쐐기던전_순위아이콘"/>
+		<image name="wedge_icon_time" file="\skin\wedge_dungeon.tga" imgrect="311 42 20 20" CMM_Caption="쐐기던전_시간아이콘"/>
+		<image name="wedge_icon_pattern" file="\skin\wedge_dungeon.tga" imgrect="332 42 20 20" CMM_Caption="쐐기던전_패턴아이콘"/>
+		<image name="wedge_icon_trophy" file="\skin\wedge_dungeon.tga" imgrect="258 42 30 28" CMM_Caption="쐐기던전_트로피아이콘"/>
+		<image name="wedge_guildmark" file="\skin\wedge_dungeon.tga" imgrect="258 72 30 30" CMM_Caption="쐐기던전_길드기본아이콘"/>
+		<image name="wedge_label_my" file="\skin\wedge_dungeon.tga" imgrect="258 0 40 40" CMM_Caption="쐐기던전_라벨_my"/>
+		<image name="wedge_label_all" file="\skin\wedge_dungeon.tga" imgrect="299 0 40 40" CMM_Caption="쐐기던전_라벨_all"/>
+		<image name="buffselect_frame_s" file="\skin\wedge_dungeon.tga" imgrect="354 0 481 259" CMM_Caption="버프선택창_개인"/>
+		<image name="buffselect_frame_p" file="\skin\wedge_dungeon.tga" imgrect="354 262 481 282" CMM_Caption="버프선택창_파티"/>
+		<image name="buffselect_empty" file="\skin\wedge_dungeon.tga" imgrect="0 283 80 80" CMM_Caption="버프선택_공란"/>
+		<image name="buffselect_count_icon" file="\skin\wedge_dungeon.tga" imgrect="290 72 15 12" CMM_Caption="버프선택_카운트 아이콘"/>
 	</imagelist>
 	<imagelist category="je_button">
 		<image name="menu_guild_info" file="\skin\guild_skin.tga" imgrect="165 298 45 45" CMM_Caption="길드 정보"/>
@@ -8587,6 +8641,12 @@
 		<image name="2009Chursok_btn" file="\skin\pip_test.tga" imgrect="1351 1025 72 72" CMM_Caption="2009 추석 버튼"/>
 		<image name="2009Chursok_btn_cursoron" file="\skin\pip_test.tga" imgrect="1424 1025 72 72"/>
 		<image name="2009Chursok_btn_clicked" file="\skin\pip_test.tga" imgrect="1497 1025 72 72"/>
+		<image name="wedge_tabBtn" file="\skin\wedge_dungeon.tga" imgrect="92 0 54 112" CMM_Caption="쐐기던전 탭버튼"/>
+		<image name="wedge_tabBtn_cursoron" file="\skin\wedge_dungeon.tga" imgrect="147 0 54 112"/>
+		<image name="wedge_tabBtn_clicked" file="\skin\wedge_dungeon.tga" imgrect="2020 54 112"/>
+		<image name="buffselect_btn" file="\skin\wedge_dungeon.tga" imgrect="0 202 80 80" CMM_Caption="버프선택 버튼"/>
+		<image name="buffselect_btn_cursoron" file="\skin\wedge_dungeon.tga" imgrect="81 202 80 80"/>
+		<image name="buffselect_btn_clicked" file="\skin\wedge_dungeon.tga" imgrect="162 202 80 80"/>
 	</imagelist>
 	<imagelist category="worldmap_image">
 		<image name="worldmap2_mainmap" file="\skin\worldmap\worldmap2_mainmap.jpg" imgrect="0 0 1920 1080" CMM_Caption="월드맵배경"/>
@@ -9599,6 +9659,7 @@
 		<image name="medeina_emotion05" file="\icon\emoticon\medeina_emotion05.png" imgrect="0 0 128 128"/>
 		<image name="medeina_emotion06" file="\icon\emoticon\medeina_emotion06.png" imgrect="0 0 128 128"/>
 		<image name="ShellyPennington_emotion01" file="\icon\emoticon\ShellyPennington_emotion01.png" imgrect="0 0 128 128"/>
+		<image name="Hitomico_emoticon_01" file="\icon\emoticon\Hitomico_emoticon_01.png" imgrect="0 0 128 128"/>
 	</imagelist>
 	<imagelist category="itemtooltip_image">
 		<image name="circle_gem" file="\skin\tooltip_skin_3.tga" imgrect="805 228 30 30"/>
@@ -11548,6 +11609,8 @@
 		<image name="023_npc_ShellyPennington" file="\skin\npccard\023_npc_ShellyPennington.tga" imgrect="0 0 330 440"/>
 		<image name="024_npc_WinonaEnde" file="\skin\npccard\024_npc_WinonaEnde.tga" imgrect="0 0 330 440"/>
 		<image name="025_npc_Feliksia" file="\skin\npccard\025_npc_Feliksia.tga" imgrect="0 0 330 440"/>
+		<image name="026_npc_MistesGoldmund" file="\skin\npccard\026_npc_MistesGoldmund.tga" imgrect="0 0 330 440"/>
+		<image name="027_npc_FeliksiaAleisterCrowley" file="\skin\npccard\027_npc_FeliksiaAleisterCrowley.tga" imgrect="0 0 330 440"/>
 		<image name="028_npc_Leticia" file="\skin\npccard\028_npc_Leticia.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">

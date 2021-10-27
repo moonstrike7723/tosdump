@@ -5847,7 +5847,7 @@ function SCR_GET_Binatio_Ratio(skill)
 end
 
 function SCR_GET_Binatio_Ratio2(skill)
-    local value = 544 + ((skill.Level - 1) * 60);
+    local value = 462 + ((skill.Level - 1) * 51);
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     
     local pc = GetSkillOwner(skill)

@@ -2585,7 +2585,7 @@ return obj.Level"/>
 	<PadSkill Name="Chaplain_MagnusExorcismus_Abil" CheckerType="0" Range="40" UpdateTerm="200" ApplyFlyMon="1" AllowOverlap="1">
 		<createEvent>
 			<ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
-				<Num Num="7000" UseFunc="1" FuncTxt="return 10000"/>
+				<Num Num="15000" />
 				<Num Num="89990" UseFunc="1" FuncTxt="return 16"/>
 			</ToolScp>
 			<ToolScp Scp="C_PAD_EFFECT_POS" Client="YES" UseSleep="NO">
