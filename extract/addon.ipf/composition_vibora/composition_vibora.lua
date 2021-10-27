@@ -20,8 +20,13 @@ function COMPOSITION_VIBORA_OPEN(frame)
 	local type = frame:GetUserIValue("TYPE");
 	local title = GET_CHILD(frame, "title");
 	title:SetTextByKey("value", frame:GetUserConfig("TITLE_COMMON"));
+
+	local do_composition = GET_CHILD(frame, "do_composition");
+	do_composition:SetTextTooltip("");
+
 	if type == 2 then -- EVENT_2011_5TH
-		title:SetTextByKey("value", ClMsg("EVENT_2011_5TH_Special_Vibora_Shop_title"));
+		title:SetTextByKey("value", ClMsg("EVENT_2011_5TH_Special_Vibora_Shop_title"));		
+		do_composition:SetTextTooltip(ClMsg("EVENT_2011_5TH_Use_5th_Coin_tip_MSG_2"));
 	end
 
     COMPOSITION_VIBORA_UI_RESET();

@@ -32,11 +32,13 @@ function EARTH_TOWER_SHOP_SUB_INIT(frame, shopType)
     local aObj = GetMyAccountObj();
     
     local title = GET_CHILD(frame, "title");
+    local question = GET_CHILD(frame, "question");
 
     local desc_gb = GET_CHILD(frame, "desc_gb");
     local desc_1 = GET_CHILD(desc_gb, "desc_1");
     local desc_2 = GET_CHILD(desc_gb, "desc_2");
     local desc_3 = GET_CHILD(desc_gb, "desc_3");
+    local desc_4 = GET_CHILD(desc_gb, "desc_4");
 
     local tabFontStyle = frame:GetUserConfig("TAB_FONTSTYLE");
 	local tab = GET_CHILD(frame, "tab");
@@ -45,6 +47,7 @@ function EARTH_TOWER_SHOP_SUB_INIT(frame, shopType)
     
     if string.find(shopType, "EVENT_2011_5TH_Special_Shop") ~= nil then
         title:SetTextByKey("value", ClMsg("EVENT_2011_5TH_Special_Shop_Sub_title"));
+        question:SetTextTooltip(ClMsg("EVENT_2011_5TH_Special_Shop_Item_MSG_5"));
 
         local point = TryGetProp(aObj, "EVENT_2011_5TH_POINT_COUNT", 0);
         desc_1:SetTextByKey("name", ClMsg("EventLevel").." : ");
@@ -56,6 +59,9 @@ function EARTH_TOWER_SHOP_SUB_INIT(frame, shopType)
         desc_3:SetTextByKey("name", ClMsg("NextLevelNeedPoint").." : ");
         desc_3:SetTextByKey("count", GET_EVENT_2011_5TH_NEXT_EVENT_LEVEL_NEED_POINT(point));
         
+        local useCnt = TryGetProp(aObj, "EVENT_2011_5TH_COIN_USE_COUNT", 0);        
+        desc_4:SetTextByKey("name", ScpArgMsg("EVENT_2011_5TH_Special_Shop_Item_MSG_4{CNT}", "CNT", useCnt));
+
         tab:ChangeCaption(0, tabFontStyle..ClMsg("EventLevelGradeSection"), false);
         tab:ChangeCaption(1, tabFontStyle..ClMsg("ShopGradeRatio", false));
     end
