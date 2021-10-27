@@ -5,7 +5,6 @@ g_materialItem = {}
 function ITEM_CABINET_ON_INIT(addon, frame)
 	addon:RegisterMsg('UPDATE_ITEM_CABINET_LIST', 'ITEM_CABINET_CREATE_LIST');
 	addon:RegisterMsg('ITEM_CABINET_SUCCESS_ENCHANT', 'ITEM_CABINET_SUCCESS_GODDESS_ENCHANT');
-
 	addon:RegisterMsg('ON_UI_TUTORIAL_NEXT_STEP', 'ITEM_CABINET_UI_TUTORIAL_CHECK')
 end
 
@@ -300,7 +299,7 @@ function ITEM_CABINET_CREATE_LIST(frame)
 				group = "VIBORA";
 			end
 			equipTab:ChangeCaptionOnly(0,"{@st66b}{s16}"..ClMsg("Vibora"),false)
-
+			
 			local tuto_icon_1 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_1")
 			local tuto_icon_2 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_2")
 			local Is_UITUTO_Prog1 = GetUITutoProg("UITUTO_EQUIPCACABINET1")
@@ -315,6 +314,7 @@ function ITEM_CABINET_CREATE_LIST(frame)
 			else
 				tuto_icon_2:ShowWindow(1);
 			end
+			
 		elseif category == "Armor" then
 			if equipTabIndex == 0 then		
 				group = "GODDESS_EVIL";
@@ -435,8 +435,8 @@ function SEARCH_ITEM_CABINET_KEY()
 	frame:ReserveScript("SEARCH_ITEM_CABINET", 0.3, 1);
 end
 
-function SEARCH_ITEM_CABINET(a,b,c)
-	ITEM_CABINET_CREATE_LIST(a);
+function SEARCH_ITEM_CABINET(frame)
+	ITEM_CABINET_CREATE_LIST(frame);
 end
 
 function ITEM_CABINET_MATCH_NAME(listCls, cap)
@@ -455,9 +455,18 @@ function ITEM_CABINET_MATCH_NAME(listCls, cap)
 	local itemCls = GetClass('Item', itemClsName);
 	if itemCls == nil then return; end
 
-	local itemName = TryGetProp(itemCls, 'Name');
+	local itemname = string.lower(dictionary.ReplaceDicIDInCompStr(TryGetProp(itemCls, 'Name')));
+	--접두어도 포함시켜 검색해야되기 때문에, 접두를 찾아서 있으면 붙여주는 작업
+	local prefixClassName = TryGetProp(itemCls, "LegendPrefix")
+	if prefixClassName ~= nil and prefixClassName ~= "None" then
+		local prefixCls = GetClass('LegendSetItem', prefixClassName)
+		local prefixName = string.lower(dictionary.ReplaceDicIDInCompStr(prefixCls.Name));
+		itemname = prefixName .. " " .. itemname;
+	end
 
-	if string.find(itemName, cap) ~= nil then
+	local tempcap = string.lower(cap);
+
+	if string.find(itemname, tempcap) ~= nil then
 		return true;
 	end
 
@@ -605,17 +614,25 @@ function ITEM_CABINET_UPGRADE_TAB(parent, ctrl)
 	local frame = parent:GetTopParentFrame();
 	local tab = GET_CHILD_RECURSIVELY(frame, "upgrade_tab");
 	local index = tab:GetSelectItemIndex();
-	if index == 1 then 
-		GET_CHILD_RECURSIVELY(frame,"upgradegbox"):ShowWindow(1);
-		GET_CHILD_RECURSIVELY(frame,"slot"):ShowWindow(0);
-		GET_CHILD_RECURSIVELY(frame,"slot2"):ShowWindow(0);
-		GET_CHILD_RECURSIVELY(frame,"registerbtn"):ShowWindow(1);
+	local category = frame:GetUserValue("CATEGORY");
+
+	GET_CHILD_RECURSIVELY(frame,"upgradegbox"):ShowWindow(index);
+	GET_CHILD_RECURSIVELY(frame,"registerbtn"):ShowWindow(index);
+	GET_CHILD_RECURSIVELY(frame,"infotxt"):ShowWindow(index);
+	GET_CHILD_RECURSIVELY(frame,"next_item_gb"):ShowWindow(index);
+	GET_CHILD_RECURSIVELY(frame,"acctxt"):ShowWindow(0);
+	GET_CHILD_RECURSIVELY(frame,"belongingtxt"):ShowWindow(0);
+	GET_CHILD_RECURSIVELY(frame,"slot"):ShowWindow(0);
+	GET_CHILD_RECURSIVELY(frame,"slot2"):ShowWindow(0);
+
+	if index == 1 then -- 등록 / 업그레이드 탭
 		GET_CHILD_RECURSIVELY(frame,"enchantbtn"):ShowWindow(0);
-		GET_CHILD_RECURSIVELY(frame,"infotxt"):ShowWindow(1);
 		GET_CHILD_RECURSIVELY(frame,"pricetxt"):ShowWindow(0);
 		GET_CHILD_RECURSIVELY(frame,"optionGbox"):ShowWindow(0);
-		GET_CHILD_RECURSIVELY(frame,"belongingtxt"):ShowWindow(0);
-		GET_CHILD_RECURSIVELY(frame,"next_item_gb"):ShowWindow(1);
+
+		if category == "Accessory" then
+			GET_CHILD_RECURSIVELY(frame,"acctxt"):ShowWindow(1);
+		end
 
 		local max = GET_CHILD_RECURSIVELY(frame, 'registerbtn'):GetTextByKey("name");		
 		if max == "MAX" then
@@ -624,34 +641,22 @@ function ITEM_CABINET_UPGRADE_TAB(parent, ctrl)
 		else
 			INVENTORY_SET_CUSTOM_RBTNDOWN("ITEM_CABINET_MATERIAL_INV_BTN");
 		end
-		if category == "Accessory" then
-			GET_CHILD_RECURSIVELY(frame,"acctxt"):ShowWindow(1);
-		else
-			GET_CHILD_RECURSIVELY(frame,"acctxt"):ShowWindow(0);
-		end
 
-	elseif index == 0 then
-		local category = frame:GetUserValue("CATEGORY");
-		GET_CHILD_RECURSIVELY(frame,"upgradegbox"):ShowWindow(0);
-		GET_CHILD_RECURSIVELY(frame,"registerbtn"):ShowWindow(0);
+	elseif index == 0 then -- 아이커 부여/ 생성 탭
 		GET_CHILD_RECURSIVELY(frame,"enchantbtn"):ShowWindow(1);
-		GET_CHILD_RECURSIVELY(frame,"infotxt"):ShowWindow(0);
-		GET_CHILD_RECURSIVELY(frame,"acctxt"):ShowWindow(0);
 		GET_CHILD_RECURSIVELY(frame,"pricetxt"):ShowWindow(1);
 		GET_CHILD_RECURSIVELY(frame,"optionGbox"):ShowWindow(1);
-		GET_CHILD_RECURSIVELY(frame,"next_item_gb"):ShowWindow(0);
 
 		ITEM_CABINET_ENCHANT_TEXT_SETTING(frame, category, index);
 
 		if category == "Weapon" or category == "Armor" then
-			GET_CHILD_RECURSIVELY(frame,"slot"):ShowWindow(1);		
-			GET_CHILD_RECURSIVELY(frame,"slot2"):ShowWindow(0);			
-			GET_CHILD_RECURSIVELY(frame,"belongingtxt"):ShowWindow(0);
-			INVENTORY_SET_CUSTOM_RBTNDOWN("ITEM_CABINET_INV_BTN");
 			local inven = ui.GetFrame('inventory');
 			if inven:IsVisible() == 0 then inven:ShowWindow(1); end
+
+			GET_CHILD_RECURSIVELY(frame,"slot"):ShowWindow(1);		
+			INVENTORY_SET_CUSTOM_RBTNDOWN("ITEM_CABINET_INV_BTN");
+
 		else
-			GET_CHILD_RECURSIVELY(frame,"slot"):ShowWindow(0);
 			GET_CHILD_RECURSIVELY(frame,"slot2"):ShowWindow(1);
 			GET_CHILD_RECURSIVELY(frame,"belongingtxt"):ShowWindow(1);
 			INVENTORY_SET_CUSTOM_RBTNDOWN("None");
@@ -686,18 +691,18 @@ function ITEM_CABINET_REGISTER_SECTION(frame, category, itemType, curLv)
 	local isRegister = TryGetProp(aObj, itemCls.AccountProperty, 0);
 	local maxLv = itemCls.MaxUpgrade;	
 	local registerBtn = GET_CHILD_RECURSIVELY(frame, 'registerbtn');
-	local upgrade_tab = GET_CHILD_RECURSIVELY(frame, 'upgrade_tab');
+	local upgradeTab = GET_CHILD_RECURSIVELY(frame, 'upgrade_tab');
 	registerBtn:SetTextByKey("name", "MAX");
 	registerBtn:SetEnable(0);	
 	GET_CHILD_RECURSIVELY(frame, "upgradegbox"):RemoveAllChild();	
 	if (category == "Weapon" or category == "Armor" or category == 'Accessory') and maxLv ~= 1 then		
 		if curLv == maxLv and isRegister == 1 then
-			upgrade_tab:ChangeCaptionOnly(1,"{@st66b}{s16}"..ClMsg("Upgrade"),false)
+			upgradeTab:ChangeCaptionOnly(1,"{@st66b}{s16}"..ClMsg("Upgrade"),false)
 			return;
 		end
 	else
 		if isRegister == 1 then
-			upgrade_tab:ChangeCaptionOnly(1,"{@st66b}{s16}"..ClMsg("Register"),false)
+			upgradeTab:ChangeCaptionOnly(1,"{@st66b}{s16}"..ClMsg("Register"),false)
 			return;
 		end
 	end
@@ -1288,7 +1293,9 @@ local function ITEM_CABINET_CREATE_ARK_OPTION(gBox, ypos, step, class_name)
 	if tooltip_func ~= nil then
 		local tooltip_type, status, interval, add_value, summon_atk, client_msg, unit = tooltip_func();
 		local option = status
-		local infoText = gBox:CreateControl('richtext', 'optionText'..step, 15, ypos, gBox:GetWidth(), 30);
+		local infoText = gBox:CreateControl('richtext', 'optionText'..step, 15, ypos, gBox:GetWidth()-50, 30);
+		infoText:SetTextFixWidth(1);
+
 		local text = ''
 		if tooltip_type == 1 then
 			text = ScpArgMsg("ArkOptionText{Option}{interval}{addvalue}", "Option", ClMsg(option), "interval", interval, "addvalue", add_value)
@@ -1348,12 +1355,12 @@ function ITEM_CABINET_OPTION_INFO(gBox, targetItem)
 	end
 
 	local tooltip_equip_property_CSet = gBox:CreateOrGetControlSet('tooltip_equip_property_narrow', 'tooltip_equip_property_narrow', 0, yPos)
-	tooltip_equip_property_CSet:Resize(gBox:GetWidth(),tooltip_equip_property_CSet:GetHeight())
-	
 	local labelline = GET_CHILD_RECURSIVELY(tooltip_equip_property_CSet, "labelline")
 	labelline:ShowWindow(0)
 	local property_gbox = GET_CHILD(tooltip_equip_property_CSet,'property_gbox','ui::CGroupBox')
-	property_gbox:Resize(tooltip_equip_property_CSet:GetWidth(),property_gbox:GetHeight())
+
+	tooltip_equip_property_CSet:Resize(gBox:GetWidth(),tooltip_equip_property_CSet:GetHeight())
+	property_gbox:Resize(gBox:GetWidth(),property_gbox:GetHeight())
 
 	local class = GetClassByType("Item", targetItem.ClassID)
 

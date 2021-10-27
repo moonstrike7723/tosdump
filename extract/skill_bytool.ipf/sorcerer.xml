@@ -454,18 +454,12 @@ return value"/>
                     <Str Str="voice_wiz_m_obey_shot"/>
                     <Str Str="voice_wiz_obey_shot"/>
                 </Scp>
-                <Scp Client="NO" Scp="SORCER_TGT_ATTACH_SELF_TO_TARGET" Time="700" UseSleep="NO">
+                <Scp Client="NO" Scp="SORCER_OBEY_CONTROL_START" Time="700" UseSleep="NO">
                     <Str Str="Dummy_Summon"/>
                     <Num Num="0"/>
                     <Str_Arg Arg="1" Str="None"/>
                     <Str Str="RIDE_OBEY"/>
-                </Scp>
-                <Scp Client="NO" Scp="SORCER_CONTROL_START" Time="750" UseSleep="NO">
-                    <Str Str="summoncontrol"/>
                     <Str Str="SORCERER_SPEND_SP"/>
-                </Scp>
-                <Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="500">
-                    <Str Str="SCR_Karaliene_Isgariti_BUFF"/>
                 </Scp>
             </EtcList>
         </MainSkl>
@@ -616,12 +610,15 @@ return value"/>
         </MainSkl>
     </Skill>
     <Skill Name="Sorcerer_Morph">
+        <EnableScripts>
+            <ToolScp Client="NO" Scp="SORCERER_EQUIP_SUBCARD_CHECK" UseSleep="NO"/>
+            <ToolScp Client="YES" Scp="SCR_CHECK_MAINCARD_SUMMON_STATE_C" UseSleep="NO"/>
+        </EnableScripts>
         <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
             <HitList>
                 <Frame Angle="0" AniTime="9999" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" TermMax="0" TermMin="0" Time="9799" Type="FAN"/>
             </HitList>
             <EtcList>
-                <Scp Client="NO" Scp="SORCERER_EQUIP_SUBCARD_CHECK" Time="0" UseSleep="NO"/>
                 <Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
                     <Str Str="voice_wiz_m_morph_shot"/>
                     <Str Str="voice_wiz_morph_shot"/>
