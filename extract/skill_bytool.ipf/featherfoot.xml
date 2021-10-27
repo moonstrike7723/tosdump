@@ -389,8 +389,9 @@ end"/>
 				<ToolScp Client="NO" Scp="S_R_TGTBUFF" UseSleep="NO">
 					<Str Str="Common_Rotten" UseFunc="1" FuncTxt="local abilLevel = GET_ABIL_LEVEL(self, 'Featherfoot32');
 
-if abilLevel ~= 0 then 
-
+if abilLevel ~= 0 then
+local time = 10000 + skill.Level * 2000 
+AddBuff(self, target, 'Hexing_Def_Debuff', 1, 0, time, 1);
 return 'Hexing_Debuff';
 
 else 

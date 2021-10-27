@@ -2,8 +2,12 @@ function EVENT_STAMP_IS_VALID_WEEK(week)
 	local startTime = imcTime.GetSysTime(2020,4,16,6)
 	local week_startTime = imcTime.AddSec(startTime,(week-1)*7*24*60*60)
 
-	local currentDateLua = os.date("*t")
-	local currentDate = imcTime.GetSysTime(currentDateLua['year'],currentDateLua['month'],currentDateLua['day'],currentDateLua['hour'])
+	local currentDate = nil
+	if IsServerSection() == 1 then
+		currentDate = GetDBTime()
+	else
+		currentDate = geTime.GetServerSystemTime()
+	end
 	if imcTime.GetDifSec(week_startTime,currentDate) < 0 then
 		return true
 	end
@@ -14,8 +18,12 @@ function EVENT_STAMP_IS_VALID_WEEK_SUMMER(week, time)
 	local startTime = imcTime.GetSysTime(2020,7,9,6)
 	local week_startTime = imcTime.AddSec(startTime,(week-1)*7*24*60*60)
 
-	local currentDateLua = os.date("*t")
-	local currentDate = imcTime.GetSysTime(currentDateLua['year'],currentDateLua['month'],currentDateLua['day'],currentDateLua['hour'])
+	local currentDate = nil
+	if IsServerSection() == 1 then
+		currentDate = GetDBTime()
+	else
+		currentDate = geTime.GetServerSystemTime()
+	end
 	if time ~= nil then
 		currentDate = time
 	end
@@ -61,12 +69,13 @@ function EVENT_STAMP_GET_CURRENT_MISSION(groupName,currentpage)
 		missionCls = GetClassByIndexFromList(clsList, i);
 		if missionCls.Group == groupName then
 			if currentpage == cnt then
-				break
+				return missionCls;
 			end
 			cnt = cnt  + 1
 		end
 	end
-	return missionCls
+
+	return nil;
 end
 
 --EVENT_2007_TOS_VACANCE

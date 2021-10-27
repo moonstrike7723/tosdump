@@ -100,6 +100,13 @@ function BEFORE_APPLIED_TOKEN_OPEN(invItem)
 	local value = GET_CHILD_RECURSIVELY(ctrlSet, "value");
 	value:ShowWindow(0);
 
+	local ctrlSet = gBox:CreateControlSet("tokenDetail", "CTRLSET_" .. 10,  ui.CENTER_HORZ, ui.TOP, 0, 0, 0, 0);
+	local prop = ctrlSet:GetChild("prop");
+	local imag = string.format("{img worldmaptoken_image %d %d}", 55, 45)
+	prop:SetTextByKey("value", imag..ClMsg("CanUseWorldMapToken"));
+	local value = GET_CHILD_RECURSIVELY(ctrlSet, "value");
+	value:ShowWindow(0);
+
 --    local ctrlSet = gBox:CreateControlSet("tokenDetail", "CTRLSET_" .. 9,  ui.CENTER_HORZ, ui.TOP, 0, 0, 0, 0);
 --    local prop = ctrlSet:GetChild("prop");
 --    local imag = string.format("{img 1plus_image %d %d}", 55, 45)
@@ -425,7 +432,10 @@ function REQ_TOKEN_ITEM(parent, ctrl)
 		return;
 	end
 	
-	if argList == 'Premium_indunReset' or argList == 'Premium_indunReset_14d' or argList == 'Premium_indunReset_14d_test' or argList == 'Premium_indunReset_1add' or argList == 'Premium_indunReset_1h' or argList == 'Premium_indunReset_1add_14d' or argList == 'Premium_indunReset_TA' or argList == 'indunReset_1add_14d_NoStack' or argList == 'Event_1704_Premium_indunReset_1add' or argList == 'Event_1704_Premium_indunReset' or argList == 'indunReset_1add_14d_NoStack_Team' or argList == 'Event_indunReset_Team_14d' or argList == 'Event_indunReset_Team_1' or argList == 'Event_indunReset_Team_2' or argList == 'Event_indunReset_Team_3' then
+	if argList == 'Premium_indunReset' or argList == 'Premium_indunReset_14d' or argList == 'Premium_indunReset_14d_test' or argList == 'Premium_indunReset_1add' or argList == 'Premium_indunReset_1h' or 
+	   argList == 'Premium_indunReset_1add_14d' or argList == 'Premium_indunReset_TA' or argList == 'indunReset_1add_14d_NoStack' or argList == 'Event_1704_Premium_indunReset_1add' or argList == 'Event_1704_Premium_indunReset' or 
+	   argList == 'indunReset_1add_14d_NoStack_Team' or argList == 'Event_indunReset_Team_14d' or argList == 'Event_indunReset_Team_1' or argList == 'Event_indunReset_Team_2' or argList == 'Event_indunReset_Team_3' or
+	   argList == 'Event_indunReset_Team_4' or argList == 'Event_indunReset_Team_5' or argList == 'Event_indunReset_Team_6' then
 
 		local etcObj = GetMyEtcObject();
 		-- 2개뿐이여서 고정으로 넣어둠

@@ -686,22 +686,31 @@ return time;"/>
 				<Num Num="1"/>
 				<Num Num="0.0049999999"/>
 			</ToolScp>
-			<ToolScp Scp="PAD_CRE_MON" Client="NO" UseSleep="NO">
+			<ToolScp Scp="C_PAD_MONSTER" Client="YES" UseSleep="NO">
 				<Str Str="pcskill_tutu"/>
-				<Pos Angle="0" Dist="-10"/>
-				<Angle Angle="0"/>
-				<Num Num="0"/>
-				<Num Num="10"/>
-				<MonProp/>
-				<Str_Arg Str="None" Arg="1"/>
 				<Num Num="1"/>
-				<Str Str="None"/>
+				<Str Str="std"/>
 				<Str Str="None"/>
 				<Num Num="0"/>
-				<Str Str="SCR_WUGUSHI36_BORN"/>
-			</ToolScp>
+				</ToolScp>
 		</createEvent>
-		<updateEvent>
+		<enterEvent>
+            <ToolScp Scp="PAD_ACTIVATE" Client="NO" UseSleep="NO">
+                <Str Str="ENEMY"/>
+            </ToolScp>
+            <ToolScp Scp="PAD_TGT_BUFF" Client="NO" UseSleep="NO">
+                <Str Str="ENEMY"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+                <Str Str="JincanGu_Abil_Debuff"/>
+                <Num Num="1" UseFunc="1" FuncTxt="return obj.Level;"/>
+                <Num Num="0"/>
+                <Num Num="60000"/>
+                <Num Num="1"/>
+                <Num Num="100"/>
+            </ToolScp>
+        </enterEvent>
+        <updateEvent>
 			<ToolScp Scp="PAD_BUFF_CHECK_BUFF_ENEMY" Client="NO" UseSleep="NO">
 				<Str Str="ENEMY"/>
 				<Num Num="0"/>
@@ -8984,7 +8993,7 @@ return time;"/>
                 <Num Num="0"/>
             </ToolScp>
             <ToolScp Scp="PAD_DAMAGE_ENEMY_BY_RATE" Client="NO" UseSleep="NO">
-                <Num Num="0.125"/>
+                <Num Num="0.05"/>
                 <Num Num="0"/>
                 <Num Num="0"/>
                 <Str_Arg Str="None" Arg="1"/>
@@ -15357,6 +15366,18 @@ return GET_ABIL_LEVEL(self, &quot;PlagueDoctor6&quot;);"/>
                 <Num Num="100"/>
                 <Num Num="0"/>
             </ToolScp>
+            <ToolScp Scp="PAD_TGT_BUFF" Client="NO" UseSleep="NO">
+                <Str Str="ENEMY"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+                <Str Str="PlagueVapours_Crtdr_Debuff"/>
+                <Num Num="1" UseFunc="1" FuncTxt="return obj.Level;"/>
+                <Num Num="0"/>
+                <Num Num="15000"/>
+                <Num Num="1"/>
+                <Num Num="100"/>
+                <Num Num="0"/>
+            </ToolScp>
         </enterEvent>
         <updateEvent>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
@@ -21716,6 +21737,18 @@ end"/>
 				<Num Num="100"/>
 				<Num Num="0"/>
 			</ToolScp>
+            <ToolScp Scp="PAD_TGT_BUFF" Client="NO" UseSleep="NO">
+                <Str Str="ENEMY"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+                <Str Str="Lethargy_Atk_Debuff"/>
+                <Num Num="1" UseFunc="1" FuncTxt="return obj.Level"/>
+                <Num Num="0"/>
+                <Num Num="10000" UseFunc="1" FuncTxt="return 20000 + (GET_ABIL_LEVEL(self, &quot;Wizard6&quot;) * 2000)"/>
+                <Num Num="1"/>
+                <Num Num="100"/>
+                <Num Num="0"/>
+            </ToolScp>            
 		</enterEvent>
 		<updateEvent>
 			<ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
