@@ -643,3 +643,15 @@ function GET_JOB_ENG_NAME(jobClsName)
 
     return jobCls.EngName;
 end
+
+function GET_JOB_NAME_BY_ENGNAME(name)
+	local clslist, cnt  = GetClassList("Job");
+	
+	for i = 0 , cnt - 1 do
+        local cls = GetClassByIndexFromList(clslist, i);
+        local engName = TryGetProp(cls, "EngName", "None");
+        if engName == name then
+            return TryGetProp(cls, "Name", "None");
+        end
+    end
+end

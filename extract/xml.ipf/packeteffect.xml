@@ -802,6 +802,11 @@
 		<Effect Name="F_spread_in032_fire3"/>
 		<Effect Name="I_quest_mask_success"/>
 		<Effect Name="F_smoke017_violet_loop"/>
+                <Effect Name="master_Sadoo"/>
+                <Effect Name="master_Arquebusier"/>
+                <Effect Name="master_Clown"/>
+                <Effect Name="master_Cryomancer"/>
+                <Effect Name="master_Psychokino"/>
 	</Category>
 	<Category ID="207">
 		<Effect Name="AGARIO_MINI"/>
