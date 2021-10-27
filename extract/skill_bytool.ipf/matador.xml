@@ -8,7 +8,7 @@
                 <Num Num="0"/>
             </ToolScp>
         </EndScripts>
-        <MainSkl JumpFlee="NO" MSPDToUsePos="0"ScrLock="None">
+        <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
             <EtcList>
                 <Scp Scp="MONSKL_C_PLAY_ANIM" Client="YES" UseSleep="NO" Time="0">
                     <Str Str="SKL_CORRIDAFINALE"/>
@@ -16,23 +16,23 @@
                     <Num Num="1"/>
                     <Num Num="0"/>
                 </Scp>
-                <Scp Client="YES" Scp="C_EFFECT" Time="0" UseSleep="NO" >
-                    <Str_Arg Arg="2" Str="F_buff_basic016_orange" />
+                <Scp Client="YES" Scp="C_EFFECT" Time="0" UseSleep="NO">
+                    <Str_Arg Arg="2" Str="F_buff_basic016_orange"/>
                     <Str Str="None"/>
                     <Num Num="0"/>
                 </Scp>
-                <Scp Client="NO" Scp="SKL_SET_IMMUNE_STATE" Time="0" UseSleep="NO" >
+                <Scp Client="NO" Scp="SKL_SET_IMMUNE_STATE" Time="0" UseSleep="NO">
                     <Str Str="Skill_SuperArmor_Buff"/>
                     <Num Num="100"/>
                 </Scp>
-                <Scp Client="YES" Scp="C_VOICE_SOUND" Time="100" UseSleep="NO" >
+                <Scp Client="YES" Scp="C_VOICE_SOUND" Time="100" UseSleep="NO">
                     <Str Str="voice_war_m_corridafinale_shot"/>
                     <Str Str="voice_war_f_corridafinale_shot"/>
                 </Scp>
-                <Scp Client="YES" Scp="C_SOUND" Time="200" UseSleep="NO" >
+                <Scp Client="YES" Scp="C_SOUND" Time="200" UseSleep="NO">
                     <Str Str="skl_eff_matador_corridafinale"/>
                 </Scp>
-                <Scp Client="NO" Scp="MONSKL_PAD_DIR_MSL" Time="800" UseSleep="YES" >
+                <Scp Client="NO" Scp="MONSKL_PAD_DIR_MSL" Time="800" UseSleep="YES">
                     <Pos Angle="0" Dist="250"/>
                     <Str Str="Matador_CorridaFinale"/>
                     <Num Num="-150"/>
@@ -54,7 +54,7 @@
                         <Str Str="Matador21"/>
                     </ToolScp>
                 </Cond>
-                <Skill JumpFlee="NO" MSPDToUsePos="0"ScrLock="None">
+                <Skill JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
                     <EtcList>
                         <Scp Scp="MONSKL_C_PLAY_ANIM" Client="YES" UseSleep="NO" Time="0">
                             <Str Str="SKL_CORRIDAFINALE_FIRE"/>
@@ -62,18 +62,18 @@
                             <Num Num="1"/>
                             <Num Num="0"/>
                         </Scp>
-                        <Scp Client="NO" Scp="SKL_SET_IMMUNE_STATE" Time="0" UseSleep="NO" >
+                        <Scp Client="NO" Scp="SKL_SET_IMMUNE_STATE" Time="0" UseSleep="NO">
                             <Str Str="Skill_SuperArmor_Buff"/>
                             <Num Num="100"/>
                         </Scp>
-                        <Scp Client="YES" Scp="C_VOICE_SOUND" Time="100" UseSleep="NO" >
+                        <Scp Client="YES" Scp="C_VOICE_SOUND" Time="100" UseSleep="NO">
                             <Str Str="voice_war_m_corridafinale_shot"/>
                             <Str Str="voice_war_f_corridafinale_shot"/>
                         </Scp>
-                        <Scp Client="YES" Scp="C_SOUND" Time="200" UseSleep="NO" >
+                        <Scp Client="YES" Scp="C_SOUND" Time="200" UseSleep="NO">
                             <Str Str="skl_eff_matador_corridafinale"/>
                         </Scp>
-                        <Scp Client="NO" Scp="MONSKL_PAD_DIR_MSL" Time="1000" UseSleep="YES" >
+                        <Scp Client="NO" Scp="MONSKL_PAD_DIR_MSL" Time="1000" UseSleep="YES">
                             <Pos Angle="0" Dist="250"/>
                             <Str Str="Matador_CorridaFinale"/>
                             <Num Num="-150"/>
@@ -86,24 +86,24 @@
                             <Num Num="2"/>
                             <Num Num="1"/>
                         </Scp>
-                        <Scp Client="NO" Scp="MONSKL_CRE_PAD_VERTICAL" Time="1700" UseSleep="YES" >
+                        <Scp Client="NO" Scp="MONSKL_CRE_PAD_VERTICAL" Time="1700" UseSleep="YES">
                             <Pos Angle="0.15" Dist="120" PosType="1"/>
                             <Num Num="0"/>
                             <Str Str="Matador_CorridaFinale_Hidden"/>
                             <Num Num="12"/>
                             <Num Num="20"/>
-                            <Str_Arg Arg="1" Str="F_firewall_long_z" />
-                            <Str_Arg Arg="1" Str="F_firewall_short_z" />
+                            <Str_Arg Arg="1" Str="F_firewall_long_z"/>
+                            <Str_Arg Arg="1" Str="F_firewall_short_z"/>
                             <Num Num="0.07"/>
                         </Scp>
-                        <Scp Client="NO" Scp="MONSKL_CRE_PAD_VERTICAL" Time="1700" UseSleep="YES" >
+                        <Scp Client="NO" Scp="MONSKL_CRE_PAD_VERTICAL" Time="1700" UseSleep="YES">
                             <Pos Angle="-0.15" Dist="120" PosType="1"/>
                             <Num Num="0"/>
                             <Str Str="Matador_CorridaFinale_Hidden"/>
                             <Num Num="12"/>
                             <Num Num="20"/>
-                            <Str_Arg Arg="1" Str="F_firewall_long_z" />
-                            <Str_Arg Arg="1" Str="F_firewall_short_z" />
+                            <Str_Arg Arg="1" Str="F_firewall_long_z"/>
+                            <Str_Arg Arg="1" Str="F_firewall_short_z"/>
                             <Num Num="0.07"/>
                         </Scp>
                     </EtcList>
@@ -124,6 +124,9 @@
             </ToolScp>
             <ToolScp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO">
                 <Str Str="Skill_NoDamage_Buff"/>
+            </ToolScp>
+            <ToolScp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO">
+                <Str Str="BackSlide_MomentaryEvasion_Buff"/>
             </ToolScp>
         </EndScripts>
         <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0" >
