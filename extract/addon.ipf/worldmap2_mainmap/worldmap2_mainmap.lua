@@ -210,8 +210,11 @@ function WORLDMAP2_MAINMAP_DRAW_EPISODE(frame, mapData)
 	local episodeBtn = AUTO_CAST(episodeSet:GetChild("episode_btn"))
 
 	-- 사이즈 조정
-	episodeSet:Resize(imageSize.x + 60, imageSize.y + 60)
-
+	if config.GetServiceNation() == 'KOR' then
+		episodeSet:Resize(imageSize.x + 60, imageSize.y + 60)
+	else
+		episodeSet:Resize(imageSize.x + 100, imageSize.y + 100)
+	end
 	-- 이미지
     episodeImg:SetImage(imageName)
     episodeImg:SetUserValue("EPISODE", episode)
@@ -220,7 +223,12 @@ function WORLDMAP2_MAINMAP_DRAW_EPISODE(frame, mapData)
 	episodeBtn:SetMargin(0, 2 + imageSize.y/2, 0, 0)
 	episodeBtn:SetText("{@st100white_16}"..mapData.Name)
 	episodeBtn:SetTextOffset(0, 4)
+	
+	if config.GetServiceNation() == 'KOR' then
     episodeBtn:AdjustFontSizeByWidth(100)
+	else
+		episodeBtn:AdjustFontSizeByWidth(200)
+	end
     episodeBtn:SetUserValue("EPISODE", episode)
 
 	-- 내 위치 표기
@@ -229,7 +237,6 @@ function WORLDMAP2_MAINMAP_DRAW_EPISODE(frame, mapData)
 
     if myEpisode == episode then
         frame:SetUserValue("MY_POS", episode)
-
         myPosImg:SetMargin(-2, -4 -imageSize.y/2, 0, 0)
         myPosImg:ShowWindow(1)
 	else
@@ -266,7 +273,7 @@ function WORLDMAP2_MAINMAP_DRAW_SUB_EPISODE(frame, mapData)
     -- 버튼
 	subEpisodeBtn:SetText("{@st100lblue_16}"..mapData.Name)
 	subEpisodeBtn:SetTextOffset(0, -11)
-    subEpisodeBtn:AdjustFontSizeByWidth(100)
+    subEpisodeBtn:AdjustFontSizeByWidth(120)
     subEpisodeBtn:SetUserValue("EPISODE", episode)
 
 	-- 내 위치 표기
@@ -506,6 +513,12 @@ function WORLDMAP2_MAINMAP_BOOKMARK(frame)
         else
             btn:SetText('{@st106_lbr}{s16}'..ScpArgMsg("NoFavoriteMap"))
             btn:SetUserValue("MAPNAME", "None")
+        end
+
+        btn:Resize(170, 25)
+
+        if btn:IsTextOmitted() == true then
+            btn:SetTextTooltip(mapData.Name)
         end
     end
 end

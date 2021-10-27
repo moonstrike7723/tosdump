@@ -174,6 +174,7 @@ function WORLDMAP2_DROPLIST_SET(ctrl)
     ctrl:SetFrameOffset(GET_SCENE_OFFSET_WIDTH(), GET_SCENE_OFFSET_HEIGHT())
     ctrl:SetFrameScrollBarOffset(-3, 0)
     ctrl:SetFrameScrollBarSkinName("worldmap2_scrollbar")
+    ctrl:EnableTextOmitByWidth(true)
 end
 
 -- 월드맵 드랍리스트 세팅 함수 (by UI Manager)
@@ -375,6 +376,7 @@ end
 
 function WORLDMAP2_TOKEN_WARP_REQUEST(mapName)
     RequestTokenWarp(mapName)
+    WORLDMAP2_CLOSE()
 end
 
 -- 즐겨찾기 목록

@@ -3,6 +3,18 @@
     <Game Name="IRREDIAN1131_SRAID_C" minLv="0" maxLv="0" mapName="id_irredians_113_1" playerCnt="1" playerCountCheckDestroy="1" startWaitSec="-1">
         <StageList>
             <Stage Name="Intro">
+                <StartScpList>
+                    <ToolScp Scp="MGAME_SET_STYLE_INFO" Client="NO" UseSleep="NO">
+                        <Str Str="irredians_level"/>
+                        <Str Str="bar"/>
+                        <Str Str="난이도 설정 결과"/>
+                        <Num Num="7"/>
+                        <Num Num="1"/>
+                    </ToolScp>
+                    <ToolScp Scp="MGAME_CUSTOM_OPTION_CHECK" Client="NO" UseSleep="NO">
+                        <Num Num="1"/>
+                    </ToolScp>
+                </StartScpList>
                 <ObjList>
                     <Obj Type="Monster" MonType="59319" Pos="200.83#-0.99#27.00" genCount="1" genTime="20000" objectKey="0"/>
                     <Obj Type="Monster" MonType="59319" Pos="-201.36#-0.99#35.65" genCount="1" genTime="20000" objectKey="1"/>
@@ -33,6 +45,36 @@
                                 <Str Str="Enter"/>
                                 <Num Num="1"/>
                             </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
+                                <Str Str="miniQOpen"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EXEC_GIVE_BUFF" Client="NO" UseSleep="NO">
+                                <Str Str="SOLO_RAID_MSPD_Buff"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
+                                <Num Num="0"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event eventName="Zone_PC_Check">
+                        <condList>
+                            <ToolScp Scp="MGAME_EVT_COND_PCCNT_OUT" Client="NO" UseSleep="NO">
+                                <Num Num="0"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
+                                <Str Str="Intro"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
+                                <Str Str="ClearFail"/>
+                                <Num Num="3"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_END" Client="NO" UseSleep="NO">
+                                <Num Num="1"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -43,6 +85,11 @@
                 </ScrLockList>
             </Stage>
             <Stage Name="Boss" AutoStart="0">
+                <StartScpList>
+                    <ToolScp Scp="MGAME_CUSTOM_OPTION_CHECK" Client="NO" UseSleep="NO">
+                        <Num Num="1"/>
+                    </ToolScp>
+                </StartScpList>
                 <ObjList>
                     <Obj Type="Monster" MonType="59477" Pos="-1.20#-0.99#151.91" angle="270" genCount="1" genTime="20000" autoGen="0" objectKey="0" UseAiOutOfPc="1"/>
                 </ObjList>
@@ -65,16 +112,14 @@
                             </ToolScp>
                         </execList>
                     </Event>
-                    <Event execCount="1" eventName="CreateBoss" execWithStart="0">
+                    <Event eventName="CreateBoss" execWithStart="0">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="BattleStart"/>
                                 <Str Str="=="/>
                                 <Num Num="1"/>
                             </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="15"/>
-                            </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_COND_DIRECTION_PC_NOT_EXIST" Client="NO" UseSleep="NO"/>
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
@@ -85,6 +130,25 @@
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
                                 <Str Str="Battle"/>
                             </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT_ARG" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_IRREDIANS_RAID_TELHARSHA_TOTAL_LEVEL_CUSTOM_LOG"/>
+                                <Str Str="Total_Level"/>
+                                <Num Num="0"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_FREEDUNGEONOBSS_RAID_ANCIENT_SUMMON"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_FREEDUNGEONOBSS_RAID_ANCIENT_SUMMON_CHECK"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
+                                <MGameObj List="Boss/0"/>
+                                <Str Str="SCR_SOLO_RAID_IRREDIANDS1131_TELHARSHA_SOUND_ENTER"/>
+                            </ToolScp>
+                            <ToolScp Scp="SCR_SET_SAVE_POINT_RESURRECT" Client="NO" UseSleep="NO">
+                                <Num Num="0"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_EVT_OFF" Client="NO" UseSleep="NO"/>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -96,6 +160,9 @@
                     </ToolScp>
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
                         <Str Str="텔하르샤를 처치하세요."/>
+                    </ToolScp>
+                    <ToolScp Scp="MGAME_CUSTOM_OPTION_CHECK" Client="NO" UseSleep="NO">
+                        <Num Num="1"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList/>
@@ -221,10 +288,10 @@
                         <Str Str="Raid_boss_TelHarsha"/>
                     </ToolScp>
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
-                        <Str Str="레이드 성공!{nl}잠시 후, 입장한 곳으로 돌아갑니다"/>
+                        <Str Str="처치 성공!{nl}잠시 후, 입장한 곳으로 돌아갑니다"/>
                     </ToolScp>
                     <ToolScp Scp="MGAME_SET_DM_ICON" Client="NO" UseSleep="NO">
-                        <Str Str="레이드 성공!{nl}잠시 후, 입장한 곳으로 돌아갑니다."/>
+                        <Str Str="처치 성공!{nl}잠시 후, 입장한 곳으로 돌아갑니다."/>
                         <Str Str="Clear"/>
                         <Num Num="5"/>
                     </ToolScp>
@@ -289,8 +356,10 @@
                                 <Str Str="Reward"/>
                                 <Num Num="1"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_ADD_INDUN_COUNT" Client="NO" UseSleep="NO">
-                                <Str Str="Raid_boss_TelHarsha_Easy"/>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT_ARG" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_IRREDIANS_RAID_TELHARSHA_TOTAL_LEVEL_CUSTOM_LOG"/>
+                                <Str Str="Total_Level"/>
+                                <Num Num="0"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -299,12 +368,12 @@
             <Stage Name="Fail" AutoStart="0">
                 <StartScpList>
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
-                        <Str Str="레이드 실패!{nl}잠시 후, 입장한 곳으로 돌아갑니다."/>
+                        <Str Str="처치 실패!{nl}잠시 후, 입장한 곳으로 돌아갑니다."/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList/>
                 <StageEvents>
-                    <Event execCount="1" eventName="Msg">
+                    <Event eventName="Msg">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
                                 <Num Num="10"/>
@@ -323,7 +392,7 @@
                             </ToolScp>
                         </execList>
                     </Event>
-                    <Event execCount="1" eventName="RunEnd">
+                    <Event eventName="RunEnd">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
                                 <Num Num="10"/>
@@ -786,6 +855,14 @@
                         </execList>
                     </Event>
                 </StageEvents>
+            </Stage>
+            <Stage Name="miniQOpen" AutoStart="0">
+                <StartScpList>
+                    <ToolScp Scp="MGAME_CUSTOM_OPTION_CHECK" Client="NO" UseSleep="NO">
+                        <Num Num="1"/>
+                    </ToolScp>
+                </StartScpList>
+                <ObjList/>
             </Stage>
         </StageList>
         <WorldInitList>

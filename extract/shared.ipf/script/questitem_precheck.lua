@@ -5459,10 +5459,12 @@ function SCR_PRE_ITEM_Escape(self, argObj, BuffName, arg1, arg2)
     end
 
     if IsAutoMatchingState(self) == 1 then
+        SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("EscapeDisabledDuringMatching"), 5)
         return 0;
     end
 
     if IsPVPAutoMatchingState(self) == 1 then
+        SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("EscapeDisabledDuringPVPMatching"), 5)
         return 0;
     end
     

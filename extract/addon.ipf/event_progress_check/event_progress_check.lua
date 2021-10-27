@@ -41,6 +41,7 @@ function EVENT_PROGRESS_CHECK_INIT(frame, type)
 	for i = 1, #tabtitlelist do
 		tab:ChangeCaption(i - 1, "{@st66b}{s18}"..ClMsg(tabtitlelist[i]), false);
 	end
+	tab:SetItemsAdjustFontSizeByWidth(152);
 
 	EVENT_PROGRESS_TAB_TOGGLE(frame, 1);
 
@@ -82,10 +83,18 @@ function EVENT_PROGRESS_CHECK_TAB_CLICK(parent, ctrl, argStr, type)
 
 	if index == 0 then
 		EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type);
-	elseif index == 1 then
-        EVENT_PROGRESS_CHECK_STAMP_TOUR_STATE_OPEN(frame, type);
+    elseif index == 1 then
+        if type == 5 then
+            EVENT_2009_FULLMOON_CHECK_LEVEL_REWARD(frame, type);
+        else
+            EVENT_PROGRESS_CHECK_STAMP_TOUR_STATE_OPEN(frame, type);
+        end
     elseif index == 2 then
-        EVENT_PROGRESS_CHECK_CONTENTS_STATE_OPEN(parent:GetTopParentFrame(), type);
+        if type == 5 then
+            EVENT_2009_FULLMOON_CHECK_BUFF_DESCRIPTION(frame, type);
+        else
+            EVENT_PROGRESS_CHECK_CONTENTS_STATE_OPEN(parent:GetTopParentFrame(), type);
+        end
 	end
 end
 
@@ -134,7 +143,7 @@ function EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type)
 	local clearlist = GET_EVENT_PROGRESS_CHECK_ACQUIRE_STATE_CLEAR_TEXT(type);
 
 	local y = 0;
-	for i = 1, 5 do
+    for i = 1, 5 do
 		local ctrlSet = listgb:CreateControlSet('icon_with_current_state', "CTRLSET_" .. i,  ui.CENTER_HORZ, ui.TOP, 0, y, 0, 0);
 		local iconpic = GET_CHILD(ctrlSet, "iconpic");
 		iconpic:SetImage(iconlist[i]);
@@ -199,10 +208,23 @@ function EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type)
 		state:SetTextByKey('max', " / "..maxvalue);
 		if maxvalue == 0 then
 			state:SetTextByKey('max', "");
-		end
+        end
+        
+        -- EVENT_2009_FULLMOON
+        if type == 5 then
+            -- 단계
+            if i == 1 then
+                state:SetTextByKey('max', " "..ClMsg("Step"));
+            end
+
+            -- 포인트
+            if i == 2 then
+                state:SetTextByKey('max', " "..ClMsg("POINT"));
+            end
+        end
 
 		y = y + ctrlSet:GetHeight();
-	end
+    end
 end
 
 function EVENT_PROGRESS_CHECK_DAILY_PLAY_TIME_UPDATE(frame, msg, time)
@@ -528,7 +550,7 @@ function EVENT_YOUR_MASTER_INIT(frame, state, week, curcnt, nextcnt)
 	title:SetTextByKey("value", ClMsg(GET_EVENT_PROGRESS_CHECK_TITLE(your_master_type)));
 
 	local tab2 = GET_CHILD(frame, "tab2");	
-	tab2:SelectTab(0);
+	tab2:SelectTab(0);	
 	tab2:SetEventScript(ui.LBUTTONUP, "EVENT_YOUR_MATER_TAB_CLICK");
 
 	local tab2_listgb1 = GET_CHILD(frame, "tab2_listgb1");
@@ -544,6 +566,7 @@ function EVENT_YOUR_MASTER_INIT(frame, state, week, curcnt, nextcnt)
 	for i = 1, #tabtitlelist do
 		tab2:ChangeCaption(i - 1, "{@st66b}{s18}"..ClMsg(tabtitlelist[i]), false);
 	end
+	tab2:SetItemsAdjustFontSizeByWidth(152);
 
 	EVENT_PROGRESS_TAB_TOGGLE(frame, 0);
 
@@ -920,6 +943,10 @@ function EVENT_YOUR_MASTER_ACCRUE_REWARD_INIT(frame)
 			local itemCls = GetClass("Item", itemClassName);
 			if itemCls ~= nil then
 				local str = string.format("%s %d%s {nl}", itemCls.Name, itemCount, ClMsg("Piece"));
+				if config.GetServiceNation() == "GLOBAL" then
+					str = string.format("%s %s %d{nl}", itemCls.Name, ClMsg("Piece"), itemCount);
+				end
+
 				rewardText = rewardText..str;
 			end
 		end

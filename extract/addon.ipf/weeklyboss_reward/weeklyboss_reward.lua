@@ -139,7 +139,7 @@ function WEEKLYBOSSREWARD_RANK_REWARD_UPDATE(frame, retlist)
     local rewardgb = GET_CHILD_RECURSIVELY(frame, "rewardgb", "ui::CGroupBox");
     rewardgb:RemoveAllChild();
     local week_num = tonumber(frame:GetUserValue("WEEK_NUM"))
-    local myrank = session.weeklyboss.GetMyRankInfo(week_num);
+    local myrank = session.weeklyboss.GetMyBaseJobRankInfo(week_num);
     local y = 0;
     local cnt = #retlist -- 랭킹 cnt
     for i = 1, cnt do
@@ -212,8 +212,8 @@ function WEEKLYBOSSREWARD_REWARD_LIST_UPDATE(frame, ctrl, rewardstr)
         end
 
         attr_pic:SetImage(GET_ITEM_ICON_IMAGE(cls));
-        attr_name_text:SetTextByKey("value", cls.Name);
-        attr_name_text:AdjustFontSizeByWidth(attr_name_text:GetWidth())
+		attr_name_text:SetTextByKey("value", dic.getTranslatedStr(cls.Name));
+		ctrlSet:Resize(ctrlSet:GetWidth(),math.max(attr_name_text:GetHeight(),ctrlSet:GetHeight()))
         attr_count_text:SetTextByKey("value", strlist[2]);
 
         listy = listy + ctrlSet:GetHeight() + OFFSET_MIDDLE;

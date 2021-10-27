@@ -566,6 +566,14 @@ function WORLDMAP2_SUBMAP_ZONE_CHECK(mapName)
     
     frame:SetUserConfig("ZONE_CHECK", mapName)
 
+    -- 순서 조정
+    do
+        local checkSet = frame:GetChild(mapName)
+        local checkImage = checkSet:GetChild("zone_btn")
+        
+        checkImage:SetMargin(checkImage:GetMargin().left, checkImage:GetMargin().top, checkImage:GetMargin().right, checkImage:GetMargin().bottom)
+    end
+
     -- 체크 부여
     if ui.GetFrame("worldmap2_minimap"):IsVisible() == 0 then
         WORLDMAP2_SUBMAP_EFFECT_ON_ZONE_CHECK(frame)

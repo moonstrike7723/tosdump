@@ -263,13 +263,15 @@ return value"/>
 		</KeyInput>
 		<KeyInputStart>
 			<ToolScp Scp="MONSKL_C_CASTING_ANIM" Client="YES" UseSleep="NO">
-				<Str Str="None" UseFunc="1" FuncTxt="local value = 'None'
-local pc = GetMyPCObject()
-if IsBuffApplied(pc, 'ITEM_BUFF_VIBORA_THSWORD_PUNISH') == 'YES' then
-    value = 'skl_leapattack_cast'
-end
-
-return value"/>
+				<Str Str="None" UseFunc="1" FuncTxt="if self == nil then 
+    return 'None'
+end 
+local Buff = info.GetBuffByName(self:GetHandleVal(), 'ITEM_BUFF_VIBORA_THSWORD_PUNISH')
+ if Buff ~= nil then 
+    return 'skl_leapattack_cast' 
+ else 
+    return 'None'
+end"/>
 				<Str Str="ARUN"/>
 				<Num Num="2"/>
 				<Num Num="1"/>
@@ -292,12 +294,40 @@ end
 
 return value"/>
 			</ToolScp>
+			<ToolScp Scp="C_EFFECT" Client="YES" UseSleep="NO">
+				<Str_Arg Str="None" UseFunc="1" FuncTxt="if self == nil then 
+    return 'None'
+end 
+local Buff = info.GetBuffByName(self:GetHandleVal(), 'ITEM_BUFF_VIBORA_THSWORD_PUNISH')
+ if Buff ~= nil then
+    return 'F_pc_effectitem_gabia', 2 
+ else 
+    return 'None', 0
+end" Arg="0"/>
+				<Str Str="Dummy_emitter"/>
+			</ToolScp>
+			<ToolScp Scp="C_EFFECT" Client="YES" UseSleep="NO">
+				<Str_Arg Str="None" UseFunc="1" FuncTxt="if self == nil then 
+    return 'None'
+end 
+local Buff = info.GetBuffByName(self:GetHandleVal(), 'ITEM_BUFF_VIBORA_THSWORD_PUNISH')
+ if Buff ~= nil then 
+    return 'E_pc_full_charge_red', 2 
+ else 
+    return 'None', 0
+end" Arg="0"/>
+				<Str Str="Dummy_emitter"/>
+			</ToolScp>
 		</KeyInputStart>
 		<KeyInputEnd>
 			<ToolScp Scp="MONSKL_C_CLEAR_RESERVE_ANIM" Client="YES" UseSleep="NO"/>
 			<ToolScp Scp="MONSKL_C_RESET_CASTING_ANIM" Client="YES" UseSleep="NO"/>
 			<ToolScp Scp="C_EFFECT_DETACH" Client="YES" UseSleep="NO">
-				<Str_Arg Arg="1" Str="I_spread_out001_light_fire"/>
+				<Str_Arg Str="I_spread_out001_light_fire" Arg="1"/>
+				<Num Num="0.2"/>
+			</ToolScp>
+			<ToolScp Scp="C_EFFECT_DETACH" Client="YES" UseSleep="NO">
+				<Str_Arg Str="F_pc_effectitem_gabia" Arg="1"/>
 				<Num Num="0.2"/>
 			</ToolScp>
 		</KeyInputEnd>
