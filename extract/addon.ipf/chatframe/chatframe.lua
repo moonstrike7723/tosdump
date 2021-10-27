@@ -471,10 +471,20 @@ function DRAW_CHAT_MSG(groupboxname, startindex, chatframe, removeChatIDList)
 					msgFront = string.format("[%s]%s", ScpArgMsg("ChatType_3"), commnderNameUIText);	
 					
 				elseif msgType == "Guild" then
-
 					fontStyle = mainchatFrame:GetUserConfig("TEXTCHAT_FONTSTYLE_GUILD");
 					msgFront = string.format("[%s]%s", ScpArgMsg("ChatType_4"), commnderNameUIText);	
+				elseif msgType == "GuildNotice" then					
+					fontStyle = mainchatFrame:GetUserConfig("TEXTCHAT_FONTSTYLE_GUILD_NOTICE");
+					msgFront = string.format("[%s]%s", ScpArgMsg("ChatType_4"), commnderNameUIText);					
 
+					local guild = GET_MY_GUILD_INFO();
+					if guild ~= nil then
+						local leaderName = guild.info:GetLeaderName();
+						if commnderName ~= leaderName then
+							local memberInfo = session.party.GetPartyMemberInfoByName(PARTY_GUILD, commnderName);
+							GetPlayerClaims("GUILD_NOTICE_MSG_CHECK", memberInfo:GetAID(), chatframe:GetName()..";"..groupboxname..";"..clusterinfo:GetMsgInfoID());
+						end
+					end					
 				elseif msgType == "Notice" then
 
 					fontStyle = mainchatFrame:GetUserConfig("TEXTCHAT_FONTSTYLE_NOTICE");	
@@ -1129,4 +1139,46 @@ function MOTION_EMOTICON_ON(parent, ctrl)
 
 	ctrl:SetIsStopAnim(false);
 	ctrl:SetDurationTime(emoCls.IconSpineDurationTime);
+end
+
+local json = require "json_imc"
+function GUILD_NOTICE_MSG_CHECK(code, ret_json, argStr)
+	if code ~= 200 then
+		return;
+	end
+	
+	local guild = GET_MY_GUILD_INFO();
+	if guild == nil then
+		return;
+	end
+
+	local ret = false;
+    local parsed_json = json.decode(ret_json)
+	for k, v in pairs(parsed_json) do
+		if v == 208 then -- 메시지 강조 권한
+			ret = true;
+			break;
+		end
+    end
+
+	if ret == true then 
+		return;
+	end
+
+	local argStrlist = StringSplit(argStr, ";");
+	local frame = ui.GetFrame(argStrlist[1]);
+	local groupbox = GET_CHILD(frame, argStrlist[2]);
+	local clustername = "cluster_" .. argStrlist[3];
+	local chatCtrl = GET_CHILD(groupbox, clustername);
+	if chatCtrl == nil then
+		return;
+	end
+
+	local mainchatFrame = ui.GetFrame("chatframe");
+	local fontStyle = mainchatFrame:GetUserConfig("TEXTCHAT_FONTSTYLE_GUILD");
+
+	local txt = GET_CHILD(chatCtrl, "text");
+	txt:SetTextByKey("font", fontStyle);
+	groupbox:Invalidate();
+
 end

@@ -2675,12 +2675,12 @@ end
 
 --------------------------------- 필드 보스 ---------------------------------
 function FIELD_BOSS_UI_OPEN(frame)
-	FIELD_BOSS_DATA_REQUEST_DAY();
 	FIELD_BOSS_TIME_TAB_SETTING(frame)
 	FIELD_BOSS_MY_RANK_TEXT_SETTING(frame)
 	FIELD_BOSS_ENTER_TIMER_SETTING(frame)
 	local ctrlSet = GET_CHILD_RECURSIVELY(frame,"field_boss_my_rank_control")
 	ctrlSet:RunUpdateScript("FIELD_BOSS_ENTER_TIMER_SETTING",1)
+	FIELD_BOSS_DATA_REQUEST_DAY();
 end
 
 function FIELD_BOSS_MY_RANK_TEXT_SETTING(frame)
@@ -2703,15 +2703,22 @@ function FIELD_BOSS_TIME_TAB_SETTING(frame)
 	end
 	local first_time = imcTime.AddSec(now_time,-1*3600*24*(wDayOfWeek-1))
 	local season_tab = GET_CHILD_RECURSIVELY(ctrlSet,"season_tab")
+	local season_tab_idx = 0
 	DELETE_ALL_TAB_ITEM(season_tab)
 	for i = 1,7 do
 		local time = imcTime.AddSec(first_time,3600*24*(i-1))
 		local date_str = string.format("%02d/%02d",time.wMonth,time.wDay)
 		season_tab:AddItem(date_str, true, "", "cooperation_war_date_btn", "cooperation_war_date_btn_cursoron", "cooperation_war_date_btn_clicked","", false)
+		if time.wDay == now_time.wDay then
+			season_tab_idx = i-1
+		end
 	end
+	season_tab:SelectTab(season_tab_idx)
+
 	local sub_tab = GET_CHILD_RECURSIVELY(ctrlSet,"sub_tab")
 	DELETE_ALL_TAB_ITEM(sub_tab)
 	local cls = GetClass("fieldboss_worldevent_schedulel",config.GetServiceNation())
+	local hour_tab_idx = 0
 	for i = 1,10 do
 		local hour = TryGetProp(cls,"StartHour_"..i) 
 		if hour == nil then
@@ -2719,7 +2726,12 @@ function FIELD_BOSS_TIME_TAB_SETTING(frame)
 		end
 		local hour_str = string.format("%02d:00",hour)
 		sub_tab:AddItem(hour_str, true, "", "cooperation_war_time_btn", "cooperation_war_time_btn_cursoron", "cooperation_war_time_btn_clicked","", false)
+		if hour > now_time.wHour then
+			hour_tab_idx = i
+		end
 	end
+	hour_tab_idx = math.min(hour_tab_idx,sub_tab:GetItemCount()-1)
+	sub_tab:SelectTab(hour_tab_idx)
 end
 
 function ON_FIELD_BOSS_MONSTER_UPDATE(frame,msg,argStr,argNum)
@@ -2776,17 +2788,17 @@ function ON_FIELD_BOSS_RANKING_UPDATE(frame,msg,argStr,argNum)
 	elseif argList[1] == 'damage' then
 		myDamage = argList[2]
 	end
-	local totalcnt = session.fieldboss.GetTotalRankCount(time);    -- 계열별 전체 도전 유저
+	local totalcnt = session.fieldboss.GetTotalRankCount(time);	-- 계열별 전체 도전 유저
 	local myrank_p = (myrank/totalcnt) * 100;
-    myrank_p = string.format("%.2f",myrank_p)
-    if totalcnt <= 0 then
-        myrank_p = 0;
+	myrank_p = string.format("%.2f",myrank_p)
+	if totalcnt <= 0 then
+		myrank_p = 0;
 	end
 	local ctrlSet = GET_CHILD_RECURSIVELY(frame,"field_boss_my_rank_control")
 	local battle_info_attr = GET_CHILD_RECURSIVELY(ctrlSet, "battle_info_attr", "ui::CControlSet");
-    SET_TEXT(battle_info_attr, "attr_value_text_1", "rank", myrank);
-    SET_TEXT(battle_info_attr, "attr_value_text_1", "rank_p", myrank_p);
-    SET_TEXT(battle_info_attr, "attr_value_text_2", "value", STR_KILO_CHANGE(myKillTime));
+	SET_TEXT(battle_info_attr, "attr_value_text_1", "rank", myrank);
+	SET_TEXT(battle_info_attr, "attr_value_text_1", "rank_p", myrank_p);
+	SET_TEXT(battle_info_attr, "attr_value_text_2", "value", STR_KILO_CHANGE(myKillTime));
 	SET_TEXT(battle_info_attr, "attr_value_text_3", "value", STR_KILO_CHANGE(myDamage));
 	
 	FIELD_BOSS_RANKING_LIST_UPDATE(frame)
@@ -2797,13 +2809,18 @@ function FIELD_BOSS_RANKING_LIST_UPDATE(frame)
 	local ctrlSet = GET_CHILD_RECURSIVELY(frame,"field_boss_ranking_control")
 	local rankbox = GET_CHILD_RECURSIVELY(ctrlSet,"rankbox")
 	local Width = rankbox:GetWidth()
-	local totalcnt = session.fieldboss.GetTotalRankCount(time);    -- 계열별 전체 도전 유저
-    if totalcnt >= 6 then
-        Width = Width - 20
+	local totalcnt = session.fieldboss.GetTotalRankCount(time);	-- 계열별 전체 도전 유저
+	if totalcnt >= 6 then
+		Width = Width - 20
 	end
 	local rankListBox = GET_CHILD_RECURSIVELY(ctrlSet, "rankListBox", "ui::CGroupBox");
 	rankListBox:RemoveAllChild()
 	for i = 1,totalcnt do
+		local score = session.fieldboss.GetRankInfoScore(time,i);
+		if score == "None" then
+			break
+		end
+
 		local ctrlSet = rankListBox:CreateControlSet("content_status_board_rank_attribute_type2", "CTRLSET_" .. i,  ui.LEFT, ui.TOP, 0, (i - 1) * 73, 0, 0);
 		ctrlSet:Resize(Width, ctrlSet:GetHeight());
 		local attr_bg = GET_CHILD(ctrlSet, "attr_bg");
@@ -2822,10 +2839,6 @@ function FIELD_BOSS_RANKING_LIST_UPDATE(frame)
 			attr_rank_text:ShowWindow(1);
 		end
 
-		local score = session.fieldboss.GetRankInfoScore(time,i);
-		if score == "None" then
-			break
-		end
 		local scoreArgList = StringSplit(score,'/')
 
 		local attr_damage_text = GET_CHILD(ctrlSet, "attr_damage_text", "ui::CRichText");
@@ -2851,12 +2864,13 @@ function FIELD_BOSS_RANKING_LIST_UPDATE(frame)
 end
 
 function FIELD_BOSS_DATA_REQUEST_DAY()
-    local frame = ui.GetFrame("induninfo")
-    local ctrlSet = GET_CHILD_RECURSIVELY(frame, "field_boss_ranking_control");
-    local rank_gb = GET_CHILD_RECURSIVELY(ctrlSet, "rank_gb");
-    rank_gb:EnableHitTest(0);
-    ReserveScript("HOLD_FIELDBOSS_RANKUI_UNFREEZE()", 1);
+	local frame = ui.GetFrame("induninfo")
+	local ctrlSet = GET_CHILD_RECURSIVELY(frame, "field_boss_ranking_control");
+	local rank_gb = GET_CHILD_RECURSIVELY(ctrlSet, "rank_gb");
+	rank_gb:EnableHitTest(0);
+	ReserveScript("HOLD_FIELDBOSS_RANKUI_UNFREEZE()", 1);
 
+	FIELD_BOSS_RESET_RANKING_INFO(frame)
 	local field_date =  GET_FIELD_BOSS_DATE();
 	field_boss.RequestFieldBossPatternInfo(field_date);
 	field_boss.RequestFieldBossRankingInfo(field_date);
@@ -2865,12 +2879,26 @@ end
 function FIELD_BOSS_DATA_REQUEST_HOUR()
 	local frame = ui.GetFrame("induninfo")
 	local ctrlSet = GET_CHILD_RECURSIVELY(frame,"field_boss_ranking_control")
-    local rank_gb = GET_CHILD_RECURSIVELY(ctrlSet, "rank_gb");
-    rank_gb:EnableHitTest(0);
-    ReserveScript("HOLD_FIELDBOSS_RANKUI_UNFREEZE()", 1);
-
+	local rank_gb = GET_CHILD_RECURSIVELY(ctrlSet, "rank_gb");
+	rank_gb:EnableHitTest(0);
+	ReserveScript("HOLD_FIELDBOSS_RANKUI_UNFREEZE()", 1);
+	
+	FIELD_BOSS_RESET_RANKING_INFO(frame)
 	local field_date =  GET_FIELD_BOSS_DATE();
 	field_boss.RequestFieldBossRankingInfo(field_date);
+end
+
+function FIELD_BOSS_RESET_RANKING_INFO(frame)
+	local ctrlSet_list = GET_CHILD_RECURSIVELY(frame,"field_boss_ranking_control")
+	local rankListBox = GET_CHILD_RECURSIVELY(ctrlSet_list, "rankListBox", "ui::CGroupBox");
+	rankListBox:RemoveAllChild()
+
+	local ctrlSet_my = GET_CHILD_RECURSIVELY(frame,"field_boss_my_rank_control")
+	local battle_info_attr = GET_CHILD_RECURSIVELY(ctrlSet_my, "battle_info_attr", "ui::CControlSet");
+	SET_TEXT(battle_info_attr, "attr_value_text_1", "rank", 0);
+	SET_TEXT(battle_info_attr, "attr_value_text_1", "rank_p", 0);
+	SET_TEXT(battle_info_attr, "attr_value_text_2", "value", 0);
+	SET_TEXT(battle_info_attr, "attr_value_text_3", "value", 0);
 end
 
 function FIELD_BOSS_ENTER_TIMER_SETTING(ctrlSet)

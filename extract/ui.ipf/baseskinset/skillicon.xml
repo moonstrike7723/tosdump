@@ -812,6 +812,7 @@
 		<image name="Icon_common_skill_4" file="\icon\skill\common\Icon_common_skill_4.png" imgrect="0 0 128 128" CMM_Caption="숫자 4"/>
 		<image name="Icon_common_skill_5" file="\icon\skill\common\Icon_common_skill_5.png" imgrect="0 0 128 128" CMM_Caption="숫자 5"/>
 		<image name="Icon_common_Acient_use_skill" file="\icon\skill\common\Icon_common_Acient_use_skill.png" imgrect="0 0 128 128" CMM_Caption="어시스터 스킬 사용"/>
+		<image name="icon_common_musical" file="\icon\skill\common\icon_common_musical.png" imgrect="0 0 128 128" CMM_Caption="뮤지컬 변신"/>
 	</imagelist>
 	<imagelist category="restquickslot_icon">
 		<image name="icon_rest_arrow" file="\icon\rest_mode_icon.tga" imgrect="0 0 128 128" CMM_Caption="화살제작"/>
@@ -1450,7 +1451,7 @@
 		<image name="ability_Warrior_Hoplite39" file="\icon\icon_ability_warrior09.tga" imgrect="512 384 128 128" CMM_Caption="창 숙련: 마법진 파괴"/>
 		<image name="ability_Warrior_Murmillo29" file="\icon\icon_ability_warrior09.tga" imgrect="640 384 128 128" CMM_Caption="스프린트: 밀리"/>
 		<image name="ability_Warrior_Peltasta43" file="\icon\icon_ability_warrior09.tga" imgrect="768 384 128 128" CMM_Caption="하이 가드: 철벽 방어"/>
-		<image name="ability_Warrior_NakMuay12" file="\icon\icon_ability_warrior09.tga" imgrect="768 384 128 128" CMM_Caption="무아이타이: 무아이보란"/>
+		<image name="ability_Warrior_NakMuay12" file="\icon\icon_ability_warrior09.tga" imgrect="896 384 128 128" CMM_Caption="무아이타이: 무아이보란"/>
 		<image name="ability_Warrior_Doppelsoeldner35" file="\icon\icon_ability_warrior09.tga" imgrect="0 512 128 128" CMM_Caption="사이클론: 용오름"/>
 		<image name="ability_Warrior_Dragoon28" file="\icon\icon_ability_warrior09.tga" imgrect="128 512 128 128" CMM_Caption="드래곤 투스: 긴 송곳니"/>
 		<image name="ability_Warrior_Lancer28" file="\icon\icon_ability_warrior09.tga" imgrect="256 512 128 128" CMM_Caption="자우스트: 진영 파괴"/>

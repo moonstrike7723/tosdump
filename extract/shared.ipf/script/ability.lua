@@ -1407,7 +1407,6 @@ function SCR_ABIL_Appraiser7_ACTIVE(self, ability)
         local attribute = TryGetProp(skill, "Attribute");
         skill.Attribute = "Fire";
         SetExProp_Str(self, "Appraiser7_Attribute", attribute);
-        SetSkillOverHeat(self, skill.ClassName, 0, 1);
 
         skill.CastingCategory = "channeling"
 
@@ -1421,7 +1420,6 @@ function SCR_ABIL_Appraiser7_INACTIVE(self, ability)
     if skill ~= nil then
         local attribute = GetExProp_Str(self, "Appraiser7_Attribute");
         skill.Attribute = attribute;
-        SetSkillOverHeat(self, skill.ClassName, 3, 1);
 
         skill.CastingCategory = "instant"
 
@@ -2716,15 +2714,13 @@ function SCR_ABIL_Outlaw26_INACTIVE(self, ability)
     end
 end 
 function SCR_ABIL_Fencer20_ACTIVE(self, ability) 
-    SCR_ABIL_Fencer20_CALC(self, ability)
     AddBuff(self, self, "Fencer21_Buff", 1, 0, 0, 1)
+    Invalidate(self, "PATK");
 end
 
 function SCR_ABIL_Fencer20_INACTIVE(self, ability)
-    local addATK = GetExProp(ability, "Fencer20_ADD_ATK");
-    self.PATK_MAIN_BM = self.PATK_MAIN_BM - addATK;
-    DelExProp(ability,"Fencer20_ADD_ATK")
     RemoveBuff(self, "Fencer21_Buff")
+    Invalidate(self, "PATK");
 end
  
 function SCR_ABIL_Paladin43_ACTIVE(self, ability)

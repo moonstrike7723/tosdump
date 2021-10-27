@@ -403,6 +403,8 @@
 		<Effect Name="Field_Summon_Silence"/>
 		<Effect Name="Field_Zaura_pad"/>
 		<Effect Name="Field_boss_Mirtis_line"/>
+		<Effect Name="Field_Evil_Pillar_2"/>
+		<Effect Name="Field_Evil_Pillar"/>
 	</Category>
 	<Category ID="146">
 		<Effect Name="beginner"/>
@@ -23310,6 +23312,8 @@
 		<Effect Name="I_anvil_dead003_mesh_diamond"/>
 		<Effect Name="I_anvil_dead003_mesh_gold"/>
 		<Effect Name="I_anvil_dead003_mesh_platinum"/>
+		<Effect Name="I_anvil_dead004_mesh_glacier"/>
+		<Effect Name="I_anvil_dead004_mesh_moth"/>
 	</Category>
 	<Category ID="130">
 		<Effect Name="E_Cleric_StoneShower"/>

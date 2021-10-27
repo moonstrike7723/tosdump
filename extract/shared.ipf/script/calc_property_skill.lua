@@ -1,4 +1,4 @@
---- calc_property_skill.lua
+﻿--- calc_property_skill.lua
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function HAS_DRAGON_POWER(pc)
@@ -776,7 +776,7 @@ function SCR_GET_SKL_COOLDOWN_Preparation(skill)
     local pc = GetSkillOwner(skill);
     local basicCoolDown = skill.BasicCoolDown;
     local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
-    basicCoolDown = (basicCoolDown + abilAddCoolDown) - (skill.Level * 1000);
+    basicCoolDown = (basicCoolDown + abilAddCoolDown) - ((skill.Level - 1) * 1000);
     
     basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
@@ -4369,13 +4369,7 @@ end
 
 function SCR_GET_HellBreath_Ratio2(skill)
 
-    local pc = GetSkillOwner(skill);
-    local abil = GetAbility(pc, "Pyromancer14") 
-    local value = 0
-    if abil ~= nil then 
-        return SCR_ABIL_ADD_SKILLFACTOR_TOOLTIP(abil);
-    end
-
+    return TryGetProp(skill, "Level", 0)
 end
 
 function SCR_GET_IceBolt_Ratio(skill)
@@ -6868,7 +6862,7 @@ function SCR_Get_Cloaking_Bufftime(skill)
 end
 
 function SCR_GET_Cloaking_Ratio(skill)
-    local value = 10 + skill.Level * 2;
+    local value = 15 + skill.Level * 2;
     value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
     return value
 end
@@ -7890,18 +7884,13 @@ function SCR_GET_ReflectShield_Bufftime(skill)
 end
 
 function SCR_GET_ReflectShield_Ratio(skill)
-    local value = 5 + (skill.Level * 3)
+    local value = (skill.Level * 3)
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     return value
 end
 
 function SCR_GET_ReflectShield_Ratio2(skill)
     local value = 30;
-    local pc = GetSkillOwner(skill)
-    local abil = GetAbility(pc, 'Wizard28')
-    if abil ~= nil and abil.ActiveState == 1 then
-        value = 5
-    end 
     return value;
 end
 
@@ -7910,7 +7899,8 @@ function SCR_GET_ReflectShield_Ratio3(skill)
 	local value = 1
 	if IsPVPField(pc)== 1 then
 		value = 8
-	end
+    end
+
 	return value;
 end
 
@@ -11436,17 +11426,16 @@ end
 
 function SCR_GET_Blindside_Ratio2(skill)
     local pc = GetSkillOwner(skill);
-    local value = 5 + skill.Level
-
+    local value = 3 + ((skill.Level - 1) * 0.5)
     local abilRateAdd = 1
-    local abilAppraiser3 = GetAbility(pc, "Appraiser3")
-    if abilAppraiser3 ~= nil and TryGetProp(abilAppraiser3, "ActiveState") == 1 then
-        local abillevel = TryGetProp(abilAppraiser3, "Level", 0)
-        abilRateAdd = abilRateAdd + (abillevel * 0.005 + 0.1)
+    local abil = GetAbility(pc, "Appraiser3")
+    if abil ~= nil then
+        abilRateAdd = abilRateAdd + (0.005 * abil.Level);
+        if abil.Level == 100 then
+            abilRateAdd = abilRateAdd + 0.1
+        end
     end
-
-    value = math.floor(value * abilRateAdd)
-    
+    value = value * abilRateAdd
     return value
 end
 
@@ -13648,6 +13637,12 @@ function SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
         basicCoolDown = basicCoolDown * (1 - laimaCoolTime)
     end
 
+    -- AyinSof CoolTime Buff
+    local AyinSofCoolTime = GetExProp(pc, "AyinSof_BUFF_COOLDOWN")
+    if AyinSofCoolTime ~= 0 and TryGetProp(skill, "CoolDownGroup", "None") ~= "ItemSetSkill" then
+        basicCoolDown = basicCoolDown * (1 - AyinSofCoolTime)
+    end
+
     -- Laima CoolTime Debuff
     if laimaCoolTime == 0 and IsBuffApplied(pc, 'CarveLaima_Debuff') == 'YES' and TryGetProp(skill, "CoolDownGroup", "None") ~= "ItemSetSkill" then
         basicCoolDown = basicCoolDown * 1.2;
@@ -14107,7 +14102,7 @@ end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Sauk_Ratio(skill)
-    local value = 5
+    local value = 7
     local pc = GetSkillOwner(skill)
     if pc ~= nil then        
         if HAS_DRAGON_POWER(pc) == true then
