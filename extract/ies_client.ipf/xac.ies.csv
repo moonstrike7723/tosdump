@@ -23579,6 +23579,7 @@ ClassID,ClassName,Mesh,Path,ArmbandInfo,UseAlpha,IsJiggleBoneHair
 724446,head83_eye01_cateye_brown,char_hi\pc\faces\jigglebone\F\head.xac,char_texture\pc\face\jigglebone\F\head\eye01_cateyebrown\,,NO,YES
 724447,Hair85_pink,char_hi\pc\faces\jigglebone\F\tangle_up_hair\tangle_up_hair.xac,char_texture\pc\face\jigglebone\F\tangle_up_hair\pink\,,NO,YES
 724448,Hair85_gray,char_hi\pc\faces\jigglebone\F\tangle_up_hair\tangle_up_hair.xac,char_texture\pc\face\jigglebone\F\tangle_up_hair\ashgray\,,NO,YES
+724501,artefact_arquebusier_scope,item_hi\pc_item\weapon\artefact_arquebusier_scope.xac,item_texture\,M;Dummy_LF_armband,NO,
 724601,warrior_m_ep12demonlord01,char_hi\pc\warrior_m\warrior_m_ep12demonlord01.xac,char_texture\pc\body\warrior_m_ep12demonlord01\,S;Dummy_LU_armband,NO,
 724602,archer_m_ep12demonlord01,char_hi\pc\archer_m\archer_m_ep12demonlord01.xac,char_texture\pc\body\warrior_m_ep12demonlord01\,S;Dummy_LU_armband,NO,
 724603,cleric_m_ep12demonlord01,char_hi\pc\cleric_m\cleric_m_ep12demonlord01.xac,char_texture\pc\body\warrior_m_ep12demonlord01\,S;Dummy_LU_armband,NO,

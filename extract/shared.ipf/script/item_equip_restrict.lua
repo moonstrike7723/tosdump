@@ -1,6 +1,6 @@
 -- item_equip_restrict.lua (콘텐츠 입장 제한 확인 로직)
 
-local function is_scout_class(pc)
+function is_scout_class(pc)
 	if IsServerSection() ~= 1 then
 		pc = GetMyPCObject()
 	end
@@ -45,7 +45,7 @@ function CHECK_SINGULARITY_AUTOMATCHING_FOR_EP13(pc)
 			item_lh = GetEquipItem(pc, 'RH')
 		end
 		-- 장비440레벨, 레전드등급, 고정아이커체크, 1레벨 바이보라, 8초월
-		local ret = CHECK_WEAPON_ITEM(pc, item_lh, 440, 5, true, 430, {{"ALL", 380}}, 8, 10)	
+		local ret = CHECK_WEAPON_ITEM(pc, item_lh, 440, 5, true, 380, {{"ALL", 380}}, 8, 10)	
 		if ret == false then
 			SendSysMsg(pc, 'RequireWeaponItemLowGrade');
 			return false
@@ -122,7 +122,7 @@ function CHECK_CHALLENGE_AUTOMATCHING_FOR_EP13(pc)
 			item_rh = GetEquipItem(pc, 'LH')
 		end
 		-- 장비440레벨, 레전드등급, 고정아이커체크, 1레벨 바이보라, 5초월
-		local ret = CHECK_WEAPON_ITEM(pc, item_rh, 440, 5, true, 430, {{"Vibora", 1}}, 5, 10)
+		local ret = CHECK_WEAPON_ITEM(pc, item_rh, 440, 5, true, 380, {{"ALL", 380}}, 5, 8)
 		if ret == false then
 			SendSysMsg(pc, 'RequireWeaponItemLowGrade');			
 			return false
@@ -136,7 +136,7 @@ function CHECK_CHALLENGE_AUTOMATCHING_FOR_EP13(pc)
 			item_lh = GetEquipItem(pc, 'RH')
 		end
 		-- 장비440레벨, 레전드등급, 고정아이커체크, 1레벨 바이보라, 5초월
-		local ret = CHECK_WEAPON_ITEM(pc, item_lh, 440, 5, true, 380, {{"ALL", 380}}, 5, 10)	
+		local ret = CHECK_WEAPON_ITEM(pc, item_lh, 440, 5, true, 380, {{"ALL", 380}}, 5, 8)	
 		if ret == false then
 			SendSysMsg(pc, 'RequireWeaponItemLowGrade');
 			return false
@@ -145,8 +145,8 @@ function CHECK_CHALLENGE_AUTOMATCHING_FOR_EP13(pc)
 		-- 방어구 체크
 		for k, v in pairs(check_equip_list_1) do
 			local item = GetEquipItem(pc, v)
-			-- 440레벨, 레전드, 고정아이커체크, 고정아이커
-			ret = CHECK_ARMOR_ITEM(pc, item, 440, 5, true, 0, {{'ALL', 400 }}, 5, 8)
+			-- 400레벨, 레전드, 고정아이커체크, 고정아이커
+			ret = CHECK_ARMOR_ITEM(pc, item, 400, 5, true, 0, {{'ALL', 400 }}, 5, 8)
 			if ret == false then
 				SendSysMsg(pc, 'RequireArmorItemLowGrade');
 				return false
@@ -799,7 +799,7 @@ function CHECK_WEAPON_ITEM(pc, item, item_level, item_grade, check_inheritance, 
 		return false, ScpArgMsg('RequireWeaponEquip')
 	end
 	
-	if TryGetProp(cls, 'StringArg', 'None') == 'FreePvP' then
+	if TryGetProp(item, 'StringArg', 'None') == 'FreePvP' then
 		if active_msg == true then
 			SendSysMsg(pc, 'NotAllowFreePvPEquip')
 		end
@@ -822,6 +822,13 @@ function CHECK_WEAPON_ITEM(pc, item, item_level, item_grade, check_inheritance, 
 		return false, ScpArgMsg("RequireWeaponItemGrade{grade}", "grade", msg)
 	end
 	
+	if TryGetProp(item, 'StringArg', 'None') ~= 'PC_Equip' and TryGetProp(item, 'UseLv', 0) < item_level then
+		if active_msg == true then			
+			SendSysMsg(pc, 'RequireWeapon{level}', 0, 'level', item_level)		
+		end
+		return false, ScpArgMsg("RequireWeapon{level}", "level", item_level)
+	end
+
 	local is_match = false
 	if check_inheritance == true then
 		local inheritanceItemName = TryGetProp(item, 'InheritanceItemName', 'None')
@@ -874,13 +881,6 @@ function CHECK_WEAPON_ITEM(pc, item, item_level, item_grade, check_inheritance, 
 		end
 	end
 	
-	if is_match == false and TryGetProp(item, 'UseLv', 0) < item_level then		
-		if active_msg == true then			
-			SendSysMsg(pc, 'RequireWeapon{level}', 0, 'level', item_level)		
-		end
-		return false, ScpArgMsg("RequireWeapon{level}", "level", item_level)
-	end
-	
 	if TryGetProp(item, 'Transcend', 0) < transcend_count then
 		if active_msg == true then			
 			SendSysMsg(pc, 'RequireWeaponTranscend{count}over', 0, 'count', transcend_count)		
@@ -906,7 +906,7 @@ function CHECK_ARMOR_ITEM(pc, item, item_level, item_grade, check_inheritance, i
 		return false, ScpArgMsg('RequireArmorEquip')
 	end
 	
-	if TryGetProp(cls, 'StringArg', 'None') == 'FreePvP' then
+	if TryGetProp(item, 'StringArg', 'None') == 'FreePvP' then
 		if active_msg == true then
 			SendSysMsg(pc, 'NotAllowFreePvPEquip')		
 		end		
@@ -927,6 +927,13 @@ function CHECK_ARMOR_ITEM(pc, item, item_level, item_grade, check_inheritance, i
 			SendSysMsg(pc, 'RequireArmorItemGrade{grade}', 0, 'grade', msg)		
 		end
 		return false, ScpArgMsg("RequireArmorItemGrade{grade}", "grade", msg)
+	end
+
+	if TryGetProp(item, 'StringArg', 'None') ~= 'PC_Equip' and TryGetProp(item, 'UseLv', 0) < item_level then
+		if active_msg == true then
+			SendSysMsg(pc, 'RequireArmor{level}', 0, 'level', item_level)		
+		end
+		return false, ScpArgMsg("RequireArmor{level}", "level", item_level)
 	end
 
 	local is_match = false
@@ -980,12 +987,7 @@ function CHECK_ARMOR_ITEM(pc, item, item_level, item_grade, check_inheritance, i
 		end
 	end
 
-	if is_match == false and TryGetProp(item, 'UseLv', 0) < item_level then
-		if active_msg == true then
-			SendSysMsg(pc, 'RequireArmor{level}', 0, 'level', item_level)		
-		end
-		return false, ScpArgMsg("RequireArmor{level}", "level", item_level)
-	end
+	
 
 	if TryGetProp(item, 'Transcend', 0) < transcend_count then
 		if active_msg == true then

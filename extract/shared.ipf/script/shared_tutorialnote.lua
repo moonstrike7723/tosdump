@@ -1,18 +1,10 @@
-function GET_TUTORIALNOTE_STATE(aObj, sObj, className)
+function GET_TUTORIALNOTE_STATE(aObj, className)
 	-- checkprop : 300 보상 획득, 299 : minimized UI확인 후
 	local cls = GetClass("tutorialnotelist", className);
-	local group = TryGetProp(cls, "Group", "None");
 	local checkpropStrList = StringSplit(TryGetProp(cls, "CheckProp", "None"), '/');
 	local checkpropname = checkpropStrList[1];
 	local checkpropmaxvalue = tonumber(checkpropStrList[2]);
-	local checkprop = 0;
-	
-	if group == "guide" then
-		checkprop = tonumber(TryGetProp(sObj, checkpropname, 0));
-	else
-		checkprop = tonumber(TryGetProp(aObj, checkpropname, 0));
-	end
-
+	local checkprop = tonumber(TryGetProp(aObj, checkpropname, 0));
     if checkprop == 300 then
         return "Clear";
     end
@@ -28,7 +20,7 @@ function GET_TUTORIALNOTE_STATE(aObj, sObj, className)
     return "POSSIBLE";
 end
 
-function TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, sObj, type)
+function TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, type)
 	local clslist, cnt  = GetClassList("tutorialnotelist");
 	for i = 0 , cnt - 1 do
 		local cls = GetClassByIndexFromList(clslist, i);
@@ -38,16 +30,9 @@ function TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, sObj, type)
 			local checkpropname = checkpropStrList[1];
 			local checkpropmaxvalue = checkpropStrList[2];
 
-			if type == "guide" then
-				local curValue = tonumber(TryGetProp(sObj, checkpropname, 0));
-				if tonumber(checkpropmaxvalue) == curValue then
-					return true;
-				end
-			else
-				local curValue = tonumber(TryGetProp(aObj, checkpropname, 0));
-				if tonumber(checkpropmaxvalue) == curValue then
-					return true;
-				end
+			local curValue = tonumber(TryGetProp(aObj, checkpropname, 0));
+			if tonumber(checkpropmaxvalue) == curValue then
+				return true;
 			end
 		end
     end
@@ -56,7 +41,7 @@ function TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, sObj, type)
 end
 
 -- 보상 받을 수 있는 가이드, 미션이 있는지 확인
-function TUTORIALNOTE_GROUP_CHECK(aObj, sObj, type)
+function TUTORIALNOTE_GROUP_CHECK(aObj, type)
 	local clslist, cnt  = GetClassList("tutorialnotelist");
 	for i = 0 , cnt - 1 do
 		local cls = GetClassByIndexFromList(clslist, i);
@@ -66,17 +51,10 @@ function TUTORIALNOTE_GROUP_CHECK(aObj, sObj, type)
 			local checkpropname = checkpropStrList[1];
 			local checkpropmaxvalue = tonumber(checkpropStrList[2]);
 
-			if type == "guide" then
-				local curValue = tonumber(TryGetProp(sObj, checkpropname, 0));
-				if curValue ~= 300 and curValue >= checkpropmaxvalue then
-					return true;
-				end
-			else
-				local curValue = tonumber(TryGetProp(aObj, checkpropname, 0));
-				if curValue ~= 300 and curValue >= checkpropmaxvalue then
-					return true;
-				end
-			end
+			local curValue = tonumber(TryGetProp(aObj, checkpropname, 0));
+			if curValue ~= 300 and curValue >= checkpropmaxvalue then
+				return true;
+			end	
 		end
     end
     
@@ -84,8 +62,7 @@ function TUTORIALNOTE_GROUP_CHECK(aObj, sObj, type)
 end
 
 -- 전체 가이드 클리어 여부 확인
-function TUTORIALNOTE_GUIDE_ALL_CLEAR_CHECK(pc)
-	local sObj = GetSessionObject(pc, "ssn_klapeda");
+function TUTORIALNOTE_GUIDE_ALL_CLEAR_CHECK(pc, aObj)
 	local clslist, cnt  = GetClassList("tutorialnotelist");
 	for i = 0 , cnt - 1 do
 		local cls = GetClassByIndexFromList(clslist, i);
@@ -93,7 +70,7 @@ function TUTORIALNOTE_GUIDE_ALL_CLEAR_CHECK(pc)
 		if group == "guide" then		
 			local checkpropStrList = StringSplit(TryGetProp(cls, "CheckProp", "None"), '/');
 			local checkpropname = checkpropStrList[1];
-			local checkprop = TryGetProp(sObj, checkpropname, 0);
+			local checkprop = TryGetProp(aObj, checkpropname, 0);
 			if checkprop ~= 300 then
 				return false;
 			end
@@ -104,9 +81,7 @@ function TUTORIALNOTE_GUIDE_ALL_CLEAR_CHECK(pc)
 end
 
 -- 전체 미션 클리어 여부 확인
-function TUTORIALNOTE_MISSION_ALL_CLEAR_CHECK(pc)
-	local clearCnt = 0;
-	local aObj = GetAccountObj(pc);
+function TUTORIALNOTE_MISSION_ALL_CLEAR_CHECK(pc, aObj)
 	local clslist, cnt  = GetClassList("tutorialnotelist");
 	for i = 0 , cnt - 1 do
 		local cls = GetClassByIndexFromList(clslist, i);
@@ -116,14 +91,31 @@ function TUTORIALNOTE_MISSION_ALL_CLEAR_CHECK(pc)
 			local checkpropname = checkpropStrList[1];
 			local checkprop = TryGetProp(aObj, checkpropname, 0);
 			if checkprop ~= 300 then
-				return false, clearCnt;
+				return false;
 			end
-
-			clearCnt = clearCnt + 1;
 		end
 	end
 
 	return true;
+end
+
+function TUTORIALNOTE_MISSION_CLEAR_COUNT_CHECK(pc, aObj)
+	local clearCnt = 0;
+	local clslist, cnt  = GetClassList("tutorialnotelist");
+	for i = 0 , cnt - 1 do
+		local cls = GetClassByIndexFromList(clslist, i);
+		local group = TryGetProp(cls, "Group", "None");
+		if group ~= "guide" then		
+			local checkpropStrList = StringSplit(TryGetProp(cls, "CheckProp", "None"), '/');
+			local checkpropname = checkpropStrList[1];
+			local checkprop = TryGetProp(aObj, checkpropname, 0);
+			if checkprop == 300 then
+				clearCnt = clearCnt + 1;
+			end
+		end
+	end
+
+	return clearCnt;
 end
 
 function GET_TUTORIALNOTE_MISSION_ICOR_TARGET_ITEM_TYPE(sObj)

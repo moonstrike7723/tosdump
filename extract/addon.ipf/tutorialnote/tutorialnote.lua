@@ -25,14 +25,9 @@ end
 
 function TUTORIALNOTE_GUIDE_EFFECT_UPDATE(frame, msg, argStr, argNum)
 	local aObj = GetMyAccountObj();
-	local sObj = session.GetSessionObjectByName("ssn_klapeda");
-	if sObj == nil then return; end
-
-	sObj = GetIES(sObj:GetIESObject());
-
 	local guide_point = GET_CHILD_RECURSIVELY(frame, "guide_point");
 
-	local result = TUTORIALNOTE_GROUP_CHECK(aObj, sObj, "guide");
+	local result = TUTORIALNOTE_GROUP_CHECK(aObj, "guide");
 	if result == true then
 		guide_point:ShowWindow(1);
 	else
@@ -42,12 +37,8 @@ end
 
 function TUTORIALNOTE_MISSION_EFFECT_UPDATE(frame, msg, argStr, argNum)
 	local aObj = GetMyAccountObj();
-	local sObj = session.GetSessionObjectByName("ssn_klapeda");
-	if sObj == nil then return; end
-	
-	sObj = GetIES(sObj:GetIESObject());
 
-	local result1 = TUTORIALNOTE_GROUP_CHECK(aObj, sObj, "mission_1");
+	local result1 = TUTORIALNOTE_GROUP_CHECK(aObj, "mission_1");
 	local mission_1_point = GET_CHILD_RECURSIVELY(frame, "mission_1_point");
 	if result1 == true then
 		mission_1_point:ShowWindow(1);
@@ -55,7 +46,7 @@ function TUTORIALNOTE_MISSION_EFFECT_UPDATE(frame, msg, argStr, argNum)
 		mission_1_point:ShowWindow(0);
 	end
 
-	local result2 = TUTORIALNOTE_GROUP_CHECK(aObj, sObj, "mission_2");
+	local result2 = TUTORIALNOTE_GROUP_CHECK(aObj, "mission_2");
 	local mission_2_point = GET_CHILD_RECURSIVELY(frame, "mission_2_point");
 	if result2 == true then
 		mission_2_point:ShowWindow(1);
@@ -63,7 +54,7 @@ function TUTORIALNOTE_MISSION_EFFECT_UPDATE(frame, msg, argStr, argNum)
 		mission_2_point:ShowWindow(0);
 	end
 	
-	local result3 = TUTORIALNOTE_GROUP_CHECK(aObj, sObj, "mission_3");
+	local result3 = TUTORIALNOTE_GROUP_CHECK(aObj, "mission_3");
 	local mission_3_point = GET_CHILD_RECURSIVELY(frame, "mission_3_point");
 	if result3 == true then
 		mission_3_point:ShowWindow(1);
@@ -81,10 +72,6 @@ end
 function TUTORIALNOTE_PAGE_UPDATE(frame, group)	
 	local pc = GetMyPCObject();
 	local aObj = GetMyAccountObj();
-	local sObj = session.GetSessionObjectByName("ssn_klapeda");
-	if sObj == nil then return; end
-
-	sObj = GetIES(sObj:GetIESObject());
 
 	local typename_text = GET_CHILD_RECURSIVELY(frame, "typename_text");
 	if group == "guide" then
@@ -127,7 +114,7 @@ function TUTORIALNOTE_PAGE_UPDATE(frame, group)
 			clear_bg:ShowWindow(0);
 			clear_pic:ShowWindow(0);
 
-			local state = GET_TUTORIALNOTE_STATE(aObj, sObj, className);
+			local state = GET_TUTORIALNOTE_STATE(aObj, className);
 			if group == "guide" then -- 가이드
 				if state == "PROGRESS" or state == "POSSIBLE" then
 					isCondition = false;

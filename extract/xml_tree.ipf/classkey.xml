@@ -467,6 +467,7 @@
         <Key Name="AdditionalOption_4" Value="107261"/>
         <Key Name="Magic_Dark_Atk" Value="107258"/>
         <Key Name="UPGRADE_TRY_COUNT" Value="107260"/>
+        <Key Name="EnableItem" Value="107605"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Party">
         <Key Name="P_PARTY_Q_040" Value="53"/>
@@ -4059,6 +4060,23 @@
         <Key Name="PersonalHousing_HasPlace_7015" Value="107577"/>
         <Key Name="EVENT_2011_5TH_NORMAL_SHOP_16" Value="107582"/>
         <Key Name="InDunRewardCountType_500" Value="107581"/>
+        <Key Name="TUTO_GUIDE_CHECK1" Value="107604"/>
+        <Key Name="TUTO_GUIDE_CHECK10" Value="107602"/>
+        <Key Name="TUTO_GUIDE_CHECK11" Value="107593"/>
+        <Key Name="TUTO_GUIDE_CHECK12" Value="107596"/>
+        <Key Name="TUTO_GUIDE_CHECK13" Value="107601"/>
+        <Key Name="TUTO_GUIDE_CHECK14" Value="107590"/>
+        <Key Name="TUTO_GUIDE_CHECK15" Value="107599"/>
+        <Key Name="TUTO_GUIDE_CHECK16" Value="107594"/>
+        <Key Name="TUTO_GUIDE_CHECK2" Value="107595"/>
+        <Key Name="TUTO_GUIDE_CHECK3" Value="107600"/>
+        <Key Name="TUTO_GUIDE_CHECK4" Value="107597"/>
+        <Key Name="TUTO_GUIDE_CHECK5" Value="107598"/>
+        <Key Name="TUTO_GUIDE_CHECK6" Value="107592"/>
+        <Key Name="TUTO_GUIDE_CHECK7" Value="107589"/>
+        <Key Name="TUTO_GUIDE_CHECK8" Value="107603"/>
+        <Key Name="TUTO_GUIDE_CHECK9" Value="107591"/>
+        <Key Name="IsEnableClientTracing" Value="107723"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PCEtc">
         <Key Name="Kill_boss_Clymen_Q2" Value="7788"/>

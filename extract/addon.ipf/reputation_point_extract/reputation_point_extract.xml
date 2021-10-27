@@ -20,9 +20,9 @@
 		<tabitem name="tab_relief" parent="material_tab" width="200" caption="{@st66b}구호 물품{/}" layout_gravity="left top"/>
 		<slotset name="slotlist" parent="ingredientGbox" rect="0 0 360 0" margin="0 0 0 0" layout_gravity="center top" LBtnDownScp="REPUTATION_POINT_EXTRACT_ITEM_CLICK" LBtnDblClickScp="REPUTATION_POINT_EXTRACT_ITEM_CLICK" RBtnDownScp="REPUTATION_POINT_EXTRACT_ITEM_CLICK" col="7" row="5" cursoronresize="false" enabledrag="false" enableselect="true" hideindrag="true" maxselect="80" movepop="false" oversound="button_over" picksound="icon_pick_up" dropsound="icon_get_down" selectmode="count" size="58 58" image="slot" skin="invenslot2" spc="1 1"/>
 		<richtext name="title" rect="0 0 100 30" margin="0 11 0 0" layout_gravity="center top" caption="{@st43}구호 물품 조달{/}" hittest="false"/>
-		<richtext name="totalPoint" rect="0 0 420 30" margin="5 -40 0 0" layout_gravity="left center" parent="point_gb" format="{@st41b}현재 포인트: %s{/}" param1="value"/>
+		<richtext name="totalPoint" rect="0 0 420 30" margin="5 -40 0 0" layout_gravity="left center" parent="point_gb" format="{@st41b}현재 포인트: %s {#ffff00}/ MAX : %s{/}{/}" param1="value" param2="max"/>
 		<richtext name="addPoint" rect="0 0 420 30" margin="5 0 0 0" layout_gravity="left center" parent="point_gb" format="{@st41b}획득 포인트: %s{/}" param1="value"/>
-		<richtext name="afterPoint" rect="0 0 420 30" margin="5 40 0 0" layout_gravity="left center" parent="point_gb" format="{@st41b}증여 후 포인트: %s{/}" param1="value"/>
+		<richtext name="afterPoint" rect="0 0 420 30" margin="5 40 0 0" layout_gravity="left center" parent="point_gb" format="{@st41b}증여 후 포인트: %s {#ffff00}/ MAX : %s{/}{/}" param1="value" param2="max"/>
 		<button name="close" rect="-10 0 44 44" margin="0 15 17 0" layout_gravity="right top" LBtnUpScp="ui.CloseFrame('reputation_point_extract')" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" clicksound="button_click_big" oversound="button_over" image="testclose_button" texttooltip="{@st59}창을 닫습니다{/}"/>
 		<button name="repairBtn" rect="0 0 160 55" margin="0 0 0 20" layout_gravity="center bottom" LBtnUpScp="REPUTATION_POINT_EXTRACT_EXEC" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" caption="{@st41b}증여{/}" clicksound="button_click_stats_OK" oversound="button_over" skin="test_red_button"/>
 	</controls>

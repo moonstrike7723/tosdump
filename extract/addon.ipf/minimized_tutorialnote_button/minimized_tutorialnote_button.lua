@@ -24,15 +24,12 @@ function MINIMIZED_TUTORIALNOTE_EFFECT_CHECK(frame, msg, argStr, argNum)
 	
 	local frame = ui.GetFrame("minimized_tutorialnote_button");
 	local aObj = GetMyAccountObj();
-	local sObj = session.GetSessionObjectByName("ssn_klapeda");
-	if aObj== nil or sObj == nil then return; end
+	if aObj== nil then return; end
 
-	sObj = GetIES(sObj:GetIESObject());	
-
-	local ret1 = TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, sObj, "guide");
-	local ret2 = TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, sObj, "mission_1");
-	local ret3 = TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, sObj, "mission_2");
-	local ret4 = TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, sObj, "mission_3");
+	local ret1 = TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, "guide");
+	local ret2 = TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, "mission_1");
+	local ret3 = TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, "mission_2");
+	local ret4 = TUTORIALNOTE_MINIMIZED_POINT_PIC_CHECK(aObj, "mission_3");
 
 	local result = ret1 or ret2 or ret3 or ret4;
 	local ctrl = GET_CHILD(frame, "openBtn");

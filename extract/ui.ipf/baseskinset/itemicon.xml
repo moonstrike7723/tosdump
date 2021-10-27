@@ -6261,6 +6261,9 @@
 		<image name="icon_item_vibora_polishing_stone02_recipe" file="\icon\item\icon_item_vibora_polishing_stone02_recipe.png" imgrect="0 0 256 256" CMM_Caption="축복받은 연성제 제작서"/>
 		<image name="icon_item_goddess_card_reinforce" file="\icon\item\icon_item_goddess_card_reinforce.png" imgrect="0 0 256 256" CMM_Caption="추종자의 증표"/>
 		<image name="icon_item_housing_ticket_0001" file="\icon\item\icon_item_housing_ticket_0001.png" imgrect="0 0 256 256" CMM_Caption="하우징 배경 해금권"/>
+		<image name="icon_item_goddess_card_fragment_lv1" file="\icon\item\icon_item_goddess_card_fragment_lv1.png" imgrect="0 0 256 256" CMM_Caption="여신 강화용 카드"/>
+		<image name="icon_item_hub_red_01" file="\icon\item\icon_item_hub_red_01.png" imgrect="0 0 128 128" CMM_Caption="붉은 허브"/>
+		<image name="icon_item_hub_blue_01" file="\icon\item\icon_item_hub_blue_01.png" imgrect="0 0 128 128" CMM_Caption="푸른 허브"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_h_bigplant_set_01_green" file="\icon\housing\icon_item_h_bigplant_set_01_green.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 화단_01(초록색)"/>

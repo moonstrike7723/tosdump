@@ -8705,6 +8705,7 @@
 		<image name="tutorial_content_button_clicked" file="\skin\tutorial_notebook.tga" imgrect="759 531 66 69"/>
 		<image name="equipment_info_exclamation_mark" file="\skin\pip_test.tga" imgrect="0 1156 25 25" CMM_Caption="장비 느낌표"/>
 		<image name="equipment_info_btn_mark" file="\skin\pip_test.tga" imgrect="0 1182 27 28" CMM_Caption="장비 버튼 마크"/>
+		<image name="equipment_info_btn_mark2" file="\skin\pip_test.tga" imgrect="357 1154 27 28" CMM_Caption="장비 버튼 마크2"/>
 	</imagelist>
 	<imagelist category="yiseul_button">
 		<image name="pvpmine_shop_btn" file="\skin\pip_test.tga" imgrect="2049 61 66 59" CMM_Caption="용병단 증표 ui 버튼"/>
@@ -11775,6 +11776,7 @@
 		<image name="full_charge_fontimg2" file="\skin\pip_test.tga" imgrect="1798 470 110 35"/>
 	</imagelist>
 	<imagelist category="goddesscard">
+		<image name="goddess_card_fragment_lv1" file="\skin\goddesscard\goddess_card_fragment_lv1.tga" imgrect="0 0 330 440"/>
 		<image name="01_goddess_Lada" file="\skin\goddesscard\01_goddess_Lada.tga" imgrect="0 0 330 440"/>
 		<image name="02_goddess_Saule" file="\skin\goddesscard\02_goddess_Saule.tga" imgrect="0 0 330 440"/>
 		<image name="03_goddess_Austeja" file="\skin\goddesscard\03_goddess_Austeja.tga" imgrect="0 0 330 440"/>

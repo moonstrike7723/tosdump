@@ -2051,11 +2051,11 @@ function SCR_ABIL_Inquisitor28_INACTIVE(self, ability)
 end
 
 function SCR_ABIL_Daoshi27_ACTIVE(self, ability)
-    AddBuff(self, self, 'TriDisaster_Buff', 1, 0, 0, 1)
+    -- AddBuff(self, self, 'TriDisaster_Buff', 1, 0, 0, 1)
 end
 
 function SCR_ABIL_Daoshi27_INACTIVE(self, ability)
-    RemoveBuff(self, 'TriDisaster_Buff')
+    -- RemoveBuff(self, 'TriDisaster_Buff')
 end
 
 function SCR_ABIL_Terramancer18_ACTIVE(self, ability)

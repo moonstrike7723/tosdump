@@ -155,7 +155,8 @@ function REPUTATION_POINT_EXTRACT_INIT_POINT()
 	local pointName = REPUTATION_POINT_EXTRACT_GET_REPUTATION()
 	local totalPoint = GET_CHILD_RECURSIVELY(frame, "totalPoint")
 	local totalValue = TryGetProp(aObj, pointName)
-	totalPoint:SetTextByKey("value", totalValue)
+    totalPoint:SetTextByKey("value", totalValue)
+    totalPoint:SetTextByKey("max", GET_REPUTATION_MAX())
 
 	local addPoint = GET_CHILD_RECURSIVELY(frame, "addPoint")
     local addValue = GET_TOTAL_ADD_POINT(frame)
@@ -168,6 +169,7 @@ function REPUTATION_POINT_EXTRACT_INIT_POINT()
 
 	local afterPoint = GET_CHILD_RECURSIVELY(frame, "afterPoint")
     afterPoint:SetTextByKey("value", totalValue + addValue)
+    afterPoint:SetTextByKey("max", GET_REPUTATION_MAX())
 
 	SET_MATERIAL_POINT_INFO_LIST(frame)
 end

@@ -1,4 +1,4 @@
---- calc_property_skill.lua
+﻿--- calc_property_skill.lua
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function HAS_DRAGON_POWER(pc)
@@ -3232,6 +3232,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_ShadowFatter_Bufftime(skill)
+    local pc = GetSkillOwner(skill)
     local value = skill.Level * 2
     if IsPVPServer(pc) == 1 or IsPVPField(pc) == 1 then
         value = value / 2
@@ -10565,7 +10566,9 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_Get_OutofBody_Ratio(skill)
-    return 180
+    local value = 8 + skill.Level * 2
+
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
@@ -15434,7 +15437,7 @@ function SCR_Get_SkillFactor_EP13_Card_Saule(skill)
     local buff = GetBuffByName(pc, 'CARD_EP13_Saule_Equip')
     local now, notuse = GetBuffArg(buff)
     
-    local value = now * 3600
+    local value = now * 2520
     if IsPVPField(pc) == 1 then
         value = math.floor(value * 0.5)
     end
@@ -15903,4 +15906,36 @@ function SCR_GET_PrecisionFire_Ratio(skill)
     end
 
     return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_SKL_COOLDOWN_Unload(skill)
+    local pc = GetSkillOwner(skill)
+    local basicCoolDown = TryGetProp(skill, "BasicCoolDown", 0)
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown")
+
+    if GetExProp(pc, "ITEM_VIBORA_OrbitalArrow_LV4") > 0 then
+        basicCoolDown = basicCoolDown - 10000
+    end
+ 
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+
+    return math.floor(basicCoolDown)
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_SKL_COOLDOWN_BreastRipper(skill)
+    local pc = GetSkillOwner(skill)
+    local basicCoolDown = TryGetProp(skill, "BasicCoolDown", 0)
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown")
+
+    if GetExProp(pc, "ITEM_VIBORA_Outrage_LV4") > 0 then
+        basicCoolDown = basicCoolDown - 25000
+    end
+ 
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+
+    return math.floor(basicCoolDown)
 end

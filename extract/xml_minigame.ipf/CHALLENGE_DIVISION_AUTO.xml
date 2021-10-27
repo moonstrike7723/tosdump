@@ -75,7 +75,7 @@
                             <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="is_start_auto_challenge"/>
                                 <Str Str="=="/>
-                                <Num Num="1"/>
+                                <Num Num="0"/>
                             </ToolScp>
                         </condList>
                         <execList>
