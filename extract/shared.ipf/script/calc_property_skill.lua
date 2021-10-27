@@ -16136,18 +16136,7 @@ function SCR_Get_SkillFactor_Micro_Distortion(skill)
     local skl = GetSkill(pc, "Sage_HoleOfDarkness")
     local value = math.floor(TryGetProp(skl, "SkillFactor", 0) * 6)
     
-    value = value * 0.5
-
-    return value
-end
-
--- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
-function SCR_Get_SkillFactor_Ultimate_Distortion(skill)
-    local pc = GetSkillOwner(skill)
-    local skl = GetSkill(pc, "Sage_HoleOfDarkness")
-    local value = math.floor(TryGetProp(skl, "SkillFactor", 0) * 6)
-    
-    value = value * 0.1
+    value = value * 0.35
 
     return value
 end

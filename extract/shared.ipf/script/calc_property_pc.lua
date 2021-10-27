@@ -985,7 +985,7 @@ function SCR_Get_MINPATK_SUB(self)
     end
     
     local value = defaultValue + byLevel + byStat + byItem;
-    
+
     local maxAtk = 0;
     local maxAtkList = { "MAXATK", "PATK", "ADD_MAXATK" };
     for i = 1, #maxAtkList do
@@ -1172,7 +1172,7 @@ function SCR_Get_MINMATK(self)
     end
     
     local value = defaultValue + byLevel + byStat + byItem;
-    
+
     local maxAtk = 0;
     local maxAtkList = { "MATK", "ADD_MATK", "ADD_MAXATK" };
     for i = 1, #maxAtkList do
