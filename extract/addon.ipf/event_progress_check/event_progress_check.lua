@@ -138,8 +138,13 @@ function EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type)
     local clearlist = GET_EVENT_PROGRESS_CHECK_ACQUIRE_STATE_CLEAR_TEXT(type);
 
 	local y = 0;
-    for i = 1, 5 do
-		local ctrlSet = listgb:CreateControlSet('icon_with_current_state', "CTRLSET_" .. i,  ui.CENTER_HORZ, ui.TOP, 0, y, 0, 0);
+	local listCnt = GET_EVENT_PROGRESS_CHECK_LIST_COUNT(type);
+    for i = 1, listCnt do
+		local ctrlSet = listgb:CreateControlSet('icon_with_current_state', "CTRLSET_" .. i,  ui.LEFT, ui.TOP, 0, y, 0, 0);
+		if 5 < listCnt then
+			ctrlSet:Resize(500, 99);
+		end
+
 		local iconpic = GET_CHILD(ctrlSet, "iconpic");
 		iconpic:SetImage(iconlist[i]);
 
@@ -202,11 +207,11 @@ function EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type)
 
 			clear_text:SetTextByKey("value", ClMsg("EndEventMessage"));
 		end
-
-		if i == 2 then
+		
+		if maxvalue ~= 0 and GET_EVENT_PROGRESS_DAILY_PLAY_TIME_INDEX(type) == i then
 			local timetype = GET_EVENT_PROGRESS_DAILY_PLAY_TIME_TYPE(type);
 			if timetype == "min" then
-				maxvalue = ScpArgMsg("{Min}", "Min", maxvalue);
+				maxvalue = ScpArgMsg("{Min}", "Min", maxvalue);	
 			end
 		end
 
@@ -214,7 +219,7 @@ function EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type)
 			if i == 1 then
 				curvalue = curvalue .." ".. ClMsg("POINT");
 				maxvalue = maxvalue .." ".. ClMsg("Level");
-			elseif i == 5 then
+			elseif i == 6 then
 				curvalue = ScpArgMsg("{Min}", "Min", curvalue);
 			end
 		end
@@ -254,37 +259,39 @@ function EVENT_PROGRESS_CHECK_DAILY_PLAY_TIME_UPDATE(frame, msg, time)
 		return;
 	end
 
+	local type = frame:GetUserIValue("TYPE");
+	local ctrlIndex = GET_EVENT_PROGRESS_DAILY_PLAY_TIME_INDEX(type);
 	local listgb = GET_CHILD(frame, "listgb");
-
-	-- EVENT_2011_5TH
-	if frame:GetUserIValue("TYPE") == event_5th_type then
-		local ctrlSet = GET_CHILD_RECURSIVELY(listgb, "CTRLSET_5");
-		if ctrlSet == nil then
-			return;
-		end
-		
-		local state = GET_CHILD(ctrlSet, "state");
-		state:SetTextByKey("cur",ScpArgMsg("{Min}", "Min", time));
-        return;
-	end
-	
-	local ctrlSet = GET_CHILD_RECURSIVELY(frame, "CTRLSET_2");
+	local ctrlSet = GET_CHILD_RECURSIVELY(listgb, "CTRLSET_"..ctrlIndex);
 	if ctrlSet == nil then
 		return;
-    end
-    
+	end
+	
+	local countType = GET_EVENT_PROGRESS_DAILY_PLAY_TIME_TYPE(type);
+	local state = GET_CHILD(ctrlSet, "state");
+	if countType == "min" then
+		state:SetTextByKey("cur",ScpArgMsg("{Min}", "Min", time));
+	else
+		state:SetTextByKey("cur", time);
+	end
+	
     -- -- EVENT_2009_FULLMOON
     -- if frame:GetUserValue("TYPE") == 5 then
     --     return;
 	-- end
-		
-	local state = GET_CHILD(ctrlSet, "state");
-	state:SetTextByKey("cur", time);
 
-	if 60 <= tonumber(time) then
-		local blackbg = GET_CHILD(ctrlSet, "blackbg");
+	local accObj = GetMyAccountObj();
+    local clearlist = GET_EVENT_PROGRESS_CHECK_ACQUIRE_STATE_CLEAR_TEXT(type);
+	local maxlist = GET_EVENT_PROGRESS_CHECK_ACQUIRE_STATE_MAX_VALUE(type, accObj);
+	local maxvalue = tonumber(maxlist[ctrlIndex]);
+
+	if maxvalue ~= 0 and maxvalue <= time then
 		blackbg:ShowWindow(1);
 		blackbg:SetAlpha(90);
+
+		if clearlist[ctrlIndex] ~= "None" then
+			clear_text:SetTextByKey("value", ClMsg(clearlist[ctrlIndex]));
+		end
 	end
 end
 

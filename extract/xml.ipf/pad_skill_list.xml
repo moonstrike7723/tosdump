@@ -26976,7 +26976,7 @@ end"/>
 			</ToolScp>
 			<ToolScp Scp="PAD_USEABLE_PC" Client="NO" UseSleep="NO"/>
 			<ToolScp Scp="C_PAD_EFFECT_FORCE" Client="YES" UseSleep="NO">
-				<Str_Arg Str="I_force071_violet2" Arg="3"/>
+                <Str_Arg Str="I_force071_violet3" Arg="3"/>
 				<Num Num="20"/>
 			</ToolScp>
 		</createEvent>
@@ -27002,15 +27002,6 @@ end"/>
 			</ToolScp>
 		</destroyEvent>
 		<updateEvent>
-			<ToolScp Scp="PAD_DAMAGE_ENEMY" Client="NO" UseSleep="NO">
-				<Num Num="1"/>
-				<Num Num="0"/>
-				<Num Num="0"/>
-				<Str_Arg Str="F_hit009_rize_blue" Arg="1"/>
-				<Num Num="0"/>
-				<Num Num="0"/>
-				<Str Str="None"/>
-			</ToolScp>
 			<ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
 				<Num Num="-1000"/>
 				<Num Num="999999"/>

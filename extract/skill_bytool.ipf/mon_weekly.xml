@@ -3425,29 +3425,43 @@
     <Skill Name="Mon_weekly_boss_Tiny_bow_Skill_1">
         <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
             <HitList>
-                <Frame Type="SQUARE" Time="300" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="400" SklAngle="0.17453292" AniTime="500" RotAngle="0" ForceATK="0"/>
+                <Frame Type="SQUARE" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="15" Length="400" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
             </HitList>
             <EtcList>
-                <Anim Time="0" Anim="atk" Speed="1.5"/>
-                <Scp Scp="C_FORCE_EFT" Client="YES_Time" UseSleep="NO" Time="500">
-                    <Str_Arg Str="I_arrow009_1" Arg="0.80000001"/>
-                    <Str Str="arrow_cast"/>
-                    <Str_Arg Str="None" Arg="1"/>
-                    <Str Str="arrow_blow"/>
-                    <Str Str="SLOW"/>
-                    <Num Num="800"/>
-                    <Num Num="1"/>
-                    <Num Num="0"/>
-                    <Angle_Abs Angle="0"/>
-                    <Num Num="0"/>
+                <Anim Time="0" Anim="atk" Speed="1.2"/>
+                <Scp Scp="SKL_SET_TARGET_CIRCLE" Client="NO" UseSleep="NO" Time="0">
+                    <Pos Angle="0" Dist="-1.1617216e-27"/>
+                    <Num Num="200"/>
                     <Num Num="5"/>
-                    <Num Num="10"/>
+                    <Num Num="2"/>
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_MSL_THROW" Client="NO" UseSleep="YES" Time="900">
+                    <Str_Arg Str="I_arrow009_1" Arg="1"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str_Arg Str="I_force003_green" Arg="1"/>
+                    <Num Num="20"/>
+                    <Num Num="0.1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="2"/>
+                    <Num Num="1000"/>
+                    <Num Num="1"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
                     <Num Num="0"/>
                     <Num Num="1"/>
-                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
                     <Str Str="None"/>
-                    <PosDist Angle="0" Dist="0"/>
-                    <Num Num="0"/>
+                    <Num Num="1000"/>
+                    <Str Str="ENEMY"/>
+                    <Str Str="MSL_APPLIED_BUFF_CallBack"/>
                 </Scp>
             </EtcList>
         </MainSkl>
@@ -3766,7 +3780,7 @@ return buffName"/>
             <EtcList>
                 <Anim Time="0" Anim="skl1" Speed="1"/>
                 <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="500">
-                    <Str_Arg Str="I_force071_violet" Arg="3"/>
+                    <Str_Arg Str="I_force071_violet3" Arg="3"/>
                     <Str Str="Dummy_weapon_effect"/>
                     <Num Num="0"/>
                 </Scp>
@@ -4274,29 +4288,37 @@ return buffName"/>
     <Skill Name="Mon_weekly_boss_Tiny_mage_Skill_1">
         <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
             <HitList>
-                <Frame Type="SQUARE" Time="500" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="10" Length="80" SklAngle="0.17453292" AniTime="700" RotAngle="0" ForceATK="1" ScriptIndex="0" ScriptName="" SkillType="0"/>
+                <Frame Type="SQUARE" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="10" Length="80" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="1" ScriptIndex="0" ScriptName="" SkillType="0"/>
             </HitList>
             <EtcList>
                 <Anim Time="0" Anim="atk" Speed="1"/>
-                <Scp Scp="C_FORCE_EFT" Client="YES_Time" UseSleep="NO" Time="700">
-                    <Str_Arg Str="I_force083_leaf" Arg="0.60000002"/>
-                    <Str Str="arrow_cast"/>
-                    <Str_Arg Str="F_spread_out030_leaf2" Arg="0.40000001"/>
-                    <Str Str="arrow_blow"/>
-                    <Str Str="SLOW"/>
-                    <Num Num="200"/>
+                <Scp Scp="SKL_SET_TARGET_TOP_HATER" Client="NO" UseSleep="NO" Time="0">
+                    <Num Num="250"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_MSL_THROW" Client="NO" UseSleep="YES" Time="900">
+                    <Str_Arg Str="I_archer_canon_force2#Dummy_effect_wepon" Arg="1"/>
+                    <Str_Arg Str="I_explosion002_orange" Arg="1"/>
+                    <Str_Arg Str="I_force003_green" Arg="1"/>
+                    <Num Num="25"/>
+                    <Num Num="0.30000001"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Num Num="1"/>
+                    <Str_Arg Str="F_sys_target_monster" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
                     <Num Num="1"/>
                     <Num Num="0"/>
-                    <Angle_Abs Angle="0"/>
                     <Num Num="0"/>
-                    <Num Num="5"/>
-                    <Num Num="10"/>
-                    <Num Num="0"/>
-                    <Num Num="1"/>
-                    <Num Num="1"/>
                     <Str Str="None"/>
-                    <PosDist Angle="0" Dist="0"/>
-                    <Num Num="0"/>
+                    <Num Num="1000"/>
+                    <Str Str="ENEMY"/>
+                    <Str Str="MSL_APPLIED_BUFF_CallBack"/>
                 </Scp>
             </EtcList>
         </MainSkl>
@@ -5290,7 +5312,7 @@ return buffName"/>
             <ResultList>
                 <ToolScp Scp="S_R_TGTBUFF" Client="NO" UseSleep="NO">
                     <Str Str="Weekly_Solcomm_Electric_Debuff"/>
-                    <Num Num="99"/>
+                    <Num Num="1"/>
                     <Num Num="0"/>
                     <Num Num="30000"/>
                     <Num Num="1"/>
@@ -5491,7 +5513,7 @@ return buffName"/>
             <ResultList>
                 <ToolScp Scp="S_R_TGTBUFF" Client="NO" UseSleep="NO">
                     <Str Str="Weekly_Solcomm_Electric_Debuff"/>
-                    <Num Num="99"/>
+                    <Num Num="1"/>
                     <Num Num="0"/>
                     <Num Num="30000"/>
                     <Num Num="1"/>
@@ -5537,7 +5559,7 @@ return buffName"/>
                     <Num Num="1000"/>
                     <Str_Arg Str="None" Arg="1"/>
                     <Str Str="None"/>
-                    <Num Num="4"/>
+                    <Num Num="1"/>
                     <Num Num="60"/>
                     <Num Num="0"/>
                 </Scp>
@@ -5554,7 +5576,7 @@ return buffName"/>
                     <Num Num="1000"/>
                     <Str_Arg Str="None" Arg="1"/>
                     <Str Str="None"/>
-                    <Num Num="4"/>
+                    <Num Num="1"/>
                     <Num Num="60"/>
                     <Num Num="0"/>
                 </Scp>

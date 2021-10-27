@@ -488,6 +488,10 @@ return obj.Level;"/>
                     <Num Num="0"/>
                     <Num Num="0"/>
                 </Scp>
+                <Scp Scp="SKL_CONSUME_SP" Client="NO" UseSleep="NO" Time="200" LoopTime="1000">
+                    <Num Num="4" UseFunc="1" FuncTxt="local value = 35 + obj.Level * 1;
+                    return math.floor(value)"/>
+                </Scp>
                 <Scp Scp="SKL_TGT_DMG" Client="NO" UseSleep="NO" Time="200" LoopTime="300">
                     <Num Num="1"/>
                     <Num Num="1"/>

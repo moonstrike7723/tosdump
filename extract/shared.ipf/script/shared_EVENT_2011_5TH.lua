@@ -17,6 +17,25 @@ function GET_EVENT_2011_5TH_EVENT_LEVEL(point)
     return 0;
 end
 
+function GET_EVENT_2011_5TH_NEXT_EVENT_LEVEL_NEED_POINT(point)
+    local curLevel = 0;
+    for k, v in pairs(event_level_table) do
+        if tonumber(point) <= tonumber(v)then
+            curLevel = k;
+            break;
+        end
+    end
+
+    if curLevel == #event_level_table then
+        return 0;
+    end
+    
+    local nextLvPoint = event_level_table[curLevel] + 1;
+    local needPoint = nextLvPoint - point;
+
+    return needPoint;
+end
+
 function GET_EVENT_2011_5TH_SPECIAL_SHOP_UPDATE_NEED_COIN_COUNT()
     return 100;
 end
@@ -27,6 +46,10 @@ end
 
 function GET_EVENT_2011_5TH_COIN_FIELD_MAX_COUNT()
     return 100;
+end
+
+function GET_EVENT_2011_5TH_COIN_RAID_MAX_COUNT()
+    return 1400;
 end
 
 function GET_EVENT_2011_5TH_POINT_MAX_COUNT()
@@ -51,4 +74,12 @@ end
 
 function GET_EVENT_2011_5TH_FIREWORK_MAX_COUNT()
     return 3;
+end
+
+function GET_EVENT_2011_5TH_TOS_COIN_BONUS()
+    return 10;
+end
+
+function GET_EVENT_2011_5TH_TOS_COIN_BONUS_RANGE()
+    return 100;
 end

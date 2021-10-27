@@ -3755,6 +3755,8 @@
         <Key Name="EVENT_2011_5TH_SPECIAL_SHOP_S_2_5" Value="106922"/>
         <Key Name="EVENT_2011_5TH_SPECIAL_VIBORA_SHOP_USE_COUNT" Value="106890"/>
         <Key Name="EVENT_2011_5TH_TOS_COIN_TOTAL_COUNT" Value="106891"/>
+        <Key Name="EVENT_2011_5TH_COIN_USE_COUNT" Value="106941"/>
+        <Key Name="EVENT_2011_5TH_COIN_RAID_COUNT" Value="106942"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PCEtc">
         <Key Name="Kill_boss_Clymen_Q2" Value="7788"/>
@@ -12246,6 +12248,7 @@
         <Key Name="Kill_weekly_boss_lucy" Value="106862"/>
         <Key Name="Kill_weekly_boss_solcomm" Value="106863"/>
         <Key Name="Kill_weekly_solcomm_summon" Value="106868"/>
+        <Key Name="HaveEmoticon_120" Value="106943"/>
     </KeyIDSpc>
     <KeyIDSpc Name="GuildMember">
         <Key Name="Name" Value="9011"/>
