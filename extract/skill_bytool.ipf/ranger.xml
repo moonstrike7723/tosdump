@@ -1008,7 +1008,7 @@ end" Arg="1"/>
 			</EtcList>
 			<ResultList>
 				<ToolScp Scp="C_SR_EFT" Client="YES" UseSleep="NO">
-					<Str_Arg Str="F_hit_good_blue" Arg="0.69999999"/>
+					<Str_Arg Str="F_hit025_explosion" Arg="0.69999999"/>
 					<Pos Angle="0" Dist="0" PosType="1"/>
 					<Num Num="0"/>
 					<Num Num="0"/>

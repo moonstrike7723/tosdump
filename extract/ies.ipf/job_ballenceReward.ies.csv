@@ -84,7 +84,7 @@ ClassID,JobChangePoint,ClassName,Name,EngName,CtrlType,BaseClass,RewardDay_Start
 5008,0,Char5_8,[인챈터],Enchanter,Scout,,,,,,,,,
 5009,0,Char5_9,[링커],Linker,Scout,,,,,,,,,
 5010,0,Char5_10,[로그],Rogue,Scout,,,,,,,,,
-5011,1000,Char5_11,[슈바르츠라이터],Schwarzereiter,Scout,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,,,,
+5011,1000,Char5_11,[슈바르츠라이터],Schwarzereiter,Scout,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,Premium_AbillityArts_Schwarzereiter34_1d,,,
 5012,0,Char5_12,[불릿 마커],Bulletmarker,Scout,,,,,,,,,
 5013,0,Char5_13,[아르디티],Arditi,Scout,,,,,,,,,
 5014,1000,Char5_14,[셰리프],Sheriff,Scout,,,,Premium_SkillReset_14d,Premium_Abillitypoint_14d,,,,

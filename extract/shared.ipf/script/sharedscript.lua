@@ -3105,19 +3105,19 @@ function JOB_LUCHADOR_PRE_CHECK(pc, jobCount)
         jobCount = GetTotalJobCount(pc);
     end
     if jobCount >= 2 then
-        -- local aObj
-        -- if IsServerSection() == 0 then
-        --     aObj = GetMyAccountObj();
-        -- else
-        --     aObj = GetAccountObj(pc);
-        -- end
+        local aObj
+        if IsServerSection() == 0 then
+            aObj = GetMyAccountObj();
+        else
+            aObj = GetAccountObj(pc);
+        end
         
-        -- if aObj ~= nil then
-        --     local value = TryGetProp(aObj, 'UnlockQuest_Char1_23', 0)
-        --     if value == 1 or IS_KOR_TEST_SERVER() == true then
+        if aObj ~= nil then
+            local value = TryGetProp(aObj, 'UnlockQuest_Char1_23', 0)
+            if value == 1 or IS_KOR_TEST_SERVER() == true then
                 return 'YES'
-            -- end
-        -- end
+            end
+        end
     end
 
     return 'NO'
@@ -3691,4 +3691,52 @@ function UQ_GET_JOB_SETTING_JOB(JobClassName) -- job_unlockquest.xml에서 cls�
     if resultJob == nil then
         return nil;
     end
+end
+
+_collection_item_list = nil;
+_collection_list_by_item = nil
+function make_collection_item_list()
+	if _collection_item_list == nil then
+        _collection_item_list = {};
+        _collection_list_by_item = {}
+	end
+
+	local list, cnt = GetClassList("Collection");
+	for i = 0, cnt - 1 do
+		local cls = GetClassByIndexFromList(list, i);
+		if cls ~= nil then
+			for j = 1, 9 do
+				local prop_name = "ItemName_"..tostring(j);
+                local name = TryGetProp(cls, prop_name, "None");
+                local collection_name = TryGetProp(cls, 'Name', 'None')
+				if name ~= "None" then
+                    _collection_item_list[name] = 1;
+                    if _collection_list_by_item[name] == nil then
+                        _collection_list_by_item[name] = {}
+                    end
+
+                    _collection_list_by_item[name][collection_name] = 1
+				end
+			end
+		end
+	end
+end
+
+make_collection_item_list()
+
+function is_collection_item(class_name)
+	if _collection_item_list == nil then
+		make_collection_item_list();
+	end
+
+	if _collection_item_list[class_name] == nil then return false;
+	else return true; end
+end
+
+function get_collection_name_by_item(item_name)
+    if _collection_item_list == nil then
+		make_collection_item_list();
+    end
+    
+    return _collection_list_by_item[item_name]
 end

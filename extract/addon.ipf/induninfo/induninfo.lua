@@ -98,7 +98,7 @@ end
 
 function TOGGLE_INDUNINFO(frame,type)
 	--indun
-	do
+    do
 		local isShow = BoolToNumber(0 == type or 1 == type or 2 == type)
 		local indunbox = GET_CHILD_RECURSIVELY(frame,'indunbox')
 		indunbox:ShowWindow(isShow)
@@ -701,13 +701,13 @@ function GET_INDUN_MAX_ENTERANCE_COUNT(resetGroupID)
     end
 end
 
-function INDUNINFO_SET_CYCLE_PIC(ctrl,cls,postFix)
-    local imageName = GET_RESET_CYCLE_PIC_TYPE(cls,postFix)
+function INDUNINFO_SET_CYCLE_PIC(ctrl, cls, postFix)
+    local imageName = GET_RESET_CYCLE_PIC_TYPE(cls, postFix)
     if imageName == 'None' then
         ctrl:ShowWindow(0);
         return
     end
-    ctrl:SetImage(GET_INDUN_ICON_NAME(imageName,postFix))
+    ctrl:SetImage(GET_INDUN_ICON_NAME(imageName, postFix));
     if imageName == 'event' then
         local margin = ctrl:GetOriginalMargin();
         ctrl:SetMargin(margin.left, margin.top, margin.right - 6, margin.bottom);
@@ -1260,7 +1260,7 @@ function INDUNINVO_SET_PVP_RESULT(frame, pvpCls)
         local prop_value = win + lose;
 		pvp_info:SetTextByKey('total', prop_value);
 		prop_value = pvp_obj:GetPropValue(pvp_class_name.."_RP", 0);
-		pvp_score:SetTextByKey('score', prop_value);
+        pvp_score:SetTextByKey('score', prop_value);
     end
     pvp_info_set:Invalidate();
     frame:Invalidate();
@@ -1291,13 +1291,13 @@ function INDUNINFO_UPDATE_PVP_RESULT(frame, msg, arg_str, arg_num)
                     pvp_info:SetTextByKey("total", prop_value);
 
                     prop_value = pvp_obj:GetPropValue(world_pvp_cls_name.."_RP", 0);
-                    pvp_score:SetTextByKey("scroe", prop_value);
+                    pvp_score:SetTextByKey("score", prop_value);
                 end
                 pvp_info_set:Invalidate();
+                frame:Invalidate();
             end
         end
     end
-    frame:Invalidate();
 end
 
 function INDUNINFO_MAKE_DETAIL_COMMON_INFO(frame, indunCls, resetGroupID)
@@ -1431,7 +1431,7 @@ function INDUNINFO_SET_RESTRICT_SKILL(frame,indunCls)
     restrictSkillBox:ShowWindow(0);
     local mapName = TryGetProp(indunCls, "MapName");
     local dungeonType = TryGetProp(indunCls, "DungeonType");
-    local isLegendRaid = BoolToNumber(dungeonType == "Raid" or dungeonType == "GTower");
+    local isLegendRaid = BoolToNumber(dungeonType == "Raid" or dungeonType == "GTower" or string.find(dungeonType, "MythicDungeon") == 1);
 
     if mapName ~= nil and mapName ~= "None" then
         local indunMap = GetClass("Map", mapName);
@@ -1463,7 +1463,7 @@ function INDUNINFO_SET_RESTRICT_ITEM(frame,indunCls)
     end
 end
 
-function INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls)
+function INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls, subTypeCompare)
     local btnInfoCls = nil;
     if indunCls ~= nil then
         local dungeonType = TryGetProp(indunCls, "DungeonType", "None");
@@ -1485,6 +1485,14 @@ function INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls)
                     if dungeon_type ~= nil and dungeon_type ~= "None" and (dungeon_type == dungeonType or subType == "MoveEnterNPC" or dungeonType == "GTower") then
                         local sub_type = TryGetProp(cls, "SubType", "None");
                         if sub_type ~= nil and sub_type ~= "None" and sub_type == subType then
+                            btnInfoCls = cls;
+                            break;
+                        end
+                    end
+
+                    if subTypeCompare == true then
+                        local sub_type = TryGetProp(cls, "SubType", "None");
+                        if dungeon_type == dungeonType and sub_type == subType then
                             btnInfoCls = cls;
                             break;
                         end
@@ -1530,6 +1538,8 @@ function INDUNINFO_SET_BUTTONS(frame, indunCls)
             return;
         end
         btnInfoCls = INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls);
+    elseif string.find(dungeonType, "MythicDungeon") ~= nil then
+        btnInfoCls = INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls, true);
     end
 
     local type = 0
@@ -1598,8 +1608,13 @@ function INDUNINFO_SET_ADMISSION_ITEM(frame,indunCls)
         countText:SetText(ScpArgMsg("IndunAdmissionItem"))
         countData:ShowWindow(0);
         countItemData:ShowWindow(1);
-        INDUNINFO_SET_CYCLE_PIC(cycleCtrlPic,indunCls,'_l')
-        cycleImage:ShowWindow(0)
+        INDUNINFO_SET_CYCLE_PIC(cycleCtrlPic, indunCls, '_l')
+        cycleImage:ShowWindow(0);
+
+        if nowAdmissionItemCount >= 100 then
+            local margin = cycleCtrlPic:GetOriginalMargin();
+            cycleCtrlPic:SetMargin(margin.left, margin.top, margin.right + 10, margin.bottom);
+        end
 
         local admissionItemName = TryGetProp(indunCls, "AdmissionItemName");
         local admissionItemCls = GetClass('Item', admissionItemName);
@@ -1658,11 +1673,12 @@ function INDUNINFO_RESIZE_BY_BUTTONS(frame,type)
     local monBox = GET_CHILD_RECURSIVELY(frame, 'monBox');
     local mon_margin = monBox:GetOriginalMargin();
     monBox:SetMargin(mon_margin.left, mon_margin.top - resizeHeight, mon_margin.right, mon_margin.bottom);
+
     local rewardBox = GET_CHILD_RECURSIVELY(frame, 'rewardBox');
     local reward_margin = rewardBox:GetOriginalMargin();
     rewardBox:SetMargin(reward_margin.left, reward_margin.top - resizeHeight, reward_margin.right, reward_margin.bottom);
 
-	local patternBox = GET_CHILD_RECURSIVELY(frame, 'patternBox');
+    local patternBox = GET_CHILD_RECURSIVELY(frame, 'patternBox');
     local reward_margin = patternBox:GetOriginalMargin();
 	patternBox:SetMargin(reward_margin.left, reward_margin.top - resizeHeight, reward_margin.right, reward_margin.bottom);
 end
@@ -3611,7 +3627,7 @@ function REQ_RAID_SOLO_UI_OPEN(frame, ctrl)
     end
 
     local indun_classid = tonumber(ctrl:GetUserValue("MOVE_INDUN_CLASSID"));
-	local indun_cls = GetClassByType("Indun", indun_classid);
+    local indun_cls = GetClassByType("Indun", indun_classid);
     local dungeon_type = TryGetProp(indun_cls, "DungeonType", "None");
     local sub_type = TryGetProp(indun_cls, "SubType", "None");
     if dungeon_type ~= "Raid" and sub_type ~= "Casual" then

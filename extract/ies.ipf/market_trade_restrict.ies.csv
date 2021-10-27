@@ -2460,6 +2460,7 @@ ClassID,High,ClassName,Type
 685628,0,RedOrb_Nabu,NoTrade
 685629,0,RedOrb_Moringbird,NoTrade
 685630,0,RedOrb_Socket_bow_brown,NoTrade
+689001,0,Dungeon_Key02,NoTrade
 692001,0,TRK02_101,NoTrade
 692002,0,TRK02_102,NoTrade
 692003,0,TRK02_103,NoTrade
@@ -2473,6 +2474,7 @@ ClassID,High,ClassName,Type
 694010,0,TRK04_110,NoTrade
 695002,0,TRK05_102,NoTrade
 700502,0,KQ_recipe_hethran_material_1_1,NoTrade
+919031,0,R_Dungeon_Key02,NoTrade
 920006,0,R_SWD01_109,NoTrade
 920029,0,R_SWD02_115,NoTrade
 920098,0,R_SWD04_117,NoTrade

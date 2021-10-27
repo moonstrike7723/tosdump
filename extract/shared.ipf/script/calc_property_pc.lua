@@ -2666,9 +2666,8 @@ function SCR_Get_MSPD(self)
     end
     
     -- 최대 이속 제한 --
-    if value > 60 then
-        value = 60;
-
+    if value > PC_MAX_MSPD then
+        value = PC_MAX_MSPD;
         if GetExProp(self, 'RIDE_PET_MSPD_LIMIT_INCREASE') > 0 then
             value = value + GetExProp(self, 'RIDE_PET_MSPD_LIMIT_INCREASE')
         end
