@@ -3019,3 +3019,28 @@ function SCR_ABIL_CHAPLAIN23_INACTIVE(self, ability)
     self.Add_Damage_Atk_BM = self.Add_Damage_Atk_BM - adddmgatk; 
 end
 
+function SCR_ABIL_ARQUEBUSIER19_ACTIVE(self, ability)
+    local sklList, cnt = GetPCSkillList(self);
+    if cnt ~= nil then
+        for i = 1, cnt do
+            local skl = sklList[i]
+            if skl ~= nil and TryGetProp(skl, 'Job', 'None') == "Arquebusier" then
+                skl.AttackType = "Cannon"
+                InvalidateSkill(self, TryGetProp(skl, "ClassName", "None"))
+            end
+        end
+    end
+end
+
+function SCR_ABIL_ARQUEBUSIER19_INACTIVE(self, ability)
+    local sklList, cnt = GetPCSkillList(self);
+    if cnt ~= nil then
+        for i = 1, cnt do
+            local skl = sklList[i]
+            if skl ~= nil and TryGetProp(skl, 'Job', 'None') == "Arquebusier" then
+                skl.AttackType = "Gun"
+                InvalidateSkill(self, TryGetProp(skl, "ClassName", "None"))
+            end
+        end
+    end
+end

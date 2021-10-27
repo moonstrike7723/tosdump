@@ -2,6 +2,7 @@ function INDUNENTER_ON_INIT(addon, frame)
     addon:RegisterMsg('MOVE_ZONE', 'INDUNENTER_CLOSE');
     addon:RegisterMsg('CLOSE_UI', 'INDUNENTER_CLOSE');
     addon:RegisterMsg('ESCAPE_PRESSED', 'INDUNENTER_ON_ESCAPE_PRESSED');
+	addon:RegisterMsg('UPDATE_MYTHIC_DUNGEON_PATTERN', 'INDUNENTER_MAKE_PATTERN_BOX');    
     
     PC_INFO_COUNT = 5;
 end
@@ -192,9 +193,9 @@ function SHOW_INDUNENTER_DIALOG(indunType, isAlreadyPlaying, enableAutoMatch, en
     INDUNENTER_UPDATE_PC_COUNT(frame, nil, "None", 0);
     INDUNENTER_MAKE_MONLIST(frame, indunCls);
     INDUNENTER_MAKE_ETCINFO_BOX(frame, indunCls);
-
+	INDUNENTER_REQUEST_PATTERN(frame,indunCls);
     -- setting
-    INDUNENTER_INIT_MEMBERBOX(frame);
+	INDUNENTER_INIT_MEMBERBOX(frame);
     INDUNENTER_AUTOMATCH_TYPE(0);
     INDUNENTER_AUTOMATCH_PARTY(0);
     INDUNENTER_SET_MEMBERCNTBOX();
@@ -295,8 +296,14 @@ end
 
 -- 스킬 제한 경고문
 function INDUNENTER_MAKE_ALERT(frame, indunCls)
-    local restrictBox = GET_CHILD_RECURSIVELY(frame, 'restrictBox');
-    restrictBox:ShowWindow(0);
+	INDUNENTER_MAKE_SKILL_ALERT(frame, indunCls)
+	INDUNENTER_MAKE_ITEM_ALERT(frame, indunCls)
+	local restrictBox = GET_CHILD_RECURSIVELY(frame, 'restrictBox');
+    GBOX_AUTO_ALIGN(restrictBox, 2, 2, 0, true, true,true);
+end
+function INDUNENTER_MAKE_SKILL_ALERT(frame, indunCls)
+	local restrictSkillBox = GET_CHILD_RECURSIVELY(frame, 'restrictSkillBox');
+    restrictSkillBox:ShowWindow(0);
 
     local mapName = TryGetProp(indunCls, "MapName");
     local dungeonType = TryGetProp(indunCls, "DungeonType");
@@ -309,20 +316,38 @@ function INDUNENTER_MAKE_ALERT(frame, indunCls)
         local indunMap = GetClass("Map", mapName);
         local mapKeyword = TryGetProp(indunMap, "Keyword");
         if mapKeyword ~= nil and string.find(mapKeyword, "IsRaidField") ~= nil then
-            restrictBox:ShowWindow(1);
-            restrictBox:SetTooltipOverlap(1);
+            restrictSkillBox:ShowWindow(1);
+            restrictSkillBox:SetTooltipOverlap(1);
             local TOOLTIP_POSX = frame:GetUserConfig("TOOLTIP_POSX");
             local TOOLTIP_POSY = frame:GetUserConfig("TOOLTIP_POSY");
-            restrictBox:SetPosTooltip(TOOLTIP_POSX, TOOLTIP_POSY);
-            restrictBox:SetTooltipType("skillRestrictList");
-            restrictBox:SetTooltipArg("IsRaidField", isLegendRaid);
+            restrictSkillBox:SetPosTooltip(TOOLTIP_POSX, TOOLTIP_POSY);
+            restrictSkillBox:SetTooltipType("skillRestrictList");
+            restrictSkillBox:SetTooltipArg("IsRaidField", isLegendRaid);
         end
+    end
+end
+function INDUNENTER_MAKE_ITEM_ALERT(frame, indunCls)
+    local restrictItemBox = GET_CHILD_RECURSIVELY(frame, 'restrictItemBox');
+    restrictItemBox:ShowWindow(0);
+
+    local mapName = TryGetProp(indunCls, "MapName");
+    local dungeonType = TryGetProp(indunCls, "DungeonType");
+	local cls = GetClassByStrProp("ItemRestrict","Category",dungeonType)
+    if cls ~= nil then
+		restrictItemBox:ShowWindow(1);
+		restrictItemBox:SetTooltipOverlap(1);
+		local TOOLTIP_POSX = frame:GetUserConfig("TOOLTIP_POSX");
+		local TOOLTIP_POSY = frame:GetUserConfig("TOOLTIP_POSY");
+		restrictItemBox:SetPosTooltip(TOOLTIP_POSX, TOOLTIP_POSY);
+		restrictItemBox:SetTooltipType("itemRestrictList");
+		restrictItemBox:SetTooltipArg(dungeonType);
     end
 end
 
 function INDUNENTER_MAKE_CHALLENGE_DIVISION_HELP_TEXT(frame)
     if frame == nil then return; end
-    INDUNENTER_SHOW_WINDOW_MONBOX_AND_REWARDBOX(frame, 0);
+    INDUNENTER_SHOW_WINDOW_MONBOX(frame, 0);
+    INDUNENTER_SHOW_WINDOW_REWARDBOX(frame, 0);
 
     local indun_cls = GetClass("contents_info", "ChallengeMode_HardMode");
     if indun_cls == nil then return; end
@@ -332,7 +357,7 @@ function INDUNENTER_MAKE_CHALLENGE_DIVISION_HELP_TEXT(frame)
         local map_help_text = GET_CHILD_RECURSIVELY(frame, "mapHelpText");
         map_help_text:SetTextByKey("text", ClMsg("challenge_auto_division_mode_day_help_text"));
 
-        for i = 1, 6 do
+        for i = 1, 7 do
             local map_text = GET_CHILD_RECURSIVELY(frame, "mapText"..i);
             if map_text ~= nil then
                 local map = map_list[i];
@@ -344,13 +369,17 @@ function INDUNENTER_MAKE_CHALLENGE_DIVISION_HELP_TEXT(frame)
                         local text = ScpArgMsg(cl_msg, "mapName", name);
                         map_text:SetText(text);
                     end
+                else
+                    if i == 7 then
+                        map_text:SetText(ClMsg("challenge_auto_division_mode_day_"..i));
+                    end
                 end
             end
         end
     end
 end
 
-function INDUNENTER_SHOW_WINDOW_MONBOX_AND_REWARDBOX(frame, isVisible)
+function INDUNENTER_SHOW_WINDOW_MONBOX(frame, isVisible)
     local mon_slot_set = GET_CHILD_RECURSIVELY(frame, 'monSlotSet');
     local mon_right_btn = GET_CHILD_RECURSIVELY(frame, 'monRightBtn');
     local mon_left_btn = GET_CHILD_RECURSIVELY(frame, 'monLeftBtn');
@@ -362,10 +391,7 @@ function INDUNENTER_SHOW_WINDOW_MONBOX_AND_REWARDBOX(frame, isVisible)
     mon_text:ShowWindow(isVisible);
     mon_pic:ShowWindow(isVisible);
 
-    local reward_box = GET_CHILD_RECURSIVELY(frame, "rewardBox");
-    reward_box:ShowWindow(isVisible);
-
-    for i = 1, 6 do
+    for i = 1, 7 do
         local map_help_box = GET_CHILD_RECURSIVELY(frame, "mapHelpBox");
         if map_help_box ~= nil then
             if isVisible == 0 then map_help_box:ShowWindow(1);
@@ -386,6 +412,11 @@ function INDUNENTER_SHOW_WINDOW_MONBOX_AND_REWARDBOX(frame, isVisible)
     end
 end
 
+function INDUNENTER_SHOW_WINDOW_REWARDBOX(frame,isVisible)
+	local reward_box = GET_CHILD_RECURSIVELY(frame, "rewardBox");
+    reward_box:ShowWindow(isVisible);
+end
+
 function INDUNENTER_MAKE_MONLIST(frame, indunCls)
     if frame == nil then
         return;
@@ -399,10 +430,25 @@ function INDUNENTER_MAKE_MONLIST(frame, indunCls)
    
      -- 챌린지 모드 자동매칭 분열 위치 표시 처리
     if indunCls ~= nil and TryGetProp(indunCls, "PlayPerResetType") == 816 then
-        INDUNENTER_MAKE_CHALLENGE_DIVISION_HELP_TEXT(frame, indunCls);
-        return;
-    else
-        INDUNENTER_SHOW_WINDOW_MONBOX_AND_REWARDBOX(frame, 1);
+        if frame:GetName() == "induninfo" then
+            INDUNENTER_MAKE_CHALLENGE_DIVISION_HELP_TEXT(frame, indunCls);
+            return;
+        else
+            INDUNENTER_SHOW_WINDOW_MONBOX(frame, 1);
+        end
+	else
+		INDUNENTER_SHOW_WINDOW_MONBOX(frame, 1);
+		local dungeonType = TryGetProp(indunCls,"DungeonType","None")
+		local is_mythic_dungeon = string.find(dungeonType,"MythicDungeon") == 1
+		local is_four_buttons = false;
+		local buttonCls = GetClass("IndunInfoButton",dungeonType)
+		if buttonCls ~= nil then
+			if (TryGetProp(buttonCls,"RedButtonText","None") ~= "None" or TryGetProp(buttonCls,"Button3Text","None") ~= "None") and
+					(TryGetProp(buttonCls,"Button2Text","None") ~= "None" or TryGetProp(buttonCls,"Button1Text","None") ~= "None") then
+				is_four_buttons = true
+			end
+		end
+        INDUNENTER_SHOW_WINDOW_REWARDBOX(frame, BoolToNumber(is_mythic_dungeon == false and is_four_buttons == false));
     end
 
     -- init
@@ -460,6 +506,49 @@ function INDUNENTER_MAKE_ETCINFO_BOX(frame, indunCls)
     else
         etcInfoBox:ShowWindow(0)
     end
+end
+
+function INDUNENTER_REQUEST_PATTERN(frame,indunCls)
+	local dungeonType = TryGetProp(indunCls,"DungeonType")
+	local patternBox = GET_CHILD_RECURSIVELY(frame, 'patternBox');
+	local rewardBox = GET_CHILD_RECURSIVELY(frame, 'rewardBox');
+	if string.find(dungeonType,"MythicDungeon") == 1 then
+		mythic_dungeon.RequestCurrentSeason();
+		patternBox:ShowWindow(1)
+	else
+		patternBox:ShowWindow(0)
+	end
+end
+
+function INDUNENTER_MAKE_PATTERN_BOX(frame,msg,argStr,argNum)
+	local indunType = frame:GetUserIValue('INDUN_TYPE');
+	local indunCls = GetClassByType("Indun",indunType)
+	if indunCls == nil then
+		return
+	end
+	local patternBox = GET_CHILD_RECURSIVELY(frame, 'patternBox');
+	local gbox = GET_CHILD_RECURSIVELY(patternBox,"patternSlotSet")
+	patternBox:ShowWindow(1)
+	
+	local pattern_list = GET_INDUN_PATTERN_ID_LIST(indunCls)
+	if #pattern_list == 0 then
+		patternBox:ShowWindow(0)
+		return
+	end
+	gbox:ClearIconAll();
+	for i = 1,#pattern_list do
+		local patternID = pattern_list[i]
+		local pattern = GetClassByType("boss_pattern",patternID)
+		INDUNINFO_PATTERN_BOX_ADD_ICON(gbox,pattern,i)
+	end
+	gbox:SetUserValue('CURRENT_SLOT', 1);
+	gbox:SetUserValue('MAX_SLOT', #pattern_list);
+	local margin = gbox:GetOriginalMargin();
+    gbox:SetMargin(margin.left, margin.top, margin.right, margin.bottom);
+	local patternRightBtn = GET_CHILD(patternBox,"patternRightBtn")
+	local patternLeftBtn = GET_CHILD(patternBox,"patternLeftBtn")
+	patternRightBtn:SetEnable(BoolToNumber(#pattern_list>5))
+	patternLeftBtn:SetEnable(0)
 end
 
 -- 큐브 재개봉 시스템 개편에 따른 변경사항으로 보상 아이템 목록 보여주는 부분 큐브 대신 구성품으로 풀어서 보여주도록 변경함(2019.2.27 변경)
@@ -1329,7 +1418,8 @@ function INDUNENTER_AUTOMATCH_TYPE(indunType, needUnderstaffAllow)
         local indunCls = GetClassByType('Indun', indunType)
         if indunCls ~= nil then
             local dungeonType = TryGetProp(indunCls, 'DungeonType', 'None')
-            if dungeonType == 'Raid' or dungeonType == 'GTower' or dungeonType == "Challenge_Auto" then
+            local bannedDungeonType = {'Raid','GTower','Challenge_Auto','MythicDungeon_Auto','MythicDungeon_Auto_Hard'}
+            if table.find(bannedDungeonType,dungeonType) ~= 0 then
                 needUnderstaffAllow = 0;
             end
         end
@@ -1679,6 +1769,47 @@ function INDUNENTER_MON_CLICK_LEFT(parent, ctrl)
        ctrl:SetEnable(0);
     end
     local rightBtn = GET_CHILD_RECURSIVELY(topFrame, 'monRightBtn');
+    rightBtn:SetEnable(1);
+end
+
+function INDUNENTER_PATTERN_CLICK_RIGHT(parent,ctrl)
+    local topFrame = parent:GetTopParentFrame();
+
+    local patternSlotSet = GET_CHILD_RECURSIVELY(topFrame, 'patternSlotSet');
+	local currentSlot = patternSlotSet:GetUserIValue('CURRENT_SLOT');
+	local slotCnt = patternSlotSet:GetUserIValue('MAX_SLOT');
+    if currentSlot + 4 >= slotCnt then
+        return;
+    end
+            
+	UI_PLAYFORCE(patternSlotSet, "slotsetLeftMove_1");
+    patternSlotSet:SetUserValue('CURRENT_SLOT', currentSlot + 1);
+
+    -- button enable
+    if currentSlot + 5 >= slotCnt then
+       ctrl:SetEnable(0);
+    end
+    local leftBtn = GET_CHILD_RECURSIVELY(topFrame, 'patternLeftBtn');
+    leftBtn:SetEnable(1);
+end
+
+function INDUNENTER_PATTERN_CLICK_LEFT(parent,ctrl)
+    local topFrame = parent:GetTopParentFrame();
+
+    local patternSlotSet = GET_CHILD_RECURSIVELY(topFrame, 'patternSlotSet');
+    local currentSlot = patternSlotSet:GetUserIValue('CURRENT_SLOT');
+    if currentSlot == 1 then
+        return
+    end
+        
+    UI_PLAYFORCE(patternSlotSet, "slotsetRightMove_1");
+    patternSlotSet:SetUserValue('CURRENT_SLOT', currentSlot - 1);
+
+     -- button enable
+    if currentSlot - 1 == 1 then
+       ctrl:SetEnable(0);
+    end
+    local rightBtn = GET_CHILD_RECURSIVELY(topFrame, 'patternRightBtn');
     rightBtn:SetEnable(1);
 end
 

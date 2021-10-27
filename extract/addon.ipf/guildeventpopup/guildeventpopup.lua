@@ -1,4 +1,4 @@
-function GUILDEVENTPOPUP_ON_INIT(addon, frame)
+﻿function GUILDEVENTPOPUP_ON_INIT(addon, frame)
 	addon:RegisterMsg("GUILD_EVENT_RECRUITING_START", "ON_GUILD_EVENT_RECRUITING_START");		
 	addon:RegisterMsg("GUILD_EVENT_RECRUITING_END", "ON_GUILD_EVENT_RECRUITING_END");		
 	addon:RegisterMsg("GUILD_EVENT_RECRUITING_LIST", "ON_GUILD_EVENT_RECRUITING_LIST");		
@@ -15,11 +15,11 @@ function ON_GUILD_EVENT_WAITING_LOCATION(frame, msg, argstr, argnum)
 	if #posList ~= 3 then
 		return;
 	end
-	local pos = MakeVec3(posList[1], posList[2], posList[3])
 
+	local pos = MakeVec3(posList[1], posList[2], posList[3]);
 	local mapCls = GetClassByType("Map", argnum);
 	local txt_locinfo = MAKE_LINK_MAP_TEXT_NO_POS_NO_FONT(mapCls.ClassName, pos.x, pos.z);
-	local locationInfo = GET_CHILD_RECURSIVELY(frame, "locationInfo")
+	local locationInfo = GET_CHILD_RECURSIVELY(frame, "locationInfo");
 	locationInfo:SetTextByKey("value", txt_locinfo);
 
 	local mapprop = session.GetCurrentMapProp();
@@ -46,7 +46,6 @@ function INIT_GUILD_EVENT_TABLE(eventID, timeStr, recruitingSec, maxPlayerCnt)
 end
 
 function ON_GUILD_EVENT_RECRUITING_START(frame, msg, argstr, argnum)
-
 	local btn_join = GET_CHILD(frame, "btn_join");
 	local btn_close = GET_CHILD(frame, "btn_close");
 	local groupbox_1 = GET_CHILD(frame, "groupbox_1");
@@ -56,6 +55,9 @@ function ON_GUILD_EVENT_RECRUITING_START(frame, msg, argstr, argnum)
 	if eventCls == nil then
 		return;
 	end
+
+	frame:SetUserValue("eventID", argnum);
+
 	local mapCls = GetClass("Map", eventCls.StartMap);
 	if mapCls == nil then
 		return;
@@ -145,6 +147,30 @@ function ON_GUILD_EVENT_RECRUITING_OUT(frame, msg, argstr, argnum)
 end
 
 function REQ_JOIN_GUILD_EVENT(parent, ctrl)
+	local evnet_id = tonumber(parent:GetUserValue("eventID"));
+	if evnet_id == 500 or evnet_id == 501 then
+		local msg = "None";
+		if evnet_id == 500 then
+			local cls = GetClassByType("GuildEvent", evnet_id)
+			local compare_cls = GetClassByType("GuildEvent", 501);
+			if compare_cls ~= nil then
+				msg = ScpArgMsg("guild_event_start_guild_member{guildEvent}{compareEvent}", "guildEvent", cls.Name, "compareEvent", compare_cls.Name);
+			end
+		elseif evnet_id == 501 then
+			local cls = GetClassByType("GuildEvent", evnet_id)
+			local compare_cls = GetClassByType("GuildEvent", 500);
+			if compare_cls ~= nil then
+				msg = ScpArgMsg("guild_event_start_guild_member{guildEvent}{compareEvent}", "guildEvent", cls.Name, "compareEvent", compare_cls.Name);
+			end
+		end
+		local yes_scp = string.format("REQ_JOIN_GUILD_EVENT_EXEC()");
+		ui.MsgBox(msg, yes_scp, "None");
+	else
+		control.CustomCommand("GUILDEVENT_JOIN", 0);
+	end
+end
+
+function REQ_JOIN_GUILD_EVENT_EXEC()
 	control.CustomCommand("GUILDEVENT_JOIN", 0);
 end
 
