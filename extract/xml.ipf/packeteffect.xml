@@ -6077,6 +6077,16 @@
 		<Effect Name="F_light111_blue_star "/>
 		<Effect Name="I_light005_blue_attach"/>
 		<Effect Name="F_blackfall001"/>
+		<Effect Name="I_laser_vibora_red"/>
+		<Effect Name="I_laser_vibora_blue"/>
+		<Effect Name="I_laser_vibora_yellow"/>
+		<Effect Name="F_hit009_water3"/>
+		<Effect Name="F_vibora_lightning"/>
+		<Effect Name="F_burstup007_smoke3"/>
+		<Effect Name="I_wizard_viboraTiger"/>
+		<Effect Name="F_scratch_001"/>
+		<Effect Name="swd_blow_critical1"/>
+		<Effect Name="FEED3"/>
 	</Category>
 	<Category ID="28">
 		<Effect Name="F_explosion006_green#Dummy_skl2_shot"/>

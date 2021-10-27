@@ -106,7 +106,7 @@
             </HitList>
             <EtcList>
                 <Scp Scp="MONSKL_C_PLAY_ANIM" Client="YES" UseSleep="NO" Time="0" LoopTime="800">
-                    <Str Str="skl_grindcutter_ride"/>
+                    <Str Str="skl_grindcutter"/>
                     <Num Num="1"/>
                     <Num Num="1"/>
                     <Num Num="0"/>

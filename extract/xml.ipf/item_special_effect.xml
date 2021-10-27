@@ -2587,6 +2587,24 @@
 			</Creation>
 		</Layer>
 	</ItemList>
+	<ItemList ItemClassName="wing_botruta">
+		<Layer effect="I_boss_boruta_wing_mash" TargetNode="Dummy_wing" scale="1" offset="0;0">
+			<Creation>
+				<Property PlayMoment="None">
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO" AlwaysVisible="YES"/>
+					<Sound SoundName="None" SoundVolume="1"/>
+				</Property>
+			</Creation>
+		</Layer>
+		<Layer effect="E_wing_boruta" TargetNode="Dummy_wing" scale="1.5" offset="0;0">
+			<Creation>
+				<Property PlayMoment="None">
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO" AlwaysVisible="YES"/>
+					<Sound SoundName="None" SoundVolume="1"/>
+				</Property>
+			</Creation>
+		</Layer>
+	</ItemList>
 </List>
 <!--프로퍼티 설명
 

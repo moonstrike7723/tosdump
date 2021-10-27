@@ -272,6 +272,13 @@ function EXCHANGEWEAPONTYPE_SHOW_RESULT_ITEM(frame, itemId)
 	if resultSlot ~= nil then
 		resultSlot:SetUserValue("SELECTED_ID", itemId);
 	end
+	
+	local targetIcon = resultSlot:GetIcon();
+	if targetIcon == nil then
+		targetIcon = CreateIcon(resultSlot);
+	end
+	targetIcon:SetTooltipType('wholeitem');
+	targetIcon:SetTooltipArg("None", itemId);
 
 	local resultSlotPicture = GET_CHILD_RECURSIVELY(frame, "item_pic_2", "ui::CPicture");
 	if resultSlotPicture ~= nil then

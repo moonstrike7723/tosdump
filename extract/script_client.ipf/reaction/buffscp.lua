@@ -1654,16 +1654,3 @@ function DesperateDefenseClientScp_LEAVE(actor, obj, buff)
         actor:GetAnimation():SetRUNAnim("SKL_SNIPERSSERENITY_AWLK");
     end
 end
-
-function BorutaWing_ENTER(actor, obj, buff)
-    effect.PlayActorEffect(actor, 'I_boss_boruta_wing_mash', 'Dummy_wing', 0, 1)
-    effect.PlayActorEffect(actor, 'E_wing_boruta', 'Dummy_wing', 0, 1.2)
-    actor:SetEquipItemFlagProp("WING", 1);
-end
-
-function BorutaWing_LEAVE(actor, obj, buff)
-    effect.DetachActorEffect(actor, "I_boss_boruta_wing_mash", 0);
-    effect.DetachActorEffect(actor, "E_wing_boruta", 0);
-    actor:SetEquipItemFlagProp("WING", 0);
-
-end
