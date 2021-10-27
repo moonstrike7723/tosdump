@@ -550,6 +550,7 @@
 		<image name="Icon_cler_Astral_Body_Smite" file="\icon\skill\cleric\Icon_cler_Astral_Body_Smite.png" imgrect="0 0 128 128" CMM_Caption="유체 강타"/>
 		<image name="icon_cler_SadhuSoul" file="\icon\skill\cleric\icon_cler_SadhuSoul.png" imgrect="0 0 128 128" CMM_Caption="사두 영혼"/>
 		<image name="icon_healingwave_buff" file="\icon\skill\cleric\icon_healingwave_buff.png" imgrect="0 0 128 128" CMM_Caption="아크 치유의 물결"/>
+		<image name="icon_cler_GrandCross" file="\icon\skill\cleric\icon_cler_GrandCross.png" imgrect="0 0 128 128" CMM_Caption="그랜드 크로스"/>
 	</imagelist>
 	<imagelist category="warrior_skillicon">
 		<image name="icon_warri_thrust" file="\icon\skill\warrior\icon_warri_thrust.png" imgrect="0 0 128 128" CMM_Caption="쓰러스트"/>
@@ -885,6 +886,7 @@
 		<image name="icon_rest_ark_composition" file="\icon\rest_mode_icon.tga" imgrect="128 1024 128 128" CMM_Caption="아크 합성"/>
 		<image name="icon_rest_ark_relocation" file="\icon\rest_mode_icon.tga" imgrect="256 1024 128 128" CMM_Caption="아크 이전"/>
 		<image name="icon_rest_set_option" file="\icon\rest_mode_icon.tga" imgrect="384 1024 128 128" CMM_Caption="세트 옵션 관리"/>
+		<image name="icon_rest_linksoul_relocation" file="\icon\rest_mode_icon.tga" imgrect="0 1152 128 128" CMM_Caption="아이커 이전"/>
 	</imagelist>
 	<imagelist category="skillicon">
 		<image name="icon_war_thrust" file="\icon\skill_icon_warrior.tga" imgrect="0 0 64 64" CMM_Caption="쓰러스트"/>
@@ -3069,6 +3071,16 @@
 		<image name="ability_cleric_Sadhu32" file="\icon\icon_ability_cleric08.tga" imgrect="128 512 128 128" CMM_Caption="유체 강타: 강화"/>
 		<image name="ability_cleric_Sadhu33" file="\icon\icon_ability_cleric08.tga" imgrect="256 512 128 128" CMM_Caption="[아츠]유체 강타: 상급강화"/>
 		<image name="ability_cleric_Sadhu34" file="\icon\icon_ability_cleric08.tga" imgrect="384 512 128 128" CMM_Caption="유체 강타: 속공"/>
+		<image name="ability_cleric_Cleric32" file="\icon\icon_ability_cleric08.tga" imgrect="512 512 128 128" CMM_Caption="힐: 타락 구체"/>
+		<image name="ability_cleric_Cleric33" file="\icon\icon_ability_cleric08.tga" imgrect="640 512 128 128" CMM_Caption="힐: 타락 구체 강화"/>
+		<image name="ability_cleric_Cleric34" file="\icon\icon_ability_cleric08.tga" imgrect="768 512 128 128" CMM_Caption="[아츠] 힐: 타락 구체 상급강화"/>
+		<image name="ability_cleric_Cleric35" file="\icon\icon_ability_cleric08.tga" imgrect="896 512 128 128" CMM_Caption="수호성인: 속죄"/>
+		<image name="ability_cleric_Druid28" file="\icon\icon_ability_cleric08.tga" imgrect="0 640 128 128" CMM_Caption="스트레아 트로페: 지속"/>
+		<image name="ability_cleric_crusader22" file="\icon\icon_ability_cleric08.tga" imgrect="128 640 128 128" CMM_Caption="링 오브 라이트: 홀리 해머"/>
+		<image name="ability_cleric_Kriwi30" file="\icon\icon_ability_cleric08.tga" imgrect="256 640 128 128" CMM_Caption="파이어티: 강화"/>
+		<image name="ability_cleric_Kriwi31" file="\icon\icon_ability_cleric08.tga" imgrect="384 640 128 128" CMM_Caption="[아츠]파이어티: 상급강화"/>
+		<image name="ability_cleric_Kriwi33" file="\icon\icon_ability_cleric08.tga" imgrect="512 640 128 128" CMM_Caption="[아츠]파이어티: 포커스"/>
+		<image name="ability_cleric_Kriwi32" file="\icon\icon_ability_cleric08.tga" imgrect="640 640 128 128" CMM_Caption="다이노: 강화"/>
 	</imagelist>
 	<imagelist category="abilityicon_common">
 		<image name="ability_common_DaggerMastery" file="\icon\icon_ability_common.tga" imgrect="0 0 128 128" CMM_Caption="단검 마스터리"/>

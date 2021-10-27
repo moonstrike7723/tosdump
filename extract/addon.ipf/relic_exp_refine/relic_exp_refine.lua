@@ -26,7 +26,6 @@ function CLEAR_EXP_REFINE_EXECUTE()
 	local refineBtn = GET_CHILD_RECURSIVELY(frame, 'refineBtn')
 	refineBtn:ShowWindow(1)
 
-	frame:SetUserValue('DO_REFINE', 0)
 	UPDATE_RELIC_EXP_REFINE_UI(frame)
 	RELIC_EXP_REFINE_SET_COUNT(frame)
 end
@@ -54,17 +53,100 @@ function RELIC_EXP_REFINE_SET_COUNT(frame, slot)
 		refineBtn:SetEnable(0)
 	end
 
-	local cost_per = shared_item_relic.get_require_money_for_refine()
-	local total_price = MultForBigNumberInt64(refine_count, cost_per)
-	local price = GET_CHILD_RECURSIVELY(frame, 'price')
-	price:SetTextByKey('value', GET_COMMAED_STRING(total_price))
+    local totalPrice = RELIC_EXP_REFINE_TOTAL_PRICE()
+    local discountPrice = RELIC_EXP_REFINE_TOTAL_DISCOUNT_PRICE()
+    local discountedPrice = SumForBigNumberInt64(totalPrice, '-'..discountPrice)
+
+    local price = GET_CHILD_RECURSIVELY(frame, 'price')
+	price:SetTextByKey('value', GET_COMMAED_STRING(discountedPrice))
 
 	local cur_money_str = GET_TOTAL_MONEY_STR()
-	local result_money = SumForBigNumberInt64(cur_money_str, '-' .. total_price)
+	local result_money = SumForBigNumberInt64(cur_money_str, '-' .. discountedPrice)
 	local inven_money = GET_CHILD_RECURSIVELY(frame, 'inven_money')
 	inven_money:SetTextByKey('value', GET_COMMAED_STRING(result_money))
 
 	SET_MATERIAL_COUNT_INFO_LIST(frame)
+end
+
+function RELIC_EXP_REFINE_TOTAL_DISCOUNT_PRICE()
+    local frame = ui.GetFrame('relic_exp_refine')
+    if frame == nil then
+        return
+    end
+
+    local slotSet = GET_CHILD_RECURSIVELY(frame, "slotlist_discount")
+    local totalDiscount = 0
+
+	for i = 0, slotSet:GetSlotCount() - 1 do
+		local slot = slotSet:GetSlotByIndex(i)
+        local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
+
+		totalDiscount = SumForBigNumberInt64(totalDiscount, MultForBigNumberInt64(slot:GetSelectCount(), point))
+    end
+    
+    return totalDiscount
+end
+
+function RELIC_EXP_REFINE_TOTAL_PRICE()
+    local frame = ui.GetFrame('relic_exp_refine')
+    if frame == nil then
+        return
+    end
+
+    local refineCount = GET_TOTAL_REFINE_COUNT(frame)
+    local costPerCount = shared_item_relic.get_require_money_for_refine()
+    local totalPrice = MultForBigNumberInt64(refineCount, costPerCount)
+
+    return totalPrice
+end
+
+function RELIC_EXP_REFINE_DISCOUNT_CLICK(slotSet, slot)
+    local frame = ui.GetFrame('relic_exp_refine')
+    if frame == nil then
+        return
+    end
+
+    local totalPrice = RELIC_EXP_REFINE_TOTAL_PRICE()
+    local discountPrice = RELIC_EXP_REFINE_TOTAL_DISCOUNT_PRICE()
+
+    -- 할인가 계산
+    local adjustValue = SumForBigNumberInt64(totalPrice, '-'..discountPrice)
+
+    -- 할인가가 0보다 작을 경우
+    if IsGreaterThanForBigNumber(0, adjustValue) == 1 then
+        local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
+        if point == nil or point == 0 then
+            return
+        end
+
+        local nowCount = slot:GetSelectCount()
+        local adjustCount = math.floor(tonumber(DivForBigNumberInt64(adjustValue, point)))
+
+        slot:SetSelectCount(slot:GetSelectCount() + adjustCount)
+
+        -- 선택한게 없으면 포커스 풀어주기
+        if slot:GetSelectCount() == 0 then
+            slot:Select(0)
+        end
+    end
+
+    ui.EnableSlotMultiSelect(1)
+    RELIC_EXP_REFINE_SET_COUNT(frame)
+end
+
+function RELIC_EXP_REFINE_DISCOUNT_RELEASE()
+    local frame = ui.GetFrame('relic_exp_refine')
+    if frame == nil then
+        return
+    end
+
+    local slotSet = GET_CHILD_RECURSIVELY(frame, 'slotlist_discount', 'ui::CSlotSet')
+    for i = 0, slotSet:GetSlotCount() - 1 do
+        local slot = slotSet:GetSlotByIndex(i)
+        if slot ~= nil then
+            slot:Select(0)
+        end
+	end
 end
 
 function GET_TOTAL_REFINE_COUNT(frame)
@@ -115,7 +197,10 @@ end
 
 function UPDATE_RELIC_EXP_REFINE_UI(frame)
 	local slotSet = GET_CHILD_RECURSIVELY(frame, 'slotlist', 'ui::CSlotSet')
-	slotSet:ClearIconAll()
+    slotSet:ClearIconAll()
+    
+    local discountSet = GET_CHILD_RECURSIVELY(frame, 'slotlist_discount', 'ui::CSlotSet')
+    discountSet:ClearIconAll()
 
 	local item_count = 0
 	local req_item = session.GetInvItemByName('Relic_exp_token')
@@ -126,10 +211,13 @@ function UPDATE_RELIC_EXP_REFINE_UI(frame)
 	frame:SetUserValue('MAX_REFINE_COUNT', math.floor(item_count / 10))
 
 	local invItemList = session.GetInvItemList()
-	local materialItemList = shared_item_relic.get_refine_material_list()
-	FOR_EACH_INVENTORY(invItemList, function(invItemList, invItem, slotSet, materialItemList)
+    local materialItemList = shared_item_relic.get_refine_material_list()
+    local discountItemList = SCR_REINFORCE_COUPON()
+	FOR_EACH_INVENTORY(invItemList, function(invItemList, invItem, slotSet, discountSet, materialItemList, discountItemList)
 		local obj = GetIES(invItem:GetObject())
-		local itemName = TryGetProp(obj, 'ClassName', 'None')
+        local itemName = TryGetProp(obj, 'ClassName', 'None')
+        
+        -- 재료 아이템 목록 세팅
 		if materialItemList[itemName] ~= nil then
 			local slotindex = imcSlot:GetEmptySlotIndex(slotSet)
 			if slotindex == 0 and imcSlot:GetFilledSlotCount(slotSet) == slotSet:GetSlotCount() then
@@ -142,17 +230,40 @@ function UPDATE_RELIC_EXP_REFINE_UI(frame)
 			local refine_per = 100 / refine_point
 			local top_parent = slotSet:GetTopParentFrame()
 			local max_refine_count = top_parent:GetUserIValue('MAX_REFINE_COUNT')
-			local max_count = math.min(math.floor(invItem.count / refine_per) * refine_per, max_refine_count * refine_per)
+            local max_count = math.min(math.floor(invItem.count / refine_per) * refine_per, max_refine_count * refine_per)
+            
 			slot:SetMaxSelectCount(max_count)
 			slot:SetUserValue('REFINE_PER', refine_per)
-			slot:SetUserValue('PREV_COUNT', 0)
+            slot:SetUserValue('PREV_COUNT', 0)
+            
 			local icon = CreateIcon(slot)
-			icon:Set(obj.Icon, 'Item', invItem.type, slotindex, invItem:GetIESID(), invItem.count)
+            icon:Set(obj.Icon, 'Item', invItem.type, slotindex, invItem:GetIESID(), invItem.count)
+            
 			local class = GetClassByType('Item', invItem.type)
 			SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, obj, invItem.count)
 			ICON_SET_INVENTORY_TOOLTIP(icon, invItem, 'poisonpot', class)
-		end
-	end, false, slotSet, materialItemList)
+        end
+        
+        -- 할인 아이템 목록 세팅
+        if table.find(discountItemList, itemName) > 0 then
+			local slotindex = imcSlot:GetEmptySlotIndex(discountSet)
+			if slotindex == 0 and imcSlot:GetFilledSlotCount(discountSet) == discountSet:GetSlotCount() then
+				return
+			end
+			
+            local slot = discountSet:GetSlotByIndex(slotindex)
+            slot:SetMaxSelectCount(invItem.count)
+            slot:SetUserValue('DISCOUNT_POINT', obj.NumberArg1)
+
+			local icon = CreateIcon(slot)
+            icon:Set(obj.Icon, 'Item', invItem.type, slotindex, invItem:GetIESID(), invItem.count)
+            
+			local class = GetClassByType('Item', invItem.type)
+			SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, obj, invItem.count)
+			ICON_SET_INVENTORY_TOOLTIP(icon, invItem, 'poisonpot', class)
+        end
+
+	end, false, slotSet, discountSet, materialItemList, discountItemList)
 
 	local cnt = slotSet:GetRow() - tonumber(frame:GetUserConfig('DEFAULT_ROW'))
 	for i = 1, cnt do
@@ -171,16 +282,18 @@ function SCP_LBTDOWN_RELIC_EXP_REFINE(slotset, slot)
 	local refine_per = slot:GetUserIValue('REFINE_PER')
 	slot:SetSelectCount(prev_count + ((cur_count - prev_count) * refine_per))
 	slot:SetUserValue('PREV_COUNT', slot:GetSelectCount())
-	local frame = slotset:GetTopParentFrame()
-	RELIC_EXP_REFINE_SET_COUNT(frame, slot)
+    local frame = slotset:GetTopParentFrame()
+    RELIC_EXP_REFINE_DISCOUNT_RELEASE()
+    RELIC_EXP_REFINE_SET_COUNT(frame, slot)
 end
 
 function SCP_RBTDOWN_RELIC_EXP_REFINE(slotset, slot)
 	ui.EnableSlotMultiSelect(1)
 	slot:SetSelectCount(0)
 	slot:SetUserValue('PREV_COUNT', 0)
-	local frame = slotset:GetTopParentFrame()
-	RELIC_EXP_REFINE_SET_COUNT(frame)
+    local frame = slotset:GetTopParentFrame()
+    RELIC_EXP_REFINE_DISCOUNT_RELEASE()
+    RELIC_EXP_REFINE_SET_COUNT(frame)
 end
 
 function RELIC_EXP_REFINE_EXEC(frame)
@@ -191,8 +304,8 @@ function RELIC_EXP_REFINE_EXEC(frame)
 	if slotSet:GetSelectedSlotCount() < 1 then
 		ui.MsgBox(ScpArgMsg('SelectSomeItemPlz'))
 		return
-	end
-
+    end
+    
 	for i = 0, slotSet:GetSelectedSlotCount() -1 do
 		local slot = slotSet:GetSelectedSlot(i)
 		local Icon = slot:GetIcon()
@@ -204,32 +317,40 @@ function RELIC_EXP_REFINE_EXEC(frame)
 		end
 		total_count = total_count + math.floor(cnt / refine_per)
 		session.AddItemID(iconInfo:GetIESID(), cnt)
-	end
+    end
 
-	local cost_per = shared_item_relic.get_require_money_for_refine()
-	local total_money = MultForBigNumberInt64(total_count, cost_per)
-	local my_money = GET_TOTAL_MONEY_STR()
-    if IsGreaterThanForBigNumber(total_money, my_money) == 1 then
+    local discountSet = GET_CHILD_RECURSIVELY(frame, 'slotlist_discount', 'ui::CSlotSet')
+    
+    for i = 0, discountSet:GetSelectedSlotCount() -1 do
+		local slot = discountSet:GetSelectedSlot(i)
+		local Icon = slot:GetIcon()
+		local iconInfo = Icon:GetInfo()
+		local cnt = slot:GetSelectCount()
+		session.AddItemID(iconInfo:GetIESID(), cnt)
+    end
+
+    local totalPrice = RELIC_EXP_REFINE_TOTAL_PRICE()
+    local discountPrice = RELIC_EXP_REFINE_TOTAL_DISCOUNT_PRICE()
+    local discountedPrice = SumForBigNumberInt64(totalPrice, '-'..discountPrice)
+
+	local myMoney = GET_TOTAL_MONEY_STR()
+    if IsGreaterThanForBigNumber(discountedPrice, myMoney) == 1 then
         ui.SysMsg(ClMsg('NotEnoughMoney'))
         return
 	end
 	
-	local msg = ScpArgMsg('REALLY_DO_RELIC_EXP_MAT_REFINE', 'SILVER', GET_COMMAED_STRING(total_money), 'COUNT', total_count * 10, 'RESULT', total_count)
+	local msg = ScpArgMsg('REALLY_DO_RELIC_EXP_MAT_REFINE', 'SILVER', GET_COMMAED_STRING(discountedPrice), 'COUNT', total_count * 10, 'RESULT', total_count)
 	local yesScp = '_RELIC_EXP_REFINE_EXEC()'
-	ui.MsgBox(msg, yesScp, 'None')
+	local msgbox = ui.MsgBox(msg, yesScp, 'None')
+	SET_MODAL_MSGBOX(msgbox)
 end
 
 function _RELIC_EXP_REFINE_EXEC(count)
 	local frame = ui.GetFrame('relic_exp_refine')
 	if frame == nil then return end
 
-	local do_already = frame:GetUserIValue('DO_REFINE')
-	if do_already == 1 then return end
-
 	local resultlist = session.GetItemIDList()
 	item.DialogTransaction('RELIC_REFINE_MATERIAL', resultlist, '')
-
-	frame:SetUserValue('DO_REFINE', 1)
 end
 
 function ON_RELIC_EXP_REFINE_EXECUTE(frame, msg, argStr, argNum)

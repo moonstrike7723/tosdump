@@ -3044,3 +3044,27 @@ function SCR_ABIL_ARQUEBUSIER19_INACTIVE(self, ability)
         end
     end
 end
+
+function SCR_ABIL_Cleric32_ACTIVE(self, ability)
+    AddBuff(self, self, "Cleric32_DARK_SPHERE_BUFF");
+    local skl = GetSkill(self, "Cleric_Heal")
+    if skl ~= nil then
+        local attribute = TryGetProp(skl, "Attribute", "Melee")
+        SetExProp_Str(ability, "Heal_Attribute", attribute)
+
+        local valuetype = TryGetProp(skl, "ValueType", "None")
+        SetExProp_Str(ability, "Heal_ValueType", valuetype)
+
+        skl.Attribute = "Melee"
+        skl.ValueType = "Attack"
+    end
+end
+
+function SCR_ABIL_Cleric32_INACTIVE(self, ability)
+    RemoveBuff(self, "Cleric32_DARK_SPHERE_BUFF");
+    local skl = GetSkill(self, "Cleric_Heal")
+    if skl ~= nil then
+        skl.Attribute = GetExProp_Str(ability, "Heal_Attribute")
+        skl.ValueType = GetExProp_Str(ability, "Heal_ValueType")
+    end
+end

@@ -86,6 +86,8 @@
 		<Class ClassID="328" ClassName="IndunMultipleItemError" Data="비정상적인 배수 토큰을 소유중입니다. 공지사항 ★ 2/28(목) 정기점검 후 발생한 문제 ★ 을 확인 부탁드립니다."/>
 		<Class ClassID="329" ClassName="NotValidMsg" Data="올바르지 않은 메시지입니다."/>
 		<Class ClassID="330" ClassName="SavingUserInfo" Data="캐릭터 정보를 저장중입니다."/>
+		<Class ClassID="331" ClassName="{guild}{name}InvalidRequest" Data="[{guild}]길드 {name}님이 비정상적인 방법으로 콜로니전 보상 수령을 시도하였습니다."/>
+    <Class ClassID="332" ClassName="{date}CantUseAutoMatching" Data="신고 누적으로 인해 {date} 까지 자동매칭을 이용하실 수 없습니다."/>
 	</Category>
 	<Category Name="Skill">
 		<Class ClassID="500" ClassName="CannotGetSkill{NAME}" Data="[{NAME}] 스킬을 습득할 수 없습니다."/>
@@ -106,6 +108,8 @@
 		<Class ClassID="515" ClassName="AdditionalDecreaseHealEnemy{duration}{ratio}" Data="{#8e0000}적중시 치유량 감소 디버프[{ratio}%] {duration}초 부여"/>
 		<Class ClassID="516" ClassName="AdditionalRemoveSelfDebuff{level}{prob}{count}" Data="{#004e00}시전시 {prob}% 확률로 일반 해제가 가능한 자신의 디버프 제거 ({count}개)"/>
 		<Class ClassID="517" ClassName="AdditionalRemoveFriendDebuff{level}{prob}{count}" Data="{#004e00}시전시 {prob}% 확률로 일반 해제가 가능한 아군의 디버프 제거 ({count}개)"/>
+		<Class ClassID="520" ClassName="CannotToggleAbility_Cleric32" Data="해당 지역에서는 [힐: 타락 구체] 특성을 ON/OFF 할 수 없습니다."/>
+		<Class ClassID="521" ClassName="CannotToggleCleric32_Cool{num}" Data="지금은 [힐: 타락 구체] 특성을 ON/OFF 할 수 없습니다. {num}초 남음"/>
 	</Category>
 	<Category Name="SimpleWords">
 		<Class ClassID="1100" ClassName="ValidTime" Data="지속 시간"/>
@@ -152,6 +156,7 @@
 		<Class ClassID="1143" ClassName="SearchResult" Data="검색 결과"/>
 		<Class ClassID="1144" ClassName="Piece2" Data="장"/>
 		<Class ClassID="1145" ClassName="ShortCut" Data="바로가기"/>
+		<Class ClassID="1146" ClassName="GiveEnchant" Data="부여"/>
 	</Category>
 	<Category Name="Reinforce">
 		<Class ClassID="2001" ClassName="NotEnoughReinforcePotential" Data="강화에 필요한 포텐셜이 부족합니다"/>
@@ -268,6 +273,14 @@
 		<Class ClassID="2113" ClassName="AdvancedCardReinforceSuccessProb" Data="성공확룰"/>
 		<Class ClassID="2114" ClassName="GoddessCardReinforcePoint" Data="강화에 필요한 경험치"/>
 		<Class ClassID="2115" ClassName="GoddessCardReinforcePointNeed" Data="강화에 필요한 경험치가 부족합니다"/>
+		<Class ClassID="2116" ClassName="ItemIsNotEnchantable_vibora" Data="해당 장비에 아이커를 적용할 수 없습니다"/>
+		<Class ClassID="2117" ClassName="ItemIsNotEnchantable_SetOption" Data="해당 장비에 세트 옵션을 적용할 수 없습니다"/>
+		<Class ClassID="2118" ClassName="ItemIsNotEnchantable_SetOption_Cant" Data="해당 장비에 이미 동일한 세트 옵션이{nl} 적용되어 있습니다"/>
+		<Class ClassID="2119" ClassName="ItemIsNotEnchantable_vibora_CANT" Data="해당 장비에 이미 동일한 아이커 옵션이{nl} 적용되어 있습니다"/>
+		<Class ClassID="2120" ClassName="IcorNotAdded_EP12_CANT1" Data="해당 장비는 고정 아이커 장착/해제 기능을 사용할 수 없습니다"/>
+		<Class ClassID="2121" ClassName="IcorNotAdded_EP12_CANT2" Data="해당 장비에 스크롤을 사용할 수 없습니다"/>
+		<Class ClassID="2122" ClassName="Success_Opt_Change_clientScpMsg_1" Data="세트 옵션이 변경되었습니다{nl}변경된 세트 옵션 : {#3366FF} {OPTION} {/}"/>
+		<Class ClassID="2123" ClassName="Success_Opt_Change_clientScpMsg_2" Data="고정 아이커 옵션이 변경되었습니다{nl}변경된 옵션 : {#3366FF} {OPTION} {/}"/>
 	</Category>
 	<Category Name="ItemContents">
 		<Class ClassID="2200" ClassName="ClickSocketTargetItem" Data="소켓을 추가 할 아이템을 선택해주세요"/>
@@ -418,6 +431,9 @@
 		<Class ClassID="2362" ClassName="IsNotOptionExtractKit_Tutorial3" Data="장비부터 진행해 주세요"/>
 		<Class ClassID="2363" ClassName="IsNotOptionExtractKit_Tutorial4" Data="[튜토리얼]은빛 아이커 추출 키트를 사용해 진행해 주세요"/>
 		<Class ClassID="2364" ClassName="IsNotOptionExtractKit_Tutorial5" Data="[튜토리얼] 황금 아이커 무료 추출 키트를 사용해 진행해 주세요"/>
+		<Class ClassID="2365" ClassName="EnchantScrollTipText" Data="해당 고정 아이커는 추출할 수 없습니다."/>
+		<Class ClassID="2366" ClassName="EnchantScrollWarning{ITEM}" Data="아이템 변경사항 안내{nl} {nl} - 고정 아이커 옵션 변경{nl}{ITEM}"/>
+		<Class ClassID="2367" ClassName="SetoptionScrollWarning{OPTION}" Data="아이템 변경사항 안내{nl} {nl} - 세트 옵션 변경 변경{nl}{OPTION}"/>
 	</Category>
 	<Category Name="ClassContents">
 		<Class ClassID="2500" ClassName="FullWeeklyGainClassResetExp" Data="주간 획득 가능한 클래스 변경 포인트를 모두 달성하였습니다."/>
@@ -519,8 +535,12 @@
 		<Class ClassID="3073" ClassName="CanRegisterOnlySameItem" Data="같은 종류의 아이템만 등록 가능합니다."/>
 		<Class ClassID="3074" ClassName="OnlyUseHavingZeroCount" Data="챌린지 모드 : 분열 특이점 입장 가능 횟수가 0 인 경우에만 사용 가능합니다."/>
 		<Class ClassID="3075" ClassName="FixedIcor" Data="고정 아이커"/>
+		<Class ClassID="3076" ClassName="IcorAdd" Data="아이커 장착"/>
+		<Class ClassID="3077" ClassName="IcorReleaseFixed" Data="아이커 장착 해제(고정 옵션)"/>
+		<Class ClassID="3078" ClassName="IcorReleaseRandom" Data="아이커 장착 해제(랜덤 옵션)"/>
 		<Class ClassID="3079" ClassName="Random_Icor" Data="랜덤 아이커"/>
 		<Class ClassID="3080" ClassName="Set_option" Data="세트 옵션"/>
+		<Class ClassID="3081" ClassName="FixedIcorOptin" Data="고정 아이커 옵션"/>
 	</Category>
 	<Category Name="ItemPuzzle">
 		<Class ClassID="3501" ClassName="WouldYouSelectThisCombinationAsAlchemystryTarget?" Data="이 조합을 연금 대상으로 선택합니까?"/>
@@ -882,8 +902,16 @@
 		<Class ClassID="4357" ClassName="RequireRelicEquip" Data="성물을 착용하셔야 합니다."/>
 		<Class ClassID="4358" ClassName="UseOnlyLessThan{level}Char" Data="{level}레벨이하 캐릭터만 사용가능합니다."/>
 		<Class ClassID="4359" ClassName="MustHaveHiddenAbility{goal_lv}{count}{current}" Data="{goal_lv}레벨 이상의 상급 특성을 {count}개를 보유해야 합니다. 현재 {current}개 입니다."/>
+		<Class ClassID="4360" ClassName="SilverGacha_check_Use" Data="개봉 시 팀 창고 이동을 제외한 거래가 불가능해집니다.{nl}정말 사용하시겠습니까?"/>
 		<Class ClassID="4361" ClassName="ReallyWantToMakeGiltineCard{Material1}{Material2}" Data="정말 {Material1}와 {Material2}를 사용하여 길티네 카드를 제작하시겠습니까?"/>
-	</Category>
+		<Class ClassID="4363" ClassName="Transcend_Scroll" Data="초월 스크롤"/>
+		<Class ClassID="4364" ClassName="Enchant_Scroll" Data="인챈트 옵션 부여 스크롤"/>
+		<Class ClassID="4365" ClassName="SetOptionScroll" Data="세트 옵션 부여 스크롤"/>
+	        <Class ClassID="4368" ClassName="MonsterCardOptionGroupGODDESS" Data="{img goddess_type 19 20}"/>
+		<Class ClassID="4369" ClassName="IfLimitOver_misc_pvp_mine2" Data="사용 시 주간 용병단 증표 획득량을 초과합니다.{nl} {nl}정말 사용하시겠습니까?{nl}(초과된 개수는 지급되지 않습니다.)"/>
+		<Class ClassID="4370" ClassName="Use_misc_pvp_mine2_Coupon" Data="사용 시 주간 용병단 증표 획득량이 증가합니다.{nl}정말 사용하시겠습니까?"/>
+ 		<Class ClassID="4371" ClassName="SelectCostumeSilverGacha{ITEM}" Data="{@st66d_y}{s20}{ITEM}{/}{/} {nl}코스튬을 정말 선택하시겠습니까?{nl} {nl}코스튬은 팀 창고 이동을 제외한{nl}개인 및 마켓 거래가 불가능합니다."/>
+       </Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
 		<Class ClassID="5002" ClassName="WhenEquipToMainOrSubWeapon" Data="무기, 보조 장비 장착 시 효과"/>
@@ -1034,7 +1062,7 @@
 		<Class ClassID="5147" ClassName="tooltip_DiffuseReflection_Lv4" Data="{nl} {nl}{@st66d}{s15} - 섀도우 콘덴세이션 재사용 대기시간 15초 감소"/>
 		<Class ClassID="5148" ClassName="tooltip_FireBolt_Lv4" Data="{nl} {nl}{@st66d}{s15} - 플레임 그라운드 최종 대미지 {img green_up_arrow 16 16}100%"/>
 		<Class ClassID="5149" ClassName="tooltip_CryoliteBullet_Lv4" Data="{nl} {nl}{@st66d}{s15} - 아웃레이지 시전 시 [과열] 버프 1중첩 당 [아웃레이지]버프 1중첩으로 변경{nl}(아웃레이지 버프 최대 30 중첩)"/>
-		<Class ClassID="5150" ClassName="tooltip_RenovateTrigger_Lv4" Data="{nl} {nl}{@st66d}{s15} - 리마콘 공격속도 증가 60%로 변경"/>
+		<Class ClassID="5150" ClassName="tooltip_RenovateTrigger_Lv4" Data="{nl} {nl}{@st66d}{s15} - 리마콘 버프 중 권총 기본 공격 속도{img green_up_arrow 16 16}60%로 변경"/>
 		<Class ClassID="5151" ClassName="tooltip_TripleStepsSingleShot_Lv4" Data="{nl} {nl}{@st66d}{s15} - 연발 사격 재사용 대기시간 10초 감소"/>
 		<Class ClassID="5152" ClassName="tooltip_ExplosionEdge_Lv4" Data="{nl} {nl}{@st66d}{s15} - 즈버크하우 최종 대미지 {img green_up_arrow 16 16}100%"/>
 		<Class ClassID="5153" ClassName="tooltip_OneManRush_Lv4" Data="{nl} {nl}{@st66d}{s15} - 둠 스파이크 최종 대미지  {img green_up_arrow 16 16}100%"/>
@@ -2041,6 +2069,7 @@
 		<Class ClassID="21417" ClassName="Guide" Data="가이드"/>
 		<Class ClassID="21418" ClassName="NewEpisodeLockMsg_Episode_12_2" Data="{@st59}해당 에피소드의 클리어 보상은 추후 공개될 예정입니다.{nl}{#FFFF00}[Episode12-2]{/}의 퀘스트 시작은 {#FFFF00}종언의 길{/}의 {#FFFF00}여신 라이마{/}로부터 시작할 수 있습니다.{nl}단, Episode12-2는 Episode12-1의 퀘스트를 모두 완료해야만 진행할 수 있습니다.{/}"/>
 		<Class ClassID="21419" ClassName="NewEpisodeLockMsg_Episode_13" Data="{@st59}해당 에피소드의 클리어 보상은 추후 공개될 예정입니다.{nl}{#FFFF00}[Episode13]{/}의 퀘스트 시작은 {#FFFF00}오르샤{/}의 {#FFFF00}이네사 해먼데일{/}로부터 시작할 수 있습니다."/>
+		<Class ClassID="21420" ClassName="SoloBuffSelect{buffName}" Data="{#FFFF00}{buffName}{/} 버프는 파티원 중에서 한명만 선택할 수 있습니다."/>
 	</Category>
 	<Category Name="ChatText">
 		<Class ClassID="22001" ClassName="Guard" Data="방어"/>
@@ -5202,6 +5231,7 @@
 		<Class ClassID="27323" ClassName="PARTY_PLAYER_QUEST_REWARD_SHOP_MSG2" Data="{nl}퀘스트 보상 중 : {REWARD}"/>
 		<Class ClassID="27324" ClassName="PARTY_PLAYER_QUEST_REWARD_SHOP_MSG3" Data="{nl}상점 사용 중 : {SHOP}"/>
 		<Class ClassID="27325" ClassName="PARTY_PLAYER_QUEST_REWARD_SHOP_MSG4" Data="{nl}퀘스트 사전조건 불만족 : {BEFORE}"/>
+		<Class ClassID="27326" ClassName="HighLvZoneEnterMsg3" Data="지역 : {ZONE}{nl}이동 하시겠습니까?"/>
 		<Class ClassID="27330" ClassName="SuccessJobExpGiveMSG1" Data="{@st41b}클래스 경험치 : "/>
 		<Class ClassID="27340" ClassName="JournalMonsterKillRewardMSG1" Data="'{MONSTER}' {COUNT}마리 처치 달성!{nl}바이보라의 날개를 찾아가셔서 경험치 카드를 받으세요!"/>
 		<Class ClassID="27341" ClassName="JournalMonsterKillRewardMSG2" Data="'{MONSTER}' {COUNT}마리를 처치하면 경험치 카드를 받으실 수 있습니다!{nl}경험치 카드는 바이보라의 날개에서 받으실 수 있습니다."/>
@@ -9241,7 +9271,7 @@
 		<Class ClassID="90025" ClassName="JOB_DRAGOON_8_1_ROD2" Data="눈 속에서 푸른 수정이 반짝입니다!"/>
 		<Class ClassID="90026" ClassName="JOB_DRAGOON_8_1_ROD3" Data="붉은 수정에 아무 반응이 없습니다"/>
 		<Class ClassID="90027" ClassName="JOB_DRAGOON_8_1_TRAP" Data="확인하는 중"/>
-		<Class ClassID="90028" ClassName="GEM_EQUIP_SAME_TYPE" Data="이미 같은 종류의 젬이 장착되어 있습니다.{nl}중복 장착해도 효과는 누적되지 않습니다.{nl}장착하시겠습니까?"/>
+		<Class ClassID="90028" ClassName="GEM_EQUIP_SAME_TYPE" Data="이미 같은 종류의 스킬 젬이 장착되어 있습니다.{nl}중복 장착할 경우 {@st66d_y}{s18}가장 높은 레벨의 스킬 젬만 적용됩니다.{/}{/}{nl} {nl}장착하시겠습니까?"/>
 		<Class ClassID="90029" ClassName="LIMESTONE_52_1_BOAT_MSG1" Data="이용한다"/>
 		<Class ClassID="90030" ClassName="LIMESTONE_52_1_BOAT_MSG2" Data="이용하지 않는다"/>
 		<Class ClassID="90031" ClassName="FD_CASTLE671_BOOK_DTA" Data="불타는 결정 사용하는 중"/>
@@ -9270,7 +9300,7 @@
 		<Class ClassID="90054" ClassName="LOWLV_BOASTER_SQ_10_MSG2" Data="아무 일도 일어나지 않습니다"/>
 		<Class ClassID="90055" ClassName="LOWLV_BOASTER_SQ_10_MSG3" Data="가루 뿌리는 중"/>
 		<Class ClassID="90056" ClassName="LOWLV_BOASTER_SQ_20_MSG1" Data="수정을 묻는 중"/>
-		<Class ClassID="90057" ClassName="LOWLV_BOASTER_SQ_20_MSG2" Data="수정을 묻자 츄파카브라가 나타났습니다"/>
+		<Class ClassID="90057" ClassName="LOWLV_BOASTER_SQ_20_MSG2" Data="수정을 묻자 붉은 루바보스가 나타났습니다"/>
 		<Class ClassID="90058" ClassName="LOWLV_BOASTER_SQ_20_MSG3" Data="수정을 묻었습니다"/>
 		<Class ClassID="90059" ClassName="LOWLV_BOASTER_SQ_20_MSG4" Data="이미 수정을 묻은 장소 입니다"/>
 		<Class ClassID="90060" ClassName="LOWLV_BOASTER_SQ_30_MSG1" Data="낙엽을 채취하는 중"/>
@@ -9471,7 +9501,6 @@
 		<Class ClassID="90257" ClassName="WhiteDayShop2003" Data="화이트데이 이벤트 상점"/>
 		<Class ClassID="90258" ClassName="Unique_Boss_Glacier_TYPE1" Data="하얀 마녀의 숲 : 유니크 진입(1인)"/>
 		<Class ClassID="90259" ClassName="Unique_Boss_Glacier_TYPE2" Data="하얀 마녀의 숲 : 유니크 진입(5인)"/>
-		<Class ClassID="90270" ClassName="430lvupCard_MSG" Data="{nl} {nl}사용 시 1레벨에서 431레벨 도달까지 필요한 만큼의 경험치를 얻습니다.{nl} {nl}{@st66d_y}경험치 카드를 사용하시겠습니까?"/>
 		<Class ClassID="90260" ClassName="2004_UPHILL_SEL_MSG1" Data="이벤트 설명"/>
 		<Class ClassID="90261" ClassName="2004_UPHILL_SEL_MSG2" Data="이벤트 던전 입장"/>
 		<Class ClassID="90262" ClassName="2004_UPHILL_TREE_SEL_MSG1" Data="충격 버프를 받는다."/>
@@ -9511,7 +9540,7 @@
 		<Class ClassID="91023" ClassName="TELHARSHA_REMOVE_PATTERN_MSG1" Data="[양초 거미] 패턴 제거, -3단계"/>
 		<Class ClassID="91024" ClassName="TELHARSHA_REMOVE_PATTERN_MSG2" Data="[어미스독] 패턴 제거, -2단계"/>
 		<Class ClassID="91025" ClassName="TELHARSHA_REMOVE_PATTERN_MSG3" Data="[열기] 패턴 제거, -1단계"/>
-		<Class ClassID="91026" ClassName="TELHARSHA_REMOVE_PATTERN_MSG4" Data="종료. 선택을 종료하고 보스 등장"/>
+		<Class ClassID="91026" ClassName="TELHARSHA_REMOVE_PATTERN_MSG4" Data="선택 완료 / 선택하지 않고 보스 등장"/>
 		<Class ClassID="91030" ClassName="F_TABLELAND_28_2_NPC_CRU_14" Data="마족이 겁에 질려 도망갑니다."/>
 		<Class ClassID="91027" ClassName="Legend_Boss_Glacier_Easy" Data="하얀 마녀의 숲 : 레전드 레이드 (자동 매칭)"/>
 		<Class ClassID="91028" ClassName="Legend_Boss_Glacier_Normal" Data="하얀 마녀의 숲 : 레전드 레이드 (Normal)"/>
@@ -9712,12 +9741,12 @@
 		<Class ClassID="92054" ClassName="AUTO_MATCHING_BUFF_SELECT_MSG" Data="파티 버프를 선택해주세요.{nl}파티원이 가장 많이 선택한 버프가 모든 파티원에게 부여됩니다.{nl}선택하지 않을 경우 랜덤한 버프로 결정됩니다."/>
 		<Class ClassID="92055" ClassName="AUTO_MATCHING_ADD_BUFF_MSG" Data="{BuffName}버프가 선택되었습니다."/>
 		<Class ClassID="92056" ClassName="Legend_Boss_Giltine" Data="마신의 성소 : 레전드 레이드"/>
-		<Class ClassID="92057" ClassName="GILTINE_REMOVE_PATTERN_MSG1" Data="[1] 보스의 공격력, 방어력 40% 하향(-4점)"/>
+		<Class ClassID="92057" ClassName="GILTINE_REMOVE_PATTERN_MSG1" Data="[1] 보스의 공격력, 체력 30% 하향(-4점)"/>
 		<Class ClassID="92058" ClassName="GILTINE_REMOVE_PATTERN_MSG2" Data="[2] 울분하는 피조물 패턴 삭제(-1점)"/>
 		<Class ClassID="92059" ClassName="GILTINE_REMOVE_PATTERN_MSG3" Data="[3] 종언의 나무 패턴 삭제(-2점)"/>
-		<Class ClassID="92069" ClassName="GILTINE_REMOVE_PATTERN_MSG4" Data="[4] 보스의 공격력, 방어력 20% 하향(-2점)"/>
-		<Class ClassID="92061" ClassName="GILTINE_REMOVE_PATTERN_MSG5" Data="[5] 세콰이어의 불길 소환 패턴 삭제(-1점)"/>
-		<Class ClassID="92062" ClassName="GILTINE_REMOVE_PATTERN_MSG6" Data="종료. 선택을 종료하고 보스 등장."/>
+		<Class ClassID="92069" ClassName="GILTINE_REMOVE_PATTERN_MSG4" Data="[4] 보스의 공격력, 체력 15% 하향(-2점)"/>
+		<Class ClassID="92061" ClassName="GILTINE_REMOVE_PATTERN_MSG5" Data="[5] 마신의 방어 장치 패턴 삭제(-1점)"/>
+		<Class ClassID="92062" ClassName="GILTINE_REMOVE_PATTERN_MSG6" Data="선택 완료 / 선택하지 않고 보스 등장"/>
 		<Class ClassID="92063" ClassName="GILTINE_HIDDEN_FIELD_CRISTAL_MSG" Data="길티네의 봉인된 힘 제거"/>
 		<Class ClassID="92064" ClassName="GUILD_GILTINE_BROADCAST_BORN" Data="길드원들이 길티네와 대적합니다."/>
 		<Class ClassID="92065" ClassName="GUILD_GILTINE_BROADCAST_DEAD" Data="길드원들이 길티네를 제압했습니다."/>
@@ -9737,6 +9766,7 @@
 		<Class ClassID="92081" ClassName="NotEnoughUnlockTeamBelongingScroll" Data="봉인 스크롤의 개수가 부족합니다."/>
 		<Class ClassID="92082" ClassName="TeamBelongingItem" Data="{#62100c}{s18}귀속됨{/}{/}"/>
 		<Class ClassID="92083" ClassName="GILTINE_START_MSG" Data="보스 등장."/>
+		<Class ClassID="92084" ClassName="GACHA_SITEM_GET_ALLMSG_8" Data="{s24}축하드립니다!{nl}{PC} 님이 신년 복주머니 큐브에서{nl}{ITEMNAME} 를(을) 획득하셨습니다!"/>
 	</Category>
 	<Category Name="BattleText">
 		<Class ClassID="100001" ClassName="ADD_DAMAGE_{Auto_1}!" Data="추가 대미지 {Auto_1}!"/>
@@ -10269,8 +10299,9 @@
 		<Class ClassID="102468" ClassName="CantJoinServerGuild{days}{day}{hour}{min}{sec}" Data="TOS 성장 길드 탈퇴 후 {days}일 동안은 TOS 성장 길드에 가입할 수 없습니다.{nl}(가입 가능일 : {day}일 {hour}시간 {min}분 {sec}초 이후)"/>
 		<Class ClassID="102469" ClassName="PleaseLearnTamingSkill" Data="길드 타워 -> 길드 성장 -> 길드 특성에서 테이밍 특성을 습득하세요"/>
 		<Class ClassID="102470" ClassName="EVENT_2010_GUILD_REWARD_CONFIRM" Data="보상 수령 시 이후 미션을 더 수행해도 추가 보상 획득이 불가능합니다. 수령하시겠습니까?"/>
-		<Class ClassID="102371" ClassName="guild_event_start{guildEvent}{compareEvent}" Data="길드퀘스트{nl}{#ff0000}{ol}[{guildEvent}]{/}{/}를 시작하시겠습니까?{nl}[{guildEvent}]를 참여하면 해당 주차에{nl}{#ff0000}[{compareEvent}]{/}미션은 참여할 수 없습니다."/>
-		<Class ClassID="102372" ClassName="guild_event_start_guild_member{guildEvent}{compareEvent}" Data="{#ff0000}{ol}[{guildEvent}]{/}{/}를 참여하면 해당 주차에{nl}[{compareEvent}]미션은 참여할 수 없습니다."/>
+		<Class ClassID="102471" ClassName="guild_event_start{guildEvent}{compareEvent}" Data="길드퀘스트{nl}{#ff0000}{ol}[{guildEvent}]{/}{/}를 시작하시겠습니까?{nl}[{guildEvent}]를 참여하면 해당 주차에{nl}{#ff0000}[{compareEvent}]{/}미션은 참여할 수 없습니다.{nl} {nl}{s16}{#0022ff}※해당 사항은 봉쇄전에서만 적용됩니다.{/}"/>
+		<Class ClassID="102472" ClassName="guild_event_start_guild_member{guildEvent}{compareEvent}" Data="{#ff0000}{ol}[{guildEvent}]{/}{/}를 참여하면 해당 주차에{nl}[{compareEvent}]미션은 참여할 수 없습니다.{nl} {nl}{s16}{#0022ff}※해당 사항은 봉쇄전에서만 적용됩니다.{/}"/>
+		<Class ClassID="102473" ClassName="GuildEventAlreadyInProcessOrClearedWeekly{EventName}" Data="{EventName} 길드 퀘스트를 이미 이용하였습니다.{nl}1주일 뒤에 다시 시작할 수 있습니다."/>
 	</Category>
 	<Category Name="EqupClasses">
 		<Class ClassID="103001" ClassName="THSword" Data="양손검"/>
@@ -10824,17 +10855,17 @@
 		<Class ClassID="111314" ClassName="RelicOptionShortTextPercentUp" Data="{@st66d}{s16}[{name}] {img green_up_arrow 16 16}{@st66d_y}{s15}{total}%{/}{/} "/>
 		<Class ClassID="111315" ClassName="RelicGem_SOVEREIGN_SWORD_DescText" Data="전방 150 범위 대상 5명에게 대미지를 주고 2초 동안 기절시키며, 4초 동안 디버프를 부여합니다.{nl}디버프 대상은 이동속도가 10 감소하고 1초 마다 대미지를 받습니다.{nl}또한 자신이 디버프 대상에게 주는 대미지가 증가합니다."/>
 		<Class ClassID="111316" ClassName="DAMAGERATE_DEBUFF" Data="디버프 대상 대미지"/>
-		<Class ClassID="111317" ClassName="RelicGem_HARVEST_SCYTHE_DescText" Data="전방 250 범위 대상 20명에게 대미지를 줍니다.{nl}해당 대미지로 처치한 대상 하나당 마력을 10 회복하고 HP,SP를 회복합니다."/>
+		<Class ClassID="111317" ClassName="RelicGem_HARVEST_SCYTHE_DescText" Data="전방 250 범위 대상 20명에게 대미지를 줍니다.{nl}해당 대미지로 처치한 대상 하나당 마력을 5 회복하고 HP,SP를 회복합니다."/>
 		<Class ClassID="111318" ClassName="HP_DRAIN" Data="HP 회복량"/>
 		<Class ClassID="111319" ClassName="SP_DRAIN" Data="SP 회복량"/>
 		<Class ClassID="111320" ClassName="PATK_FINALDAMAGE" Data="물리 피해 최종 대미지"/>
-		<Class ClassID="111321" ClassName="RelicGem_GIANT_EVILSWORD_DescText" Data="시전 시 자신의 모든 클래스 공격 스킬의 남은 재사용 대기시간이 20% 감소하며, 자신 주변 120 범위 내 엘리트, 보스, 캐릭터 최대 5명에게 4초 동안 스턴을 부여하고 4연타 대미지를 줍니다.{nl}또한 성물 해방 버프 중 엘리트, 보스, 캐릭터에게 피해를 입힐 경우 4연타 추가 타격이 발동합니다.{nl}(추가 타격 재사용 대기시간 4초)"/>
+		<Class ClassID="111321" ClassName="RelicGem_GIANT_EVILSWORD_DescText" Data="시전 시 원래 효과가 공격인 자신의 모든 클래스 스킬의 남은 재사용 대기시간이 20% 감소하며, 자신 주변 120 범위 내 엘리트, 보스, 캐릭터 최대 5명에게 4초 동안 스턴을 부여하고 4연타 대미지를 줍니다.{nl}또한 성물 해방 버프 중 엘리트, 보스, 캐릭터에게 피해를 입힐 경우 4연타 추가 타격이 발동합니다.{nl}(추가 타격 재사용 대기시간 4초)"/>
 		<Class ClassID="111322" ClassName="ADD_ATK_SKILLFACTOR" Data="추가 타격 스킬 계수"/>
-		<Class ClassID="111323" ClassName="RelicGem_OLDTREE_BRACELET_DescText" Data="즉시 HP를 회복하며, 성물 해방 버프 중 대쉬 발동 시 전방 120 거리를 순간이동하여 주변 범위 적 5명에게 대미지를 줍니다. (순간이동 재사용 대기시간 3초)"/>
+		<Class ClassID="111323" ClassName="RelicGem_OLDTREE_BRACELET_DescText" Data="즉시 HP를 회복하며, 성물 해방 버프 중 대쉬 발동 시 전방 120 거리를 순간이동하여 주변 범위 적 5명에게 대미지를 줍니다. 순간이동 발동 시 마다 마력을 100 소모합니다. (순간이동 재사용 대기시간 3초)"/>
 		<Class ClassID="111324" ClassName="MATK_FINALDAMAGE" Data="마법 피해 최종 대미지"/>
 		<Class ClassID="111325" ClassName="REDUCED_DAMAGE" Data="받는 피해 감소"/>
 		<Class ClassID="111326" ClassName="DEF_BM/MDEF_BM" Data="물리, 마법 방어력"/>
-		<Class ClassID="111327" ClassName="RelicGem_CONSILIENCE_PLATE_DescText" Data="시전 시 모든 클래스 버프 스킬 및 회복 스킬의 남은 재사용 대기시간이 50% 감소하며, 자신 주변 100 범위 내의 엘리트, 보스, 캐릭터, 최대 1명에게 해제 불가능한 디버프를 부여하여 물리,마법 공격력을 감소시킵니다. 공격력 감소 디버프는 중복 적용되지 않으며 성물 해방 해제 시 제거됩니다."/>
+		<Class ClassID="111327" ClassName="RelicGem_CONSILIENCE_PLATE_DescText" Data="시전 시 원래 효과가 버프, 회복인 자신의 모든 클래스 스킬의 남은 재사용 대기시간이 50% 감소하며, 자신 주변 100 범위 내의 엘리트, 보스, 캐릭터, 최대 1명에게 해제 불가능한 디버프를 부여하여 물리,마법 공격력을 감소시킵니다. 공격력 감소 디버프는 중복 적용되지 않으며 성물 해방 해제 시 제거됩니다."/>
 		<Class ClassID="111328" ClassName="DECREASE_ATK" Data="공격력 감소"/>
 		<Class ClassID="111329" ClassName="RelicOptionEnableEquipGemLevel" Data="{@st66d}{s16}[장착 가능한 성물 젬 레벨] {@st66d_y}{s15}{value}{/}{/}"/>
 		<Class ClassID="111330" ClassName="RelicGem_OMEN_EDGEWISE_DescText" Data="전방 150 범위 대상 5명에게 대미지를 주고 4초 동안 디버프를 부여합니다. 자신이 디버프 대상에게 주는 대미지가 증가합니다."/>
@@ -10872,6 +10903,10 @@
 		<Class ClassID="112030" ClassName="Episode_Clear_Msg" Data="[{EPNumber} {EPName}] 에피소드를 클리어 했습니다!"/>
 		<Class ClassID="112031" ClassName="Quest_STATE" Data="- 조건 : 퀘스트 상태"/>
 		<Class ClassID="112032" ClassName="EpisodeUnlockOrshaMsg" Data="오르샤 라인 에피소드가 개방되었습니다!"/>
+		<Class ClassID="112033" ClassName="QUEST_STATE_POSSIBLE" Data="시작가능"/>
+		<Class ClassID="112034" ClassName="QUEST_STATE_PROGRESS" Data="진행중"/>
+		<Class ClassID="112035" ClassName="QUEST_STATE_SUCCESS" Data="완료"/>
+		<Class ClassID="112036" ClassName="QUEST_STATE_IMPOSSIBLE" Data="진행불가"/>
 	</Category>
 	<Category Name="JobCategoryName">
 		<Class ClassID="113001" ClassName="Char1" Data="전사 계열"/>
@@ -11418,22 +11453,25 @@
 		<Class ClassID="134081" ClassName="TooLowLevelEquipToAutoMatch" Data="장착한 장비의 레벨이 낮아서 자동 매칭을 신청할 수 없습니다."/>
 		<Class ClassID="134082" ClassName="HaveNoEnterableCount" Data="입장 횟수를 초과하여 기본 보상 획득이 불가능합니다.{nl}매칭을 신청하시겠습니까?"/>
 		<Class ClassID="134083" ClassName="EnterLevelDungeon" Data="레벨 던전 입장하기"/>
-		<Class ClassID="134084" ClassName="EnterMythicDungeon" Data="성물 던전 입장하기"/>
-		<Class ClassID="134085" ClassName="EnterAutoMatching" Data="[성물 던전: 자동 매칭] 입장하기"/>
-		<Class ClassID="134086" ClassName="EnterChallengeMode" Data="[성물 던전: 도전 모드] 입장하기"/>
-		<Class ClassID="134087" ClassName="MythicAutoMatchingAfterSelectDialog" Data="[{#003399}성물 던전: 자동 매칭 - {ID_NAME}{/}]은 {ID_LV} 레벨 이상 입장 가능하며, 특정 등급 이상의 아이템을 착용해야 입장 가능합니다."/>
-		<Class ClassID="134088" ClassName="MythicChallengeModeAfterSelectDialog" Data="[성물 던전: 도전 모드 -  {ID_NAME}[는 파티원과 바로입장을 통해서만 입장이 가능하며 {ID_LV} 레벨 이상 캐릭터만 입장이 가능합니다.{nl}입장하기 위해서는 입장권을 필요로 합니다."/>
+		<Class ClassID="134084" ClassName="EnterMythicDungeon" Data="성물 레이드 입장하기"/>
+		<Class ClassID="134085" ClassName="EnterAutoMatching" Data="[성물 레이드: 자동 매칭] 입장하기"/>
+		<Class ClassID="134086" ClassName="EnterChallengeMode" Data="[성물 레이드: 도전 모드] 입장하기"/>
+		<Class ClassID="134087" ClassName="MythicAutoMatchingAfterSelectDialog" Data="[{#003399}성물 레이드: 자동 매칭 - {ID_NAME}{/}]은 {ID_LV} 레벨 이상 입장 가능하며, 특정 등급 이상의 아이템을 착용해야 입장 가능합니다."/>
+		<Class ClassID="134088" ClassName="MythicChallengeModeAfterSelectDialog" Data="[성물 레이드: 도전 모드 -  {ID_NAME}[는 파티원과 바로입장을 통해서만 입장이 가능하며 {ID_LV} 레벨 이상 캐릭터만 입장이 가능합니다.{nl}입장하기 위해서는 입장권을 필요로 합니다."/>
 		<Class ClassID="134089" ClassName="YourLevelIsHighThenIndun" Data="입장 제한 레벨보다 높습니다"/>
 		<Class ClassID="134090" ClassName="PartyMatchingAutoChallenge" Data='현재 {MEMBER}님이 {INDUN}을 매칭 신청중입니다. 콘텐츠 현황판에서 챌린지 자동매칭의 "파티원과 자동매칭" 버튼을 누르면 함께 참여할 수 있습니다.'/>
 		<Class ClassID="134091" ClassName="MustEquipTranscendToAutoMatch" Data="초월 5단계 이상인 아이템이 존재하여 자동 매칭을 신청할 수 없습니다."/>
 		<Class ClassID="134092" ClassName="TooLowLevelAccessoriesEquipToAutoMatch" Data="장착한 장신구의 레벨이 낮아서 자동 매칭을 신청할 수 없습니다.(2020근본 장신구 제외)"/>
 		<Class ClassID="134093" ClassName="ExceptEquipArkToAutoMatch" Data="장착한 아크가 올바른 장비가 아니기 때문에 자동 매칭을 신청할 수 없습니다."/>
 		<Class ClassID="134094" ClassName="TooLowLevelArkEquipToAutoMatch" Data="장착한 아크의 레벨이 낮아서 자동 매칭을 신청할 수 없습니다."/>
-		<Class ClassID="134095" ClassName="EnterAutoHardMatching" Data="[성물 던전: 자동 매칭(Hard)] 입장하기"/>
+		<Class ClassID="134095" ClassName="EnterAutoHardMatching" Data="[성물 레이드: 자동 매칭(Hard)] 입장하기"/>
 		<Class ClassID="134096" ClassName="ChooseMythicDungeonToEnter" Data="입장하실 던전을 선택하세요."/>
-		<Class ClassID="134097" ClassName="MythicAutoHardAfterSelectDialog" Data="[{#003399}성물 던전: 자동 매칭(Hard) - {ID_NAME}{/}]은 {ID_LV} 레벨 이상 입장 가능하며, 특정 등급 이상의 아이템을 착용해야 입장 가능합니다."/>
+		<Class ClassID="134097" ClassName="MythicAutoHardAfterSelectDialog" Data="[{#003399}성물 레이드: 자동 매칭(Hard) - {ID_NAME}{/}]은 {ID_LV} 레벨 이상 입장 가능하며, 특정 등급 이상의 아이템을 착용해야 입장 가능합니다."/>
 		<Class ClassID="134098" ClassName="MythicTimeAttackMsg" Data="{Name}의 사망으로 제한 시간이 {Time}초 감소합니다."/>
 		<Class ClassID="134099" ClassName="MythicPortalMsg" Data="포탈이 생성되었습니다."/>
+		<Class ClassID="134100" ClassName="SoloBuffCannotBeSelected" Data="해당 버프를 선택할 수 없습니다.{nl}해당 버프를 선택한 파티원이 존재합니다."/>
+		<Class ClassID="134101" ClassName="MythicAutoHardEntranceTicketUseLimit" Data="성물 레이드 : 자동 매칭(Hard)의 입장 횟수가 이미 최대 횟수 입니다."/>
+		<Class ClassID="134102" ClassName="MythicAutoHardEntranceCountLimit" Data="성물 레이드 : 자동 매칭(Hard) 입장 횟수가 부족합니다."/>
 	</Category>
 	<Category Name="AchieveReward">
 		<Class ClassID="135001" ClassName="GainAchieveHairBefore" Data="이미 업적 보상을 받았습니다."/>
@@ -14619,7 +14657,7 @@
 		<Class ClassID="302138" ClassName="event_flex_box_open_btn_tip_text{ITEM}{COUNT}" Data="{ITEM}을(를) {COUNT}개 소모합니다"/>
 		<Class ClassID="302139" ClassName="SSSGradeItemGetMessage{EVENT}{TEAMNAME}{ITEM}{COUNT}" Data="{TEAMNAME}님이 {EVENT}에서 {ITEM}을/를 {COUNT}개 획득하였습니다."/>
 		<Class ClassID="302140" ClassName="EVENT_FLEX_BOX_LIMIT_BY_CONTENTS{ITEM}" Data="오늘 콘텐츠 플레이로 획득 가능한 {ITEM}을(를) 전부 획득하셨습니다."/>
-		<Class ClassID="302141" ClassName="Event_Flex_box_Open_Max_Count" Data="개봉 가능 횟 수를 모두 이용하셨습니다."/>
+		<Class ClassID="302141" ClassName="Event_Flex_box_Open_Max_Count" Data="개봉 가능 횟수를 모두 이용하셨습니다."/>
 		<Class ClassID="302142" ClassName="EVENT_FLEX_BOX_StackOverItemExist" Data="인벤토리에 메데이나 FLEX BOX의 상품 중 최대 수량을 가진 아이템이 존재합니다."/>
 		<Class ClassID="302143" ClassName="STAMP_TOUR_ALL_CLEAR_REWARD_ACQUIRE" Data=" 스탬프 투어 미션 클리어 기념 상자 수령하기"/>
 		<Class ClassID="302144" ClassName="NEW_SEASON_SERVER_COIN_CHECK_TOOLTIP_1" Data="일일 1시간 접속, 스탬프 투어, 콘텐츠 이용을 통해 획득한 모든 주화 입니다.{nl}최대 600개 획득 가능합니다."/>
@@ -14708,6 +14746,12 @@
 		<Class ClassID="302232" ClassName="EVENT_2011_5TH_Special_Shop_Item_MSG_3" Data="현재 소비한 5주년 기념 주화 : {CNT}개"/>
 		<Class ClassID="302233" ClassName="EVENT_2011_5TH_FIREWORK_BUFF_CHECK_MESSAGE1{FIREWORK}" Data="[이벤트] 5주년 불꽃놀이{nl}TOS 5주년의 불꽃 버프 수령 횟수 {#3366FF}({FIREWORK}/3회){/}{nl}{#FF0000}※일일 버프 수령 횟수는 매일 오전 6시 초기화 됩니다.{/}"/>
 		<Class ClassID="302234" ClassName="EVENT_2012_EP13_LvReward_COUNT_CHECK_MESSAGE1" Data="에피소드 13 출시 이벤트{nl}452 레벨 달성 보상{#3366FF}( {LVREWARD1} ){/}{nl}454 레벨 달성 보상{#3366FF}( {LVREWARD2} ){/}{nl}456 레벨 달성 보상{#3366FF}( {LVREWARD3} ){/}{nl}458 레벨 달성 보상{#3366FF}( {LVREWARD4} ){/}{nl}460 레벨 달성 보상{#3366FF}( {LVREWARD5} ){/}{nl}{#FF0000}※각 보상은 팀당 1회씩만 수령할 수 있습니다.{/}"/>
+		<Class ClassID="302235" ClassName="EVENT_2011_Harvest_STM_SEL_MSG1" Data="{#0033FF}[수확제]{/} 이벤트 안내"/>
+		<Class ClassID="302236" ClassName="EVENT_2011_Harvest_STM_SEL_MSG2" Data="{#0033FF}[수확제]{/} 축복받은 씨앗 수령하기"/>
+		<Class ClassID="302237" ClassName="EVENT_2011_Harvest_STM_SEL_MSG3" Data="{#ff0000}오늘의 씨앗을 모두 획득하셨습니다.{nl}일일 제한은 매일 오전 6시에 초기화됩니다.{/}"/>
+		<Class ClassID="302238" ClassName="EVENT_2011_Harvest_STM_SEL_MSG4" Data="다음 씨앗 수령까지 {TIME}분 남았습니다."/>
+		<Class ClassID="302239" ClassName="EVENT_2011_Harvest_STM_CHECK_MESSAGE1{SEED}" Data="[이벤트] 수확제{nl}[이벤트] 축복받은 씨앗 일일 수령 횟수 {#3366FF}({SEED}/1회){/}{nl}{#ff0000}일일 획득 제한은 매일 오전 6시에 초기화 됩니다.{/}"/>
+		<Class ClassID="302240" ClassName="EVENT_2011_Harvest_STM_SEL_MSG5" Data="{#0033FF}[수확제]{/} 여신의 기운 버프 안내"/>
 		<Class ClassID="302241" ClassName="EVENT_2012_GILTINE_BUFF_MSG" Data="길티네 레이드 버프를 받는다."/>
 		<Class ClassID="302242" ClassName="EVENT_2012_GILTINE_ITEM_MSG1" Data="[길티네 레이드] 이벤트 보상을 받는다."/>
 		<Class ClassID="302243" ClassName="EVENT_2012_GILTINE_ITEM_MSG2" Data="[길티네 레이드] 이벤트 주말 보상을 받는다."/>
@@ -14732,6 +14776,12 @@
 		<Class ClassID="302262" ClassName="EVENT_2012_YAK_SEL_MSG6" Data="{#FF0000}특성 포인트 무료 회수권을 모두 획득하셨습니다.(팀당 3회){/}"/>
 		<Class ClassID="302263" ClassName="EVENT_2012_YAK_SEL_MSG7" Data="{#FF0000}[야크맘보] 황금 눈꽃 열쇠가 없습니다.{/}"/>
 		<Class ClassID="302264" ClassName="EVENT_2012_YAK_SEL_MSG8" Data="{#FF0000}[야크맘보] 눈꽃 열쇠가 없습니다.{/}"/>
+		<Class ClassID="302265" ClassName="EVENT_2011_1YEAR_JPN_SEL_MSG1" Data="{#0033FF}[말순이]{/} 이벤트 안내"/>
+		<Class ClassID="302266" ClassName="EVENT_2011_1YEAR_JPN_SEL_MSG2" Data="{#0033FF}[말순이]{/} 말순이의 축복"/>
+		<Class ClassID="302267" ClassName="EVENT_2011_1YEAR_JPN_SEL_MSG3" Data="{#0033FF}[말순이]{/} 말순이의 깜짝 상자"/>
+		<Class ClassID="302268" ClassName="EVENT_2011_1YEAR_JPN_SEL_MSG4" Data="말순이의 축복"/>
+		<Class ClassID="302269" ClassName="EVENT_2011_1YEAR_JPN_SEL_MSG5" Data="{#ff241e}오늘의 깜짝 상자를 이미 획득하셨습니다.{nl}일일 제한은 매일 오전 6시에 초기화됩니다.{/}"/>
+		<Class ClassID="302270" ClassName="EVENT_2011_1YEAR_JPN_SEL_MSG6" Data="{#ff241e}오늘의 버프를 이미 획득하셨습니다.{nl}일일 제한은 매일 오전 6시에 초기화됩니다.{/}"/>
 		<Class ClassID="302271" ClassName="EVENT_2011_5TH_Special_Shop_Item_MSG_4{CNT}" Data="[이벤트] 5주년 기념 주화 소비 : {CNT}"/>
 		<Class ClassID="302272" ClassName="EVENT_2011_5TH_Special_Shop_Item_MSG_5" Data="[이벤트] 5주년 바이보라 유니크 무기 계열 선택 상자는 5주년 특별 상점에서 5주년 기념주화 2000개를 소비해야 구매할 수 있습니다.{nl}[이벤트] 5주년 바이보라 유니크 무기 계열 선택 상자 구매 후{nl}[이벤트] 5주년 바이보라 유니크 무기 랜덤 상자를 구매할 수 있습니다.{nl}"/>
 		<Class ClassID="302273" ClassName="EVENT_2011_5TH_Use_5th_Coin_tip_MSG_1" Data="주화 교환은 '[이벤트] 5주년 바이보라 유니크 무기 계열 선택 상자'를 구매하기 위한{nl} 소비 조건에 해당되지 않습니다."/>
@@ -14739,12 +14789,23 @@
 		<Class ClassID="302275" ClassName="EVENT_COIN_WEEK_FULL{COIN}" Data="주간 획득 가능한 {COIN}을(를) 전부 획득하셨습니다."/>
 		<Class ClassID="302276" ClassName="Enable_Pc_{LV}" Data="{LV}레벨 이상의 캐릭터만 이용할 수 있습니다."/>
 		<Class ClassID="302277" ClassName="EVENT_2011_5TH_USE_SCROLL{USE}{TARGET}" Data="{USE}를 {TARGET}에 사용하시겠습니까?"/>
+		<Class ClassID="302290" ClassName="EVENT_2101_NEW_YEAR_SEL_MSG1" Data="{#003399}[신년맞이]{/}이벤트 안내"/>
+		<Class ClassID="302291" ClassName="EVENT_2101_NEW_YEAR_SEL_MSG2" Data="{#003399}[신년맞이]{/}이벤트 상점"/>
+		<Class ClassID="302292" ClassName="EVENT_2101_NEW_YEAR_SEL_MSG3" Data="{#003399}[신년맞이]{/}말순이의 행운 박스"/>
+		<Class ClassID="302293" ClassName="EVENT_2101_NEW_YEAR_COMMAND{CNT1}{CNT2}{CNT3}" Data="신년맞이 축제{nl}[이벤트] 행운의 동전 콘텐츠 획득량 ({CNT1}/200){nl}[이벤트] 행운의 동전 필드 사냥 획득량 ({CNT2}/100){nl}[이벤트] 신년 티켓 1시간 접속 보상 획득량 ({CNT3}/5){nl}※일일 제한은 매일 오전 06시 초기화 됩니다."/>
+		<Class ClassID="302294" ClassName="EVENT_2101_NEW_YEAR_SHOP" Data="[신년맞이] 이벤트 상점"/>
+		<Class ClassID="302295" ClassName="EVENT_2101_NEW_YEAR_BOX_TITLE" Data="말순이의 행운 박스"/>
+		<Class ClassID="302296" ClassName="EVENT_COIN_CONTENT_FULL{COIN}" Data="오늘 콘텐츠 클리어로 획득 가능한 {COIN}을(를) 전부 획득하셨습니다."/>
+		<Class ClassID="302297" ClassName="EVENT_COIN_FIELD_FULL{COIN}" Data="오늘 필드 사냥으로 획득 가능한 {COIN}을(를) 전부 획득하셨습니다."/>
+		<Class ClassID="302298" ClassName="Event_Flex_box_Daily_Open_Max_Count_Over" Data="개봉 가능 횟수를 모두 이용하셨습니다."/>
+		<Class ClassID="302305" ClassName="EVENT_2101_NEW_YEAR_JPN_MSG1" Data="신년 소원을 빌고있습니다."/>
+		<Class ClassID="302306" ClassName="EVENT_2101_NEW_YEAR_JPN_MSG2" Data="좋은 기운이 가득합니다."/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
 		<Class ClassID="303002" ClassName="AccountUse2MoreRank" Data="실버 입금 및 출금은 15레벨 이상 가능합니다."/>
 		<Class ClassID="303003" ClassName="YouHaveWrongJob" Data="등록되지 않은 직업을 가지고 있습니다. 운영팀에 문의해주세요."/>
-		<Class ClassID="303004" ClassName="CannotPutBecauseMasSlot" Data="더 이상 팀 창고에 보관할 수 없습니다."/>
+		<Class ClassID="303004" ClassName="CannotPutBecauseMaxSlot" Data="더 이상 팀 창고에 보관할 수 없습니다."/>
 	</Category>
 	<Category Name="Notice">
 		<Class ClassID="304001" ClassName="NoticeFrameName" Data="공지사항"/>
@@ -14892,6 +14953,7 @@
 		<Class ClassID="501274" ClassName="EVENT_2006_DRAGON_BOAT_SEL_MSG4" Data="행운의 죽엽 교환"/>
 		<Class ClassID="501275" ClassName="EVENT_2006_DRAGON_BOAT_SEL_MSG5" Data="+{REINFORCE} 보상 교환({NOW}/{MAX})"/>
 		<Class ClassID="501276" ClassName="EVENT_2006_DRAGON_BOAT_INFINITY" Data="무제한"/>
+		<Class ClassID="501281" ClassName="Event_Transcend_Scroll_Choice_box" Data="아이템 선택"/>
 	</Category>
 	<Category Name="GEM_GACHA">
 		<Class ClassID="510001" ClassName="GEM_GACHA_SEL1" Data="젬 1회 뽑기"/>
@@ -16009,6 +16071,7 @@
 		<Class ClassID="560045" ClassName="motion_medeina_emotion04" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560046" ClassName="motion_medeina_emotion06" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560047" ClassName="SorshaHutton_emotion01" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560048" ClassName="malsuns_emotion82" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 	</Category>
 	<Category Name="Gesture">
 		<Class ClassID="570000" ClassName="Already_Gesture" Data="이미 보유한 제스처입니다."/>
@@ -16297,6 +16360,9 @@
 		<Class ClassID="1007003" ClassName="COMEPLETE_DAYQUEST" Data="수령 가능한 퀘스트가 없습니다"/>
 		<Class ClassID="1007004" ClassName="START_QUEST{QUESTNAME}" Data="{#FFFF00}{QUESTNAME}{/}{nl}명성 퀘스트를 시작합니다"/>
 		<Class ClassID="1007005" ClassName="PROGRESS_QUEST{QUESTNAME}" Data="{#FFFF00}{QUESTNAME}{/}{nl}명성 퀘스트를 진행 중 입니다."/>
+		<Class ClassID="1007006" ClassName="REPUTATION_QUEST_BOARD_POSSIBLEQUEST" Data="명성 일일 퀘스트 일괄 수령하기"/>
+		<Class ClassID="1007007" ClassName="REPUTATION_QUEST_BOARD_COMPLETE" Data="{#FFFF00}{COUNT}개{/}의 명성 일일 퀘스트를 시작합니다"/>
+		<Class ClassID="1007008" ClassName="REPUTATION_QUEST_BOARD_NO_QUEST" Data="수령 가능한 명성 일일 퀘스트가 없습니다"/>
 	</Category>
 	<Category Name="relic_ui">
 		<Class ClassID="1008001" ClassName="NO_EQUIP_RELIC" Data="성물을 착용 후 이용 가능합니다."/>
@@ -16311,7 +16377,7 @@
 		<Class ClassID="1008010" ClassName="NO_NOT_OPEN_RELIC_MANAGER_AT_TOWN" Data="성물 관리는 마을에서만 이용 가능합니다."/>
 		<Class ClassID="1008011" ClassName="NO_NOT_USE_RELIC_RELEASE" Data="성물해방은 마을에서 사용할 수 없습니다."/>
 		<Class ClassID="1008012" ClassName="REALLY_DO_RELIC_GEM_REINFORCE" Data="재료 아이템과 {SILVER}실버를 소모하여 {NAME}의 강화를 시도합니다.{nl} {nl}{#FF0000}성공/실패 여부와 상관없이{nl}재료는 모두 소모됩니다.{/}{/}{nl} {nl}계속하시겠습니까?"/>
-		<Class ClassID="1008013" ClassName="REALLY_DO_RELIC_GEM_COMPOSE" Data="재료 아이템과 {SILVER}실버를 소모하여 무작위 성물 젬을 획득합니다.{nl}계속하시겠습니까?"/>
+		<Class ClassID="1008013" ClassName="REALLY_DO_RELIC_GEM_COMPOSE" Data="재료 아이템과 {SILVER}실버를 소모하여 합성을 시도합니다.{nl}확률에 따라 성공, 혹은 실패하며{nl}{#FF0000}성공/실패 여부와 상관 없이 재료 및 실버는 모두 소비됩니다.{/}{/}{nl}계속하시겠습니까?"/>
 		<Class ClassID="1008014" ClassName="REALLY_DO_RELIC_GEM_TRANSFER" Data="{NAME1} 아이템의 레벨을 {NAME2} 아이템으로 이전합니다.{nl}레벨 이전 후 {NAME3} 아이템은 파괴됩니다.{nl}계속하시겠습니까?"/>
 		<Class ClassID="1008015" ClassName="REALLY_DO_RELIC_GEM_DECOMPOSE" Data="선택한 성물 젬들을 분해하여 [프리즘 콜] 아이템을 획득합니다.{nl}계속하시겠습니까?"/>
 		<Class ClassID="1008016" ClassName="EMPTY_RELIC_GEM_SOCKET" Data="{@sti1c}{s16}빈 {NAME} 소켓{/}{/}"/>

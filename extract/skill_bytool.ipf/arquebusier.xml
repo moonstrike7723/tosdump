@@ -78,7 +78,7 @@
             <EtcList>
                 <Scp Scp="MONSKL_C_PLAY_ANIM" Client="YES" UseSleep="NO" Time="0">
                     <Str Str="skl_LuckyStrike"/>
-                    <Num Num="1.3"/>
+                    <Num Num="1.7"/>
                     <Num Num="1"/>
                     <Num Num="0"/>
                 </Scp>

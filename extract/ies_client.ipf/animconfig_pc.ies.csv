@@ -1497,3 +1497,4 @@ ClassID,BlendIn,BlendOut,Priority,OffsetValue,ClassName,Main,Loop,Freeze,Additiv
 1541,0,0,4,0,skl_Uruz_cast,YES,YES,NO,NO,YES,NO,NO,,NO,Stand
 1542,0,0,4,0,skl_Fire_Charm,YES,NO,YES,NO,YES,NO,NO,,NO,Attack
 1543,0,0,4,0,skl_Flame_Radiation,YES,NO,YES,NO,YES,NO,NO,,NO,Attack
+1544,0,0,4,0,SKL_GRANDCROSS_SHOT,YES,NO,YES,NO,YES,NO,NO,,NO,Stand

@@ -5631,18 +5631,6 @@ function SCR_GET_MissileHole_Ratio(skill)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
-function SCR_GET_Heal_Ratio3(skill)
-
-    local pc = GetSkillOwner(skill);
-    local abil = GetAbility(pc, "Cleric12") 
-    local value = 0
-    if abil ~= nil then 
-        return SCR_ABIL_ADD_SKILLFACTOR_TOOLTIP(abil);
-    end
-
-end
-
--- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Heal_Time(skill)
 
     local pc = GetSkillOwner(skill);
@@ -7474,14 +7462,16 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Daino_Ratio(skill)
-    local value = TryGetProp(skill, 'Level', 1) * 5
+    local value = TryGetProp(skill, 'Level', 1) * 2
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     
     return value;
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Daino_Ratio2(skill)
-    local value = TryGetProp(skill, 'Level', 1) * 1.5
+    local value = TryGetProp(skill, 'Level', 1) * 2
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     
     return value;
 end
@@ -8534,6 +8524,11 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Barrier_Bufftime(skill)
     local value = skill.Level * 4
+    local pc = GetSkillOwner(skill)
+    if IsPVPServer(pc) == 1 then
+        value = value / 2
+    end
+
     return math.floor(value)
 end
 
@@ -8814,7 +8809,10 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_StereaTrofh_Ratio(skill)
     local value = skill.Level * 7
+    local pc = GetSkillOwner(skill)
+
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+
     return value
 end
 
@@ -9971,7 +9969,7 @@ function SCR_GET_Heal_Bufftime(skill)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
-function SCR_GET_Heal_Ratio(skill)
+function SCR_GET_Heal_Ratio(skill)        
     local pc = GetSkillOwner(skill);
     local pcINT = TryGetProp(pc, "INT");
     if pcINT == nil then
@@ -9989,9 +9987,15 @@ function SCR_GET_Heal_Ratio(skill)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
-function SCR_GET_Heal_Ratio2(skill)
-    return SCR_GET_Heal_Ratio2_Common(skill)
+function SCR_GET_Heal_Ratio2(skill)        
+    return SCR_GET_Heal_Ratio2_Common(skill)    
 end
+
+-- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Heal_Ratio3(skill)    
+    return SCR_GET_Heal_Ratio3_Common(skill)
+end
+
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Heal_Ratio2_Common(skill)
 	local pc = GetSkillOwner(skill)
@@ -10025,6 +10029,42 @@ function SCR_GET_Heal_Ratio2_Common(skill)
     if jobHistory ~= nil and string.find(jobHistory, "Char4_15") ~= nil then
         value = value * 1.1
     end
+    
+    return math.floor(value);
+end
+
+-- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_Heal_Ratio3_Common(skill)    
+    local pc = GetSkillOwner(skill)
+    local value = 150 + (skill.Level - 1) * 103
+    
+    local addAbilRate = 1;
+    local reinforceAbilName = "Cleric33"
+    local reinforceAbil = GetAbility(pc, reinforceAbilName)    
+    if reinforceAbil ~= nil then
+        local abilLevel = TryGetProp(reinforceAbil, "Level")        
+        local masterAddValue = 0
+        if abilLevel == 100 then
+            masterAddValue = 0.1
+        end
+        addAbilRate = 1 + (reinforceAbil.Level * 0.005 + masterAddValue);
+        
+        local hidden_abil_cls = GetClass("HiddenAbility_Reinforce", "Cleric_Heal_Cleric34");
+        if abilLevel >= 65 and hidden_abil_cls ~= nil then
+            local hidden_abil_name = "Cleric34"
+            local hidden_abil = GetAbility(pc, hidden_abil_name);
+            if hidden_abil ~= nil then
+                local abil_level = TryGetProp(hidden_abil, "Level");
+                local add_factor = TryGetProp(hidden_abil_cls, "FactorByLevel", 0) * 0.01;
+                local add_value = 0;
+                if abil_level == 10 then
+                    add_value = TryGetProp(hidden_abil_cls, "AddFactor", 0) * 0.01
+                end
+                addAbilRate = addAbilRate * (1 + (abil_level * add_factor) + add_value);
+            end
+        end        
+    end
+    value = value * addAbilRate    
     
     return math.floor(value);
 end
@@ -10371,18 +10411,11 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Aukuras_Ratio2(skill)
     local pc = GetSkillOwner(skill)
-    local value = 0
+    local pcLv = TryGetProp(pc, "Lv", 1)
+    local sklLv = TryGetProp(skill, "Level", 1)
     
-    if pc ~= nil then        
-        -- 지??+ ?�신 계수 ?�산
-        local casterINT = TryGetProp(pc, 'INT', 1);
-        local casterMNA = TryGetProp(pc, 'MNA', 1);        
-        value = 100 + (TryGetProp(skill, 'Level', 0) * 90) + (casterINT + casterMNA)        
-    else
-        value = 100 + (TryGetProp(skill, 'Level', 0) * 90)
-    end
-    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill);
-    
+    local value = (14*pcLv) + (sklLv*pcLv*1.5)
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     return math.floor(value)
 end
 
@@ -10402,13 +10435,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_DivineStigma_Time(skill)
-    local pc = GetSkillOwner(skill)
-    local value = 60;
-    local abil = GetAbility(pc, "Kriwi9")
-    if abil ~= nil and abil.ActiveState == 1 then
-        value = value + (abil.Level * 6);
-    end
-    
+    local value = 5 + skill.Level;
     return math.floor(value);
 end
 
@@ -10596,7 +10623,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Prakriti_Ratio(skill)
-    local value = skill.Level * 5
+    local value = skill.Level * 2
     
     return value
 end
@@ -13978,8 +14005,10 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Sacred_Heal_Ratio(skill)
     --value = skill.SklFactor + (skill.Level - 1) * skill.SklFactorByLevel;
-	value = 10 + (skill.Level - 1) * 2.7
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (10 + (skill.Level - 1) * 2.7) * 0.4
+    
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
@@ -13991,36 +14020,46 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_HolySmash_Heal_Ratio(skill)
-    value = 16 + (skill.Level - 1) * 2.7
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (16 + (skill.Level - 1) * 2.7) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_RingOfLight_Heal_Ratio(skill)
-    value = 42 + (skill.Level - 1) * 7.1
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (42 + (skill.Level - 1) * 7.1) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Condemn_Heal_Ratio(skill)
-    value = 14 + (skill.Level - 1) * 3.7
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (14 + (skill.Level - 1) * 3.7) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_ProtectionOfGoddess_Heal_Ratio(skill)
-    value = 67 + (skill.Level - 1) * 67.3
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (67 + (skill.Level - 1) * 67.3) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Retaliation_Heal_Ratio(skill)
-    value = 76 + (skill.Level - 1) * 20
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (76 + (skill.Level - 1) * 20) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
@@ -15663,13 +15702,14 @@ function SCR_GET_FrenziedBurst_Ratio(skill)
     return value
 end
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
-function SCR_Get_SkillFactor_Heal(skill)
+function SCR_Get_SkillFactor_Heal(skill)        
     local pc = GetSkillOwner(skill)
     local value = 0;
-    if pc ~= nil and IsBuffApplied(pc, "AUTO_MATCHING_DARK_SPHERE_BUFF") == "YES" then
+    if pc ~= nil and IsBuffApplied(pc, "Cleric32_DARK_SPHERE_BUFF") == "YES" then
+        value = SCR_GET_Heal_Ratio3_Common(skill)
+    elseif pc ~= nil and IsBuffApplied(pc, "AUTO_MATCHING_DARK_SPHERE_BUFF") == "YES" then
         local add_buff_factor = 10;
         value = SCR_GET_Heal_Ratio2_Common(skill) * add_buff_factor
-        return value
     end
 
     return value

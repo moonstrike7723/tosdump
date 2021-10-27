@@ -5,6 +5,8 @@ function SILVER_GACHA_ON_INIT(addon, frame)
     addon:RegisterMsg('SILVER_GACHA_NO_EVENT_EXIST', 'ON_SILVER_GACHA_NO_EVENT_EXIST');
 end
 
+local SILVER_GACHA_UNLIMITED_COUNT = 10000000
+
 -- SETTING
 function SILVER_GACHA_GET_EVENT_ID()
 	return ui.GetFrame("silver_gacha"):GetUserConfig("EVENT_ID")
@@ -18,10 +20,6 @@ end
 -- OPEN / CLOSE
 function SILVER_GACHA_OPEN()
     SILVER_GACHA_SPINE()
-    
-	local frame = ui.GetFrame("silver_gacha");
-    GET_CHILD_RECURSIVELY(frame, "once_count_edit"):SetText('1');
-    SILVER_GACHA_TOTAL_ONCE_SILVER_UPDATE(1);
 end
 
 function SILVER_GACHA_CLOSE()
@@ -68,7 +66,7 @@ function ON_SILVER_GACHA_INFO_CHANGE()
             local slot = AUTO_CAST(ctrl:GetChild('slot'))
             local text = AUTO_CAST(ctrl:GetChild('slot_text'))
 
-            if rank ~= 3 then
+            if originalCount < SILVER_GACHA_UNLIMITED_COUNT then
                 text:SetTextByKey("now", nowCount)
                 text:SetTextByKey("original", originalCount)
 
@@ -95,12 +93,24 @@ function SILVER_GACHA_INIT()
     GET_CHILD_RECURSIVELY(frame, "auto_edit"):SetText('')
     GET_CHILD_RECURSIVELY(frame, 'dedication_slot'):ClearIcon()
     
-	SILVER_GACHA_TOGGLE_BUTTON("ON")
+    SILVER_GACHA_TOGGLE_BUTTON("ON")
+    
+    GET_CHILD_RECURSIVELY(frame, "once_count_edit"):SetText('1')
+    SILVER_GACHA_TOTAL_ONCE_SILVER_UPDATE(1)
 end
 
 -- UI SET
 function SILVER_GACHA_SET_UI()
     local frame = ui.GetFrame("silver_gacha")
+    local gb = frame:GetChild("protection_gb")
+
+    gb:RemoveAllChild()
+    
+    -- 배경 이미지
+    local pic = AUTO_CAST(gb:CreateControl('picture', 'protection_gb_pic', 572, 720, ui.CENTER_HORZ, ui.CENTER_VERT, 0, 0, 0, 0))
+    pic:SetImage(frame:GetUserConfig('BACKGROUND_IMAGE'))
+
+    -- 이벤트 ID
     local eventID = SILVER_GACHA_GET_EVENT_ID()
 
     -- 시간
@@ -150,7 +160,7 @@ function SILVER_GACHA_SET_UI()
             -- 텍스트
             local text = AUTO_CAST(ctrl:GetChild('slot_text'))
 
-            if rank == 3 then
+            if originalCount >= SILVER_GACHA_UNLIMITED_COUNT then
                 text:SetText("{@st100white_16}{s26}"..ScpArgMsg("SilverGachaMaxVal"))
             else
                 text:SetTextByKey("now", nowCount)

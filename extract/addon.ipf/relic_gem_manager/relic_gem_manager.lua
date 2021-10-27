@@ -13,6 +13,7 @@ end
 
 function RELIC_GEM_MANAGER_OPEN(frame)
 	ui.CloseFrame('rareoption')
+	ui.CloseFrame('relicmanager')
 
 	ui.OpenFrame('inventory')
 	
@@ -23,7 +24,6 @@ function RELIC_GEM_MANAGER_OPEN(frame)
 		index = tab:GetSelectItemIndex()
 	end
 	TOGGLE_RELIC_GEM_MANAGER_TAB(frame, index)
-	frame:SetUserValue('DO_REINF', 0)
 end
 
 function RELIC_GEM_MANAGER_CLOSE(frame)
@@ -136,7 +136,100 @@ function UPDATE_RELIC_GEM_MANAGER_REINFORCE(frame)
 		rmat_inner:ShowWindow(0)
 		rprice_info:ShowWindow(0)
 		do_reinforce:SetEnable(0)
-	end
+    end
+    
+    UPDATE_RRELIC_GEM_MANAGER_REINFORCE_DISCOUNT(frame)
+end
+
+function UPDATE_RRELIC_GEM_MANAGER_REINFORCE_DISCOUNT(frame)
+    local discountSet = GET_CHILD_RECURSIVELY(frame, 'rslotlist_discount', 'ui::CSlotSet')
+    discountSet:ClearIconAll()
+
+	local invItemList = session.GetInvItemList()
+    local discountItemList = SCR_REINFORCE_COUPON()
+
+    FOR_EACH_INVENTORY(invItemList, 
+    function(invItemList, invItem, discountSet, materialItemList, discountItemList)
+		local obj = GetIES(invItem:GetObject())
+        local itemName = TryGetProp(obj, 'ClassName', 'None')
+        
+        if table.find(discountItemList, itemName) > 0 then
+			if imcSlot:GetFilledSlotCount(discountSet) == discountSet:GetSlotCount() then
+				return
+            end
+
+            local slotindex = imcSlot:GetEmptySlotIndex(discountSet)
+            local slot = discountSet:GetSlotByIndex(slotindex)
+            slot:SetMaxSelectCount(invItem.count)
+            slot:SetUserValue('DISCOUNT_POINT', obj.NumberArg1)
+
+			local icon = CreateIcon(slot)
+            icon:Set(obj.Icon, 'Item', invItem.type, slotindex, invItem:GetIESID(), invItem.count)
+            
+			local class = GetClassByType('Item', invItem.type)
+			SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, obj, invItem.count)
+			ICON_SET_INVENTORY_TOOLTIP(icon, invItem, 'poisonpot', class)
+        end
+
+	end, false, discountSet, materialItemList, discountItemList)
+end
+
+function RELIC_GEM_MANAGER_REINFORCE_TOTAL_DISCOUNT_PRICE()
+    local frame = ui.GetFrame('relic_gem_manager')
+    if frame == nil then
+        return
+    end
+
+    local slotSet = GET_CHILD_RECURSIVELY(frame, "rslotlist_discount")
+    local totalDiscount = 0
+
+	for i = 0, slotSet:GetSlotCount() - 1 do
+		local slot = slotSet:GetSlotByIndex(i)
+        local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
+
+		totalDiscount = SumForBigNumberInt64(totalDiscount, MultForBigNumberInt64(slot:GetSelectCount(), point))
+    end
+    
+    return totalDiscount
+end
+
+function RELIC_GEM_MANAGER_REINFORCE_DISCOUNT_CLICK(slotSet, slot)
+    local frame = ui.GetFrame('relic_gem_manager')
+    if frame == nil then
+        return
+    end
+
+    local totalPrice = frame:GetUserValue('REINFORCE_PRICE')
+    local discountPrice = RELIC_GEM_MANAGER_REINFORCE_TOTAL_DISCOUNT_PRICE()
+
+    -- 할인가 계산
+    local adjustValue = SumForBigNumberInt64(totalPrice, '-'..discountPrice)
+
+    -- 할인가가 0보다 작을 경우
+    if IsGreaterThanForBigNumber(0, adjustValue) == 1 then
+        local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
+        if point == nil or point == 0 then
+            return
+        end
+
+        local nowCount = slot:GetSelectCount()
+        local adjustCount = math.floor(tonumber(DivForBigNumberInt64(adjustValue, point)))
+
+        slot:SetSelectCount(slot:GetSelectCount() + adjustCount)
+
+        -- 선택한게 없으면 포커스 풀어주기
+        if slot:GetSelectCount() == 0 then
+            slot:Select(0)
+        end
+    end
+
+    ui.EnableSlotMultiSelect(1)
+
+    -- 초과금액 걷어내기 끝난다음 다시 계산
+    local totalPrice = frame:GetUserValue('REINFORCE_PRICE')
+    local discountPrice = RELIC_GEM_MANAGER_REINFORCE_TOTAL_DISCOUNT_PRICE()
+    
+	_REINFORCE_PRICE_UPDATE(frame, SumForBigNumberInt64(totalPrice, '-'..discountPrice))
 end
 
 function RELIC_GEM_MANAGER_REINFORCE_INV_RBTN(item_obj, slot)
@@ -366,7 +459,6 @@ function CLEAR_RELIC_GEM_MANAGER_REINFORCE()
 
 	frame:SetUserValue('GEM_TYPE', 0)
 	frame:SetUserValue('GEM_GUID', 'None')
-	frame:SetUserValue('DO_REINF', 0)
 
 	UPDATE_RELIC_GEM_MANAGER_REINFORCE(frame)
 end
@@ -442,36 +534,47 @@ function RELIC_GEM_MANAGER_REINFORCE_EXEC(parent)
 		return
 	end
 
-	local silver_cnt = frame:GetUserValue('REINFORCE_PRICE')
-	local my_money = GET_TOTAL_MONEY_STR()
+    local original = frame:GetUserValue('REINFORCE_PRICE')
+    local discount = RELIC_GEM_MANAGER_REINFORCE_TOTAL_DISCOUNT_PRICE()
+
+    local silver_cnt = SumForBigNumberInt64(original, '-'..discount)
+    local my_money = GET_TOTAL_MONEY_STR()
+    
     if IsGreaterThanForBigNumber(silver_cnt, my_money) == 1 then
         ui.SysMsg(ClMsg('NotEnoughMoney'))
         return
 	end
 	
 	session.ResetItemList()
-	session.AddItemID(guid, 1)
+    session.AddItemID(guid, 1)
+
+    -- 강화 할인 쿠폰 등록
+    local discountSet = GET_CHILD_RECURSIVELY(frame, 'rslotlist_discount', 'ui::CSlotSet')
+
+    for i = 0, discountSet:GetSelectedSlotCount() -1 do
+        local slot = discountSet:GetSelectedSlot(i)
+        local Icon = slot:GetIcon()
+        local iconInfo = Icon:GetInfo()
+        local cnt = slot:GetSelectCount()
+        session.AddItemID(iconInfo:GetIESID(), cnt)
+    end
 	
 	local gem_name = dic.getTranslatedStr(TryGetProp(gem_obj, 'Name', 'None'))
 	local msg = ScpArgMsg('REALLY_DO_RELIC_GEM_REINFORCE', 'SILVER', silver_cnt, 'NAME', gem_name)
 	local yesScp = '_RELIC_GEM_MANAGER_REINFORCE_EXEC()'
-	ui.MsgBox(msg, yesScp, 'None')
+	local msgbox = ui.MsgBox(msg, yesScp, 'None')
+	SET_MODAL_MSGBOX(msgbox)
 end
 
 function _RELIC_GEM_MANAGER_REINFORCE_EXEC()
 	local frame = ui.GetFrame('relic_gem_manager')
 	if frame == nil then return end
 
-	local do_already = frame:GetUserIValue('DO_REINF')	
-	if do_already == 1 then return end
-
 	local do_reinforce = GET_CHILD_RECURSIVELY(frame, 'do_reinforce')
 
 	local result_list = session.GetItemIDList()
 
 	item.DialogTransaction('RELIC_GEM_REINFORCE', result_list)	
-
-	frame:SetUserValue('DO_REINF', 1)
 end
 
 function END_RELIC_GEM_REINFORCE(frame, msg, arg_str, arg_num)
@@ -479,8 +582,6 @@ function END_RELIC_GEM_REINFORCE(frame, msg, arg_str, arg_num)
 	if do_reinforce ~= nil then
 		do_reinforce:ShowWindow(0)
 	end
-
-	frame:SetUserValue('DO_REINF', 0)
 
 	if arg_str == 'SUCCESS' then
 		ReserveScript('_RUN_RELIC_GEM_REINFORCE_SUCCESS()', 0)
@@ -656,8 +757,8 @@ local function _COMPOSE_PRICE_UPDATE(frame, price)
 	local c_invmoney = GET_CHILD_RECURSIVELY(frame, 'c_invmoney')
 
 	if price ~= nil then
-		local cur_money_str = GET_TOTAL_MONEY_STR()
-		local result_money = SumForBigNumberInt64(cur_money_str, '-' .. price)
+        local cur_money_str = GET_TOTAL_MONEY_STR()
+        local result_money = SumForBigNumberInt64(cur_money_str, '-' .. price)
 		c_price:SetTextByKey('value', GET_COMMAED_STRING(price))
 		c_invmoney:SetTextByKey('value', GET_COMMAED_STRING(result_money))
 	end
@@ -688,7 +789,100 @@ function UPDATE_RELIC_GEM_MANAGER_COMPOSE(frame)
 		do_compose:SetEnable(1)
 	else
 		do_compose:SetEnable(0)
-	end
+    end
+    
+    UPDATE_RELIC_GEM_MANAGER_COMPOSE_DISCOUNT(frame)
+end
+
+function UPDATE_RELIC_GEM_MANAGER_COMPOSE_DISCOUNT(frame)
+    local discountSet = GET_CHILD_RECURSIVELY(frame, 'cslotlist_discount', 'ui::CSlotSet')
+    discountSet:ClearIconAll()
+
+	local invItemList = session.GetInvItemList()
+    local discountItemList = SCR_REINFORCE_COUPON()
+
+    FOR_EACH_INVENTORY(invItemList, 
+    function(invItemList, invItem, discountSet, materialItemList, discountItemList)
+		local obj = GetIES(invItem:GetObject())
+        local itemName = TryGetProp(obj, 'ClassName', 'None')
+        
+        if table.find(discountItemList, itemName) > 0 then
+			if imcSlot:GetFilledSlotCount(discountSet) == discountSet:GetSlotCount() then
+				return
+            end
+
+            local slotindex = imcSlot:GetEmptySlotIndex(discountSet)
+            local slot = discountSet:GetSlotByIndex(slotindex)
+            slot:SetMaxSelectCount(invItem.count)
+            slot:SetUserValue('DISCOUNT_POINT', obj.NumberArg1)
+
+			local icon = CreateIcon(slot)
+            icon:Set(obj.Icon, 'Item', invItem.type, slotindex, invItem:GetIESID(), invItem.count)
+            
+			local class = GetClassByType('Item', invItem.type)
+			SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, obj, invItem.count)
+			ICON_SET_INVENTORY_TOOLTIP(icon, invItem, 'poisonpot', class)
+        end
+
+	end, false, discountSet, materialItemList, discountItemList)
+end
+
+function RELIC_GEM_MANAGER_COMPOSE_TOTAL_DISCOUNT_PRICE()
+    local frame = ui.GetFrame('relic_gem_manager')
+    if frame == nil then
+        return
+    end
+
+    local slotSet = GET_CHILD_RECURSIVELY(frame, "cslotlist_discount")
+    local totalDiscount = 0
+
+	for i = 0, slotSet:GetSlotCount() - 1 do
+		local slot = slotSet:GetSlotByIndex(i)
+        local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
+
+		totalDiscount = SumForBigNumberInt64(totalDiscount, MultForBigNumberInt64(slot:GetSelectCount(), point))
+    end
+    
+    return totalDiscount
+end
+
+function RELIC_GEM_MANAGER_COMPOSE_DISCOUNT_CLICK(slotSet, slot)
+    local frame = ui.GetFrame('relic_gem_manager')
+    if frame == nil then
+        return
+    end
+
+    local totalPrice = frame:GetUserValue('COMPOSE_PRICE')
+    local discountPrice = RELIC_GEM_MANAGER_COMPOSE_TOTAL_DISCOUNT_PRICE()
+
+    -- 할인가 계산
+    local adjustValue = SumForBigNumberInt64(totalPrice, '-'..discountPrice)
+
+    -- 할인가가 0보다 작을 경우
+    if IsGreaterThanForBigNumber(0, adjustValue) == 1 then
+        local point = tonumber(slot:GetUserValue("DISCOUNT_POINT"))
+        if point == nil or point == 0 then
+            return
+        end
+
+        local nowCount = slot:GetSelectCount()
+        local adjustCount = math.floor(tonumber(DivForBigNumberInt64(adjustValue, point)))
+
+        slot:SetSelectCount(slot:GetSelectCount() + adjustCount)
+
+        -- 선택한게 없으면 포커스 풀어주기
+        if slot:GetSelectCount() == 0 then
+            slot:Select(0)
+        end
+    end
+
+    ui.EnableSlotMultiSelect(1)
+
+    -- 초과금액 걷어내기 끝난다음 다시 계산
+    local totalPrice = frame:GetUserValue('COMPOSE_PRICE')
+    local discountPrice = RELIC_GEM_MANAGER_COMPOSE_TOTAL_DISCOUNT_PRICE()
+    
+	_COMPOSE_PRICE_UPDATE(frame, SumForBigNumberInt64(totalPrice, '-'..discountPrice))
 end
 
 function RELIC_GEM_MANAGER_COMPOSE_INV_RBTN(item_obj, slot)
@@ -749,8 +943,6 @@ end
 function CLEAR_RELIC_GEM_MANAGER_COMPOSE()
 	local frame = ui.GetFrame('relic_gem_manager')
 	if frame == nil then return end
-
-	frame:SetUserValue('DO_COMP', 0)
 
 	local cresult_gb = GET_CHILD_RECURSIVELY(frame, 'cresult_gb')
 	cresult_gb:ShowWindow(0)
@@ -813,8 +1005,12 @@ function RELIC_GEM_MANAGER_COMPOSE_EXEC(parent)
 		return
 	end
 
-	local price = frame:GetUserValue('COMPOSE_PRICE')
-	local my_money = GET_TOTAL_MONEY_STR()
+    local original = frame:GetUserValue('COMPOSE_PRICE')
+    local discount = RELIC_GEM_MANAGER_COMPOSE_TOTAL_DISCOUNT_PRICE()
+
+    local price = SumForBigNumberInt64(original, '-'..discount)
+    local my_money = GET_TOTAL_MONEY_STR()
+    
     if IsGreaterThanForBigNumber(price, my_money) == 1 then
         ui.SysMsg(ClMsg('NotEnoughMoney'))
         return
@@ -822,19 +1018,28 @@ function RELIC_GEM_MANAGER_COMPOSE_EXEC(parent)
 
 	session.ResetItemList()
 	session.AddItemID(guid_1, cnt_1)
-	session.AddItemID(guid_2, cnt_2)
+    session.AddItemID(guid_2, cnt_2)
+    
+    -- 강화 할인 쿠폰 등록
+    local discountSet = GET_CHILD_RECURSIVELY(frame, 'cslotlist_discount', 'ui::CSlotSet')
+    
+    for i = 0, discountSet:GetSelectedSlotCount() -1 do
+		local slot = discountSet:GetSelectedSlot(i)
+		local Icon = slot:GetIcon()
+		local iconInfo = Icon:GetInfo()
+		local cnt = slot:GetSelectCount()
+		session.AddItemID(iconInfo:GetIESID(), cnt)
+    end
 
 	local msg = ScpArgMsg('REALLY_DO_RELIC_GEM_COMPOSE', 'SILVER', GET_COMMAED_STRING(price))
 	local yesScp = '_RELIC_GEM_MANAGER_COMPOSE_EXEC()'
-	ui.MsgBox(msg, yesScp, 'None')
+	local msgbox = ui.MsgBox(msg, yesScp, 'None')
+	SET_MODAL_MSGBOX(msgbox)
 end
 
 function _RELIC_GEM_MANAGER_COMPOSE_EXEC()
 	local frame = ui.GetFrame('relic_gem_manager')
 	if frame == nil then return end
-
-	local do_already = frame:GetUserIValue('DO_COMP')
-	if do_already == 1 then return end
 
 	local do_compose = GET_CHILD_RECURSIVELY(frame, 'do_compose')
 
@@ -842,8 +1047,6 @@ function _RELIC_GEM_MANAGER_COMPOSE_EXEC()
 	local arg_list = NewStringList()
 
 	item.DialogTransaction('RELIC_GEM_COMPOSE', result_list, '', arg_list)
-
-	frame:SetUserValue('DO_COMP', 1)
 end
 
 function END_RELIC_GEM_COMPOSE(frame, msg, arg_str, arg_num)
@@ -1159,8 +1362,6 @@ function CLEAR_RELIC_GEM_MANAGER_TRANSFER()
 	local frame = ui.GetFrame('relic_gem_manager')
 	if frame == nil then return end
 
-	frame:SetUserValue('DO_TRANS', 0)
-
 	local send_ok_transfer = GET_CHILD_RECURSIVELY(frame, 'send_ok_transfer')
 	send_ok_transfer:ShowWindow(0)
 
@@ -1216,15 +1417,13 @@ function RELIC_GEM_MANAGER_TRANSFER_EXEC(parent)
 	local to_name = GET_RELIC_GEM_NAME_WITH_FONT(to_obj)
 	local msg = ScpArgMsg('REALLY_DO_RELIC_GEM_TRANSFER', 'NAME1', from_name, 'NAME2', to_name, 'NAME3', from_name)
 	local yesScp = '_RELIC_GEM_MANAGER_TRANSFER_EXEC()'
-	ui.MsgBox(msg, yesScp, 'None')
+	local msgbox = ui.MsgBox(msg, yesScp, 'None')
+	SET_MODAL_MSGBOX(msgbox)
 end
 
 function _RELIC_GEM_MANAGER_TRANSFER_EXEC()
 	local frame = ui.GetFrame('relic_gem_manager')
 	if frame == nil then return end
-
-	local do_already = frame:GetUserIValue('DO_TRANS')
-	if do_already == 1 then return end
 
 	local do_transfer = GET_CHILD_RECURSIVELY(frame, 'do_transfer')
 
@@ -1232,8 +1431,6 @@ function _RELIC_GEM_MANAGER_TRANSFER_EXEC()
 	local arg_list = NewStringList()
 
 	item.DialogTransaction('RELIC_GEM_TRANSFER', result_list, '', arg_list)
-
-	frame:SetUserValue('DO_TRANS', 1)
 end
 
 function SUCCESS_RELIC_GEM_TRANSFER(frame)
@@ -1271,12 +1468,9 @@ function UPDATE_RELIC_GEM_MANAGER_DECOMPOSE(frame)
 		local obj = GetIES(invItem:GetObject())
 		local group_name = TryGetProp(obj, 'GroupName', 'None')
 		local gem_level = TryGetProp(obj, 'GemLevel', 0)
-		if group_name == 'Gem_Relic' and gem_level == 1 then
+		local DecomposeAble = TryGetProp(obj, 'DecomposeAble', "NO")
+		if group_name == 'Gem_Relic' and gem_level == 1 and DecomposeAble == 'YES' then
 			local slotindex = imcSlot:GetEmptySlotIndex(slotSet)
-			if slotindex == 0 and imcSlot:GetFilledSlotCount(slotSet) == slotSet:GetSlotCount() then
-				slotSet:ExpandRow()
-				slotindex = imcSlot:GetEmptySlotIndex(slotSet)
-			end
 			local slot = slotSet:GetSlotByIndex(slotindex)
 			slot:SetUserValue('GEM_GUID', invItem:GetIESID())
 			slot:SetMaxSelectCount(invItem.count)
@@ -1318,8 +1512,6 @@ function CLEAR_RELIC_GEM_MANAGER_DECOMPOSE()
 	local frame = ui.GetFrame('relic_gem_manager')
 	if frame == nil then return end
 
-	frame:SetUserValue('DO_DECOMP', 0)
-
 	local send_ok_decompose = GET_CHILD_RECURSIVELY(frame, 'send_ok_decompose')
 	send_ok_decompose:ShowWindow(0)
 
@@ -1335,7 +1527,6 @@ function RELIC_GEM_MANAGER_DECOMPOSE_OPEN(frame)
 
 	UPDATE_RELIC_GEM_MANAGER_DECOMPOSE(frame)
 	RELIC_GEM_DECOMPOSE_SET_COUNT(frame)
-	frame:SetUserValue('DO_DECOMP', 0)	
 end
 
 function RELIC_GEM_MANAGER_DECOMPOSE_EXEC(parent)
@@ -1352,7 +1543,8 @@ function RELIC_GEM_MANAGER_DECOMPOSE_EXEC(parent)
         return
 	end
 
-	if session.GetInvItemByName('misc_Relic_Gem') > 900000 then
+	local inv_misc = session.GetInvItemByName('misc_Relic_Gem')
+	if inv_misc ~= nil and inv_misc.count > 900000 then
 		ui.SysMsg(ClMsg('misc_Relic_GemFullEnough'))		
 		return
 	end
@@ -1367,22 +1559,18 @@ function RELIC_GEM_MANAGER_DECOMPOSE_EXEC(parent)
 
 	local msg = ClMsg('REALLY_DO_RELIC_GEM_DECOMPOSE')
 	local yesScp = '_RELIC_GEM_MANAGER_DECOMPOSE_EXEC()'
-	ui.MsgBox(msg, yesScp, 'None')
+	local msgbox = ui.MsgBox(msg, yesScp, 'None')
+	SET_MODAL_MSGBOX(msgbox)
 end
 
 function _RELIC_GEM_MANAGER_DECOMPOSE_EXEC()
 	local frame = ui.GetFrame('relic_gem_manager')
 	if frame == nil then return end
-
-	local do_already = frame:GetUserIValue('DO_DECOMP')
-	if do_already == 1 then return end
 	
 	local result_list = session.GetItemIDList()
 	local arg_list = NewStringList()
 
 	item.DialogTransaction('RELIC_GEM_DECOMPOSE', result_list, '', arg_list)
-
-	frame:SetUserValue('DO_DECOMP', 1)
 end
 
 function SUCCESS_RELIC_GEM_DECOMPOSE(frame)
@@ -1393,6 +1581,5 @@ function SUCCESS_RELIC_GEM_DECOMPOSE(frame)
 
 	UPDATE_RELIC_GEM_MANAGER_DECOMPOSE(frame)
 	RELIC_GEM_DECOMPOSE_SET_COUNT(frame)
-	frame:SetUserValue('DO_DECOMP', 0)
 end
 -- 분해 끝

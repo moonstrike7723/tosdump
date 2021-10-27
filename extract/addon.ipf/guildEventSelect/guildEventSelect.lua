@@ -127,7 +127,7 @@ function EXEC_GUILD_EVENT(clsID)
 		return;
 	end
 	
-	if special_mission == false then
+	if special_mission == true then
 		-- 보루타
 	    if haveTicket < 3 then
     		ui.SysMsg(ScpArgMsg("NotEnoughTicketPossibleCount"));

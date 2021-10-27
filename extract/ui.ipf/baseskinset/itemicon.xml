@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by asdasd (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 http://www.altova.com by MintPC Mi -->
 <skinset name="Base">
 	<imagelist category="item_tooltip_icon">
@@ -3349,6 +3349,14 @@
 		<image name="icon_item_ep13vakarine_crossbow" file="\icon\weapon\icon_item_ep13vakarine_crossbow.png" imgrect="0 0 256 256" CMM_Caption="2020_12월 테마"/>
 		<image name="icon_item_ep13vakarine_thsword" file="\icon\weapon\icon_item_ep13vakarine_thsword.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep13vakarine_thmace" file="\icon\weapon\icon_item_ep13vakarine_thmace.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier01_musket" file="\icon\weapon\icon_item_ep13cybersoldier01_musket.png" imgrect="0 0 256 256" CMM_Caption="2021_1월 테마"/>
+		<image name="icon_item_ep13cybersoldier01_pistol" file="\icon\weapon\icon_item_ep13cybersoldier01_pistol.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier01_sword01" file="\icon\weapon\icon_item_ep13cybersoldier01_sword01.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier01_sword02" file="\icon\weapon\icon_item_ep13cybersoldier01_sword02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter_cannon" file="\icon\weapon\icon_item_ep13toswinter_cannon.png" imgrect="0 0 256 256" CMM_Caption="2021_2월 테마_마신의유혹"/>
+		<image name="icon_item_ep13toswinter_staff" file="\icon\weapon\icon_item_ep13toswinter_staff.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter_shield" file="\icon\weapon\icon_item_ep13toswinter_shield.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter_pistol" file="\icon\weapon\icon_item_ep13toswinter_pistol.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="acc_item">
 		<image name="item_necklace_01" file="\icon\acc\item_necklace_1.png" imgrect="0 0 256 256" CMM_Caption="목걸이"/>
@@ -4082,6 +4090,13 @@
 		<image name="icon_item_accessory_ep13repAustejaAcc" file="\icon\hairacc\icon_item_accessory_ep13repAustejaAcc.png" imgrect="0 0 256 256" CMM_Caption="여신의 신도_아우스테야"/>
 		<image name="icon_item_accessory_ep13repDaliaAcc" file="\icon\hairacc\icon_item_accessory_ep13repDaliaAcc.png" imgrect="0 0 256 256" CMM_Caption="여신의 신도_달리아"/>
 		<image name="icon_item_accessory_snowflower" file="\icon\hairacc\icon_item_accessory_snowflower.png" imgrect="0 0 256 256" CMM_Caption="눈꽃 헤어핀"/>
+		<image name="icon_item_accessory_ep13cybersoldier02" file="\icon\hairacc\icon_item_accessory_ep13cybersoldier02.png" imgrect="0 0 256 256" CMM_Caption="2021_1월 테마"/>
+		<image name="icon_item_accessory_ep13cybersoldier02_1" file="\icon\hairacc\icon_item_accessory_ep13cybersoldier02_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_ep13cybersoldier02_2" file="\icon\hairacc\icon_item_accessory_ep13cybersoldier02_2.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_ep13cybersoldier01" file="\icon\hairacc\icon_item_accessory_ep13cybersoldier01.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_ep13cybersoldier01_1" file="\icon\hairacc\icon_item_accessory_ep13cybersoldier01_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_ep13cybersoldier01_2" file="\icon\hairacc\icon_item_accessory_ep13cybersoldier01_2.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_ep13toswinter" file="\icon\hairacc\icon_item_accessory_ep13toswinter.png" imgrect="0 0 256 256" CMM_Caption="2021_2월_마신의유혹"/>
 	</imagelist>
 	<imagelist category="collection_item">
 		<image name="icon_collitem_collection" file="\icon\colletion\icon_item_collection.tga" imgrect="0 0 673 419" CMM_Caption="월계수"/>
@@ -5906,6 +5921,10 @@
 		<image name="icon_item_barrack_slot1" file="\icon\item\icon_item_barrack_slot1.png" imgrect="0 0 128 128" CMM_Caption="배력 캐릭터 슬롯 추가 이용권"/>
 		<image name="icon_item_transcend5" file="\icon\item\icon_item_transcend5.png" imgrect="0 0 128 128" CMM_Caption="[Re:Build] 마시니오스 무기 +5 초월권"/>
 		<image name="icon_item_reinforce11" file="\icon\item\icon_item_reinforce11.png" imgrect="0 0 128 128" CMM_Caption="[Re:Build] 마시니오스 무기 +11 강화권"/>
+		<image name="icon_item_ep12_reinforce11" file="\icon\item\icon_item_ep12_reinforce11.png" imgrect="0 0 128 128" CMM_Caption="+11강 스크롤"/>
+		<image name="icon_item_ep12_transcend8" file="\icon\item\icon_item_ep12_transcend8.png" imgrect="0 0 128 128" CMM_Caption="8초월 스크롤"/>
+		<image name="icon_item_ep12_transcend_linksoul1" file="\icon\item\icon_item_ep12_transcend_linksoul1.png" imgrect="0 0 128 128" CMM_Caption="아이커 선택 스트롤"/>
+		<image name="icon_item_ep12_partis" file="\icon\item\icon_item_ep12_partis.png" imgrect="0 0 128 128" CMM_Caption="세트옵션 선택 스크롤"/>
 		<image name="icon_item_rebuild_coin" file="\icon\item\icon_item_rebuild_coin.png" imgrect="0 0 128 128" CMM_Caption="Re: 주화"/>
 		<image name="icon_item_exchange_costumeCoupon" file="\icon\item\icon_item_exchange_costumeCoupon.png" imgrect="0 0 128 128" CMM_Caption="코스튬 교환권"/>
 		<image name="icon_item_observation_scroll" file="\icon\item\icon_item_observation_scroll.png" imgrect="0 0 128 128" CMM_Caption="콜로니전 정찰용 지도"/>
@@ -6292,7 +6311,7 @@
 		<image name="icon_IndunEnter_Mythic_Rank" file="\icon\item\icon_IndunEnter_Mythic_Rank.png" imgrect="0 0 256 256" CMM_Caption="도전 모드 입장권"/>
 		<image name="icon_IndunEnter_Mythic_Hard" file="\icon\item\icon_IndunEnter_Mythic_Hard.png " imgrect="0 0 256 256" CMM_Caption="자동매칭 하드 모드 입장권"/>
 		<image name="icon_item_misc_Guilty_LegCard" file="\icon\item\icon_item_misc_Guilty_LegCard.png" imgrect="0 0 256 256" CMM_Caption="혼돈의 편린"/>
-                <image name="icon_item_goddess_relic_gem_all_random_box" file="\icon\item\icon_item_goddess_relic_gem_all_random_box.png" imgrect="0 0 256 256" CMM_Caption="성물 젬 상자"/>
+		<image name="icon_item_goddess_relic_gem_all_random_box" file="\icon\item\icon_item_goddess_relic_gem_all_random_box.png" imgrect="0 0 256 256" CMM_Caption="레전드 블랙 젬 상자"/>
 		<image name="icon_item_goddess_relic_gem_black" file="\icon\item\icon_item_goddess_relic_gem_black.png" imgrect="0 0 256 256" CMM_Caption="가디스 블랙 젬 상자"/>
 		<image name="icon_item_goddess_relic_gem_cyan" file="\icon\item\icon_item_goddess_relic_gem_cyan.png" imgrect="0 0 256 256" CMM_Caption="가디스 시안 젬 상자"/>
 		<image name="icon_item_goddess_relic_gem_magenta" file="\icon\item\icon_item_goddess_relic_gem_magenta.png" imgrect="0 0 256 256" CMM_Caption="가디스 마젠타 젬 상자"/>
@@ -6304,6 +6323,10 @@
 		<image name="icon_item_Moringponia_Solo_Enter" file="\icon\item\icon_item_Moringponia_Solo_Enter.png" imgrect="0 0 256 256" CMM_Caption="모링포니아 1인 입장권"/>
 		<image name="icon_item_Mythic_Auto_Hard_Enter" file="\icon\item\icon_item_Mythic_Auto_Hard_Enter.png" imgrect="0 0 256 256" CMM_Caption="성물 던전 입장권"/>
 		<image name="icon_item_Cube_Guilty_Guild_Raid" file="\icon\item\icon_item_Cube_Guilty_Guild_Raid.png" imgrect="0 0 256 256" CMM_Caption="길티네 주머니 : 길드"/>
+		<image name="icon_item_relic_gem_gacha_box" file="\icon\item\icon_item_relic_gem_gacha_box.png" imgrect="0 0 256 256" CMM_Caption="성물 젬 큐브"/>
+		<image name="icon_item_goddess_relic_gem_gacha_box" file="\icon\item\icon_item_goddess_relic_gem_gacha_box.png" imgrect="0 0 256 256" CMM_Caption="가디스 성물 젬 큐브"/>
+		<image name="icon_item_2021_lucky_coin" file="\icon\item\icon_item_2021_lucky_coin.png" imgrect="0 0 128 128" CMM_Caption="[2021 신년맞이] 행운의 동전"/>
+		<image name="icon_item_2021_new_year_ticket" file="\icon\item\icon_item_2021_new_year_ticket.png" imgrect="0 0 128 128" CMM_Caption="[2021 신년맞이] 신년 티켓"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_h_bigplant_set_01_green" file="\icon\housing\icon_item_h_bigplant_set_01_green.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 화단_01(초록색)"/>
@@ -8112,6 +8135,59 @@
 		<image name="icon_item_5th_Anniversary_Package_BattleA" file="\icon\payment\icon_item_5th_Anniversary_Package_BattleA.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_5th_Anniversary_Package_BattleB" file="\icon\payment\icon_item_5th_Anniversary_Package_BattleB.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_5th_Anniversary_Package_ALL" file="\icon\payment\icon_item_5th_Anniversary_Package_ALL.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_box_effect_ep13cybersoldier" file="\icon\payment\icon_item_box_effect_ep13cybersoldier.png" imgrect="0 0 256 256" CMM_Caption="2021_1월 테마"/>
+		<image name="icon_item_effect_ep13cybersoldier" file="\icon\payment\icon_item_effect_ep13cybersoldier.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_pet_robot_dog" file="\icon\payment\icon_item_pet_robot_dog.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_acc_ep13cybersoldier01" file="\icon\payment\icon_item_selectbox_acc_ep13cybersoldier01.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_acc_ep13cybersoldier02" file="\icon\payment\icon_item_selectbox_acc_ep13cybersoldier02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13cybersoldier01" file="\icon\payment\icon_item_selectbox_ep13cybersoldier01.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13cybersoldier02" file="\icon\payment\icon_item_selectbox_ep13cybersoldier02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13cybersoldier01_1" file="\icon\payment\icon_item_selectbox_ep13cybersoldier01_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13cybersoldier01_2" file="\icon\payment\icon_item_selectbox_ep13cybersoldier01_2.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13cybersoldier03_1" file="\icon\payment\icon_item_selectbox_ep13cybersoldier03_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13cybersoldier02_1" file="\icon\payment\icon_item_selectbox_ep13cybersoldier02_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_wing_ep13cybersoldier" file="\icon\payment\icon_item_wing_ep13cybersoldier.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_box_wing_ep13cybersoldier" file="\icon\payment\icon_item_box_wing_ep13cybersoldier.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier01_f" file="\icon\payment\icon_item_ep13cybersoldier01_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier01_1_f" file="\icon\payment\icon_item_ep13cybersoldier01_1_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier01_2_f" file="\icon\payment\icon_item_ep13cybersoldier01_2_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier03_f" file="\icon\payment\icon_item_ep13cybersoldier03_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier03_1_f" file="\icon\payment\icon_item_ep13cybersoldier03_1_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier03_2_f" file="\icon\payment\icon_item_ep13cybersoldier03_2_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier02_f" file="\icon\payment\icon_item_ep13cybersoldier02_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier02_1_f" file="\icon\payment\icon_item_ep13cybersoldier02_1_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier02_2_f" file="\icon\payment\icon_item_ep13cybersoldier02_2_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier01_m" file="\icon\payment\icon_item_ep13cybersoldier01_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier01_1_m" file="\icon\payment\icon_item_ep13cybersoldier01_1_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier01_2_m" file="\icon\payment\icon_item_ep13cybersoldier01_2_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier02_m" file="\icon\payment\icon_item_ep13cybersoldier02_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier02_1_m" file="\icon\payment\icon_item_ep13cybersoldier02_1_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier02_2_m" file="\icon\payment\icon_item_ep13cybersoldier02_2_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier03_m" file="\icon\payment\icon_item_ep13cybersoldier03_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier03_1_m" file="\icon\payment\icon_item_ep13cybersoldier03_1_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13cybersoldier03_2_m" file="\icon\payment\icon_item_ep13cybersoldier03_2_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_effect_ep13toswinter" file="\icon\payment\icon_item_effect_ep13toswinter.png" imgrect="0 0 256 256" CMM_Caption="2021_2월_마신의유혹"/>
+		<image name="icon_item_box_effect_ep13toswinter" file="\icon\payment\icon_item_box_effect_ep13toswinter.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_wing_ep13toswinter" file="\icon\payment\icon_item_wing_ep13toswinter.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_box_wing_ep13toswinter" file="\icon\payment\icon_item_box_wing_ep13toswinter.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter01_f" file="\icon\payment\icon_item_ep13toswinter01_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter01_m" file="\icon\payment\icon_item_ep13toswinter01_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter02_m" file="\icon\payment\icon_item_ep13toswinter02_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter02_f" file="\icon\payment\icon_item_ep13toswinter02_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter01_1_m" file="\icon\payment\icon_item_ep13toswinter01_1_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter01_1_f" file="\icon\payment\icon_item_ep13toswinter01_1_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter01_2_m" file="\icon\payment\icon_item_ep13toswinter01_2_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter01_2_f" file="\icon\payment\icon_item_ep13toswinter01_2_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter02_1_m" file="\icon\payment\icon_item_ep13toswinter02_1_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter02_1_f" file="\icon\payment\icon_item_ep13toswinter02_1_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter03_1_m" file="\icon\payment\icon_item_ep13toswinter03_1_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13toswinter03_1_f" file="\icon\payment\icon_item_ep13toswinter03_1_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13toswinter01" file="\icon\payment\icon_item_selectbox_ep13toswinter01.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13toswinter02" file="\icon\payment\icon_item_selectbox_ep13toswinter02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13toswinter01_1" file="\icon\payment\icon_item_selectbox_ep13toswinter01_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13toswinter01_2" file="\icon\payment\icon_item_selectbox_ep13toswinter01_2.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13toswinter02_1" file="\icon\payment\icon_item_selectbox_ep13toswinter02_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13toswinter03_1" file="\icon\payment\icon_item_selectbox_ep13toswinter03_1.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>

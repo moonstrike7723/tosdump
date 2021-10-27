@@ -42,6 +42,7 @@ end
 
 function RELICMANAGER_OPEN(frame)
 	ui.CloseFrame('rareoption')
+	ui.CloseFrame('relic_gem_manager')
 
 	local relic_item, relic_obj = RELICMANAGER_GET_EQUIP_RELIC()
 	if relic_item == nil or relic_obj == nil then
@@ -268,7 +269,6 @@ function CLEAR_RELICMANAGER_CHARGE()
 	if frame == nil then return end
 
 	frame:StopUpdateScript('RELICMANAGER_RP_GAUGE_UPDATE_RP_UP')
-	frame:SetUserValue('DO_CHARGE', 0)
 
 	local send_ok_charge = GET_CHILD_RECURSIVELY(frame, 'send_ok_charge')
 	send_ok_charge:ShowWindow(0)
@@ -278,6 +278,7 @@ function CLEAR_RELICMANAGER_CHARGE()
 
 	local do_charge = GET_CHILD_RECURSIVELY(frame, 'do_charge')
 	do_charge:ShowWindow(1)
+	do_charge:EnableHitTest(1)
 
 	local mat_ctrl = GET_CHILD_RECURSIVELY(frame, 'charge_mat_ctrl')
 	if mat_ctrl ~= nil then
@@ -464,15 +465,13 @@ function RELICMANAGER_CHARGE_EXEC(parent)
 
 	local msg = ClMsg('REALLY_CHARGE_RELIC_RP')
 	local yesScp = '_RELICMANAGER_CHARGE_EXEC()'
-	ui.MsgBox(msg, yesScp, 'None')
+	local msgbox = ui.MsgBox(msg, yesScp, 'None')
+	SET_MODAL_MSGBOX(msgbox)
 end
 
 function _RELICMANAGER_CHARGE_EXEC()
 	local frame = ui.GetFrame('relicmanager')
 	if frame == nil then return end
-
-	local do_already = frame:GetUserIValue('DO_CHARGE')
-	if do_already == 1 then return end
 
 	local acc_obj = GetMyAccountObj()
 	if acc_obj == nil then return end
@@ -481,7 +480,6 @@ function _RELICMANAGER_CHARGE_EXEC()
 
 	item.DialogTransaction('RELIC_CHARGE_RP', result_list)
 	CloneTempObj('RELIC_RP_TEMPOBJ', acc_obj)
-	frame:SetUserValue('DO_CHARGE', 1)
 end
 
 function RELICMANAGER_RP_UP_END(frame, msg, argStr, argNum)
@@ -650,6 +648,14 @@ function UPDATE_RELICMANAGER_EXP(frame)
 			end
 		end
 	end
+
+	local do_exp = GET_CHILD_RECURSIVELY(frame, 'do_exp')
+	if add_exp <= 0 then
+		do_exp:SetEnable(0)
+	else
+		do_exp:SetEnable(1)
+	end
+		
 	
 	local cur_lv = shared_item_relic.get_current_lv(relic_obj)
 	local lvup_value, add_exp_adjust = shared_item_relic.get_lvup_value_by_expup(relic_obj, add_exp)
@@ -698,7 +704,6 @@ function CLEAR_RELICMANAGER_EXP()
 	if frame == nil then return end
 
 	frame:StopUpdateScript('RELICMANAGER_EXP_GAUGE_UPDATE_EXP_UP')
-	frame:SetUserValue('DO_EXP', 0)
 
 	local send_ok_exp = GET_CHILD_RECURSIVELY(frame, 'send_ok_exp')
 	send_ok_exp:ShowWindow(0)
@@ -708,6 +713,7 @@ function CLEAR_RELICMANAGER_EXP()
 
 	local do_exp = GET_CHILD_RECURSIVELY(frame, 'do_exp')
 	do_exp:ShowWindow(1)
+	do_exp:EnableHitTest(1)
 
 	local mat_ctrl = GET_CHILD_RECURSIVELY(frame, 'exp_mat_ctrl')
 	if mat_ctrl ~= nil then
@@ -719,6 +725,8 @@ end
 
 function RELICMANAGER_EXP_REG_MAT_ITEM(frame, inv_item, item_obj)
 	if frame == nil or inv_item == nil or item_obj == nil then return end
+
+	CLEAR_RELICMANAGER_EXP(frame)
 
 	local mat_ctrl = GET_CHILD_RECURSIVELY(frame, 'exp_mat_ctrl')
 	if mat_ctrl == nil then return end
@@ -865,15 +873,13 @@ function RELICMANAGER_EXP_EXEC(parent)
 
 	local msg = ClMsg('REALLY_DO_RELIC_EXP')
 	local yesScp = '_RELICMANAGER_EXP_EXEC()'
-	ui.MsgBox(msg, yesScp, 'None')
+	local msgbox = ui.MsgBox(msg, yesScp, 'None')
+	SET_MODAL_MSGBOX(msgbox)
 end
 
 function _RELICMANAGER_EXP_EXEC()
 	local frame = ui.GetFrame('relicmanager')
 	if frame == nil then return end
-
-	local do_already = frame:GetUserIValue('DO_EXP')
-	if do_already == 1 then return end
 	
 	local relic_item, relic_obj = RELICMANAGER_GET_EQUIP_RELIC()
 	if relic_item == nil or relic_obj == nil then return end
@@ -887,7 +893,6 @@ function _RELICMANAGER_EXP_EXEC()
 	
 	item.DialogTransaction('RELIC_EXP_UP', result_list, '', arg_list)
 	CloneTempObj("RELIC_EXP_TEMPOBJ", relic_obj)
-	frame:SetUserValue('DO_EXP', 1)
 end
 
 function RELICMANAGER_EXP_UP_END(frame, msg, argStr, argNum)
@@ -1080,7 +1085,8 @@ function RELICMANAGER_SOCKET_UPDATE(frame)
 			socket_icon:ShowWindow(0)
 			socket_name:ShowWindow(0)
 			gem_name:ShowWindow(1)
-			gem_name:SetTextByKey('name', name_str)			
+			gem_name:SetTextByKey('name', name_str)
+			gem_name:AdjustFontSizeByWidth(gem_name:GetWidth())
 			SET_SLOT_ITEM_CLS(gem_slot, gem_cls)			
 			do_remove:SetEnable(1)
 		end
@@ -1142,7 +1148,8 @@ function RELICMANAGER_SOCKET_GEM_ADD(frame, inv_item, item_obj)
 	local msg = ScpArgMsg(scp_arg_msg, 'NAME', gem_name)
 	local yes_scp = '_RELICMANAGER_SOCKET_GEM_ADD()'
 
-	ui.MsgBox(msg, yes_scp, 'None')
+	local msgbox = ui.MsgBox(msg, yes_scp, 'None')
+	SET_MODAL_MSGBOX(msgbox)
 end
 
 function _RELICMANAGER_SOCKET_GEM_ADD()
@@ -1189,7 +1196,8 @@ function RELICMANAGER_GEM_REMOVE_BTN(ctrl, btn, argStr, argNum)
 	local msg = ScpArgMsg('REALLY_UNEQUIP_RELIC_GEM', 'NAME', gem_name, 'VALUE', cost)
 	local yes_scp = string.format('RELICMANAGER_SOCKET_GEM_REMOVE(%d)', gem_type)
 
-	ui.MsgBox(msg, yes_scp, 'None')
+	local msgbox = ui.MsgBox(msg, yes_scp, 'None')
+	SET_MODAL_MSGBOX(msgbox)
 end
 
 function RELICMANAGER_SOCKET_GEM_REMOVE(type)

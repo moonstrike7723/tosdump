@@ -156,7 +156,7 @@ end
 
 -- 정화된 권능의 숨결 1개 변환에 필요한 실버
 shared_item_relic.get_require_money_for_refine = function()
-    local money_require = 300000
+    local money_require = 1000000
     return money_require
 end
 

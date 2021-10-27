@@ -6,10 +6,10 @@ ClassID,ResetType,RewardDepth,GoalCount1,ClassName,Name,Desc,Category,QuestType,
 101,1,1,500,RQ_Category_1_1,[일일] 소형 몬스터 처치,에피소드 13 지역의 소형 몬스터 처치 혹은 던전/레이드 콘텐츠에서 440레벨 이상 소형 몬스터 처치,RQ_Category_1,Quest,RQ_Category_1_1
 102,1,1,500,RQ_Category_1_2,[일일] 중형 몬스터 처치,에피소드 13 지역의 중형 몬스터 처치 혹은 던전/레이드 콘텐츠에서 440레벨 이상 중형 몬스터 처치,RQ_Category_1,Quest,RQ_Category_1_2
 103,1,1,500,RQ_Category_1_3,[일일] 대형 몬스터 처치,에피소드 13 지역의 대형 몬스터 처치 혹은 던전/레이드 콘텐츠에서 440레벨 이상 대형 몬스터 처치,RQ_Category_1,Quest,RQ_Category_1_3
-104,1,1,80,RQ_Category_1_4,[일일] 엘리트 몬스터 처치,에피소드 13 지역의 엘리트 몬스터 처치 혹은 던전/레이드 콘텐츠에서 440레벨 이상 엘리트 몬스터 처치,RQ_Category_1,Quest,RQ_Category_1_4
+104,1,1,150,RQ_Category_1_4,[일일] 엘리트 몬스터 처치,에피소드 13 지역의 엘리트 몬스터 처치 혹은 던전/레이드 콘텐츠에서 440레벨 이상 엘리트 몬스터 처치,RQ_Category_1,Quest,RQ_Category_1_4
 105,1,1,20,RQ_Category_1_5,[일일] 유저 상점 이용,유저 상점 이용하기,RQ_Category_1,Quest,RQ_Category_1_5
 106,2,1,20000,RQ_Category_1_6,[주간] 몬스터 처치,에피소드 13 지역의 몬스터 처치 혹은 던전/레이드 콘텐츠에서 440레벨 이상 몬스터 처치,RQ_Category_1,Quest,RQ_Category_1_6
-107,2,1,50,RQ_Category_1_7,[주간] 보스 몬스터 처치,에피소드 13 지역의 보스 몬스터 처치 혹은 던전/레이드 콘텐츠에서 440레벨 이상 보스 몬스터 처치,RQ_Category_1,Quest,RQ_Category_1_7
+107,2,1,150,RQ_Category_1_7,[주간] 보스 몬스터 처치,에피소드 13 지역의 보스 몬스터 처치 혹은 던전/레이드 콘텐츠에서 440레벨 이상 보스 몬스터 처치,RQ_Category_1,Quest,RQ_Category_1_7
 108,2,1,4,RQ_Category_1_8,[주간] 주간 보스 레이드 참가,주간 보스 레이드 참가 후 완료,RQ_Category_1,Quest,RQ_Category_1_8
 109,2,1,3,RQ_Category_1_9,[주간] 자원 쟁탈전 참가,자원 장탈전 참가 후 완료,RQ_Category_1,Quest,RQ_Category_1_9
 110,2,1,150,RQ_Category_1_10,[주간] 유저 상점 이용,유저 상점 이용하기,RQ_Category_1,Quest,RQ_Category_1_10
@@ -24,7 +24,7 @@ ClassID,ResetType,RewardDepth,GoalCount1,ClassName,Name,Desc,Category,QuestType,
 209,2,1,1,RQ_Category_2_9,[주간] 베르니케 파편 던전 참가,베르니케 파편 던전 참가 후 클리어,RQ_Category_2,Quest,RQ_Category_2_9
 210,2,1,1,RQ_Category_2_10,[주간] 업힐 디펜스 미션 클리어,업힐 디펜스 미션 참가 후 클리어,RQ_Category_2,Quest,RQ_Category_2_10
 301,1,1,10,RQ_Category_3_1,[일일] 낚시 성공,"낚시 성공 시, 1회당 1포인트 획득",RQ_Category_3,Quest,RQ_Category_3_1
-302,1,1,3,RQ_Category_3_2,[일일] 개인 하우징 물품 교환,개인 하우징 포인트를 이용하여 주거 도우미 큐폴에게 개인 하우징 물품 교환,RQ_Category_3,Quest,RQ_Category_3_2
+302,1,1,1,RQ_Category_3_2,[일일] 개인 하우징 물품 교환,개인 하우징 포인트를 이용하여 주거 도우미 큐폴에게 개인 하우징 물품 교환,RQ_Category_3,Quest,RQ_Category_3_2
 303,2,0,0,RQ_Category_3_3,,,RQ_Category_3,,RQ_Category_3_3
 304,2,1,20,RQ_Category_3_4,[주간] 마신의 유혹 이용,마신의 유혹 이용{nl}도시 지역의 마신 라가나의 환영 NPC를 통해 마신의 유혹을 이용할 수 있습니다,RQ_Category_3,Quest,RQ_Category_3_4
 305,2,1,10,RQ_Category_3_5,[주간] 여신의 가호 이용,"여신의 가호 이용{nl}매일 12시와 22시, 보스 협동전 콘텐츠가 종료된 후 10분간 여신의 가호를 이용할 수 있습니다",RQ_Category_3,Quest,RQ_Category_3_5

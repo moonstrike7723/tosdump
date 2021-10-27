@@ -1,4 +1,11 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
+997240,202101,70900,202101,120000,202112,310700,202112,260000,0,0,EP12_1_reward,에피소드 12-1 보상 추가,EP12_1_reward,,,,,
+997250,202101,70900,202101,120000,202102,180700,202102,130000,0,0,event210107_luckybox,신년 행운박스 축제,event210107_luckybox,http://tos.nexon.com/news/events/view.aspx?n4ArticleSN=307&n4ArticleCategorySN=1,,,,
+997260,202101,10000,202101,60000,202102,10000,202101,260000,0,0,event2101_DevilsTemptation,마신의 유혹 - 1월,event2101_DevilsTemptation,http://tos.nexon.com/news/events/view.aspx?n4ArticleSN=306&n4ArticleCategorySN=1,,,,
+997270,202012,310900,202101,50000,202101,210700,202101,160000,0,0,event201231_giltine,길티네 레이드 이벤트,event201231_giltine,http://tos.nexon.com/news/events/view.aspx?n4ArticleSN=303&n4ArticleCategorySN=1,,,,
+997280,202101,10000,202101,60000,202102,10000,202101,260000,0,0,event_2101VaivoraReward,바이보라 출석 - 1월,event_2101VaivoraReward,http://tos.nexon.com/news/events/view.aspx?n4ArticleSN=304&n4ArticleCategorySN=1,,,,
+997290,202101,10000,202101,60000,202102,10000,202101,260000,0,0,event_2101Burning,주말 앤 버닝 - 1월,event_2101Burning,http://tos.nexon.com/news/events/view.aspx?n4ArticleSN=305&n4ArticleCategorySN=1,,,,
+997300,202012,240900,202012,290000,202101,71000,202101,20000,0,0,event201224_YAK,야크맘보 이벤트,event201224_YAK,http://tos.nexon.com/news/events/view.aspx?n4ArticleSN=302&n4ArticleCategorySN=1,,,,
 997310,202012,100900,202012,150000,202012,311000,202012,260000,0,0,event1210_5th_specialedition,5주년 패키지,event1210_5th_specialedition,http://tos.nexon.com/news/tosnotice/view.aspx?n4ArticleSN=2220,,,,
 997320,202012,100900,202012,150000,202101,70700,202101,20000,0,0,event1210_EP13,눈오세 업데이트,event1210_EP13,http://tos.nexon.com/events/20201210/index.aspx,,,,
 997330,202011,260900,202012,10000,202101,70700,202101,20000,0,0,event201126_5th,5주년 특별한 상점 이벤트,event201126_5th,http://tos.nexon.com/news/events/view.aspx?n4ArticleSN=301&n4ArticleCategorySN=1,,,,

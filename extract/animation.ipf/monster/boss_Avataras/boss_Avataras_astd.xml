@@ -5,6 +5,4 @@
 	<Particle frame="0" attachNode="Dummy_emitter" particleName="F_smoke198_red_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
 	<Particle frame="0" attachNode="Dummy_cristal" particleName="F_smoke198_red_violet2" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
 	<Particle frame="0" attachNode="Dummy_cristal" particleName="F_smoke198_red_violet2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20"/>
-	<Particle frame="0" attachNode="Dummy_L_eye_p" particleName="I_force094_trail_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20"/>
-	<Particle frame="0" attachNode="Dummy_R_eye_p" particleName="I_force094_trail_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20"/>
 </ActionDesc>
