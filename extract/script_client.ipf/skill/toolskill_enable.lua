@@ -206,6 +206,11 @@ function CHECK_IS_NO_CHANGEDROPLIST_C(actor, skl)
     end
 
     if SCR_ZONE_KEYWORD_CHECK(mymapname, "NoChangeDropList") == "YES" then
+        local abil = session.GetAbilityByName("Chronomancer12");
+        if abil ~= nil and TryGetProp(GetIES(abil:GetObject()), "ActiveState") == 1 then
+            return 1;
+        end
+
         return 0;
     end
     
@@ -676,6 +681,15 @@ end
 function SCR_SKL_CHECK_BATTLESTATE_C(actor, skl)
     local pc = GetMyPCObject()
     if IsBattleState(pc) == 0 then
+        return 1;
+    end
+
+    return 0;
+end
+
+function SCR_SKL_CHECK_BATTLESTATE_AND_MOVING_C(actor, skl)
+    local pc = GetMyPCObject()
+    if IsBattleState(pc) == 0 and control.IsMoving(false) == 0 then
         return 1;
     end
 

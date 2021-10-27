@@ -368,3 +368,7 @@ end
 function SCR_GET_FOODTABLE_PRICE(shopClassName, mapClassName, buffClassName, abilList)
 	return 0;
 end
+
+function SCR_GET_OBLATION_PRICE(shopClassName, mapClassName, buffClassName, abilList)
+	return 1;
+end
