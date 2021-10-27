@@ -13,6 +13,9 @@
                     <Num Num="100"/>
                     <Num Num="0"/>
                 </Scp>
+                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="200">
+                    <Str Str="skl_eff_piedpiper_improvisation"/>
+                </Scp>
                 <Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="200">
                     <Str Str="SCR_IMPROVISATION_FORCE"/>
                 </Scp>

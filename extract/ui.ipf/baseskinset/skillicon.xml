@@ -3384,6 +3384,9 @@
 		<image name="ability_scout_Linker25" file="\icon\icon_ability_scout04.tga" imgrect="256 512 128 128" CMM_Caption="조인트 페널티: 강화"/>
 		<image name="ability_scout_Linker26" file="\icon\icon_ability_scout04.tga" imgrect="384 512 128 128" CMM_Caption="[아츠]조인트 페널티: 상급강화"/>
 		<image name="ability_scout_Linker27" file="\icon\icon_ability_scout04.tga" imgrect="512 512 128 128" CMM_Caption="일렉트릭 쇼크: 펜타 링크"/>
+		<image name="ability_scout_rangda16" file="\icon\icon_ability_scout04.tga" imgrect="640 512 128 128" CMM_Caption="케레티한: 강화"/>
+		<image name="ability_scout_rangda17" file="\icon\icon_ability_scout04.tga" imgrect="768 512 128 128" CMM_Caption="[아츠] 페네라판: 상급 강화"/>
+		<image name="ability_scout_rangda18" file="\icon\icon_ability_scout04.tga" imgrect="896 512 128 128" CMM_Caption="[아츠] 케레티한: 상급 강화"/>
 	</imagelist>
 	<imagelist category="abilityicon">
 		<image name="icon_abil_1_1" file="\icon\ability_icon.tga" imgrect="0 0 64 64" CMM_Caption="절단"/>

@@ -1,3 +1,13 @@
+--- 클라에서 레티샤 날짜 가져오기
+function C_get_leticia_start_and_end_time()
+	local startTime = TryGetProp(GetClassByType('leticia_date', 1), "StartTime", "None")
+    local endTime = TryGetProp(GetClassByType('leticia_date', 1), "EndTime", "None")
+
+	return startTime, endTime
+
+end
+
+
 function MINIMIZED_LETICIA_BUTTON_ON_INIT(addon, frame)
 	addon:RegisterMsg('GAME_START', 'MINIMIZED_LETICIA_BUTTON_CHECK')
 end
@@ -24,7 +34,7 @@ end
 
 function MINIMIZED_LETICIA_REMAIN_TIME(frame)
 
-	local StartTime, EndTime = get_leticia_start_and_end_time_num()
+	local StartTime, EndTime = C_get_leticia_start_and_end_time()
 
 	local getnow = geTime.GetServerSystemTime()
 	local nowstr = string.format("%04d-%02d-%02d %02d:%02d:%02d", getnow.wYear, getnow.wMonth, getnow.wDay, getnow.wHour, getnow.wMinute, getnow.wSecond)
@@ -41,7 +51,7 @@ end
 function UPDATE_MINIMIZED_LETICIA_REMAIN_TIME(ctrl)
 	local frame = ui.GetFrame('minimized_leticia_button')
 	
-	local StartTime, EndTime = get_leticia_start_and_end_time_num()
+	local StartTime, EndTime = C_get_leticia_start_and_end_time()
 
 	local getnow = geTime.GetServerSystemTime()
 	local nowstr = string.format("%04d-%02d-%02d %02d:%02d:%02d", getnow.wYear, getnow.wMonth, getnow.wDay, getnow.wHour, getnow.wMinute, getnow.wSecond)
@@ -123,7 +133,7 @@ function UPDATE_MINIMIZED_LETICIA_TIME_CTRL(ctrl, remainsec, now, StartTime, End
 
 	-- 레티샤 종료 후 다음 시작까지 남은시간, 다음 시작일은 다음달 1일로 고정
 	if date_time.is_later_than(now, EndTime) then
-		local ori_start_time = TryGetProp(GetClassByType('reward_tp', 1), "StartTime", "None")
+		local ori_start_time = TryGetProp(GetClassByType('leticia_date', 1), "StartTime", "None")
 		local year = string.sub(ori_start_time, 1,4)
 		local month = string.sub(ori_start_time, 6,7)
 		local month_num = tonumber(month) + 1

@@ -1239,11 +1239,6 @@ return value"/>
                 <Str Str="GM_MGAME_BORUTA_REVENGE_FEVER_BORN"/>
             </ToolScp>
         </createEvent>
-        <destroyEvent>
-            <ToolScp Scp="PAD_FUNC_UPDATE_DIRECT" Client="NO" UseSleep="NO">
-                <Str Str="GM_MGAME_BORUTA_REVENGE_FEVER_REVERSE_CREATE"/>
-            </ToolScp>
-        </destroyEvent>
         <updateEvent>
             <ToolScp Scp="PAD_FUNC_UPDATE_DIRECT" Client="NO" UseSleep="NO">
                 <Str Str="GM_MGAME_BORUTA_REVENGE_FEVER_UPDATE"/>
@@ -3106,7 +3101,7 @@ return lifeTime;"/>
     <PadSkill Name="Chronomancer_TimeEruption" CheckerType="0" Range="60" ApplyFlyMon="1" AllowOverlap="1" IsMineType="0">
         <createEvent>
             <ToolScp Scp="C_PAD_EFFECT_POS" Client="YES" UseSleep="NO">
-                <Str_Arg Str="F_light110_pink_ground_loop" Arg="1"/>
+                <Str_Arg Str="F_wizard_TimeEruption_buff" Arg="1.5"/>
                 <Pos Angle="0" Dist="0" Height="30"/>
                 <Num Num="0"/>
                 <Str_Arg Str="None" Arg="1"/>
@@ -3144,18 +3139,21 @@ return lifeTime;"/>
                 <Num Num="1"/>
             </ToolScp>
             <ToolScp Scp="C_PAD_EFFECT_POS" Client="YES" UseSleep="NO">
-                <Str_Arg Str="F_archer_CannonShot_explosion" Arg="1"/>
+                <Str_Arg Str="F_wizard_TimeEruption_ground_burstup" Arg="2.5"/>
                 <Pos Angle="0" Dist="0"/>
                 <Num Num="0"/>
                 <Str_Arg Str="None" Arg="1"/>
                 <Num Num="1"/>
+            </ToolScp>
+            <ToolScp Scp="PAD_PLAYSOUND" Client="NO" UseSleep="NO">
+                <Str Str="skl_eff_earthquake_1"/>
             </ToolScp>
         </createEvent>
         <enterEvent>
             <ToolScp Scp="PAD_TGT_DAMAGE" Client="NO" UseSleep="NO">
                 <Str Str="ENEMY"/>
                 <Num Num="1"/>
-                <Num Num="-200"/>
+                <Num Num="0"/>
                 <Num Num="0"/>
             </ToolScp>
         </enterEvent>
@@ -3177,7 +3175,7 @@ return lifeTime;"/>
                 <Num Num="10"/>
             </ToolScp>
             <ToolScp Scp="C_PAD_EFFECT_POS" Client="YES" UseSleep="NO">
-                <Str_Arg Str="F_wizard_stop_shot_loop" Arg="1.35"/>
+                <Str_Arg Str="F_wizard_stop_shot_loop2" Arg="1.35"/>
                 <Pos Angle="0" Dist="0"/>
                 <Num Num="0"/>
                 <Str_Arg Str="None" Arg="1"/>
@@ -9110,6 +9108,40 @@ return obj.Level"/>
             </ToolScp>
         </updateEvent>
     </PadSkill>
+    <PadSkill Name="EnchantField_Pad" CheckerType="0" Range="80" UpdateTerm="2000" ApplyFlyMon="1" AllowOverlap="1">
+        <createEvent>
+            <ToolScp Scp="PAD_CONCURRENT_USE_COUNT" Client="NO" UseSleep="NO">
+                <Num Num="8"/>
+            </ToolScp>
+            <ToolScp Scp="PAD_USEABLE_RELATION_ENEMY" Client="NO" UseSleep="NO"/>
+            <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
+                <Num Num="6000"/>
+                <Num Num="3"/>
+            </ToolScp>
+            <ToolScp Scp="C_PAD_EFFECT_POS" Client="YES" UseSleep="NO">
+                <Str_Arg Str="F_scout_manafield" Arg="0.89999998"/>
+                <Pos Angle="0" Dist="0"/>
+                <Num Num="0"/>
+                <Str_Arg Str="None" Arg="1"/>
+                <Num Num="1"/>
+            </ToolScp>
+        </createEvent>
+        <updateEvent>
+            <ToolScp Scp="PAD_DAMAGE_ENEMY" Client="NO" UseSleep="NO">
+                <Num Num="1"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+                <Str_Arg Str="None" Arg="1"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+                <Str Str="None"/>
+            </ToolScp>
+            <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
+                <Num Num="-2000"/>
+                <Num Num="0"/>
+            </ToolScp>
+        </updateEvent>
+    </PadSkill>
     <PadSkill Name="Enchanter_Empowering" CheckerType="0" Range="150" EnableSearch="0">
         <createEvent>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
@@ -12757,7 +12789,7 @@ return GET_ABIL_LEVEL(self, &quot;Fletcher6&quot;) * 10"/>
             </ToolScp>
         </updateEvent>
     </PadSkill>
-    <PadSkill Name="Giltine_Raid_ElectricEel" CheckerType="1" PadHeight="1" Range="30" InnerRange="500" UpdateTerm="1000" ApplyFlyMon="1" AllowOverlap="1" IsMagicType="0">
+    <PadSkill Name="Giltine_Raid_ElectricEel" CheckerType="1" PadHeight="1" Range="30" InnerRange="500" UpdateTerm="1000" AllowOverlap="1" IsMagicType="0">
         <createEvent>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
                 <Num Num="13000"/>
@@ -15129,40 +15161,6 @@ return value"/>
         <updateEvent>
             <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
                 <Num Num="-100"/>
-                <Num Num="0"/>
-            </ToolScp>
-        </updateEvent>
-    </PadSkill>
-    <PadSkill Name="EnchantField_Pad" CheckerType="0" Range="80" UpdateTerm="2000" ApplyFlyMon="1" AllowOverlap="1">
-        <createEvent>
-            <ToolScp Scp="PAD_CONCURRENT_USE_COUNT" Client="NO" UseSleep="NO">
-                <Num Num="8"/>
-            </ToolScp>
-            <ToolScp Scp="PAD_USEABLE_RELATION_ENEMY" Client="NO" UseSleep="NO"/>
-            <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
-                <Num Num="6000"/>
-                <Num Num="3"/>
-            </ToolScp>
-            <ToolScp Scp="C_PAD_EFFECT_POS" Client="YES" UseSleep="NO">
-                <Str_Arg Str="F_scout_manafield" Arg="0.9"/>
-                <Pos Angle="0" Dist="0"/>
-                <Num Num="0"/>
-                <Str_Arg Str="None" Arg="1"/>
-                <Num Num="1"/>
-            </ToolScp>
-        </createEvent>
-        <updateEvent>
-            <ToolScp Scp="PAD_DAMAGE_ENEMY" Client="NO" UseSleep="NO">
-                <Num Num="1"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Str_Arg Str="None" Arg="1"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Str Str="None"/>
-            </ToolScp>
-            <ToolScp Scp="PAD_ADD_LIFE" Client="NO" UseSleep="NO">
-                <Num Num="-2000"/>
                 <Num Num="0"/>
             </ToolScp>
         </updateEvent>
@@ -24861,6 +24859,9 @@ end
             </ToolScp>
         </createEvent>
         <destroyEvent>
+            <ToolScp Scp="PAD_PLAYSOUND" Client="NO" UseSleep="NO">
+                <Str Str="skl_eff_thaumaturge_areaofchange_end"/>
+            </ToolScp>
             <ToolScp Scp="PAD_REMOVEBUFF" Client="NO" UseSleep="NO">
                 <Str Str="ENEMY"/>
                 <Num Num="0"/>
@@ -25040,6 +25041,9 @@ end
     </PadSkill>
     <PadSkill Name="Thaumaturge_Flowofchange_Pad" CheckerType="0" Range="100" UpdateTerm="2000" ApplyFlyMon="1" AllowOverlap="1">
         <createEvent>
+            <ToolScp Scp="PAD_PLAYSOUND" Client="NO" UseSleep="NO">
+                <Str Str="skl_eff_thaumaturge_flowofchange_shot"/>
+            </ToolScp>
             <ToolScp Scp="PAD_CONCURRENT_USE_COUNT" Client="NO" UseSleep="NO">
                 <Num Num="8"/>
             </ToolScp>
@@ -25049,7 +25053,7 @@ end
                 <Num Num="1"/>
             </ToolScp>
             <ToolScp Scp="C_PAD_EFFECT_POS" Client="YES" UseSleep="NO">
-                <Str_Arg Str="F_archer_circling_ground" Arg="1.6"/>
+                <Str_Arg Str="F_archer_Flowofchange_ground" Arg="1.6"/>
                 <Pos Angle="0" Dist="0"/>
                 <Num Num="0"/>
                 <Str_Arg Str="None" Arg="1"/>
