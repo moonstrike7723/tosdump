@@ -121,6 +121,9 @@
                         <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
                             <Str Str="skl_eff_yuche_end"/>
                         </Scp>
+                        <Scp Scp="SKL_CONSUME_SP" Client="NO" UseSleep="NO" Time="0">
+                            <Num Num="10" UseFunc="1" FuncTxt="return - obj.SpendSP;"/>
+                        </Scp>
                         <Scp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO" Time="500">
                             <Str Str="OOBE_Moksha_Buff"/>
                         </Scp>
@@ -183,6 +186,9 @@
                         </Scp>
                         <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
                             <Str Str="skl_eff_yuche_end"/>
+                        </Scp>
+                        <Scp Scp="SKL_CONSUME_SP" Client="NO" UseSleep="NO" Time="0">
+                            <Num Num="10" UseFunc="1" FuncTxt="return - obj.SpendSP;"/>
                         </Scp>
                         <Scp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO" Time="500">
                             <Str Str="OOBE_Patati_Buff"/>
@@ -249,6 +255,9 @@
                         </Scp>
                         <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
                             <Str Str="skl_eff_yuche_end"/>
+                        </Scp>
+                        <Scp Scp="SKL_CONSUME_SP" Client="NO" UseSleep="NO" Time="0">
+                            <Num Num="10" UseFunc="1" FuncTxt="return - obj.SpendSP;"/>
                         </Scp>
                         <Scp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO" Time="500">
                             <Str Str="OOBE_Anila_Buff"/>
@@ -392,6 +401,9 @@
                         </Scp>
                         <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
                             <Str Str="skl_eff_yuche_end"/>
+                        </Scp>
+                        <Scp Scp="SKL_CONSUME_SP" Client="NO" UseSleep="NO" Time="0">
+                            <Num Num="10" UseFunc="1" FuncTxt="return - obj.SpendSP;"/>
                         </Scp>
                         <Scp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO" Time="500">
                             <Str Str="OOBE_Possession_Buff"/>
@@ -588,6 +600,9 @@
                         </Scp>
                         <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
                             <Str Str="skl_eff_yuche_end"/>
+                        </Scp>
+                        <Scp Scp="SKL_CONSUME_SP" Client="NO" UseSleep="NO" Time="0">
+                            <Num Num="10" UseFunc="1" FuncTxt="return - obj.SpendSP;"/>
                         </Scp>
                         <Scp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO" Time="500">
                             <Str Str="OOBE_Tanoti_Buff"/>
@@ -841,6 +856,9 @@
                             <Str Str="SKL_OOBE_READY"/>
                             <Num Num="1.8"/>
                             <Num Num="0"/>
+                        </Scp>
+                        <Scp Scp="SKL_CONSUME_SP" Client="NO" UseSleep="NO" Time="0">
+                            <Num Num="10" UseFunc="1" FuncTxt="return - obj.SpendSP;"/>
                         </Scp>
                         <Scp Scp="SKL_BUFF_REMOVE" Client="NO" UseSleep="NO" Time="500">
                             <Str Str="OOBE_Prakriti_Buff"/>

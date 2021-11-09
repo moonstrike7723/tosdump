@@ -62,7 +62,8 @@ end
 
 function ON_EVENTBANNER_DETAIL_BTN_TEAMBATTLE(ctrlset, btn)
 	local advFrame = ui.GetFrame("adventure_book")
-	local rankingTab = GET_CHILD(advFrame, "rankingTab")
+	local gb_adventure = GET_CHILD(advFrame, "gb_adventure")
+	local rankingTab = GET_CHILD(gb_adventure, "rankingTab")
 	local index = rankingTab:GetIndexByName("teamBattleRankingTab")
 	advFrame:ShowWindow(1);
 	rankingTab:SelectTab(index);

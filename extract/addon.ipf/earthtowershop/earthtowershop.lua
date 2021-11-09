@@ -1401,7 +1401,7 @@ function EARTH_TOWER_SHOP_EXEC(parent, ctrl)
         end
     end
     
-    if shopType == 'PVPMine' and resultCount >= 10 then
+    if (shopType == 'PVPMine' or shopType == 'GabijaCertificate') and resultCount >= 10 then
         local target_item = GetClass('Item', TryGetProp(recipecls, 'TargetItem', 'None'))
         local name = TryGetProp(target_item, 'Name', 'None')
         if recipecls==nil or recipecls["Item_2_1"] ~='None' then                 
