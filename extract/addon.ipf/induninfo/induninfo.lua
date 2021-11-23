@@ -317,12 +317,6 @@ function INDUNINFO_CREATE_CATEGORY(frame, selectIndun)
             end
         end
     end
-    -- set the number of indun
-    for groupID, numIndun in pairs(groupTable) do        
-        local categoryCtrl = categoryBox:GetChild('CATEGORY_CTRL_'..groupID);
-        local name = categoryCtrl:GetChild('name');
-        name:SetTextByKey('cnt', numIndun);
-    end
 
     INDUNINFO_CATEGORY_ALIGN_DEFAULT(categoryBox);
     -- default select
@@ -1910,12 +1904,7 @@ function PVP_INDUNINFO_UI_OPEN(frame)
         end
     end
     INDUNINFO_CATEGORY_ALIGN_DEFAULT(categoryBox);
-    -- set the number of indun
-    for resetGroupID, numIndun in pairs(resetGroupTable) do
-        local categoryCtrl = categoryBox:GetChild('CATEGORY_CTRL_'..resetGroupID);
-        local name = categoryCtrl:GetChild('name');
-        name:SetTextByKey('cnt', numIndun);
-    end
+
     -- default select
     PVP_INDUNINFO_CATEGORY_LBTN_CLICK(firstBtn:GetParent(), firstBtn);
 end

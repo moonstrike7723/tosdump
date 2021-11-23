@@ -1,6 +1,6 @@
 ADVENTURE_BOOK_ACHIEVE_CONTENT = {}
 
-function ADVENTURE_BOOK_ACHIEVE_CONTENT.LIST_ALL(category, subCategory)
+function ADVENTURE_BOOK_ACHIEVE_CONTENT.LIST_ALL(category, subCategory, isCheckCompleteOption)
 	local RewardList, ChaseList, ExistHistoryList, ExceptHistoryList, FinishList = ADVENTURE_BOOK_ACHIEVE_CONTENT.LIST_SPLIT(1)
 	
 	-- filter
@@ -44,13 +44,18 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.LIST_ALL(category, subCategory)
 	local droplist_option_maincategory = GET_CHILD(page_achieve_list_search_left, "droplist_option_maincategory", "ui::CDropList")
 	local droplist_option_subcategory = GET_CHILD(page_achieve_list_search_left, "droplist_option_subcategory", "ui::CDropList")
 	
-	local page_achieve_list = GET_CHILD(gb_achieve, "page_achieve_list_"..category)
-	local page_achieve_list_left = GET_CHILD(page_achieve_list, "page_achieve_list_"..category.."_left")
-	local check_option_invisible_complete = GET_CHILD(page_achieve_list_left, "check_option_invisible_complete", "ui::CCheckBox")
+	if ADVENTURE_BOOK_ACHIEVE_CONTENT.VAILD_MAIN_CATEGORY(category) == 1 then
+		if isCheckCompleteOption == 1 then
+			local page_achieve_list = GET_CHILD(gb_achieve, "page_achieve_list_"..category)
+			local page_achieve_list_left = GET_CHILD(page_achieve_list, "page_achieve_list_"..category.."_left")
+			local check_option_invisible_complete = GET_CHILD(page_achieve_list_left, "check_option_invisible_complete", "ui::CCheckBox")
 
-	if category ~= "search" and check_option_invisible_complete:IsChecked() == 1 then
-		FinishList = {}
-	else
+			if check_option_invisible_complete:IsChecked() == 1 then
+				FinishList = {}
+			end
+		end
+	end
+	if #FinishList > 0 then
 		FinishList = filter_func(FinishList, category, subCategory, searchText)
 		table.sort(FinishList)
 	end
@@ -109,6 +114,15 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_COMPLETE(clsID) -- 성공 여부
 	if HAVE_ACHIEVE_FIND(clsID) == 0 then
 		return 0
 	end
+	
+	local cls = GetClassByType("Achieve", clsID);
+	if cls == nil then return 0 end
+
+	local needCount = TryGetProp(cls, "NeedCount");
+	local point = GetAchievePoint(GetMyPCObject(), cls.NeedPoint)
+	if point < needCount then
+		return 0
+	end
 
 	return 1
 end
@@ -126,8 +140,17 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_HAVE_REWARD(clsID) -- 받아야 할 �
 
 	local accObj = GetMyAccountObj();
 	local value = TryGetProp(accObj, "AchieveReward_"..cls.ClassName)
-	if value ~= nil and value == 0 then
-		return 1
+	local oldReward = TryGetProp(cls, "OldReward", "NO")
+	if oldReward == "YES" then
+		if value == 3 then
+			return 0
+		else
+			return 1
+		end
+	else
+		if value ~= nil and value == 0 then
+			return 1
+		end
 	end
 
 	return 0
@@ -242,8 +265,8 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.LIST_SPLIT(checkChase)
 					else
 						FinishList[#FinishList + 1] = clsID;  -- 성공O 보상받을것X
 					end
-				elseif checkChase == 1 and ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_CHASE(clsID) == 1 then
-					ChaseList[#ChaseList + 1] = clsID; -- 추적중인 업적
+				elseif checkChase == 1 and ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_CHASE(clsID) == 1 then-- 추적중인 업적
+					ChaseList[#ChaseList + 1] = clsID; -- 추적중(성공 시 추적 끝)
 				else
 					if ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_TIME_START(clsID) == 1 then -- 기간 시작 여부
 						if ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_TIME_END(clsID) == 1 then -- 기간 경과 여부
@@ -274,13 +297,44 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.LIST_COMPLETE() -- 완료된 업적 (기
 		local cls = GetClassByIndexFromList(list, i);
 		local clsID = TryGetProp(cls, "ClassID");
 		if ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_VISIBLE(clsID) == 1 and
-		ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_COMPLETE(clsID) == 1 and
-		ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_HAVE_REWARD(clsID) == 0 then
+		   ADVENTURE_BOOK_ACHIEVE_CONTENT.CHECK_COUNTRY(clsID) == 1 and
+	   	   ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_COMPLETE(clsID) == 1 then
 			retTable[#retTable + 1] = clsID
 		end
 	end
 	
 	return retTable;
+end
+
+function ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_COMPLETE(list)
+	local retTable = {}
+
+	for i = 1, #list do
+		local clsID = list[i]
+		if ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_VISIBLE(clsID) == 1 and
+		   ADVENTURE_BOOK_ACHIEVE_CONTENT.CHECK_COUNTRY(clsID) == 1 and
+	   	   ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_COMPLETE(clsID) == 1 then
+			retTable[#retTable + 1] = clsID
+		end
+	end
+
+	return retTable
+end
+
+function ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_REWARD(list)
+	local retTable = {}
+
+	for i = 1, #list do
+		local clsID = list[i]
+		if ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_VISIBLE(clsID) == 1 and
+		   ADVENTURE_BOOK_ACHIEVE_CONTENT.CHECK_COUNTRY(clsID) == 1 and
+		   ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_COMPLETE(clsID) == 1 and
+		   ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_HAVE_REWARD(clsID) == 1 then
+			retTable[#retTable + 1] = clsID
+		end
+	end
+
+	return retTable
 end
 
 function ADVENTURE_BOOK_ACHIEVE_CONTENT.LIST_REWARD() -- 보상을 받을 수 있는 업적 리스트 가져오기
@@ -312,10 +366,9 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.LIST_NEW_ACHIEVE() -- 신규 업적 리�
 		local clsID = TryGetProp(cls, "ClassID");
 
 		if ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_VISIBLE(clsID) == 1 and
-		   ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_PREVIEW(clsID) == 1 then
-			if TryGetProp(cls, "NewAchieve", "None") == "YES" then
+		   ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_PREVIEW(clsID) == 1 and
+		   TryGetProp(cls, "NewAchieve", "None") == "YES" then
 				retTable[#retTable + 1] = clsID
-			end
 		end
 	end
 
@@ -521,9 +574,11 @@ function ADVENTURE_BOOK_SORT_PROP_BY_PROGRESS_ASC(a, b)
 	local pointB = GetAchievePoint(GetMyPCObject(), clsB.NeedPoint)
 	if TryGetProp(clsA, "LevelGroup", "None") ~= "None" then
 		pointA = pointA - GetPrevLevelAchieveNeedCount(clsA.ClassID)
+		needA = needA - GetPrevLevelAchieveNeedCount(clsA.ClassID)
 	end
 	if TryGetProp(clsB, "LevelGroup", "None") ~= "None" then
 		pointB = pointB - GetPrevLevelAchieveNeedCount(clsB.ClassID)
+		needB = needB - GetPrevLevelAchieveNeedCount(clsB.ClassID)
 	end
 
 	local progressA = tonumber(pointA) / tonumber(needA)
@@ -564,17 +619,17 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.SORT_BY_ADDDATE_DES(list)
 end
 
 function ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_CATEGORY(list, category)
+	local retTable = {}
 	if ADVENTURE_BOOK_ACHIEVE_CONTENT.VAILD_MAIN_CATEGORY(category) == 1 then
-		list = ADVENTURE_BOOK_SEARCH_PROP_BY_CLASSID_FROM_LIST(list, "Achieve", {"MainCategory"}, category)	
-	else
-		list = {}
+		retTable = ADVENTURE_BOOK_SEARCH_PROP_BY_CLASSID_FROM_LIST(list, "Achieve", {"MainCategory"}, category)
 	end
 
-	return list
+	return retTable
 end
 
 function ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_SEARCH(list, searchText)
 	if searchText == "" or searchText == nil then
+		list = {}
 		return list
 	else
 		return ADVENTURE_BOOK_FILTER_ITEM(list, ADVENTURE_BOOK_ACHIEVE_SEARCH_FUNC, "Achieve", {"Name", "DescTitle", "Reward"}, searchText)
@@ -582,32 +637,56 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_SEARCH(list, searchText)
 end
 
 function ADVENTURE_BOOK_ACHIEVE_SEARCH_FUNC(clsID, idSpace, propName, searchText)
-	if ADVENTURE_BOOK_SEARCH_PROP_BY_CLASSID_FUNC(clsID, idSpace, propName, searchText) == true then
-		return true
-	end
+	if propName == "Name" or propName == "DescTitle" then
+		if ADVENTURE_BOOK_SEARCH_PROP_BY_CLASSID_FUNC(clsID, idSpace, propName, searchText) == true then
+			return true
+		end
+		return false
+	elseif propName == "Reward" then
+		-- 보상 아이템에서 찾기
+		local rewardList = GET_REWARD_LIST(clsID)
+		if rewardList ~= nil and #rewardList > 0 then
+			for i = 1, #rewardList do
+				local cls = GetClassByStrProp("Item", "ClassName", rewardList[i][1])
+				if cls ~= nil then
+					if ADVENTURE_BOOK_SEARCH_PROP_BY_CLASSID_FUNC(cls.ClassID, "Item", "Name", searchText) == true then
+						return true
+					end
+				end
+			end
+		end
 
-	-- 보상 아이템에서 찾기
-	local rewardList = GET_REWARD_LIST(clsID)
-	if rewardList ~= nil and #rewardList > 0 then
-		for i = 1, #rewardList do
-			local cls = GetClassByStrProp("Item", "ClassName", rewardList[i][1])
-			if cls ~= nil then
-				if ADVENTURE_BOOK_SEARCH_PROP_BY_CLASSID_FUNC(cls.ClassID, "Item", "Name", searchText) == true then
+		-- 예외 보상에서 찾기 (아이템, 머리)
+		searchText = string.lower(searchText);
+		local cls = GetClassByType("Achieve", clsID)
+		if cls ~= nil then
+			local RewardType = TryGetProp(cls, "RewardType", "None")
+			local Reward = TryGetProp(cls, "Reward", "None")
+			if RewardType == "Item" and Reward ~= "None" then
+				local RewardList = StringSplit(Reward, "/")
+				local itemCls = GetClassByStrProp("Item", "ClassName", RewardList[1])
+				if itemCls ~= nil then
+					if ADVENTURE_BOOK_SEARCH_PROP_BY_CLASSID_FUNC(itemCls.ClassID, "Item", "Name", searchText) == true then
+						return true
+					end
+				end
+			elseif RewardType == "HairColor" then
+				local prop = Reward
+				if config.GetServiceNation() ~= "KOR" then
+					prop = dic.getTranslatedStr(prop);
+				end
+				prop = string.lower(prop)
+				if string.find(prop, searchText) ~= nil then
 					return true
 				end
 			end
 		end
 	end
-
-	-- 예외 보상에서 찾기
-	if ADVENTURE_BOOK_SEARCH_PROP_BY_CLASSID_FUNC(clsID, idSpace, "Reward", searchText) == true then
-		return true
-	end
 	
 	return false
 end
 
-function ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_PERIOD(list)
+function ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_PERIOD(list, checkCurTime)
 	local retList = {}
 
 	for i = 1, #list do
@@ -617,7 +696,18 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_PERIOD(list)
 			if clsPoint ~= nil then
 				local EndTime = TryGetProp(clsPoint, "EndTime", "None")
 				if EndTime ~= "None" then
-					retList[#retList + 1] = list[i]
+					if checkCurTime == 1 then
+						local success, second = ADVENTURE_BOOK_ACHIEVE_CONTENT.GET_REMAIN_TIME(cls.ClassID)
+						if success == 0 then
+							retList[#retList + 1] = list[i]
+						else
+							if second > 0 then
+								retList[#retList + 1] = list[i]
+							end
+						end
+					else
+						retList[#retList + 1] = list[i]
+					end
 				end
 			end
 		end
@@ -699,16 +789,20 @@ function ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_LIST(list, mainCategory, subCateg
 			list = ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_PERIOD(list)
 		end
 	else
-		list = ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_CATEGORY(list, mainCategory)
+		if ADVENTURE_BOOK_ACHIEVE_CONTENT.VAILD_MAIN_CATEGORY(mainCategory) == 1 then
+			list = ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_CATEGORY(list, mainCategory)
 
-		list = ADVENTURE_BOOK_EQUAL_PROP_BY_CLASSID_FROM_LIST(list, "Achieve", {"MainCategory"}, mainCategory)
-		local clsEtc = ADVENTURE_BOOK_ACHIEVE_CONTENT.GET_SUB_CATEGORY_ETC_CLASS()
-		if subCategory ~= nil then
-			if subCategory == clsEtc.ClassName then
-				list = ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_ONLYETC(list, mainCategory)
-			else
-				list = ADVENTURE_BOOK_EQUAL_PROP_BY_CLASSID_FROM_LIST(list, "Achieve", {"SubCategory"}, subCategory)
+			list = ADVENTURE_BOOK_EQUAL_PROP_BY_CLASSID_FROM_LIST(list, "Achieve", {"MainCategory"}, mainCategory)
+			local clsEtc = ADVENTURE_BOOK_ACHIEVE_CONTENT.GET_SUB_CATEGORY_ETC_CLASS()
+			if subCategory ~= nil then
+				if subCategory == clsEtc.ClassName then
+					list = ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_ONLYETC(list, mainCategory)
+				else
+					list = ADVENTURE_BOOK_EQUAL_PROP_BY_CLASSID_FROM_LIST(list, "Achieve", {"SubCategory"}, subCategory)
+				end
 			end
+		elseif mainCategory ~= nil then
+			list = {}
 		end
 	end
 	
@@ -717,7 +811,6 @@ end
 
 function ADVENTURE_BOOK_ACHIEVE_CONTENT.GET_COUNT_MAX(category)
 	local list = ADVENTURE_BOOK_ACHIEVE_CONTENT.LIST_ALL(category)
-	list = ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_CATEGORY(list, category)
 	if category == "Event" then
 		list = ADVENTURE_BOOK_ACHIEVE_CONTENT.FILTER_PERIOD(list)
 	else

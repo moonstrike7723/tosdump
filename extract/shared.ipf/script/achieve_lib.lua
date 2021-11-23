@@ -1,13 +1,12 @@
--- achieve의 clsID로 보상 목록을 가져오는 함수
+-- achieve의 clsID로 보상 아이템 목록을 가져오는 함수
 -- achieve.xml의 RewardItem
 
 function GET_REWARD_LIST(clsID)
     local cls = GetClassByType("Achieve", clsID);
     if cls == nil then return nil end
-        
-    local gainScript = TryGetProp(cls, "GainScript", "None")
+
     local RewardItem = TryGetProp(cls, "RewardItem", "None")
-    if gainScript ~= "None" and RewardItem ~= "None" then return nil end
+    if RewardItem == "None" then return nil end
 
     local reward_list = {}
 

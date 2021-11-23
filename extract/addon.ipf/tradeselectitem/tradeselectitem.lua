@@ -914,16 +914,29 @@ function REQUEST_TRADE_VIBORA(frame, ctrl, argStr, argNum)
 		return;
 	end
 
+	local viboraCls = GetClassByType("EliteEquipDrop", selected)
+	local viboraName = TryGetProp(viboraCls, "Name", "None")
+	if viboraName == "None" then
+		return
+	end
+
 	if selectExist == 1 then
 		local itemGuid = frame:GetUserValue("UseItemGuid");
 		local argStr = string.format("%s#%d", itemGuid, selected);
 		
         local tradeSelectItem = frame:GetUserValue("TradeSelectItem");
-    	pc.ReqExecuteTx("TRADE_SELECT_VIBORA", argStr)
+
+		local msg = ScpArgMsg("SelectItemTrade{ITEM}", "ITEM", viboraName);
+		local yesscp = string.format('CONFIRM_TRADE_VIBORA("%s")', argStr);
+		ui.MsgBox_NonNested(msg, frame:GetName(), yesscp, 'None');
 	end
 
 	frame = frame:GetTopParentFrame();
 	frame:ShowWindow(0);
+end
+
+function CONFIRM_TRADE_VIBORA(argStr)
+    pc.ReqExecuteTx("TRADE_SELECT_VIBORA", argStr)
 end
 
 function OPEN_TRADE_SELECT_ITEM_STIRNG_SPLIT(invItem)
@@ -1291,6 +1304,10 @@ function OPEN_TRADE_SELECT_SKILL_GEM(frame)
 		job = 'OutLaw'
 	elseif job == 'Templar' then
 		job = 'Templer'
+	elseif job == 'ShadowMancer' then
+		job = 'Shadowmancer'
+	elseif job == 'Lancer' then
+		job = 'Rancer'
 	end
 
 	local cls , cnt = GetClassList('SkillTree')

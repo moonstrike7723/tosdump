@@ -1491,7 +1491,6 @@
 		<controls>
 			<button rect="0 0 200 134" layout_gravity="left top" clicksound="button_click_big" oversound="button_over" name="button"/>
 			<richtext name="jobname" autofontsizebywidth="true" rect="0 0 220 50" format="{@sti7}{s22}{ds}%s{/}" param1="param_jobcname" param1_def="DefVal" layout_gravity="center center" margin="0 0 0 0" textalign="center top" fixwidth="true" resizebytext="true" hittest="false"/>
-			<picture name="hotimg" layout_gravity="left top" rect="0 0 69 73" margin="0 0 0 0" hittest="false" image="class_tree_hot_icon"/>
 		</controls>
 	</controlset>
 	<controlset name="map_icon" toggle="false" width="104" height="80">
@@ -3246,7 +3245,7 @@
 		<controls>
 			<button name="button" hittest="true" margin="0 0 0 0" rect="0 0 350 60" layout_gravity="left top" skin="base_btn" textalign="center center" LBtnUpScp="INDUNINFO_CATEGORY_LBTN_CLICK"/>
 			<picture name="favorite" margin="10 4 0 0" rect="0 0 30 30" image="star_out_arrow" layout_gravity="left center" LBtnUpScp="INDUNINFO_FAVORITE_BUTTON" oversound="button_over" clicksound="button_click_big"/>
-			<richtext name="name" hittest="false" margin="35 0 0 0" rect="0 0 230 35" fixwidth="true" textalign="left center" omitbywidth="true" layout_gravity="left center" format="{#000000}%s (%s){/}" param1="value" param1_def="던전" param2="cnt" param2_def="0"/>
+			<richtext name="name" hittest="false" margin="35 0 0 0" rect="0 0 205 35" fixwidth="true" textalign="left center" omitbywidth="true" layout_gravity="left center" format="{#000000}%s{/}" param1="value" param1_def="던전"/>
 			<richtext name="countText" margin="0 0 30 0" rect="0 0 80 35" fixwidth="true" textalign="right center" omitbywidth="true" layout_gravity="right center" format="{#000000}(%s/%s){/}" param1="current" param1_def="0" param2="max" param2_def="2"/>
 			<picture name="cycleCtrlPic" margin="0 4 70 0" rect="0 0 41 30" image="indun_icon_day_s" layout_gravity="right center"/>
 		</controls>
@@ -3255,7 +3254,7 @@
 		<userconfig SELECTED_BTN_SKIN="baseyellow_btn" NOT_SELECTED_BTN_SKIN="base_btn"/>
 		<controls>
 			<button name="button" hittest="true" margin="0 0 0 0" rect="0 0 350 60" layout_gravity="left top" skin="base_btn" textalign="center center" LBtnUpScp="PVP_INDUNINFO_CATEGORY_LBTN_CLICK"/>
-			<richtext name="name" hittest="false" margin="10 0 0 0" rect="0 0 230 35" fixwidth="true" textalign="left center" omitbywidth="true" layout_gravity="left center" format="{#000000}%s (%s){/}" param1="value" param1_def="던전" param2="cnt" param2_def="0"/>
+			<richtext name="name" hittest="false" margin="10 0 0 0" rect="0 0 230 35" fixwidth="true" textalign="left center" omitbywidth="true" layout_gravity="left center" format="{#000000}%s{/}" param1="value" param1_def="던전"/>
 			<richtext name="timeText" margin="0 0 30 0" rect="0 0 120 35" fixwidth="true" textalign="right center" hittest="false" omitbywidth="true" layout_gravity="right center" format="{#000000}(%s~%s){/}" param1="start" param1_def="23:59" param2="end" param2_def="00:00"/>
 		</controls>
 	</controlset>
