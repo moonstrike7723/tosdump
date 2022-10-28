@@ -1,6 +1,2 @@
-ClassID,Price,JobGrade,Itemdate,AccountLimitCount,BonusItemCnt,ClassName,Category,SubCategory,ItemClassName,Job,SellStartTime,SellEndTime,WarningMsg,BonusItemName,BonusOnlySeasonServer
-1,49,0,181213,1,0,ClassName1,TP_Premium,TP_Useable,PremiumToken_New_Return,,,,NO,,
-101,208,0,2108244,1,0,ClassName101,TP_Premium,TP_Package,202107package_Growth_Newbie,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO
-102,361,0,2108243,1,0,ClassName102,TP_Premium,TP_Package,202107package_BattleA_Newbie,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO
-103,278,0,2108242,1,0,ClassName103,TP_Premium,TP_Package,202107package_BattleB_Newbie,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO
-104,838,0,2108241,1,0,ClassName104,TP_Premium,TP_Package,202107package_All_Newbie,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO
+ClassID,Price,JobGrade,Itemdate,AccountLimitCount,ClassName,Category,SubCategory,ItemClassName,Job,SellStartTime,SellEndTime,WarningMsg
+1,49,0,181213,1,ClassName1,TP_Premium,TP_Useable,PremiumToken_New_Return,,,,NO

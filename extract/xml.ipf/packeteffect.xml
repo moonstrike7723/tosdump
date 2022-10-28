@@ -6694,6 +6694,7 @@
         <Effect Name="I_complete_kruvina_dead"/>
         <Effect Name="I_hit003_red"/>
         <Effect Name="I_buff_002_red1"/>
+        <Effect Name="skl_eff_jukebox_loop"/>
     </Category>
     <Category ID="28">
         <Effect Name="F_explosion006_green#Dummy_skl2_shot"/>

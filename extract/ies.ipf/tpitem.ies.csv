@@ -1,10 +1,4 @@
 ClassID,Price,JobGrade,Itemdate,AccountLimitCount,BonusItemCnt,ClassName,Category,SubCategory,ItemClassName,Job,SellStartTime,SellEndTime,WarningMsg,BonusItemName,BonusOnlySeasonServer,ItemSocial,buyOptionFunc
-1,298,0,210706,3,0,ClassName1,TP_Premium,TP_Package,202107package_Growth,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO,,
-2,517,0,210705,5,0,ClassName2,TP_Premium,TP_Package,202107package_BattleA,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO,,
-3,398,0,210704,5,0,ClassName3,TP_Premium,TP_Package,202107package_BattleB,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO,,
-4,198,0,210703,1,0,ClassName4,TP_Premium,TP_Package,202107package_Daily,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO,,
-5,1198,0,210702,1,0,ClassName5,TP_Premium,TP_Package,202107package_All,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO,,
-6,49,0,210701,1,0,ClassName6,TP_Premium,TP_Package,2021_ARBORDAY_PACKAGE_ACC_UPGRADE3,,2021-08-08 09:00:00,2021-10-05 08:00:00,NO,,NO,,
 9,39,0,210122,0,0,ClassName9,TP_Premium,TP_Package,emoticonItem_24_46,,,,NO,,NO,,
 101,99,0,210125,0,0,ClassName101,TP_Premium,TP_Useable,PremiumToken,,,,NO,,NO,,
 102,9,0,210124,0,0,ClassName102,TP_Premium,TP_Useable,Premium_boostToken,,,,NO,,NO,,
@@ -15,9 +9,9 @@ ClassID,Price,JobGrade,Itemdate,AccountLimitCount,BonusItemCnt,ClassName,Categor
 107,13,0,210119,0,0,ClassName107,TP_Premium,TP_Premium_Sale,Premium_RankReset_Point_Lv1,,,,NO,,NO,,
 108,57,0,210118,0,0,ClassName108,TP_Premium,TP_Premium_Sale,Premium_RankReset_Point_Lv2,,,,NO,,NO,,
 109,102,0,210117,0,0,ClassName109,TP_Premium,TP_Premium_Sale,Premium_RankReset_Point_Lv3,,,,NO,,NO,,
-110,26,0,210720,0,0,ClassName110,TP_Premium,TP_Premium_Sale,PvPMineMiscBoost_Ticket_15d,,,,NO,,NO,,
-111,47,0,210721,0,0,ClassName111,TP_Premium,TP_Premium_Sale,PvPMineMiscBoost_Ticket_30d,,,,NO,,NO,,
-112,63,0,210722,0,0,ClassName112,TP_Premium,TP_Premium_Sale,PvPMineMiscBoost_Ticket_90d,,,,NO,,NO,,
+110,38,0,210720,0,0,ClassName110,TP_Premium,TP_Useable,PvPMineMiscBoost_Ticket_15d,,,,NO,,NO,,
+111,68,0,210721,0,0,ClassName111,TP_Premium,TP_Useable,PvPMineMiscBoost_Ticket_30d,,,,NO,,NO,,
+112,91,0,210722,0,0,ClassName112,TP_Premium,TP_Useable,PvPMineMiscBoost_Ticket_90d,,,,NO,,NO,,
 113,209,0,210708,0,0,ClassName113,TP_Premium,TP_Useable,Premium_RankReset,,,,NO,,NO,,
 114,33,0,210708,0,0,ClassName114,TP_Premium,TP_Useable,AbillityArts_Box_Total,,,,NO,,NO,,
 115,99,0,210708,0,0,ClassName115,TP_Premium,TP_Useable,AbillityArts_Box_Total_3plus1,,,,NO,,NO,,
@@ -28,6 +22,8 @@ ClassID,Price,JobGrade,Itemdate,AccountLimitCount,BonusItemCnt,ClassName,Categor
 121,43,0,210712,0,0,ClassName121,TP_Premium,TP_Useable,EngraveSlotExtension_Ticket_60d,,,,NO,,NO,,
 122,58,0,210713,0,0,ClassName122,TP_Premium,TP_Useable,EngraveSlotExtension_Ticket_90d,,,,NO,,NO,,
 123,33,0,210617,0,0,ClassName123,TP_Premium,TP_Useable,Exchange_Weapon_Book_460,,,,NO,,NO,,
+201,30,0,210102,0,0,ClassName201,TP_Premium,TP_Cube,Gacha_HairAcc_001,,,,YES,,,,
+202,300,0,210101,0,0,ClassName202,TP_Premium,TP_Cube,Gacha_HairAcc_010,,,,YES,,,,
 301,8,0,210125,0,0,ClassName301,TP_Premium,TP_Consume,Premium_Enchantchip,,,,NO,,NO,,
 302,128,0,210124,0,0,ClassName302,TP_Premium,TP_Consume,Premium_Enchantchip_20,,,,NO,,NO,,
 303,3,0,210123,0,0,ClassName303,TP_Premium,TP_Consume,Premium_repairPotion,,,,NO,,NO,,
@@ -77,7 +73,3 @@ ClassID,Price,JobGrade,Itemdate,AccountLimitCount,BonusItemCnt,ClassName,Categor
 519,30,0,210723,0,0,ClassName519,TP_Premium,TP_Social,Chat_Balloon_RollingDoor_Pink_30d,,,,,,,ChatBalloon,
 520,30,0,210723,0,0,ClassName520,TP_Premium,TP_Social,Chat_Balloon_RollingDoor_BlueSky_30d,,,,,,,ChatBalloon,
 601,29,0,0,1,0,ClassName601,TP_Premium,TP_FirstBuy,PremiumToken,,,,NO,,,,IS_USED_MEDAL_CHECK
-602,208,0,0,1,0,ClassName602,TP_Premium,TP_FirstBuy,202107package_Growth,,,,NO,,,,IS_USED_MEDAL_CHECK
-603,361,0,0,1,0,ClassName603,TP_Premium,TP_FirstBuy,202107package_BattleA,,,,NO,,,,IS_USED_MEDAL_CHECK
-604,278,0,0,1,0,ClassName604,TP_Premium,TP_FirstBuy,202107package_BattleB,,,,NO,,,,IS_USED_MEDAL_CHECK
-605,838,0,0,1,0,ClassName605,TP_Premium,TP_FirstBuy,202107package_All,,,,NO,,,,IS_USED_MEDAL_CHECK

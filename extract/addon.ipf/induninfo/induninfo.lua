@@ -1450,25 +1450,29 @@ function INDUNINFO_SET_BUTTONS(frame, indunCls)
     local type = 0
     local redButtonScp = TryGetProp(btnInfoCls,"RedButtonScp")
     local redButton = GET_CHILD_RECURSIVELY(buttonBox,'RedButton')
+    local redButtonText = GET_CHILD_RECURSIVELY(redButton,'RedButtonText')
     if redButtonScp ~= 'None' then
         redButton:SetEventScript(ui.LBUTTONUP,redButtonScp)
-        redButton:SetTextByKey("btnText", btnInfoCls.RedButtonText)
 		redButton:SetUserValue('MOVE_INDUN_CLASSID', indunCls.ClassID);
 		redButton:ShowWindow(1)
 		redButton:SetEnable(1)
+        redButtonText:SetTextByKey("btnText", btnInfoCls.RedButtonText)
+        redButtonText:ShowWindow(1)
         type = 1
     else
         redButton:ShowWindow(0)
     end
     for i = 1,3 do
         local button = GET_CHILD_RECURSIVELY(buttonBox,'Button'..i)
+        local buttonText = GET_CHILD_RECURSIVELY(button,'Button'..i.."Text")
         local buttonScp = TryGetProp(btnInfoCls,"Button"..i.."Scp")
         if buttonScp ~= 'None' then
             local text = TryGetProp(btnInfoCls,"Button"..i.."Text","None")
             button:SetEventScript(ui.LBUTTONUP,buttonScp)
-            button:SetTextByKey("btnText",text)
 			button:SetEventScriptArgString(ui.LBUTTONUP,indunCls.ClassName)
             button:ShowWindow(1)
+            buttonText:SetTextByKey("btnText",text)
+            buttonText:ShowWindow(1)
             type = math.max(BoolToNumber(i<=2)+1,type)
         else
             button:ShowWindow(0)

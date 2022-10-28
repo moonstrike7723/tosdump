@@ -9067,6 +9067,19 @@
         <Key Name="SelectedRidePet" Value="109484"/>
         <Key Name="isRideKeep" Value="109488"/>
         <Key Name="RidePetCompanion" Value="109575"/>
+        <Key Name="CharacterChangeSlot_1" Value="109587"/>
+        <Key Name="CharacterChangeSlot_2" Value="109586"/>
+        <Key Name="CharacterChangeSlot_3" Value="109588"/>
+        <Key Name="CharacterChangeSlot_4" Value="109591"/>
+        <Key Name="CharacterChangeSlot_5" Value="109584"/>
+        <Key Name="HadVisited_20011" Value="109590"/>
+        <Key Name="Hide_3273" Value="109598"/>
+        <Key Name="Kill_weekly_boss_Asiomage" Value="109585"/>
+        <Key Name="Kill_weekly_boss_Quipmage" Value="109589"/>
+        <Key Name="LastAbililityPoint" Value="109603"/>
+        <Key Name="LastGearScore" Value="109602"/>
+        <Key Name="Pose_RUSTLEDANCE" Value="109599"/>
+        <Key Name="SixGoddesEquip" Value="109601"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Guild">
         <Key Name="STEAM_NEW_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="105307"/>
@@ -10670,6 +10683,7 @@
         <Key Name="TOSHeroEquipOption_1" Value="108958"/>
         <Key Name="TOSHeroEquipOption_2" Value="108959"/>
         <Key Name="TOSHeroEquipReinforce" Value="108966"/>
+        <Key Name="ReinforceRevision" Value="109644"/>
     </KeyIDSpc>
     <KeyIDSpc Name="SessionObject">
         <Key Name="ROKAS31_SUB_01" Value="2534"/>
@@ -23154,6 +23168,53 @@
         <Key Name="LobbyServerID" Value="109582"/>
         <Key Name="LobbyZoneIP" Value="109579"/>
         <Key Name="LobbyZonePort" Value="109577"/>
+        <Key Name="ADDITIONAL_ENGRAVE_SLOT_TEAMBATTLE" Value="109596"/>
+        <Key Name="CONTENTS_TOTAL_SHOP_POSE_16" Value="109600"/>
+        <Key Name="CharacterChangeMaxSlotCount" Value="109593"/>
+        <Key Name="EVENT_2109_COIN_COUNT" Value="109628"/>
+        <Key Name="EVENT_2109_GOILD_COIN_COUNT" Value="109633"/>
+        <Key Name="EVENT_2109_GOLD_COIN_COUNT" Value="109618"/>
+        <Key Name="EVENT_2109_GOLD_COIN_TOTAL" Value="109625"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_BUFF_COUNT" Value="109632"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_COIN_GIVE" Value="109631"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_GIVE_BOX" Value="109623"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_1" Value="109630"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_10" Value="109619"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_11" Value="109612"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_12" Value="109641"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_13" Value="109615"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_14" Value="109642"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_15" Value="109609"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_16" Value="109617"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_17" Value="109643"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_18" Value="109620"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_19" Value="109608"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_2" Value="109639"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_20" Value="109614"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_21" Value="109622"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_22" Value="109621"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_23" Value="109636"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_24" Value="109637"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_25" Value="109616"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_26" Value="109634"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_27" Value="109624"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_28" Value="109627"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_29" Value="109610"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_3" Value="109635"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_4" Value="109607"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_5" Value="109611"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_6" Value="109640"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_7" Value="109613"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_8" Value="109626"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_SHOP_9" Value="109605"/>
+        <Key Name="EVENT_2109_MOON_RABBIT_WISH_COUNT" Value="109629"/>
+        <Key Name="EVENT_EVENT_2109_MOON_RABBIT_PLAY_TIME" Value="109606"/>
+        <Key Name="GuildMaster_Colony_Zone_Clear_DateTime" Value="109638"/>
+        <Key Name="HadVisited_20011" Value="109592"/>
+        <Key Name="InDunCountType_1000" Value="109604"/>
+        <Key Name="TeamBattleCoin" Value="109594"/>
+        <Key Name="TeamBattleLeagueShop_1" Value="109595"/>
+        <Key Name="TeamBattleLeagueShop_2" Value="109597"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PartyMember">
         <Key Name="Auth_Survey" Value="7222"/>
