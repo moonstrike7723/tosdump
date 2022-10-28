@@ -6,9 +6,6 @@
 					<Str Str="voice_cleric_m_massheal_shot" />
 					<Str Str="voice_cleric_massheal_shot" />
 				</Scp>
-				<Scp Scp="SKL_RUN_SCRIPT_SLEEP" Client="NO" UseSleep="YES" Time="600">
-					<Str Str="SCR_AUTO_MATCHING_HEAL_DARK_SPHERE_MassHeal"/>
-				</Scp>
 				<Scp Client="YES" Scp="C_EFFECT_POS" Time="600" UseSleep="NO">
 					<Str_Arg Arg="2" Str="F_cleric_MassHeal_spread_out" />
 					<Pos Angle="0" Dist="0" />
@@ -17,7 +14,7 @@
 				</Scp>
 				<Scp Client="NO" Scp="SKL_SET_TARGET_CIRCLE" Time="800" UseSleep="NO">
 					<Pos Angle="0" Dist="0" />
-					<Num Num="180" />
+					<Num Num="140" />
 					<Num Num="5" />
 					<Num Num="4" />
 					<Num Num="0" />
@@ -117,27 +114,7 @@
 			</ToolScp>
 		</EndScripts>
 		<KeyInput>
-            <ToolScp Client="YES" Scp="SKL_KEY_INPUT_RESURRECTION" UseSleep="NO">
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="5"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="1"/>
-                <Num Num="1"/>
-                <Str_Arg Str="" Arg="0"/>
-                <Str Str=""/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
-                <Num Num="0"/>
+			<ToolScp Client="YES" Scp="SKL_PARTY_TARGET_BY_KEY" UseSleep="NO">
 				<Num Num="1" />
 			</ToolScp>
 		</KeyInput>
@@ -250,6 +227,11 @@
 		</MainSkl>
 	</Skill>
 	<Skill Name="Priest_Sacrament">
+		<EndScripts>
+			<ToolScp Client="YES" Scp="C_SKL_LOCK_MOVE" UseSleep="NO">
+				<Num Num="0" />
+			</ToolScp>
+		</EndScripts>
 		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
 				<Frame Angle="0" AniTime="200" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453299" TermMax="0" TermMin="0" Time="0" Type="FAN" />
@@ -271,6 +253,11 @@
 		</MainSkl>
 	</Skill>
 	<Skill Name="Priest_Blessing">
+		<EndScripts>
+			<ToolScp Client="YES" Scp="C_SKL_LOCK_MOVE" UseSleep="NO">
+				<Num Num="0" />
+			</ToolScp>
+		</EndScripts>
 		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
 				<Frame Angle="0" AniTime="10199" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" TermMax="0" TermMin="0" Time="9999" Type="FAN" />
@@ -315,6 +302,11 @@
 		</MainSkl>
 	</Skill>
 	<Skill Name="Priest_Aspersion">
+		<EndScripts>
+			<ToolScp Client="YES" Scp="C_SKL_LOCK_MOVE" UseSleep="NO">
+				<Num Num="0" />
+			</ToolScp>
+		</EndScripts>
 		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
 				<Frame Angle="0" AniTime="99999" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="99799" Type="FAN" Width="30" />
@@ -365,15 +357,22 @@
 					<Str Str="voice_cleric_m_revive_shot" />
 					<Str Str="voice_cleric_revive_shot" />
 				</Scp>
-				<Scp Client="NO" Scp="SKL_BUFF" Time="250" UseSleep="NO">
-					<Str Str="Cleric_Revival_Buff" />
-					<Num FuncTxt="return obj.Level;" Num="1" UseFunc="1" />
+				<Scp Client="NO" Scp="SKL_SET_TARGET_CIRCLE" Time="250" UseSleep="NO">
+					<Pos Angle="0" Dist="0" />
+					<Num Num="150" />
+					<Num Num="50" />
+					<Num Num="1" />
 					<Num Num="0" />
-					<Num FuncTxt="if IsPVPServer(self) == 1 or IsPVPField(self) == 1 then return 15000 else return 90000 + GET_ABIL_LEVEL(self, 'Priest21') * 7000 end" Num="5000" UseFunc="1" />
+					<Num Num="1" />
+				</Scp>
+				<Scp Client="NO" Scp="SKL_TGT_BUFF" Time="250" UseSleep="NO">
+					<Str Str="Cleric_Revival_Buff" />
+					<Num FuncTxt="return obj.Level" Num="1" UseFunc="1" />
+					<Num Num="0" />
+					<Num FuncTxt="if IsPVPServer(self) == 1 then return 30000 else return 90000 + GET_ABIL_LEVEL(self, 'Priest21') * 7000 end" Num="5000" UseFunc="1" />
 					<Num Num="1" />
 					<Num Num="100" />
-				<Num Num="1" />
-                </Scp>
+				</Scp>
 			</EtcList>
 		</MainSkl>
 	</Skill>

@@ -1,72 +1,71 @@
 <?xml version='1.0' encoding='utf-8'?>
-<ToolSkill>
-    <Skill Name="Sapper_LegHoldTrap">
-        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+<ToolSkill><Skill Name="Sapper_LegHoldTrap">
+		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
-                <Frame Type="FAN" Time="10799" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" AniTime="10999" RotAngle="0" ForceATK="0"/>
+				<Frame Angle="0" AniTime="10999" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" TermMax="0" TermMin="0" Time="10799" Type="FAN" />
 			</HitList>
 			<EtcList>
-                <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="0">
-                    <Str Str="voice_archer_m_legholdtrap_cast"/>
-                    <Str Str="voice_archer_f_legholdtrap_cast"/>
+				<Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
+					<Str Str="voice_war_atk_short" />
+					<Str Str="voice_atk_short_war_f" />
 				</Scp>
-                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="100">
+				<Scp Client="YES" Scp="C_SOUND" Time="100" UseSleep="NO">
 					<Str Str="skl_eff_action_shot_1" />
 				</Scp>
-                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="200">
+				<Scp Client="YES" Scp="C_SOUND" Time="200" UseSleep="NO">
 					<Str Str="skl_eff_Archer_Caltrop" />
 				</Scp>
-                <Scp Scp="CREATE_MINE" Client="NO" UseSleep="YES" Time="220">
-                    <Pos Angle="0" Dist="80" Rand="30" Height="1"/>
+				<Scp Client="NO" Scp="CREATE_MINE" Time="220" UseSleep="YES">
+					<Pos Angle="0" Dist="80" Height="1" Rand="30" />
 					<Num Num="0.5" />
-                    <Str_Arg Str="I_archer_shot_LegholdTrap_mash#Bip01 R Hand" Arg="0.30000001"/>
-                    <Str_Arg Str="F_smoke008##1" Arg="0.69999999"/>
+					<Str_Arg Arg="0.30000001" Str="I_archer_shot_LegholdTrap_mash#Bip01 R Hand" />
+					<Str_Arg Arg="0.69999999" Str="F_smoke008##1" />
 					<Str Str="pcskill_leghold_trap" />
 					<Str Str="Mine_Web" />
-                    <Str_Arg Str="F_archer_caltrop_hit_explosion" Arg="0.30000001"/>
+					<Str_Arg Arg="0.30000001" Str="F_archer_caltrop_hit_explosion" />
 					<Num Num="0" />
 					<Num Num="1" />
 					<Num Num="10" />
 					<Num Num="0" />
 					<Num Num="20" />
 					<Str Str="LegHoldTrap_Debuff" />
-                    <Str_Arg Str="F_archer_Caltrop_shot_light" Arg="0.5"/>
+					<Str_Arg Arg="0.5" Str="F_archer_Caltrop_shot_light" />
 					<Num Num="600" />
 					<Num Num="1" />
 				</Scp>
-                <Scp Scp="CREATE_MINE" Client="NO" UseSleep="YES" Time="220">
-                    <Pos Angle="0" Dist="80" Rand="30" Height="1"/>
+				<Scp Client="NO" Scp="CREATE_MINE" Time="220" UseSleep="YES">
+					<Pos Angle="0" Dist="80" Height="1" Rand="30" />
 					<Num Num="0.5" />
-                    <Str_Arg Str="I_archer_shot_LegholdTrap_mash#Bip01 R Hand" Arg="0.30000001"/>
-                    <Str_Arg Str="F_smoke008##1" Arg="0.69999999"/>
+					<Str_Arg Arg="0.30000001" Str="I_archer_shot_LegholdTrap_mash#Bip01 R Hand" />
+					<Str_Arg Arg="0.69999999" Str="F_smoke008##1" />
 					<Str Str="pcskill_leghold_trap" />
 					<Str Str="Mine_Web" />
-                    <Str_Arg Str="F_archer_caltrop_hit_explosion" Arg="0.30000001"/>
+					<Str_Arg Arg="0.30000001" Str="F_archer_caltrop_hit_explosion" />
 					<Num Num="0" />
 					<Num Num="1" />
 					<Num Num="10" />
 					<Num Num="0" />
 					<Num Num="20" />
 					<Str Str="LegHoldTrap_Debuff" />
-                    <Str_Arg Str="F_archer_Caltrop_shot_light" Arg="0.5"/>
+					<Str_Arg Arg="0.5" Str="F_archer_Caltrop_shot_light" />
 					<Num Num="600" />
 					<Num Num="1" />
 				</Scp>
-                <Scp Scp="CREATE_MINE" Client="NO" UseSleep="YES" Time="220">
-                    <Pos Angle="0" Dist="80" Rand="30" Height="1"/>
+				<Scp Client="NO" Scp="CREATE_MINE" Time="220" UseSleep="YES">
+					<Pos Angle="0" Dist="80" Height="1" Rand="30" />
 					<Num Num="0.5" />
-                    <Str_Arg Str="I_archer_shot_LegholdTrap_mash#Bip01 R Hand" Arg="0.30000001"/>
-                    <Str_Arg Str="F_smoke008##1" Arg="0.69999999"/>
+					<Str_Arg Arg="0.30000001" Str="I_archer_shot_LegholdTrap_mash#Bip01 R Hand" />
+					<Str_Arg Arg="0.69999999" Str="F_smoke008##1" />
 					<Str Str="pcskill_leghold_trap" />
 					<Str Str="Mine_Web" />
-                    <Str_Arg Str="F_archer_caltrop_hit_explosion" Arg="0.30000001"/>
+					<Str_Arg Arg="0.30000001" Str="F_archer_caltrop_hit_explosion" />
 					<Num Num="0" />
 					<Num Num="1" />
 					<Num Num="10" />
 					<Num Num="0" />
 					<Num Num="20" />
 					<Str Str="LegHoldTrap_Debuff" />
-                    <Str_Arg Str="F_archer_Caltrop_shot_light" Arg="0.5"/>
+					<Str_Arg Arg="0.5" Str="F_archer_Caltrop_shot_light" />
 					<Num Num="600" />
 					<Num Num="1" />
 				</Scp>
@@ -74,22 +73,22 @@
 		</MainSkl>
 	</Skill>
 	<Skill Name="Sapper_SpringTrap">
-        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
-                <Frame Type="FAN" Time="10799" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" AniTime="10999" RotAngle="0" ForceATK="0"/>
+				<Frame Angle="0" AniTime="10999" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" TermMax="0" TermMin="0" Time="10799" Type="FAN" />
 			</HitList>
 			<EtcList>
-                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
+				<Scp Client="YES" Scp="C_SOUND" Time="0" UseSleep="NO">
 					<Str Str="skl_move_explosion_trap" />
 				</Scp>
-                <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="0">
-                    <Str Str="voice_archer_m_springtrap_cast"/>
-                    <Str Str="voice_archer_f_springtrap_cast"/>
+				<Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
+					<Str Str="voice_war_atk_short" />
+					<Str Str="voice_atk_short_war_f" />
 				</Scp>
-                <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="600">
+				<Scp Client="YES" Scp="C_SOUND" Time="600" UseSleep="NO">
 					<Str Str="skl_eff_move_equip_3" />
 				</Scp>
-                <Scp Scp="MONSKL_CRE_PAD" Client="NO" UseSleep="NO" Time="800">
+				<Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="800" UseSleep="NO">
 					<Pos Angle="0" Dist="30" />
 					<Angle Angle="0" />
 					<Str Str="Sapper_SpringTrap" />
@@ -98,16 +97,16 @@
 		</MainSkl>
 	</Skill>
 	<Skill Name="Sapper_StakeStockades">
-        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
-                <Frame Type="FAN" Time="10799" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" AniTime="10999" RotAngle="0" ForceATK="0"/>
+				<Frame Angle="0" AniTime="10999" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" TermMax="0" TermMin="0" Time="10799" Type="FAN" />
 			</HitList>
 			<EtcList>
-                <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="100">
+				<Scp Client="YES" Scp="C_VOICE_SOUND" Time="100" UseSleep="NO">
 					<Str Str="voice_archer_m_camouflage_shot" />
 					<Str Str="voice_archer_camouflage_shot" />
 				</Scp>
-                <Scp Scp="MONSKL_CRE_PAD" Client="NO" UseSleep="NO" Time="650">
+				<Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="650" UseSleep="NO">
 					<Pos Angle="0" Dist="30" />
 					<Angle Angle="0" />
 					<Str Str="Sapper_StakeStockades" />
@@ -244,7 +243,7 @@
 			</ToolScp>
 		</EndScripts>
 		<KeyInput>
-            <ToolScp Client="YES" Scp="SKL_KEY_DYNAMIC_CASTING" UseSleep="NO">
+			<ToolScp Client="YES" Scp="SKL_KEY_DYNAMIC_CASTING" UseSleep="NO">
 				<Num Num="0" />
 				<Num Num="0" />
 				<Num Num="1.5" />
@@ -257,19 +256,7 @@
 				<Num Num="0" />
 				<Num Num="1" />
 				<Num Num="1" />
-			<Str_Arg Arg="0" Str="" />
-                <Str Str="" />
-                <Num Num="0" />
-                <Num Num="1" />
-                <Num Num="3" />
-                <Num Num="0.2" />
-                <Num Num="100" />
-                <Num Num="0" />
-                <Num Num="0" />
-                <Num Num="0"/>
-                <Str Str="None"/>
-                <Str Str="Sapper42"/>
-            </ToolScp>
+			</ToolScp>
 		</KeyInput>
 		<KeyInputStart>
 			<ToolScp Client="YES" Scp="MONSKL_C_PLAY_ANIM" UseSleep="NO">
@@ -314,14 +301,6 @@
 					<Str Str="punji_stake" />
 				</Scp>
 			</EtcList>
-            <ResultList>
-                <ToolScp Client="NO" Scp="S_R_TGT_Decrease_heal_debuff" UseSleep="NO">
-                    <Str FuncTxt="local func_name = 'get_decrease_heal_debuff_tooltip_' .. TryGetProp(skill, 'ClassName', 'None')
-               local func = _G[func_name]
-               if func == nil then return end
-               return func(skill.Level)" Str="0" UseFunc="1"/>
-                </ToolScp>
-            </ResultList>
 		</MainSkl>
 	</Skill>
 	<Skill Name="Sapper_DetonateTraps">
@@ -392,6 +371,9 @@
 		</MainSkl>
 	</Skill>
 	<Skill Name="Sapper_Claymore" ToggleEft="1">
+		<EnableScripts>
+			<ToolScp Client="YES" Scp="SKL_CHK_CLAYMORE" UseSleep="NO" />
+		</EnableScripts>
 		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
 				<Frame Angle="0" AniTime="10299" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="10099" Type="FAN" Width="30" />
@@ -460,8 +442,8 @@
 							<Num Num="1" />
 							<Num Num="1" />
 						</Scp>
-						<Scp Client="NO" Scp="TGT_SKL_KILL" Time="450" UseSleep="NO"/>
-						<Scp Client="NO" Scp="SKL_SET_TARGET_SQUARE" Time="450" UseSleep="NO">
+						<Scp Client="NO" Scp="TGT_SKL_KILL" Time="650" UseSleep="NO" />
+						<Scp Client="NO" Scp="SKL_SET_TARGET_SQUARE" Time="650" UseSleep="NO">
 							<Pos Angle="0" Dist="0" PosType="9" />
 							<Num FuncTxt="return GET_SCP_TARGET_ANGLE(self);" Num="0" UseFunc="1" />
 							<Num Num="85" />
@@ -470,10 +452,10 @@
 							<Num Num="2" />
 							<Num Num="0" />
 						</Scp>
-						<Scp Client="NO" Scp="SKL_RUN_SCRIPT" Time="450" UseSleep="NO">
+						<Scp Client="NO" Scp="SKL_RUN_SCRIPT" Time="650" UseSleep="NO">
 							<Str Str="SCR_SKL_TGT_DMG_Claymore" />
 						</Scp>
-						<Scp Client="NO" Scp="SKL_TGT_KNOCKDOWN" Time="450" UseSleep="NO">
+						<Scp Client="NO" Scp="SKL_TGT_KNOCKDOWN" Time="650" UseSleep="NO">
 							<Num Num="4" />
 							<Num Num="0" />
 							<Num Num="150" />
