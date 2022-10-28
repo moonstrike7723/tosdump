@@ -18,13 +18,13 @@ function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_INIT(frame)
 	end
 
 	-- FLEX_BOX
-	if IS_SEASON_SERVER() == "NO"  then
-		btn:SetImage("flex_box_btn");
-		btn:SetEventScriptArgNumber(ui.LBUTTONUP, 3);
+	-- if IS_SEASON_SERVER() == "NO"  then
+	-- 	btn:SetImage("flex_box_btn");
+	-- 	btn:SetEventScriptArgNumber(ui.LBUTTONUP, 3);
 		
-		title:SetTextByKey("value", ClMsg("FLEX!"));
-		return;
-	end
+	-- 	title:SetTextByKey("value", ClMsg("FLEX!"));
+	-- 	return;
+	-- end
 
 	frame:ShowWindow(0);
 end

@@ -75,7 +75,7 @@ function GET_EVENT_PROGRESS_CHECK_EVENT_STATE(type)
     {
         [1] = {"cur", "cur", "cur", "pre", "pre"},
         [2] = {"cur", "cur", "cur", "cur", "pre"},
-        [3] = {"cur", "cur", "cur", "cur", "cur"},
+        [3] = {"cur", "cur", "end", "cur", "cur"},
     }
 
     return table[type];
