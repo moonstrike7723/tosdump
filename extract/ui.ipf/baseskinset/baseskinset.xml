@@ -10174,6 +10174,7 @@
 		<image name="Dlg_port_BLOSSOMBLADER_MASTER" file="\npcimg\BLOSSOMBLADER_MASTER.png" imgrect="0 0 650 800" CMM_Caption="매화검수 마스터"/>
 		<image name="Dlg_port_ARBALESTER_MASTER" file="\npcimg\ARBALESTER_MASTER.png" imgrect="0 0 750 950" CMM_Caption="아발리스터 마스터"/>
 		<image name="Dlg_port_CRUSADER_MASTER" file="\npcimg\CRUSADER_MASTER.png" imgrect="0 0 800 1000" CMM_Caption="크루세이더 마스터"/>
+		<image name="Dlg_port_Geraldasia" file="\npcimg\Geraldasia.png" imgrect="0 0 700 900" CMM_Caption="게랄다시아"/>
 	</imagelist>
 	<imagelist category="Dlg_boss">
 		<image name="balloon_Skiaclipse" file="\skin\monster_Dlg.tga" imgrect="0 0 220 260" CMM_Caption="스키아클립스"/>

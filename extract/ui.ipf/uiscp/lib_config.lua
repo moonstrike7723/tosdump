@@ -48,6 +48,11 @@ function UPDATE_CONTROL_MODE()
         if fluting_keyboard ~= nil and FLUTING_KEYBOARD_UPDATE_HOTKEYNAME ~= nil then
 		    FLUTING_KEYBOARD_UPDATE_HOTKEYNAME(fluting_keyboard);
 		    fluting_keyboard:Invalidate();
+		end
+		local monsterquickslot = ui.GetFrame('monsterquickslot');
+		if monsterquickslot ~= nil and MONSTERQUICKSLOT_UPDATE_HOTKEYNAME ~= nil then
+		    MONSTERQUICKSLOT_UPDATE_HOTKEYNAME(monsterquickslot);
+		    monsterquickslot:Invalidate();
         end
 	end
 end

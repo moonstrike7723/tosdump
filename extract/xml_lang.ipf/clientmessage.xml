@@ -10172,6 +10172,7 @@
 		<Class ClassID="111281" ClassName="Magic_Dark_Atk" Data="어둠 속성 마법 공격력"/>
 		<Class ClassID="111282" ClassName="Magic_Holy_Atk" Data="신성 속성 마법 공격력"/>
 		<Class ClassID="111283" ClassName="Magic_Soul_Atk" Data="염 속성 마법 공격력"/>
+		<Class ClassID="111293" ClassName="MaxWeight_BM" Data="휴대 가능무게"/>
 	</Category>
 	<Category Name="Quest">
 		<Class ClassID="112001" ClassName="VeryEasy" Data="매우 쉬움"/>
