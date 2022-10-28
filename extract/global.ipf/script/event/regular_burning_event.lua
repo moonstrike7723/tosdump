@@ -89,7 +89,9 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 }
     
 	local daycheckbuff = 
-					 {{'5','1',{'Event_Expup_100','EVENT_CHALLENGE_REWARD_BOOST'}}
+					 {{'4','29',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+					 ,{'4','30',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'5','1',{'Event_Expup_100','EVENT_CHALLENGE_REWARD_BOOST'}}
 					 ,{'5','6',{'Event_Expup_100','Event_Mythic_Auto_Count_Reset'}}
 					 ,{'5','7',{'Event_Expup_100','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}}
 					 ,{'5','8',{'Event_Expup_100','EVENT_GILTINE_REWARD_BOOST'}}
@@ -215,8 +217,8 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 							local aid = GetPcAIDStr(pc)
 							local cid = GetPcCIDStr(pc)
 							IMC_LOG("INFO_CHALLENGE_MODE", "step:RemoveCount; aid:" .. tostring(aid) .. "; cid:" .. tostring(cid) .. ";")
-							if IsRunningScript(pc, '_SCR_USE_ChallengeModeReset') ~= 1 then
-								RunScript('_SCR_USE_ChallengeModeReset', pc)
+							if IsRunningScript(pc, '_SCR_ChallengeModeResetByBurning') ~= 1 then
+								RunScript('_SCR_ChallengeModeResetByBurning', pc)
 							end
 							local tx = TxBegin(pc)
 							TxSetIESProp(tx, accountObject, "REGULAR_BURNING_EVENT_CHALLENGE_RESET", challengeCount+1)
