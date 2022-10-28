@@ -38,3 +38,7 @@ function MinMaxCorrection(value, minVal, maxVal)
     value = math.min(math.max(minVal, value), maxVal);
     return(value);
 end
+
+function BoolToNumber(bool)
+    return bool and 1 or 0
+end

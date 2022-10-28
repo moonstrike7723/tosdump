@@ -707,6 +707,9 @@
 		<Class ClassID="4256" ClassName="CanUseGreaterThan430" Data="430레벨 이상 랜덤 옵션 아이템에만 사용할 수 있습니다."/>
 		<Class ClassID="4257" ClassName="Ark" Data="아크"/>
 		<Class ClassID="4258" ClassName="LegendMaterial" Data="레전드 재료"/>
+                <Class ClassID="4260" ClassName="MYSTIC_SAVIOR_CHAGE_CLOVER" Data="위기를 넘는 지혜를 담아!{nl}매지컬 세이비어 클로버!"/>
+		<Class ClassID="4261" ClassName="MYSTIC_SAVIOR_CHAGE_SPADE" Data="악을 처단하는 힘을 담아!{nl} 매지컬 세이비어 스페이드!"/>
+		<Class ClassID="4262" ClassName="MYSTIC_SAVIOR_CHAGE_ACE" Data="은혜로운 사랑을 담아!{nl}매지컬 세이비어 프로페서!"/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -9017,7 +9020,8 @@
 		<Class ClassID="90208" ClassName="CasualGamble_GET_ALLMSG" Data="{s24}축하드립니다!{nl}{PC} 님이 [여신의 축복]을 통해{nl}{ITEMNAME} 를(을) {count}개 획득하셨습니다!"/>
 		<Class ClassID="90209" ClassName="F_TABLELAND_28_2_NPC_CRU_01" Data="이곳은 위험하니 조심히 벗어나시길 바랍니다."/>
 		<Class ClassID="90210" ClassName="F_TABLELAND_28_2_NPC_CRU_02" Data="추위가 더욱 심해지고 있으니 몸을 충분히 데우세요."/>
-		</Category>
+		<Class ClassID="90257" ClassName="WhiteDayShop2003" Data="화이트데이 이벤트 상점"/>
+	</Category>
 	<Category Name="BattleText">
 		<Class ClassID="100001" ClassName="ADD_DAMAGE_{Auto_1}!" Data="추가 데미지 {Auto_1}!"/>
 		<Class ClassID="100002" ClassName="ADD_BUFF_{Auto_1}!" Data="{Auto_1}!"/>
@@ -13793,6 +13797,17 @@
 		<Class ClassID="501237" ClassName="JOB_BALLENCE_REWARD_NPC_CM_11_GLOBAL4" Data="{#003399}클레릭 계열{/}{nl} - {Char4}"/>
 		<Class ClassID="501238" ClassName="JOB_BALLENCE_REWARD_NPC_CM_11_GLOBAL5" Data="{#003399}스카우트 계열{/}{nl} - {Char5}"/>
 		<Class ClassID="501241" ClassName="JOB_BALLENCE_REWARD_NPC_CHECK_CLASS" Data="[지원 대상 클래스를 확인한다]를 선택하시면 현재 구원자님의 클래스에 따라 지원 절차가 진행됩니다."/>
+		<Class ClassID="501246" ClassName="Event_irredians_accessory_box" Data="장비 선택"/>
+		<Class ClassID="501247" ClassName="EVENT_2003_WHITEDAY_CANDY_SEL1" Data="이벤트 안내"/>
+		<Class ClassID="501248" ClassName="EVENT_2003_WHITEDAY_CANDY_SEL2" Data="화이트데이 이벤트 상점 열기"/>
+		<Class ClassID="501249" ClassName="EVENT_2003_WHITEDAY_CANDY_SEL3" Data="사탕 세트 교환 하기"/>
+		<Class ClassID="501250" ClassName="EVENT_2003_WHITEDAY_CANDY_SEL4" Data="딸기 사탕 2개, 소다 사탕 2개, 레몬 사탕 2개, 후르츠 사탕 2개로 케도라 상단의 사탕 세트 1개와 교환할 수 있어요!{nl} 교환 가능 개수 [1~{MAX}]"/>
+		<Class ClassID="501251" ClassName="EVENT_2003_WHITEDAY_CANDY_CHECK{CANDY1}{CANDY2}{CANDY3}{CANDY4}{HEART_CARD}{CANDY_CARD}" Data="[이벤트 아이템 획득 정보]{nl}딸기 사탕 {#ff6d00}({CANDY1}/40){/}{nl}소다 사탕 {#ff6d00}({CANDY2}/40){/}{nl}레몬 사탕{#ff6d00}({CANDY3}/40){/}{nl}후르츠 사탕{#ff6d00}({CANDY4}/40){/}{nl} {#00BFFF}[화이트데이]하트 카드 획득량{/}{#ff6d00}({HEART_CARD}){/}{nl}{#00BFFF}[화이트데이]캔디 카드 획득량{/}{#ff6d00}({CANDY_CARD}){/}{nl}{#ff0000}※매일 오전 6시에 초기화 됩니다.{/}"/>
+		<Class ClassID="501252" ClassName="EVENT_2003_WHITEDAY_CANDY_PRESENT_OVER" Data="해당 NPC에게는 더 이상 사탕을 줄 수 없습니다. 다른 NPC에게 선물해보세요."/>
+		<Class ClassID="501253" ClassName="EVENT_2003_WHITEDAY_CANDY_PRESENT_CHECK{npc_SCT_master}{npc_ORC_master}{npc_RAG_master}{wizardmaster}{peltasta}{npc_healer}" Data="클라페다 상단 사탕 세트 전달 횟수{nl}스카우트 마스터({npc_SCT_master}/50){nl}오라클 마스터({npc_ORC_master}/50){nl}레인저 마스터({npc_RAG_master}/50){nl}위저드 마스터({wizardmaster}/50){nl}펠타스타 마스터({peltasta}/50){nl}클레릭 마스터({npc_healer}/50)"/>
+		<Class ClassID="501254" ClassName="EVENT_2003_WHITEDAY_CANDY_TRADE_OVER" Data="오늘 교환 가능한 사탕 세트를 모두 교환 하셨어요.{nl}{#ff0000}※ 사탕 세트 교환 횟수는 매일 오전 6시 초기화 됩니다."/>
+		<Class ClassID="501255" ClassName="EVENT_2003_WHITEDAY_CANDY_PRESENT_CHECK{npc_ROG_master}{npc_OLW_female_master}{npc_DRU_master}{npc_SQR_master}{npc_Appraiser}" Data="페디미안 상단 사탕 세트 전달 횟수{nl}로그 마스터({npc_ROG_master}/50){nl}아웃로 마스터({npc_OLW_female_master}/50){nl}드루이드 마스터({npc_DRU_master}/50){nl}스콰이어 마스터({npc_SQR_master}/50){nl}감정사 마스터({npc_Appraiser}/50)"/>
+		<Class ClassID="501256" ClassName="EVENT_2003_WHITEDAY_CANDY_PRESENT_CHECK{npc_LIN_master}{npc_WUG_master}{Inesa_Hamondail}" Data="오르샤 상단 사탕 세트 전달 횟수{nl}링커 마스터({npc_LIN_master}/50){nl}무고사 마스터({npc_WUG_master}/50){nl}오르샤 영주({Inesa_Hamondail}/50)"/>
 	</Category>
 	<Category Name="GEM_GACHA">
 		<Class ClassID="510001" ClassName="GEM_GACHA_SEL1" Data="젬 1회 뽑기"/>
@@ -14484,7 +14499,7 @@
 		<Class ClassID="2200003" ClassName="MarketWebService_3" Data="아이템 정보를 얻어오는데 실패했습니다."/>
 		<Class ClassID="2200004" ClassName="MarketWebService_902" Data="서버로 잘못된 Parameter 정보가 전달되었습니다."/>
 		<Class ClassID="2200005" ClassName="MarketWebService_904" Data="서버오류로 정상적인 처리가 되지 않았습니다."/>
-    <Class ClassID="2200006" ClassName="MarketWebService_903" Data="아직 사용할 수 없습니다. 잠시 후 다시 시도해주세요."/>
+		<Class ClassID="2200006" ClassName="MarketWebService_903" Data="아직 사용할 수 없습니다. 잠시 후 다시 시도해주세요."/>
 	</Category>
 	<Category Name="Raid">
 		<Class ClassID="514001" ClassName="VelcofferSealStoneScrMsg" Data="봉인 해제중.."/>

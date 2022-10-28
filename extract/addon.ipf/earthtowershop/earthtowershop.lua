@@ -36,7 +36,11 @@ function EARTHTOWERSHOP_BUY_ITEM(itemName,itemCount)
 	
 	if recipecls.AccountNeedProperty ~= 'None' then
 	    local aObj = GetMyAccountObj()
-		local sCount = TryGetProp(aObj, recipecls.AccountNeedProperty); 
+        local sCount = TryGetProp(aObj, recipecls.AccountNeedProperty); 
+        --EVENT_2003_WHITEDAY
+        if recipecls.ClassName == 'WhiteDayShop2003_14' then
+            sCount = sCount + 1
+        end
 --        --EVENT_1906_SUMMER_FESTA
 --        local time = geTime.GetServerSystemTime()
 --        time = time.wYear..time.wMonth..time.wDay
@@ -198,6 +202,12 @@ function REQ_EVENT1912_GREWUP_SHOP_OPEN()
 end
 
 
+function REQ_EVENT_SHOP_OPEN_COMMON(shopType)
+    local frame = ui.GetFrame("earthtowershop");
+    frame:SetUserValue("SHOP_TYPE", shopType);
+    ui.OpenFrame('earthtowershop');
+end
+
 function EARTH_TOWER_SHOP_OPEN(frame)
     if frame == nil then
         frame = ui.GetFrame("earthtowershop")
@@ -304,6 +314,9 @@ function EARTH_TOWER_INIT(frame, shopType)
 --    elseif shopType == 'GrewUpShop' then
 --        title:SetText('{@st43}'..ScpArgMsg("NEW_CHAR_SHOP_1"));
 --        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("NEW_CHAR_SHOP_1")));
+    else
+        title:SetText('{@st43}'..ScpArgMsg(shopType));
+        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
     end
 
 
@@ -453,7 +466,7 @@ function EXCHANGE_CREATE_TREE_PAGE(tree, slotHeight, groupName, classType, cls, 
     end
     
     itemName:SetTextByKey("value", targetItem.Name .. " [" .. recipecls.TargetItemCnt .. ScpArgMsg("Piece") .. "]");
-    if targetItem.StringArg == "EnchantJewell" then
+    if targetItem.StringArg == "EnchantJewell" and cls.TargetItemAppendProperty ~= 'None' then
         local number_arg1 = TryGetProp(targetItem, 'NumberArg1', 0)
         if number_arg1 ~= 0 then
             itemName:SetTextByKey("value", targetItem.Name .. " [" .. recipecls.TargetItemCnt .. ScpArgMsg("Piece") .. "]");
@@ -467,7 +480,7 @@ function EXCHANGE_CREATE_TREE_PAGE(tree, slotHeight, groupName, classType, cls, 
     itemIcon:SetImage(targetItem.Icon);
     itemIcon:SetEnableStretch(1);
     
-    if targetItem.StringArg == "EnchantJewell" then
+    if targetItem.StringArg == "EnchantJewell" and cls.TargetItemAppendProperty ~= 'None' then
         SET_ITEM_TOOLTIP_BY_CLASSID(itemIcon, targetItem.ClassName, 'ItemTradeShop', cls.ClassName);
     else  
         SET_ITEM_TOOLTIP_ALL_TYPE(itemIcon, nil, targetItem.ClassName, '', targetItem.ClassID, 0);
@@ -580,6 +593,10 @@ function EXCHANGE_CREATE_TREE_PAGE(tree, slotHeight, groupName, classType, cls, 
 --                sCount = sCount - 2
 --            end
 --        end
+        --EVENT_2003_WHITEDAY
+        if recipecls.ClassName == 'WhiteDayShop2003_14' then
+            sCount = sCount + 1
+        end
         local cntText = ScpArgMsg("Excnaged_AccountCount_Remind","COUNT",string.format("%d", sCount))
         local tradeBtn = GET_CHILD(ctrlset, "tradeBtn");
         if sCount <= 0 then
@@ -800,6 +817,10 @@ function EARTH_TOWER_SHOP_TRADE_ENTER()
         item.DialogTransaction("BUY_TPSHOP1912_SHOP_1_TREAD1", resultlist, cntText);
     elseif shopType == 'GrewUpShop' then
 --        item.DialogTransaction("EVENT1912_GREWUP_SHOP_1_TREAD1", resultlist, cntText);
+    else
+        local strArgList = NewStringList();
+        strArgList:Add(shopType);
+        item.DialogTransaction("EVENT_SHOP_1_THREAD1", resultlist, cntText,strArgList);
 	end
 end
 
@@ -832,7 +853,7 @@ function EARTH_TOWER_SHOP_TRADE_LEAVE()
         itemName:SetTextByKey("value", targetItem.Name.." ["..recipecls.TargetItemCnt..ScpArgMsg("Piece").."]");
     end
 
-    if targetItem.StringArg == "EnchantJewell" then
+    if targetItem.StringArg == "EnchantJewell" and recipecls.TargetItemAppendProperty ~= 'None' then
         itemName:SetTextByKey("value", "[Lv. "..recipecls.TargetItemAppendValue.."] "..targetItem.Name .. " [" .. recipecls.TargetItemCnt .. ScpArgMsg("Piece") .. "]");
     end  
 
@@ -937,7 +958,7 @@ function EARTHTOWERSHOP_CHANGECOUNT(frame, ctrl, change)
                 
                 -- item Name Setting
                 local targetItemName_text = GET_CHILD_RECURSIVELY(ctrlset, "itemName");
-                if targetItem.StringArg == "EnchantJewell" then
+                if targetItem.StringArg == "EnchantJewell" and recipecls.TargetItemAppendProperty ~= 'None' then
                     targetItemName_text:SetTextByKey("value", "[Lv. "..recipecls.TargetItemAppendValue.."] "..targetItem.Name .. " [" .. recipecls.TargetItemCnt * countText .. ScpArgMsg("Piece") .. "]");
                 else
                     targetItemName_text:SetTextByKey("value", targetItem.Name.." ["..recipecls.TargetItemCnt * countText..ScpArgMsg("Piece").."]");
@@ -987,6 +1008,10 @@ function EARTHTOWERSHOP_CHANGECOUNT_NUM_CHANGE(ctrlset,change)
     if recipecls.AccountNeedProperty ~= 'None' then
         local aObj = GetMyAccountObj()
         local sCount = TryGetProp(aObj, recipecls.AccountNeedProperty); 
+        --EVENT_2003_WHITEDAY
+        if recipecls.ClassName == 'WhiteDayShop2003_14' then
+            sCount = sCount + 1
+        end
 --        --EVENT_1906_SUMMER_FESTA
 --        local time = geTime.GetServerSystemTime()
 --        time = time.wYear..time.wMonth..time.wDay

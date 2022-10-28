@@ -8349,6 +8349,16 @@
         <Key Name="SIAULIAI_SPIRIT_TRACK" Value="7817"/>
         <Key Name="HaveEmoticon_76" Value="105018"/>
         <Key Name="Kill_weekly_Hidden_monster" Value="105012"/>
+        <Key Name="HaveEmoticon_5003" Value="105066"/>
+        <Key Name="HaveEmoticon_5004" Value="105067"/>
+        <Key Name="HaveEmoticon_5005" Value="105068"/>
+        <Key Name="InDunCountType_805" Value="105026"/>
+        <Key Name="IndunWeeklyEnteredCount_805" Value="105027"/>
+        <Key Name="Kill_Legend_Boss_Moringponia_Hard" Value="105023"/>
+        <Key Name="Kill_Legend_Boss_Tantaliser_Hard" Value="105024"/>
+        <Key Name="Kill_Legend_Hard_RytaSwort" Value="105025"/>
+        <Key Name="Pose_CHEERUP" Value="105070"/>
+        <Key Name="Pose_UNBELIEVABLE" Value="105069"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Guild">
         <Key Name="GR_SAMPLE_1" Value="9296"/>
@@ -11397,6 +11407,57 @@
         <Key Name="PVP_MINE_Month_TradeCount2" Value="105015"/>
         <Key Name="PVP_MINE_TradeCount_Month_Reset" Value="105013"/>
         <Key Name="REGULAR_BURNING_EVENT_CHALLENGE_RESET" Value="105002"/>
+        <Key Name="CONTENTS_TOTAL_SHOP_POSE_2" Value="105071"/>
+        <Key Name="CONTENTS_TOTAL_SHOP_POSE_3" Value="105072"/>
+        <Key Name="ContentsTotalShop_2002_1" Value="105073"/>
+        <Key Name="ContentsTotalShop_2002_2" Value="105074"/>
+        <Key Name="ContentsTotalShop_2002_3" Value="105075"/>
+        <Key Name="ContentsTotalShop_2002_4" Value="105076"/>
+        <Key Name="ContentsTotalShop_2002_5" Value="105077"/>
+        <Key Name="ContentsTotalShop_2002_6" Value="105078"/>
+        <Key Name="ContentsTotalShop_2002_7" Value="105079"/>
+        <Key Name="ContentsTotalShop_2002_8" Value="105080"/>
+        <Key Name="ContentsTotalShop_2002_9" Value="105081"/>
+        <Key Name="EVENT_2002_GUILD_DAILY_HOUSE_REWARD" Value="105030"/>
+        <Key Name="EVENT_2003_CANDY_CARD_COUNT" Value="105053"/>
+        <Key Name="EVENT_2003_HEART_CARD_COUNT" Value="105051"/>
+        <Key Name="EVENT_2003_WHITEDAY_CANDY_1" Value="105042"/>
+        <Key Name="EVENT_2003_WHITEDAY_CANDY_2" Value="105045"/>
+        <Key Name="EVENT_2003_WHITEDAY_CANDY_3" Value="105047"/>
+        <Key Name="EVENT_2003_WHITEDAY_CANDY_4" Value="105049"/>
+        <Key Name="EVENT_2003_WHITEDAY_PLAY_TIME" Value="105057"/>
+        <Key Name="EVENT_2003_WHITEDAY_PRESENT_COUNT" Value="105059"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP1" Value="105061"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP10" Value="105044"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP11" Value="105046"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP12" Value="105048"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP13" Value="105050"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP14" Value="105052"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP15" Value="105054"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP16" Value="105056"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP17" Value="105058"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP18" Value="105060"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP19" Value="105062"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP2" Value="105028"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP20" Value="105029"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP21" Value="105032"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP22" Value="105034"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP23" Value="105036"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP24" Value="105038"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP25" Value="105040"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP3" Value="105031"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP4" Value="105033"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP5" Value="105035"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP6" Value="105037"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP7" Value="105039"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP8" Value="105041"/>
+        <Key Name="EVENT_2003_WHITEDAY_SHOP9" Value="105043"/>
+        <Key Name="EVENT_2003_WHITEDAY_TRADE_COUNT" Value="105055"/>
+        <Key Name="InDunCountType_805" Value="105063"/>
+        <Key Name="IndunWeeklyEnteredCount_805" Value="105064"/>
+        <Key Name="LEGEND_RAID_MORINGPONIA_HARD" Value="105082"/>
+        <Key Name="STEAM190716_GACHA_HAIRACC_DATE" Value="105083"/>
+        <Key Name="STEAM190730_GACHA_TP_DATE" Value="105084"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PC">
         <Key Name="TopDummy" Value="7107"/>
@@ -19249,6 +19310,7 @@
         <Key Name="test_zone_evballgame1" Value="7501"/>
         <Key Name="test_zone_evcopy001" Value="7502"/>
         <Key Name="test_zone_evhilowgame1" Value="7503"/>
+        <Key Name="MG_Last_LEGEND_RAID_MORINGPONIA_HARD" Value="105065"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Party">
         <Key Name="IsPrivate" Value="2"/>

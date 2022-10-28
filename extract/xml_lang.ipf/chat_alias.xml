@@ -29,6 +29,9 @@
 		<Class ClassID="34" ClassName="/candy" Alias="/사탕" ConvertWhenSend="1"/>
 		<Class ClassID="35" ClassName="/totalPoint" Alias="/통합" ConvertWhenSend="1"/>
 		<Class ClassID="39" ClassName="/coin" Alias="/코인" ConvertWhenSend="1"/>
+		<Class ClassID="41" ClassName="/candy_klaipeda" Alias="/화이트데이 클라페다" ConvertWhenSend="1"/>
+		<Class ClassID="42" ClassName="/candy_orsha" Alias="/화이트데이 오르샤" ConvertWhenSend="1"/>
+		<Class ClassID="43" ClassName="/candy_fedimian" Alias="/화이트데이 페디미안" ConvertWhenSend="1"/>
 		<!-- 		<Class ClassID="25" ClassName="/uicallscp_event1810guildquest" Alias="/길드퀘스트" ConvertWhenSend="1"/> -->
 	</Category>
 </idspace>

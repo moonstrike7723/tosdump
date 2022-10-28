@@ -19,8 +19,12 @@ function SCR_ITEM_GACHA_TP(pc, rewGroup, gachaClassName, gachacnt, gachaLog, gac
 		isSkipAnimation = "NO";
 	end
 
+	if TX_GACHA_BONUS_COUNT_RESET(pc,aObj) == false then
+		return;
+	end
+	
 	local reason = 'HAIR_GACHA' -- 보상아이템 줄 때 남는 로그(이유)
-
+	
 	local tx = TxBegin(pc);	
 	TxEnableInIntegrateIndun(tx);
 	if gachaClassName == "Gacha_TP_100" then
@@ -79,7 +83,7 @@ function SCR_ITEM_GACHA_TP(pc, rewGroup, gachaClassName, gachacnt, gachaLog, gac
 
 	local ret = TxCommit(tx);
 
-	if ret == "SUCCESS" then	
+	if ret == "SUCCESS" then
 
 		--break
 		EnableControl(pc, 0, "ITEM_GACHA_TP");
@@ -114,28 +118,28 @@ function SCR_ITEM_GACHA_TP(pc, rewGroup, gachaClassName, gachacnt, gachaLog, gac
 		EnableControl(pc, 1, "ITEM_GACHA_TP");
 		--break end
     
-    -- 복각 큐브 서버 메시지 
-    if gachaClassName == 'Gacha_HairAcc_ReSale001_M' or gachaClassName == 'Gacha_HairAcc_ReSale010_M' or gachaClassName == 'Gacha_HairAcc_ReSale001_F' or gachaClassName == 'Gacha_HairAcc_ReSale010_F' then
-    if ALLMSG_resale == nil then
-        ALLMSG_resale = {'Wing_Guilty', 'Wing_bagpack', 'Wing_Flower01', 'Wing_Flower02', 'Wing_Flower03',
-         'Wing_Rescue_Tube', 'wing_inspector_scroll1', 'Wing_Kite_Rabbit', 'Wing_Balloon_Rabbit',
-          'Effect_SnowFlower', 'Effect_Stamp_Good', 'Effect_Special_Marin', 'Effect_Cherry_Blossom',
-       'Effect_Stamp_Horse', 'Effect_Stamp_Rabbit', 'egg_019', 'egg_023','Wing_Falcon', 'Wing_Balloon',
-          'Wing_Heart', 'Wing_Angel', 'Wing_Farmerhat', 'Doll_fairy_guilty'}
-    end
-    
-	for i = 1, table.getn(ALLMSG_resale) do
-	    for j = 1, #sendrewardlist do
-    	    if ALLMSG_resale[i] == sendrewardlist[j] then
-    		    local itemName = GetClassString('Item', sendrewardlist[j], 'Name')
-    			ToAll(ScpArgMsg("GACHA_SITEM_GET_ALLMSG_2","PC",GetTeamName(pc),"ITEMNAME", itemName))
-    			break;
-    		end
-    	end
-	end
+    	-- 복각 큐브 서버 메시지 
+		if gachaClassName == 'Gacha_HairAcc_ReSale001_M' or gachaClassName == 'Gacha_HairAcc_ReSale010_M' or gachaClassName == 'Gacha_HairAcc_ReSale001_F' or gachaClassName == 'Gacha_HairAcc_ReSale010_F' then
+			if ALLMSG_resale == nil then
+				ALLMSG_resale = {'Wing_Guilty', 'Wing_bagpack', 'Wing_Flower01', 'Wing_Flower02', 'Wing_Flower03',
+				'Wing_Rescue_Tube', 'wing_inspector_scroll1', 'Wing_Kite_Rabbit', 'Wing_Balloon_Rabbit',
+				'Effect_SnowFlower', 'Effect_Stamp_Good', 'Effect_Special_Marin', 'Effect_Cherry_Blossom',
+				'Effect_Stamp_Horse', 'Effect_Stamp_Rabbit', 'egg_019', 'egg_023','Wing_Falcon', 'Wing_Balloon',
+				'Wing_Heart', 'Wing_Angel', 'Wing_Farmerhat', 'Doll_fairy_guilty'}
+			end
+			
+			for i = 1, table.getn(ALLMSG_resale) do
+				for j = 1, #sendrewardlist do
+					if ALLMSG_resale[i] == sendrewardlist[j] then
+						local itemName = GetClassString('Item', sendrewardlist[j], 'Name')
+						ToAll(ScpArgMsg("GACHA_SITEM_GET_ALLMSG_2","PC",GetTeamName(pc),"ITEMNAME", itemName))
+						break;
+					end
+				end
+			end
 	---------------
     
-    end
+		end
 		        
 		
 		if (gachacnt == 1 and gachaType == "hair") or (gachacnt == 1 and gachaType == "costume") then

@@ -3006,6 +3006,18 @@
 		<image name="item_icon_12animal_sword" file="\icon\weapon\item_icon_12animal_sword.png" imgrect="0 0 256 256"/>
 		<image name="item_icon_12animal_thspear" file="\icon\weapon\item_icon_12animal_thspear.png" imgrect="0 0 256 256"/>
 		<image name="item_icon_12animal_thsword" file="\icon\weapon\item_icon_12animal_thsword.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_bow" file="\icon\weapon\item_icon_2020magical_bow.png" imgrect="0 0 256 256" CMM_Caption="2020_2월 마법소녀 테마"/>
+		<image name="item_icon_2020magical_crossbow" file="\icon\weapon\item_icon_2020magical_crossbow.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_mace" file="\icon\weapon\item_icon_2020magical_mace.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_pistol" file="\icon\weapon\item_icon_2020magical_pistol.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_rapier" file="\icon\weapon\item_icon_2020magical_rapier.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_rod" file="\icon\weapon\item_icon_2020magical_rod.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_shield" file="\icon\weapon\item_icon_2020magical_shield.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_spear" file="\icon\weapon\item_icon_2020magical_spear.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_staff" file="\icon\weapon\item_icon_2020magical_staff.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_thmace" file="\icon\weapon\item_icon_2020magical_thmace.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_thspear" file="\icon\weapon\item_icon_2020magical_thspear.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_2020magical_thsword" file="\icon\weapon\item_icon_2020magical_thsword.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="acc_item">
 		<image name="item_necklace_01" file="\icon\acc\item_necklace_1.png" imgrect="0 0 256 256" CMM_Caption="목걸이"/>
@@ -3614,6 +3626,14 @@
 		<image name="item_icon_helmet_12animal_rat" file="\icon\hairacc\item_icon_helmet_12animal_rat.png" imgrect="0 0 256 256" CMM_Caption=""/>
 		<image name="item_icon_helmet_12animal_snake" file="\icon\hairacc\item_icon_helmet_12animal_snake.png" imgrect="0 0 256 256" CMM_Caption=""/>
 		<image name="item_icon_helmet_12animal_tiger" file="\icon\hairacc\item_icon_helmet_12animal_tiger.png" imgrect="0 0 256 256" CMM_Caption=""/>
+		<image name="item_icon_accessory_2020magical01" file="\icon\hairacc\item_icon_accessory_2020magical01.png" imgrect="0 0 256 256" CMM_Caption="2020_2월 마법소녀 테마"/>
+		<image name="item_icon_accessory_2020magical02" file="\icon\hairacc\item_icon_accessory_2020magical02.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_accessory_2020magical03" file="\icon\hairacc\item_icon_accessory_2020magical03.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_accessory_2020magical04" file="\icon\hairacc\item_icon_accessory_2020magical04.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_accessory_2020magical05" file="\icon\hairacc\item_icon_accessory_2020magical05.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_accessory_2020magical06" file="\icon\hairacc\item_icon_accessory_2020magical06.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_accessory_2020magical07" file="\icon\hairacc\item_icon_accessory_2020magical07.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_accessory_2020magical08" file="\icon\hairacc\item_icon_accessory_2020magical08.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="collection_item">
 		<image name="icon_collitem_collection" file="\icon\colletion\icon_item_collection.tga" imgrect="0 0 673 419" CMM_Caption="월계수"/>
@@ -5573,6 +5593,8 @@
 		<image name="icon_item_moth_setbox" file="\icon\item\icon_item_moth_setbox.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_Hero_Adivse_select" file="\icon\item\icon_item_Hero_Adivse_select.png" imgrect="0 0 128 128" CMM_Caption="가호 징벌포션 선택"/>
 		<image name="icon_item_Event_Roulette_Coin" file="\icon\item\icon_item_Event_Roulette_Coin.png" imgrect="0 0 128 128" CMM_Caption="여신의 룰렛 코인"/>
+		<image name="icon_item_WhiteDay_Candy_Card" file="\icon\item\icon_item_WhiteDay_Candy_Card.png" imgrect="0 0 128 128" CMM_Caption="[화이트데이]사탕카드"/>
+		<image name="icon_item_WhiteDay_hart_Card" file="\icon\item\icon_item_WhiteDay_hart_Card.png" imgrect="0 0 128 128" CMM_Caption="[화이트데이]하트카드"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_h_bigplant_set_01_green" file="\icon\housing\icon_item_h_bigplant_set_01_green.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 화단_01(초록색)"/>
@@ -6939,6 +6961,20 @@
 		<image name="icon_item_2020_NewYear_Package_02" file="\icon\payment\icon_item_2020_NewYear_Package_02.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_2020_NewYear_Package_03" file="\icon\payment\icon_item_2020_NewYear_Package_03.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_2020_NewYear_Package_All" file="\icon\payment\icon_item_2020_NewYear_Package_All.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_20magical01" file="\icon\payment\icon_item_selectbox_20magical01.png" imgrect="0 0 256 256" CMM_Caption="2020_2월 마법소녀 테마"/>
+		<image name="icon_item_selectbox_20magical02" file="\icon\payment\icon_item_selectbox_20magical02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_20magical03" file="\icon\payment\icon_item_selectbox_20magical03.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_20magical01_f" file="\icon\payment\item_icon_20magical01_f.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_20magical01_m" file="\icon\payment\item_icon_20magical01_m.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_20magical02_f" file="\icon\payment\item_icon_20magical02_f.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_20magical02_m" file="\icon\payment\item_icon_20magical02_m.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_20magical03_f" file="\icon\payment\item_icon_20magical03_f.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_20magical03_m" file="\icon\payment\item_icon_20magical03_m.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_Effect_2020magical01" file="\icon\payment\item_icon_Effect_2020magical01.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_Effect_2020magical02" file="\icon\payment\item_icon_Effect_2020magical02.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_wing_2020magical01" file="\icon\payment\item_icon_wing_2020magical01.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_wing_2020magical02" file="\icon\payment\item_icon_wing_2020magical02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_Premium_Artefact" file="\icon\payment\icon_item_selectbox_Premium_Artefact.png" imgrect="0 0 256 256" CMM_Caption="무기선택상자_공용"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>

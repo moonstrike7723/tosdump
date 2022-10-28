@@ -2325,6 +2325,9 @@
 		<Effect Name="voice_cleric_m_retaliation_shot"/>
 		<Effect Name="voice_cleric_m_sacred_p_shot"/>
 		<Effect Name="F_buff_warrior_bear01_3"/>
+		<Effect Name="F_pc_effectitem_12animal_jump"/>
+		<Effect Name="F_pc_effectitem_2020magical_jump01"/>
+		<Effect Name="F_pc_effectitem_2020magical_jump02"/>
 	</Category>
 	<Category ID="171">
 		<Effect Name="MISSION_UPHILL_DEFFENSE_EVENT2"/>

@@ -1,6 +1,6 @@
 function SCR_GACHA_BOUNS_VALUE(self, pc)
     local aObj = GetAccountObj(pc);
-    local cubetype = 1; -- 레티샤는 1/ 여큐는 2 / 반드시 지켜주세요 --
+    local cubetype = 2; -- 레티샤는 1/ 여큐는 2 / 반드시 지켜주세요 --
 	local count_reward;
     local next_count, next_bouns = 0, 0;
     local rewardlist = {}
@@ -87,6 +87,10 @@ function SCR_GACHA_BOUNS_DIALOG(self, pc)
     end
     
     local aObj = GetAccountObj(pc);
+
+    if TX_GACHA_BONUS_COUNT_RESET(pc,aObj) == false then
+        return;
+    end
 
     local count, bouns, cubetype, next_count, next_bouns, rewardlist, rewardtext = SCR_GACHA_BOUNS_VALUE(self, pc)
 
