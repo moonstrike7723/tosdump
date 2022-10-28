@@ -2395,6 +2395,8 @@ end
 ----------------- 아크 아이템 tooltip -----------------
 
 -- 성물 tooltip --
+local relic_text_margin = 10
+
 local function _CREATE_RELIC_LV_OPTION(gBox, ypos, step, class_name, curlv)
 	local margin = 5
 
@@ -2408,7 +2410,7 @@ local function _CREATE_RELIC_LV_OPTION(gBox, ypos, step, class_name, curlv)
 		local msg = string.format('RelicOptionLongText%s', type)
 		local strInfo = ScpArgMsg(msg, 'name', ClMsg(name), 'total', total, 'interval', interval, 'value', value)
 
-		local infoText = gBox:CreateControl('richtext', 'infoText'..step, 15, ypos, gBox:GetWidth(), 30)
+		local infoText = gBox:CreateControl('richtext', 'infoText'..step, relic_text_margin, ypos, gBox:GetWidth() - relic_text_margin, 30)
 		infoText:SetTextFixWidth(1)
 		infoText:SetText(strInfo)
 		infoText:SetFontName('brown_16')
@@ -2419,7 +2421,7 @@ local function _CREATE_RELIC_LV_OPTION(gBox, ypos, step, class_name, curlv)
 		local msg2 = string.format('RelicOptionEnableEquipGemLevel', type)
 		local strInfo2 = ScpArgMsg(msg2, 'value', value2)
 		
-		local infoText2 = gBox:CreateControl('richtext', 'infoText2'..step, 15, ypos, gBox:GetWidth(), 40)
+		local infoText2 = gBox:CreateControl('richtext', 'infoText2'..step, relic_text_margin, ypos, gBox:GetWidth() - relic_text_margin, 40)
 		infoText2:SetTextFixWidth(1)
 		infoText2:SetText(strInfo2)
 		infoText2:SetFontName('brown_16')

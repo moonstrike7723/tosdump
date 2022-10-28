@@ -5917,9 +5917,9 @@
 	</controlset>
 	<controlset name="tooltip_relic_gem_lv" hittest="true" width="400" height="80">
 		<controls>
-			<richtext name="text" rect="0 0 100 24" margin="10 5 0 0" fixwidth="true" hittest="false" fontname="white_24_ol" layout_gravity="left top" caption="레벨"/>
+			<richtext name="text" rect="0 0 100 24" margin="10 5 0 0" fixwidth="false" hittest="false" fontname="white_24_ol" layout_gravity="left top" caption="레벨"/>
 			<richtext name="lv" rect="0 0 50 24" margin="0 5 0 20" fixwidth="true" hittest="false" fontname="yellow_24_b_ol" layout_gravity="right top" format="%s" param1="value" param1_def="0" textalign="right center"/>
-			<richtext name="enable_text" rect="0 0 200 24" margin="10 45 0 0" fixwidth="true" hittest="false" fontname="white_18_ol" layout_gravity="left top" caption="장착 가능 성물 레벨"/>
+			<richtext name="enable_text" rect="0 0 200 24" margin="10 45 0 0" fixwidth="false" hittest="false" fontname="white_18_ol" layout_gravity="left top" caption="장착 가능 성물 레벨"/>
 			<richtext name="enable_lv" rect="0 0 50 24" margin="0 39 0 20" fixwidth="true" hittest="false" fontname="yellow_24_b_ol" layout_gravity="right top" format="%s" param1="value" param1_def="0" textalign="right center"/>
 			<labelline name="labelline" margin="5 0 0 0" rect="0 0 390 3" skin="labelline_def_2" layout_gravity="center bottom"/>
 		</controls>
