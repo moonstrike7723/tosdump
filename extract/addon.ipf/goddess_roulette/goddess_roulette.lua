@@ -2,6 +2,8 @@ function GODDESS_ROULETTE_ON_INIT(addon, frame)
 	addon:RegisterMsg("GODDESS_ROULETTE_START", "GODDESS_ROULETTE_START");
 	addon:RegisterMsg("GODDESS_ROULETTE_STATE_UPDATE", "GODDESS_ROULETTE_STATE_UPDATE");
 	addon:RegisterMsg("GODDESS_ROULETTE_ITEM_UPDATE", "GODDESS_ROULETTE_ITEM_UPDATE");
+
+	GODDESS_ROULETTE_INIT();
 end
 
 function GODDESS_ROULETTE_OPEN()
@@ -11,6 +13,7 @@ function GODDESS_ROULETTE_OPEN()
 	end
 
 	ui.SetHoldUI(false);
+	SetCraftState(0);
 
 	local startbtn = GET_CHILD_RECURSIVELY(frame, "startbtn");
 	startbtn:SetEnable(0);
@@ -20,12 +23,14 @@ function GODDESS_ROULETTE_OPEN()
 	GODDESS_ROULETTE_ITEM_INIT(frame);
 
 	frame:ShowWindow(1);
+    SetCraftState(1);	
 end
 
 function GODDESS_ROULETTE_CLOSE(frame)
 	if ui.CheckHoldedUI() == true then
         return;
 	end
+    SetCraftState(0);
 
 	local topframe = frame:GetTopParentFrame();
 	topframe:ShowWindow(0);
@@ -40,7 +45,7 @@ function GODDESS_ROULETTE_INIT()
 	roulette_board:SetAngle(0);
 	roulette_board:ShowWindow(0);
 
-	goddess_roulette.RequestGoddessRouletteState(); -- REQUEST_GODDESS_ROULETTE_STATE()
+	goddess_roulette.RequestGoddessRouletteState();
 end
 
 function GODDESS_ROULETTE_ITEM_INIT(frame)
@@ -58,18 +63,16 @@ end
 
 function GODDESS_ROULETTE_REMAIN_UPDATE(frame)
 	local startbtn = GET_CHILD_RECURSIVELY(frame, "startbtn");
-	local accObj = GetMyAccountObj();
-	local type = GET_USE_ROULETTE_TYPE();
-	local nowCnt = GET_USE_ROULETTE_COUNT(type, accObj);
+	local nowCnt = GET_CONTENT_USE_ROULETTE_COUNT();
 
 	if nowCnt ~= 0 then
 		startbtn:SetTextByKey("curCnt",  "{#fff200}"..nowCnt.."{/}");
 	else
 		startbtn:SetTextByKey("curCnt", nowCnt);
 	end
-	startbtn:SetTextByKey("maxCnt", GET_MAX_ROULETTE_COUNT(type));	
+	startbtn:SetTextByKey("maxCnt", EVENT_NEW_SEASON_SERVER_ROULETTE_MAX_COUNT);	
 
-	local coinCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = GET_ROULETTE_COIN_CLASSNAME(type)}}, false);
+	local coinCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_Roulette_Coin"}}, false);
 
 	startbtn:SetTextTooltip(ScpArgMsg("GoddessRouletteUseCointipText{count}", "count", coinCnt));
 end
@@ -143,25 +146,16 @@ function GODDESS_ROULETTE_BTN_CLICK(parent, ctrl)
         return;
 	end
 
-	local lv = GETMYPCLEVEL();
-	if lv < 50 then
-		ui.SysMsg(ScpArgMsg("CannotBecauseLowLevel{LEVEL}", "LEVEL", 50));
-		return;
-	end
-
-	local accObj = GetMyAccountObj();
-	local type = GET_USE_ROULETTE_TYPE();
-	
 	-- 코인 수량 확인
-	local curCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = GET_ROULETTE_COIN_CLASSNAME(type)}}, false);
+	local curCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_Roulette_Coin"}}, false);
 	if curCnt < 10 then
 		ui.SysMsg(ClMsg("Goddess_Roulette_Coin_Fail"));
 		return;
 	end
 
 	-- 남은 이용 횟수 확인
-	local nowCnt = GET_USE_ROULETTE_COUNT(type, accObj);
-	if GET_MAX_ROULETTE_COUNT(type) <= nowCnt then
+	local nowCnt = GET_CONTENT_USE_ROULETTE_COUNT();	
+	if EVENT_NEW_SEASON_SERVER_ROULETTE_MAX_COUNT <= nowCnt then
 		ui.SysMsg(ClMsg("Goddess_Roulette_Max_Rullet_count"));
 		return;
 	end
@@ -253,6 +247,10 @@ function GODDESS_ROULETTE_RESULT()
 end
 
 function GODDESS_ROULETTE_ITEM_OPEN(parent)
+	if ui.CheckHoldedUI() == true then
+        return;
+	end
+
 	local frame = ui.GetFrame("goddess_roulette");
 	
 	local itemlist_gb = GET_CHILD(frame, "itemlist_gb");
@@ -269,6 +267,10 @@ function GODDESS_ROULETTE_ITEM_OPEN(parent)
 end
 
 function GODDESS_ROULETTE_ITEM_CLOSE(parent)
+	if ui.CheckHoldedUI() == true then
+        return;
+	end
+
 	local frame = ui.GetFrame("goddess_roulette");
 	local itemlist_gb = GET_CHILD(frame, "itemlist_gb");
 	itemlist_gb:ShowWindow(0);

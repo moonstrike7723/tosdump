@@ -6561,6 +6561,9 @@
 		<image name="test_companion_26" file="\icon\companion.tga" imgrect="202 615 100 122" CMM_Caption="참새_탭버튼"/>
 		<image name="test_companion_26_cursoron" file="\icon\companion.tga" imgrect="303 615 100 122"/>
 		<image name="test_companion_26_clicked" file="\icon\companion.tga" imgrect="303 615 100 122"/>
+		<image name="test_companion_27" file="\icon\companion.tga" imgrect="404 615 100 122" CMM_Caption="스쿨도도_탭버튼"/>
+		<image name="test_companion_27_cursoron" file="\icon\companion.tga" imgrect="505 615 100 122"/>
+		<image name="test_companion_27_clicked" file="\icon\companion.tga" imgrect="505 615 100 122"/>
 		<image name="test_com_ability" file="\skin\pip_test.tga" imgrect="1832 851 54 35" CMM_Caption="컴패니언_특성플러스"/>
 		<image name="test_com_ability_cursoron" file="\skin\pip_test.tga" imgrect="1832 887 54 35"/>
 		<image name="test_com_ability_clicked" file="\skin\pip_test.tga" imgrect="1832 923 54 35"/>
@@ -7460,6 +7463,23 @@
 		<image name="coming_soon_notice" file="\skin\stamp_tour.tga" imgrect="727 760 316 76" CMM_Caption="커밍순"/>
 		<image name="arbor_day_balloon_direction" file="\skin\say_balloon.tga" imgrect="1 457 82 75" CMM_Caption="식목일 말풍선 말꼬리"/>
 		<image name="arbor_day_balloon_decoration" file="\skin\say_balloon.tga" imgrect="263 539 75 57" CMM_Caption="식목일 말풍선 장식"/>
+		<image name="goddess_roulette_title" file="\skin\goddess_roulette.tga" imgrect="0 0 637 466" CMM_Caption="여신의 룰렛 타이틀"/>
+		<image name="goddess_roulette_frame" file="\skin\goddess_roulette.tga" imgrect="0 467 648 619" CMM_Caption="룰렛 프레임"/>
+		<image name="goddess_roulette_allow" file="\skin\goddess_roulette.tga" imgrect="649 467 205 201" CMM_Caption="룰렛 화살"/>
+		<image name="goddess_roulette_board_01" file="\skin\goddess_roulette.tga" imgrect="638 0 363 363" CMM_Caption="룰렛 보드_01"/>
+		<image name="goddess_roulette_board_02" file="\skin\goddess_roulette.tga" imgrect="1002 0 363 363" CMM_Caption="룰렛 보드_02"/>
+		<image name="goddess_roulette_board_03" file="\skin\goddess_roulette.tga" imgrect="1366 0 363 363" CMM_Caption="룰렛 보드_03"/>
+		<image name="goddess_roulette_board_04" file="\skin\goddess_roulette.tga" imgrect="1730 0 363 363" CMM_Caption="룰렛 보드_04"/>
+		<image name="sss_item_rank" file="\skin\goddess_roulette.tga" imgrect="638 364 92 41" CMM_Caption="sss랭크"/>
+		<image name="ss_item_rank" file="\skin\goddess_roulette.tga" imgrect="638 406 61 41" CMM_Caption="ss랭크"/>
+		<image name="s_item_rank" file="\skin\goddess_roulette.tga" imgrect="700 406 30 41" CMM_Caption="s랭크"/>
+		<image name="a_item_rank" file="\skin\goddess_roulette.tga" imgrect="731 364 39 42" CMM_Caption="a랭크"/>
+		<image name="b_item_rank" file="\skin\goddess_roulette.tga" imgrect="731 407 33 41" CMM_Caption="b랭크"/>
+		<image name="c_item_rank" file="\skin\goddess_roulette.tga" imgrect="771 364 34 44" CMM_Caption="c랭크"/>
+		<image name="goddess_roulette_board_05" file="\skin\goddess_roulette.tga" imgrect="1002 364 363 363" CMM_Caption="룰렛 보드_05"/>
+		<image name="goddess_roulette_board_06" file="\skin\goddess_roulette.tga" imgrect="1366 364 363 363" CMM_Caption="룰렛 보드_06"/>
+		<image name="goddess_roulette_board_07" file="\skin\goddess_roulette.tga" imgrect="1730 364 363 363" CMM_Caption="룰렛 보드_07"/>
+		<image name="goddess_roulette_board_08" file="\skin\goddess_roulette.tga" imgrect="1002 728 363 363" CMM_Caption="룰렛 보드_08"/>
 	</imagelist>
 	<imagelist category="je_button">
 		<image name="menu_guild_info" file="\skin\guild_skin.tga" imgrect="165 298 45 45" CMM_Caption="길드 정보"/>
@@ -8111,6 +8131,7 @@
 		<image name="companion_chick_crowtit" file="\icon\companion_Velhider.tga" imgrect="480 160 80 80"/>
 		<image name="companion_Dionys" file="\icon\companion_Velhider.tga" imgrect="480 240 80 80"/>
 		<image name="companion_sparrow" file="\icon\companion_Velhider.tga" imgrect="0 320 80 80"/>
+		<image name="companion_school_dodo" file="\icon\companion_Velhider.tga" imgrect="80 320 80 80"/>
 		<image name="bg_w" file="\skin\button.tga" imgrect="252 974 50 50"/>
 		<image name="barrack_signboard" file="\skin\barrack.tga" imgrect="356 0 257 192"/>
 		<image name="barrack_attack_icon" file="\skin\barrack.tga" imgrect="59 720 55 61"/>
@@ -10323,6 +10344,7 @@
 		<image name="icon_Weekly_Sphere" file="\icon\buff_icon3.tga" imgrect="128 768 128 128" CMM_Caption="비전 구체"/>
 		<image name="icon_Weekly_Warning" file="\icon\buff_icon3.tga" imgrect="256 768 128 128" CMM_Caption="사전 경고"/>
 		<image name="icon_Buff_Event_Blessed_Fruit" file="\icon\buff_icon3.tga" imgrect="128 896 128 128" CMM_Caption="축복받은 열매"/>
+		<image name="icon_pet_school_dodo_buff" file="\icon\buff_icon3.tga" imgrect="640 1024 128 128" CMM_Caption="스쿨도도"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>

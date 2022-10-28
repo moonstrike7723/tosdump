@@ -22771,5 +22771,6 @@
 		<Effect Name="E_Cleric_StoneShower"/>
 		<Effect Name="F_explosion093_dark3"/>
 		<Effect Name="F_buff_blackgargoyle002"/>
+	<Effect Name="E_wing_littleprince_effect"/>
 	</Category>
 </packeteffects>

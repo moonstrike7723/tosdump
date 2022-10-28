@@ -1315,6 +1315,9 @@
 		<Class ClassID="10545" ClassName="CannotUseNewUserBuffStoneByType" Data="신규/복귀 유저가 아니어서 사용하실 수 없습니다."/>
 		<Class ClassID="10546" ClassName="CannotUseNewUserBuffStoneByField" Data="PVP에서는 사용하실 수 없습니다."/>
 		<Class ClassID="10547" ClassName="NoticeInventoryOverWeight" Data="무게가 가득 찼습니다."/>
+		<Class ClassID="10548" ClassName="Goddess_Roulette_Max_Rullet_count" Data="이용 가능한 룰렛 횟수를 모두 사용하였습니다."/>
+		<Class ClassID="10549" ClassName="Goddess_Roulette_Coin_Fail" Data="필요한 코인이 부족합니다."/>
+		<Class ClassID="10552" ClassName="Goddess_Roulette_SSSGradeItemGetMessage{TEAMNAME}{ITEM}" Data="[{TEAMNAME}] 님이 여신의 룰렛에서 SSS등급 [{ITEM}]을(를) 획득하였습니다!"/>
 	</Category>
 	<Category Name="FoodTable">
 		<Class ClassID="20001" ClassName="IncreaseHP{Value}For{Time}Minute" Data="{Time}분 동안 HP가 {Value}% 증가합니다."/>
@@ -1687,6 +1690,7 @@
 <Class ClassID="21367" ClassName="NewEpisodeLockMsg" Data="{@st59}해당 에피소드의 클리어 보상은 추후 공개될 예정입니다.{nl}현재 {#FFFF00}[Episode12]{/}의 퀘스트 시작은 {#FFFF00}프리넬 기념구{/}의 {#FFFF00}큐폴 마야{/}로부터 시작할 수 있습니다.{/}"/>
 		<Class ClassID="21368" ClassName="StatusTooltipMsgRacetype" Data="동일 레벨 대상을 상대할 때 %만큼 대미지 증가"/>
 		<Class ClassID="21369" ClassName="Attendance_infoText_4" Data="{#0000FF}* 각 마을의 '바이보라의 날개' NPC에게 신규/복귀 전용 버프 스크롤을 지급 받으실 수 있습니다.{/}"/>
+		<Class ClassID="21381" ClassName="GoddessRouletteUseCointipText{count}" Data="코인 10개를 소모하여 룰렛을 돌립니다.{nl}현재 보유 코인 : {count}"/>
 	</Category>
 	<Category Name="ChatText">
 		<Class ClassID="22001" ClassName="Guard" Data="방어"/>
@@ -9053,13 +9057,13 @@
 		<Class ClassID="90212" ClassName="2001_NEWYEAR_SEL_MSG1" Data="{#003399}복항아리 대축제{/} 이벤트 안내"/>
 		<Class ClassID="90213" ClassName="2001_NEWYEAR_SEL_MSG2" Data="{#003399}복항아리 대축제{/} 이벤트 던전 입장"/>
 		<Class ClassID="90214" ClassName="2001_NEWYEAR_SEL_MSG3" Data="{#003399}복항아리 대축제{/} 이벤트 상점 열기"/>
-		<Class ClassID="90215" ClassName="EVENT_2001_NEWYEAR_CHECK_ITEM_COUNT{FORTUNECOOKIE}{LUCKYTICKET}{GOLDENTICKET}{TICKET}{CONTENTS_TICKET}" Data="[이벤트 아이템 획득 정보]{nl}[이벤트]포춘 쿠키 {#ff6d00}({FORTUNECOOKIE}/10){/}{nl}[이벤트]새해 복주머니 당첨권 {#ff6d00}({LUCKYTICKET}/50){/}{nl}[이벤트]새해 황금 복주머니 교환권{#ff6d00}({GOLDENTICKET}/26){/}{nl}[이벤트]2020 대축제 교환권 {#00BFFF}이벤트 던전{/}{#ff6d00}({TICKET}/500){/} {#00BFFF}콘텐츠{/}{#ff6d00}({CONTENTS_TICKET}/500){/}{nl}{#ff0000}※매일 오전 6시에 초기화 됩니다.{/}"/>
+		<Class ClassID="90215" ClassName="EVENT_2001_NEWYEAR_CHECK_ITEM_COUNT{FORTUNECOOKIE}{LUCKYTICKET}{GOLDENTICKET}{TICKET}{CONTENTS_TICKET}" Data="[이벤트 아이템 획득 정보]{nl}[이벤트]포춘 쿠키 {#ff6d00}({FORTUNECOOKIE}/10){/}{nl}[이벤트]럭키 티켓 {#ff6d00}({LUCKYTICKET}/50){/}{nl}[이벤트]골든 럭키 티켓{#ff6d00}({GOLDENTICKET}/26){/}{nl}[이벤트]교환권 {#00BFFF}이벤트 던전{/}{#ff6d00}({TICKET}/500){/} {#00BFFF}콘텐츠{/}{#ff6d00}({CONTENTS_TICKET}/500){/}{nl}{#ff0000}※매일 오전 6시에 초기화 됩니다.{/}"/>
 		<Class ClassID="90216" ClassName="EVENT_2001_NEWYEAR_SHOP" Data="복항아리 대축제 이벤트 상점"/>
 		<Class ClassID="90217" ClassName="EVENT_2001_NEWYEAR_POT_DESTROY" Data="항아리 부수는 중"/>
 		<Class ClassID="90218" ClassName="EVENT_2001_NEWYEAR_MONSTER_CHAT_1" Data="히히 놀랐지?"/>
 		<Class ClassID="90219" ClassName="EVENT_2001_NEWYEAR_MONSTER_CHAT_2" Data="받아라 특제 끈끈이!"/>
 		<Class ClassID="90220" ClassName="EVENT_2001_NEWYEAR_MONSTER_CHAT_3" Data="그렇게 빨리 뛰면 다쳐!"/>
-		<Class ClassID="90221" ClassName="EVENT_2001_NEWYEAR_MISSION_CLEAR" Data="[이벤트]새해 복주머니 당첨권을 25장 획득하였습니다.{nl}15초 후 입장했던 장소로 이동합니다."/>
+		<Class ClassID="90221" ClassName="EVENT_2001_NEWYEAR_MISSION_CLEAR" Data="[이벤트]럭키 티켓을 25장 획득하였습니다.{nl}15초 후 입장했던 장소로 이동합니다."/>
 		<Class ClassID="90222" ClassName="EVENT_2001_NEWYEAR_MISSION_FAIL" Data="이벤트가 종료되었습니다. 15초 후 입장했던 장소로 이동합니다."/>
 		<Class ClassID="90223" ClassName="EVENT_2001_NEWYEAR_BONUS_FAIL" Data="3분이 경과하였습니다. 더 이상 추가 보상을 획득하실 수 없습니다."/>
 		<Class ClassID="90224" ClassName="EVENT_2001_NEWYEAR_ABUSE_MSG1" Data="일정 시간 움직임이 없으면 아이템을 획득하실 수 없습니다.{nl}30초 후에도 움직임이 없을 시 던전이 끝날 때 까지 이벤트 아이템을 획득하실 수 없습니다."/>
@@ -13773,6 +13777,8 @@
 		<Class ClassID="302089" ClassName="EVENT_NEW_SEASON_SERVER_stamp_tour_tip_text" Data="* 스탬프 투어 진행률은 해당 미션 보상을 받아야 적용됩니다."/>
 		<Class ClassID="302090" ClassName="EVENT_NEW_SEASON_SERVER_stamp_tour_tip_text2" Data="마법 협회 npc를 찾아가 이벤트에 참여하세요"/>
 		<Class ClassID="302091" ClassName="REGULAR_BURNING_EVENT_CHALLENGE_RESET_SUCCESS" Data="성공적으로 챌린지 모드 입장횟수를 초기화했습니다!"/>
+		<Class ClassID="302093" ClassName="GODDESS_ROULETTE_NPC_DIALOG_MSG_1" Data="여신의 룰렛 돌리기"/>
+		<Class ClassID="302094" ClassName="GODDESS_ROULETTE_NPC_DIALOG_MSG_2" Data="이벤트 안내"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -13900,6 +13906,16 @@
 		<Class ClassID="501254" ClassName="EVENT_2003_WHITEDAY_CANDY_TRADE_OVER" Data="오늘 교환 가능한 사탕 세트를 모두 교환 하셨어요.{nl}{#ff0000}※ 사탕 세트 교환 횟수는 매일 오전 6시 초기화 됩니다."/>
 		<Class ClassID="501255" ClassName="EVENT_2003_WHITEDAY_CANDY_PRESENT_CHECK{npc_ROG_master}{npc_OLW_female_master}{npc_DRU_master}{npc_SQR_master}{npc_Appraiser}" Data="페디미안 상단 사탕 세트 전달 횟수{nl}로그 마스터({npc_ROG_master}/50){nl}아웃로 마스터({npc_OLW_female_master}/50){nl}드루이드 마스터({npc_DRU_master}/50){nl}스콰이어 마스터({npc_SQR_master}/50){nl}감정사 마스터({npc_Appraiser}/50)"/>
 		<Class ClassID="501256" ClassName="EVENT_2003_WHITEDAY_CANDY_PRESENT_CHECK{npc_LIN_master}{npc_WUG_master}{Inesa_Hamondail}" Data="오르샤 상단 사탕 세트 전달 횟수{nl}링커 마스터({npc_LIN_master}/50){nl}무고사 마스터({npc_WUG_master}/50){nl}오르샤 영주({Inesa_Hamondail}/50)"/>
+		<Class ClassID="501257" ClassName="Event_Roulette_Draconas_box" Data="장비 선택"/>
+		<Class ClassID="501258" ClassName="Event_Roulette_Boruta_box" Data="장비 선택"/>
+		<Class ClassID="501259" ClassName="Event_Roulette_Baleuna_box_1" Data="장비 선택"/>
+		<Class ClassID="501260" ClassName="Event_Roulette_Baleuna_box_2" Data="장비 선택"/>
+		<Class ClassID="501261" ClassName="Event_Roulette_moring_box" Data="장비 선택"/>
+		<Class ClassID="501262" ClassName="Event_Roulette_Seukia_box_1" Data="장비 선택"/>
+		<Class ClassID="501263" ClassName="Event_Roulette_Seukia_box_2" Data="장비 선택"/>
+		<Class ClassID="501264" ClassName="Event_Roulette_Ignas_box_1" Data="장비 선택"/>
+		<Class ClassID="501265" ClassName="Event_Roulette_Asio_box" Data="장비 선택"/>
+		<Class ClassID="501266" ClassName="Event_Roulette_Wastrel_box" Data="장비 선택"/>
 	</Category>
 	<Category Name="GEM_GACHA">
 		<Class ClassID="510001" ClassName="GEM_GACHA_SEL1" Data="젬 1회 뽑기"/>

@@ -6195,6 +6195,13 @@
             <ToolScp Scp="EnableAIOutOfPC" Client="NO" UseSleep="NO"/>
         </StartList>
     </AI>
+    <AI Name="EVENT_GODDESS_ROULETTE_NPC_AI" UpdateMS="60000" ActiveMessageMapInBattle="1">
+        <StartList>
+            <ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+                <Str Str="SCR_EVENT_GODDESS_ROULETTE_NPC_AI_BORN"/>
+            </ToolScp>
+        </StartList>
+    </AI>
     <AI Name="EXORCIST_JOB_QUEEST_MON1" ActiveMessageMapInBattle="1"/>
     <AI Name="EXORCIST_MSTEP321_ITEM1_AI" ActiveMessageMapInBattle="1">
         <List>
@@ -24442,6 +24449,13 @@ if self.HP == 0 then return 1; else return 0; end;">
             </ToolScp>
         </List>
     </AI>
+	<AI Name="companion_pet_school_dodo" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC2_DIRECT_SLEEP" Client="NO" UseSleep="YES">
+				<Str Str="PET_LOOP_AI"/>
+			</ToolScp>
+		</List>
+	</AI>
     <AI Name="companion_pet_weddingbird" ActiveMessageMapInBattle="1">
         <List>
             <ToolScp Scp="SAI_FUNC2_DIRECT_SLEEP" Client="NO" UseSleep="YES">

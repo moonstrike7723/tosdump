@@ -86,14 +86,14 @@ function COIN_ACQUIRE_STATE_OPEN(frame)
 			maxvalue = EVENT_NEW_SEASON_SERVER_ROULETTE_MAX_COUNT;
 
 			-- 이벤트 공개 전 음영처리
-			blackbg:ShowWindow(1);
-			blackbg:SetAlpha(90);
+			-- blackbg:ShowWindow(1);
+			-- blackbg:SetAlpha(90);
 
-			local pic2 = ctrlSet:CreateControl("picture", "comming_soon_pic", 0, 0, 316, 76);
-			tolua.cast(pic2, "ui::CPicture");
-			pic2:SetImage("coming_soon_notice");
-			pic2:SetGravity(ui.CENTER_HORZ, ui.CENTER_VERT);
-			pic2:SetEnableStretch(1);		
+			-- local pic2 = ctrlSet:CreateControl("picture", "comming_soon_pic", 0, 0, 316, 76);
+			-- tolua.cast(pic2, "ui::CPicture");
+			-- pic2:SetImage("coming_soon_notice");
+			-- pic2:SetGravity(ui.CENTER_HORZ, ui.CENTER_VERT);
+			-- pic2:SetEnableStretch(1);
 		end
 
 		-- 진행도 완료시 음영처리

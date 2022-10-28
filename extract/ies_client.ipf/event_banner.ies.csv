@@ -1,5 +1,5 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3
-999901,202004,210000,202004,260000,202005,60000,202005,10000,0,0,inGame_E1,Leticia's Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1975,,,
+999901,202005,60000,202005,110000,202005,190000,202005,140000,0,0,inGame_E1,Goddess's Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1988,,,
 999902,202004,140000,202004,190000,202005,120000,202005,70000,0,0,inGame_E2,Upgrade Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1971,,,
 999903,202004,70000,202004,120000,202005,120000,202005,70000,0,0,inGame_E3,Abor Day Event,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1966,,,
 999904,202003,310000,202004,50000,202011,120000,202011,70000,0,0,inGame_E4,WeekEnd Burning Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=1957,,,
