@@ -2,31 +2,6 @@ function LOGINUI_TITLE_ON_INIT(addon, frame)
 	login.LoadServerList();
 
 	TOGGLE_SINGLE_MODE_UI(frame);
-		
-	local view1 = GET_CHILD(frame, "login_img", "ui::CPicture")
-	if view1 ~= nil then
-        view1:ShowWindow(0)
-    end
-    
-    local view2 = GET_CHILD(frame, "login_img2", "ui::CPicture")
-    if view2 ~= nil then
-        view2:ShowWindow(0)
-    end
-
-    local view3 = GET_CHILD(frame, "login_img3", "ui::CPicture")
-    if view3 ~= nil then
-        view3:ShowWindow(0)
-    end
-    
-    local rand = IMCRandom(1,2)
-    if rand == 1 then
-        view1:ShowWindow(1)
-    elseif rand == 2 then
-        view2:ShowWindow(1)
-    elseif rand == 0 then
-        view3:ShowWindow(1)
-    end
---	ENABLE_ANIMATE_BACKGROUND_ILLUSTRATION();
 end
 
 function TOGGLE_SINGLE_MODE_UI(frame)
@@ -74,15 +49,6 @@ end
 
 g_replayPerfRecordCheckBox = nil
 
-function TOGGLE_REPLAY_BUTTON()
-    local frame = ui.GetFrame('barrack_exit');
-    local btn = frame:CreateOrGetControl("button", "REPLAY_BUTTON", 160, 55, ui.RIGHT, ui.CENTER_VERT, 0, 18, 390, 0);
-    btn:SetSkinName("test_gray_button");
-    btn:SetEventScript(ui.LBUTTONDOWN, 'TOGGLE_REPLAY')
-    btn:EnableHitTest(1);
-    btn:SetText("{@st41b}Replay{/}")
-end
-
 function TOGGLE_REPLAY(frame)
 	local recordPerfCheck = GET_CHILD_RECURSIVELY(frame, "replayPerfRecord");
 	g_replayPerfRecordCheckBox = recordPerfCheck;
@@ -101,33 +67,13 @@ function EXEC_LOAD_REPLAY(fileName)
 end
 
 function GO_TO_SINGLEMODE(frame)
+
 	frame = frame:GetTopParentFrame();
 	local fr = frame:GetChild("loginserverlist");
 	local mapList = GET_CHILD(fr, "l_singleMaps", "ui::CListBox");
 	local mapID = mapList:GetSelItemValue();
 	app.ClientSingleMode(mapID);
+
+
 end
 
-function TITLE_SHOW_SPINE_PIC(frame, name, isShow)
-	local child = frame:GetChild(name);
-	child:ShowWindow(isShow);
-end
-
---function ENABLE_ANIMATE_BACKGROUND_ILLUSTRATION()
---	local frame = ui.GetFrame("loginui_title");
---
---	local isEnableSpine = config.GetXMLConfig("EnableAnimateBackgroundIllustration");
-----	if isEnableSpine == 1 then
-----		TITLE_SHOW_SPINE_PIC(frame, "Chuseok_Background", 1);
-----		TITLE_SHOW_SPINE_PIC(frame, "Chuseok_NPC", 1);
-----
-----		
-----		TITLE_SHOW_SPINE_PIC(frame, "login_img", 0);
-----	else
---		TITLE_SHOW_SPINE_PIC(frame, "Chuseok_Background", 0);
---		TITLE_SHOW_SPINE_PIC(frame, "Chuseok_NPC", 0);
---
---
---		TITLE_SHOW_SPINE_PIC(frame, "login_img", 1);
-----	end
---end

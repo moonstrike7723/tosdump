@@ -61,10 +61,10 @@ function ON_OPEN_CAMP_UI(frame, msg, str, forceOpenUI, isOwner)
 	frame:SetUserValue("TOTAL_TIME", campTime);
 
 	local gbox = GET_CHILD(frame, "gbox");	
-	--local buffTime = CAMP_BUFF_TIME(sklLevel);
-	--local effectTxt = ClMsg("BuffMaintainTime") .. " + " ..buffTime .. "%";
-	--local effect_text = GET_CHILD(gbox, "effect_text");		
-	--effect_text:SetTextByKey("value", effectTxt);
+	local buffTime = CAMP_BUFF_TIME(sklLevel);
+	local effectTxt = ClMsg("BuffMaintainTime") .. " + " ..buffTime .. "%";
+	local effect_text = GET_CHILD(gbox, "effect_text");		
+	effect_text:SetTextByKey("value", effectTxt);
 
 	CAMP_UI_UPDATE_TIME(frame);
 	frame:RunUpdateScript("CAMP_UI_UPDATE_TIME", 1, 0.0, 0);
@@ -81,18 +81,11 @@ function ON_OPEN_CAMP_UI(frame, msg, str, forceOpenUI, isOwner)
 	local t_extendTime = gbox:GetChild("t_extendTime");
 	t_extendTime:SetTextByKey("price", needSilver);
 
-	local destoryButton = GET_CHILD_RECURSIVELY(frame, "destroycampbutton");
-	local regButton = GET_CHILD_RECURSIVELY(frame, "reg");
-	--local regText = GET_CHILD_RECURSIVELY(gBox, "t_extendTime");
-
-	if isOwner == 1 then
-		destoryButton:SetVisible(1);
-		regButton:SetVisible(1);
-		t_extendTime:SetVisible(1);
+	local tab = frame:GetChild("itembox");
+	if isOwner == 0 then
+		tab:SetVisible(0);
 	else
-		destoryButton:SetVisible(0);
-		regButton:SetVisible(0);
-		t_extendTime:SetVisible(0);
+		tab:SetVisible(1);
 	end
 end
 
@@ -119,20 +112,14 @@ function CAMP_UI_UPDATE_TIME(frame)
 end
 
 function DESTROY_CAMP(parent, ctrl)
-	local strScp = "EXEC_DESTROY_CAMP()";
-	ui.MsgBox(ScpArgMsg("ReallyDestroyBaseCamp"), strScp, "None");
-end
-
-function EXEC_DESTROY_CAMP()
-	local campInfo = session.camp.GetCurrentCampInfo();
-	control.CustomCommand("REMOVE_CAMP", campInfo:GetHandle());
+	control.CustomCommand("REMOVE_CAMP", 0);	
 end
 
 function CAMP_EXTEND_TIME(parent, ctrl)
 	
 	local campInfo = session.camp.GetCurrentCampInfo();
 	local needSilver = CAMP_EXTEND_PRICE(campInfo.skillType, campInfo.skillLevel);
-	if IsGreaterThanForBigNumber(needSilver, GET_TOTAL_MONEY_STR()) == 1 then
+	if GET_TOTAL_MONEY() < needSilver then
 		ui.SysMsg( ClMsg("NotEnoughMoney") );
 		return;
 	end
