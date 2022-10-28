@@ -192,6 +192,10 @@ function SCR_Get_SpendSP(skill)
         end
     end
 
+    -- EVENT_2004_UPHILL
+    if IsBuffApplied(pc, "EVENT_2004_UPHILL_BUFF") == "YES" then
+        return 0
+    end
 
     ----------
     value = value - decsp;
