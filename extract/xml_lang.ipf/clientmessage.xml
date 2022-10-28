@@ -15967,6 +15967,7 @@
 		<Class ClassID="510740" ClassName="pvp_mine_enter_5min" Data="5분 이후에는 참가 신청을 받지 않습니다."/>
 		<Class ClassID="510741" ClassName="NotActiveTimePVP" Data="입장 가능한 시간이 아닙니다."/>
 		<Class ClassID="510742" ClassName="BOSS_COOP_SHOP" Data="보스 협동전 훈장 상점"/>
+		<Class ClassID="510743" ClassName="pvp_mine_reset_msg" Data="주간 획득량이 초기화되었습니다!"/>
 	</Category>
 	<Category Name="Beauty_Shop">
 		<Class ClassID="510801" ClassName="Beauty_Shop_IN" Data="뷰티샵 입장"/>

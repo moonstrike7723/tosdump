@@ -1,9 +1,10 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202111,90000,202111,140000,202112,70000,202112,20000,0,0,inGame_E1,[Special] Super Star Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2402,,,,
-999902,202110,50000,202110,100000,202110,260000,202110,210000,0,0,inGame_E2,Find the Hidden Relic,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2378,,,,
-999903,202109,280000,202110,30000,203012,310000,203012,260000,0,0,inGame_E3,Exchange Shop Reorganization,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2375,time_del,,,
-999904,202109,280000,202110,30000,202111,20000,202110,280000,0,0,inGame_E4,Demon God's Temptation,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2374,,,,
-999905,202011,170000,202011,220000,203012,310000,203012,260000,0,0,inGame_E5,Costume Collection,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2142,time_del,,,
-999906,202101,60000,202101,110000,203012,310000,203012,260000,0,0,inGame_E6,Item Restore Policy,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2151,time_del,,,Normal
-999907,202105,280000,202106,20000,203106,270000,203106,220000,0,0,inGame_E7,Weekend Burning,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2395,time_del,,,
-999908,202007,90000,202007,140000,203012,310000,203012,260000,0,0,inGame_E8,Applying Steam Guard,inGame_E8,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
+999901,202111,160000,202111,210000,202111,300000,202111,250000,0,0,inGame_E1,Goddess' Blessed Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2411,,,,
+999902,202111,90000,202111,140000,202112,70000,202112,20000,0,0,inGame_E2,[Special] Super Star Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2402,,,,
+999903,202110,50000,202110,100000,202110,260000,202110,210000,0,0,inGame_E3,Find the Hidden Relic,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2378,,,,
+999904,202109,280000,202110,30000,203012,310000,203012,260000,0,0,inGame_E4,Exchange Shop Reorganization,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2375,time_del,,,
+999905,202111,170000,202111,220000,202112,140000,202112,90000,0,0,inGame_E5,Demon God's Temptation,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2410,,,,
+999906,202011,170000,202011,220000,203012,310000,203012,260000,0,0,inGame_E6,Costume Collection,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2142,time_del,,,
+999907,202101,60000,202101,110000,203012,310000,203012,260000,0,0,inGame_E7,Item Restore Policy,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2151,time_del,,,Normal
+999908,202105,280000,202106,20000,203106,270000,203106,220000,0,0,inGame_E8,Weekend Burning,inGame_E8,https://treeofsavior.com/page/news/view.php?n=2395,time_del,,,
+999909,202007,90000,202007,140000,203012,310000,203012,260000,0,0,inGame_E9,Applying Steam Guard,inGame_E9,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,

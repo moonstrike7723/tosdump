@@ -1147,6 +1147,10 @@ function OPEN_TRADE_SELECT_SKILL_GEM(frame)
 		job = 'OutLaw'
 	elseif job == 'Templar' then
 		job = 'Templer'
+	elseif job == 'ShadowMancer' then
+		job = 'Shadowmancer'
+	elseif job == 'Lancer' then
+		job = 'Rancer'
 	end
 
 	local cls , cnt = GetClassList('SkillTree')

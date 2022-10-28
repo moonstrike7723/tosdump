@@ -2096,13 +2096,13 @@ function SCR_ABIL_Paladin40_ACTIVE(self, ability)
     if skill ~= nil then
         local abilPaladin41 = GetAbility(self, "Paladin41")
         local abilPaladin42 = GetAbility(self, "Paladin42")
-        if (abilPaladin41 ~= nil and TryGetProp(abilPaladin41, "ActiveState", 0) == 1) or (abilPaladin42 ~= nil and TryGetProp(abilPaladin42, "ActiveState", 0) == 0) then
+        if (abilPaladin41 ~= nil and TryGetProp(abilPaladin41, "ActiveState", 0) == 1) or (abilPaladin42 ~= nil and TryGetProp(abilPaladin42, "ActiveState", 0) == 1) then
             skill.ShootTime = 500;
             skill.IgnoreAnimWhenMove = "YES"
             InvalidateSkill(self, skill.ClassName);
             SendSkillProperty(self, skill);
         else
-            skill.ShootTime = 50000;
+            skill.ShootTime = 12000;
             skill.IgnoreAnimWhenMove = "NO"
             InvalidateSkill(self, skill.ClassName);
             SendSkillProperty(self, skill);            
@@ -2115,13 +2115,13 @@ function SCR_ABIL_Paladin40_INACTIVE(self, ability)
     if skill ~= nil then
         local abilPaladin41 = GetAbility(self, "Paladin41")
         local abilPaladin42 = GetAbility(self, "Paladin42")
-        if (abilPaladin41 ~= nil and TryGetProp(abilPaladin41, "ActiveState", 0) == 1) or (abilPaladin42 ~= nil and TryGetProp(abilPaladin42, "ActiveState", 0) == 0) then
+        if (abilPaladin41 ~= nil and TryGetProp(abilPaladin41, "ActiveState", 0) == 1) or (abilPaladin42 ~= nil and TryGetProp(abilPaladin42, "ActiveState", 0) == 1) then
             skill.ShootTime = 500;
             skill.IgnoreAnimWhenMove = "YES"
             InvalidateSkill(self, skill.ClassName);
             SendSkillProperty(self, skill);
         else
-            skill.ShootTime = 50000;
+            skill.ShootTime = 12000;
             skill.IgnoreAnimWhenMove = "NO"
             InvalidateSkill(self, skill.ClassName);
             SendSkillProperty(self, skill);            
