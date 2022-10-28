@@ -44,31 +44,14 @@ function SUMMONSINFO_INIT()
 		elseif count < 1 then
 			button:SetVisible(0);
 		end
-
-		local hotkey = frame:GetUserConfig("SUMMONINFO_HOTKEY_TEXT");
-		local parymemberinfoKeyIdx = config.GetHotKeyElementIndex("ID", "PartyMemberInfo");
-		local parymemberinfoKey = config.GetHotKeyElementAttributeForConfig(parymemberinfoKeyIdx, "Key");
-		if parymemberinfoKey ~= nil then
-			hotkey = parymemberinfoKey;
-		end
-
-		SUMMONSINFO_BUTTON_TOOLTIP_CHANGE(hotkey);
-		if hotkey ~= nil and hotkey ~= "" then
-			button:SetTextTooltip(ClMsg("SummonsInfo_ConvertPartyInfo_ToolTip").."( "..hotkey.." )");
-		end
 		
+		button:SetTextTooltip(ClMsg("SummonsInfo_ConvertPartyInfo_ToolTip"));
 		button:EnableHitTest(1);
 	end
 
     local buttonText = GET_CHILD_RECURSIVELY(frame, "buttontitle");
 	if buttonText ~= nil then
 		buttonText:SetTextByKey("title", ClMsg("SummonsInfo_SummonsInfo"));
-	end
-end
-
-function SUMMONSINFO_SET_POS(frame, x, y)
-	if frame ~= nil then
-		frame:MoveFrame(x, y);
 	end
 end
 
@@ -186,81 +169,31 @@ function UPDATE_PC_FOLLOWER_LIST(dataStr)
 	ON_UPDATE_MY_SUMMON_MONSTER(monIDList, countList);
 end
 
-local function sort_func(a, b)
-    return a < b;
-end
-
--- 현재까지 소환한 소환수 controlset name 정보
-local temp = {}
-
-local function startsWith(String, Start)
-    return string.sub(String, 1, string.len(Start)) == Start
-end
-
-local function is_summoning_mon(mon_name)        
-    return startsWith(mon_name:lower(), 'pc_summon_')
-end
-
 -- create summonui controlset
-function ON_UPDATE_MY_SUMMON_MONSTER(monIdList, monCountList)        
+function ON_UPDATE_MY_SUMMON_MONSTER(monIdList, monCountList)
 	local frame = ui.GetFrame("summonsinfo");
 	if frame == nil then
 		return;
 	end
-    
-    local count_map = {}
-    local mon_name_list = {}
-    local mon_name_id_map = {}
-    for i = 1, #monIdList do
-        local mon_name = geMonsterTable.GetMonsterNameByType(monIdList[i]);
-        count_map[mon_name] = tonumber(monCountList[i])
-        mon_name_list[#mon_name_list + 1] = mon_name
-        mon_name_id_map[mon_name] = monIdList[i]
-    end
-        
-    table.sort(mon_name_list, sort_func)    
-	local ctrlsetHeight = tonumber(frame:GetUserConfig("SUMMONINFO_CTRLSET_HEIGHTOFFSET"));
-    
-    for k, v in pairs(temp) do
-		frame:RemoveChild(k);
-    end
-    
-    for i = 1, #mon_name_list do        
-        local class_name = geMonsterTable.GetMonsterClassNameByType( mon_name_id_map[mon_name_list[i]]);
-        if is_summoning_mon(class_name) == true then
-            local ctrlName = "SUMMONINFO_" .. mon_name_id_map[mon_name_list[i]];        
-		    local summonsInfoCtrlSet = frame:CreateOrGetControlSet('summonsinfo', ctrlName, 10, i * ctrlsetHeight); 
-		    local summonsName = GET_CHILD_RECURSIVELY(summonsInfoCtrlSet, "summons_name");
-		    local summonsCount = GET_CHILD_RECURSIVELY(summonsInfoCtrlSet, "summons_count");
-		    local monName = mon_name_list[i]              
-            temp[summonsInfoCtrlSet:GetName()] = 1        
-		    if monName ~= nil then
-			    summonsName:SetTextByKey("name", monName);
-			    summonsCount:SetTextByKey("count", count_map[monName]);
-            end            
-        end
-    end
 
-    for i = 1, #mon_name_list do        
-        local class_name = geMonsterTable.GetMonsterClassNameByType( mon_name_id_map[mon_name_list[i]]);
-        if is_summoning_mon(class_name) == false then
-            local ctrlName = "SUMMONINFO_" .. mon_name_id_map[mon_name_list[i]];        
-		    local summonsInfoCtrlSet = frame:CreateOrGetControlSet('summonsinfo', ctrlName, 10, i * ctrlsetHeight); 
-		    local summonsName = GET_CHILD_RECURSIVELY(summonsInfoCtrlSet, "summons_name");
-		    local summonsCount = GET_CHILD_RECURSIVELY(summonsInfoCtrlSet, "summons_count");
-		    local monName = mon_name_list[i]              
-            temp[summonsInfoCtrlSet:GetName()] = 1        
-		    if monName ~= nil then
-			    summonsName:SetTextByKey("name", monName);
-			    summonsCount:SetTextByKey("count", count_map[monName]);
-            end		
+	local ctrlsetHeight = tonumber(frame:GetUserConfig("SUMMONINFO_CTRLSET_HEIGHTOFFSET"));
+	for i = 1, #monIdList do
+		local ctrlName = "SUMMONINFO_" .. monIdList[i];
+		local summonsInfoCtrlSet = frame:CreateOrGetControlSet('summonsinfo', ctrlName, 10, i * ctrlsetHeight); 
+
+		local summonsName = GET_CHILD_RECURSIVELY(summonsInfoCtrlSet, "summons_name");
+		local summonsCount = GET_CHILD_RECURSIVELY(summonsInfoCtrlSet, "summons_count");
+		local monName = geMonsterTable.GetMonsterNameByType(monIdList[i]);
+		if monName ~= nil then
+			summonsName:SetTextByKey("name", monName);
+			summonsCount:SetTextByKey("count", monCountList[i]);
+		end		
+
+		if monCountList[i] <= 0 then
+			frame:RemoveChild(summonsInfoCtrlSet:GetName());
         end
 	end
-	
-	local count = #mon_name_list;
-	local ctrlsetHeight = 25;
-	local originHeigth = 62;
-	frame:Resize(frame:GetWidth(), (count * ctrlsetHeight) + originHeigth)
+
     frame:Invalidate();
 	SUMMONSINFO_CONTROLSET_AUTO_ALIGN(frame);
 end
@@ -268,34 +201,4 @@ end
 function SUMMONSINFO_CONTROLSET_AUTO_ALIGN(frame)
 	GBOX_AUTO_ALIGN(frame, 10, 0, 0, true, false);
 	frame:Invalidate();
-end
-
-function SUMMONSINFO_BUTTON_TOOLTIP_CHANGE(changeTxt)
-	local parytinfo_frame = ui.GetFrame("partyinfo");
-	local summonsinfo_frame = ui.GetFrame("summonsinfo");
-	if parytinfo_frame == nil then return; end
-	if summonsinfo_frame == nil then return; end
-
-	local partyinfo_button = GET_CHILD_RECURSIVELY(parytinfo_frame, "partyinfobutton");
-	local summonsinfo_button = GET_CHILD_RECURSIVELY(summonsinfo_frame, "summonsinfobutton");
-	if partyinfo_button == nil then return; end
-	if summonsinfo_button == nil then return; end
-
-	if GetServerNation() == "GLOBAL_JP" and changeTxt == "GRAVE" or changeTxt == "`" then
-		partyinfo_button:SetTextTooltip("");
-		summonsinfo_button:SetTextTooltip("");
-		summonsinfo_frame:SetUserConfig("SUMMONINFO_HOTKEY_TEXT", "");
-		return;
-	end
-
-	if string.find(changeTxt, "GRAVE") ~= nil then
-		changeTxt = string.gsub(changeTxt, "GRAVE", "`");	
-	end
-
-	summonsinfo_frame:SetUserConfig("SUMMONINFO_HOTKEY_TEXT", changeTxt);
-	summonsinfo_button:SetTextTooltip(ClMsg("SummonsInfo_ConvertPartyInfo_ToolTip").."( "..changeTxt.." )");
-	partyinfo_button:SetTextTooltip(ClMsg("SummonsInfo_ConvertSummonsInfo_ToolTip").."( "..changeTxt.." )");
-
-	summonsinfo_frame:Invalidate();
-	parytinfo_frame:Invalidate();
 end

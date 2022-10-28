@@ -23,21 +23,6 @@
 							<ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
 								<Str Str="Boss"/>
 							</ToolScp>
-							<ToolScp Scp="MGAME_EXEC_GIVE_BUFF" Client="NO" UseSleep="NO">
-								<Str Str="SOLO_RAID_MSPD_Buff"/>
-								<Num Num="1"/>
-								<Num Num="0"/>
-								<Num Num="0"/>
-								<Num Num="1"/>
-								<Num Num="0"/>
-							</ToolScp>
-						</execList>
-					</Event>
-					<Event execCount="1" eventName="Log">
-						<execList>
-							<ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
-								<Str Str="SCR_IRREDIANS1131_SOLO_MONGO_STATE_Start"/>
-							</ToolScp>
 						</execList>
 					</Event>
 				</StageEvents>
@@ -64,9 +49,9 @@
 						</condList>
 						<execList>
 							<ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
-								<Str Str="SCR_SOLO_RAID_BOSS_COUNT_IRREDIAN1131"/>
-							</ToolScp>
-							<ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_SOLO_RAID_BOSS_COUNT_IRREDIAN1131"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
 								<Str Str="Succ"/>
 							</ToolScp>
 							<ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
@@ -101,38 +86,6 @@
 							</ToolScp>
 						</execList>
 					</Event>
-					<Event execCount="1" eventName="Log">
-						<execList>
-							<ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
-								<Str Str="SCR_IRREDIANS1131_SOLO_MONGO_STATE_Born"/>
-							</ToolScp>
-						</execList>
-					</Event>
-					<Event execCount="1" eventName="Dead_Log" execWithStart="0">
-						<condList>
-							<ToolScp Scp="MGAME_EVT_COND_MONCNT_ALIVE" Client="NO" UseSleep="NO">
-								<MGameObj List="Boss/0"/>
-								<Num Num="0"/>
-							</ToolScp>
-						</condList>
-						<execList>
-							<ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
-								<Str Str="SCR_IRREDIANS1131_SOLO_MONGO_STATE_Dead"/>
-							</ToolScp>
-						</execList>
-					</Event>
-					<Event execCount="1" eventName="DelayLog">
-						<condList>
-							<ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-								<Num Num="5"/>
-							</ToolScp>
-						</condList>
-						<execList>
-							<ToolScp Scp="GAME_EVT_ON_BYNAME" Client="NO" UseSleep="NO">
-								<Str Str="Dead_Log"/>
-							</ToolScp>
-						</execList>
-					</Event>
 				</StageEvents>
 			</Stage>
 			<Stage Name="Succ" AutoStart="0">
@@ -155,13 +108,6 @@
 							</ToolScp>
 							<ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
 								<Str Str="Succ"/>
-							</ToolScp>
-						</execList>
-					</Event>
-					<Event execCount="1" eventName="Log">
-						<execList>
-							<ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
-								<Str Str="SCR_IRREDIANS1131_SOLO_MONGO_STATE_Success"/>
 							</ToolScp>
 						</execList>
 					</Event>
@@ -190,21 +136,9 @@
 							</ToolScp>
 						</execList>
 					</Event>
-					<Event execCount="1" eventName="Log">
-						<execList>
-							<ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
-								<Str Str="SCR_IRREDIANS1131_SOLO_MONGO_STATE_Fail"/>
-							</ToolScp>
-						</execList>
-					</Event>
 				</StageEvents>
 			</Stage>
 			<Stage Name="End" AutoStart="0">
-				<StartScpList>
-					<ToolScp Scp="MGAME_CONTENT_LOG_STR" Client="NO" UseSleep="NO">
-						<Str Str="SoloRaid_Irredian"/>
-					</ToolScp>
-				</StartScpList>
 				<ObjList/>
 				<StageEvents>
 					<Event execCount="1" eventName="SetLayer">
@@ -214,9 +148,6 @@
 							</ToolScp>
 						</condList>
 						<execList>
-							<ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
-								<Str Str="SCR_REMOVE_SOLO_RAID_MSPD_BUFF"/>
-							</ToolScp>
 							<ToolScp Scp="MGAME_PCLIST_LAYER_CHANGE" Client="NO" UseSleep="NO">
 								<Num Num="0"/>
 							</ToolScp>
@@ -231,13 +162,6 @@
 						<execList>
 							<ToolScp Scp="MGAME_END" Client="NO" UseSleep="NO">
 								<Num Num="1"/>
-							</ToolScp>
-						</execList>
-					</Event>
-					<Event execCount="1" eventName="Log">
-						<execList>
-							<ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
-								<Str Str="SCR_IRREDIANS1131_SOLO_MONGO_STATE_End"/>
 							</ToolScp>
 						</execList>
 					</Event>
