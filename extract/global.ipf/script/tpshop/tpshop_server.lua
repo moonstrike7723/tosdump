@@ -226,7 +226,7 @@ function SCR_TX_TP_SHOP(pc, argList)
 			CustomMongoCashLog(pc,"TpshopBuyList","AllPrice",tostring(allprice),"Items", itemcls.ClassName)
 			SendAddOnMsg(pc, "TPSHOP_BUY_SUCCESS", "", 0);
 			--stamp tour property check
-			TX_EVENT_STAMP_TOUR_CHECK_TP_SHOP(pc,itemcls)
+			--TX_EVENT_STAMP_TOUR_CHECK_TP_SHOP(pc,itemcls)
 			---------------------------
 		else
 			IMC_LOG('ERROR_LOGIC', 'SCR_TX_TP_SHOP: Tx Fail- aid['..GetPcAIDStr(pc)..'], tpitem['..tpitem.ClassName..']');

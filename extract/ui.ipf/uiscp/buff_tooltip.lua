@@ -164,7 +164,7 @@ function UPDATE_BUFF_TOOLTIP(frame, handle, numarg1, numarg2)
         buff = info.GetBuff(handle, numarg1, numarg2);
     else
         buff = info.GetBuff(handle, numarg1);
-    end
+	end
 
 	local buffOver;
 	local buffTime;
@@ -185,7 +185,7 @@ function UPDATE_BUFF_TOOLTIP(frame, handle, numarg1, numarg2)
 
 	local comment = frame:GetChild("comment");
 
-	local tooltipfunc = _G["BUFF_TOOLTIP_" .. cls.ClassName];	
+	local tooltipfunc = _G["BUFF_TOOLTIP_" .. cls.ClassName];
 	local tooltip = "";
 	if tooltipfunc == nil then
 		tooltip = cls.ToolTip;
@@ -290,4 +290,69 @@ function BUFF_TOOLTIP_Achieve_Possession_Buff(buff, cls)
 	local grade_Num = buff.arg1
 	advantageText = ScpArgMsg("ACHIEVE_GRADE_EXP"..grade_Num);
 	return advantageText, ScpArgMsg("ACHIEVE_GRADE", "num", grade_Num);
+end
+-- EVENT_2006_SUMMER
+function BUFF_TOOLTIP_EVENT_2006_SUMMER_brochette(buff, cls)
+	if buff == nil then
+		return ""
+	end
+	local buffList = EVENT_2006_SUMMER_BUFF_TABLE('brochette')
+	local buffArgList = EVENT_2006_SUMMER_BUFF_ARG_TABLE()
+
+	local buffType = buffList[buff.arg1]
+	local buffArgNum = buffArgList[buffType]
+
+	return ScpArgMsg("EVENT_2006_SUMMER_brochette").."{nl}"..ScpArgMsg("EVENT_2006_SUMMER_"..buffType, "ARG", buffArgNum)
+end
+
+function BUFF_TOOLTIP_EVENT_2006_SUMMER_mojito(buff, cls)
+	if buff == nil then
+		return ""
+	end
+	local buffList = EVENT_2006_SUMMER_BUFF_TABLE('mojito')
+	local buffArgList = EVENT_2006_SUMMER_BUFF_ARG_TABLE()
+
+	local buffType = buffList[buff.arg1]
+	local buffArgNum = buffArgList[buffType]
+
+	return ScpArgMsg("EVENT_2006_SUMMER_mojito").."{nl}"..ScpArgMsg("EVENT_2006_SUMMER_"..buffType, "ARG", buffArgNum)
+end
+
+function BUFF_TOOLTIP_EVENT_2006_SUMMER_coconut(buff, cls)
+	if buff == nil then
+		return ""
+	end
+	local buffList = EVENT_2006_SUMMER_BUFF_TABLE('coconut')
+	local buffArgList = EVENT_2006_SUMMER_BUFF_ARG_TABLE()
+
+	local buffType = buffList[buff.arg1]
+	local buffArgNum = buffArgList[buffType]
+
+	return ScpArgMsg("EVENT_2006_SUMMER_coconut").."{nl}"..ScpArgMsg("EVENT_2006_SUMMER_"..buffType, "ARG", buffArgNum)
+end
+
+function BUFF_TOOLTIP_EVENT_2006_SUMMER_bingsu(buff, cls)
+	if buff == nil then
+		return ""
+	end
+	local buffList = EVENT_2006_SUMMER_BUFF_TABLE('bingsu')
+	local buffArgList = EVENT_2006_SUMMER_BUFF_ARG_TABLE()
+
+	local buffType = buffList[buff.arg1]
+	local buffArgNum = buffArgList[buffType]
+
+	return ScpArgMsg("EVENT_2006_SUMMER_bingsu").."{nl}"..ScpArgMsg("EVENT_2006_SUMMER_"..buffType, "ARG", buffArgNum)
+end
+
+function BUFF_TOOLTIP_EVENT_2006_SUMMER_softice(buff, cls)
+	if buff == nil then
+		return ""
+	end
+	local buffList = EVENT_2006_SUMMER_BUFF_TABLE('softice')
+	local buffArgList = EVENT_2006_SUMMER_BUFF_ARG_TABLE()
+
+	local buffType = buffList[buff.arg1]
+	local buffArgNum = buffArgList[buffType]
+
+	return ScpArgMsg("EVENT_2006_SUMMER_softice").."{nl}"..ScpArgMsg("EVENT_2006_SUMMER_"..buffType, "ARG", buffArgNum)
 end

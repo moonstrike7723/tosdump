@@ -664,17 +664,17 @@
 			<labelline name="labelline" skin="labelline_def_2" margin="10 0 0 0" rect="0 0 390 1" layout_gravity="left bottom"/>
 		</controls>
 	</controlset>
-	<controlset name="eachproperty_in_itemrandomreset" hittest="true" width="430" height="200" skin="None" hittestset="true" draw="true" stateskin="false">
+	<controlset name="eachproperty_in_itemrandomreset" hittest="true" width="370" height="200" skin="None" hittestset="true" draw="true" stateskin="false">
 		<userconfig POS_Y="25"/>
 		<controls>
-			<richtext name="property_name" rect="0 0 80 30" margin="90 0 0 0" layout_gravity="left top" textalign="left center" resizebytext="true" fixwidth="false" format="미정" param1="미정" param2="미정" param3="미정" caption="미정" fontname="white_16_ol"/>
+			<richtext name="property_name" rect="0 0 370 30" margin="0 5 0 0" layout_gravity="left top" textalign="left center" autofontsizebywidth="370" format="미정" param1="미정" param2="미정" param3="미정" caption="미정" fontname="white_16_ol"/>
 		</controls>
 	</controlset>
 	<controlset name="eachproperty_in_itemrandomreset_sandra" hittest="true" width="430" height="200" skin="None" hittestset="true" draw="true" stateskin="false">
 		<userconfig POS_Y="25"/>
 		<controls>
 			<checkbox name="checkbox" rect="0 0 22 22" margin="24 2 0 0" layout_gravity="left top" LBtnUpScp=""/>
-			<richtext name="property_name" rect="0 0 80 30" margin="45 5 0 0" layout_gravity="left top" textalign="left center" resizebytext="true" fixwidth="false" format="미정" param1="미정" param2="미정" param3="미정" caption="미정" fontname="white_16_ol"/>
+			<richtext name="property_name" rect="0 0 80 30" margin="45 5 0 0" layout_gravity="left top" textalign="left center" resizebytext="true" fixwidth="false" format="미정" param1="미정" param2="미정" param3="미정" caption="미정" fontname="white_16_ol" autofontsizebywidth="355"/>
 		</controls>
 	</controlset>
 	<controlset name="eachmaterial_in_itemrandomreset" hittest="true" width="430" height="50" skin="None" hittestset="true" draw="true" stateskin="false">

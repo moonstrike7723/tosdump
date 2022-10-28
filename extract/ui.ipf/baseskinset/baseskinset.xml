@@ -10541,6 +10541,8 @@
 		<image name="icon_Acient_passive_legend" file="\icon\buff_icon3.tga" imgrect="128 1152 128 128" CMM_Caption="어시스터 조합 효과 버프_legend"/>
 		<image name="icon_warri_Padbreak" file="\icon\buff_icon3.tga" imgrect="256 1152 128 128" CMM_Caption="창 숙련: 마법진 파괴"/>
 		<image name="icon_pet_hedgehog_buff" file="\icon\buff_icon3.tga" imgrect="768 1408 128 128" CMM_Caption="고슴도치 버프"/>
+		<image name="icon_bingsu_buff" file="\icon\buff_icon3.tga" imgrect="256 1408 128 128" CMM_Caption="2020_빙수 버프"/>
+		<image name="icon_softIce_buff" file="\icon\buff_icon3.tga" imgrect="384 1408 128 128" CMM_Caption="2020_아이스크림 버프"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>

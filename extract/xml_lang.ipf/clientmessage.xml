@@ -314,6 +314,7 @@
 		<Class ClassID="2262" ClassName="CannotApplyJewellBecause{REASON}" Data="인챈트 쥬얼을 적용할 수 없는 [{REASON}] 아이템입니다."/>
 		<Class ClassID="2263" ClassName="FailEnchantJewell" Data="레어 옵션 부여에 실패했습니다."/>
 		<Class ClassID="2264" ClassName="CommitEnchantOption" Data="[인챈트 옵션]을 변경합니다. 옵션은 바로 적용되며 되돌릴 수 없습니다.{nl} 동일한 인챈트 옵션을 가진 장비 아이템 여러 개를 장착하는 경우, 가장 높은 수치의 인챈트 옵션만 캐릭터에게 적용됩니다.{nl}진행하시겠습니까?"/>
+		<Class ClassID="2265" ClassName="ExceedItemMaxStack" Data="아이템 최대 스택 개수를 초과했습니다."/>
 		<Class ClassID="2266" ClassName="LoadingTradeLimitAmount" Data="거래 한도를 받아오는 중입니다. 다시 시도해주세요."/>
 		<Class ClassID="2267" ClassName="MarketTradeLimit{AMOUNT}ReallyBuy?" Data="현재 남은 마켓 거래 한도는 {AMOUNT} 실버 입니다.{nl}정말 구매하시겠습니까?"/>
 		<Class ClassID="2268" ClassName="CannotEnchantOptionEquipItem" Data="장착 중인 장비에 인챈트 옵션을 부여할 수 없습니다."/>
@@ -377,6 +378,8 @@
 		<Class ClassID="2331" ClassName="RequireInactiveJobArts" Data="습득한 직업 아츠를 모두 비활성화 해야 합니다."/>
 		<Class ClassID="2333" ClassName="AbilityPointFreeExtract" Data="[무료 회수권 사용]"/>
 		<Class ClassID="2334" ClassName="GetSubExp{CHAR}" Data="캐릭터 경험치 [{CHAR}] 획득"/>
+		<Class ClassID="2341" ClassName="ExceedItemGetLimit" Data="획득 가능한 아이템 최대 수량을 초과 하였습니다."/>
+		
 	</Category>
 	<Category Name="ClassContents">
 		<Class ClassID="2500" ClassName="FullWeeklyGainClassResetExp" Data="주간 획득 가능한 클래스 변경 포인트를 모두 달성하였습니다."/>
@@ -13880,6 +13883,15 @@
 		<Class ClassID="302101" ClassName="EVENT_2004_NEWUSER_CHECK_MESSAGE{TIME}{COIN}" Data="[이벤트] 포포리온 뱃지 일일 획득 정보{nl}1시간 접속시 뱃지 20개 획득 ({TIME}/60분){nl}일일 총 획득량 ({COIN}/100){nl}{#FF0000}※ 1시간 접속 획득 주화는 일일 주화 획득 제한에 포함됩니다.{/}{nl}{#FF0000}※일일 최대 획득량은 오전 6시 초기화 됩니다.{/}"/>
 		<Class ClassID="302102" ClassName="EVENT_2004_NEWUSER_CHECK_MESSAGE_DONE" Data="[이벤트] 포포리온 뱃지 일일 획득 정보{nl}오늘 획득 가능한 [이벤트] 포포리온 뱃지를 모두 획득하였습니다.{nl}{#FF0000}※일일 최대 획득량은 오전 6시 초기화 됩니다.{/}"/>
 		<Class ClassID="302103" ClassName="EVENT_COIN_FULL{COIN}" Data="오늘 획득 가능한 {COIN}을(를) 전부 획득하셨습니다."/>
+		<Class ClassID="302109" ClassName="EVENT_2006_SUMMER_SEL_MSG1" Data="{#0033FF}[Summer Festa]{/} 이벤트 안내"/>
+		<Class ClassID="302110" ClassName="EVENT_2006_SUMMER_SEL_MSG2" Data="{#0033FF}[Summer Festa]{/}[이벤트] 문어발 미끼 수령하기"/>
+		<Class ClassID="302111" ClassName="EVENT_2006_SUMMER_SEL_MSG3" Data="{#0033FF}[Summer Festa]{/} 이벤트 상점"/>
+		<Class ClassID="302112" ClassName="EVENT_2006_SUMMER_SEL_MSG4" Data="{#0033FF}[Summer Festa]{/} 이벤트 음식 교환권 상점"/>
+		<Class ClassID="302113" ClassName="SummerShop2006" Data="Summer Festa 이벤트 상점"/>
+		<Class ClassID="302114" ClassName="SummerFoodShop2006" Data="Summer Festa 이벤트 음식 교환권 상점"/>
+		<Class ClassID="302115" ClassName="EVENT_2006_SUMMER_CAT_MSG1" Data="교환 가능 개수 1~{MAX}"/>
+		<Class ClassID="302116" ClassName="EVENT_2006_SUMMER_CHECK_MESSAGE1{COIN}{TIME1}{TIME2}" Data="[Summer Festa] 특별한 얼음 획득 현황{nl}콘텐츠 이용 {#3366FF}({COIN}/400개){/}{nl}1시간 접속 시 음식 교환권 10개 지급 {#3366FF}({TIME1}/50개){/}{nl}1시간 접속 시 특별한 얼음 20개 획득 {#3366FF}({TIME2}/100개){/}{nl}{#FF0000}※일일 획득량은 매일 오전 6시 초기화 됩니다.{/}"/>
+		<Class ClassID="302117" ClassName="EVENT_2006_SUMMER_CHECK_MESSAGE2{BAIT}{TICKET}{TRADE}" Data="[Summer Festa] 수박 낚시!{nl}[이벤트] 문어발 미끼 일일 수령 횟수 {#3366FF}({BAIT}/1회){/}{nl}[Summer Festa] 음식 교환권 일일 획득 개수 {#3366FF}({TICKET}/10개){/}{nl}이벤트 기간 중 [이벤트] 시원한 수박 교환 횟수 {#3366FF}({TRADE}/150회){/}{nl}{#FF0000}※일일 수령 횟수는 매일 오전 6시 초기화 됩니다.{nl}※이벤트 기간 중 [이벤트] 시원한 수박의 최대 교환 교환 횟수는 150개 이며,{nl}이후 교환 시 버프만 획득 가능합니다.{/}"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -15056,5 +15068,21 @@
 	</Category>
 	<Category Name="GlobalEventDialog">
 		<Class ClassID="597000" ClassName="EVENT_2004_NEWUSER_SEL_MSG1_GLOBAL" Data="{#003399}[트린이날]{/} 이벤트"/>
+		<Class ClassID="597001" ClassName="EVENT_2006_SUMMER_SEL_MSG1_GLOBAL" Data="{#003399}[Summer Festa]{/} 이벤트"/>
+	</Category>
+	<Category Name="EVENT_2006_SUMMER_BUFF">
+		<Class ClassID="593000" ClassName="EVENT_2006_SUMMER_brochette" Data="클라페다 여름 별미 맛있는 꼬치입니다."/>
+		<Class ClassID="593001" ClassName="EVENT_2006_SUMMER_mojito" Data="클라페다 여름 별미 짜릿한 레몬아이스티입니다."/>
+		<Class ClassID="593002" ClassName="EVENT_2006_SUMMER_coconut" Data="클라페다 여름 별미 시원한 코코넛주스입니다."/>
+		<Class ClassID="593003" ClassName="EVENT_2006_SUMMER_bingsu" Data="클라페다 여름 별미 달달한 과일빙수입니다."/>
+		<Class ClassID="593004" ClassName="EVENT_2006_SUMMER_softice" Data="클라페다 여름 별미 부드러운 소프트아이스크림입니다."/>
+		<Class ClassID="593005" ClassName="EVENT_2006_SUMMER_EXPUP" Data="경험치 획득량이 {ARG}% 증가합니다."/>
+		<Class ClassID="593006" ClassName="EVENT_2006_SUMMER_HPSPUP" Data="최대 HP 및 최대 SP가 {ARG}만큼 증가합니다."/>
+		<Class ClassID="593007" ClassName="EVENT_2006_SUMMER_LOOTCHANCE" Data="루팅 찬스가 {ARG}만큼 증가합니다."/>
+		<Class ClassID="593008" ClassName="EVENT_2006_SUMMER_FISHING" Data="낚시 성공 확률이 {ARG}% 증가합니다."/>
+		<Class ClassID="593009" ClassName="EVENT_2006_SUMMER_MSPD" Data="이동속도가 {ARG}만큼 증가합니다."/>
+		<Class ClassID="593010" ClassName="EVENT_2006_SUMMER_REGEN" Data="10초마다 HP 및 SP가 {ARG}만큼 회복됩니다."/>
+		<Class ClassID="593011" ClassName="EVENT_2006_SUMMER_STA" Data="5초마다 스태미나가 {ARG}만큼 회복됩니다."/>
+		<Class ClassID="593012" ClassName="EVENT_2006_SUMMER_ATK" Data="물리, 마법 공격력이 각각 {ARG}만큼 증가합니다."/>
 	</Category>
 </idspace>
