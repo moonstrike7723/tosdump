@@ -423,7 +423,7 @@
 			<Class ClassID="10600187" ClassName="Premium_Master_Glass_34" CT_ExpireDateTime="2021-11-30 00:00"/>
 			<Class ClassID="10600188" ClassName="Premium_Sandra_Glass_34" CT_ExpireDateTime="2021-11-30 00:00"/>
 			<Class ClassID="10600189" ClassName="Premium_Sandra_Glass_1line_34" CT_ExpireDateTime="2021-11-30 00:00"/>
-			<Class ClassID="10600190" ClassName="Ticket_Vasilissa_Party_Enter_NoTrade_Event34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10600190" ClassName="Ticket_Vasilissa_Party_Enter_NoTrade_Event35" CT_ExpireDateTime="2021-11-30 00:00"/>
 		</Category>
 	</Category>
 </idspace>

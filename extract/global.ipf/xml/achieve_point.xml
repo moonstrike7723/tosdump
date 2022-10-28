@@ -1,30 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSpy v2006 U (http://www.altova.com) by Administrator (EMBRACE) -->
 <idspace id="AchievePoint">
-	<Category Name="Event">
-		<Class ClassID="6006" ClassName="Translator1" OverrideType="ADD" Name="완벽한 번역가" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6029" ClassName="Passionate_Artist_Ev" OverrideType="ADD" Name="Passionate Artist" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6045" ClassName="FinestMoment" OverrideType="ADD" Name="Finest Moment" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6049" ClassName="Event_170823_Fanart_Steam" OverrideType="ADD" Name="Giving Shade" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6053" ClassName="Event_MonsterInker_Steam" OverrideType="ADD" Name="Monster Inker" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6059" ClassName="Companions_forLife" OverrideType="ADD" Name="Companions for Life" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6060" ClassName="TheGiftedArtist2" OverrideType="ADD" Name="The Gifted Artist" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6062" ClassName="2018Happy_New_Year_Steam" OverrideType="ADD" Name="2018 Happy New Year" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6063" ClassName="NewClassArtist_Steam" OverrideType="ADD" Name="New Class Artist" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6065" ClassName="Event_Happy2Year_Steam" OverrideType="ADD" Name="Happy 2nd Anniversary!" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6068" ClassName="Event_Steam_Honorary" OverrideType="ADD" Name="Honorary TPP Reporter" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6070" ClassName="EVENT_Steam_Magazine_Num1" OverrideType="ADD" Name="Crystal Mine Revelator" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6074" ClassName="Achieve_Event_Grand_Contributor" OverrideType="ADD" Name="Grand Contributor" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6077" ClassName="Achieve_Event_Fashionista" OverrideType="ADD" Name="TOS Fashionista" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6082" ClassName="Achieve_Event_Creative_TPP_Player" OverrideType="ADD" Name="Creative TPP Player" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6090" ClassName="Achieve_Event_Loving_Summer" OverrideType="ADD" Name="Loving Summer" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6095" ClassName="Achieve_Event_With_Friend" OverrideType="ADD" Name="With Friend" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6100" ClassName="Achieve_Event_Horror_Night" OverrideType="ADD" Name="Horror Night" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6103" ClassName="Achieve_Event_Weapon_Designer" OverrideType="ADD" Name="TOS Weapon Designer" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6108" ClassName="Achieve_Event_2019_New_Year_Artist" OverrideType="ADD" Name="New Year Artist" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6114" ClassName="Achieve_Event_Steam_Content_Creator" OverrideType="ADD" Name="Content Creator" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6115" ClassName="Achieve_Event_Steam_Happy_Anniversary" OverrideType="ADD" Name="Happy Anniversary" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6116" ClassName="Achieve_Event_Steam_Guide_Master" OverrideType="ADD" Name="Guide Master" UseDaily="NO" UseWeekly="NO"/>
-	</Category>
 </idspace>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
