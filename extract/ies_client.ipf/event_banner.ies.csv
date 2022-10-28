@@ -1,9 +1,8 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202105,250000,202105,300000,202106,80000,202106,30000,0,0,inGame_E1,Goddess' Blessed Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2281,,,,
+999901,202106,80000,202106,130000,202106,290000,202106,240000,0,0,inGame_E1,Leticia's Secret Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2291,,,,
 999902,202106,10000,202106,60000,202107,60000,202107,10000,0,0,inGame_E2,Summer Campfire,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2287,,,,
-999903,202105,180000,202105,230000,202106,80000,202106,30000,0,0,inGame_E3,Lucky Break,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2277,,,,
-999904,202105,250000,202105,300000,202106,290000,202106,240000,0,0,inGame_E4,Demon God's Temptation,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2282,,,,
-999905,202011,170000,202011,220000,203012,310000,203012,260000,0,0,inGame_E5,Costume Collection Event,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2142,time_del,,,
-999906,202101,60000,202101,110000,203012,310000,203012,260000,0,0,inGame_E6,Item Restore Policy,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2151,time_del,,,Normal
-999907,202005,280000,202006,20000,202106,270000,202106,220000,0,0,inGame_E7,Weekend Burning Event,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2288,,,,Normal
-999908,202007,90000,202007,140000,203012,310000,203012,260000,0,0,inGame_E8,SteamGuard Guide,inGame_E8,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
+999903,202105,250000,202105,300000,202106,290000,202106,240000,0,0,inGame_E3,Demon God's Temptation,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2282,,,,
+999904,202011,170000,202011,220000,203012,310000,203012,260000,0,0,inGame_E4,Costume Collection Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2142,time_del,,,
+999905,202101,60000,202101,110000,203012,310000,203012,260000,0,0,inGame_E5,Item Restore Policy,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2151,time_del,,,Normal
+999906,202105,280000,202106,20000,202106,270000,202106,220000,0,0,inGame_E6,Weekend Burning Event,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2288,,,,Normal
+999907,202007,90000,202007,140000,203012,310000,203012,260000,0,0,inGame_E7,SteamGuard Guide,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,

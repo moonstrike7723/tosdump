@@ -2927,13 +2927,13 @@
 		<controls>
 			<groupbox name="each_achieve_gbox" margin="0 0 0 0" rect="0 0 435 230" hittestbox="false" skin="test_skin_01" layout_gravity="left top" scrollbar="false"/>
 			<picture name="each_achieve_name_box" margin="0 7 0 0" parent="each_achieve_gbox" rect="0 0 420 30" hittestbox="false" draw="false" stretch="true" image="test_com_namebg" layout_gravity="center top" scrollbar="false"/>
-			<richtext name="achieve_desctitle" parent="each_achieve_gbox" margin="15 10 0 0" rect="0 0 430 30" format="None" textalign="left center" resizebytext="true" fontname="white_18_b_ol_ds" fixwidth="false" layout_gravity="left top" hittest="false"/>
+			<richtext name="achieve_desctitle" parent="each_achieve_gbox" margin="15 10 0 0" rect="0 0 410 30" format="None" textalign="left center" resizebytext="true" fontname="white_18_b_ol_ds" fixwidth="true" layout_gravity="left top" hittest="false" autofontsizebywidth="410"/>
 			<button name="req_reward_btn" margin="0 0 5 5" rect="0 0 36 39" image="compen_btn" layout_gravity="right top" LBtnUpScp="REQ_ACHIEVE_REWARD"/>
 			<richtext name="achieve_static_desc" parent="each_achieve_gbox" margin="20 71 0 0" rect="0 0 430 30" format="{@41b}조건" textalign="left center" resizebytext="true" fontname="brown_16_b" fixwidth="false" layout_gravity="left top" hittest="false"/>
 			<richtext name="achieve_static_accomplishment" parent="each_achieve_gbox" margin="20 45 0 0" rect="0 0 60 30" format="{@41b}달성도" textalign="left center" resizebytext="true" fontname="brown_16_b" fixwidth="false" layout_gravity="left top" hittest="false"/>
 			<gauge name="achieve_gauge" parent="each_achieve_gbox" margin="0 30 0 0" rect="0 0 230 50" skin="gauge_itemtooltip_poten" inverse="false" point="50" layout_gravity="left top" text1="" textoffset1="0 1" textfont1="white_14_ol" textalign1="center center" hittest="true"/>
 			<richtext name="achieve_accomplishment" parent="each_achieve_gbox" margin="20 40 0 0" rect="0 0 335 30" caption="None" textalign="center center" resizebytext="false" fontname="white_16_ol" fixwidth="false" layout_gravity="left top" hittest="false"/>
-			<richtext name="achieve_desc" parent="each_achieve_gbox" margin="20 71 0 0" rect="0 0 335 30" caption="None" textalign="left center" resizebytext="true" fontname="brown_16_b" fixwidth="true" layout_gravity="left top" hittest="false"/>
+			<richtext name="achieve_desc" parent="each_achieve_gbox" margin="20 71 0 0" rect="0 0 310 30" caption="None" textalign="left center" resizebytext="true" fontname="brown_16_b" fixwidth="true" layout_gravity="left top" hittest="false"/>
 			<richtext name="achieve_name" parent="each_achieve_gbox" margin="20 65 0 0" rect="0 0 400 30" format="칭호       %s" param1="name" param1_def="None" textalign="left center" resizebytext="true" fontname="brown_16_b" fixwidth="false" layout_gravity="left top" hittest="false"/>
 			<richtext name="achieve_reward" parent="each_achieve_gbox" margin="20 90 0 0" rect="0 0 400 30" format="보상       %s" param1="reward" param1_def="None" textalign="left center" resizebytext="true" fontname="brown_16_b" fixwidth="false" layout_gravity="left top" hittest="false"/>
 		</controls>

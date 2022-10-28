@@ -15171,7 +15171,7 @@
 		<Class ClassID="501197" ClassName="EVENT_1903_SPROUT_MSG1" Data="오늘 씨앗을 총 {@st66d_y}{s18}{GET}{/}{/}개 획득하였습니다. {@st66d_y}{s18}{REMAIN}{/}{/}개의 씨앗을 더 획득할 수 있습니다."/>
 		<Class ClassID="501198" ClassName="EVENT_1903_SPROUT_MSG2" Data="곧 새싹이 지급됩니다. 새싹 지급 전 종료시 정상적으로 아이템이 지급되지 않을 수 있습니다."/>
 		<Class ClassID="501201" ClassName="EVENT_STEAM_Secret_Buff_1" Data="이미 어둠의 기운 버프가 적용 중입니다."/>
-		<Class ClassID="501202" ClassName="EVENT_STEAM_SEED_MS01" Data="씨앗을 땅에 심었습니다.{nl}20초마다 단계별로 새싹 버프가 획득됩니다."/>
+		<Class ClassID="501202" ClassName="EVENT_STEAM_SEED_MS01" Data="씨앗을 땅에 심었습니다.{nl}6초마다 단계별로 새싹 버프가 획득됩니다."/>
 		<Class ClassID="501207" ClassName="EVENT_1905_TOS_CHILD_MSG1" Data="하루 획득가능한 뱃지 200개를 모두 모았습니다."/>
 		<Class ClassID="501208" ClassName="EVENT_1905_TOS_CHILD_MSG2" Data="오늘 뱃지를 총 {@st66d_y}{s18}{GET}{/}{/}개 획득하였습니다. {@st66d_y}{s18}{REMAIN}{/}{/}개의 뱃지를 더 획득할 수 있습니다."/>
 		<Class ClassID="501209" ClassName="EVENT_1905_TOS_CHILD_MSG3" Data="곧 뱃지가 지급됩니다. 뱃지 지급 전 종료시 정상적으로 아이템이 지급되지 않을 수 있습니다."/>
