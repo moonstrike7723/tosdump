@@ -15,7 +15,7 @@
 		</controls>
 	</controlset>
 	<controlset name="guild_warinfo">
-		<button name="guildwarehouse" LBtnUpScp=""/>
+		<button name="guildwarehouse" OverrideType="REMOVE" LBtnUpScp=""/>
 	</controlset>
 	<controlset name="guildbattle_ranking_page" hittest="true" width="520" height="800" hittestset="false" draw="false" skin="none">
 		<controls>
