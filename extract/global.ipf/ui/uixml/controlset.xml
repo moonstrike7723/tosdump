@@ -14,7 +14,9 @@
 			<picture name="isEvent_mark" margin="0 128 0 0" rect="0 0 72 34" hittest="false" image="recommend_mark2" changecursor="false" layout_gravity="left top"/>
 		</controls>
 	</controlset>
-  <controlset name="guild_warinfo">
-    <button name="guildwarehouse" LBtnUpScp=""/>    
-  </controlset>
+	<controlset name="guild_warinfo">
+		<controls>
+			<button name="guildwarehouse" OverrideType="REMOVE" LBtnUpScp=""/>
+		</controls>
+	</controlset>
 </controlsetlist>

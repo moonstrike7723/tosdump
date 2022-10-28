@@ -32,14 +32,6 @@ function GET_ICON_BY_STATE_MODE(state, questIES)
     elseif tail == '_key' then
         modeicon = 'KEYQUEST'
     end
-
-    -- 평판 퀘스트
-    local classList = GetClassList("reputation_quest")
-    local class = GetClassByNameFromList(classList, questIES.ClassName)
-
-    if class ~= nil then
-        modeicon = 'REPUTATION'
-    end
     
 	if state == 'SUCCESS' then
 		return "minimap_3_" ..modeicon;
@@ -89,17 +81,4 @@ function GET_PROGRESS_VALUE_BY_STRING(progressStr)
 		return 4;
 	end
 	return 0;
-end
-
-function GET_PROGRESS_STRING_BY_VALUE(progressValue)
-	if progressValue == 1 then
-		return 'POSSIBLE';
-	elseif progressValue == 2 then
-		return 'SUCCESS';
-	elseif progressValue == 3 then
-		return 'PROGRESS';
-	elseif progressValue == 4 then
-		return 'COMPLETE';
-	end
-	return 'IMPOSSIBLE';
 end

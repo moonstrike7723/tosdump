@@ -35,10 +35,9 @@ function SCR_STEAM_TREASURE_EVENT_DIALOG(self,pc)
 end
 
 function EVENT_PROPERTY_RESET(pc, aObj, sObj)
-    local etcObj = GetETCObject(pc);
-    if aObj.DAYCHECK_EVENT_LAST_DATE ~= 'Prison' then -- 현재 진행중인 이벤트
+    if aObj.DAYCHECK_EVENT_LAST_DATE ~= 'Fortune' then -- 현재 진행중인 이벤트
         local tx = TxBegin(pc)
-        TxSetIESProp(tx, aObj, 'DAYCHECK_EVENT_LAST_DATE', "Prison");
+        TxSetIESProp(tx, aObj, 'DAYCHECK_EVENT_LAST_DATE', "Fortune");
         TxSetIESProp(tx, aObj, 'PlayTimeEventRewardCount', 0);
         TxSetIESProp(tx, aObj, 'Event_HiddenReward', 0);
         TxSetIESProp(tx, etcObj, 'InDunCountType_900', 0);

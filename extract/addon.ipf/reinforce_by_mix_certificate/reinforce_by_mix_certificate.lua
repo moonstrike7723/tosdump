@@ -13,15 +13,6 @@ function GET_MAT_SLOT_CERTIFICATE(frame)
 end
 
 function CLEAR_REINFORCE_BY_MIX_CERTIFICATE(frame)	
-	local slots = GET_MAT_SLOT_CERTIFICATE(frame);
-	local cnt = slots:GetSlotCount();
-	for i = 0 , cnt - 1 do
-		local slot = slots:GetSlotByIndex(i);
-		local icon = slot:GetIcon()
-		if icon ~= nil then
-			REINFORCE_BY_MIX_SLOT_RBTN_CERTIFICATE(frame,slot)
-		end
-	end
 	frame:StopUpdateScript("REINF_MIX_UPDATE_EXP_UP_CERTIFICATE");
 	local matslot = GET_MAT_SLOT_CERTIFICATE(frame);
 	matslot:ShowWindow(0);
@@ -58,14 +49,10 @@ function CLEAR_REINFORCE_BY_MIX_CERTIFICATE(frame)
 	
 	INVENTORY_SET_CUSTOM_RBTNDOWN("REINFORCE_MIX_RBTN_CERTIFICATE");
 	INVENTORY_SET_CUSTOM_RDBTNDOWN("None");
-	RESET_INVENTORY_ICON();	
+	INVENTORY_SET_ICON_SCRIPT("None");		
 end
 
 function CLOSE_REINFORCE_BY_MIX_CERTIFICATE(frame)
-	if ui.CheckHoldedUI() == true then
-		return;
-	end
-	
 	CLEAR_REINFORCE_BY_MIX_CERTIFICATE(frame);
 	INVENTORY_SET_CUSTOM_RBTNDOWN("None");
 	ui.CloseFrame("inventory");
@@ -332,13 +319,10 @@ function REINFORCE_MIX_UPDATE_EXP_CERTIFICATE(frame)
 
 end
 
-function GET_REINFORCE_MIX_ITEM_CERTIFICATE()	
+function GET_REINFORCE_MIX_ITEM_CERTIFICATE()	    
 	local frame = ui.GetFrame("reinforce_by_mix_certificate");
 	local guid = frame:GetUserValue("ITEM_GUID_CERTIFICATE");
 	local invItem = GET_ITEM_BY_GUID(guid);    
-	if invItem == nil then
-		return;
-	end
 	return GetIES(invItem:GetObject());
 end
 
@@ -389,8 +373,7 @@ function REINFORCE_MIX_INV_RDBTN_CERTIFICATE(itemObj, slot)
 end
 
 function REINFORCE_MIX_INV_RBTN_CERTIFICATE(itemObj, slot, selectall)    
-	local guid = GetIESID(itemObj)
-	local invitem = session.GetInvItemByGuid(guid)
+	local invitem = session.GetInvItemByGuid(GetIESID(itemObj))
 	if nil == invitem then
 		return;
 	end
@@ -415,19 +398,17 @@ function REINFORCE_MIX_INV_RBTN_CERTIFICATE(itemObj, slot, selectall)
 
 		if nowselectedcount < invitem.count then
 			local reinfFrame = ui.GetFrame("reinforce_by_mix_certificate");
+			local icon = slot:GetIcon();
 					
 			if 1 == REINFORCE_BY_MIX_ADD_MATERIAL_CERTIFICATE(reinfFrame, itemObj, nowselectedcount + 1)  then
-									
+					
 				imcSound.PlaySoundEvent("icon_get_down");
-				for i = 0, 1 do
-					slot = INV_GET_SLOT_BY_ITEMGUID(guid,nil,i)
-					local icon = slot:GetIcon();
-					slot:SetUserValue("REINF_MIX_SELECTED_CERTIFICATE", nowselectedcount + 1);
-					local nowselectedcount = slot:GetUserIValue("REINF_MIX_SELECTED_CERTIFICATE")
-							
-					if icon ~= nil and nowselectedcount == invitem.count then
-						icon:SetColorTone("AA000000");
-					end
+
+				slot:SetUserValue("REINF_MIX_SELECTED_CERTIFICATE", nowselectedcount + 1);
+				local nowselectedcount = slot:GetUserIValue("REINF_MIX_SELECTED_CERTIFICATE")
+						
+				if icon ~= nil and nowselectedcount == invitem.count then
+					icon:SetColorTone("AA000000");
 				end
 			end
 		end
@@ -455,7 +436,7 @@ function REINFORCE_BY_MIX_ADD_MATERIAL_CERTIFICATE(frame, itemObj, count)
 	
 	if invItem.count > 1 then
 		local icon  = slot:GetIcon()
-		icon:SetText(count, 'quickiconfont', ui.RIGHT, ui.BOTTOM, -2, 1);
+		icon:SetText(count, 'quickiconfont', 'right', 'bottom', -2, 1);
 	end
 	
 	slot:SetEventScript(ui.RBUTTONDOWN, "REINFORCE_BY_MIX_SLOT_RBTN_CERTIFICATE");
@@ -472,26 +453,19 @@ function REINFORCE_BY_MIX_SLOT_RBTN_CERTIFICATE(parent, slot)
 
 	local invItem = GET_SLOT_ITEM(slot);
 	local guid = invItem:GetIESID();
-	for i = 0,1 do
-		local invSlot = INV_GET_SLOT_BY_ITEMGUID(guid,nil,i);
-		local icon = invSlot:GetIcon();
-		icon:SetColorTone("FFFFFFFF");
-		invSlot:SetUserValue("REINF_MIX_SELECTED_CERTIFICATE", 0);
-	end
+
+	local invSlot = GET_PC_SLOT_BY_ITEMID(guid);
+	local icon = invSlot:GetIcon();
+	icon:SetColorTone("FFFFFFFF");
 	slot:ClearIcon();
-	slot:SetEventScript(ui.RBUTTONDOWN, "None")
+	invSlot:SetUserValue("REINF_MIX_SELECTED_CERTIFICATE", 0);
 	ui.UpdateVisibleToolTips();
 
 	REINFORCE_MIX_UPDATE_EXP_CERTIFICATE(frame);
 	imcSound.PlaySoundEvent("icon_pick_up");
 end
 
-function REINFORCE_BY_MIX_EXECUTE_CERTIFICATE(parent)
-    if session.colonywar.GetIsColonyWarMap() == true then
-        ui.SysMsg(ClMsg('CannotUseInPVPZone'));
-        return;
-    end
-
+function REINFORCE_BY_MIX_EXECUTE_CERTIFICATE(parent)	
 	local frame = parent:GetTopParentFrame();
 	local slots = GET_MAT_SLOT_CERTIFICATE(frame);
 	local cnt = slots:GetSlotCount();
@@ -520,7 +494,7 @@ function REINFORCE_BY_MIX_EXECUTE_CERTIFICATE(parent)
 	end
 end
 
-function _REINFORCE_BY_MIX_EXECUTE_CERTIFICATE()	
+function _REINFORCE_BY_MIX_EXECUTE_CERTIFICATE()		
 	local tgtItem = GET_REINFORCE_MIX_ITEM_CERTIFICATE();
 	
 	if tgtItem.GroupName == "Card" then
@@ -571,9 +545,7 @@ function _REINFORCE_BY_MIX_EXECUTE_CERTIFICATE()
     frame:SetUserValue("UsedMaterialItemListCertificate", mat_list);
 
 	local resultlist = session.GetItemIDList();
-	if resultlist:Count() > 1 then
-		SetCraftState(1);
-		ui.SetHoldUI(true);
+	if resultlist:Count() > 1 then			
 		item.DialogTransaction("SCR_ITEM_EXP_UP", resultlist);		
 	end
 	--local tgtItem = GET_REINFORCE_MIX_ITEM_CERTIFICATE();
@@ -586,9 +558,6 @@ end
 function REINFORCE_MIX_ITEM_EXP_STOP_CERTIFICATE()	
 	local frame = ui.GetFrame("reinforce_by_mix_certificate");
 	frame:SetUserValue("EXECUTE_REINFORCE_CERTIFICATE", 0);
-
-	SetCraftState(0);
-	ui.SetHoldUI(false);
 end;
 
 function REINFORCE_MIX_FORCE_CERTIFICATE(slot, resultText, x, y)	
@@ -657,10 +626,7 @@ function REINFORCE_MIX_ITEM_EXPUP_END_CERTIFICATE(frame, msg, multiPly, totalPoi
         local a = GET_CHILD_RECURSIVELY(box_material, "slot" .. tostring(i))
         a:ClearIcon();
     end
-	CLEAR_MATERIAL_SLOT_CERTIFICATE(frame)
-	
-	SetCraftState(0);
-	ui.SetHoldUI(false);
+    CLEAR_MATERIAL_SLOT_CERTIFICATE(frame)
 end
 
 function CLEAR_MATERIAL_SLOT_CERTIFICATE(frame)        
@@ -734,9 +700,6 @@ function REINFORCE_MIX_ITEM_EXPUP_RESERVE(frame, msg, arg1, totalPoint)
 		
 		frame:ReserveScript("REINFORCE_MIX_ITEM_EXCHANGE", 3, totalPoint, arg1);	
 	end
-
-	SetCraftState(0);
-	ui.SetHoldUI(false);
 end
 
 function REINFORCE_MIX_ITEM_EXPUP_END_NEW_ITEM(frame, totalPoint, arg1)		
