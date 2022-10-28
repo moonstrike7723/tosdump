@@ -12083,6 +12083,9 @@
 		<image name="029_npc_KiolRuarawa" file="\skin\npccard\029_npc_KiolRuarawa.tga" imgrect="0 0 330 440"/>
 		<image name="030_LucidWinterspoon" file="\skin\npccard\030_LucidWinterspoon.tga" imgrect="0 0 330 440"/>
 		<image name="031_BangomontBorjigin" file="\skin\npccard\031_BangomontBorjigin.tga" imgrect="0 0 330 440"/>
+		<image name="032_DamirBorkhan" file="\skin\npccard\032_DamirBorkhan.tga" imgrect="0 0 330 440"/>
+		<image name="033_KhanomCaolaw" file="\skin\npccard\033_KhanomCaolaw.tga" imgrect="0 0 330 440"/>
+		<image name="034_Rudmila" file="\skin\npccard\034_Rudmila.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>
