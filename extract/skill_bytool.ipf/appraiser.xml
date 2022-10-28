@@ -275,11 +275,6 @@ return value"/>
                         <Frame Type="FAN" Time="9799" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" AniTime="9999" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
                     </HitList>
                     <EtcList>
-                        <Scp Scp="MONSKL_CRE_PAD" Client="NO" UseSleep="NO" Time="0">
-                            <Pos Angle="0" Dist="0" PosType="1"/>
-                            <Angle Angle="0"/>
-                            <Str Str="Appraiser_Blindside_HiddenAbil"/>
-                        </Scp>
                         <Scp Scp="SKL_END_AT_TIME" Client="NO" UseSleep="NO" Time="0">
                             <Num Num="2000"/>
                         </Scp>
@@ -290,6 +285,11 @@ return value"/>
                         <Scp Scp="SKL_SET_TARGET_CLIENT_TARGETTING" Client="NO" UseSleep="NO" Time="0">
                             <Num Num="1"/>
                             <Num Num="130"/>
+                        </Scp>
+                        <Scp Scp="MONSKL_CRE_PAD" Client="NO" UseSleep="NO" Time="0">
+                            <Pos Angle="0" Dist="0" PosType="1"/>
+                            <Angle Angle="0"/>
+                            <Str Str="Appraiser_Blindside_HiddenAbil"/>
                         </Scp>
                         <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="120">
                             <Str Str="voice_archer_atk"/>

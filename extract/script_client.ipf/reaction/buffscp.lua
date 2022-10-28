@@ -748,6 +748,14 @@ function PinkBlink_LEAVE(actor, obj, buff)
     actor:GetEffect():SetColorBlink(0,0,0,0,1,0,0,1, 0 , 1);
 end
 
+--하늘색
+function CyanBlink_ENTER(actor, obj, buff)
+    actor:GetEffect():SetColorBlink(0,0,0,0, 0,0.3,0.5,0, 1.5, 1);
+end
+    
+function CyanBlink_LEAVE(actor, obj, buff)
+    actor:GetEffect():SetColorBlink(0,0,0,0, 0,0,0,1, 0, 1);
+end
 
 -- 포인팅 디버프 블링크
 function Pointing_ENTER(actor, obj, buff)
@@ -1018,16 +1026,7 @@ end
 
 function ShadowPool_Buff_CLIENT_ENTER(actor, obj, buff)
     --movie.ShowModel(actor:GetHandleVal(), 0);
-    
-    local value = actor:GetEffect():SetColorBlend("ShadowPool", 0, 0, 0, 0, true, 0, false, 0);
-    local pc = GetMyPCObject()
-    local abil = session.GetAbilityByName('Shadowmancer16');
-    if abil ~= nil then
-        local abilObj = GetIES(abil:GetObject());
-        if abilObj.ActiveState == 1 then
-            value = actor:GetEffect():SetColorBlend("ShadowPool", 0, 0, 0, 255, true, 0, false, 0);
-        end
-    end
+    actor:GetEffect():SetColorBlend("ShadowPool", 0, 0, 0, 0, true, 0, false, 0);
 end
 
 function ShadowPool_Buff_CLIENT_LEAVE(actor, obj, buff)
@@ -1527,4 +1526,13 @@ end
 
 function StereaTrofhClientScp_LEAVE(actor, obj, buff)
     effect.DetachActorEffect(actor, "F_cleric_StereaTrofh_buff", 0.0);
+end
+
+function EP12DEMONLORD_EFFECT_PRE_ENTER(actor, obj, buff)
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
+end
+
+function EP12DEMONLORD_EFFECT_PRE_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "I_spread_out015_light_orange", 0.7);
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
 end

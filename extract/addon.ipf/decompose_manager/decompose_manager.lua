@@ -1,7 +1,6 @@
 function DECOMPOSE_MANAGER_ON_INIT(addon, frame)
 	addon:RegisterMsg('OPEN_DLG_DECOMPOSE_MANAGER', 'ON_OPEN_DLG_DECOMPOSE_MANAGER')
 	addon:RegisterMsg('RESULT_DECOMPOSE_MANAGER', 'ON_RESULT_DECOMPOSE_MANAGER')
-	addon:RegisterMsg('RESULT_DECOMPOSE_VIBORA', 'ON_RESULT_DECOMPOSE_VIBORA')
 end
 
 function ON_OPEN_DLG_DECOMPOSE_MANAGER(frame, msg, argStr, argNum)
@@ -45,10 +44,8 @@ function TOGGLE_DECOMPOSE_MANAGER_TAB(frame, index)
 		clmsg = 'CanGetMiscWhenDecomposeMiscLegend'
 	elseif index == 3 then
 		clmsg = 'CanGetMiscWhenDecomposeAccEp12'
-	elseif index == 4 then
-		clmsg = 'CanGetMiscWhenDecomposeVibora'
 	end
-	
+
 	tip_text:SetTextByKey('value', ClMsg(clmsg))
 end
 
@@ -64,17 +61,13 @@ function CLEAR_DECOMPOSE_MANAGER()
 	local tab = GET_CHILD_RECURSIVELY(frame, 'type_Tab')
 	local index = tab:GetSelectItemIndex()
 
-	for i = 1, 7 do
+	for i = 1, 2 do
 		local slot_result = GET_CHILD_RECURSIVELY(frame, 'result' .. i)
-		if slot_result ~= nil then
-			slot_result:ClearIcon()
-			slot_result:ShowWindow(0)
-		end
+		slot_result:ClearIcon()
+		slot_result:ShowWindow(0)
 
 		local text_result = GET_CHILD_RECURSIVELY(frame, 'text_result' .. i)
-		if text_result ~= nil then
-			text_result:SetText('')
-		end
+		text_result:SetText('')
 	end
 
 	local resultbox = GET_CHILD_RECURSIVELY(frame, 'resultbox')
@@ -102,7 +95,7 @@ function CLEAR_DECOMPOSE_MANAGER()
 	execbutton:ShowWindow(1)
 
 	local costBox = GET_CHILD_RECURSIVELY(frame, 'costBox')
-	if index == 2 then
+	if index == 2 or index == 3 then
 		costBox:ShowWindow(1)
 		DECOMPOSE_MANAGER_COST_UPDATE(frame, index)
 	else
@@ -230,15 +223,6 @@ function _CHECK_DECOMPOSABLE_ARK(itemObj)
 	return flag
 end
 
-function _CHECK_DECOMPOSABLE_EVIL(itemObj)
-	if CAN_DECOMPOSE_EVIL_GODDESS_ITEM(itemObj) == false then
-		ui.SysMsg(ClMsg('decomposeCant'))
-		return false
-	end
-
-	return true
-end
-
 function _CHECK_DECOMPOSABLE_UNIQUE(itemObj)
 	if ENABLE_DECOMPOSE_EVIL_GODDESS_ITEM(itemObj) == false then
 		ui.SysMsg(ClMsg('decomposeCant'))
@@ -258,24 +242,8 @@ function _CHECK_DECOMPOSABLE_LEGEND_MISC(itemObj)
 end
 
 function _CHECK_DECOMPOSABLE_ACC_EP12(itemObj)
-	local ret, msg = IS_DECOMPOSABLE_ACC_EP12(itemObj)
-
-	if ret == false then
-		ui.SysMsg(ClMsg(msg))
-		return false
-	end
-
-	return true
-end
-
-function _CHECK_DECOMPOSABLE_VIBORA(itemObj)
-	local ret, msg = IS_DECOMPOSABLE_VIBORA(itemObj)
-	if ret == false then
-		if msg ~= 'None' then
-			ui.SysMsg(ClMsg(msg))
-		else
-			ui.SysMsg(ClMsg('decomposeCant'))
-		end
+	if IS_DECOMPOSABLE_ACC_EP12(itemObj) == false then
+		ui.SysMsg(ClMsg('decomposeCant'))
 		return false
 	end
 
@@ -334,18 +302,16 @@ function DECOMPOSE_MANAGER_SET_TARGET(frame, itemGuid)
 	end
 	
 	local tab = GET_CHILD_RECURSIVELY(frame, 'type_Tab')
-	local index = tab:GetSelectItemIndex()	
+	local index = tab:GetSelectItemIndex()
 	local checkScp = 'None'
 	if index == 0 then
 		checkScp = '_CHECK_DECOMPOSABLE_ARK'
 	elseif index == 1 then
-		checkScp = '_CHECK_DECOMPOSABLE_EVIL'
+		checkScp = '_CHECK_DECOMPOSABLE_UNIQUE'
 	elseif index == 2 then
 		checkScp = '_CHECK_DECOMPOSABLE_LEGEND_MISC'
 	elseif index == 3 then
 		checkScp = '_CHECK_DECOMPOSABLE_ACC_EP12'
-	elseif index == 4 then
-		checkScp = '_CHECK_DECOMPOSABLE_VIBORA'
 	else
 		return
 	end
@@ -371,16 +337,6 @@ function DECOMPOSE_MANAGER_SET_TARGET(frame, itemGuid)
 	item_name:SetText(dic.getTranslatedStr(TryGetProp(itemObj, 'Name', 'None')))
 
 	frame:SetUserValue('TARGET_ITEM_GUID', itemGuid)
-	
-	if index == 0 then
-		DRAW_RESULT_DECOMPOSITION_ARK(frame)
-	elseif index == 1 then
-		DRAW_RESULT_DECOMPOSITION_EVIL(frame)
-	elseif index == 3 then
-		DRAW_RESULT_DECOMPOSITION_ACC(frame)
-	elseif index == 4 then
-		DRAW_RESULT_DECOMPOSITION_VIBORA(frame)
-	end
 
 	DECOMPOSE_MANAGER_COST_UPDATE(frame, index)
 end
@@ -408,13 +364,11 @@ function DECOMPOSE_MANAGER_EXECUTE(parent, ctrl)
 	if index == 0 then
 		checkScp = '_CHECK_DECOMPOSABLE_ARK'
 	elseif index == 1 then
-		checkScp = '_CHECK_DECOMPOSABLE_EVIL'
+		checkScp = '_CHECK_DECOMPOSABLE_UNIQUE'
 	elseif index == 2 then
 		checkScp = '_CHECK_DECOMPOSABLE_LEGEND_MISC'
 	elseif index == 3 then
 		checkScp = '_CHECK_DECOMPOSABLE_ACC_EP12'
-	elseif index == 4 then
-		checkScp = '_CHECK_DECOMPOSABLE_VIBORA'
 	else
 		return
 	end
@@ -426,6 +380,8 @@ function DECOMPOSE_MANAGER_EXECUTE(parent, ctrl)
 	end
 
 	if index == 2 and _CHECK_COST_ITEM() == false then
+		return
+	elseif index == 3 and _CHECK_COST_MONEY() == false then
 		return
 	end
 
@@ -444,13 +400,11 @@ function _DECOMPOSE_MANAGER_EXECUTE(targetGuid, index)
 	if index == 0 then
 		exec = 'ITEM_ARK_DECOMPOSE'
 	elseif index == 1 then
-		exec = 'ITEM_EVIL_DECOMPOSITION'
+		exec = 'ITEM_EVIL_GODDESS_DECOMPOSE'
 	elseif index == 2 then
 		exec = 'ITEM_LEGEND_MISC_DECOMPOSE'
 	elseif index == 3 then
-		exec = 'ITEM_ACC_RETURN_ITEM'
-	elseif index == 4 then
-		exec = 'ITEM_VIBORA_DECOMPOSE'
+		exec = 'ITEM_ACC_EP12_DECOMPOSE'
 	else
 		return
 	end
@@ -492,16 +446,14 @@ function ON_RESULT_DECOMPOSE_MANAGER(frame, msg, argStr, argNum)
 		local rewardCls = GetClass('Item', rewardClassName)
 		if rewardCls ~= nil then
 			local slot_result = GET_CHILD_RECURSIVELY(frame, 'result' .. i)
-			if slot_result ~= nil then
-				slot_result:ShowWindow(1)
-				SET_SLOT_IMG(slot_result, rewardCls.Icon)
-				SET_SLOT_COUNT(slot_result, rewardCount)
-				SET_SLOT_COUNT_TEXT(slot_result, rewardCount)
+			slot_result:ShowWindow(1)
+			SET_SLOT_IMG(slot_result, rewardCls.Icon)
+			SET_SLOT_COUNT(slot_result, rewardCount)
+			SET_SLOT_COUNT_TEXT(slot_result, rewardCount)
 
-				local text_result = GET_CHILD_RECURSIVELY(frame, 'text_result' .. i)
-				local reward_name = dic.getTranslatedStr(rewardCls.Name)
-				text_result:SetText(reward_name)
-			end
+			local text_result = GET_CHILD_RECURSIVELY(frame, 'text_result' .. i)
+			local reward_name = dic.getTranslatedStr(rewardCls.Name)
+			text_result:SetText(reward_name)
 		end
 	end
 
@@ -510,225 +462,4 @@ function ON_RESULT_DECOMPOSE_MANAGER(frame, msg, argStr, argNum)
 
 	local okbutton = GET_CHILD_RECURSIVELY(frame, 'okbutton')
 	okbutton:ShowWindow(1)
-end
-
-function ON_RESULT_DECOMPOSE_VIBORA(frame, msg, argStr, argNum)	
-	local slot = GET_CHILD_RECURSIVELY(frame, 'slot', 'ui::CSlot')
-	slot:ClearIcon()
-
-	local slot_bg_image = GET_CHILD_RECURSIVELY(frame, 'slot_bg_image')
-	slot_bg_image:ShowWindow(1)
-	
-	local item_name = GET_CHILD_RECURSIVELY(frame, 'text_itemname')
-	item_name:SetText('')
-	
-	local txt_complete = GET_CHILD_RECURSIVELY(frame, 'text_complete')
-	txt_complete:ShowWindow(1)
-
-	local execbutton = GET_CHILD_RECURSIVELY(frame, 'execbutton')
-	execbutton:ShowWindow(0)
-
-	local okbutton = GET_CHILD_RECURSIVELY(frame, 'okbutton')
-	okbutton:ShowWindow(1)
-end
-
-function DRAW_RESULT_DECOMPOSITION_VIBORA(frame)
-	local targetGuid = frame:GetUserValue('TARGET_ITEM_GUID')
-	
-	if targetGuid == "None" then
-		return
-	end
-	
-	local targetItem = session.GetInvItemByGuid(targetGuid)	
-	if targetItem == nil then
-		return
-	end
-	
-	local resultbox = GET_CHILD_RECURSIVELY(frame, 'resultbox')
-	resultbox:ShowWindow(1)
-
-	local item = GetIES(targetItem:GetObject())
-	local dic_item = GET_FINAL_VIBORA_DECOMPOSITION_MATERIAL(item)
-	
-	local idx = 1
-	for k, v in pairs(dic_item) do
-		local rewardClassName = k
-		local rewardCount = v
-		local rewardCls = GetClass('Item', rewardClassName)
-		if rewardCls ~= nil then
-			local slot_result = GET_CHILD_RECURSIVELY(frame, 'result' .. idx)
-			if slot_result ~= nil then
-				slot_result:ShowWindow(1)
-				SET_SLOT_IMG(slot_result, rewardCls.Icon)
-				SET_SLOT_COUNT(slot_result, rewardCount)
-				
-				if rewardClassName == 'Vis' then
-					SET_SLOT_COUNT_TEXT(slot_result, '')
-				else
-					SET_SLOT_COUNT_TEXT(slot_result, rewardCount)
-				end
-
-				local text_result = GET_CHILD_RECURSIVELY(frame, 'text_result' .. idx)
-				local reward_name = dic.getTranslatedStr(rewardCls.Name)
-				if rewardClassName == 'Vis' then
-					reward_name = reward_name .. ' (' .. GET_COMMAED_STRING(rewardCount) .. ')'
-				end
-				text_result:SetText(reward_name)
-			end
-			idx = idx + 1
-		end
-	end
-end
-
-function DRAW_RESULT_DECOMPOSITION_EVIL(frame)
-	local targetGuid = frame:GetUserValue('TARGET_ITEM_GUID')
-	
-	if targetGuid == "None" then
-		return
-	end
-	
-	local targetItem = session.GetInvItemByGuid(targetGuid)	
-	if targetItem == nil then
-		return
-	end
-	
-	local resultbox = GET_CHILD_RECURSIVELY(frame, 'resultbox')
-	resultbox:ShowWindow(1)
-
-	local item = GetIES(targetItem:GetObject())
-	local dic_item = GET_FINAL_EVIL_DECOMPOSITION_MATERIAL(item)
-	
-	local idx = 1
-	for k, v in pairs(dic_item) do
-		local rewardClassName = k
-		local rewardCount = v
-		local rewardCls = GetClass('Item', rewardClassName)
-		if rewardCls ~= nil then
-			local slot_result = GET_CHILD_RECURSIVELY(frame, 'result' .. idx)
-			if slot_result ~= nil then
-				slot_result:ShowWindow(1)
-				SET_SLOT_IMG(slot_result, rewardCls.Icon)
-				SET_SLOT_COUNT(slot_result, rewardCount)
-				
-				if rewardClassName == 'Vis' then
-					SET_SLOT_COUNT_TEXT(slot_result, '')					
-				else
-					SET_SLOT_COUNT_TEXT(slot_result, rewardCount)
-				end
-
-				local text_result = GET_CHILD_RECURSIVELY(frame, 'text_result' .. idx)
-				local reward_name = dic.getTranslatedStr(rewardCls.Name)
-				if rewardClassName == 'Vis' then
-					reward_name = reward_name .. ' (' .. GET_COMMAED_STRING(rewardCount) .. ')'
-				end
-
-				text_result:SetText(reward_name)
-			end
-			idx = idx + 1
-		end
-	end
-end
-
-function DRAW_RESULT_DECOMPOSITION_ACC(frame)
-	local targetGuid = frame:GetUserValue('TARGET_ITEM_GUID')
-	
-	if targetGuid == "None" then
-		return
-	end
-	
-	local targetItem = session.GetInvItemByGuid(targetGuid)	
-	if targetItem == nil then
-		return
-	end
-	
-	local resultbox = GET_CHILD_RECURSIVELY(frame, 'resultbox')
-	resultbox:ShowWindow(1)
-
-	local item = GetIES(targetItem:GetObject())
-	local dic_item = GET_FINAL_LUCIFERI_RETURN_LIST(item)
-	
-	local idx = 1
-	for k, v in pairs(dic_item) do
-		local rewardClassName = k
-		local rewardCount = v
-		local rewardCls = GetClass('Item', rewardClassName)
-		if rewardCls ~= nil then
-			local slot_result = GET_CHILD_RECURSIVELY(frame, 'result' .. idx)
-			if slot_result ~= nil then
-				slot_result:ShowWindow(1)
-				SET_SLOT_IMG(slot_result, rewardCls.Icon)
-				SET_SLOT_COUNT(slot_result, rewardCount)
-				
-				if rewardClassName == 'Vis' then
-					SET_SLOT_COUNT_TEXT(slot_result, 0)					
-				else
-					SET_SLOT_COUNT_TEXT(slot_result, rewardCount)
-				end
-
-				local text_result = GET_CHILD_RECURSIVELY(frame, 'text_result' .. idx)
-				local reward_name = dic.getTranslatedStr(rewardCls.Name)
-				if rewardClassName == 'Vis' then
-					reward_name = reward_name .. ' (' .. GET_COMMAED_STRING(rewardCount) .. ')'
-				end
-
-				text_result:SetText(reward_name)
-			end
-			idx = idx + 1
-		end
-	end
-end
-
-function DRAW_RESULT_DECOMPOSITION_ARK(frame)
-	local targetGuid = frame:GetUserValue('TARGET_ITEM_GUID')
-	
-	if targetGuid == "None" then
-		return
-	end
-	
-	local targetItem = session.GetInvItemByGuid(targetGuid)	
-	if targetItem == nil then
-		return
-	end
-	
-	local resultbox = GET_CHILD_RECURSIVELY(frame, 'resultbox')
-	resultbox:ShowWindow(1)
-
-	local item = GetIES(targetItem:GetObject())
-	local dic_item = {}
-	if TryGetProp(item, 'StringArg2', 'None') == 'Made_Ark' then
-		dic_item = shared_item_ark.get_final_return_ark_material_list(item)
-	elseif TryGetProp(item, 'StringArg2', 'None') == 'Quest_Ark' then
-		dic_item = shared_item_ark.get_final_return_exp(item)
-	end
-	
-	local idx = 1
-	for k, v in pairs(dic_item) do
-		local rewardClassName = k
-		local rewardCount = v
-		local rewardCls = GetClass('Item', rewardClassName)
-		if rewardCls ~= nil then
-			local slot_result = GET_CHILD_RECURSIVELY(frame, 'result' .. idx)
-			if slot_result ~= nil then
-				slot_result:ShowWindow(1)
-				SET_SLOT_IMG(slot_result, rewardCls.Icon)
-				SET_SLOT_COUNT(slot_result, rewardCount)
-				
-				if rewardClassName == 'Vis' then
-					SET_SLOT_COUNT_TEXT(slot_result, '')
-				else
-					SET_SLOT_COUNT_TEXT(slot_result, rewardCount)
-				end
-
-				local text_result = GET_CHILD_RECURSIVELY(frame, 'text_result' .. idx)
-				local reward_name = dic.getTranslatedStr(rewardCls.Name)
-				if rewardClassName == 'Vis' then
-					reward_name = reward_name .. ' (' .. GET_COMMAED_STRING(rewardCount) .. ')'
-				end
-
-				text_result:SetText(reward_name)
-			end
-			idx = idx + 1
-		end
-	end
-
 end

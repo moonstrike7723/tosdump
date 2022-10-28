@@ -386,16 +386,16 @@ function SCR_GET_CON(self)
     if enchantCount > 0 then
         local enchantStatString = "MNA";
         
-        local enchantByJob = TryGetProp(self, enchantStatString.."_JOB");
-        local enchantByStat = TryGetProp(self, enchantStatString.."_STAT");
-        local enchantByBonus = TryGetProp(self, enchantStatString.."_Bonus");
-        local enchantByTemp = GetExProp(self, enchantStatString.."_TEMP");
+        --local enchantByJob = TryGetProp(self, enchantStatString.."_JOB");
+        --local enchantByBonus = TryGetProp(self, enchantStatString.."_Bonus");
+        --local enchantByTemp = GetExProp(self, enchantStatString.."_TEMP");
+        local enchantByStat = TryGetProp(self, enchantStatString);
         local enchantRewardProp = GET_REWARD_PROPERTY(self, statString);
-        
-        byEnchant = ((enchantByJob + enchantByStat + enchantByBonus + enchantByTemp + enchantRewardProp) / 20) * enchantCount;
+
+        byEnchant = ((enchantByStat + enchantRewardProp) / 20) * enchantCount;
     end
     
-    local value = defaultStat + byJob + byStat + byBonus + byAdd + byTemp + rewardProperty;
+    local value = defaultStat + byJob + byStat + byBonus + byAdd + byTemp + byEnchant + rewardProperty;
     
     if value < 1 then
         value = 1;
@@ -1475,14 +1475,13 @@ end
 function SCR_Get_BLKABLE(self)
     local equipLH = GetEquipItem(self, 'LH');
     local isShield = TryGetProp(equipLH, 'ClassType');
+    local abilFencer22 = GetAbility(self, "Fencer22")
+    if abilFencer22 ~= nil and TryGetProp(abilFencer22, "ActiveState", 0) == 1 and TryGetProp(equipLH, "ClassType", "None") == "Dagger" then
+        return 1;
+    end
+
     if isShield == 'Shield' then
-        local Fencer11_abil = GetAbility(self, "Fencer11")
-        if Fencer11_abil ~= nil and Fencer11_abil.ActiveState == 1 then
-            return 0;
-        else
-            return 1;
-        end
-        
+        return 1;
     end
     
 --    local buffList = { "CrossGuard_Buff", "NonInvasiveArea_Buff", "EnchantEarth_Buff", "Retiarii_DaggerGuard" };
@@ -2849,6 +2848,15 @@ function SCR_Get_Sta_Run(self)
     value = value + (value * addRateConsumptionSTA);
     
     -- 이런 버프 늘어나면 구조화 필요
+    
+    if IsBuffApplied(self, 'Corsair_Roar_Buff') == 'YES' then
+        local buff = GetBuffByName(self, "Corsair_Roar_Buff")
+        local buffOver = 1 - GetOver(buff) * 0.1
+        if buffOver <= 0.5 then
+            buffOver = 0.5
+        end
+        value = value * buffOver
+    end
     if IsBuffApplied(self, 'Sprint_Buff') == 'YES' then
         value = 0;
     elseif IsBuffApplied(self, 'Stamina_Max_buff') == 'YES' then
@@ -3898,9 +3906,10 @@ function SCR_GET_Magic_Holy_Atk(pc)
 end
 
 function SCR_GET_Magic_Soul_Atk(pc)
-    -- 아이템에서는 사용하지 않아 아이템에 대한 추가치 로직은 없음
-    -- 만약 아이템에서 사용하게 되면 로직 추가해야함
-    local byItem = 0;
+    local byItem = GetSumOfEquipItem(pc, "Magic_Soul_Atk");
+    if byItem == nil then
+        byItem = 0;
+    end
     
     local byBuff = TryGetProp(pc, "Magic_Soul_Atk_BM");
     if byBuff == nil then

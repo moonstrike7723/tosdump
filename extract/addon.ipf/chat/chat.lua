@@ -54,11 +54,7 @@ function CHAT_SET_TO_TITLENAME(chatType, targetName)
 	local btn_ChatType = GET_CHILD(frame,'button_type');
 
 	-- 귓속말 ctrl의 시작위치는 type btn 뒤쪽에.
-	if config.GetServiceNation() == "GLOBAL" then
-		titleCtrl:SetOffset(btn_ChatType:GetOriginalWidth() + 20, titleCtrl:GetOriginalY());
-	else
-		titleCtrl:SetOffset(btn_ChatType:GetOriginalWidth(), titleCtrl:GetOriginalY());
-	end
+	titleCtrl:SetOffset(btn_ChatType:GetOriginalWidth(), titleCtrl:GetOriginalY());
 	local offsetX = btn_ChatType:GetOriginalWidth(); -- 시작 offset은 type btn 넓이 다음으로.
 	local titleText = '';
 	local isVisible = 0;
@@ -97,12 +93,7 @@ function CHAT_SET_TO_TITLENAME(chatType, targetName)
 	local width = chatEditCtrl:GetOriginalWidth() - titleCtrl:GetWidth() - btn_ChatType:GetWidth();
 	chatEditCtrl:Resize(width, chatEditCtrl:GetOriginalHeight());
 	
-	if config.GetServiceNation() == "GLOBAL" then
-	chatEditCtrl:SetOffset(offsetX+20, chatEditCtrl:GetOriginalY());	
-	else
-			chatEditCtrl:SetOffset(offsetX, chatEditCtrl:GetOriginalY());	
-	end		
-	
+	chatEditCtrl:SetOffset(offsetX, chatEditCtrl:GetOriginalY());	
 end
 
 
@@ -182,7 +173,7 @@ end;
 function CHAT_OPEN_TYPE()
 	local chatFrame = ui.GetFrame('chat');
 	local frame = ui.GetFrame('chattypelist');
-	frame:SetPos(chatFrame:GetX() + 3, chatFrame:GetY() - frame:GetHeight());	
+	frame:SetPos(chatFrame:GetX() + 10, chatFrame:GetY() - frame:GetHeight());	
 	frame:ShowWindow(1);	
 	frame:SetDuration(3);
 end;

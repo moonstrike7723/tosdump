@@ -3,7 +3,6 @@ function REGULAR_BURNING_EVENT_TRIGGER_CHECK(self)
 	local daytime = os.date("*t")
 	local year, month, day, hour, minute, second, weekday = daytime['year'], daytime['month'], daytime['day'], daytime['hour'], daytime['min'], daytime['sec'], daytime['wday']
 	local nowbasicyday = SCR_DATE_TO_YDAY_BASIC_2000(year, month, day)
-	local isSeasonServer = IS_SEASON_SERVER();
 	 
     if month < 10 then
         month = "0"..tostring(month)
@@ -25,14 +24,12 @@ function REGULAR_BURNING_EVENT_TRIGGER_CHECK(self)
         second = "0"..tostring(second)
     end
 	
-	if isSeasonServer == "NO" then
-		local npc = GetScpObjectList(self, "WEEKEND_REGULAR_EVENT")
-		if #npc == 0 then
-			if weekday == 1 or weekday == 6 or weekday == 7 then --일, 금, 토
-				if tonumber(hour..minute..second) > 0 then
-					local countResetNPC = CREATE_MONSTER_EX(self, 'NPC_GM2', x, y, z, GetDirectionByAngle(self), "Neutral", 1, WEEKEND_REGULAR_BURNING_EVENT_NPC_INFORMATION)
-					AddScpObjectList(self, "WEEKEND_REGULAR_EVENT", countResetNPC)
-				end
+	local npc = GetScpObjectList(self, "WEEKEND_REGULAR_EVENT")
+	if #npc == 0 then
+		if weekday == 1 or weekday == 6 or weekday == 7 then --일, 금, 토
+			if tonumber(hour..minute..second) > 0 then
+				local countResetNPC = CREATE_MONSTER_EX(self, 'NPC_GM2', x, y, z, GetDirectionByAngle(self), "Neutral", 1, WEEKEND_REGULAR_BURNING_EVENT_NPC_INFORMATION)
+				AddScpObjectList(self, "WEEKEND_REGULAR_EVENT", countResetNPC)
 			end
 		end
 	end
@@ -59,9 +56,6 @@ end
 
 
 function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
-	if IS_SEASON_SERVER(pc) == 'YES' then
-		return
-	end
     local accountObject = GetAccountObj(pc)
     local daytime = os.date("*t")
 	local year, month, day, hour, minute, second, weekday = daytime['year'], daytime['month'], daytime['day'], daytime['hour'], daytime['min'], daytime['sec'], daytime['wday']
@@ -169,6 +163,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_803", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_805", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_806", 0)
+                        TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_808", 0)
                         TxSetIESProp(tx, accountObject, "REGULAR_BURNING_EVENT_COUNT_RESET", 1)
                         local ret = TxCommit(tx)
         

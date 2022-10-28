@@ -5496,6 +5496,11 @@ function SCR_PRE_ITEM_Escape(self, argObj, BuffName, arg1, arg2)
             return 0
         end
         
+        if IsRaidField(self) == 1 then
+            SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("EscapeDisabled"), 5);
+            return 0
+        end
+        
         local keyword = TryGetProp(obj, "Keyword", "None")
         local keywordList = StringSplit(keyword, ";");
         

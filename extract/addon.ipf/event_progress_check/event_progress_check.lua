@@ -56,7 +56,9 @@ function EVENT_PROGRESS_CHECK_INIT(frame, type)
 	title_deco:SetImage(GET_EVENT_PROGRESS_CHECK_TITLE_DECO(type));
 	
 	local loadingtext = GET_CHILD_RECURSIVELY(frame, "loadingtext");
-	loadingtext:ShowWindow(0);
+    loadingtext:ShowWindow(0);
+    
+    frame:SetUserValue("TYPE", type)
 end
 
 function EVENT_PROGRESS_CHECK_TAB_CLICK(parent, ctrl, argStr, type)
@@ -83,7 +85,7 @@ function EVENT_PROGRESS_CHECK_TAB_CLICK(parent, ctrl, argStr, type)
 
 	if index == 0 then
 		EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type);
-	elseif index == 1 then
+    elseif index == 1 then
         EVENT_PROGRESS_CHECK_STAMP_TOUR_STATE_OPEN(frame, type);
     elseif index == 2 then
         EVENT_PROGRESS_CHECK_CONTENTS_STATE_OPEN(parent:GetTopParentFrame(), type);
@@ -132,10 +134,10 @@ function EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type)
 	local tooltiplist = GET_EVENT_PROGRESS_CHECK_ACQUIRE_STATE_TOOLTIP(type);
 	local maxlist = GET_EVENT_PROGRESS_CHECK_ACQUIRE_STATE_MAX_VALUE(type);
 	local npclist = GET_EVENT_PROGRESS_CHECK_ACQUIRE_STATE_NPC(type);
-	local clearlist = GET_EVENT_PROGRESS_CHECK_ACQUIRE_STATE_CLEAR_TEXT(type);
+    local clearlist = GET_EVENT_PROGRESS_CHECK_ACQUIRE_STATE_CLEAR_TEXT(type);
 
 	local y = 0;
-	for i = 1, 5 do
+    for i = 1, 5 do
 		local ctrlSet = listgb:CreateControlSet('icon_with_current_state', "CTRLSET_" .. i,  ui.CENTER_HORZ, ui.TOP, 0, y, 0, 0);
 		local iconpic = GET_CHILD(ctrlSet, "iconpic");
 		iconpic:SetImage(iconlist[i]);
@@ -166,7 +168,7 @@ function EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type)
 
 		local state = GET_CHILD(ctrlSet, "state");
 		local curvalue = curlist[i];
-		local maxvalue = maxlist[i];
+        local maxvalue = maxlist[i];
 
 		if maxvalue <= curvalue and maxvalue ~= 0 then
 			blackbg:ShowWindow(1);
@@ -200,10 +202,23 @@ function EVENT_PROGRESS_CHECK_ACQUIRE_STATE_OPEN(frame, type)
 		state:SetTextByKey('max', " / "..maxvalue);
 		if maxvalue == 0 then
 			state:SetTextByKey('max', "");
-		end
+        end
+
+        -- -- EVENT_2009_FULLMOON
+        -- if type == 5 then
+        --     -- 단계
+        --     if i == 1 then
+        --         state:SetTextByKey('max', " "..ClMsg("Step"));
+        --     end
+
+        --     -- 포인트
+        --     if i == 2 then
+        --         state:SetTextByKey('max', " "..ClMsg("POINT"));
+        --     end
+        -- end
 
 		y = y + ctrlSet:GetHeight();
-	end
+    end
 end
 
 function EVENT_PROGRESS_CHECK_DAILY_PLAY_TIME_UPDATE(frame, msg, time)
@@ -222,7 +237,12 @@ function EVENT_PROGRESS_CHECK_DAILY_PLAY_TIME_UPDATE(frame, msg, time)
 	local ctrlSet = GET_CHILD_RECURSIVELY(frame, "CTRLSET_2");
 	if ctrlSet == nil then
 		return;
-	end
+    end
+    
+    -- -- EVENT_2009_FULLMOON
+    -- if frame:GetUserValue("TYPE") == 5 then
+    --     return;
+    -- end
 	
 	local state = GET_CHILD(ctrlSet, "state");
 	state:SetTextByKey("cur", time);

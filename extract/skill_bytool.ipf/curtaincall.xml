@@ -21,6 +21,16 @@
 					<Str Str="voice_m_pubilc_cast_2"/>
 					<Str Str="voice_atk_medium_war_f"/>
 				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="RH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
+				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="LH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
+				</Scp>
 				<Scp Client="NO" Scp="SKL_BUFF" Time="1350" UseSleep="NO">
 					<Str Str="ITEM_BUFF_Curtaincall_EvilWithin_Boy"/>
 					<Num Num="1"/>
@@ -48,6 +58,16 @@
 				<Scp Client="YES" Scp="C_VOICE_SOUND" Time="1450" UseSleep="NO">
 					<Str Str="voice_war_atk_long_shot"/>
 					<Str Str="voice_f_pubilc_cast_4"/>
+				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="RH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
+				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="LH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
 				</Scp>
 				<Scp Client="NO" Scp="SKL_BUFF" Time="900" UseSleep="NO">
 					<Str Str="ITEM_BUFF_Curtaincall_EvilWithin_Girl"/>
@@ -81,6 +101,16 @@
 					<Str Str="voice_m_pubilc_cast_2"/>
 					<Str Str="voice_atk_medium_war_f"/>
 				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="RH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
+				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="LH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
+				</Scp>
 				<Scp Client="NO" Scp="SKL_BUFF" Time="1350" UseSleep="NO">
 					<Str Str="ITEM_BUFF_Curtaincall_EvilWithin_Boy"/>
 					<Num Num="1"/>
@@ -108,6 +138,16 @@
 				<Scp Client="YES" Scp="C_VOICE_SOUND" Time="1450" UseSleep="NO">
 					<Str Str="voice_war_atk_long_shot"/>
 					<Str Str="voice_f_pubilc_cast_4"/>
+				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="RH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
+				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="LH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
 				</Scp>
 				<Scp Client="NO" Scp="SKL_BUFF" Time="900" UseSleep="NO">
 					<Str Str="ITEM_BUFF_Curtaincall_EvilWithin_Girl"/>
@@ -141,6 +181,16 @@
 					<Str Str="voice_m_pubilc_cast_2"/>
 					<Str Str="voice_atk_medium_war_f"/>
 				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="RH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
+				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="LH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
+				</Scp>
 				<Scp Client="NO" Scp="SKL_BUFF" Time="1350" UseSleep="NO">
 					<Str Str="ITEM_BUFF_Curtaincall_EvilWithin_Boy"/>
 					<Num Num="1"/>
@@ -168,6 +218,16 @@
 				<Scp Client="YES" Scp="C_VOICE_SOUND" Time="1450" UseSleep="NO">
 					<Str Str="voice_war_atk_long_shot"/>
 					<Str Str="voice_f_pubilc_cast_4"/>
+				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="RH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
+				</Scp>
+				<Scp Client="YES" Scp="C_SHOW_PARTS_MODEL" Time="0" UseSleep="NO">
+					<Str Str="LH"/>
+					<Num Num="0"/>
+					<Num Num="1"/>
 				</Scp>
 				<Scp Client="NO" Scp="SKL_BUFF" Time="900" UseSleep="NO">
 					<Str Str="ITEM_BUFF_Curtaincall_EvilWithin_Girl"/>

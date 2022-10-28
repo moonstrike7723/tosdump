@@ -160,9 +160,7 @@
                         <Num Num="5"/>
                     </ToolScp>
                 </StartScpList>
-                <ObjList>
-               <Obj Type="Monster" MonType="160065" Pos="-2613.26#292.69#-237.93" genCount="1" genTime="20000" objectKey="1"/>
-                </ObjList>
+                <ObjList/>
                 <StageEvents>
                     <Event execCount="1" eventName="RETURN_ZONE">
                         <condList>
@@ -630,12 +628,15 @@
                             </ToolScp>
                         </execList>
                     </Event>
-                    <Event execMS="3000" execCount="1" eventName="Clear" execWithStart="0" isEnabled="0">
+                    <Event execMS="20000" execCount="1" eventName="Clear" execWithStart="0" isEnabled="0">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="END"/>
                                 <Str Str="=="/>
                                 <Num Num="1"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK_START" Client="NO" UseSleep="NO">
+                                <Num Num="16"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -820,22 +821,15 @@
                                 <Num Num="1"/>
                                 <Str Str="OVER"/>
                             </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_COND_GLOBAL_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="60"/>
-                                <Str Str="Dark"/>
-                            </ToolScp>
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
                                 <MGameObj List="Stage_03(Moringponia)/4"/>
                                 <Str Str="SCR_MORINGPONIA_HARD_SOLO_DARK_PATTERN"/>
                             </ToolScp>
-                            <ToolScp Scp="GAME_EVT_ON_BYNAME" Client="NO" UseSleep="NO">
-                                <Str Str="DARK_PATTERN(68%)"/>
-                            </ToolScp>
                         </execList>
                     </Event>
-                    <Event execCount="1" eventName="DARK_PATTERN(68%)" execWithStart="0" isEnabled="0">
+                    <Event execCount="1" eventName="DARK_PATTERN(68%)">
                         <condList>
                             <ToolScp Scp="MGAME_EVT_COND_MONHP_ACCURATE" Client="NO" UseSleep="NO">
                                 <MGameObj List="Stage_03(Moringponia)/4"/>
@@ -844,25 +838,15 @@
                                 <Num Num="1"/>
                                 <Str Str="OVER"/>
                             </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_COND_GLOBAL_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="60"/>
-                                <Str Str="Dark"/>
-                            </ToolScp>
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
                                 <MGameObj List="Stage_03(Moringponia)/4"/>
                                 <Str Str="SCR_MORINGPONIA_HARD_SOLO_DARK_PATTERN"/>
                             </ToolScp>
-                            <ToolScp Scp="GAME_EVT_OFF_BYNAME" Client="NO" UseSleep="NO">
-                                <Str Str="DARK_PATTERN(93%)"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_EVT_ON_BYNAME" Client="NO" UseSleep="NO">
-                                <Str Str="DARK_PATTERN(10%)"/>
-                            </ToolScp>
                         </execList>
                     </Event>
-                    <Event execCount="1" eventName="DARK_PATTERN(10%)" execWithStart="0" isEnabled="0">
+                    <Event execCount="1" eventName="DARK_PATTERN(10%)">
                         <condList>
                             <ToolScp Scp="MGAME_EVT_COND_MONHP_ACCURATE" Client="NO" UseSleep="NO">
                                 <MGameObj List="Stage_03(Moringponia)/4"/>
@@ -871,18 +855,11 @@
                                 <Num Num="1"/>
                                 <Str Str="OVER"/>
                             </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_COND_GLOBAL_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="60"/>
-                                <Str Str="Dark"/>
-                            </ToolScp>
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
                                 <MGameObj List="Stage_03(Moringponia)/4"/>
                                 <Str Str="SCR_MORINGPONIA_HARD_SOLO_DARK_PATTERN"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_EVT_OFF_BYNAME" Client="NO" UseSleep="NO">
-                                <Str Str="DARK_PATTERN(68%)"/>
                             </ToolScp>
                         </execList>
                     </Event>

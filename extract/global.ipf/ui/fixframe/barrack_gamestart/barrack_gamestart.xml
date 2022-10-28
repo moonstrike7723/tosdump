@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<uiframe name="barrack_gamestart" width="650" height="210">
+	<frame title="캐릭터선택" margin="0 0 0 40"/>
+	<controls>
+		<checkbox name="hidelogin" margin="0 65 0 25" layout_gravity="center top"/>
+	</controls>
+</uiframe>

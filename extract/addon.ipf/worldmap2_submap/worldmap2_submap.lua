@@ -221,6 +221,7 @@ function WORLDMAP2_SUBMAP_DRAW_BASE(frame)
     local submapSbarSubQText = AUTO_CAST(frame:GetChild("submap_sbar_subq_text"))
     local submapShowOption = AUTO_CAST(frame:GetChild("submap_show_option_gb"))
     local submapTip = AUTO_CAST(frame:GetChild("submap_tip"))
+    local submapTipText = AUTO_CAST(submapTip:GetChild("submap_tip_text"))
 
 	submapPic:SetImage(mapData.SubmapImageName)
 
@@ -296,6 +297,8 @@ function WORLDMAP2_SUBMAP_DRAW_BASE(frame)
     else
         submapTip:ShowWindow(0)
     end
+
+    submapTip:Resize(submapTipText:GetWidth() + 20, submapTip:GetHeight())
 end
 
 function WORLDMAP2_SUBMAP_DRAW(frame)

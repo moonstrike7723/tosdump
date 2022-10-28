@@ -85,7 +85,7 @@ end
 g_legendCraftRecipeTable = {}; -- key: DropGroupName, vlaue: className list
 g_legendCraftRecipeTableByGroupName = {}; -- key: Item.GroupName, value: className list
 g_legendArmorTable = {};
-function LEGEND_CRAFT_INIT_RECIPE_LIST()	
+function LEGEND_CRAFT_INIT_RECIPE_LIST()
 	if #g_legendCraftRecipeTable > 0 then
 		return;
 	end
@@ -95,16 +95,16 @@ function LEGEND_CRAFT_INIT_RECIPE_LIST()
 	local clslist, cnt = GetClassList('legendrecipe');
 	for i = 0, cnt - 1 do
 		local cls = GetClassByIndexFromList(clslist, i);
-		if cls.DropGroup ~= "Ark" then			
+		if cls.DropGroup ~= "Ark" then
 			if g_legendCraftRecipeTable[cls.DropGroupName] == nil then
 				g_legendCraftRecipeTable[cls.DropGroupName] = {};
 			end
 			local recipeList = g_legendCraftRecipeTable[cls.DropGroupName];
 			g_legendCraftRecipeTable[cls.DropGroupName][#recipeList + 1] = cls.ClassName;
 	
-			local targetItem = GetClass('Item', cls.ClassName);		
+			local targetItem = GetClass('Item', cls.TargetItem);
 			if g_legendCraftRecipeTableByGroupName[targetItem.GroupName] == nil then
-				g_legendCraftRecipeTableByGroupName[targetItem.GroupName] = {};			
+				g_legendCraftRecipeTableByGroupName[targetItem.GroupName] = {};
 			end
 			local nameList = g_legendCraftRecipeTableByGroupName[targetItem.GroupName];
 			g_legendCraftRecipeTableByGroupName[targetItem.GroupName][#nameList + 1] = cls.ClassName;
@@ -218,7 +218,7 @@ function IS_NEED_TO_SHOW_LEGEND_RECIPE(frame, recipeCls, checkGroup, checkMateri
 		end
 	end
 
-	local targetItem = GetClass('Item', recipeCls.ClassName);	
+	local targetItem = GetClass('Item', recipeCls.TargetItem);
 	if checkGroupName ~= 'None' then -- 클래스 타입 체크
 		if targetItem.GroupName ~= checkGroupName then
 			return false;
@@ -230,7 +230,7 @@ function IS_NEED_TO_SHOW_LEGEND_RECIPE(frame, recipeCls, checkGroup, checkMateri
 	end
 
 	if checkEquipable == 1 then -- 착용 여부 체크
-		local prop = geItemTable.GetProp(targetItem.ClassID);		
+		local prop = geItemTable.GetProp(targetItem.ClassID);
 		local result = prop:CheckEquip(GETMYPCLEVEL(), GETMYPCJOB(), GETMYPCGENDER());
 		if result ~= "OK" then
 			return false;
@@ -261,7 +261,7 @@ function LEGEND_CRAFT_MAKE_CTRLSET(recipeBox, recipeCls, checkGroup, checkMateri
 		return;
 	end	
 
-	local targetItem = GetClass('Item', recipeCls.ClassName);
+	local targetItem = GetClass('Item', recipeCls.TargetItem);
 	local ctrlset = recipeBox:CreateOrGetControlSet('earthTowerRecipe', 'RECIPE_'..recipeCls.ClassName, 0, 0);
 
 	local itemCountGBox = GET_CHILD_RECURSIVELY(ctrlset, "gbox");
@@ -415,9 +415,16 @@ function LEGEND_CRAFT_EXECUTE(parent, ctrl)
 			session.AddItemID(guid_list[i], 1);
 		end
 		local resultlist = session.GetItemIDList();
-    	item.DialogTransaction("SPECIAL_MISC_CRAFT", resultlist, "", nameList);    
+    	item.DialogTransaction("SPECIAL_MISC_CRAFT", resultlist, "", nameList);
 	else
-		pc.ReqExecuteTx_Item2("LEGEND_CRAFT", guid_list[1], guid_list[2], guid_list[3], argList);
+		local nameList = NewStringList();
+    	nameList:Add(recipeCls.ClassID)    
+	    session.ResetItemList();
+		for i = 1, maxMaterialCnt do
+			session.AddItemID(guid_list[i], 1);
+		end
+		local resultlist = session.GetItemIDList();
+    	item.DialogTransaction("LEGEND_CRAFT", resultlist, "", nameList);		
 
 	end
 end

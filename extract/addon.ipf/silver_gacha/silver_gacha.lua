@@ -5,8 +5,6 @@ function SILVER_GACHA_ON_INIT(addon, frame)
     addon:RegisterMsg('SILVER_GACHA_NO_EVENT_EXIST', 'ON_SILVER_GACHA_NO_EVENT_EXIST');
 end
 
-local SILVER_GACHA_UNLIMITED_COUNT = 10000000
-
 -- SETTING
 function SILVER_GACHA_GET_EVENT_ID()
 	return ui.GetFrame("silver_gacha"):GetUserConfig("EVENT_ID")
@@ -66,7 +64,7 @@ function ON_SILVER_GACHA_INFO_CHANGE()
             local slot = AUTO_CAST(ctrl:GetChild('slot'))
             local text = AUTO_CAST(ctrl:GetChild('slot_text'))
 
-            if originalCount < SILVER_GACHA_UNLIMITED_COUNT then
+            if rank ~= 3 then
                 text:SetTextByKey("now", nowCount)
                 text:SetTextByKey("original", originalCount)
 
@@ -93,24 +91,12 @@ function SILVER_GACHA_INIT()
     GET_CHILD_RECURSIVELY(frame, "auto_edit"):SetText('')
     GET_CHILD_RECURSIVELY(frame, 'dedication_slot'):ClearIcon()
     
-    SILVER_GACHA_TOGGLE_BUTTON("ON")
-    
-    GET_CHILD_RECURSIVELY(frame, "once_count_edit"):SetText('1')
-    SILVER_GACHA_TOTAL_ONCE_SILVER_UPDATE(1)
+	SILVER_GACHA_TOGGLE_BUTTON("ON")
 end
 
 -- UI SET
 function SILVER_GACHA_SET_UI()
     local frame = ui.GetFrame("silver_gacha")
-    local gb = frame:GetChild("protection_gb")
-
-    gb:RemoveAllChild()
-    
-    -- 배경 이미지
-    local pic = AUTO_CAST(gb:CreateControl('picture', 'protection_gb_pic', 572, 720, ui.CENTER_HORZ, ui.CENTER_VERT, 0, 0, 0, 0))
-    pic:SetImage(frame:GetUserConfig('BACKGROUND_IMAGE'))
-
-    -- 이벤트 ID
     local eventID = SILVER_GACHA_GET_EVENT_ID()
 
     -- 시간
@@ -160,7 +146,7 @@ function SILVER_GACHA_SET_UI()
             -- 텍스트
             local text = AUTO_CAST(ctrl:GetChild('slot_text'))
 
-            if originalCount >= SILVER_GACHA_UNLIMITED_COUNT then
+            if rank == 3 then
                 text:SetText("{@st100white_16}{s26}"..ScpArgMsg("SilverGachaMaxVal"))
             else
                 text:SetTextByKey("now", nowCount)
@@ -337,9 +323,7 @@ function SILVER_GACHA_CLICK()
     SILVER_GACHA_DEDICATION_EFFECT()
 
     -- 실행
-    local once_edit = GET_CHILD_RECURSIVELY(frame, "once_count_edit");
-    local onceCnt = tonumber(once_edit:GetText());
-    silver_gacha_shop.RequestSilverGachaShopGamble(SILVER_GACHA_GET_EVENT_ID(), true, onceCnt)
+    silver_gacha_shop.RequestSilverGachaShopGamble(SILVER_GACHA_GET_EVENT_ID(), true)
 end
 
 -- EXEC (AUTO)
@@ -411,9 +395,7 @@ function AUTO_SILVER_GACHA_DEDICATION_CLICK()
     end
 
     -- 실행
-    local once_edit = GET_CHILD_RECURSIVELY(frame, "once_count_edit");
-    local onceCnt = tonumber(once_edit:GetText());
-    silver_gacha_shop.RequestSilverGachaShopGamble(SILVER_GACHA_GET_EVENT_ID(), true, onceCnt)
+    silver_gacha_shop.RequestSilverGachaShopGamble(SILVER_GACHA_GET_EVENT_ID(), true)
 end
 
 -- SCRIPT
@@ -505,55 +487,4 @@ function SILVER_GACHA_SPINE()
 		end	
 	end
 	
-end
-
-function SILVER_GACHA_ONCE_COUNT_TYPING(parent, ctrl)
-    local edit = GET_CHILD(parent, "once_count_edit");
-    if edit:GetText() == nil or edit:GetText() == "" then
-        edit:SetText(1);
-    end
-
-    local curCnt = tonumber(edit:GetText());
-    SILVER_GACHA_TOTAL_ONCE_SILVER_UPDATE(upCnt);
-end
-
-function SILVER_GACHA_ONCE_COUNT_UPBTN_CLICK(parent, ctrl)
-    local edit = GET_CHILD(parent, "once_count_edit");
-
-    local curCnt = tonumber(edit:GetText());
-    local upCnt = curCnt + 1; 
-    if 5 < upCnt then
-        upCnt = 5;
-    end
-
-    edit:SetText(upCnt);
-    SILVER_GACHA_TOTAL_ONCE_SILVER_UPDATE(upCnt);
-end
-
-function SILVER_GACHA_ONCE_COUNT_DOWNBTN_CLICK(parent, ctrl)
-    local edit = GET_CHILD(parent, "once_count_edit");
-    
-    local curCnt = tonumber(edit:GetText());
-    local downCnt = curCnt - 1; 
-    if downCnt < 1 then
-        downCnt = 1;
-    end
-
-    edit:SetText(downCnt);
-    SILVER_GACHA_TOTAL_ONCE_SILVER_UPDATE(downCnt);
-end
-
-function SILVER_GACHA_TOTAL_ONCE_SILVER_UPDATE(count)
-    local frame = ui.GetFrame("silver_gacha");
-    local eventID = frame:GetUserConfig("EVENT_ID");
-    
-    local cost = GetSilverGachaEventCost(eventID);
-
-    local edit = GET_CHILD_RECURSIVELY(frame, "once_count_edit");
-    local onceCnt = tonumber(edit:GetText());
-
-    local total = onceCnt * cost;
-
-    local silverText = GET_CHILD_RECURSIVELY(frame, "dedication_silver");
-    silverText:SetTextByKey("value", total);
 end

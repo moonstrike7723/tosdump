@@ -2381,8 +2381,8 @@
                                 <Str Str="Success"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_EVT_OFF" Client="NO" UseSleep="NO"/>
-                            <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
-                                <Str Str="SCR_UPHILL_DEFENSE_CLEAR_RECORD"/>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_UPHILL_DEFENSE_STEP_RECORD"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -2619,8 +2619,8 @@
                                 <Str Str="Step_Hidden"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_EVT_OFF" Client="NO" UseSleep="NO"/>
-                            <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
-                                <Str Str="SCR_UPHILL_DEFENSE_CLEAR_RECORD"/>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_UPHILL_DEFENSE_STEP_RECORD"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -2723,6 +2723,9 @@
                             <ToolScp Scp="MGAME_RANK_RESET_POINT_SETTING" Client="NO" UseSleep="NO">
                                 <Num Num="10"/>
                                 <Str Str="UphillDefense"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_UPHILL_DEFENSE_CLEAR_RECORD"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -3154,6 +3157,9 @@
                                 <Num Num="10"/>
                                 <Str Str="UphillDefense"/>
                             </ToolScp>
+                            <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_UPHILL_DEFENSE_CLEAR_RECORD"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -3238,8 +3244,8 @@
                                 <Str Str="Success"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_EVT_OFF" Client="NO" UseSleep="NO"/>
-                            <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
-                                <Str Str="SCR_UPHILL_DEFENSE_CLEAR_RECORD"/>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_UPHILL_DEFENSE_STEP_RECORD"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -3289,8 +3295,8 @@
                                 <Str Str="Success"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_EVT_OFF" Client="NO" UseSleep="NO"/>
-                            <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
-                                <Str Str="SCR_UPHILL_DEFENSE_CLEAR_RECORD"/>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_UPHILL_DEFENSE_STEP_RECORD"/>
                             </ToolScp>
                         </execList>
                     </Event>

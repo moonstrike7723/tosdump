@@ -189,6 +189,8 @@ function SKL_KEY_DYNAMIC_CASTING_HAVE_ABIL(actor, obj, dik, movable, rangeCharge
 			end
 		end
 	end
+
+	return 0, 1
 end
 
 function SKL_KEY_SELECT_CELL(actor, obj, dik, cellCount, cellSize, chargeTime, autoShot, cellEft, cellEftScale, selCellEft, selCellEftScale, selectionEft, selectionEftScale, backSelect, drawSelectablePos, hitCancel)
@@ -288,9 +290,13 @@ end
 
 function SKL_KEY_GROUND_EVENT_ABIL(actor, obj, dik, checkAbil, chargeTime, autoShot, shotCasting, lookTargetPos, selRange, upAbleSec, useDynamicLevel, isVisivle, isFullCharge, effectName, scale, nodeName, lifeTime, shockWave, shockPower, shockTime, shockFreq, shockAngle, onlyMouseMode, quickCast, hitCancel, buffName, abilName)
 	local abil = session.GetAbilityByName(checkAbil);
-	if abil ~= nil then
+	if abil == nil then
+		return 0;
+	else
 		local abilObj = GetIES(abil:GetObject());
-		if abilObj.ActiveState == 1 then
+		if abilObj.ActiveState == 0 then
+			return 0;
+		else
 			if buffName ~= nil and type(buffName) == 'string' and buffName ~= 'None' then
 				local buff = info.GetBuffByName(session.GetMyHandle(), buffName);
 				if buff ~= nil then
@@ -453,7 +459,13 @@ function SKL_PARTY_TARGET_BY_KEY(actor, obj, dik, showHPGauge)
 	if showHPGauge == nil then
 		showHPGauge = 0;
 	end
-	geSkillControl.SelectTargetFromPartyList(actor, obj.type, showHPGauge);
+	
+	local ancientList, ancientCnt = GetAncientHandleList()
+	if obj.type == 40001 and IS_ANCIENT_HEAL_ENABLE() == 'YES' and ancientCnt > 0 then
+		geSkillControl.SelectTargetAncient(actor, obj.type, showHPGauge)
+	else
+		geSkillControl.SelectTargetFromPartyList(actor, obj.type, showHPGauge);
+    end
 	return 1, 0;
 end
 

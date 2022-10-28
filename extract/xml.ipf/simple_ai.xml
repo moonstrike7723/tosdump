@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by asdasd (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <AIList>
 	<AI Name="3CMLAKE262_SQ11_CHECK" ActiveMessageMapInBattle="1">
 		<List>
@@ -951,7 +951,46 @@
 				<Str Str="AMANDA_RUN_AI_UPDATE"/>
 			</ToolScp>
 			<ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
-				<AbsPos X="572.72083" Y="238.79839" Z="153.81157"/>
+                <AbsPos X="-554.74481" Y="174.71114" Z="-909.70142"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="-620.85504" Y="174.71112" Z="-892.00824"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="-567.98877" Y="327.32657" Z="-538.52191"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="-192.34491" Y="327.32663" Z="-667.93896"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="-106.65549" Y="248.79831" Z="-237.54013"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="146.80791" Y="248.79834" Z="-306.3269"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="248.42839" Y="248.79834" Z="-511.50528"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="254.09525" Y="326.15692" Z="-738.02917"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="489.12125" Y="326.15695" Z="-688.50867"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="642.96851" Y="326.15695" Z="-564.21198"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="572.07562" Y="326.15701" Z="-246.26096"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="355.07483" Y="238.79836" Z="-250.49524"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="378.63037" Y="238.79836" Z="-98.801582"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+                <AbsPos X="580.64752" Y="238.79839" Z="172.43916"/>
 			</ToolScp>
 		</List>
 		<HitList>
@@ -1820,6 +1859,147 @@
 				<Num Num="0"/>
 				<Num Num="1"/>
 				<Num Num="100"/>
+			</ToolScp>
+		</StartList>
+	</AI>
+	<AI Name="CANDLE_SPIDER_1_AI" UpdateMS="1000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="S_AI_SLEEP" Client="NO" UseSleep="YES">
+				<Num Num="1500"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+				<AbsPos X="147.4294" Y="7.5157723" Z="156.79614"/>
+			</ToolScp>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SPIDER_1_AI"/>
+			</ToolScp>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="CHANGE_MON"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_EFFECT" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str_Arg Str="F_lineup022_dark_blue2" Arg="1.2"/>
+				<Str Str="TOP"/>
+			</ToolScp>
+		</List>
+		<DeadList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_ADD_BASEBALL_SPIDER_BUFF"/>
+			</ToolScp>
+		</DeadList>
+	</AI>
+	<AI Name="CANDLE_SPIDER_2_AI" UpdateMS="1000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="S_AI_SLEEP" Client="NO" UseSleep="YES">
+				<Num Num="1500"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+				<AbsPos X="-154.0842" Y="7.5157776" Z="155.68134"/>
+			</ToolScp>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SPIDER_2_AI"/>
+			</ToolScp>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="CHANGE_MON"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_EFFECT" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str_Arg Str="F_lineup022_violet" Arg="1.2"/>
+				<Str Str="TOP"/>
+			</ToolScp>
+		</List>
+		<DeadList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_ADD_BASEBALL_SPIDER_BUFF"/>
+			</ToolScp>
+		</DeadList>
+	</AI>
+	<AI Name="CANDLE_SPIDER_3_AI" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="S_AI_SLEEP" Client="NO" UseSleep="YES">
+				<Num Num="1500"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+				<AbsPos X="-148.16278" Y="7.5157776" Z="-94.011177"/>
+			</ToolScp>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SPIDER_3_AI"/>
+			</ToolScp>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="CHANGE_MON"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_EFFECT" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str_Arg Str="F_lineup022_mint" Arg="1.2"/>
+				<Str Str="TOP"/>
+			</ToolScp>
+		</List>
+		<DeadList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_ADD_BASEBALL_SPIDER_BUFF"/>
+			</ToolScp>
+		</DeadList>
+	</AI>
+	<AI Name="CANDLE_SPIDER_4_AI" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="S_AI_SLEEP" Client="NO" UseSleep="YES">
+				<Num Num="1500"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_MOVE_RALLY" Client="NO" UseSleep="YES" ExtraArg="1">
+				<AbsPos X="157.76773" Y="7.5157766" Z="-95.544426"/>
+			</ToolScp>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SPIDER_4_AI"/>
+			</ToolScp>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="CHANGE_MON"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_EFFECT" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str_Arg Str="F_lineup022_red2" Arg="1.2"/>
+				<Str Str="TOP"/>
+			</ToolScp>
+		</List>
+		<DeadList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_ADD_BASEBALL_SPIDER_BUFF"/>
+			</ToolScp>
+		</DeadList>
+	</AI>
+	<AI Name="CANDLE_SPIDER_5_AI" UpdateMS="5000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="S_AI_SPIN" Client="NO" UseSleep="NO">
+				<Num Num="4"/>
+				<Num Num="4"/>
+				<Num Num="0.5"/>
+				<Num Num="0"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_BUFF" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str Str="TELHARSHA_WORMWHOLE_DEBUFF"/>
+				<Num Num="1"/>
+				<Num Num="0"/>
+				<Num Num="1000"/>
+				<Num Num="1"/>
+				<Num Num="100"/>
+			</ToolScp>
+		</List>
+		<DeadList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="STACK_SPIDER_KILL"/>
+			</ToolScp>
+		</DeadList>
+		<StartList>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_STACK_SPIDER_RANDOM_BORN"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_EFFECT_ATTACH" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str_Arg Str="F_bg_candle010_blue##3.0" Arg="5"/>
+				<Str Str="MID"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_SLEEP" Client="NO" UseSleep="YES">
+				<Num Num="2000"/>
 			</ToolScp>
 		</StartList>
 	</AI>
@@ -6237,6 +6417,54 @@
 			</ToolScp>
 		</List>
 	</AI>
+	<AI Name="EVENT_2007_NATSUMATSURI_HANABI_SUB" UpdateMS="10000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="EVENT_2007_NATSUMATSURI_HANABI_SUB_AI_RUN"/>
+			</ToolScp>
+		</List>
+		<StartList>
+			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="EVENT_2007_NATSUMATSURI_HANABI_SUB_AI"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_EFFECT_ATTACH" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str_Arg Str="F_sys_team_ground_red" Arg="5"/>
+				<Str Str="BOT"/>
+			</ToolScp>
+			<ToolScp Scp="EnableAIOutOfPC" Client="NO" UseSleep="NO"/>
+		</StartList>
+	</AI>
+	<AI Name="EVENT_2007_NATSUMATSURI_JP_HANABI_AI" UpdateMS="5000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="EVENT_2007_NATSUMATSURI_JP_HANABI_AI_RUN"/>
+			</ToolScp>
+		</List>
+		<StartList>
+			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="EVENT_2007_NATSUMATSURI_JP_HANABI_AI_BORN"/>
+			</ToolScp>
+		</StartList>
+	</AI>
+	<AI Name="EVENT_2007_NATSUMATSURI_JP_HANABI_MAKE_DIR_RUN" UpdateMS="5000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="EVENT_2007_NATSUMATSURI_JP_HANABI_MAKE_DIR"/>
+			</ToolScp>
+			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="EVENT_2007_NATSUMATSURI_JP_HANABI_MAKE_POS_DELAY"/>
+			</ToolScp>
+		</List>
+		<DeadList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="EVENT_2007_NATSUMATSURI_JP_HANABI_MAKE_DIR_DEAD"/>
+			</ToolScp>
+		</DeadList>
+		<StartList>
+			<ToolScp Scp="EnableAIOutOfPC" Client="NO" UseSleep="NO"/>
+		</StartList>
+	</AI>
 	<AI Name="EVENT_CURSED_COAST_POTAL" ActiveMessageMapInBattle="1">
 		<StartList>
 			<ToolScp Scp="S_AI_EFFECT_ATTACH" Client="NO" UseSleep="NO">
@@ -6281,6 +6509,18 @@
 		<StartList>
 			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
 				<Str Str="SCR_EVENT_GODDESS_ROULETTE_NPC_AI_BORN"/>
+			</ToolScp>
+		</StartList>
+	</AI>
+	<AI Name="EVENT_NEW_SEASON_SERVER_450_REWARD_ADD_AI" UpdateMS="60000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="EVENT_NEW_SEASON_SERVER_450_REWARD_ADD_AI"/>
+			</ToolScp>
+		</List>
+		<StartList>
+			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="EVENT_NEW_SEASON_SERVER_450_REWARD_ADD_AI"/>
 			</ToolScp>
 		</StartList>
 	</AI>
@@ -8270,6 +8510,28 @@
 			</ToolScp>
 		</StartList>
 	</AI>
+	<AI Name="field_dummy_monster" UpdateMS="1000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_FIELD_DUMMY_MONSTER"/>
+			</ToolScp>
+		</List>
+	</AI>
+	<AI Name="FIELD_SPEEL_ABSORPTION_AI" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="S_AI_CUSTOM_SCRIPT" Client="NO" UseSleep="YES">
+				<Str Str="FIELD_SPEEL_ABSORPTION_AI"/>
+				<Num Num="0"/>
+			</ToolScp>
+		</List>
+	</AI>
+	<AI Name="FIELD_ICEWALL" ActiveMessageMapInBattle="1">
+		<HitList>
+			<ToolScp Scp="SAI_HIT_DIRECT_RUN" Client="NO" UseSleep="NO">
+				<Str Str="SCR_FIELD_ICEWALL_HIT"/>
+			</ToolScp>
+		</HitList>
+	</AI>
 	<AI Name="FIRETOWER691_MQ_1_AI" UpdateMS="3000" ActiveMessageMapInBattle="1">
 		<List>
 			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
@@ -9319,6 +9581,13 @@
 				<Str Str="FTOWER691_MOVING_2"/>
 			</ToolScp>
 		</StartList>
+	</AI>
+	<AI Name="EVENT_2009_FULLMOON_EFFECT" UpdateMS="1000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_EVENT_2009_FULLMOON_EFFECT_AI"/>
+			</ToolScp>
+		</List>
 	</AI>
 	<AI Name="F_3CMLAKE261_LINK_STONE" UpdateMS="3000" ActiveMessageMapInBattle="1">
 		<List>
@@ -12641,17 +12910,17 @@
 		</StartList>
 	</AI>
 	<AI Name="EVENT_FLEX_BOX_NPC_AI" UpdateMS="60000" ActiveMessageMapInBattle="1">
-        <StartList>
-            <ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
-                <Str Str="SCR_EVENT_FLEX_BOX_NPC_AI_BORN"/>
-            </ToolScp>
-        </StartList>
-        <List>
-            <ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
-                <Str Str="SCR_EVENT_FLEX_BOX_NPC_AI_UPDATE"/>
-            </ToolScp>
-        </List>
-    </AI>
+		<StartList>
+			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_EVENT_FLEX_BOX_NPC_AI_BORN"/>
+			</ToolScp>
+		</StartList>
+		<List>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_EVENT_FLEX_BOX_NPC_AI_UPDATE"/>
+			</ToolScp>
+		</List>
+	</AI>
 	<AI Name="EVENT_GODDESS_ROULETTE_NPC_AI" UpdateMS="60000" ActiveMessageMapInBattle="1">
 		<List>
 			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
@@ -14898,6 +15167,14 @@ if self.HP == 0 then return 1; else return 0; end;">
 			</ToolScp>
 		</List>
 	</AI>
+	<AI Name="MORINGPONIA_HARD_SOLO_POISON_AI" UpdateMS="5000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="S_AI_CUSTOM_SCRIPT" Client="NO" UseSleep="YES">
+				<Str Str="SCR_MORINGPONIA_HARD_SOLO_POISON_AI"/>
+				<Num Num="0"/>
+			</ToolScp>
+		</List>
+	</AI>
 	<AI Name="MOVE_SOLDIER" ActiveMessageMapInBattle="1">
 		<List>
 			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
@@ -14967,6 +15244,40 @@ if self.HP == 0 then return 1; else return 0; end;">
 		</StartList>
 	</AI>
 	<AI Name="Mon_\Worg" ActiveMessageMapInBattle="1"/>
+	<AI Name="Moringponia_Raid_Obj" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_Moringponia_Raid_Obj_UPDATE"/>
+			</ToolScp>
+		</List>
+		<EnterList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_Moringponia_Raid_Obj_ENTER"/>
+			</ToolScp>
+		</EnterList>
+		<LeaveList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_Moringponia_Raid_Obj_ENTER"/>
+			</ToolScp>
+		</LeaveList>
+	</AI>
+	<AI Name="Moringponia_Raid_Obj_Red" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_Moringponia_Raid_Obj_Red_UPDATE"/>
+			</ToolScp>
+		</List>
+		<EnterList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_Moringponia_Raid_Obj_Red_ENTER"/>
+			</ToolScp>
+		</EnterList>
+		<LeaveList>
+			<ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_Moringponia_Raid_Obj_Red_LEAVE"/>
+			</ToolScp>
+		</LeaveList>
+	</AI>
 	<AI Name="NECRO_DIRTYWALL" ActiveMessageMapInBattle="1">
 		<HitList>
 			<ToolScp Scp="SAI_HIT_DIRECT_RUN" Client="NO" UseSleep="NO">
@@ -17838,7 +18149,22 @@ if self.HP == 0 then return 1; else return 0; end;">
 			</ToolScp>
 		</StartList>
 	</AI>
-	<AI Name="SIAU11RE_MQ_03_ITEM_RUN" ActiveMessageMapInBattle="1">
+<AI Name="SHOP_NPC_RAGANA_CITY_AI" ActiveMessageMapInBattle="1">
+        <StartList>
+            <ToolScp Scp="S_AI_EFFECT_ATTACH" Client="NO" UseSleep="NO">
+                <Num Num="0"/>
+                <Str_Arg Str="I_smoke_red2_loop" Arg="3"/>
+                <Str Str="BOT"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_CHANGE_COLOR" Client="NO" UseSleep="NO">
+                <Num Num="255"/>
+                <Num Num="255"/>
+                <Num Num="255"/>
+                <Num Num="95"/>
+                <Num Num="1"/>
+            </ToolScp>
+        </StartList>
+    </AI>	<AI Name="SIAU11RE_MQ_03_ITEM_RUN" ActiveMessageMapInBattle="1">
 		<List>
 			<ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
 				<Str Str="SIAU11RE_MQ_03_ITEM_AI_01"/>
@@ -19112,7 +19438,22 @@ if self.HP == 0 then return 1; else return 0; end;">
 				<Num Num="2"/>
 				<Str Str="SnowRolling_Buff"/>
 			</ToolScp>
+			<ToolScp Scp="S_AI_DEAD_REMOVE_BUFF" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str Str="Cryomancer_Object_Buff"/>
+			</ToolScp>
 		</DeadList>
+		<StartList>
+			<ToolScp Scp="S_AI_BUFF" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str Str="Cryomancer_Object_Buff"/>
+				<Num Num="0"/>
+				<Num Num="0"/>
+				<Num Num="0"/>
+				<Num Num="1"/>
+				<Num Num="100"/>
+			</ToolScp>
+		</StartList>
 	</AI>
 	<AI Name="Sorcerer_SummonServant" UpdateMS="1000" ActiveMessageMapInBattle="1">
 		<List>
@@ -19876,6 +20217,23 @@ if self.HP == 0 then return 1; else return 0; end;">
 				<Str Str="TABLALAND_11_1_SQ_07_NPC_RUN"/>
 			</ToolScp>
 		</List>
+	</AI>
+	<AI Name="TELHARSHA_AMISSDOG_AI" UpdateMS="1000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="S_AI_ATTACK_NEAR_MAXHATECOUNT_CHECK" Client="NO" UseSleep="NO">
+				<Num Num="500"/>
+			</ToolScp>
+		</List>
+		<StartList>
+			<ToolScp Scp="S_AI_EFFECT" Client="NO" UseSleep="NO">
+				<Num Num="0"/>
+				<Str_Arg Str="F_explosion027_green1" Arg="2"/>
+				<Str Str="MID"/>
+			</ToolScp>
+			<ToolScp Scp="S_AI_SLEEP" Client="NO" UseSleep="YES">
+				<Num Num="2500"/>
+			</ToolScp>
+		</StartList>
 	</AI>
 	<AI Name="TERAMON_THE_SUMMONS_MONSTER" UpdateMS="10000" ActiveMessageMapInBattle="1">
 		<List>
@@ -24792,6 +25150,13 @@ if self.HP == 0 then return 1; else return 0; end;">
 		</List>
 	</AI>
 	<AI Name="companion_pet_cadet_armadillo" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC2_DIRECT_SLEEP" Client="NO" UseSleep="YES">
+				<Str Str="PET_LOOP_AI"/>
+			</ToolScp>
+		</List>
+	</AI>
+	<AI Name="companion_pet_new_penguin" ActiveMessageMapInBattle="1">
 		<List>
 			<ToolScp Scp="SAI_FUNC2_DIRECT_SLEEP" Client="NO" UseSleep="YES">
 				<Str Str="PET_LOOP_AI"/>

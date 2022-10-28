@@ -79,6 +79,7 @@ function GET_LEGEND_PREFIX_NEED_MATERIAL_COUNT_BY_NEEDITEM(targetObj, needItemCl
 					if TryGetProp(targetObj, 'UseLv', 1) >= 440 and TryGetProp(targetObj, 'LegendPrefix', "None") ~= "None" then
 					    count = math.floor(count*0.25)
 					end
+					
 					-- PvP 전용 아이템 재료 1
 					if TryGetProp(targetObj, 'StringArg', 'None') == 'FreePvP' then
 						count = 1
@@ -97,7 +98,7 @@ function GET_LEGEND_PREFIX_NEED_MATERIAL_COUNT_BY_NEEDITEM(targetObj, needItemCl
 					if TryGetProp(targetObj, 'UseLv', 1) >= 440 and TryGetProp(targetObj, 'LegendPrefix', "None") ~= "None" then
 					    count = math.floor(count*0.25)
 					end
-					-- PvP 전용 아이템 재료 1
+					
 					if TryGetProp(targetObj, 'StringArg', 'None') == 'FreePvP' then
 						count = 1
 					end

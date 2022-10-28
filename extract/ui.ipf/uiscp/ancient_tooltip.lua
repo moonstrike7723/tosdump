@@ -1,6 +1,6 @@
 -- ancient_tooltip.lua --
 function UPDATE_ANCIENT_CARD_TOOLTIP(frame,guid)
-    local card = session.pet.GetAncientCardByGuid(guid);
+    local card = session.ancient.GetAncientCardByGuid(guid);
     if card == nil then
         return;
     end
@@ -142,7 +142,7 @@ function UPDATE_ANCIENT_CARD_PASSIVE_TOOLTIP(frame, handle, numarg1, numarg2)
     --passive
     local monster_passive_list_gbox = GET_CHILD(monster_passive_gbox,'monster_passive_list_gbox')
     monster_passive_list_gbox:RemoveAllChild()
-    local card = session.pet.GetAncientCardBySlot(0)
+    local card = session.ancient.GetAncientCardBySlot(0)
     if card ~= nil then
         local ctrlHeight = 0
         local infoCls = GetClass("Ancient_Info",card:GetClassName())

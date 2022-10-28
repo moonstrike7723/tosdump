@@ -141,20 +141,20 @@ function SCR_TX_TP_SHOP(pc, argList)
 			IMC_LOG('ERROR_LOGIC', 'SCR_TX_TP_SHOP: item class is nil- aid['..GetPcAIDStr(pc)..'], tpitem['..tpitem.ClassName..'], item['..tpitem.ItemClassName..']');
 			return
 		end
-		
-		if isLimitPaymentState == true then
-			if false == PRECHECK_TX_LIMIT_PAYMENT_OVER(pc, tpitem.Price, freeMedal) then
-				return;
-			end
-		end
-		
+
 		local BonusItem = TryGetProp(tpitem, "BonusItemName", "None")
 	    local BonusCnt = TryGetProp(tpitem, "BonusItemCnt", 0)
 	    local BonusItemCls = nil
         if BonusItem ~= "None" then
            BonusItemCls = GetClass("Item", BonusItem)
         end
-		local BonusOnlySeasonServer = TryGetProp(tpitem, "BonusOnlySeasonServer", "NO")
+        local BonusOnlySeasonServer = TryGetProp(tpitem, "BonusOnlySeasonServer", "NO")
+		
+		if isLimitPaymentState == true then
+			if false == PRECHECK_TX_LIMIT_PAYMENT_OVER(pc, tpitem.Price, freeMedal) then
+				return;
+			end
+		end
 		
 		local tx = TxBegin(pc);
 		if tx == nil then
@@ -202,6 +202,17 @@ function SCR_TX_TP_SHOP(pc, argList)
 			TxAddBuyLimitCount(tx, 0, tpitem.ClassID, 1, limitCount);
 		end
 		
+        -- 보너스 아이템 지급
+        if BonusItem ~= "None" and BonusCnt ~= 0 then
+            if BonusOnlySeasonServer == "YES" then
+                if IS_SEASON_SERVER(pc) == "YES" then
+                    TxGiveItem(tx, BonusItem, BonusCnt, "TPItemBonus")
+                end
+            else
+                TxGiveItem(tx, BonusItem, BonusCnt, "TPItemBonus")
+            end
+		end
+		
 		--스팀 카드 도용관련 프로퍼티 증가
 		if isLimitPaymentState == true then
 			TX_LIMIT_PAYMENT_STATE(pc, tx, tpitem.Price, freeMedal)
@@ -215,18 +226,7 @@ function SCR_TX_TP_SHOP(pc, argList)
 			end
 			TxAddIESProp(tx, aobj, "EVENT_STEAM_TPSHOP_BUY_PRICE", premiumDiff, "PoPo_Shop_Prop"); 
 		end -- steam event --
-
-		-- 보너스 아이템 지급
-		if BonusItem ~= "None" and BonusCnt ~= 0 then
-			if BonusOnlySeasonServer == "YES" then
-				if IS_SEASON_SERVER(pc) == "YES" then
-					TxGiveItem(tx, BonusItem, BonusCnt, "TPItemBonus")
-				end
-			else
-				TxGiveItem(tx, BonusItem, BonusCnt, "TPItemBonus")
-			end
-		end
-
+		
 		local ret = TxCommit(tx);
 		if ret == "SUCCESS" then
 			if EVENT_STEAM_POPOSHOP_PRECHECK() == 'YES' then -- steam event --

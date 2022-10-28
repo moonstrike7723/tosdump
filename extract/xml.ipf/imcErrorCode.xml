@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <imcErrorCode>
-	<Code Code="FATAL_ASSERT" Team="PROGRAM" Category="LOGIC" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="지정된 조건문은 항상 참이어야 합니다."/>
+  <Code Code="FATAL_ASSERT" Team="PROGRAM" Category="LOGIC" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="지정된 조건문은 항상 참이어야 합니다."/>
 	<Code Code="FATAL_ASSERT_EX" Team="PROGRAM" Category="LOGIC" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="지정된 조건문은 항상 참이어야 합니다. 다음 정보를 참조하세요."/>
 	<Code Code="FATAL_ASSERT_CRASH" Team="PROGRAM" Category="LOGIC" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="지정된 조건문은 항상 참이어야 합니다. 프로그램을 종료시킵니다."/>
 	<Code Code="FATAL_INIT_TABLE" Team="tos_team" Category="LOGIC" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="테이블 초기화에 실패하였습니다.  다음 정보 및 파일 로드 실패 등 이전 로그를 참조하세요."/>
@@ -365,7 +365,7 @@
 	<Code Code="INFO_ADVENTURE_BOOK" Team="PROGRAM" Category="INFO" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="모험일지 관련 정보"/>
 	<Code Code="ERROR_FAIL_DLL_LOAD" Team="PROGRAM" Category="LOGIC" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="DLL 을 로드하지 못했습니다."/>
 	<Code Code="STEAM_CHARGE_BACK_ERROR" Team="PROGRAM" Category="LOGIC" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="스팀 차지백 에러"/>
-	<Code Code="INFO_FISH_RUBBING" Team="PROGRAM" Category="LOGIC" SubCategory="FISHING" Logger="root" Enabled="YES" CallStack="NO" Desc="탁본 정보 로그"/>
+	<Code Code="INFO_FISH_RUBBING" Team="PROGRAM" Category="LOGIC" SubCategory="FISHING" Logger="root" Enabled="NO" CallStack="NO" Desc="탁본 정보 로그"/>
 	<Code Code="ERROR_FISH_RUBBING_SCORE" Team="PROGRAM" Category="LOGIC" SubCategory="FISHING" Logger="root" Enabled="YES" CallStack="NO" Desc="탁본 점수 에러"/>
 	<Code Code="ERROR_FISH_RUBBING_STATUE" Team="PROGRAM" Category="LOGIC" SubCategory="FISHING" Logger="root" Enabled="YES" CallStack="NO" Desc="탁본 동상 에러 "/>
 	<Code Code="INFO_ZONE_ENTER_DEBUG" Team="PROGRAM" Category="INFO" Logger="root" Enabled="YES" CallStack="NO" Desc="특정 계정 존 입장 안되는 문제 추적용"/>
@@ -629,6 +629,12 @@
 	<Code Code="ERROR_GUILD_CABIENT_INVV" Team="PROGRAM" Category="LOGIC" SubCategory="GuildInv" Logger="root" Enabled="YES" CallStack="NO" Desc="길드 보관함 에러"/>
 	<Code Code="WARNING_NETSTREAM_REFCNT" Team="tos_team" Category="PROGRAM" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="StreamDisconnected 오류 원인 추적용"/>
   <Code Code="INFO_OTP" Team="tos_team" Category="SYSTEM" SubCategory="" Logger="root" Enabled="NO" CallStack="NO" Desc="OTP 관련 로그"/>
-  <Code Code="INFO_PROTECT" Team="tos_team" Category="SYSTEM" SubCategory="" Logger="root" Enabled="NO" CallStack="NO" Desc="OTP 관련 로그"/>
+  <Code Code="INFO_PROTECT" Team="tos_team" Category="SYSTEM" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="보호모드 관련 로그"/>
+	<Code Code="WARNING_MEMORY_CHAT" Team="tos_team" Category="INFO" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="메모리 디버그 정보"/>
   <Code Code="ERROR_BORUTA" Team="tos_team" Category="SYSTEM" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="보루타 랭킹 관련 에러"/>
+  <Code Code="WARNING_MEMORY_ZONE" Team="tos_team" Category="INFO" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="메모리 디버그 정보"/>
+<Code Code="ERROR_NEXON_CASHOUT" Team="tos_team" Category="SYSTEM" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="CPQ 관련 로그"/>
+<Code Code="ERROR_MONGO_QUEUE_COUNT" Team="PROGRAM" Category="ERROR" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="몽고드라이버 입력량이 많음(1000이상)"/>
+  <Code Code="ERROR_SILVER_GACHA" Team="PROGRAM" Category="ERROR" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="Silver Gacha 에러 로그"/>
+  <Code Code="ERROR_LUA_CORE" Team="PROGRAM" Category="ERROR" SubCategory="" Logger="root" Enabled="YES" CallStack="NO" Desc="Lua ies object 관리 에러"/>
 </imcErrorCode>

@@ -47,7 +47,14 @@ function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON2(frame, gb)
 	-- btn:SetEventScript(ui.LBUTTONUP, "MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_CLICK");
 	-- btn:SetEventScriptArgNumber(ui.LBUTTONUP, 4);
 	-- title:SetTextByKey("value", ClMsg("EVENT_YOUR_MASTER_TITLE"));
-	-- gb:ShowWindow(1);
+    -- gb:ShowWindow(1);
+
+    -- -- EVENT_2009_FULLMOON
+    -- btn:SetImage("2009Chursok_btn")
+    -- btn:SetEventScript(ui.LBUTTONUP, "MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_CLICK");
+	-- btn:SetEventScriptArgNumber(ui.LBUTTONUP, 5);
+	-- title:SetTextByKey("value", ClMsg("EVENT_2009_FULLMOON_TITLE"));
+    -- gb:ShowWindow(1);
 end
 
 function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_CLICK(parent, ctrl, argStr, type)	

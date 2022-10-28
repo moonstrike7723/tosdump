@@ -79,6 +79,7 @@ end
 -- DRAW/CLEANUP
 function WORLDMAP2_MAINMAP_DRAW_BASE(frame)
     local mainmapTip = AUTO_CAST(frame:GetChild("mainmap_tip"))
+    local mainmapTipText = AUTO_CAST(mainmapTip:GetChild("mainmap_tip_text"))
 
     -- 토큰이동 안내문 표기 옵션
     if session.loginInfo.IsPremiumState(ITEM_TOKEN) and GET_WARP_MAP_TYPE() == "None" then
@@ -86,6 +87,8 @@ function WORLDMAP2_MAINMAP_DRAW_BASE(frame)
     else
         mainmapTip:ShowWindow(0)
     end
+
+    mainmapTip:Resize(mainmapTipText:GetWidth() + 20, mainmapTip:GetHeight())
 end
 
 function WORLDMAP2_MAINMAP_DRAW(frame)

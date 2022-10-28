@@ -8439,12 +8439,16 @@
         <Key Name="HaveEmoticon_110" Value="106819"/>
         <Key Name="HaveEmoticon_111" Value="106821"/>
         <Key Name="HaveEmoticon_112" Value="106820"/>
-        <Key Name="HaveEmoticon_114" Value="106846"/>
         <Key Name="Hide_3116" Value="106828"/>
         <Key Name="Hide_3117" Value="106827"/>
         <Key Name="Kill_Legend_Boss_Giltine_Q1" Value="106817"/>
         <Key Name="Kill_boss_BowerKeeper" Value="106816"/>
         <Key Name="Kill_boss_RaganosisCommander" Value="106815"/>
+        <Key Name="HaveEmoticon_114" Value="106846"/>
+        <Key Name="InDunCountType_810" Value="106851"/>
+        <Key Name="InDunCountType_811" Value="106853"/>
+        <Key Name="IndunWeeklyEnteredCount_810" Value="106852"/>
+        <Key Name="IndunWeeklyEnteredCount_811" Value="106854"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Guild">
         <Key Name="STEAM_NEW_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="105307"/>
@@ -20499,6 +20503,10 @@
         <Key Name="FirstQuestClear_Episode_12_2_92017" Value="106792"/>
         <Key Name="HadVisited_11208" Value="106784"/>
         <Key Name="HadVisited_5002" Value="106789"/>
+        <Key Name="EVENT_2010_EMOTICON_QUEST" Value="106823"/>
+        <Key Name="EVENT_2010_GUILD_NEW_SEASON_ITEM_GET" Value="106824"/>
+        <Key Name="GUILD_QUEST_REWARD" Value="106822"/>
+        <Key Name="LastServerGuildOutDay" Value="106826"/>
         <Key Name="ContentsTotalShop_2009_23" Value="106840"/>
         <Key Name="ContentsTotalShop_2009_24" Value="106842"/>
         <Key Name="ContentsTotalShop_2009_25" Value="106837"/>
@@ -20506,13 +20514,14 @@
         <Key Name="ContentsTotalShop_2009_27" Value="106839"/>
         <Key Name="ContentsTotalShop_2009_28" Value="106838"/>
         <Key Name="ContentsTotalShop_2009_29" Value="106841"/>
-        <Key Name="EVENT_2010_EMOTICON_QUEST" Value="106823"/>
-        <Key Name="EVENT_2010_GUILD_NEW_SEASON_ITEM_GET" Value="106824"/>
         <Key Name="EVENT_2011_FISHING_BAIT_RECEIVED" Value="106844"/>
         <Key Name="EVENT_2011_FISHING_TRADE_COUNT" Value="106845"/>
+        <Key Name="EVENT_2011_Harvest_seed_COUNT" Value="106855"/>
         <Key Name="EVENT_2011_SILVER_GACHA" Value="106829"/>
-        <Key Name="GUILD_QUEST_REWARD" Value="106822"/>
-        <Key Name="LastServerGuildOutDay" Value="106826"/>
+        <Key Name="InDunCountType_810" Value="106847"/>
+        <Key Name="InDunCountType_811" Value="106849"/>
+        <Key Name="IndunWeeklyEnteredCount_810" Value="106848"/>
+        <Key Name="IndunWeeklyEnteredCount_811" Value="106850"/>
         <Key Name="demonlord_thema" Value="106836"/>
         <Key Name="dress_demonlord_1" Value="106833"/>
         <Key Name="dress_demonlord_2" Value="106832"/>

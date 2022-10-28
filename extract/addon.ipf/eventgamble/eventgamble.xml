@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <uiframe name="eventgamble" x="0" y="0" width="960" height="910">
 	<frame fullheight="false" fasthide="true" layout_gravity="center center" margin="0 0 0 0" draw="true"/>
 	<skin frameskin="none"/>
@@ -22,7 +22,7 @@
 		<groupbox name="help_gb" rect="0 0 355 380" margin="293 150 0 0" layout_gravity="center top" draw="true" scrollbar="true" skin="protection_lottery_notice"/>
 		<richtext name="help" rect="0 0 340 370" margin="10 17 0 0" layout_gravity="left top" parent="help_gb" fontname="white_16_b_ds_ol" caption="" fixwidth="true" spacey="5"/>
 		<groupbox name="remain_coin_gb" rect="0 0 355 60" margin="293 540 0 0" layout_gravity="center top" draw="false" scrollbar="false"/>
-		<richtext name="remain_coin" rect="0 0 355 60" margin="10 0 0 0" parent="remain_coin_gb" layout_gravity="left top" autofontsizebywidth="true" resizebytext="true" format="{@st42_yellow}{s30}{img %s 64 64}X %s" param1="icon" param2="count" texttooltip="현재 보유 코인 개수"/>
+		<richtext name="remain_coin" rect="0 0 355 60" margin="10 0 0 0" parent="remain_coin_gb" layout_gravity="left top" autofontsizebywidth="true" resizebytext="true" format="{@st42_yellow}{s30}{img %s 64 64}X %s" param1="icon" param2="count" texttooltip="현재 보유 아이템 개수"/>
 		<!-- gamble -->
 		<groupbox name="gamble_top_gb" rect="0 0 200 260" margin="300 610 0 0" layout_gravity="center top" draw="false" scrollbar="false"/>
 		<picture name="gamble_slot_pic" rect="0 0 120 120" margin="0 0 0 0" parent="gamble_top_gb" image="protection_prize" layout_gravity="center top" stretch="true" draw="true"/>

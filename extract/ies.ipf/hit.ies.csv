@@ -26,7 +26,6 @@ ClassID,CenterEffectScale,EftRotate,ClassName,Type,HitAnim,DeadAnim,EffectName,E
 26,1,1,HIT_POISON_GREEN,HIT,,DEAD,F_hit_poison_hit_green,,,NO
 27,1,1,HIT_REFLECT,HIT,HIT,DEAD,F_hit_hitreflect,,,NO
 28,1,0,HIT_NOEFFECT,,HIT,DEAD,NO,,,NO
-29,1,0,HIT_ENDURE,HIT,,DEAD,,,,NO
 30,1,1,HIT_POISON_VIOLET,HIT,,DEAD,F_hit_poison_hit_violet,,,NO
 31,1,1,HIT_LIGHTNING,,HIT,DEAD,F_hit_rize2,,,NO
 32,1,1,HIT_PLANTGUARD,HIT,,DEAD,,,,NO
