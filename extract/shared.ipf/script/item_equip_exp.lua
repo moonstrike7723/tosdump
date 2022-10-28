@@ -151,6 +151,10 @@ function GET_MORE_EVENT_EXP(pc)
 	if  TryGetProp(pc, 'Lv', 0) < PC_MAX_LEVEL then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'pet_sparrow_thanksgivng_buff'); --달맞이 참새 동행 버프--
 	end
+	
+	if  TryGetProp(pc, 'Lv', 0) < PC_MAX_LEVEL then
+	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'pet_winter_rabbit_buff'); --하얀 눈 토끼 동행 버프--
+	end
 	return sumExp; 
 end
 
@@ -161,7 +165,11 @@ function GET_MORE_ANCIENT_EXP(pc)
 	if IsBuffApplied(pc, "pet_sparrow_thanksgivng_buff") == "YES" then
 	    sumExp = sumExp + 1
 	end
-
+    
+    if IsBuffApplied(pc, "pet_winter_rabbit_buff") == "YES" then
+	    sumExp = sumExp + 1
+	end
+    
 	return sumExp;
 end
 

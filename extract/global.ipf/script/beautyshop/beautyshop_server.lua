@@ -353,10 +353,10 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 			PlayPose(pc, poseCls.ClassID);
 		end
 
-		BEAUTYSHOP_EQUIP_DUMMY_ITEM_CLEAR(pc);
+        BEAUTYSHOP_EQUIP_DUMMY_ITEM_CLEAR(pc);
+        SteamSetAchievement(pc, "TOS_STEAM_ACHIEVEMENT_HAIR_CHANGE");
 	end
 
 	-- 구매 후처리. 
 	BEAUTYSHOP_PURCHASE_POST_ACTION(pc,directionType )
-	
 end

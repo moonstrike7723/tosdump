@@ -11874,6 +11874,8 @@
 		<image name="plate_achieve_weeklyrank_12" file="\skin\user_title_skin.tga" imgrect="645 141 214 34" CMM_Caption="주간보스_워퓰리스"/>
 		<image name="plate_achieve_Glacier_first_kill" file="\skin\user_title_skin.tga" imgrect="645 176 214 34" CMM_Caption="글레이시어_퍼스트"/>
 		<image name="plate_achieve_Glacier_clear" file="\skin\user_title_skin.tga" imgrect="645 211 214 34" CMM_Caption="글레이시어_클리어"/>
+		<image name="plate_Christmas_Master" file="\skin\user_title_skin.tga" imgrect="215 290 214 34" CMM_Caption="2020_크리스마스 칭호"/>
+		<image name="plate_Christmas_ Master" file="\skin\user_title_skin.tga" imgrect="215 290 214 34" CMM_Caption="2020_크리스마스 칭호"/>
 	</imagelist>
 	<imagelist category="skin_hair">
 		<image name="icon_skintone_01_m01" file="\skin\skinhair\icon_skintone_01_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 01"/>

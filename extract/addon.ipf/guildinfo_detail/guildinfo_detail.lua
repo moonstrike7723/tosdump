@@ -136,11 +136,7 @@ function OPEN_REQUEST_GUILDJOIN_CHECK()
     if guildidx ~= "0" and guildidx == g_guildIdx then
         control.CustomCommand("REQ_SERVER_GUILD_OUT_DATE_CHECK", 0);
         return;
-	end
-	if EVENT_2010_GUILD_CHECK_PANELTY(GetMyAccountObj()) == 0 then
-        control.CustomCommand("REQ_SERVER_GUILD_OUT_DATE_CHECK", 0);
-        return;
-	end
+    end
 
     OPEN_REQUEST_GUILDJOIN();
 end
@@ -388,16 +384,7 @@ function GUILDINFO_DETAIL_TAB_CLICK()
             
             btn:SetEnable(0);
         end
-	end
-	if EVENT_2010_GUILD_CHECK_PANELTY(GetMyAccountObj()) == 0 then
-		local limit = TryGetProp(accObj, "GUILD_MEMBER_JOIN_AUTO_LIMIT", 0);
-        if limit ~= 0 then
-            joinballoongb:ShowWindow(0);
-            joinText:ShowWindow(0);
-            
-            btn:SetEnable(0);
-        end
-	end
+    end
 end
 
 function GUILDINFO_DETAIL_MEMBER_LIST_SCROLL(parent, ctrl, guild_idx, argNum)

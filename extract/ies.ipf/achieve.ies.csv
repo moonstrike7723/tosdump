@@ -101,6 +101,7 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 2129,1,EVENT_2004_Stamp,AchievePoint,이벤트,{img Collar_Event_Stamp_skin 24 24} 달려라 스탬프 투어!,스탬프 투어의 모든 미션을 클리어한 구원자에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,달려라 스탬프 투어!,,False,EVENT_2004_Stamp,NO,,,,,NO,
 2130,1,EVENT_2007_Tecance,AchievePoint,이벤트,{img Collar_Event_Tecance 24 24} 한여름의 트캉스,트캉스 이벤트의 모든 미션을 클리어한 구원자에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,한여름의 트캉스,,False,EVENT_2007_Tecance,NO,,,,,NO,
 2137,1,Event_SeasonNewWorld_Achieve1,AchievePoint,이벤트,시즌서버 이주민,시즌서버 출신 유저들에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,시즌서버 이주민,,False,Event_SeasonNewWorld_Achieve1,NO,,,,,NO,
+2139,1,Christmas_Master,AchievePoint,이벤트,마스터의 크리스마스,크리스마스 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,마스터의 크리스마스,,False,Christmas_Master,NO,,,,,NO,plate_Christmas_Master
 2030,1,Passionate_Artist_Ev,AchievePoint,이벤트,{img Collar_Brush 20 20}Passionate Artist,발렌타인 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Passionate Artist,,False,Passionate_Artist_Ev,NO,,,,,,
 2046,1,FinestMoment,AchievePoint,이벤트,{img Collar_FinestMoment 30 30}Finest Moment,봄맞이 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Finest Moment,,False,FinestMoment,NO,,,,,,
 2050,1,Event_170823_Fanart_Steam,AchievePoint,이벤트,{img Collar_GivingShade 30 30}Giving Shade,2017년 여름 팬아트 공모전 수상자에게 주어지는 칭호.,icon_item_Misc_00021,YES,Giving Shade,,False,Event_170823_Fanart_Steam,NO,,,,,,

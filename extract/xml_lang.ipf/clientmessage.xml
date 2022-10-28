@@ -808,6 +808,7 @@
 		<Class ClassID="4307" ClassName="GetPointByConsumingItem" Data="아이템을 소모하여 {@st66d_y}{COUNT}{/}포인트를 획득하시겠습니까?"/>
 		<Class ClassID="4308" ClassName="GetByPoint{Point}" Data="+{Point}점 획득"/>
 		<Class ClassID="4314" ClassName="Entrance_Ticket" Data="입장권"/>
+		<Class ClassID="4348" ClassName="DoNotAllowUseLevel" Data="사용할 수 없는 레벨입니다."/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -9281,7 +9282,6 @@
 		<Class ClassID="90257" ClassName="WhiteDayShop2003" Data="화이트데이 이벤트 상점"/>
 		<Class ClassID="90258" ClassName="Unique_Boss_Glacier_TYPE1" Data="하얀 마녀의 숲 : 유니크 진입(1인)"/>
 		<Class ClassID="90259" ClassName="Unique_Boss_Glacier_TYPE2" Data="하얀 마녀의 숲 : 유니크 진입(5인)"/>
-		<Class ClassID="90270" ClassName="430lvupCard_MSG" Data="{nl} {nl}사용 시 1레벨에서 431레벨 도달까지 필요한 만큼의 경험치를 얻습니다.{nl} {nl}{@st66d_y}경험치 카드를 사용하시겠습니까?"/>
 		<Class ClassID="90260" ClassName="2004_UPHILL_SEL_MSG1" Data="이벤트 설명"/>
 		<Class ClassID="90261" ClassName="2004_UPHILL_SEL_MSG2" Data="이벤트 던전 입장"/>
 		<Class ClassID="90262" ClassName="2004_UPHILL_TREE_SEL_MSG1" Data="충격 버프를 받는다."/>
@@ -9292,7 +9292,9 @@
 		<Class ClassID="90267" ClassName="2004_UPHILL_SEL_MSG3" Data="특성 포인트 1회 무료 회수권 수령하기"/>
 		<Class ClassID="90268" ClassName="EVENT_2004_UPHILL_ABUSE_MSG1" Data="일정 시간 몬스터를 공격하지 않으면 보상을 획득할 수 없습니다."/>
 		<Class ClassID="90269" ClassName="EVENT_2004_UPHILL_ABUSE_MSG2" Data="일정 시간 몬스터를 공격하지 않아 이번 웨이브의 보상을 획득하실 수 없습니다."/>
-		<Class ClassID="91001" ClassName="ASSISTOR_QUEST_MSG_01" Data="어시스터에 대해서 묻기"/>
+		<Class ClassID="90270" ClassName="430lvupCard_MSG" Data="{nl} {nl}사용 시 1레벨에서 431레벨 도달까지 필요한 만큼의 경험치를 얻습니다.{nl} {nl}{@st66d_y}경험치 카드를 사용하시겠습니까?"/>
+		<Class ClassID="90271" ClassName="EXPCARD_JUMPING_SET_LV_MSG" Data="{nl} {nl}사용 시 캐릭터가 {LEVEL} 레벨이 됩니다. {nl} {nl}{@st66d_y}경험치 카드를 사용하시겠습니까?"/>
+                <Class ClassID="91001" ClassName="ASSISTOR_QUEST_MSG_01" Data="어시스터에 대해서 묻기"/>
 		<Class ClassID="91002" ClassName="ASSISTOR_QUEST_MSG_02" Data="젬 교환에 대해서 묻기"/>
 		<Class ClassID="91003" ClassName="GET_{CARDNAME}" Data="{CARDNAME} 받기."/>
 		<Class ClassID="91004" ClassName="HIDDEN_CRUSADER_SNOW_MSG1" Data="편지와 지령서를 전한다."/>

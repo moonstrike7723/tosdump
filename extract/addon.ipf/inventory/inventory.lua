@@ -4372,6 +4372,27 @@ function BEFORE_APPLIED_YESSCP_OPEN_BASIC_MSG(invItem)
 	return;
 end
 
+function BEFORE_APPLIED_YESSCP_OPEN_LVCARD(invItem)
+	if invItem == nil then
+		return;
+	end
+	
+	local invFrame = ui.GetFrame("inventory");	
+	local itemobj = GetIES(invItem:GetObject());
+	if itemobj == nil then
+		return;
+	end
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
+	
+	local lv = TryGetProp(itemobj , 'NumberArg1')
+	if lv ~= 0 then
+    	local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg("EXPCARD_JUMPING_SET_LV_MSG", "LEVEL", lv));
+    	ui.MsgBox_NonNested(textmsg, itemobj.Name, 'REQUEST_SUMMON_BOSS_TX', "None");
+    end
+	return;
+end
+
+
 function REQUEST_USE_ITEM_TX()
 	local invFrame = ui.GetFrame("inventory");
 	local itemGuid = invFrame:GetUserValue("REQ_USE_ITEM_GUID");

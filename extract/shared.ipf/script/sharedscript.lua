@@ -3344,24 +3344,3 @@ function GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX()
 
     return "0";
 end
-
---EVENT_2010_GUILD
-function EVENT_2010_GUILD_CHECK_PANELTY(aObj)
-    if aObj == nil then
-        return;
-    end
-
-	local seasonID = TryGetProp(aObj, "SEASON_SERVER_INDEX")
-	if seasonID ~= 2 then
-		return 1;
-	end
-
-	local lastGuildDay = TryGetProp(aObj, 'LastGuildOutDay');
-    if lastGuildDay == 'None' then
-		return 0;
-	elseif lastGuildDay < "202011216213000" then
-		return 0;
-	else
-		return 1
-    end
-end

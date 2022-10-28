@@ -378,10 +378,7 @@ function WARP_GUILD_MEMBER_EXEC(aid)
                 local guildidx = GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX();
                 if guildidx ~= "0" and guildidx == lastGuildGIDX then
                     return;
-				end
-				if EVENT_2010_GUILD_CHECK_PANELTY(GetMyAccountObj()) == 0 then
-					return;
-				end
+                end
 
                 local enterEnableTime = imcTime.AddSec(lastTime, (addTime*60));
                 local nowTime = session.GetDBSysTime();

@@ -192,9 +192,6 @@ function ACCEPT_GUILD_SKILL(aid, skillType)
 						if guildidx ~= "0" and guildidx == lastGuildGIDX then
 							return;
 						end
-						if EVENT_2010_GUILD_CHECK_PANELTY(GetMyAccountObj()) == 0 then
-							return;
-						end
 
                 	    local enterEnableTime = imcTime.AddSec(lastTime, (addTime*60));
                 	    local nowTime = session.GetDBSysTime();
