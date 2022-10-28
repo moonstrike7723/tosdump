@@ -7988,6 +7988,52 @@
         <Key Name="Kill_boss_Spector_m_E1" Value="104272"/>
         <Key Name="Kill_boss_necrovanter_E1" Value="104270"/>
         <Key Name="Kill_event_Spector_Halloween_E1" Value="104269"/>
+        <Key Name="CHATHEDRAL54_BLACKMAN_TRACK" Value="104380"/>
+        <Key Name="ChallengeModeCompleteCount" Value="104469"/>
+        <Key Name="EP12_PRELUDE_04_TRACK" Value="104435"/>
+        <Key Name="EP12_PRELUDE_07_TRACK" Value="104436"/>
+        <Key Name="EP12_PRELUDE_08_TRACK" Value="104437"/>
+        <Key Name="EP12_PRELUDE_09_TRACK" Value="104453"/>
+        <Key Name="HUEVILLAGE_58_4_MQ09_TRACK" Value="104382"/>
+        <Key Name="HadVisited_7000" Value="104331"/>
+        <Key Name="HadVisited_7001" Value="104332"/>
+        <Key Name="HadVisited_7002" Value="104333"/>
+        <Key Name="HadVisited_7003" Value="104334"/>
+        <Key Name="HaveEmoticon_5001" Value="104324"/>
+        <Key Name="HaveEmoticon_5002" Value="104325"/>
+        <Key Name="Hide_2997" Value="104383"/>
+        <Key Name="Hide_2998" Value="104384"/>
+        <Key Name="Hide_2999" Value="104385"/>
+        <Key Name="Hide_3000" Value="104386"/>
+        <Key Name="Hide_3001" Value="104387"/>
+        <Key Name="Hide_3002" Value="104388"/>
+        <Key Name="Hide_3003" Value="104389"/>
+        <Key Name="Hide_3004" Value="104438"/>
+        <Key Name="Hide_3005" Value="104439"/>
+        <Key Name="Hide_3006" Value="104440"/>
+        <Key Name="Hide_3007" Value="104441"/>
+        <Key Name="Hide_3008" Value="104442"/>
+        <Key Name="Hide_3009" Value="104443"/>
+        <Key Name="Hide_3010" Value="104444"/>
+        <Key Name="Hide_3011" Value="104445"/>
+        <Key Name="Hide_3012" Value="104446"/>
+        <Key Name="Hide_3013" Value="104447"/>
+        <Key Name="Hide_3014" Value="104448"/>
+        <Key Name="Hide_3015" Value="104449"/>
+        <Key Name="Hide_3016" Value="104450"/>
+        <Key Name="Hide_3017" Value="104451"/>
+        <Key Name="Hide_3018" Value="104452"/>
+        <Key Name="InDunCountType_803" Value="104367"/>
+        <Key Name="IndunWeeklyEnteredCount_803" Value="104368"/>
+        <Key Name="Kill_moringponia_RytaSwort" Value="104372"/>
+        <Key Name="Kill_pc_summon_boss_Moringponia" Value="104375"/>
+        <Key Name="Kill_pc_summon_boss_Tantaliser" Value="104376"/>
+        <Key Name="LIMESTONE_52_4_MQ_BLACKMAN_TRACK" Value="104381"/>
+        <Key Name="PersonalHousingPrevZoneName" Value="104327"/>
+        <Key Name="PersonalHousingPrevZonePos_x" Value="104328"/>
+        <Key Name="PersonalHousingPrevZonePos_y" Value="104329"/>
+        <Key Name="PersonalHousingPrevZonePos_z" Value="104330"/>
+        <Key Name="Pose_WAVE" Value="104326"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Guild">
         <Key Name="ColonySecondLeague_SventimasExile" Value="103935"/>
@@ -9390,6 +9436,7 @@
         <Key Name="Hide_1312" Value="7758"/>
         <Key Name="Hide_1313" Value="7759"/>
         <Key Name="IsPrivate" Value="9890"/>
+        <Key Name="EVENT_TP_SHOP_1912_COUNT" Value="104468"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Account">
         <Key Name="HadVisited_3040" Value="100664"/>
@@ -10876,6 +10923,89 @@
         <Key Name="HadVisited_10004" Value="104322"/>
         <Key Name="HadVisited_10005" Value="104323"/>
         <Key Name="REGULAR_BURNING_EVENT_COUNT_RESET" Value="104287"/>
+        <Key Name="Achieve_Steam_JP_revelator" Value="104377"/>
+        <Key Name="CONTENTS_TOTAL_POINT" Value="104361"/>
+        <Key Name="CONTENTS_TOTAL_POINT_REWARD_WEEKLY" Value="104354"/>
+        <Key Name="CONTENTS_TOTAL_POINT_REWARD_WEEKLY_LIMIT" Value="104357"/>
+        <Key Name="CONTENTS_TOTAL_SHOP_POSE_1" Value="104348"/>
+        <Key Name="ContentsTotalShop_1911_1" Value="104336"/>
+        <Key Name="ContentsTotalShop_1911_2" Value="104339"/>
+        <Key Name="ContentsTotalShop_1911_3" Value="104341"/>
+        <Key Name="ContentsTotalShop_1911_4" Value="104343"/>
+        <Key Name="ContentsTotalShop_1911_5" Value="104345"/>
+        <Key Name="ContentsTotalShop_1911_6" Value="104350"/>
+        <Key Name="ContentsTotalShop_1911_7" Value="104355"/>
+        <Key Name="ContentsTotalShop_1911_8" Value="104359"/>
+        <Key Name="EP12_PRELUDE_QUEST_CLEAR_EVENT" Value="104454"/>
+        <Key Name="EVENT1912_4TH_BUFF_1" Value="104407"/>
+        <Key Name="EVENT1912_4TH_BUFF_2" Value="104411"/>
+        <Key Name="EVENT1912_4TH_COIN_REMAIN" Value="104418"/>
+        <Key Name="EVENT1912_4TH_DAY_RESET" Value="104422"/>
+        <Key Name="EVENT1912_4TH_DAY_RESET_NUM" Value="104434"/>
+        <Key Name="EVENT1912_4TH_FIREFLOWER_GET" Value="104415"/>
+        <Key Name="EVENT1912_4TH_FIRST_GET" Value="104395"/>
+        <Key Name="EVENT1912_4TH_GIVE_COUNT" Value="104399"/>
+        <Key Name="EVENT1912_4TH_MULTICOIN" Value="104403"/>
+        <Key Name="EVENT1912_XMAS_KEY_COUNT" Value="104470"/>
+        <Key Name="EVENT1912_XMAS_WEEKEND_BONUS" Value="104471"/>
+        <Key Name="Episode_10_Clear" Value="104413"/>
+        <Key Name="Episode_1_1_Clear" Value="104404"/>
+        <Key Name="Episode_1_2_Clear" Value="104408"/>
+        <Key Name="Episode_2_1_Clear" Value="104412"/>
+        <Key Name="Episode_2_2_Clear" Value="104416"/>
+        <Key Name="Episode_3_1_Clear" Value="104421"/>
+        <Key Name="Episode_3_2_Clear" Value="104425"/>
+        <Key Name="Episode_4_1_Clear" Value="104428"/>
+        <Key Name="Episode_4_2_Clear" Value="104390"/>
+        <Key Name="Episode_5_Clear" Value="104393"/>
+        <Key Name="Episode_6_Clear" Value="104397"/>
+        <Key Name="Episode_7_Clear" Value="104402"/>
+        <Key Name="Episode_8_Clear" Value="104406"/>
+        <Key Name="Episode_9_Clear" Value="104409"/>
+        <Key Name="Episode_Unlock_Orsha" Value="104417"/>
+        <Key Name="Event4thShop1912_AC_1" Value="104420"/>
+        <Key Name="Event4thShop1912_AC_10" Value="104414"/>
+        <Key Name="Event4thShop1912_AC_11" Value="104419"/>
+        <Key Name="Event4thShop1912_AC_12" Value="104423"/>
+        <Key Name="Event4thShop1912_AC_13" Value="104426"/>
+        <Key Name="Event4thShop1912_AC_14" Value="104429"/>
+        <Key Name="Event4thShop1912_AC_15" Value="104391"/>
+        <Key Name="Event4thShop1912_AC_16" Value="104394"/>
+        <Key Name="Event4thShop1912_AC_17" Value="104398"/>
+        <Key Name="Event4thShop1912_AC_18" Value="104401"/>
+        <Key Name="Event4thShop1912_AC_2" Value="104424"/>
+        <Key Name="Event4thShop1912_AC_3" Value="104427"/>
+        <Key Name="Event4thShop1912_AC_4" Value="104430"/>
+        <Key Name="Event4thShop1912_AC_5" Value="104392"/>
+        <Key Name="Event4thShop1912_AC_6" Value="104396"/>
+        <Key Name="Event4thShop1912_AC_7" Value="104400"/>
+        <Key Name="Event4thShop1912_AC_8" Value="104405"/>
+        <Key Name="Event4thShop1912_AC_9" Value="104410"/>
+        <Key Name="HadVisited_7000" Value="104347"/>
+        <Key Name="HadVisited_7001" Value="104349"/>
+        <Key Name="HadVisited_7002" Value="104351"/>
+        <Key Name="HadVisited_7003" Value="104353"/>
+        <Key Name="InDunCountType_803" Value="104370"/>
+        <Key Name="IndunWeeklyEnteredCount_803" Value="104371"/>
+        <Key Name="LEGEND_RAID_MORINGPONIA" Value="104373"/>
+        <Key Name="PersonalHousing_Activate" Value="104369"/>
+        <Key Name="PersonalHousing_EnterHouseAID" Value="104374"/>
+        <Key Name="PersonalHousing_HasPlace_7000" Value="104363"/>
+        <Key Name="PersonalHousing_HasPlace_7001" Value="104365"/>
+        <Key Name="PersonalHousing_HasPlace_7002" Value="104335"/>
+        <Key Name="PersonalHousing_HasPlace_7003" Value="104338"/>
+        <Key Name="PersonalHousing_PlaceLV" Value="104360"/>
+        <Key Name="PersonalHousing_PlacePoint" Value="104356"/>
+        <Key Name="PersonalHousing_Point1" Value="104358"/>
+        <Key Name="PersonalHousing_Point2" Value="104362"/>
+        <Key Name="PersonalHousing_Point3" Value="104364"/>
+        <Key Name="PersonalHousing_Point4" Value="104366"/>
+        <Key Name="PersonalHousing_SetBuff1" Value="104337"/>
+        <Key Name="PersonalHousing_SetBuff2" Value="104340"/>
+        <Key Name="PersonalHousing_SetBuff3" Value="104342"/>
+        <Key Name="PersonalHousing_SetBuff4" Value="104344"/>
+        <Key Name="PersonalHousing_SetNPC" Value="104346"/>
+        <Key Name="PersonalHousing_SetTimmer" Value="104352"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PC">
         <Key Name="RestartSavePoint" Value="6874"/>
@@ -18531,6 +18661,24 @@
         <Key Name="MG_Last_LEGEND_RAID_MORINGPONIA" Value="104313"/>
         <Key Name="MG_Last_UNIQUE_RAID_MORINGPONIA" Value="104314"/>
         <Key Name="MG_Last_UNIQUE_RAID_MORINGPONIA_SOLO" Value="104312"/>
+        <Key Name="CHATHEDRAL54_BLACKMAN" Value="104431"/>
+        <Key Name="EP03_HIDDEN_STORY" Value="104378"/>
+        <Key Name="EP12_PRELUDE_01" Value="104465"/>
+        <Key Name="EP12_PRELUDE_02" Value="104466"/>
+        <Key Name="EP12_PRELUDE_03" Value="104467"/>
+        <Key Name="EP12_PRELUDE_04" Value="104455"/>
+        <Key Name="EP12_PRELUDE_05" Value="104456"/>
+        <Key Name="EP12_PRELUDE_06" Value="104457"/>
+        <Key Name="EP12_PRELUDE_07" Value="104458"/>
+        <Key Name="EP12_PRELUDE_08" Value="104460"/>
+        <Key Name="EP12_PRELUDE_09" Value="104462"/>
+        <Key Name="EP12_PRELUDE_10" Value="104463"/>
+        <Key Name="Episode_Unlock_Orsha" Value="104379"/>
+        <Key Name="LIMESTONE_52_4_MQ_BLACKMAN" Value="104432"/>
+        <Key Name="MG_Last_EP12_PRELUDE_04_MINI" Value="104461"/>
+        <Key Name="MG_Last_EP12_PRELUDE_07_MINI" Value="104464"/>
+        <Key Name="MG_Last_EP12_PRELUDE_08_MINI" Value="104459"/>
+        <Key Name="MG_Last_LEGEND_RAID_MORINGPONIA_EASY" Value="104433"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Party">
         <Key Name="IsPrivate" Value="2"/>

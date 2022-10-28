@@ -4,6 +4,5 @@
 	<Category>
 		<Class OverrideType="ADD" ClassID="10001" GenType="50001" PosX="-85" PosY="176" PosZ="276" Direction="0" Name="게시판"/>
 		<Class OverrideType="ADD" ClassID="10004" GenType="50004" PosX="16" PosY="176" PosZ="-35" Direction="0" Name="보너스 큐브"/>
-		<Class OverrideType="ADD" ClassID="10008" GenType="50008" PosX="-56" PosY="176" PosZ="282" Direction="0" Name="할로윈 밤의 소동 이벤트 도우미"/>
 	</Category>
 </idspace>

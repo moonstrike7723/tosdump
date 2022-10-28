@@ -1648,10 +1648,10 @@ function SCR_USE_EVENT_KOR_Fortunecookie(self,argObj,argstr,arg1,arg2)
     -- end
 
 	local tx = TxBegin(self);
-    TxAddIESProp(tx, aObj, 'EVENT_KOR_Fortunecookie_COUNT', 1);
-    -- if result ~= 0 then
-    --     TxGiveItem(tx, list[result][2], list[result][3], 'EVENT_KOR_Fortunecookie');
-    -- end
+    --TxAddIESProp(tx, aObj, 'EVENT_KOR_Fortunecookie_COUNT', 1);
+    ---- if result ~= 0 then
+    ----     TxGiveItem(tx, list[result][2], list[result][3], 'EVENT_KOR_Fortunecookie');
+    ---- end
     local ret = TxCommit(tx);
     if ret == 'SUCCESS' then
         AddBuff(self, self, BuffName, 0, 0, 1800000, 1);
