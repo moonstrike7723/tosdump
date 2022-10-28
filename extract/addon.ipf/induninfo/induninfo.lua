@@ -2876,7 +2876,7 @@ function BORUTA_RANKING_EMBLEM_IMAGE_SET(code, return_json)
     local emblemPath = emblemFolderPath .. "\\" .. guild_idx .. ".png"
 
     local frame = ui.GetFrame('induninfo')
-    local rankListBox = GET_CHILD_RECURSIVELY(frame, "ranking", "ui::CGroupBox")
+    local rankListBox = GET_CHILD_RECURSIVELY(frame, "ranking_list_box", "ui::CGroupBox")
     for i = 0,rankListBox:GetChildCount()-1 do
         local controlset = rankListBox:GetChildByIndex(i)
         if controlset:GetUserValue("GUILD_IDX") == guild_idx then
