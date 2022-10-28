@@ -12,7 +12,7 @@ function INSERT_PET_RINGCOMMAND(bg, name, img, text, toolTipText, angle, index, 
 
 	local totalAngle = 140;
 	local startIndex = (totalCount / 2);
-	if math.fmod(totalCount, 2) == 0 then
+	if math.mod(totalCount, 2) == 0 then
 		startIndex = startIndex - 0.5;
 	end
 	
@@ -87,11 +87,6 @@ function PETCMD_FEEDING(parent, ctrl)
 	local foodItem = session.GetPetFoodItemByInv(handle, "Script", "PET_FOOD_USE");
 	if foodItem == nil then
 		ui.SysMsg(ClMsg("HaveNoPetFood"));
-		return;
-	end
-
-	if foodItem.isLockState == true then
-		ui.SysMsg(ClMsg("MaterialItemIsLock"));
 		return;
 	end
 
