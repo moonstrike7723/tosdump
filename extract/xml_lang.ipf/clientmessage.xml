@@ -15694,7 +15694,7 @@
 		<Class ClassID="302646" ClassName="EVENT_2109_MOON_RABBIT_SEL2" Data="{#003399}[달토끼]{/}소원 빌기"/>
 		<Class ClassID="302647" ClassName="EVENT_2109_MOON_RABBIT_SHOP" Data="{#003399}[달토끼]{/}이벤트 상점"/>
 		<Class ClassID="302648" ClassName="EVENT_2109_MOON_RABBIT_EP12_SHOP" Data="{#003399}[EP-12] 아이템 스크롤 상점{/}"/>
-		<Class ClassID="302649" ClassName="EVENT_2109_MOON_RABBIT_CHECK_MSG" Data="{#0066FF}[소원을 이뤄주는 달토끼]{/} 이벤트 현황{nl}접속 시간({#0066FF}{TIME}{/}분){nl}일일 달맞이 주화 현황 ({#0066FF}{COINDAY}{/}/{DAYMAX}){nl}일일 황금 달맞이 주화 현황 ({#0066FF}{GOLD}{/}/100){nl}전체 황금 달맞이 주화 현황 ({#0066FF}{TOTAL}{/}/3000){nl}일일 한가위의 기운 버프 받기({#0066FF}{BUFF}{/}/3){nl}전체 소원 빌기 참여 현황({#0066FF}{WISH}{/}/100){nl}{#FF3333}※일일 제한은 매일 오전 06시 초기화 됩니다.{/}"/>
+		<Class ClassID="302649" ClassName="EVENT_2109_MOON_RABBIT_CHECK_MSG" Data="{#0066FF}[소원을 이뤄주는 달토끼]{/} 이벤트 현황{nl}접속 시간({#0066FF}{TIME}{/}분){nl}일일 달맞이 주화 현황 ({#0066FF}{COINDAY}{/}/{DAYMAX}){nl}일일 황금 달맞이 주화 현황 ({#0066FF}{GOLD}{/}/{GOLDMAX}){nl}전체 황금 달맞이 주화 현황 ({#0066FF}{TOTAL}{/}/3000){nl}일일 한가위의 기운 버프 받기({#0066FF}{BUFF}{/}/3){nl}전체 소원 빌기 참여 현황({#0066FF}{WISH}{/}/100){nl}{#FF3333}※일일 제한은 매일 오전 06시 초기화 됩니다.{/}"/>
 		<Class ClassID="302650" ClassName="EVENT_2109_MOON_RABBIT_CHECK_MSG2" Data="{#0066FF}[추석 이벤트 출석체크]{/}{nl}3시간 접속 시 보상 획득 ({#0066FF}{TIME}{/}/180분){nl}신규/복귀 정착 지원상자 수령 현황 ({#0066FF}{COUNT}{/}){nl}{#0066FF}※보상 획득 기간{/}{nl}09월18일 오전 06시 ~ 09월23일 오전 05시 59분 까지 총 5회"/>
 		<Class ClassID="302651" ClassName="EVENT_2109_MOON_RABBIT_CHECK_MSG3" Data="{#0066FF}[추석 이벤트 출석체크]{/}{nl}3시간 접속 시 보상 획득 ({#0066FF}{TIME}{/}/180분){nl}{#0066FF}※보상 획득 기간{/}{nl}09월18일 오전 06시 ~ 09월23일 오전 05시 59분 까지 총 5회"/>
 		<Class ClassID="302654" ClassName="GoddessCare_Etc" Data="기타"/>
