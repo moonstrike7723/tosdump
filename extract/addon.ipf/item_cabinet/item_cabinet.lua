@@ -1621,32 +1621,11 @@ function _ITEM_CABINET_REINFORCE_EXEC()
 	if frame == nil then return end
 	
 	local gem_type = frame:GetUserValue('GEM_TYPE')
-	local gem_lv   = frame:GetUserValue('GEM_LV')
 
-	local cabinet_relicgem_cls =  GetClassByType('cabinet_relicgem',gem_type)
-	if cabinet_relicgem_cls==nil then 
-		print("cabinet_relicgem_cls is nil val")
-		return
-	 end
-	
-	local accProp		  = TryGetProp(cabinet_relicgem_cls,"AccountProperty",'None')
-	local upgrade_accProp = TryGetProp(cabinet_relicgem_cls,"UpgradeAccountProperty",'None')
-	local reinf_accProp   = TryGetProp(cabinet_relicgem_cls,"ReinforceAccProp",'None')
-
-	if gem_type=='None' or gem_lv=='None' or accProp=='None' or upgrade_accProp=='None' or reinf_accProp=='None' then
-		print("REINFORCE FAIL")
-		return
-	end
-	
 	local do_reinforce = GET_CHILD_RECURSIVELY(frame, 'do_reinforce')
 	local result_list = session.GetItemIDList()
 	local argStrList = NewStringList();
-	argStrList:Add(gem_type);
-	argStrList:Add(gem_lv);
-	argStrList:Add(accProp);
-	argStrList:Add(upgrade_accProp);
-	argStrList:Add(reinf_accProp);
-	
+	argStrList:Add(gem_type);	
 	item.DialogTransaction("RELIC_GEM_REINFORCE_FOR_CABINET", result_list, '', argStrList);
 end
 
@@ -2059,7 +2038,7 @@ function ITEM_CABINET_ICOR_SECTION(frame, self, entry_cls)
 		if curlv~=nil and curlv > 0 then
 			icon:SetText("Lv."..curlv,"quickiconfont",ui.RIGHT,ui.BOTTOM,-2,1)
 		else
-			icon:SetText("미등록","quickiconfont",ui.RIGHT,ui.BOTTOM,-2,1)
+			icon:SetText(ClMsg("IsNotRegistered"),"quickiconfont",ui.RIGHT,ui.BOTTOM,-2,1)
 		end	
 	else
 		icon:SetTooltipNumArg(itemCls.ClassID);
@@ -2452,7 +2431,7 @@ function ITEM_CABINET_DRAW_MATERIAL(frame, materialTable, targetLV, maxLv)
 	icon:SetImage(next_item_cls.Icon);
 	
 	if category=="Relicgem" then
-		next_item_txt:SetTextByKey("name", next_item_cls.Name.." (등록하려는 젬의 레벨)")
+		next_item_txt:SetTextByKey("name", next_item_cls.Name.." (".. ClMsg("LevelOfRegisterGem") ..")")
 		slot:EnableHitTest(0)
 	else
 		slot:EnableHitTest(1)
