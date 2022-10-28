@@ -43,17 +43,21 @@ function INIT_LANGUAGE_CONFIG(frame)
 	for i = 0 , cnt - 1 do
 
 		local lanUIString = option.GetPossibleCountryUIName(i);
-		catelist:AddItem(i, lanUIString);
-
-		local lanString = option.GetPossibleCountry(i);
-
-		if option.GetCurrentCountry() == lanString then
-			selIndex = i;
+		local NationGroup = GetServerNation();
+		
+		if (lanUIString ~= "kr") then 
+			if NationGroup == "GLOBAL" then
+				if (lanUIString ~= "Japanese")then
+					catelist:AddItem(lanUIString, lanUIString);
+				end
+			else
+				catelist:AddItem(lanUIString, lanUIString);
+			end
 		end
 	end
-
-	catelist:SelectItem(selIndex);
-
+	
+	local lanString = option.GetCurrentCountry();
+	catelist:SelectItemByKey(lanString);
 end
 
 function INIT_SCREEN_CONFIG(frame)
@@ -309,12 +313,10 @@ end
 function APPLY_LANGUAGE(frame)
 
 	local lanCtrl = GET_CHILD_RECURSIVELY(frame, "languageList", "ui::CDropList");
-	local lanIndex = lanCtrl:GetSelItemIndex();
-	local lanString = option.GetPossibleCountry(lanIndex);
+	local lanString = lanCtrl:GetSelItemKey();
 	option.SetCountry(lanString)
 
 	config.SaveConfig();
-
 end
 
 function CHECK_CANCEL_SCREEN(frame, timer, str, num, totalTime)
