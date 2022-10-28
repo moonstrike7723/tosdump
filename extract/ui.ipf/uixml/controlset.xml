@@ -5579,4 +5579,10 @@
 			<picture name="blackbg" rect="0 0 488 87" margin="0 0 0 0" layout_gravity="center center" stretch="true" draw="false" image="fullblack"/>
 		</controls>
 	</controlset>
+	<controlset name="event_gamble_slot" hittest="true" width="190" height="146" hittestset="true" draw="false" stateskin="false">
+		<controls>
+			<picture name="slot_pic" rect="0 0 190 146" margin=" 0 0 0 0" image="protection_legend" imagealign="center center" layout_gravity="center top"/>
+			<slot name="slot" parent="slot_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
+		</controls>
+	</controlset>
 </controlsetlist>

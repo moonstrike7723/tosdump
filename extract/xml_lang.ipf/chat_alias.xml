@@ -54,5 +54,6 @@
 		<Class ClassID="58" ClassName="/maxLevel" Alias="/만렙" ConvertWhenSend="1"/>
 		<Class ClassID="60" ClassName="/vote" Alias="/투표" ConvertWhenSend="1"/>
 		<Class ClassID="61" ClassName="/master" Alias="/마스터" ConvertWhenSend="1"/>
+		<Class ClassID="66" ClassName="/halloween" Alias="/할로윈" ConvertWhenSend="1"/>
 	</Category>
 </idspace>

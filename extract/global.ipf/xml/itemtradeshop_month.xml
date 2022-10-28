@@ -17,5 +17,7 @@
 		<Class ClassID="112" ClassName="MASTERCARD_PVP_MINE_MONTH_12" SellStartTime="2020-08-18 06:00:00" SellEndTime="2020-09-15 06:00:00"/>
 		<Class ClassID="113" ClassName="MASTERCARD_PVP_MINE_MONTH_13" SellStartTime="2020-09-15 06:00:00" SellEndTime="2020-10-13 06:00:00"/>
 		<Class ClassID="114" ClassName="MASTERCARD_PVP_MINE_MONTH_14" SellStartTime="2020-09-15 06:00:00" SellEndTime="2020-10-13 06:00:00"/>		
+		<Class ClassID="115" ClassName="MASTERCARD_PVP_MINE_MONTH_15" SellStartTime="2020-10-13 06:00:00" SellEndTime="2020-11-10 06:00:00"/>		
+		<Class ClassID="116" ClassName="MASTERCARD_PVP_MINE_MONTH_16" SellStartTime="2020-10-13 06:00:00" SellEndTime="2020-11-10 06:00:00"/>		
 	</Category>
 </idspace>

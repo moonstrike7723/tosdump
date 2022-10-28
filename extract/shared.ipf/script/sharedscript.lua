@@ -3229,5 +3229,6 @@ function RANDOM_SHUFFLE(tbl)
 end
 
 function CLMSG_DIALOG_CONVERT(npc,msg)
-	return string.format("%s*@*%s",npc.Name,msg)
+	local name = TranslateDicID(npc.Name):gsub("{nl}"," ")
+	return string.format("%s*@*%s",name,msg)
 end

@@ -28,9 +28,9 @@ end
 
 function EVENT_GAMBLE_SET_HELP_TEXT(frame,eventCls)
 	local help = GET_CHILD_RECURSIVELY(frame,'help')
-	-- if string.find(eventCls.ClassName,"EVENT_2010_Halloween") == 1 then
-	-- 	help:SetText(ClMsg("EVENT_2010_HALLOWEEN_UI_HELP"))
-	-- end
+	if string.find(eventCls.ClassName,"EVENT_2010_Halloween") == 1 then
+		help:SetText(ClMsg("EVENT_2010_HALLOWEEN_UI_HELP"))
+	end
 end
 
 -- 1회 봉헌 비용 설정
@@ -85,6 +85,13 @@ function EVENT_GAMBLE_ITEM_LIST_INIT(frame,eventCls)
 				SET_ITEM_TOOLTIP_BY_TYPE(slot:GetIcon(), itemCls.ClassID);
 				slot:GetIcon():SetTooltipOverlap(1);
 				slot:SetUserValue("ITEM_ID", itemCls.ClassID);
+			end
+			--EVENT_2010_HALLOWEEN
+			if itemclassname == 'EVENT_2010_Halloween_Costume_Ticket' then
+				local aObj = GetMyAccountObj()
+				if TryGetProp(aObj,"EVENT_2010_HALLOWEEN_TICKET_GACHA") >= 1 then
+					slot:GetIcon():SetColorTone('FF444444')
+				end
 			end
 		end
 	end
@@ -235,6 +242,12 @@ function ON_EVENT_GAMBLE_ITEM_GET(frame, msg, itemid, itemCount)
 	EVENT_GAMBLE_ITEM_GET(frame, itemid);	
 	EVENT_GAMBLE_RESULT_EFFECT(frame,itemid);
 	EVENT_GAMBLE_ITEM_REMAIN_UPDATE(frame)
+	--EVENT_2010_HALLOWEEN
+	if tonumber(itemid) == 10000135 then
+		local eventClsName = frame:GetUserValue("EVENT_CLASSNAME")
+		local eventCls = GetClass("gamble_list",eventClsName)
+		EVENT_GAMBLE_ITEM_LIST_INIT(frame,eventCls)
+	end
 end
 
 -- 아이템 획득시 획득 아이템 slot 변경
@@ -275,21 +288,11 @@ end
 
 
 function EVENT_GAMBLE_ITEM_REMAIN_UPDATE(frame)
-	local eventClsName = frame:GetUserValue("EVENT_CLASSNAME")		
+	local eventClsName = frame:GetUserValue("EVENT_CLASSNAME")
 	local eventCls = GetClass("gamble_list",eventClsName)
-	if eventCls == nil then
-		return
-	end
 	local itemInfo = TryGetProp(eventCls,"ConsumeItem")
-	if itemInfo == nil or #itemInfo < 2 then
-		return
-	end
-
 	itemInfo = StringSplit(itemInfo,'/')
-	local itemClsName, itemCount = itemInfo[1], itemInfo[2]	
-	if itemClsName == nil or itemCount == nil then
-		return
-	end
+	local itemClsName, itemCount = itemInfo[1],itemInfo[2]
 	local remain_coin = GET_CHILD_RECURSIVELY(frame,"remain_coin")
 	local count = GetInvItemCount(GetMyPCObject(), itemClsName)
 	count = STR_KILO_CHANGE(tostring(count))

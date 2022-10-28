@@ -186,3 +186,5 @@ ClassID,ConditionArg4,ClassName,UseType,ValueType,PropertyType,ConditionScp,Cond
 185,0,Legendcard_Glacier,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,Paramune_Atk_BM,Paramune_Atk_BM,750,변이형 대상 공격력+{@st66d_y}{s16}[%d]{/}{/},750
 186,0,Master_card_ReamToiler,Always,StarCount,,,,,,SCR_CARDEFFECT_STATUS_PLUS,BLK_BM,BLK,10,블록 +{@st66d_y}{s16}[%d]{/}{/},10
 187,0,Master_card_NoirParesseus,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,BLK_BREAK_BM,BLK_BREAK,10,블록 관통 +{@st66d_y}{s16}[%d]{/}{/},10
+189,0,Master_card_Mei,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,CRTHR_BM,CRTHR,10,치명타 발생 +{@st66d_y}{s16}[%d]{/}{/},10
+190,0,Master_card_ShellyPennington,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,CRTDR_BM,CRTDR,10,치명타 저항 +{@st66d_y}{s16}[%d]{/}{/},10

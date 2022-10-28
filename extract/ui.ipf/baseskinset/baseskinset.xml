@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <skinset name="Base">
 	<skinlist category="frames">
@@ -11481,6 +11481,8 @@
 		<image name="019_npc_JenaHavindar" file="\skin\npccard\019_npc_JenaHavindar.tga" imgrect="0 0 330 440"/>
 		<image name="020_npc_ReamToiler" file="\skin\npccard\020_npc_ReamToiler.tga" imgrect="0 0 330 440"/>
 		<image name="021_npc_NoirParesseus" file="\skin\npccard\021_npc_NoirParesseus.tga" imgrect="0 0 330 440"/>
+		<image name="022_npc_Mei" file="\skin\npccard\022_npc_Mei.tga" imgrect="0 0 330 440"/>
+		<image name="023_npc_ShellyPennington" file="\skin\npccard\023_npc_ShellyPennington.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>
