@@ -3644,7 +3644,7 @@
 		<userconfig INITIALIZATION_CATEGORY_IMG="{img test_cooltime 22 22}"/>
 		<controls>
 			<gauge name="score_guage" margin="0 23 0 0" rect="0 0 290 20" skin="test_gauge_barrack_defence" inverse="false" point="10" maxpoint="120" text1="%v / %m" textoffset1="0 0" textfont1="white_14_ol" textalign1="center center"/>
-			<richtext name="name_text" margin="0 0 0 0" rect="0 -2 100 27" layout_gravity="left top" format="%s" param1="value" param1_def="카테고리" textalign="left top" resizebytext="true" spacey="0" fixwidth="true" fontname="white_18_ol"/>
+			<richtext name="name_text" margin="0 0 0 0" rect="0 -2 250 27" layout_gravity="left top" format="%s" param1="value" param1_def="카테고리" textalign="left top" resizebytext="true" spacey="0" fixwidth="true" fontname="white_18_ol"/>
 		</controls>
 	</controlset>
 	<controlset name="adventure_book_main_guage_with_reward" toggle="false" hittest="true" hittestset="false" width="400" height="60" skin="">

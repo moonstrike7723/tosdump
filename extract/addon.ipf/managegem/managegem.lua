@@ -24,6 +24,15 @@ function MANAGEGEM_OPEN(frame)
 	ui.OpenFrame("inventory")
 	INVENTORY_SET_CUSTOM_RBTNDOWN("MANAGEGEM_INV_RBTN");
 	CLEAR_MANAGEGEM_UI()
+	if option.GetCurrentCountry() == 'German' then
+		local bodyGbox2 = GET_CHILD_RECURSIVELY(frame,'bodyGbox2')
+		local button_make_socket = GET_CHILD_RECURSIVELY(bodyGbox2,'button_make_socket')
+		local margin = button_make_socket:GetOriginalMargin()
+		button_make_socket:SetMargin(-100,margin.top,margin.right,margin.bottom)
+		local button_remove_gem = GET_CHILD_RECURSIVELY(bodyGbox2,'button_remove_gem')
+		margin = button_remove_gem:GetOriginalMargin()
+		button_remove_gem:SetMargin(100,margin.top,margin.right,margin.bottom)
+	end
 end
 
 function MANAGEGEM_CLOSE(frame)

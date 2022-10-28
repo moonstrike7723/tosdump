@@ -9659,6 +9659,7 @@
 		<Class ClassID="102439" ClassName="ReallyEndRecruit" Data="현재 진행중인 참가자 모집을 마감하시겠습니까?"/>
 		<Class ClassID="102440" ClassName="ReallyCancelRecruit" Data="현재 진행중인 길드 퀘스트를 포기하시겠습니까?"/>
 		<Class ClassID="102441" ClassName="EventServerGuildQuestCheck" Data="{#003399}[시즌서버]{/} 길드퀘스트 누적 클리어 횟수 확인하기"/>
+		<Class ClassID="102445" ClassName="CS_Guild_BorutaReset_s6_1" Data="해당 길드 퀘스트는 현재 이용할 수 없습니다.{nl}이용제한 : 다음 업데이트"/>
 		<Class ClassID="102442" ClassName="EventServerGuildQuestCheckMsg{WEEKCOUNT}{TOTALCOUNT}" Data="길드 퀘스트 누적 클리어 횟수{nl}주간 클리어 횟수({WEEKCOUNT}/3){nl}누적 클리어 횟수({TOTALCOUNT}/12){nl}{#FF0000}※주간 클리어 횟수는 매주 화요일 00시에 초기화 됩니다.{/}"/>
 		<Class ClassID="102446" ClassName="EventGuildQuestCheck" Data="{#003399}[길드 이벤트]{/} 길드퀘스트 누적 클리어 횟수 확인하기"/>
 		<Class ClassID="102447" ClassName="EventNewGuildQuestCheckMsg{WEEKCOUNT}{WEEKCOUNT_BORUTA}{TOTALCOUNT}{TOTALCOUNT_BORUTA}{SPECIALCOUNT}" Data="길드 퀘스트 누적 클리어 횟수{nl}[주간] 길드 퀘스트({WEEKCOUNT}/3){nl}[주간] 슬리비나스 레어({WEEKCOUNT_BORUTA}/1){nl}[누적] 길드 퀘스트({TOTALCOUNT}/9){nl}[누적] 슬리비나스 레어({TOTALCOUNT_BORUTA}/3){nl}[영웅 미션] 슬리비나스 레어({SPECIALCOUNT}/3){nl}{#FF0000}※주간 클리어 횟수는 매주 화요일 00시에 초기화 됩니다.{/}"/>

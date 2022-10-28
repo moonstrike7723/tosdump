@@ -7,3 +7,5 @@ ClassID,Arg1,Arg2,RecipeTime,SuccessRatio,LevelByFail,TargetItemCnt,SellLimitCnt
 106,5,0,8,0,0,1,0,30000,0,0,0,0,0,0,0,0,0,0,MASTERCARD_PVP_MINE_MONTH_6,PVPMine,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,Master_card_AbrehMelinn,,,2020-05-26 06:00:00,2020-06-23 06:00:00,misc_pvp_mine2,,,,,
 107,5,0,8,0,0,1,0,30000,0,0,0,0,0,0,0,0,0,0,MASTERCARD_PVP_MINE_MONTH_7,PVPMine,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,Master_card_Rashn,,,2020-06-23 06:00:00,2020-07-21 06:00:00,misc_pvp_mine2,,,,,
 108,5,0,8,0,0,1,0,30000,0,0,0,0,0,0,0,0,0,0,MASTERCARD_PVP_MINE_MONTH_8,PVPMine,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,Master_card_Lucia,,,2020-06-23 06:00:00,2020-07-21 06:00:00,misc_pvp_mine2,,,,,
+109,5,0,8,0,0,1,0,30000,0,0,0,0,0,0,0,0,0,0,MASTERCARD_PVP_MINE_MONTH_9,PVPMine,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,Master_card_EdmundasTiller,,,2020-07-21 06:00:00,2020-08-18 06:00:00,misc_pvp_mine2,,,,,
+110,5,0,8,0,0,1,0,30000,0,0,0,0,0,0,0,0,0,0,MASTERCARD_PVP_MINE_MONTH_10,PVPMine,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,Master_card_Rozaliia,,,2020-07-21 06:00:00,2020-08-18 06:00:00,misc_pvp_mine2,,,,,

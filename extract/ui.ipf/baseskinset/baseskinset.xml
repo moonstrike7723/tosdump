@@ -10766,6 +10766,8 @@
 		<image name="013_npc_AbrehMelinn" file="\skin\npccard\013_npc_AbrehMelinn.tga" imgrect="0 0 330 440"/>
 		<image name="014_npc_Rashn" file="\skin\npccard\014_npc_Rashn.tga" imgrect="0 0 330 440"/>
 		<image name="015_npc_Lucia" file="\skin\npccard\015_npc_Lucia.tga" imgrect="0 0 330 440"/>
+		<image name="016_npc_EdmundasTiller" file="\skin\npccard\016_npc_EdmundasTiller.tga" imgrect="0 0 330 440"/>
+		<image name="017_npc_Rozaliia" file="\skin\npccard\017_npc_Rozaliia.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>
