@@ -5,7 +5,7 @@
 	<skin frameskin=" "/>
 	<frame titlepos="0 0" layout_gravity="center center" margin="160 0 0 0" fasthide="true"/>
 	<input moveable="true" hittestframe="true" moveintitlebar="false"/>
-	<layer layerlevel="99"/>
+	<layer layerlevel="96"/>
 	<option closebutton="false"/>
 	<script OpenScp="GODDESSCARDSLOT_OPEN" CloseScp="GODDESSCARDSLOT_CLOSE"/>
 	<sound opensound="window_open" closesound="window_close"/>

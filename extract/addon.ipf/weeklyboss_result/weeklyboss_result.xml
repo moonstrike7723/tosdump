@@ -3,7 +3,7 @@
 <uiframe name="weeklyboss_result" x="0" y="100" width="740" height="600" create="open">
 	<frame layout_gravity="center center" margin="0 -50 0 0"/>
 	<skin layout_gravity="left top" rect="0 82 220 220" frameskin="None"/>
-	<option hideable="true" closebutton="false" useimageitem="true"/>
+	<option hideable="false" closebutton="false" useimageitem="true"/>
 	<sound opensound="sys_card_battle_result_1" closesound="win_close"/>
 	<draw drawtitlebar="false"/>
 	<animation frameOpenAnim="dialog_start" frameCloseAnim="dialog_end"/>
