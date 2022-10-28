@@ -73,7 +73,6 @@ ClassID,GenType,Lv,Range,GenRange,RespawnTime,MaxPop,Minimap,Hide,UseAIOufOfPC,A
 5220,10067,1,40,1,60000,1,0,0,1,1,0,0,HiddenTrigger4,UnvisibleName,,,,MOM_DUMMY,,WEEKEND_REGULAR_BURNING_EVENT_NPC_AI,,,,NO,YES,NO,Neutral,,,,
 5221,10068,1,40,1,1,0,2,0,0,1,0,0,npc_kupole_7,주거 도우미 큐폴,,,,,,,NPC_PERSONAL_HOUSING_MANAGER,,,NO,YES,NO,Neutral,,,,
 5226,10073,1,40,1,1,1,2,0,0,0,0,0,npc_city_alchemist,[전문 알케미스트]{nl}아벨루,,,,,,,ALCHEIST_EXPERT_NPC_KLAPEDA,,,NO,YES,NO,Neutral,,,,
-5227,10074,1,40,1,60000,1,2,0,0,0,0,0,npc_washstand_1,[캠페인]{nl}청결한 분수대,,,,MON_DUMMY,,,CITY_WASHSTAND_NPC_1,,,NO,YES,NO,Neutral,Anim/ON,,,
 5233,10078,1,1,1,1,1,2,0,0,0,0,0,event_npc_village_male_b3,[화이트데이 이벤트]{nl}큐비드,,,,,,,EVENT_2003_WHITEDAY_CANDY,,,NO,YES,NO,Neutral,,,,
 10001,50001,1,40,1,60000,1,2,0,0,0,0,0,Board3_Event,이벤트 알림판,,,,,,,STEAM_TREASURE_EVENT,,,NO,YES,NO,Neutral,,,,
 10004,50004,1,40,1,60000,1,2,0,0,0,0,0,gacha_cube1_event,보너스 큐브,,,,,,,GACHA_BOUNS,,,NO,YES,NO,Neutral,,,,

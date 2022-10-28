@@ -70,7 +70,7 @@ ClassID,Value,ClassName,Desc,UseInScript
 260,7,GUILD_BATTLE_NEXT_JOINABLE_TIME,"길드 재가입 후, 길드배틀 참여를 제한하는 기간",NO
 261,20,GUILD_MAX_LEVEL,길드의 최대 레벨,YES
 262,20,GROUPCHAT_MAX_USER_CNT,그룹 채팅에 참여 가능한 최대 인원수,YES
-263,50,GROUPCHAT_MAX_CNT,한 유저가 소유 가능한 최대 그룹 채팅 갯수,NO
+263,150,GROUPCHAT_MAX_CNT,한 유저가 소유 가능한 최대 그룹 채팅 갯수,NO
 264,1000,SILVER_BY_ONE_ABILITY_POINT,특성 포인트 하나를 구매하기 위한 실버,YES
 265,40,MIN_LEVEL_FOR_GUILD_TASK,길드 관련 작업을 할 수 있는 최소 레벨,YES
 266,2,MIN_LEVEL_FOR_GUILD_NEUTRALITY,길드 중립 선포 가능한 최소 길드 레벨,YES

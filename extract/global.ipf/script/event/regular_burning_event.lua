@@ -133,6 +133,10 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 		end
 	
 		SendAddOnMsg(pc, "NOTICE_Dm_GetItem", ScpArgMsg("GM_BUFF_MSG1","BUFF",#dayBuffList), 5);
+		--루아 버전업 전이라서인지 table.unpack을 쓸 수 없어서 이 방식을 이용
+		for i = 1,#dayBuffList do
+			CustomMongoLog(pc,"Buff","Type",'BurningAddBuff','Buff'..i,dayBuffList[i])
+		end
 	end
 
 	if table.find(dayBuffList,'Event_Legend_Uphill_Count_Reset') ~= 0 then --레전드 레이드 날짜 수정 필요
