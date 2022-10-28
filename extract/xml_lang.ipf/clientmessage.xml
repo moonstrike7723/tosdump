@@ -507,6 +507,7 @@
 		<Class ClassID="2402" ClassName="Need8Transcend" Data="8초월 이상인 아이템만 가능합니다."/>
 		<Class ClassID="2403" ClassName="Need440UseLv" Data="440레벨 이상인 아이템만 가능합니다."/>
 		<Class ClassID="2404" ClassName="NeedLegendGrade" Data="레전드 등급 이상인 아이템만 가능합니다."/>
+		<Class ClassID="2405" ClassName="ArkLvupScrollWarning{Before}{After}" Data="아이템 변경사항 안내{nl} {nl} - 아이템의 레벨이 {Before}레벨에서{#62100c}{After}레벨{/}로 변경" />
 		<Class ClassID="2408" ClassName="ReallyDoCraftByConvertArmor{item1}{item2}" Data="{#0001ff}[{item1}]{/}을/를{nl}{#0001ff}[{item2}]{/}로{nl}정말 변경 하시겠습니까?{nl} {nl}{#ff0100}(계열 변경 시 각성, 고정 아이커 옵션이 사라집니다.){/}"/>
 	</Category>
 	<Category Name="ClassContents">
@@ -624,6 +625,7 @@
 		<Class ClassID="3088" ClassName="ReallyMakeSocketGoddess{img}{value}" Data="소켓을 추가하시겠습니까?{nl} {nl}{img}  {value}개"/>
 		<Class ClassID="3089" ClassName="OnlyGoddessEquipManagement" Data="가디스 장비 관리에서만 가능합니다."/>
 		<Class ClassID="3090" ClassName="ReallyRemoveGem_AetherGem" Data="{nl}무기에서 에테르 젬을 추출하시겠습니까?{nl}추출 비용 : {img silver 20 20/}"/>
+		<Class ClassID="3092" ClassName="NotValidItem" Data="올바른 아이템이 아닙니다."/>
 	</Category>
 	<Category Name="ItemPuzzle">
 		<Class ClassID="3501" ClassName="WouldYouSelectThisCombinationAsAlchemystryTarget?" Data="이 조합을 연금 대상으로 선택합니까?"/>
@@ -1052,6 +1054,43 @@
 		<Class ClassID="4428" ClassName="ReallyRegisterForCabinet" Data="등록한 무기/방어구는 {#0000ff}가디스 등급의 장비에만 아이커 부여가 가능{/}합니다.{nl} {nl}등록한 아이템은 복구가 불가능합니다.{nl}정말 등록하시겠습니까?"/>
 		<Class ClassID="4429" ClassName="EngravedOptionExist" Data="{#FE7E00}저장된 옵션이 있습니다!{/}"/>
 		<Class ClassID="4430" ClassName="ReallyEngraveOption" Data="{#FE7E00}각인은 캐릭터에 귀속되며, 기존 옵션은 복구되지 않습니다.{/}{nl}선택한 아이템과 재료로 각인 저장을 시도하시겠습니까?"/>
+		<Class ClassID="4431" ClassName="OpenCabinetArmor" Data="장비 보관함 방어구 개방"/>
+		<Class ClassID="4432" ClassName="Gabija" Data="가비야 세트 - 홀리 프레임"/>
+		<Class ClassID="4433" ClassName="Dalia" Data="달리아 세트 - 인피니티 블레싱"/>
+		<Class ClassID="4434" ClassName="installation" Data="럼펠스틸스킨 세트 - 레클리스 겜블러"/>
+		<Class ClassID="4435" ClassName="Vakarine" Data="바카리네 세트 - 미드나이트 뱁티즘"/>
+		<Class ClassID="4436" ClassName="Austeja" Data="아우스테야 세트 - 디바인 에니그마"/>
+		<Class ClassID="4437" ClassName="Zemyna" Data="제미나 세트 - 세인트 오아스"/>
+		<Class ClassID="4438" ClassName="EVIL" Data="지부리나스 세트 - 오버로드 레이드"/>
+		<Class ClassID="4439" ClassName="EVIL_SUMMONNER" Data="카르타스 세트 - 하시 임페라토르"/>
+		<Class ClassID="4440" ClassName="{set}ReallyOpenCabinetArmor" Data="[{#FF0000}{set}{/}](은)는 부분적으로 개방된 상태입니다. 정말로 사용하시겠습니까?"/>		
+		<Class ClassID="4441" ClassName="isgariti" Data="카랄리엔 이스가리티 세트"/>
+		<Class ClassID="4442" ClassName="juoda" Data="카랄리엔 주오다 세트"/>
+		<Class ClassID="4443" ClassName="kantrybe" Data="카랄리엔 칸트리베 세트"/>
+		<Class ClassID="4444" ClassName="triukas" Data="카랄리엔 트리우카스 세트"/>
+		<Class ClassID="4445" ClassName="predeti" Data="카랄리엔 프리데티 세트"/>
+		<Class ClassID="4446" ClassName="piktis" Data="카랄리엔 피크티스 세트"/>
+		<Class ClassID="4447" ClassName="OpenCabinetAcc" Data="장비 보관함 액세서리 개방"/>
+		<Class ClassID="4448" ClassName="OpenCabinetArk" Data="장비 보관함 아크 개방"/>
+		<Class ClassID="4449" ClassName="Ark_thunderbolt" Data="아크 - 낙뢰"/>
+		<Class ClassID="4450" ClassName="Ark_dispersion" Data="아크 - 분산"/>
+		<Class ClassID="4451" ClassName="Ark_overpower" Data="아크 - 제압"/>
+		<Class ClassID="4452" ClassName="Ark_wind" Data="아크 - 질풍"/>
+		<Class ClassID="4453" ClassName="Ark_punishment" Data="아크 - 천벌"/>
+		<Class ClassID="4454" ClassName="Ark_healingwave" Data="아크 - 치유의 물결"/>
+		<Class ClassID="4455" ClassName="Ark_storm" Data="아크 - 폭풍"/>
+		<Class ClassID="4456" ClassName="CantUseEventItem" Data="이벤트 아이템에는 사용할 수 없습니다."/>
+		<Class ClassID="4460" ClassName="CreateCabinetAcc" Data="카랄리엔 액세서리 생성"/>
+		<Class ClassID="4461" ClassName="CreateCabinetAcc2" Data="루시페리 액세서리 생성"/>
+		<Class ClassID="4462" ClassName="NotExistOpenedItem" Data="조건을 만족하는 아이템이 장비 보관함에서 개방되어 있지 않습니다."/>
+		<Class ClassID="4463" ClassName="isgariti_2" Data="루시페리 이스가리티 세트"/>
+		<Class ClassID="4464" ClassName="juoda_2" Data="루시페리 주오다 세트"/>
+		<Class ClassID="4465" ClassName="kantrybe_2" Data="루시페리 칸트리베 세트"/>
+		<Class ClassID="4466" ClassName="triukas_2" Data="루시페리 트리우카스 세트"/>
+		<Class ClassID="4467" ClassName="predeti_2" Data="루시페리 프리데티 세트"/>
+		<Class ClassID="4468" ClassName="piktis_2" Data="루시페리 피크티스 세트"/>
+		<Class ClassID="4469" ClassName="SelectCabinetItem{ITEM}" Data="{@st66d_y}{s20}{ITEM}{/}{/} {nl}해당 아이템을 정말 생성하시겠습니까?{nl} {nl}생성 시 캐릭터에 귀속됩니다."/>
+		<Class ClassID="4470" ClassName="CabinetAllOpen" Data="더 이상 개방할 수 없습니다."/>
 		</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -15955,6 +15994,8 @@
 		<Class ClassID="801174" ClassName="PRE_Challenge_RepeatHealPotion" Data="챌린지 모드 6단 이하에서만 사용 가능합니다."/>
 		<Class ClassID="801175" ClassName="PRE_Challenge_RepeatHealPotion2" Data="이미 효과가 활성화 중입니다."/>
 		<Class ClassID="801176" ClassName="PRE_Only_ChallengeMode" Data="챌린지 모드 또는 분열 특이점에서만 사용 가능합니다."/>
+		<Class ClassID="801177" ClassName="UsingOtherPotion" Data="같은 효과의 다른 아이템이 적용 중 입니다."/>
+		<Class ClassID="801182" ClassName="CantUsePlace" Data="사용할 수 없는 지역입니다."/>
 	</Category>
 	<Category Name="ColonyTax">
 		<Class ClassID="810000" ClassName="ColonyTaxRateDetail{Default}{Min}{Max}{ModifyDelay}{DisableModifyDelay1}{DisableModifyDelay2}" Data="- 챔피언스 리그 지역을 최종 점령한 길드는 각 도시의 적립요율을 조정할 수 있습니다.({Min}% ~ {Max}%) {nl}- 도시 적립요율은 기본적으로 표준 요율({Default}%)이 적용되어 있습니다.{nl}- 도시 적립요율 조정은 길드 마스터 또는 해당 권한을 가진 일원만 가능합니다.{nl}- 도시 적립요율은 조정 후, {ModifyDelay}시간 뒤에 재조정이 가능합니다.{nl}- 콜로니전 시작 {DisableModifyDelay1}시간 전부터 종료 {DisableModifyDelay2}분 후까지 도시 적립요율 조정이 제한됩니다.{nl}- 매 콜로니전 종료 후, 챔피언스 리그 지역의 최종 점령 길드가 지난번 점령 길드와 다른 경우 도시 적립요율은 표준 요율({Default}%)로 조정됩니다.{nl}- 챔피언스 리그 지역의 최종 점령 길드에 가입된 인원들은 해당 적립요율 적용 도시에 한해 최소 요율({Min}%)로 고정되어 적용됩니다.{nl}- 적립금 누적 기간 동안 [적립요율 적용 항목]의 실버 소비 시, 적용된 요율에 따라 적립금이 누적됩니다.{nl}   (적립금 누적 기간 : 콜로니전 종료 5분 후 시각을 기점으로 다음 콜로니전 종료 시 까지){nl}- 적립금 누적 기간이 끝나면 [적립금 분배] 탭에서 수령된 적립금을 길드원에게 분배할 수 있습니다."/>

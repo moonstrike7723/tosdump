@@ -8694,6 +8694,15 @@
 		<image name="icon_item_selectbox_ep13raincoat03_1" file="\icon\payment\icon_item_selectbox_ep13raincoat03_1.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_selectbox_ep13raincoat03_2" file="\icon\payment\icon_item_selectbox_ep13raincoat03_2.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_toy_ep13raincoat" file="\icon\payment\icon_item_toy_ep13raincoat.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_unknownSantuary_protect_lv1" file="\icon\payment\icon_item_unknownSantuary_protect_lv1.png" imgrect="0 0 256 256" CMM_Caption="미지의 성역 가호 포션"/>
+		<image name="icon_item_Bernice_protect_lv1" file="\icon\payment\icon_item_Bernice_protect_lv1.png" imgrect="0 0 256 256" CMM_Caption="베르니케 던전 가호 포션"/>
+		<image name="icon_item_vasilissa_autosolo_heal_lv1" file="\icon\payment\icon_item_vasilissa_autosolo_heal_lv1.png" imgrect="0 0 256 256" CMM_Caption="바실리사 자동/1인 회복 포션"/>
+		<image name="icon_item_ticket_ark_lvup_scroll" file="\icon\payment\icon_item_ticket_ark_lvup_scroll.png" imgrect="0 0 256 256" CMM_Caption="아크 레벨업권"/>
+		<image name="icon_item_cabinet_open_ticket_ark" file="\icon\payment\icon_item_cabinet_open_ticket_ark.png" imgrect="0 0 256 256" CMM_Caption="아크 개방권"/>
+		<image name="icon_item_cabinet_open_ticket_god_armor" file="\icon\payment\icon_item_cabinet_open_ticket_god_armor.png" imgrect="0 0 256 256" CMM_Caption="여/마신 개방권"/>
+		<image name="icon_item_cabinet_open_ticket_karaliene_acc" file="\icon\payment\icon_item_cabinet_open_ticket_karaliene_acc.png" imgrect="0 0 256 256" CMM_Caption="카랄리엔 개방권"/>
+		<image name="icon_item_cabinet_create_ticket_luciferi_acc" file="\icon\payment\icon_item_cabinet_create_ticket_luciferi_acc.png" imgrect="0 0 256 256" CMM_Caption="루시페리 생성권"/>
+		<image name="icon_item_cabinet_create_ticket_karaliene_acc" file="\icon\payment\icon_item_cabinet_create_ticket_karaliene_acc.png" imgrect="0 0 256 256" CMM_Caption="카랄리엔 생성권"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>
