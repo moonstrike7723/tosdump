@@ -138,6 +138,7 @@ local cannot_join_buff_list = {
 	secret_medicine_int_470 = 'CantJoinPVPCuzSecretMedicine',
 	secret_medicine_con_470 = 'CantJoinPVPCuzSecretMedicine',
 	secret_medicine_mspd_470 = 'CantJoinPVPCuzSecretMedicine',
+	secret_medicine_mspd2_470 = 'CantJoinPVPCuzSecretMedicine',
 	secret_medicine_rsp_470 = 'CantJoinPVPCuzSecretMedicine',
 }
 function ADVENTURE_BOOK_JOIN_WORLDPVP(parent, ctrl)

@@ -848,3 +848,30 @@ function SCR_CHECK_EyeofBeast_C(actor, skl)
 
     return 0
 end
+
+function SCR_KERAUNOS_USE_SKILL_BUFF_C(actor, skl, buffName)
+    if actor:GetBuff():GetBuff("ElectricCurrent_NormalAttack_Buff") == nil then
+        return 0;
+    end
+
+    return 1;
+end
+
+function SCR_KERAUNOS_ELECTRICDRIVE_USE_SKILL_BUFF_C(actor, skl, buffName)
+    if actor:GetBuff():GetBuff("ElectricCurrent_NormalAttack_Buff") == nil then
+        return 0;
+    end
+    if actor:GetBuff():GetBuff("keraunos_Spark_ElectricDrive_Buff") ~= nil then
+        return 0;
+    end
+
+    return 1;
+end
+
+function SCR_FEATHERFOOT_USE_SKILL_BUFF_C(actor, skl, buffName)
+    if actor:GetBuff():GetBuff("Featherfoot_Curseofblood_Buff") == nil then
+        return 0;
+    end
+
+    return 1;
+end

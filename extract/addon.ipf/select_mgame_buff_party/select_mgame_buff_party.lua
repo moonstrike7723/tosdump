@@ -18,7 +18,7 @@ function INIT_SELECT_MGAME_BUFF(frame, buffList, time)
 	gauge:RunUpdateScript("SELECT_MGAME_BUFF_UPDATE_TIME", 0.01, time + 1);
 	gauge:SetUserValue("TOTAL_TIME",time)
 	local select = GET_CHILD_RECURSIVELY(frame,"select")
-	select:SetEnable(1)
+	select:SetEnable(0)
 	frame:SetEnable(1)
 end
 
@@ -29,7 +29,7 @@ function INIT_SELECT_MGAME_BUFF_OPTION(frame, buffList, time)
 	gauge:RunUpdateScript("SELECT_MGAME_BUFF_UPDATE_TIME", 0.01, time + 1);
 	gauge:SetUserValue("TOTAL_TIME", time);
 	local select = GET_CHILD_RECURSIVELY(frame, "select");
-	select:SetEnable(1);
+	select:SetEnable(0);
 	frame:SetEnable(1);
 end
 
@@ -130,6 +130,9 @@ function ON_SELECT_MGAME_BUFF_ICON_CLICK(parent, ctrl, argStr, argNum)
 		click_pic:EnableHitTest(1);
 		click_pic:SetVisible(1);
 		frame:SetUserValue("SELECT_MGAME_BUFF", argNum);
+
+		local select_btn = GET_CHILD_RECURSIVELY(frame, "select");
+		select_btn:SetEnable(1);
 	end
 end
 ---------------------------------------------

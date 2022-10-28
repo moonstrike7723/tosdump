@@ -137,8 +137,9 @@ end
 function SET_BUFF_SLOT(slot, capt, class, buffType, handle, slotlist, buffIndex, isOtherCast)
 	local icon = slot:GetIcon();
 	local imageName = GET_BUFF_ICON_NAME(class);
-
-	icon:Set(imageName, 'BUFF', buffType, 0);
+	if imageName ~= "icon_None" then
+		icon:Set(imageName, 'BUFF', buffType, 0);
+	end
 	if buffIndex ~= nil then
 		icon:SetUserValue("BuffIndex", buffIndex);	
 	end
@@ -147,7 +148,7 @@ function SET_BUFF_SLOT(slot, capt, class, buffType, handle, slotlist, buffIndex,
 		return;
 	end
 
-	local buff = info.GetBuff(tonumber(handle), buffType);
+	local buff = info.GetBuff(tonumber(handle), buffType, buffIndex);
 	if nil == buff then
 		return;
 	end

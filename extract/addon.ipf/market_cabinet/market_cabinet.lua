@@ -85,6 +85,8 @@ function ON_CABINET_ITEM_LIST(frame)
             typeText:SetTextByKey('type', ClMsg('BuySuccess'));
         elseif whereFrom == 'market_cancel' or whereFrom == 'market_expire' then -- 판매 취소, 판매 기한 완료
             typeText:SetTextByKey('type', ClMsg('SellCancel'));
+        elseif whereFrom == 'SquadModeReward' then
+            typeText:SetTextByKey('type', ClMsg('SquadModeReward'));
         end
 
         -- item picture and name

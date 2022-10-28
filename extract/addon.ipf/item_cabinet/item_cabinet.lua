@@ -294,7 +294,7 @@ function ITEM_CABINET_CREATE_LIST(frame)
 	local equipTab = GET_CHILD_RECURSIVELY(frame, "equipment_tab");
 	local edit = GET_CHILD_RECURSIVELY(frame, "ItemSearch");
 	local cap = edit:GetText();
-
+	
 	if category == "Weapon" or category == "Armor" then
 		equipTab:ShowWindow(1);
 		local equipTabIndex = equipTab:GetSelectItemIndex();
@@ -401,6 +401,21 @@ function ITEM_CABINET_SHOW_UPGRADE_UI(frame, isShow)
 	end
 end
 
+function GET_ENABLE_EQUIP_JOB(listCls)	
+	local ori_name = TryGetProp(listCls, 'ClassName', 'None')		
+	local job_cls = GetClass('EliteEquipDrop', ori_name)		
+	if job_cls ~= nil then
+		local job_name = TryGetProp(job_cls, 'JobName', 'None')
+		if job_name ~= 'All' then
+			local _cls = GetClassByStrProp("Job", "JobName", job_name);
+			if _cls ~= nil then
+				return dictionary.ReplaceDicIDInCompStr(TryGetProp(_cls, 'Name', 'None'))
+			end
+		end
+	end
+	return ''
+end
+
 function ITEM_CABINET_ITEM_TAB_INIT(listCls, itemTabCtrl)
 	local itemSlot = GET_CHILD(itemTabCtrl, "itemIcon");
 	local itemText = GET_CHILD(itemTabCtrl, "itemName");
@@ -417,12 +432,19 @@ function ITEM_CABINET_ITEM_TAB_INIT(listCls, itemTabCtrl)
 	if itemCls == nil then return; end
 
 	local add_str = ''	
+	local add_job = ''
 	if TryGetProp(itemCls, 'AdditionalOption_1', 'None') ~= 'None' then		
 		add_str = '(' ..  ClMsg('Unique1') .. ')'
+		
+		add_job = GET_ENABLE_EQUIP_JOB(listCls)
+
+		if add_job ~= '' then
+			add_job = ' - ' .. add_job
+		end
 	end
 
 	SET_SLOT_BG_BY_ITEMGRADE(itemSlot, itemCls);
-	itemText:SetTextByKey('name', TryGetProp(itemCls, 'Name') .. add_str);
+	itemText:SetTextByKey('name', TryGetProp(itemCls, 'Name') .. add_str .. add_job);
 	
 	local icon = CreateIcon(itemSlot);
 	icon:SetImage(TryGetProp(itemCls, 'Icon'));
@@ -461,18 +483,23 @@ function ITEM_CABINET_MATCH_NAME(listCls, cap)
 	local itemCls = GetClass('Item', itemClsName);
 	if itemCls == nil then return; end
 
-	local itemname = string.lower(dictionary.ReplaceDicIDInCompStr(TryGetProp(itemCls, 'Name')));
+	local itemname = string.lower(dictionary.ReplaceDicIDInCompStr(TryGetProp(itemCls, 'Name')));	
 	--접두어도 포함시켜 검색해야되기 때문에, 접두를 찾아서 있으면 붙여주는 작업
 	local prefixClassName = TryGetProp(itemCls, "LegendPrefix")
 	if prefixClassName ~= nil and prefixClassName ~= "None" then
 		local prefixCls = GetClass('LegendSetItem', prefixClassName)
-		local prefixName = string.lower(dictionary.ReplaceDicIDInCompStr(prefixCls.Name));
+		local prefixName = string.lower(dictionary.ReplaceDicIDInCompStr(prefixCls.Name));		
 		itemname = prefixName .. " " .. itemname;
 	end
 
 	local tempcap = string.lower(cap);
 
 	if string.find(itemname, tempcap) ~= nil then
+		return true;
+	end
+
+	local enable_name = GET_ENABLE_EQUIP_JOB(listCls)
+	if string.find(enable_name, tempcap) ~= nil then
 		return true;
 	end
 

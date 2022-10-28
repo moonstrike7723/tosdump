@@ -693,4 +693,16 @@
 		<!--partysearch-->
 		<font name="normal" size="16" space="0" color="ffd58d" bold="yes" italic="no" dropshadow="no" outline="yes" underline="no" centerline="no"/>
 	</style>
+	<style name="tribal_01">
+		<!--tribal-->
+		<font name="normal" size="16" space="0" color="ffc330" bold="yes" italic="no" dropshadow="yes" outline="yes" underline="no" centerline="no"/>
+	</style>
+	<style name="tribal_02">
+		<!--tribal-->
+		<font name="normal" size="16" space="0" color="6a4b2c" bold="yes" italic="no" dropshadow="yes" outline="yes" underline="no" centerline="no"/>
+	</style>
+	<style name="tribal_03">
+		<!--tribal-->
+		<font name="normal" size="16" space="0" color="ff6000" bold="no" italic="no" dropshadow="no" outline="yes" underline="no" centerline="no"/>
+	</style>
 </StyleSheet>

@@ -1498,7 +1498,7 @@ function INDUNENTER_SET_MEMBERCNTBOX()
     memberCntBox:ShowWindow(1);
 end
 
-function INDUNENTER_AUTOMATCH_TYPE(indunType, needUnderstaffAllow)
+function INDUNENTER_AUTOMATCH_TYPE(indunType, needUnderstaffAllow)    
     if needUnderstaffAllow == nil then
         needUnderstaffAllow = 1;
     end
@@ -1524,16 +1524,14 @@ function INDUNENTER_AUTOMATCH_TYPE(indunType, needUnderstaffAllow)
 
         if frame:GetUserValue('FRAME_MODE') == "SMALL" then
             INDUNENTER_SMALL(frame, smallBtn);
-        end
+        end        
     elseif frame:GetUserValue('AUTOMATCH_MODE') ~= 'YES' then
-        local indunCls = GetClassByType('Indun', indunType)
+        local indunCls = GetClassByType('Indun', indunType)        
         if indunCls ~= nil then
-            local dungeonType = TryGetProp(indunCls, 'DungeonType', 'None')
-            local bannedDungeonType = {'GTower','Challenge_Auto','MythicDungeon_Auto','MythicDungeon_Auto_Hard'}
-            if table.find(bannedDungeonType,dungeonType) ~= 0 then
+            if TryGetProp(indunCls, 'EnableUnderStaffEnter', 'None') ~= 'YES' then
                 needUnderstaffAllow = 0;
             end
-        end
+        end        
 
         frame:SetUserValue('AUTOMATCH_MODE', 'YES');
         frame:SetUserValue('EXCEPT_CLOSE_TARGET', 'YES');

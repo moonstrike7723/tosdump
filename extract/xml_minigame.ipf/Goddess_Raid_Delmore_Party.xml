@@ -438,6 +438,9 @@
                             <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_RAID_END_STOP_DEBUFF_MON"/>
                             </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_GODDESS_RAID_REMOVE_RELIC_PENALTY"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                     <Event execCount="1" eventName="20Sec">
@@ -1449,11 +1452,11 @@
         <EnterList>
             <ToolScp Scp="MGAME_ZONEENTER_SCRIPT" Client="NO" UseSleep="NO">
                 <Num Num="2"/>
-                <Str Str="SCR_DELMORE_CASTLE_GATE_RESTART_CHECK"/>
+                <Str Str="SCR_DELMORE_CASTLE_GATE_SET_VIEW_RANGE"/>
             </ToolScp>
             <ToolScp Scp="MGAME_ZONEENTER_SCRIPT" Client="NO" UseSleep="NO">
                 <Num Num="2"/>
-                <Str Str="SCR_DELMORE_CASTLE_GATE_SET_VIEW_RANGE"/>
+                <Str Str="SCR_DELMORE_CASTLE_JOIN_PENALTY_CHECK"/>
             </ToolScp>
         </EnterList>
         <WorldInitList>

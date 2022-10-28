@@ -136,7 +136,10 @@ function REQUEST_UPDATE_MINIMAP(frame, isFirstOpen)
 end
 
 function DESTORY_MINIMAP_PIC(frame)
-	DESTROY_CHILD_BYNAME(frame, "_NPC_");
+	local npc_list = GET_CHILD_RECURSIVELY(frame, "npclist");
+	if npc_list ~= nil then
+		DESTROY_CHILD_BYNAME(npc_list, "_NPC_");
+	end
 end
 
 function UPDATE_MINIMAP(frame)

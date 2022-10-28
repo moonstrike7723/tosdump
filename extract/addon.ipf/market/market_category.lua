@@ -363,12 +363,13 @@ local function GET_SEARCH_PRICE_ORDER(frame)
 	return 0; -- default
 end
 
-local function GET_SEARCH_TEXT(frame)
+local function GET_SEARCH_TEXT(frame)	
 	local defaultValue = '';
 	local market_search = GET_CHILD_RECURSIVELY(frame, 'itemSearchSet');
 	if market_search ~= nil and market_search:IsVisible() == 1 then
 		local searchEdit = GET_CHILD_RECURSIVELY(market_search, 'searchEdit');
 		local findItem = searchEdit:GetText();
+		searchEdit:Focus()
 		local minLength = 0;
 		local findItemStrLength = findItem.len(findItem);
 		local maxLength = 60;
@@ -782,6 +783,7 @@ function MARKET_REFRESH_SEARCH_OPTION(parent, ctrl)
 	if itemSearchSet ~= nil and itemSearchSet:IsVisible() == 1 then
 		local searchEdit = GET_CHILD_RECURSIVELY(itemSearchSet, 'searchEdit');
 		searchEdit:SetText('');
+		searchEdit:Focus()
 	end
 
 	-- appraisal

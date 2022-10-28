@@ -40,24 +40,7 @@ function RESTART_ON_RESSURECT_HERE(frame)
 end
 
 function RESTART_ON_RESSURECT_HERE_MYSTIC(frame)
-	local cristal = GetClass("Item", "GuildColony_Item_mysticCristal");
-	local cristal_support2 = GetClass("Item", "GuildColony_Item_mysticCristal_Colony_Support2");
 	
-	local item = nil; 
-	if cristal ~= nil then
-		item = session.GetInvItemByName(cristal.ClassName);
-	end
-
-	local item_support2 = nil;
-	if cristal_support2 ~= nil then
-		item_support2 = session.GetInvItemByName(cristal_support2.ClassName);
-	end
-
-	if item == nil and item_support2 == nil then
-		ui.SysMsg(ScpArgMsg("NotEnough{ItemName}Item","ItemName", cristal.Name));
-		return;
-	end
-	restart.SendRestartHereMysticMsg();
 end
 
 function RESTART_ON_RESSURECT_MAINLAYER(frame)
@@ -442,11 +425,7 @@ function COLONY_WAR_RESTART_BY_MYSTIC_UPDATE(frame)
 	local btn = GET_CHILD(frame, "restart8btn");
 	AUTO_CAST(frame)
 
-	local mysticItem = session.GetInvItemByName("GuildColony_Item_mysticCristal");
-	if mysticItem == nil then
-		mysticItem = session.GetInvItemByName("GuildColony_Item_mysticCristal_Colony_Support2");
-	end
-
+	local mysticItem = nil	
 	if mysticItem == nil then
 		btn:ShowWindow(0);
 		AUTORESIZE_RESTART(frame);

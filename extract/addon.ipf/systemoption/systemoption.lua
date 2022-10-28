@@ -1,5 +1,54 @@
+﻿local json = require('json')
+local PATH = require('path')
+
+local system_option_setting = {}
+
+local path_format = '..\\release\\addon_setting\\system_option\\%s\\settings.json'
+system_option_setting.SettingsFileLocation = string.format(path_format, '0')
+
+system_option_setting.Settings = {
+	pc_id = {}
+};
+
+function load_evolution_stone_effect_value()	
+    if not system_option_setting.Loaded then
+        system_option_setting.SettingsFileLocation = string.format(path_format, session.loginInfo.GetUserID())
+        local t, err = load_json(system_option_setting.SettingsFileLocation, system_option_setting.Settings);			
+        if err then
+            os.execute('mkdir ' .. PATH.dirname(system_option_setting.SettingsFileLocation))
+        else
+            system_option_setting.Settings = t;
+            system_option_setting.Loaded = true;								
+        end
+    end
+end
+
+function save_evolution_stone_effect_value(value)	
+	local t = system_option_setting.Settings.pc_id[session.GetMySession():GetCID()]
+	if t == nil then		
+		system_option_setting.Settings.pc_id[session.GetMySession():GetCID()] = {}
+	end
+
+	if system_option_setting.Settings.pc_id[session.GetMySession():GetCID()]['evolution_stone_effect_value'] == nil then
+		system_option_setting.Settings.pc_id[session.GetMySession():GetCID()]["evolution_stone_effect_value"] = {}	
+	end
+	system_option_setting.Settings.pc_id[session.GetMySession():GetCID()]["evolution_stone_effect_value"]['level'] = value
+    save_json(system_option_setting.SettingsFileLocation, system_option_setting.Settings);
+end
+
+function get_evolution_stone_effect_value()
+    local t = system_option_setting.Settings.pc_id[session.GetMySession():GetCID()]    
+    if t == nil or t['evolution_stone_effect_value'] == nil or t['evolution_stone_effect_value']['level'] == nil then
+        return 255
+    else
+        return t['evolution_stone_effect_value']['level']
+    end
+end
+
+
 function SYSTEMOPTION_ON_INIT(addon, frame)
 	addon:RegisterMsg('IES_VALUE_CHANGE', 'UPDATE_OPERATOR_CONFIG');
+	load_evolution_stone_effect_value()
 	INIT_GAMESYS_CONFIG(frame);
 end
 
@@ -290,6 +339,9 @@ function INIT_SOUND_CONFIG(frame)
 	SET_SLIDE_VAL(frame, "effect_transparency_my_value", "effect_transparency_my", config.GetMyEffectTransparency());
 	SET_SLIDE_VAL(frame, "effect_transparency_other_value", "effect_transparency_other", config.GetOtherEffectTransparency());
 	SET_SLIDE_VAL(frame, "effect_transparency_boss_monster_value", "effect_transparency_boss_monster", config.GetBossMonsterEffectTransparency());
+	
+	config.SetEvolutionStoneEffect(get_evolution_stone_effect_value());	
+	SET_SLIDE_VAL(frame, "evolution_stone_effect_value", "evolution_stone_effect", config.GetEvolutionStoneEffect());
 
 	local isOtherFlutingEnable = config.IsEnableOtherFluting();
 	local chkOtherFlutingEnable = GET_CHILD_RECURSIVELY(frame, "check_fluting");
@@ -402,6 +454,11 @@ function INIT_GRAPHIC_CONFIG(frame)
 	local IsEnableSummonAlpha = GET_CHILD_RECURSIVELY(frame, "Check_IsEnableSummonAlpha", "ui::CCheckBox");
 	if IsEnableSummonAlpha ~= nil then
 		IsEnableSummonAlpha:SetCheck(config.GetIsEnableSummonAlpha());
+	end
+
+	local isEnableEvolutionStoneEffect = GET_CHILD_RECURSIVELY(frame, "Check_IsEnableEvolutionStoneEffect", "ui::CCheckBox");
+	if isEnableEvolutionStoneEffect ~= nil then
+		isEnableEvolutionStoneEffect:SetCheck(config.GetIsEnableEvolutionStoneEffect());
 	end
 
 	local useURO = GET_CHILD_RECURSIVELY(frame, "check_UseURO", "ui::CCheckBox");
@@ -1055,6 +1112,9 @@ function EFFECT_TRANSPARENCY_ON()
 
 	local effect_transparency_boss_monster_value = GET_CHILD_RECURSIVELY(frame, "effect_transparency_boss_monster_value", "ui::CSlideBar");
 	effect_transparency_boss_monster_value:SetEnable(1);
+
+	local effect_transparency_evolution_stone_effect_value = GET_CHILD_RECURSIVELY(frame, "evolution_stone_effect_value", "ui::CSlideBar");
+	effect_transparency_evolution_stone_effect_value:SetEnable(1);
 end
 
 function EFFECT_TRANSPARENCY_OFF()
@@ -1076,6 +1136,11 @@ function EFFECT_TRANSPARENCY_OFF()
 	effect_transparency_boss_monster_value:SetLevel(255);
 	CONFIG_BOSSMON_EFECT_TRANSPARENCY(frame, effect_transparency_boss_monster_value, "", 0);
 	effect_transparency_boss_monster_value:SetEnable(0);
+
+	local effect_transparency_evolution_stone_effect_value = GET_CHILD_RECURSIVELY(frame, "evolution_stone_effect_value", "ui::CSlideBar");
+	effect_transparency_evolution_stone_effect_value:SetLevel(255);
+	CONFIG_EVOLUTIONSONTE_EFFECT(frame, effect_transparency_evolution_stone_effect_value, "", 150);
+	effect_transparency_evolution_stone_effect_value:SetEnable(0);
 end
 
 function CONFIG_TEXTEFFECT_NOT_SHOW(frame, ctrl, str, num)
@@ -1112,6 +1177,13 @@ function SET_ENABLE_SUMMON_ALPHA(parent, ctrl)
 	local isEnable = ctrl:IsChecked();
     config.SetIsEnableSummonAlpha(isEnable);
 	config.SaveConfig();
+end
+
+function CONFIG_EVOLUTIONSONTE_EFFECT(frame, ctrl, str, num)
+	tolua.cast(ctrl, "ui::CSlideBar");
+	config.SetEvolutionStoneEffect(ctrl:GetLevel());
+	SET_SLIDE_VAL(frame, "evolution_stone_effect_value", "evolution_stone_effect", config.GetEvolutionStoneEffect());
+	save_evolution_stone_effect_value(ctrl:GetLevel())
 end
 
 function SET_USE_URO(parent, ctrl)

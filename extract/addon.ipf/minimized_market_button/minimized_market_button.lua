@@ -7,6 +7,5 @@ function MINIMIZED_MARKET_BUTTON_OPEN_CHECK(frame)
 end
 
 function MINIMIZED_MARKET_BUTTON_CLICK(parent, ctrl)
-    local frame = ui.GetFrame('market')
-    ON_OPEN_MARKET(frame)
+    control.CustomCommand("MARKET_UI_OPEN", 0)
 end

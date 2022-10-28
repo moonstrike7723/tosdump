@@ -44,9 +44,11 @@ function UPDATE_USER_DAMAGE_METER_GUAGE(frame, groupbox, totalDamage, nameList)
             groupbox:Resize(groupbox:GetWidth(),groupbox:GetHeight()+17)
         end
         local point = MultForBigNumberInt64(damage,"100")
-        point = DivForBigNumberInt64(point,totalDamage)
-        local skin = 'gauge_damage_meter_0'..math.min(i,4)
-        damage = font..STR_KILO_CHANGE(damage)..'K'
-        DAMAGE_METER_GAUGE_SET(ctrlSet,font..name,point,font..damage,skin);
+        if totalDamage ~= "0" then
+            point = DivForBigNumberInt64(point, totalDamage)
+            local skin = 'gauge_damage_meter_0'..math.min(i,4)
+            damage = font..STR_KILO_CHANGE(damage)..'K'
+            DAMAGE_METER_GAUGE_SET(ctrlSet,font..name,point,font..damage,skin);
+        end
     end
 end

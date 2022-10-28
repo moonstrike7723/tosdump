@@ -312,11 +312,3 @@ function REQ_RIDE_RIDEPET_C(skillType)
 
 	return 0
 end
-
-function SKL_START_CLIENT_TARGET_CHECK(actor, skill, time)
-	geSkillControl.StartTargetSender(time)
-end
-
-function SKL_END_CLIENT_TARGET_CHECK(actor, skill, time)
-	geSkillControl.EndTargetSender()
-end

@@ -387,11 +387,10 @@ function PARTY_TAB_CHANGE(frame, ctrl, argStr, argNum)
 			
 			createPartyBtn:ShowWindow(1)
 			outPartyBtn:ShowWindow(0)
-		end
+		end		
 	else
 		createPartyBtn:ShowWindow(0)
 		outPartyBtn:ShowWindow(0)
-
 	end
 
 	RESET_NAME_N_MEMO(frame)
@@ -584,4 +583,3 @@ end
 function EXEC_PARTY_CANCEL_PVP_JOIN(pvpType)
 	worldPVP.ReqJoinPVP(pvpType, PVP_STATE_NONE);
 end
-

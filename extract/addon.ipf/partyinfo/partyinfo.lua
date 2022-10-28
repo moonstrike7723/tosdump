@@ -272,7 +272,7 @@ function ON_PARTYINFO_BUFFLIST_UPDATE(frame)
 					for j = 0, buffCount - 1 do	
 						local buffID = partyMemberInfo:GetBuffIDByIndex(j);
 						local cls = GetClassByType("Buff", buffID);	
-							if cls ~= nil and IS_PARTY_INFO_SHOWICON(cls.ShowIcon) == true and cls.ClassName ~= "TeamLevel" then
+						if cls ~= nil and IS_PARTY_INFO_SHOWICON(cls.ShowIcon) == true and cls.ClassName ~= "TeamLevel" then
 							local buffOver = partyMemberInfo:GetBuffOverByIndex(j);
 							local buffTime = partyMemberInfo:GetBuffTimeByIndex(j);							
 							local slot = nil;
@@ -303,8 +303,10 @@ function ON_PARTYINFO_BUFFLIST_UPDATE(frame)
 								icon:SetTooltipType('buff');
 								icon:SetTooltipArg(handle, buffID, "");
 
-								local imageName = 'icon_' .. TryGetProp(cls, 'Icon', 'None');
-								icon:Set(imageName, 'BUFF', buffID, 0);
+								local imageName = 'icon_'..TryGetProp(cls, 'Icon', 'None');
+								if imageName ~= "icon_None" then
+									icon:Set(imageName, 'BUFF', buffID, 0);
+								end
 
 								if buffOver > 1 then
 									slot:SetText('{s13}{ol}{b}'..buffOver, 'count', ui.RIGHT, ui.BOTTOM, 1, 2);

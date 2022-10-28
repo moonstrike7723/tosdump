@@ -9,7 +9,7 @@
 	<script OpenScp="COMBOINPUT_OPEN" CloseScp="COMBOINPUT_CLOSE"/>
 	<sound opensound="sys_event_window_open_1" closesound="None"/>
 	<layer layerlevel="92"/>
-	<userconfig KEY_IMG_SIZE="40" KEY_INPUT_SOUNT="skl_eff_luchador_martinete_combo_click" LAST_KEY_INPUT_SOUNT="skl_eff_luchador_martinete_combo_end_click"/>
+	<userconfig KEY_IMG_SIZE="40" KEY_INPUT_SOUND="skl_eff_luchador_martinete_combo_click" LAST_KEY_INPUT_SOUND="skl_eff_luchador_martinete_combo_end_click"/>
 	<controls>
 		<groupbox name="bg" rect="0 0 64 64" margin="0 0 0 0" layout_gravity="center top" skin="test_frame_midle" draw="false" hittest="false" resizebyparent="false" resizebyresolution="false"/>
 		<picture name="combo_timer_gauge_left" rect="0 0 7 33" margin="193 0 0 40" layout_gravity="left bottom" hittest="false" image="challenge_gauge_left" stretch="true"/>

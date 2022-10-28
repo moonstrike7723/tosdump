@@ -433,6 +433,14 @@ function SET_MONGEN_NPC_VISIBLE(picture, mapprop, MonProp)
             end
         end
     end
+    SET_MONGEN_NPC_VISIBLE_BY_MGAME(picture);
+end
+
+function SET_MONGEN_NPC_VISIBLE_BY_MGAME(picture)
+    local mgame_name = session.mgame.GetCurrentMGameName();
+    if mgame_name ~= nil and (string.find(mgame_name, "CHALLENGE_AUTO") ~= nil or string.find(mgame_name, "CHALLENGE_SOLO") ~= nil) then
+        picture:ShowWindow(0);
+    end
 end
 
 function SET_NPC_STATE_ICON(PictureC, iconName, state, questID, worldPos)

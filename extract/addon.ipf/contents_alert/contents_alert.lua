@@ -10,8 +10,10 @@ function CONTENTS_ALERT_OPEN(frame, msg, argStr, argNum)
 	local text = GET_CHILD_RECURSIVELY(frame,"text")
 	local yesBtn = GET_CHILD(frame, "yesBtn")
 	local cls = GetClassByType("contents_alert_table", argNum)
-	local gearScore = TryGetProp(cls, "GearScore")
+	local gearScore = CONTENTS_ALERT_GET_CUTLINE(argNum)
 	local contentsName = TryGetProp(cls, "ContentsName")
+
+	local indunName = TryGetProp(cls, "IndunName")
 
 	text:SetTextByKey("value", ScpArgMsg('ContentsAlert_SysMsg_1', 'SCORE', gearScore, 'MGAMENAME', contentsName))
 

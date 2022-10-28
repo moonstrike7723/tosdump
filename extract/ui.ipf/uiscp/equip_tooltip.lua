@@ -435,13 +435,29 @@ function DRAW_EQUIP_COMMON_TOOLTIP_SMALL_IMG(tooltipframe, invitem, mainframenam
 
 	gradeText = gradeText .. score_text
 
+	local goddessEquip_470 = false
+
+	if TryGetProp(invitem, 'ItemGrade', 0) >= 6 and TryGetProp(invitem, 'UseLv', 0) >= 470 then
+        goddessEquip_470 = true
+    end
+
 	local transcend = TryGetProp(invitem, "Transcend");
-	if transcend ~= nil and transcend > 0 then -- 초월한 경우 특수 title 배경
-		if TryGetProp(invitem, "ItemGrade", 0) == 6 then
-			if TryGetProp(invitem, "EvolvedItemLv", 0) > TryGetProp(invitem, "UseLv", 0) then
-				evolvedGoddessTitle:ShowWindow(1)
+	if (transcend ~= nil and transcend > 0) or goddessEquip_470 == true then -- 초월한 경우 특수 title 배경
+		if TryGetProp(invitem, "ItemGrade", 0) >= 6 then
+			if goddessEquip_470 == true then
+				if invitem.Reinforce_2 >= 21 then
+					if TryGetProp(invitem, "EvolvedItemLv", 0) > TryGetProp(invitem, "UseLv", 0) then
+						evolvedGoddessTitle:ShowWindow(1)
+					else
+						legendTitle:ShowWindow(1)
+					end
+				end
 			else
-				legendTitle:ShowWindow(1)
+				if TryGetProp(invitem, "EvolvedItemLv", 0) > TryGetProp(invitem, "UseLv", 0) then
+					evolvedGoddessTitle:ShowWindow(1)
+				else
+					legendTitle:ShowWindow(1)
+				end
 			end
 		else
 			legendTitle:ShowWindow(1)

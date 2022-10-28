@@ -3246,7 +3246,7 @@ function INVENTORY_DELETE(itemIESID, itemType)
 	local itemProp = geItemTable.IsDestroyable(itemType);	
 	local warningMsgCostumeItem = false
 
-	if cls.MarketCategory == 'Premium_Costume' and cls.StringArg == 'SilverGacha' then
+	if DELETE_ITEM_OPEN_WARNINGBOX_MSG(cls) == 1 then
 		warningMsgCostumeItem = true
 	end
 
@@ -3355,7 +3355,7 @@ function CHECK_EXEC_DELETE_ITEMDROP(count, className)
 
 	local warningMsgCostumeItem = false 
 	local cls = GetClass('Item', className:GetUserValue("ArgString"))
-	if cls.MarketCategory == 'Premium_Costume' and cls.StringArg == 'SilverGacha' then
+	if DELETE_ITEM_OPEN_WARNINGBOX_MSG(cls) == 1 then
 		warningMsgCostumeItem = true
 	end
 

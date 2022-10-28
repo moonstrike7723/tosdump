@@ -269,8 +269,18 @@ function ON_EARRING_RAID_BOARD_ITEM(frame, msg, arg_str, arg_num)
 end
 
 function EARRING_RAID_BOARD_ITEM_ICON_UPDATE(frame, index, guid)        
-    if frame == nil or guid == nil or guid == "" then return; end
+    if frame == nil or guid == nil or  guid == "" then return; end
     local slot = GET_CHILD_RECURSIVELY(frame, "item_slot".. index);
+
+    if guid == "" then
+        local icon = slot:GetIcon()
+        if icon ~= nil then
+            icon:SetColorTone("FFFF0000");
+            icon:SetText("0", "quickiconfont", ui.RIGHT, ui.BOTTOM, -2, 1);    
+        end
+        return
+    end
+
     local inv_item_info = session.GetInvItemByGuid(guid);
     if inv_item_info ~= nil then
         local icon = CreateIcon(slot);
@@ -294,8 +304,8 @@ function EARRING_RAID_BOARD_ITEM_ICON_UPDATE(frame, index, guid)
             icon_info.count = inv_item_info.count;
             if image_name ~= "" then
                 icon:SetTooltipType("wholeitem");
+                icon:SetTooltipArg("", inv_item_info.type, 0);	
                 icon:Set(image_name, "Item", inv_item_info.type, inv_item_info.invIndex, inv_item_info:GetIESID(), inv_item_info.count);
-                ICON_SET_INVENTORY_TOOLTIP(icon, inv_item_info, "quickslot", item_ies);
             end
             slot:EnableDrag(0);
             slot:SetEventScript(ui.LBUTTONUP, "EARRING_RAID_BOARD_ITEM_LBUTTON_UP")

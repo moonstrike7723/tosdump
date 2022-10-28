@@ -166,6 +166,9 @@
                             <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_RAID_END_STOP_DEBUFF_MON"/>
                             </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_GODDESS_RAID_REMOVE_RELIC_PENALTY"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                     <Event execCount="1" eventName="20Sec">
@@ -434,14 +437,14 @@
                             </ToolScp>
                         </condList>
                         <execList>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
+                                <Str Str="is_start"/>
+                                <Num Num="1"/>
+                            </ToolScp>
                             <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
                                 <MGameObjIndex List="Vasilissa/0"/>
                                 <Num Num="1"/>
                                 <Num Num="0"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
-                                <Str Str="is_start"/>
-                                <Num Num="1"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Vasilissa/0"/>
@@ -452,6 +455,9 @@
                                 <Str Str="SCR_GODDESS_RAID_VASILISSA_MOVE_PC"/>
                             </ToolScp>
                             <ToolScp Scp="SCR_RAID_CLEAR_TIME_START_SETTING" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="MGAME_EVT_SCP_CMD" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_VASILISSA_BATTLE_START_SETTING"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                     <Event eventName="Vasilissa_Stun_Check">
@@ -464,6 +470,23 @@
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Vasilissa/0"/>
                                 <Str Str="SCR_VASILISSA_MIRROR_ALL_ACTIVE_CHECK"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event eventName="Vasilissa_PenaltyBuffCheck">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
+                                <Str Str="is_start"/>
+                                <Str Str="=="/>
+                                <Num Num="1"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="60"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_SCP_CMD" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_VASILISSA_PENALTY_BUFF_CHECK"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -891,6 +914,10 @@
             <ToolScp Scp="MGAME_ZONEENTER_SCRIPT" Client="NO" UseSleep="NO">
                 <Num Num="2"/>
                 <Str Str="SCR_VASILISSA_BGM_SETTING"/>
+            </ToolScp>
+            <ToolScp Scp="MGAME_ZONEENTER_SCRIPT" Client="NO" UseSleep="NO">
+                <Num Num="2"/>
+                <Str Str="SCR_VASILISSA_JOIN_PENALTY_CHECK"/>
             </ToolScp>
         </EnterList>
         <WorldInitList>

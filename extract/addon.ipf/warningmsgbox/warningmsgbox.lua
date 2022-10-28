@@ -17,6 +17,7 @@ function WARNINGMSGBOX_FRAME_OPEN(clmsg, yesScp, noScp, itemGuid, title)
     local input_frame = GET_CHILD_RECURSIVELY(frame, "input")
     input_frame:ShowWindow(1)
     input_frame:SetText('')
+	input_frame:Focus()
 
 	local showTooltipCheck = GET_CHILD_RECURSIVELY(frame, "cbox_showTooltip")
 	if itemGuid ~= nil then
@@ -216,6 +217,7 @@ function NOT_ROASTING_GEM_EQUIP_WARNINGMSGBOX_FRAME_OPEN(itemGuid, argNum)
     local input_frame = GET_CHILD_RECURSIVELY(frame, "input");
     input_frame:ShowWindow(1);
 	input_frame:SetText('');
+	input_frame:Focus()
 
 	local showTooltipCheck = GET_CHILD_RECURSIVELY(frame, "cbox_showTooltip");
 	if itemGuid ~= nil then
@@ -285,6 +287,7 @@ function WARNINGMSGBOX_FRAME_OPEN_REBUILDPOPUP()
     local input_frame = GET_CHILD_RECURSIVELY(frame, "input");
     input_frame:ShowWindow(1);
 	input_frame:SetText('');
+	input_frame:Focus()
 
 	local yesBtn = GET_CHILD_RECURSIVELY(frame, "yes");
 	tolua.cast(yesBtn, "ui::CButton");
@@ -357,6 +360,7 @@ function WARNINGMSGBOX_FRAME_OPEN_NONNESTED(clmsg, enablehide, type, yesScp, noS
 	local input_frame = GET_CHILD_RECURSIVELY(frame, "input");
     input_frame:ShowWindow(1);
 	input_frame:SetText('');
+	input_frame:Focus()
 
 	local yesBtn = GET_CHILD_RECURSIVELY(frame, "yes");
 	tolua.cast(yesBtn, "ui::CButton");
@@ -437,6 +441,7 @@ function WARNINGMSGBOX_FRAME_OPEN_WITH_CHECK(clmsg, yesScp, noScp)
     local input_frame = GET_CHILD_RECURSIVELY(frame, "input")
     input_frame:ShowWindow(1)
     input_frame:SetText('')
+	input_frame:Focus()
 
 	local showTooltipCheck = GET_CHILD_RECURSIVELY(frame, "cbox_showTooltip")
 	
@@ -489,6 +494,7 @@ function WARNINGMSGBOX_FRAME_OPEN_DELETE_ITEM(clmsg, yesScp, noScp, itemGuid)
     input_frame:ShowWindow(1)
 	input_frame:SetText('')
 	input_frame:SetMaxLen(13)
+	input_frame:Focus()
 
 	local showTooltipCheck = GET_CHILD_RECURSIVELY(frame, "cbox_showTooltip")
 	if itemGuid ~= nil then
@@ -514,8 +520,8 @@ function WARNINGMSGBOX_FRAME_OPEN_DELETE_ITEM(clmsg, yesScp, noScp, itemGuid)
 	local yesBtn = GET_CHILD_RECURSIVELY(frame, "yes")
 	tolua.cast(yesBtn, "ui::CButton");
 
-	if cls.MarketCategory == 'Premium_Costume' and cls.StringArg == 'SilverGacha' then
-		local_item_grade = 3
+	if DELETE_ITEM_OPEN_WARNINGBOX_MSG(cls) == 1 then
+        local_item_grade = 3
 	end
 
     if local_item_grade < 3 then
@@ -593,6 +599,7 @@ function WARNINGMSGBOX_FRAME_OPEN_EXCHANGE_RECYCLE(clmsg, yesScp, noScp, itemGui
     input_frame:ShowWindow(1)
 	input_frame:SetText('')
 	input_frame:SetMaxLen(20)
+	input_frame:Focus()
 
 	local showTooltipCheck = GET_CHILD_RECURSIVELY(frame, "cbox_showTooltip")
 	showTooltipCheck:ShowWindow(0);

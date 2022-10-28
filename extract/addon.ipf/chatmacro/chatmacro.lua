@@ -55,7 +55,11 @@ function CHATMACRO_UPDATE_TOKEN_STATE(frame)
 end
 
 function IS_MACRO_UNVISIBLE_WEAPON_POSE(className)
-	if className == "KICK" or className == "POPCORN" or className == "DABDANCE" or className == "CHEERUP" or className == "UNBELIEVABLE" or className == "SPOTLIGHT" then
+	if className == "KICK" or className == "POPCORN" or className == "DABDANCE" 
+	or className == "CHEERUP" or className == "UNBELIEVABLE" or className == "SPOTLIGHT"
+	or className == "PULLUP" or className == "CHEER" or className == "BASEBALL"
+	or className == "CLOCKWORKDANCE" or className == "SQUAT" or className == "SHOOTDANCE"
+	or className == "RUSTLEDANCE" or className == "LUCHADOR" then
 		return true;
 	end
 	return false;

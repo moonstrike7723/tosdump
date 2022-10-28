@@ -1459,6 +1459,29 @@ function DOLL_SANTA_GUILTY_BUFF_LEAVE(actor, obj, buff)
 	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_santa_guilty");
 end
 
+-- doll_succubus
+function DOLL_SUCCUBUS_BUFF_ENTER(actor, obj, buff)
+end
+
+function DOLL_SUCCUBUS_BUFF_UPDATE(actor, obj, buff)
+	SCR_CREATE_FAIRY(actor:GetHandleVal(), "doll_succubus");
+end
+
+function DOLL_SUCCUBUS_BUFF_LEAVE(actor, obj, buff)
+	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_succubus");
+end
+
+-- doll_paulius
+function DOLL_PAULIUS_BUFF_ENTER(actor, obj, buff)
+end
+
+function DOLL_PAULIUS_BUFF_UPDATE(actor, obj, buff)
+	SCR_CREATE_FAIRY(actor:GetHandleVal(), "doll_paulius");
+end
+
+function DOLL_PAULIUS_BUFF_LEAVE(actor, obj, buff)
+	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_paulius");
+end
 
 function XMAS_EFFECT_2019_ENTER(actor, obj, buff)
     effect.AddActorEffectByOffset(actor, "E_effectitem_whitebird", 0.4, "BOT", false, true);
@@ -1504,6 +1527,7 @@ function Bunsin_Mijinhide_Buff_CLIENT_ENTER(actor, obj, buff)
 end
 
 function Bunsin_Mijinhide_Buff_CLIENT_LEAVE(actor, obj, buff)
+    actor:GetEffect():SetColorBlend("Bunsin_Mijinhide_Buff", 255, 255, 255, 255, false, 0)
 end
 
 function EP12TACTICAL_EFFECT02_PRE_ENTER(actor, obj, buff)

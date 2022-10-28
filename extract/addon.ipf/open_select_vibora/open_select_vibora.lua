@@ -2,7 +2,7 @@ function OPEN_SELECT_VIBORA_ON_INIT(addon, frame)
 end
 
 -- type, cabinet_weapon.xml, ClassID
-function CREATE_CLOSED_VIBORA_ITEM_LIST(box, y, index, type, item_cls, opened)
+function CREATE_CLOSED_VIBORA_ITEM_LIST(box, y, index, type, item_cls, opened, item_lv)
 	local isOddCol = 0;
 	if math.floor((index - 1) % 2) == 1 then
 		isOddCol = 0;
@@ -42,7 +42,30 @@ function CREATE_CLOSED_VIBORA_ITEM_LIST(box, y, index, type, item_cls, opened)
 	itemText:SetText(itemName);
 
 	ctrlSet:SetTooltipType("wholeitem");
-	ctrlSet:SetTooltipArg("", item_cls.ClassID, 0);	
+
+	
+	local tooltip_item_cls = nil
+	local item_cls_name = TryGetProp(item_cls, 'ClassName', 'None')
+	local trans = ''
+
+	if string.find(item_cls_name, 'Lv3') ~= nil and item_lv > 3 then
+		local _token = StringSplit(item_cls_name, '_Lv3');
+		trans = _token[1] .. '_Lv' .. tostring(item_lv)
+		tooltip_item_cls = GetClassByStrProp('Item', "ClassName", trans)
+	elseif string.find(item_cls_name, 'Lv2') ~= nil and item_lv > 2 then
+		local _token = StringSplit(item_cls_name, '_Lv2');
+		trans = _token[1] .. '_Lv' .. tostring(item_lv)
+		tooltip_item_cls = GetClassByStrProp('Item', "ClassName", trans)
+	else
+		trans = item_cls_name .. '_Lv' .. tostring(item_lv)
+		tooltip_item_cls = GetClassByStrProp('Item', "ClassName", trans)
+	end
+
+	if tooltip_item_cls == nil then
+		tooltip_item_cls = item_cls
+	end
+
+	ctrlSet:SetTooltipArg("", tooltip_item_cls.ClassID, 0);	
 
 	ctrlSet:SetOverSound("button_cursor_over_3");
 	ctrlSet:SetClickSound("button_click_stats");
@@ -93,7 +116,7 @@ function OPEN_SELECT_CABINET_VIBORA(invItem)
 				local item_func_name = TryGetProp(cls, 'GetItemFunc', 'None')
 				local get_item_func = _G[item_func_name]
 				local item_name = get_item_func(cls, acc)
-				y = CREATE_CLOSED_VIBORA_ITEM_LIST(box, y, index, TryGetProp(cls, 'ClassID', 0), GetClass('Item', item_name), TryGetProp(acc, prop, 0));
+				y = CREATE_CLOSED_VIBORA_ITEM_LIST(box, y, index, TryGetProp(cls, 'ClassID', 0), GetClass('Item', item_name), TryGetProp(acc, prop, 0), item_lv);
 				y = y + 5
 				index = index + 1
 			end
@@ -193,8 +216,16 @@ function OPEN_CABINET_VIBORA(frame, ctrl, argStr, argNum)
 		
 		local cls = GetClassByType('cabinet_weapon', selected)
 		local prop = TryGetProp(cls, 'AccountProperty', 'None')
+		local upgrade_prop = TryGetProp(cls, 'UpgradeAccountProperty', 'None')
 
-		if TryGetProp(GetMyAccountObj(), prop, 0) ~= 0 then
+		local item_scroll = session.GetInvItemByGuid(itemGuid)
+		if item_scroll == nil then			
+			return
+		else
+			item_scroll = GetIES(item_scroll:GetObject())
+		end
+		
+		if TryGetProp(GetMyAccountObj(), upgrade_prop, 0) >= TryGetProp(item_scroll, 'NumberArg1', 0) then
 			ui.SysMsg(ClMsg("CantOpenCabinetArmor"))
 		else
 			local yesScp = string.format("RUN_OPEN_VIBORA(%s, %s)", itemGuid, arg_str)
@@ -282,7 +313,7 @@ function OPEN_SELECT_CABINET_GODDESS(invItem)
 				local item_func_name = TryGetProp(cls, 'GetItemFunc', 'None')
 				local get_item_func = _G[item_func_name]
 				local item_name = get_item_func(cls, acc)
-				y = CREATE_CLOSED_GODDESS_ITEM_LIST(box, y, index, TryGetProp(cls, 'ClassID', 0), GetClass('Item', item_name), TryGetProp(acc, prop, 0));
+				y = CREATE_CLOSED_GODDESS_ITEM_LIST(box, y, index, TryGetProp(cls, 'ClassID', 0), GetClass('Item', item_name), TryGetProp(acc, prop, 0), item_lv);
 				y = y + 5
 				index = index + 1
 			end
@@ -352,7 +383,7 @@ end
 
 
 -- type, cabinet_weapon.xml, ClassID
-function CREATE_CLOSED_GODDESS_ITEM_LIST(box, y, index, type, item_cls, opened)
+function CREATE_CLOSED_GODDESS_ITEM_LIST(box, y, index, type, item_cls, opened, item_lv)
 	local isOddCol = 0;
 	if math.floor((index - 1) % 2) == 1 then
 		isOddCol = 0;
@@ -392,7 +423,26 @@ function CREATE_CLOSED_GODDESS_ITEM_LIST(box, y, index, type, item_cls, opened)
 	itemText:SetText(itemName);
 
 	ctrlSet:SetTooltipType("wholeitem");
-	ctrlSet:SetTooltipArg("", item_cls.ClassID, 0);	
+
+	
+	local tooltip_item_cls = nil
+	local item_cls_name = TryGetProp(item_cls, 'ClassName', 'None')
+	local trans = ''
+
+	if string.find(item_cls_name, 'Lv2') ~= nil and item_lv > 2 then
+		local _token = StringSplit(item_cls_name, '_Lv2');
+		trans = _token[1] .. '_Lv' .. tostring(item_lv)
+		tooltip_item_cls = GetClassByStrProp('Item', "ClassName", trans)
+	else
+		trans = item_cls_name .. '_Lv' .. tostring(item_lv)
+		tooltip_item_cls = GetClassByStrProp('Item', "ClassName", trans)
+	end
+
+	if tooltip_item_cls == nil then
+		tooltip_item_cls = item_cls
+	end
+
+	ctrlSet:SetTooltipArg("", tooltip_item_cls.ClassID, 0);	
 
 	ctrlSet:SetOverSound("button_cursor_over_3");
 	ctrlSet:SetClickSound("button_click_stats");
@@ -439,7 +489,16 @@ function OPEN_CABINET_GODDESS(frame, ctrl, argStr, argNum)
 		local cls = GetClassByType('cabinet_armor', selected)
 		local prop = TryGetProp(cls, 'AccountProperty', 'None')
 
-		if TryGetProp(GetMyAccountObj(), prop, 0) ~= 0 then
+		local upgrade_prop = TryGetProp(cls, 'UpgradeAccountProperty', 'None')
+
+		local item_scroll = session.GetInvItemByGuid(itemGuid)
+		if item_scroll == nil then			
+			return
+		else
+			item_scroll = GetIES(item_scroll:GetObject())
+		end
+
+		if TryGetProp(GetMyAccountObj(), upgrade_prop, 0) >= TryGetProp(item_scroll, 'NumberArg1', 0) then
 			ui.SysMsg(ClMsg("CantOpenCabinetArmor"))
 		else
 			local yesScp = string.format("RUN_OPEN_GODDESS(%s, %s)", itemGuid, arg_str)

@@ -93,7 +93,7 @@ function PARSE_TOOLTIP_CAPTION(_obj, caption, predictSkillPoint)
     if obj == nil then
         return caption;
     end
-    
+
     local addCaption = ""
     local skillValueType = TryGetProp(obj,"ValueType")
     if skillValueType ~= nil then
@@ -103,7 +103,8 @@ function PARSE_TOOLTIP_CAPTION(_obj, caption, predictSkillPoint)
         local skillAffectedByAttackSpeedRate = TryGetProp(obj,"AffectedByAttackSpeedRate","None")
         local skillEnableCompanion = TryGetProp(obj,"EnableCompanion","None")
         local skillHitType = TryGetProp(obj, "HitType", "None")
-        
+        local skillCastingCategoty = TryGetProp(obj, "CastingCategory", "None")
+    
         if skillValueType == "Attack" then
             if skillClassType == "Melee" then
                 addCaption = addCaption..ScpArgMsg('SKILL_CAPTION_MSG1')
@@ -128,7 +129,7 @@ function PARSE_TOOLTIP_CAPTION(_obj, caption, predictSkillPoint)
             elseif skillClassType == "Responsive" then
                 addCaption = addCaption..ScpArgMsg('SKILL_CAPTION_MSG24')
             end
-            
+
             if skillAttribute == "Fire" then
                 addCaption = addCaption.." - "..ScpArgMsg('SKILL_CAPTION_MSG10')
             elseif skillAttribute == "Ice" then
@@ -145,8 +146,16 @@ function PARSE_TOOLTIP_CAPTION(_obj, caption, predictSkillPoint)
                 addCaption = addCaption.." - "..ScpArgMsg('SKILL_CAPTION_MSG16')
             elseif skillAttribute == "Soul" then
                 addCaption = addCaption.." - "..ScpArgMsg('SKILL_CAPTION_MSG17')
+            elseif skillAttribute == "Melee" and skillClassType == 'Magic' then
+                addCaption = addCaption.." - "..ScpArgMsg('SKILL_CAPTION_MSG27')
             end
             
+            if skillCastingCategoty == 'cast' or skillCastingCategoty == 'dynamic_casting' then
+                addCaption = addCaption.."{nl}"..ScpArgMsg('SKILL_CAPTION_MSG25')
+            elseif skillCastingCategoty == 'channeling' then
+                addCaption = addCaption.."{nl}"..ScpArgMsg('SKILL_CAPTION_MSG26')
+            end
+
             if addCaption ~= "" then
                 addCaption = addCaption.."{nl}"
             end
@@ -157,7 +166,7 @@ function PARSE_TOOLTIP_CAPTION(_obj, caption, predictSkillPoint)
         end
         
         local classname = TryGetProp(obj, "ClassName", "None")
-        if skillEnableCompanion == "BOTH" and (classname ~= "Templer_BattleOrders" and classname ~= "Templer_AdvancedOrders" and classname ~= "Templer_HorseRiding") then
+        if skillEnableCompanion == "BOTH" and (classname ~= "Templer_BattleOrders" and classname ~= "Templer_AdvancedOrders" and classname ~= "Templer_HorseRiding" and TryGetProp(obj, "TooltipType", "None") ~= 'PassiveSkill') then
             addCaption = addCaption..ScpArgMsg('SKILL_CAPTION_MSG19').."{nl}"
         elseif skillEnableCompanion == "YES" then
             addCaption = addCaption..ScpArgMsg('SKILL_CAPTION_MSG20').."{nl}"
@@ -406,8 +415,8 @@ function UPDATE_ABILITY_TOOLTIP(frame, strarg, numarg1, numarg2)
 		
 		if (reqstance == "TwoHandBow") and (stance.ClassName == "Bow") then
 			index = nil;
-		end
-
+        end
+        
         if string.find(reqstance, "PistolOneHandSword") ~= nil and stance.ClassName == "OneHandSword" then
             index = nil
         end
@@ -566,7 +575,7 @@ local function get_remove_debuff_additional_tooltip(func, lv, lvDesc, additional
     return lvDesc
 end
 
-function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)  	
+function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     -- destroy skill, ability tooltip
     DESTROY_CHILD_BYNAME(frame:GetChild('skill_desc'), 'SKILL_CAPTION_');
     DESTROY_CHILD_BYNAME(frame:GetChild('ability_desc'), 'ABILITY_CAPTION_');
@@ -600,6 +609,11 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     -- set skill icon and name
     SET_SKILL_TOOLTIP_ICON_AND_NAME(skillFrame, obj, true);    
     
+    -- expand tooltip
+    if frame:GetName() == 'skill_expand' then
+        skillFrame:SetUserValue('skill_expand', 1)
+    end
+
     -- set skill description
     local skillDesc = GET_CHILD(skillFrame, "desc", "ui::CRichText");   	
     SET_SKILL_TOOLTIP_CAPTION(skillFrame, obj.Caption, PARSE_TOOLTIP_CAPTION(obj, obj.Caption, true));    	
@@ -644,7 +658,7 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     if skillCaption2 ~= translatedData2 then
         originalText = skillCaption2
     end    
-    
+
     local skillLvDesc = PARSE_TOOLTIP_CAPTION(obj, skillCaption2, strarg ~= "quickslot");	
     local lvDescStart, lvDescEnd = string.find(skillLvDesc, "Lv.");
     local lv = 1;
@@ -664,7 +678,7 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     else
         totalLevel = obj.LevelByDB;
     end
-    
+
     -- 적 버프 제거 관련 --------------------------------------------------
     local skill_class_name = TryGetProp(obj, 'ClassName', 'None')
     local additional_remove_buff_tooltip = nil
@@ -690,7 +704,7 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     --------------------------------------------------------------------
 
     local currLvCtrlSet = nil    
-    if totalLevel == 0 and lvDescStart ~= nil then  -- no have skill case
+    if totalLevel == 0 and lvDescStart ~= nil then  -- no have skill case        
         skillLvDesc = string.sub(skillLvDesc, lvDescEnd + 2, string.len(skillLvDesc));
         lvDescStart, lvDescEnd = string.find(skillLvDesc, "Lv.");        
         if lvDescStart ~= nil then              
@@ -784,7 +798,7 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
                 lvDesc = string.sub(skillLvDesc, 3, lvDescStart -1);   
             end
             skillLvDesc  = string.sub(skillLvDesc, lvDescEnd + levelvalue, string.len(skillLvDesc))
-            
+
             -- 버프 삭제 로직 툴팁 관련 ----------------------------------------------------------------
             if func_name_remove_buff ~= nil and _G[func_name_remove_buff] ~= nil then 
                 local func = _G[func_name_remove_buff]
@@ -796,7 +810,7 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
                 lvDesc = get_remove_debuff_additional_tooltip(func, lv, lvDesc, additional_remove_buff_tooltip)
             end
             -------------------------------------------------------------------------------------------------
-
+            
             -- 힐량 감소 디버프 부여 툴팁 관련 ----------------------------------------------------------------
             if func_name_decrease_heal ~= nil and _G[func_name_decrease_heal] ~= nil then
                 local func = _G[func_name_decrease_heal]
@@ -837,9 +851,13 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     ypos = PVP_DESC_TOOLTIP(skillFrame, ypos)   
     ]]--
 
-    skillFrame:Resize(frame:GetWidth(), ypos + 10)
-    frame:Resize(frame:GetWidth(), skillFrame:GetHeight() + 10)
-
+    if frame:GetName() == 'skill_expand' then
+        skillFrame:Resize(500, ypos + 10)
+        frame:Resize(frame:GetWidth(), skillFrame:GetHeight() + 10)
+    else
+        skillFrame:Resize(frame:GetWidth(), ypos + 10)
+        frame:Resize(frame:GetWidth(), skillFrame:GetHeight() + 10)
+    end
 
     ------------------------ ability description frame ---------------------------------
     local isShowNoHaveAbility = false
@@ -889,12 +907,28 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
         local captionFrame = skillFrame:GetChild('SKILL_CAPTION_'..tostring(totalLevel))
         tolua.cast(captionFrame, "ui::CControlSet");
         ADD_SPEND_SKILL_LV_DESC_TOOLTIP(captionFrame, pcAbilList, pcAbilCnt)
-        abilFrame:Resize(frame:GetWidth(), ypos)
-        frame:Resize(frame:GetWidth(), frame:GetHeight() + abilFrame:GetHeight());
+
+        if frame:GetName() == 'skill_expand' then
+            abilFrame:Resize(500, ypos)
+            frame:Resize(frame:GetWidth(), frame:GetHeight() + abilFrame:GetHeight());
+        else
+            abilFrame:Resize(frame:GetWidth(), ypos)
+            frame:Resize(frame:GetWidth(), frame:GetHeight() + abilFrame:GetHeight());
+        end
+
         abilFrame:ShowWindow(1)
     else
         abilFrame:ShowWindow(0)
     end
+
+    ------------------------ expand skill tooltip frame ---------------------------------
+    local ExpandSkillTooltip = TryGetProp(obj, 'ExpandSkillTooltip', 'None')
+    if ExpandSkillTooltip ~= nil and ExpandSkillTooltip ~= 'None' then
+        DRAW_EXPAND_SKILL_TOOLTIP(frame, 10, ExpandSkillTooltip)
+    else
+        skillFrame:RemoveChild('expand_skill_tooltip');
+    end
+
     frame:Invalidate();
 
     if objIsClone == true then
@@ -1110,8 +1144,8 @@ end
                 local text = '{@st43}{s16}' .. ClMsg('SkillFactorText') .. tostring(factor) .. '%%'
                 caption = string.gsub(caption, 'None', text)
 
+            end
         end
-    end
     end
 
 
@@ -1157,7 +1191,7 @@ function SKILL_LV_DESC_TOOLTIP(frame, obj, totalLevel, lv, desc, ypos, dicidtext
     if dicidtext ~= nil and dicidtext ~= "" then
         descText:SetDicIDText(dicidtext)
     end
-    
+
     -- font and data setting
     local pub_frame = ui.GetFrame("pub_createchar");
     if pub_frame == nil or pub_frame:IsVisible() == 0 then
@@ -1238,6 +1272,15 @@ function SKILL_LV_DESC_TOOLTIP(frame, obj, totalLevel, lv, desc, ypos, dicidtext
     lvDescCtrlSet:SetGravity(ui.CENTER_HORZ, ui.TOP)
     lvDescCtrlSet:Resize(frame:GetWidth() - 20, descText:GetY() + descText:GetHeight() + 15);
     lvDescCtrlSet:ShowWindow(1);
+
+    -- expand tooltip
+    if frame:GetUserIValue('skill_expand') == 1 then
+        overheatText:SetMargin(0, 5, 70, 0)
+        coolText:SetMargin(0, 5, 0, 0)
+        local cool_img = lvDescCtrlSet:GetChild("cooltimeimg");
+        cool_img:SetMargin(0, 5, 115, 0)
+    end
+
     return ypos + lvDescCtrlSet:GetHeight(), lvDescCtrlSet
 end
 
@@ -1314,6 +1357,7 @@ function ABILITY_DESC_TOOLTIP(frame, abilCls, index, ypos, pc, pcAbilIES)
 end
 
 function ADD_SPEND_SKILL_LV_DESC_TOOLTIP(ctrlSet, pcAbilList, pcAbilCnt)
+    AUTO_CAST(ctrlSet)
     if pcAbilCnt < 1 then
         return
     end
@@ -1358,9 +1402,9 @@ function ADD_SPEND_SKILL_LV_DESC_TOOLTIP(ctrlSet, pcAbilList, pcAbilCnt)
 				local fixed_txt = string.gsub(spText:GetText(), spendSP_Str, '{s14}'..spendSP_Str)
 				spText:SetText(fixed_txt..ADD_ABILITY_STYLE.."("..addValueStr..")")
 			else 
-            spText:SetText(spText:GetText()..ADD_ABILITY_STYLE.."("..addValueStr..")")
+            	spText:SetText(spText:GetText()..ADD_ABILITY_STYLE.."("..addValueStr..")")
+			end
         end
-    end
     end
 
     if addValueCoolTime ~= 0 then       
@@ -1492,7 +1536,7 @@ function MAKE_ITEM_SKILL_RESTRICT_INFO(frame, clsName, ypos, strlSetWidth)
     return textWidth, ypos + ctrlSet:GetHeight();
 end
 
-function UPDATE_ITEM_RESTRICT_INFO_TOOLTIP(frame, indunName)
+function UPDATE_ITEM_RESTRICT_INFO_TOOLTIP(frame, indunName)    
 	local titleBox = GET_CHILD_RECURSIVELY(frame, "titleBox");
 	local title = GET_CHILD(titleBox,"title")
     local INNER_X = frame:GetUserConfig("INNER_X");
@@ -1501,17 +1545,17 @@ function UPDATE_ITEM_RESTRICT_INFO_TOOLTIP(frame, indunName)
     local xpos = title:GetWidth() + title:GetX();
     local ypos = titleBox:GetHeight();
 	local restrictList, cnt = GetClassList("ItemRestrict");
-	
+
 	frame:RemoveChildByType('controlset')
     for i = 0, cnt - 1 do
-        local itemRestrict = GetClassByIndexFromList(restrictList, i);
+		local itemRestrict = GetClassByIndexFromList(restrictList, i);
 		if TryGetProp(itemRestrict, "Category") == indunName then
 			local width, height = MAKE_ITEM_RESTRICT_INFO(frame, itemRestrict, ypos + INNER_Y);
             xpos = math.max(xpos, width);
             ypos = height;
 		end
     end
-    frame:Resize(xpos + INNER_X, ypos + INNER_Y);
+	frame:Resize(xpos + INNER_X, ypos + INNER_Y);
 end
 
 function UPDATE_DUNGEON_RESTRICT_INFO_TOOLTIP(frame, indunName)
@@ -1551,12 +1595,12 @@ function MAKE_ITEM_RESTRICT_INFO(frame, cls, ypos)
     local indun_name = TryGetProp(cls, "Category", 'None')    
 
     local INNER_X = frame:GetUserConfig("INNER_X");
-    local ctrlSet = frame:CreateOrGetControlSet("skill_restrict_info_list", "SKILL_RESTRICT_INFO_" .. name, INNER_X, ypos);
+	local ctrlSet = frame:CreateOrGetControlSet("skill_restrict_info_list", "SKILL_RESTRICT_INFO_" .. name, INNER_X, ypos);
     local text = GET_CHILD_RECURSIVELY(ctrlSet, "skill_info");
     text:SetTextByKey("img", img);
 	text:SetTextByKey("name", name);
 
-	local desc = TryGetProp(cls,"Desc")
+    local desc = TryGetProp(cls,"Desc")
     if TryGetProp(cls, 'MsgType', 'None') == 'GearScore' then
         local map_cls = GetClass('Indun', indun_name)        
         if map_cls ~= nil and TryGetProp(map_cls, 'GearScore', 0) ~= 0 then
@@ -1574,4 +1618,19 @@ function MAKE_ITEM_RESTRICT_INFO(frame, cls, ypos)
     local textWidth = text:GetTextWidth();
     ctrlSet:Resize(textWidth, text:GetHeight());
     return textWidth, ypos + ctrlSet:GetHeight();
+end
+
+-- tribulation tooltip
+function UPDATE_TRIBULATION_TOOLTIP(frame, mgame_name, index)
+    if frame == nil or mgame_name == nil or index == nil then return; end
+    local title = session.TribulationSystem.GetSelectedTribulationToolTip(mgame_name, index);
+    local name = GET_CHILD_RECURSIVELY(frame, "name");
+    if name ~= nil then
+        name:SetText("{@st41}"..title);
+    end
+    local desc = session.TribulationSystem.GetSelectedTribulationDesc(mgame_name, index);
+    local comment = GET_CHILD_RECURSIVELY(frame, "comment");
+    if comment ~= nil then
+        comment:SetText("{@st59}"..desc);
+    end
 end

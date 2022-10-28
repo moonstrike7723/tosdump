@@ -2,7 +2,6 @@ function SOLO_D_TIMER_ON_INIT(addon, frame)
     addon:RegisterMsg('SOLO_D_TIMER_START', 'SOLO_D_TIMER_UI_OPEN');
     addon:RegisterMsg('SOLO_D_TIMER_END', 'SOLO_D_TIMER_END');
     addon:RegisterMsg("SOLO_D_TIMER_TEXT_GAUGE_UPDATE", "SOLO_D_TIMER_UPDATE_TEXT_GAUGE");
-    addon:RegisterMsg("SOLO_D_TIMER_TEXT_STAGE_SET", "SOLO_D_TIMER_UPDATE_STAGE");
 end
 
 function SOLO_D_TIMER_UI_OPEN(frame,msg,strArg,numArg)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <EmitterList>
 	<battle name="E_laser004" filename="E_laser004" loop="true" nodecount="4" xml="E_laser004.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
 	<battle name="E_warp_arrow_red" filename="E_warp_arrow" loop="false" nodecount="4" xml="E_warp_arrow_red.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>

@@ -3794,7 +3794,8 @@ function GODDESS_MGR_SOCKET_REQ_GEM_REMOVE(parent, btn)
 			msg_cls_name = 'ReallyRemoveGem_AetherGem'
 			clmsg = "[" .. item_name .. "]" .. ScpArgMsg(msg_cls_name) .. tostring(price)
 		else
-			local isGemRemoveCare = IS_GEM_EXTRACT_CARE_20211125()
+			local pc = GetMyPCObject();
+			local isGemRemoveCare = IS_GEM_EXTRACT_FREE_CHECK(pc)
 		
 			if isGemRemoveCare == true then
 				msg_cls_name = "ReallyRemoveGem_Care"
@@ -4977,34 +4978,9 @@ function GODDESS_MGR_CONVERT_MAT_LIST_UPDATE(frame)
 	local ex_group = TryGetProp(target_cls, 'ExchangeGroup', 'None')
 	
 	if ex_group == 'Weapon_Vasilisa' and taget_is == 'Weapon' then
-		local invCareItemCount1 = GetInvItemCount(pc, 'Exchange_Weapon_Book_460_limit')
-		if invCareItemCount1 > 0 then
-			ex_group = 'Weapon_Vasilisa_BalanceCare'
-		end
 		local invCareItemCount2 = GetInvItemCount(pc, 'Exchange_Weapon_Book_460_14d')
 		if invCareItemCount2 > 0 then
 			ex_group = 'Weapon_Vasilisa_Care'
-		end
-	end
-	
-	if ex_group == 'Armor_Vasilisa' and taget_is == 'Armor' then
-		local invCareItemCount = GetInvItemCount(pc, 'Exchange_Weapon_Book_460_limit')
-		if invCareItemCount > 0 then
-			ex_group = 'Armor_Vasilisa_BalanceCare'
-		end
-	end
-
-	if taget_is == 'Acc' then
-		if ex_group == 'Isdavi_Neck' then
-			local invCareItemCount = GetInvItemCount(pc, 'ExchangeACC_Book_470_1d')
-			if invCareItemCount > 0 then
-				ex_group = 'Isdavi_Neck_BalanceCare'
-			end
-		elseif ex_group == 'Isdavi_Ring' then
-			local invCareItemCount = GetInvItemCount(pc, 'ExchangeACC_Book_470_1d')
-			if invCareItemCount > 0 then
-				ex_group = 'Isdavi_Ring_BalanceCare'
-			end
 		end
 	end
 
@@ -5018,35 +4994,35 @@ function GODDESS_MGR_CONVERT_MAT_LIST_UPDATE(frame)
 				local name = GET_CHILD_RECURSIVELY(ctrlSet, 'material_name', 'ui::CRichText')
 				local count = GET_CHILD_RECURSIVELY(ctrlSet, 'material_count', 'ui::CRichText')
 				local grade = GET_CHILD_RECURSIVELY(ctrlSet, 'grade', 'ui::CRichText');
-				local invItemCount = nil
+
 				icon:ShowWindow(1)
 				count:ShowWindow(1)
 				questionmark:ShowWindow(0)
 
-				local materialCls = GetClass('Item', nameList[i])
-				if materialCls ~= nil and countList[i] > 0 then
+				local materialArg = nameList[i]
+				local itemcls = nil
+				local invItemCount = 0
+				if countList[i] > 0 then
 					if i - 1 < #nameList then
 						ctrlSet:ShowWindow(1)
-						if ex_group == 'Isdavi_Neck_BalanceCare' or ex_group == 'Isdavi_Ring_BalanceCare' then
-							local item_count = 0
-							local invItemList = session.GetInvItemList();
-							local guidList = invItemList:GetGuidList();
-							local cnt = guidList:Count();    
+						local item_count = 0
+						local invItemList = session.GetInvItemList();
+						local guidList = invItemList:GetGuidList();
+						local cnt = guidList:Count();
 
-							for j = 1, cnt - 1 do
-								local guid = guidList:Get(j);
-								local invItem = invItemList:GetItemByGuid(guid);
-						        if invItem ~= nil and invItem:GetObject() ~= nil then
-									local itemObj = GetIES(invItem:GetObject());
-									if TryGetProp(itemObj, 'StringArg', 'None') == 'ExchangeACC_Book_470_1d' then
-										item_count = item_count + invItem.count
-									end
+						for j = 1, cnt - 1 do
+							local guid = guidList:Get(j);
+							local invItem = invItemList:GetItemByGuid(guid);
+							if invItem ~= nil and invItem:GetObject() ~= nil then
+								local itemObj = GetIES(invItem:GetObject());
+								if TryGetProp(itemObj, 'StringArg', 'None') == materialArg then
+									itemcls = itemObj
+									item_count = item_count + invItem.count
 								end
 							end
-							invItemCount = item_count
-						else
-							invItemCount = GetInvItemCount(pc, materialCls.ClassName)
 						end
+						invItemCount = item_count
+
 						if invItemCount < countList[i] then
 							count:SetTextByKey('color', '{#EE0000}')
 							frame:SetUserValue('IS_ABLE_EXCHANGE', 0)
@@ -5054,14 +5030,19 @@ function GODDESS_MGR_CONVERT_MAT_LIST_UPDATE(frame)
 							count:SetTextByKey('color', nil);
 							frame:SetUserValue('IS_ABLE_EXCHANGE', 1)
 						end
+						
+						if itemcls ~= nil then
 						count:SetTextByKey('curCount', invItemCount)
 						count:SetTextByKey('needCount', countList[i])
-						session.AddItemID(materialCls.ClassID, countList[i])
+						session.AddItemID(itemcls.ClassID, countList[i])
+						end
 					else
 						ctrlSet:ShowWindow(0)
 					end
-					name:SetText(materialCls.Name)
-					icon:SetImage(materialCls.Icon)
+					if itemcls ~= nil then
+						name:SetText(itemcls.Name)
+						icon:SetImage(itemcls.Icon)
+					end
 				end
 			 end
 		end

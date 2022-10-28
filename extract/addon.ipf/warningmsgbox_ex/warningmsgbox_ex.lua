@@ -70,6 +70,7 @@ function WARNINGMSGBOX_EX_FRAME_OPEN(frame, msg, argStr, argNum, option)
 
 		input_frame:ShowWindow(1)
 		input_frame:SetText('')
+		input_frame:Focus()
 		input_height = input_frame:GetHeight()
 	else
 		compareText:ShowWindow(0)
@@ -204,6 +205,7 @@ function WARNINGMSGBOX_EX_REINFORCE_OPEN(moruFrame)
 
 	input_frame:ShowWindow(1)
 	input_frame:SetText('')
+	input_frame:Focus()
 	input_height = input_frame:GetHeight()
     
 	local yesBtn = GET_CHILD_RECURSIVELY(frame, "yes")
@@ -285,6 +287,7 @@ function WARNINGMSGBOX_EX_TRANSCEND_OPEN(transcendFrame)
 
 	input_frame:ShowWindow(1)
 	input_frame:SetText('')
+	input_frame:Focus()
 	input_height = input_frame:GetHeight()
     
 	local yesBtn = GET_CHILD_RECURSIVELY(frame, "yes")

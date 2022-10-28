@@ -269,12 +269,6 @@ function GET_AETHER_GEM_TOOLTIP(obj, prop_name_list, guid)
 	if obj.GroupName ~= "Gem_High_Color" then return; end	
 
 	local level = 1;
-	local info, where = GET_INV_ITEM_BY_ITEM_OBJ(obj);
-	if where == "inventory" and tonumber(info:GetIESID()) ~= 0 then
-		level = get_current_aether_gem_level(obj);
-	elseif where == "inventory" and tonumber(info:GetIESID()) == 0 then
-		level = 1;
-	else
 		local equip_item = session.GetEquipItemByGuid(guid);
 		if equip_item ~= nil then
 			local item_object = GetIES(equip_item:GetObject());
@@ -295,6 +289,12 @@ function GET_AETHER_GEM_TOOLTIP(obj, prop_name_list, guid)
 					end
 				end
 			end
+	else
+		local info, where = GET_INV_ITEM_BY_ITEM_OBJ(obj);
+		if where == "inventory" and tonumber(info:GetIESID()) ~= 0 then
+			level = get_current_aether_gem_level(obj);
+		elseif where == "inventory" and tonumber(info:GetIESID()) == 0 then
+			level = 1;
 		end
 	end
 
@@ -373,7 +373,6 @@ function _RELIC_GEM_OPTION_BY_LV(gBox, ypos, gem_type, step, class_name, curlv)
 		local total = value * math.floor(curlv / interval)
 		local msg = string.format(option_text_format, type)
 		local strInfo = ScpArgMsg(msg, 'name', ClMsg(name), 'total', total, 'interval', interval, 'value', value)
-
 		local infoText = gBox:CreateControl('richtext', 'infoText' .. gem_type .. '_' .. step, relic_gem_text_margin, ypos, gBox:GetWidth() - relic_gem_text_margin, 30)
 		infoText:SetTextFixWidth(1)
 		infoText:SetText(strInfo)
@@ -644,12 +643,6 @@ function DRAW_AETHER_GEM_COMMON_TOOLTIP(tooltip_frame, inv_item, main_frame_name
 			local level_text = GET_CHILD_RECURSIVELY(ctrl_set, "level_text");
 			if level_text ~= nil then
 				local level = 1;
-				local info, where = GET_INV_ITEM_BY_ITEM_OBJ(inv_item);
-				if where == "inventory" and tonumber(info:GetIESID()) ~= 0 then
-					level = get_current_aether_gem_level(inv_item);
-				elseif where == "inventory" and tonumber(info:GetIESID()) == 0 then
-					level = 1;
-				else
 					local equip_item = session.GetEquipItemByGuid(arg_str);
 					if equip_item ~= nil then
 						local item_object = GetIES(equip_item:GetObject());
@@ -670,6 +663,12 @@ function DRAW_AETHER_GEM_COMMON_TOOLTIP(tooltip_frame, inv_item, main_frame_name
 								end
 							end
 						end
+				else
+					local info, where = GET_INV_ITEM_BY_ITEM_OBJ(inv_item);
+					if where == "inventory" and tonumber(info:GetIESID()) ~= 0 then
+						level = get_current_aether_gem_level(inv_item);
+					elseif where == "inventory" and tonumber(info:GetIESID()) == 0 then
+						level = 1;
 					end
 				end
 				level_text:SetTextByKey("level", level);

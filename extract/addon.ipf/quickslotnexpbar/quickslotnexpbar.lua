@@ -42,6 +42,8 @@ function QUICKSLOTNEXPBAR_ON_INIT(addon, frame)
 
 	addon:RegisterMsg('DELETE_QUICK_SKILL', 'DELETE_SKILLICON_QUICKSLOTBAR');
 	addon:RegisterMsg("DELETE_SPECIFIC_SKILL", 'DELETE_SKILLICON_QUICKSLOTBAR');
+
+	addon:RegisterMsg('QUICKSLOT_CHANGE_ICON', 'ON_QUICKSLOT_CHANGE_ICON');
 	
 	local timer = GET_CHILD(frame, "addontimer", "ui::CAddOnTimer");
 	timer:SetUpdateScript("UPDATE_QUICKSLOT_OVERHEAT");
@@ -49,6 +51,7 @@ function QUICKSLOTNEXPBAR_ON_INIT(addon, frame)
 	
 	SET_RAID_DEBUFF_UI_INIT_MARGIN(frame);
 	QUICKSLOT_TOGGLE_ITEM_LIST={}
+	QUICKSLOT_CHANGE_ICON_LIST = {}
 end
 
 local function quickslot_item_amount_refresh(ies_id, class_id)
@@ -475,20 +478,21 @@ function QUICKSLOTNEXTBAR_UPDATE_ALL_SLOT()
 	local frame = ui.GetFrame('quickslotnexpbar');
 	local sklCnt = frame:GetUserIValue('SKL_MAX_CNT');
 	for i = 0, MAX_QUICKSLOT_CNT - 1 do
+		local slot = GET_CHILD_RECURSIVELY(frame, "slot"..i + 1, "ui::CSlot");
 		local quickSlotInfo = quickslot.GetInfoByIndex(i); 
-        if quickSlotInfo.type ~= 0 then
-		    local updateslot = true;
-		    if sklCnt > 0 then
+        	if quickSlotInfo.type ~= 0 then
+			local updateslot = true;
+			if sklCnt > 0 then
 				if quickSlotInfo.category == 'Skill' then
 					updateslot = false;
-		        end
+		        	end
 
-			    if i <= sklCnt then
-				    updateslot = false;
+				if i <= sklCnt then
+					updateslot = false;
 				end
-		    end	
+		    	end	
 			
-		    if true == updateslot and quickSlotInfo.category ~= 'NONE' then
+		    	if true == updateslot and quickSlotInfo.category ~= 'NONE' then
 				if quickSlotInfo.category == '' then
 					local cls = GetClassByType("Buff", quickSlotInfo.type)
 					if cls ~= nil then 
@@ -496,16 +500,14 @@ function QUICKSLOTNEXTBAR_UPDATE_ALL_SLOT()
 					end	
 				end
 
-				local slot = GET_CHILD_RECURSIVELY(frame, "slot"..i+1, "ui::CSlot")
-			    SET_QUICK_SLOT(frame, slot, quickSlotInfo.category, quickSlotInfo.type, quickSlotInfo:GetIESID(), 0, true, true);
-		    end
+			    	SET_QUICK_SLOT(frame, slot, quickSlotInfo.category, quickSlotInfo.type, quickSlotInfo:GetIESID(), 0, true, true);
+		    	end
 		else
-            local slot = GET_CHILD_RECURSIVELY(frame, "slot"..i+1, "ui::CSlot");
-            tolua.cast(icon, "ui::CIcon")            
-            slot:ClearIcon()                
-            QUICKSLOT_SET_GAUGE_VISIBLE(slot, 0);
-            SET_QUICKSLOT_OVERHEAT(slot)            
-        end        
+            		tolua.cast(icon, "ui::CIcon")            
+            		slot:ClearIcon()                
+            		QUICKSLOT_SET_GAUGE_VISIBLE(slot, 0);
+            		SET_QUICKSLOT_OVERHEAT(slot)            
+        	end        
 	end
 end
 
@@ -537,6 +539,10 @@ function SET_QUICK_SLOT(frame, slot, category, type, iesID, makeLog, sendSavePac
 			return;
 		end
 		imageName = 'icon_' .. GetClassString('Skill', type, 'Icon');
+		local changed_icon = QUICKSLOT_CHANGE_ICON_LIST[tostring(type)]
+		if changed_icon ~= nil then
+			imageName = changed_icon
+		end
 		icon:SetOnCoolTimeUpdateScp('ICON_UPDATE_SKILL_COOLDOWN');
 		icon:SetEnableUpdateScp('ICON_UPDATE_SKILL_ENABLE');
 		icon:SetColorTone("FFFFFFFF");
@@ -715,6 +721,14 @@ function SET_QUICK_SLOT(frame, slot, category, type, iesID, makeLog, sendSavePac
 				if skl ~= nil then
 					iesID = skl:GetIESID();
 				end
+
+				-- expand tooltip
+				local sklObj = GetClassByType('Skill', type)
+				if sklObj ~= nil then
+					if TryGetProp(sklObj, "ExpandSkillTooltip", "None") ~= 'None' then 
+						icon:SetTooltipType('skill_expand');
+					end
+				end
 			end
 		
 			icon:Set(imageName, category, type, 0, iesID);
@@ -820,6 +834,7 @@ function QUICKSLOTNEXPBAR_ON_MSG(frame, msg, argStr, argNum)
 	local JobName = GetClassString('Job', MyJobNum, 'ClassName');
 
 	if msg == 'GAME_START' then
+		QUICKSLOT_CHANGE_ICON_LIST = {}
 		ON_PET_SELECT(frame);
 	end
 
@@ -1044,6 +1059,7 @@ function QUICKSLOTNEXPBAR_ON_DROP(frame, control, argStr, argNum)
 			if sklCnt > 0 and sklCnt >= slot:GetSlotIndex() then
 				return;
 			end
+
 			--옛날거 등록
 			QUICKSLOTNEXPBAR_SETICON(popSlot, oldIcon, 1, false);
             local joystickFrame = ui.GetFrame("joystickquickslot");
@@ -1664,6 +1680,53 @@ function SET_RAID_DEBUFF_UI_INIT_MARGIN(frame)
 		local buffRaidFrame = ui.GetFrame("buff_raid");
 		if buffRaidFrame ~= nil then
 			buffRaidFrame:SetMargin((ui.GetClientInitialWidth() - buffRaidFrame:GetWidth()) / 2, 0, 0, frame:GetHeight() / 2 + 50);
+		end
+	end
+end
+
+local function _CHANGE_QUICKSLOT_ICON_IMAGE(frame, type, name)
+	local cls = GetClassByType('Skill', type)
+	if cls == nil then return end
+
+	local skl_icon_name = 'icon_' .. TryGetProp(cls, 'Icon', 'None')
+	if name == nil then
+		name = skl_icon_name
+	end
+
+	for i = 0, MAX_QUICKSLOT_CNT - 1 do
+		local ind = i + 1
+		local quickSlotInfo = quickslot.GetInfoByIndex(i)
+		if quickSlotInfo.category == "Skill" and quickSlotInfo.type == type then
+			local slot = GET_CHILD_RECURSIVELY(frame, "slot" .. ind)
+			if slot ~= nil then
+				local icon = slot:GetIcon()
+				if icon ~= nil then
+					local info = icon:GetInfo()
+					icon:Set(name, info:GetCategory(), info.type, 0, info:GetIESID());
+				end
+			end
+		end
+	end
+end
+
+function ON_QUICKSLOT_CHANGE_ICON(frame, msg, arg_str, arg_num)
+	local change_info = SCR_STRING_CUT(arg_str, '/')
+	if #change_info == 2 then
+		local cls = GetClass('Skill', change_info[1])
+		local change_name = change_info[2]
+		if cls ~= nil then
+			local type = TryGetProp(cls, 'ClassID', 0)
+			local skl_icon_name = 'icon_' .. TryGetProp(cls, 'Icon', 'None')
+			if skl_icon_name == change_name then
+				change_name = nil
+			end
+			
+			QUICKSLOT_CHANGE_ICON_LIST[tostring(type)] = change_name
+
+			_CHANGE_QUICKSLOT_ICON_IMAGE(frame, type, change_name)
+
+			local joystickQuickFrame = ui.GetFrame('joystickquickslot')
+			_CHANGE_QUICKSLOT_ICON_IMAGE(joystickQuickFrame, type, change_name)
 		end
 	end
 end

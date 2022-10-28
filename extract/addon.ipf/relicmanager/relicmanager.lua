@@ -489,7 +489,7 @@ function RELIC_AUTO_CHARGE()
 	end
 
 	local pc = GetMyPCObject()
-	if IsBuffApplied(pc, 'Colony_Limit_Relic_Release_Buff') == 'YES' or IsBuffApplied(pc, 'GuildRaid_Limit_Relic_Release_Buff') == 'YES' or IsBuffApplied(pc, 'Colony_Limit_Relic_Release_Buff2') == 'YES' then		
+	if IsBuffApplied(pc, 'Colony_Limit_Relic_Release_Buff') == 'YES' or IsBuffApplied(pc, 'GuildRaid_Limit_Relic_Release_Buff') == 'YES' or IsBuffApplied(pc, 'Colony_Limit_Relic_Release_Buff2') == 'YES' or IsBuffApplied(pc, 'GoddessRaid_Limit_Relic_Release_Buff') == 'YES' then		
 		return
 	end
 
@@ -1250,8 +1250,7 @@ function RELICMANAGER_GEM_REMOVE_BTN(ctrl, btn, argStr, argNum)
 	end
 
 	local gem_name = GET_RELIC_GEM_NAME_WITH_FONT(gem_class)
-	local cost = 20000
-	local msg = ScpArgMsg('REALLY_UNEQUIP_RELIC_GEM', 'NAME', gem_name, 'VALUE', cost)
+	local msg = ScpArgMsg('REALLY_UNEQUIP_RELIC_GEM', 'NAME', gem_name)
 	local yes_scp = string.format('RELICMANAGER_SOCKET_GEM_REMOVE(%d)', gem_type)
 
 	local msgbox = ui.MsgBox(msg, yes_scp, 'None')

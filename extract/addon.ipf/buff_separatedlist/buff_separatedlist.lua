@@ -1,23 +1,59 @@
 -- buff_separateedlist
+local json = require('json')
+local PATH = require('path')
+
+local buff_separatedlist = {}
+
+local path_format = '..\\release\\addon_setting\\buff_separatedlist\\%s\\settings.json'
+buff_separatedlist.SettingsFileLocation = string.format(path_format, '0')
+
+buff_separatedlist.Settings = {
+	pc_id = {}
+};
+
+local function save_setting(frame)		
+	local x = frame:GetX()
+	local y = frame:GetY()
+
+	local t = buff_separatedlist.Settings.pc_id[session.GetMySession():GetCID()]	
+	if t == nil or t['pos'] == nil or t['pos'].x ~= frame:GetX() or t['pos'].y ~= frame:GetY() then		
+		buff_separatedlist.Settings.pc_id[session.GetMySession():GetCID()] = {}
+		buff_separatedlist.Settings.pc_id[session.GetMySession():GetCID()]["pos"] = {}
+		buff_separatedlist.Settings.pc_id[session.GetMySession():GetCID()].pos.x = x
+		buff_separatedlist.Settings.pc_id[session.GetMySession():GetCID()].pos.y = y
+		save_json(buff_separatedlist.SettingsFileLocation, buff_separatedlist.Settings);
+	end
+end
+
 function BUFF_SEPARATEDLIST_ON_INIT(addon, frame)
 	addon:RegisterMsg('BUFF_ADD', 'BUFF_SEPARATED_ON_MSG');
 	addon:RegisterMsg('BUFF_REMOVE', 'BUFF_SEPARATED_ON_MSG');
 	addon:RegisterMsg('BUFF_UPDATE', 'BUFF_SEPARATED_ON_MSG');
 	addon:RegisterMsg('RELOAD_BUFF_ADD', 'BUFF_SEPARATED_ON_MSG');
-	INIT_BUFF_SEPARATEDLIST_UI(frame);
+	INIT_BUFF_SEPARATEDLIST_UI(frame);	
 end
 
 function BUFF_SEPARATEDLIST_ON_RELOAD(frame)
 	INIT_BUFF_SEPARATEDLIST_UI(frame);
 end
 
-function INIT_BUFF_SEPARATEDLIST_UI(frame)
+function INIT_BUFF_SEPARATEDLIST_UI(frame)		
 	if frame ~= nil then
-		local pos = ui.GetCatchMovePos(frame:GetName());
-		if pos.x ~= 0 and pos.y ~= 0 then
-			frame:MoveFrame(pos.x, pos.y);
-		else
-			frame:MoveFrame(818, 310);
+		frame:MoveFrame(818, 310);
+		if not buff_separatedlist.Loaded then			
+			buff_separatedlist.SettingsFileLocation = string.format(path_format, session.loginInfo.GetUserID())
+			local t, err = load_json(buff_separatedlist.SettingsFileLocation, buff_separatedlist.Settings);			
+			if err then
+				os.execute('mkdir ' .. PATH.dirname(buff_separatedlist.SettingsFileLocation))
+			else
+				buff_separatedlist.Settings = t;
+				buff_separatedlist.Loaded = true;								
+			end
+		end
+		
+		local t = buff_separatedlist.Settings.pc_id[session.GetMySession():GetCID()]				
+		if t ~= nil and t['pos'] ~= nil then
+			frame:MoveFrame(t['pos'].x, t['pos'].y);	
 		end
 
 		local timer = GET_CHILD_RECURSIVELY(frame, "addontimer");
@@ -51,7 +87,8 @@ function INIT_BUFF_SEPARATEDLIST_UI(frame)
 	end
 end
 
-function BUFF_SEPARATED_TIME_UPDATE(frame, timer, argstr, argnum, passedtime)
+function BUFF_SEPARATED_TIME_UPDATE(frame, timer, argstr, argnum, passedtime)	
+	save_setting(frame);
 	local myhandle = session.GetMyHandle();
 	local TOKEN_BUFF_ID = TryGetProp(GetClass("Buff", "Premium_Token"), "ClassID");
 

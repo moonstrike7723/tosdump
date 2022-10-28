@@ -262,7 +262,7 @@
 			<groupbox name="gbox" margin="0 0 0 0" scrollbar="false" rect="0 0 400 250" hittestbox="false" skin="test_skin_01_btn_clicked" layout_gravity="left top"/>
 			<labelline name="labelline_1" margin="10 35 0 0" rect="0 0 380 2" skin="labelline_def" layout_gravity="left top"/>
 			<richtext name="richtext_1" margin="9 10 0 0" rect="0 0 380 24" format="{@st42}용병단 증표 부스트 혜택 적용{/}" textalign="left top" resizebytext="true" spacey="0" maxwidth="0" fontname="white_18_ol" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="left top"/>
-			<richtext name="weekly_up" margin="10 70 0 0" rect="0 0 380 24" format="주간 획득량 제한 {img green_up_arrow 14 14}%s" param1="value" param1_def="100" textalign="left top" resizebytext="true" spacey="0" maxwidth="0" fontname="brown_16" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="left top"/>			
+			<richtext name="weekly_up" margin="10 70 0 0" rect="0 0 380 24" format="주간 획득량 제한 {img green_up_arrow 14 14}%s" param1="value" param1_def="100" textalign="left top" resizebytext="true" spacey="0" maxwidth="0" fontname="brown_16" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="left top"/>
 			<richtext name="solo_dun" margin="10 95 0 0" rect="0 0 380 24" format="베르니케 파편 던전 획득량 {img green_up_arrow 14 14}%s" param1="value" param1_def="20000" textalign="left top" resizebytext="true" spacey="0" maxwidth="0" fontname="brown_16" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="left top"/>
 			<richtext name="weekly_boss" margin="10 45 0 0" rect="0 0 380 24" format="주간 보스 레이드 125K 대미지 보상 획득량 {img green_up_arrow 14 14}%s" param1="value" param1_def="20000" textalign="left top" resizebytext="true" spacey="0" maxwidth="0" fontname="brown_16" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="left top"/>
 			<richtext name="field" margin="10 280 0 0" rect="0 0 380 24" format="필드 사냥시 획득량 {img green_up_arrow 14 14}%s%" param1="value" param1_def="100" textalign="left top" resizebytext="true" spacey="0" maxwidth="0" fontname="brown_16" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="left top"/>
@@ -483,6 +483,28 @@
 			<richtext name="type" layout_gravity="center top" rect="0 0 160 20" fixwidth="false" margin="0 70 0 0" hittest="false" updateparent="true" parent="skill_desc"/>
 			<richtext name="desc" layout_gravity="left top" fontname="brown_16_b" rect="0 0 350 20" fixwidth="true" margin="130 80 0 0" resizebytext="true" hittest="false" updateparent="true" parent="skill_desc"/>
 			<richtext name="weapon_text" format="{@st66d}착용 무기" layout_gravity="left center" fontname="white_18_ol" rect="0 0 100 50" fixwidth="true" textalign="left center" margin="30 -5 0 0" hittest="false" updateparent="true" parent="weapon_box"/>
+		</controls>
+	</tooltip>
+	<tooltip name="skill_expand" x="0" y="0" frameskin="None" fixwidth="true" width="800" height="1000" moveable="false" blendtime="" UpdateScp="UPDATE_SKILL_TOOLTIP" CustomUpdate="UPDATE_SKILL_NEW_TIP">
+		<controls>
+			<groupbox name="skill_desc_expand" margin="0 0 500 50" rect="0 0 800 50" skin="none" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="skill_desc" margin="0 0 500 50" rect="0 0 500 50" skin="test_skill_tooltip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<picture name="icon_frame" image="skilltooltip_skill_image_slot" layout_gravity="left top" rect="0 0 100 100" stretch="true" margin="20 70 0 0" parent="skill_desc"/>
+			<picture name="icon" layout_gravity="left top" rect="0 0 85 85" stretch="true" margin="28 78 0 0" parent="skill_desc"/>
+			<groupbox name="weapon_box" margin="0 170 0 0" rect="0 0 500 40" hittest="false" draw="false" updateparent="true" scrollbar="false" layout_gravity="left top" parent="skill_desc"/>
+			<groupbox name="stance_pic" margin="120 0 0 0" rect="0 0 380 50" hittest="false" draw="false" updateparent="true" scrollbar="false" layout_gravity="left top" parent="weapon_box"/>
+			<richtext name="name" layout_gravity="center top" fontname="yellow_18_ol" rect="0 0 494 60" fixwidth="true" textalign="center center" margin="1 2 0 0" resizebytext="false" hittest="false" updateparent="true" parent="skill_desc"/>
+			<richtext name="type" layout_gravity="center top" rect="0 0 160 20" fixwidth="false" margin="0 70 0 0" hittest="false" updateparent="true" parent="skill_desc"/>
+			<richtext name="desc" layout_gravity="left top" fontname="brown_16_b" rect="0 0 350 20" fixwidth="true" margin="130 80 0 0" resizebytext="true" hittest="false" updateparent="true" parent="skill_desc"/>
+			<richtext name="trade_text" format="총 거래 불가: %s개" param1="count" layout_gravity="right top" fontname="brown_16_b" rect="0 0 150 20" fixwidth="true" textalign="right center" margin="0 70 20 0" hittest="false" updateparent="true" parent="skill_desc"/>
+			<richtext name="weapon_text" format="{@st66d}착용 무기" layout_gravity="left center" fontname="white_18_ol" rect="0 0 100 50" fixwidth="true" textalign="left center" margin="30 -5 0 0" hittest="false" updateparent="true" parent="weapon_box"/>
+			<groupbox name="ability_desc" margin="500 0 0 50" rect="0 0 500 50" hittest="false" skin="test_skill_skin2" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+		</controls>
+	</tooltip>
+	<tooltip name="tribulation_icon" x="0" y="0" fixwidth="true" width="200" height="100" moveable="true" frameskin="downbox" UpdateScp="UPDATE_TRIBULATION_TOOLTIP">
+		<controls>
+			<richtext name="name" rect="5 12 160 20" fixwidth="false" updateparent="true"/>
+			<richtext name="comment" rect="5 45 160 100" fixwidth="false" updateparent="true"/>
 		</controls>
 	</tooltip>
 </tooltipset>

@@ -1152,7 +1152,15 @@ function AWAKEN_ABILITY_DESC_PLUS(desc, cur)
 
 end
 
+local seal_option_list = {}
+seal_option_list['MATK;PATK'] = 1
+seal_option_list['CRTMATK;CRTATK'] = 1
+
 function GET_OPTION_VALUE_OR_PERCECNT_STRING(optionName, optionValue)
+	if seal_option_list[optionName] == 1 then
+		return ABILITY_DESC_PLUS(ClMsg(optionName), optionValue);
+	end
+
 	local commonPropList = GET_COMMON_PROP_LIST();
 	for i = 1, #commonPropList do
 		if optionName == commonPropList[i] then

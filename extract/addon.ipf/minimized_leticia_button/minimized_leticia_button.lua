@@ -49,7 +49,6 @@ function MINIMIZED_LETICIA_REMAIN_TIME(frame)
 	local nowstr = string.format("%04d-%02d-%02d %02d:%02d:%02d", getnow.wYear, getnow.wMonth, getnow.wDay, getnow.wHour, getnow.wMinute, getnow.wSecond)
 	
 	local remainsec = date_time.get_diff_sec(EndTime, nowstr)
-
 	local time = GET_CHILD_RECURSIVELY(frame, 'time')
 
 	time:RunUpdateScript("UPDATE_MINIMIZED_LETICIA_REMAIN_TIME", 0.1)
@@ -81,7 +80,7 @@ function UPDATE_MINIMIZED_LETICIA_TIME_CTRL(ctrl, remainsec, now, StartTime, End
 		frame:ShowWindow(0)
 		return 0
 	end
-
+	
 	if StartTime == nil or EndTime == nil or EndTime == nil then
 		return 0
 	end
@@ -121,7 +120,6 @@ function UPDATE_MINIMIZED_LETICIA_TIME_CTRL(ctrl, remainsec, now, StartTime, End
 	-- 레티샤 시작까지 남은 시간
 	if date_time.is_later_than(StartTime, now) then
 		local open_ready_time = date_time.get_diff_sec(StartTime, now)
-
 		min = math.floor(open_ready_time/60)
 		sec = math.floor(open_ready_time%60)
 		hour = math.floor(open_ready_time/3600)
@@ -153,8 +151,8 @@ function UPDATE_MINIMIZED_LETICIA_TIME_CTRL(ctrl, remainsec, now, StartTime, End
 		local year = string.sub(ori_start_time, 1,4)
 		local month = string.sub(ori_start_time, 6,7)
 		local month_num = tonumber(month) + 1
-		local goal_month
-
+		local goal_month;
+		local next_year = nil;
 		if month_num < 10 then
 			goal_month = "0"..tostring(month_num)
 		else 	
@@ -162,14 +160,18 @@ function UPDATE_MINIMIZED_LETICIA_TIME_CTRL(ctrl, remainsec, now, StartTime, End
 
 			if tonumber(goal_month) > 12 then
 				goal_month = "01"
-				local next_year = tostring(tonumber(year) + 1)
-				ori_start_time = string.gsub(ori_start_time, year, next_year)
+				next_year = tostring(tonumber(year) + 1)
+				--ori_start_time = string.gsub(ori_start_time, year, next_year)
 			end
 		end
-
-		local final_goal_time = string.gsub(ori_start_time, month, goal_month)
+		-- string.gsub(ori_start_time, month, goal_month)
+		if next_year ~= nil then
+			 year = next_year; 
+		end
+		
+		local final_goal_time = year.."-"..goal_month.."-01 00:00:00";
 		local open_remain_time = date_time.get_diff_sec(final_goal_time, now)
-
+		
 		--- 다음달 1일이 되기 전에 xml 날짜 세팅을 해야함
 		if open_remain_time < 1 then
 			frame:ShowWindow(0)

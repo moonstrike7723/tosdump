@@ -1,4 +1,4 @@
---joystickquickslot.lua
+﻿--joystickquickslot.lua
 
 MAX_SLOT_CNT = 40;
 SLOT_NAME_INDEX = 0;
@@ -370,6 +370,7 @@ function JOYSTICK_QUICKSLOT_ON_DROP(frame, control, argStr, argNum)
 					oldIcon = nil;
 				end
 			end
+
 			QUICKSLOTNEXPBAR_SETICON(popSlot, oldIcon, 1, false);
             local quickslotFrame = ui.GetFrame("quickslotnexpbar");
             QUICKSLOT_REGISTER(quickslotFrame, iconType, slot:GetSlotIndex() + 1, iconCategory, true);

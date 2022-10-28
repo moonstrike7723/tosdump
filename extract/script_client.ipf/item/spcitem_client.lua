@@ -111,6 +111,14 @@ function SCR_BARRACK_CREATE_FAIRY_SANTA_GUILTY(handle)
 	SCR_CREATE_FAIRY(handle, "doll_santa_guilty");
 end
 
+function SCR_BARRACK_CREATE_FAIRY_DOLL_SUCCUBUS(handle)
+	SCR_CREATE_FAIRY(handle, "doll_succubus");
+end
+
+function SCR_BARRACK_CREATE_FAIRY_DOLL_PAULIUS(handle)
+	SCR_CREATE_FAIRY(handle, "doll_paulius");
+end
+
 -- wing item effect offset
 function SCR_USE_COMPANION_OFFSET(handle)
 	local obj = world.GetActor(handle);

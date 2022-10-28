@@ -1,6 +1,6 @@
 function WEEKLYBOSS_REWARD_ON_INIT(addon, frame)
     addon:RegisterMsg('WEEKLY_BOSS_RECEIVE_REWARD', 'WEEKLY_BOSS_RECEIVE_REWARD');    
-    addon:RegisterMsg('RANK_SYSTEM_MY_DATA', 'TOSHERO_ON_SYSTEM_DATA')
+    addon:RegisterMsg('RANK_SYSTEM_MY_DATA', 'RANKSYSTEM_ON_SYSTEM_DATA')
 end
 
 function WEEKLYBOSSREWARD_OPEN(frame)
@@ -14,6 +14,14 @@ end
 function TOSHEROREWARD_SHOW(index, prev)
     local frame = ui.GetFrame("weeklyboss_reward")
     frame:SetUserValue("PREV", prev)
+    frame:SetUserValue("CONTENTS_NUM", 1)
+    WEEKLYBOSSREWARD_REWARD_OPEN(index)
+end
+
+function RANKSYSTEMREWARD_SHOW(index, prev, contentsNum)
+    local frame = ui.GetFrame("weeklyboss_reward")
+    frame:SetUserValue("PREV", prev)
+    frame:SetUserValue("CONTENTS_NUM", contentsNum)
     WEEKLYBOSSREWARD_REWARD_OPEN(index)
 end
 
@@ -21,6 +29,7 @@ function WEEKLYBOSSREWARD_CLOSE(frame)
 end
 
 local season_num
+local requestData = false
 
 function WEEKLYBOSSREWARD_REWARD_OPEN(index)
     local frame = ui.GetFrame("weeklyboss_reward")
@@ -40,22 +49,43 @@ function WEEKLYBOSSREWARD_REWARD_OPEN(index)
         rewardType = "Damage"
     elseif index == 3 then
         local prev = frame:GetUserIValue("PREV")
-        REQUEST_RANK_SYSTEM(1, "weeklyboss_reward", prev)
+        local contentsNum = frame:GetUserIValue("CONTENTS_NUM")
+        local season_id = session.rank.GetPrevSeason(contentsNum, prev)
+        requestData = true
+        
+        RequestRankSystemMyData(contentsNum, season_id)
         rewardType = "TosHero"
+    elseif index == 4 then
+        local prev = frame:GetUserIValue("PREV")
+        local contentsNum = frame:GetUserIValue("CONTENTS_NUM")
+        local season_id = session.rank.GetPrevSeason(contentsNum, prev)
+        requestData = true
+        
+        RequestRankSystemSquadData(contentsNum, season_id, 1, GET_GROUP_TYPE())
+        rewardType = "RankSystem"
     end
+
     frame:SetUserValue("REWARD_TYPE",rewardType)
 end
 
-function TOSHERO_ON_SYSTEM_DATA(parent, ctrl, argStr, argNum)
+function RANKSYSTEM_ON_SYSTEM_DATA(parent, ctrl, argStr, argNum)
     local frame = ui.GetFrame("ranksystem_ui")
-    if parent:GetName() ~= frame:GetUserValue("TARGET_FRAME") then
+    if requestData == false then
         return;
     end
-    ui.OpenFrame("weeklyboss_reward")
+    requestData = false
     local prev = parent:GetUserIValue("PREV")
-    season_num = tonumber(session.rank.GetPrevSeason(1, prev))
-    local retlist = TOSHERO_GET_RANKING_REWARD_LIST(season_num)
-    TOSHERO_RANK_REWARD_UPDATE(parent, retlist, argStr, false);
+    local contentsNum = parent:GetUserIValue("CONTENTS_NUM")
+    season_num = tonumber(session.rank.GetPrevSeason(contentsNum, prev))
+    local retlist = RANKSYSTEM_GET_RANKING_REWARD_LIST(season_num)
+
+    if retlist == "" then
+        return
+    end
+
+    RANKSYSTEM_RANK_REWARD_UPDATE(parent, retlist, argStr, false);
+    ui.OpenFrame("weeklyboss_reward")
+
 end
 
 function WEEKLYBOSSREWARD_GET_RANKING_REWARD_LIST(week_num)
@@ -110,13 +140,16 @@ function WEEKLYBOSSREWARD_GET_ABSOLUTED_REWARD_LIST(week_num)
     return retlist
 end
 
-function TOSHERO_GET_RANKING_REWARD_LIST(season_num)
+function RANKSYSTEM_GET_RANKING_REWARD_LIST(season_num)
     local retlist = {};
     local retindex = 1;
 
     local maxcount = 150
+    local frame = ui.GetFrame("weeklyboss_reward")
+    local contentsNum = frame:GetUserIValue("CONTENTS_NUM")
+
     for i = 1, maxcount do
-        local rewardstr = session.rank.GetRewardByString(season_num,1, i);
+        local rewardstr = session.rank.GetRewardByString(season_num, contentsNum, i);
         if rewardstr == "" then
             break;
         end
@@ -244,7 +277,7 @@ end
 
 
 -- 영웅담 보상 목록 출력
-function TOSHERO_RANK_REWARD_UPDATE(frame, retlist,argStr, recieved)
+function RANKSYSTEM_RANK_REWARD_UPDATE(frame, retlist,argStr, recieved)
     VALIDATE_GET_ALL_REWARD_BUTTON(frame,0)
     local rewardgb = GET_CHILD_RECURSIVELY(frame, "rewardgb", "ui::CGroupBox");
     rewardgb:RemoveAllChild();
@@ -289,10 +322,12 @@ function TOSHERO_RANK_REWARD_UPDATE(frame, retlist,argStr, recieved)
         WEEKLYBOSSREWARD_REWARD_LIST_UPDATE(frame, ctrl, retlist[i].rewardstr);
         
         local alreadyGet = session.rank.IsReceivedReward();
+        local contentsNum = frame:GetUserIValue("CONTENTS_NUM")
+        local isPrevSeason = season_num < tonumber(session.rank.GetPrevSeason(contentsNum, 0))
         if myrank <= retlist[i].end_rank and myrank >= retlist[i].start_rank then
             if alreadyGet==true or recieved == true then
                 WEEKLYBOSSREWARD_ITEM_BUTTON_SET(ctrl,4)
-            elseif season_num < tonumber(session.rank.GetPrevSeason(1, 0)) then
+            elseif isPrevSeason and (session.SquadSystem.IsMySquad(GET_GROUP_TYPE()) or contentsNum == 1) then
                 WEEKLYBOSSREWARD_ITEM_BUTTON_SET(ctrl,1, myrank)
                 VALIDATE_GET_ALL_REWARD_BUTTON(frame,1)
             else
@@ -374,6 +409,9 @@ function WEEKLYBOSSREWARD_REWARD_LIST_CLICK(parent, ctrl, argStr, argNum)
         weekly_boss.RequestAccpetRankingReward(week_num, tonumber(argStr));
     elseif rewardType == 'TosHero' then
         rank_system.RequestReceivePersonalRankReward(1, season_num);
+    elseif rewardType == "RankSystem" then
+        local contentsNum = frame:GetUserIValue("CONTENTS_NUM")
+        rank_system.RequestReceiveSquadRankReward(contentsNum, season_num, GET_GROUP_TYPE());
     elseif rewardType == "ClassRanking" then
         local week_num = WEEKLY_BOSS_RANK_WEEKNUM_NUMBER();
         local job_id = frame:GetUserIValue("job_id");
@@ -393,6 +431,9 @@ function WEEKLYBOSS_REWARD_GET_ALL(frame,ctrl,argStr,argNum)
         weekly_boss.RequestAccpetRankingReward(week_num, myrank);
     elseif rewardType == 'TosHero' then
         rank_system.RequestReceivePersonalRankReward(1, season_num)
+    elseif rewardType == "RankSystem" then
+        local contentsNum = frame:GetUserIValue("CONTENTS_NUM")
+        rank_system.RequestReceiveSquadRankReward(contentsNum, season_num, GET_GROUP_TYPE());
     end
 end
 
@@ -411,9 +452,9 @@ function WEEKLY_BOSS_RECEIVE_REWARD(frame,msg,argStr,argNum)
         -- 누적 대미지 보상        
         local retlist = WEEKLYBOSSREWARD_GET_ABSOLUTED_REWARD_LIST(week_num)
         WEEKLYBOSSREWARD_ABSOLUTED_REWARD_UPDATE(frame, retlist);
-    elseif argStr == 'TosHero' then
-        local retlist = TOSHERO_GET_RANKING_REWARD_LIST(season_num)
-        TOSHERO_RANK_REWARD_UPDATE(frame, retlist, nil, true);
+    elseif argStr == 'TosHero' or argStr == 'RankSystem' then
+        local retlist = RANKSYSTEM_GET_RANKING_REWARD_LIST(season_num)
+        RANKSYSTEM_RANK_REWARD_UPDATE(frame, retlist, nil, true);
     end
 end
 

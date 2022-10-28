@@ -1,5 +1,5 @@
 <?xml version="1.0" standalone="yes"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2006 U (http://www.altova.com) by Administrator (EMBRACE) -->
 <TextureInfo>
 	<Texture Name="sprite112_fire" File="sprite112_fire.dds" Size="512 512"/>
@@ -19,12 +19,12 @@
 	<Texture Name="hit024" File="hit024.tga" Size="383 128"/>
 	<Texture Name="sawblade001" File="sawblade001.tga" Size="512 512"/>
 	<Texture Name="sprite089" File="sprite089.tga" Size="512 256"/>
-	<Texture Name="sptire088_1536" File="sptire088_1536.tga" Size="1536 1536"/>
+	<Texture Name="sptire088_1536" File="sprite088_1536.tga" Size="1536 1536"/>
 	<Texture Name="success_text_green" File="success_text_green.tga" Size="512 128"/>
 	<Texture Name="success_text_blue" File="success_text_blue.tga" Size="512 128"/>
 	<Texture Name="success_text" File="success_text.tga" Size="512 128"/>
 	<Texture Name="square009" File="square009.dds" Size="512 128"/>
-	<Texture Name="sptire088_1024" File="sptire088_1024.tga" Size="1024 1024"/>
+	<Texture Name="sptire088_1024" File="sprite088_1024.tga" Size="1024 1024"/>
 	<Texture Name="dash001_alpha2" File="dash001_alpha2.dds" Size="32 16"/>
 	<Texture Name="dash001_pink_alpha" File="dash001_pink_alpha.dds" Size="32 16"/>
 	<Texture Name="minimap_icon_except_progress" File="minimap_icon_except_progress.dds" Size="64 64"/>

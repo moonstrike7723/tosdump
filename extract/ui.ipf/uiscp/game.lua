@@ -4255,12 +4255,17 @@ end
 function BLOCK_MSG(blockName, sysTime)
 	sysTime = tolua.cast(sysTime, "SYSTEMTIME");
 	local dateText = GET_DATE_TXT(sysTime);
-
 	local msgClassName;
 	if blockName == "ChatStopTime" then
 		msgClassName = "ChatBlockedUntil{Time}";
 	elseif blockName == "TradeStopTime" then
 		msgClassName = "TradeBlockedUntil{Time}";
+	elseif blockName == "SquadBlocked" then
+		msgClassName = "SquadBlockedUntil{Time}";
+	elseif blockName == "SquadCreationBlocked" then
+		msgClassName = "SquadCreationBlockedUntil{Time}";
+	elseif blockName == "SquadInvitationBlocked" then
+		msgClassName = "SquadInvitationBlockedUntil{Time}";
 	else
 		return;
 	end

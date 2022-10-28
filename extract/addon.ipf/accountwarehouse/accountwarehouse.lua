@@ -580,15 +580,15 @@ function ACCOUNT_WAREHOUSE_RECEIVE_ITEM(parent, slot)
         return;
     end
 
-    DISABLE_BUTTON_DOUBLECLICK("accountwarehouse", "receiveitem")
     local str = ScpArgMsg("TradeCountWillBeConsumedBy{Value}_Continue?", "Value", "1");
-    ui.MsgBox(str, "_EXEC_ACCOUNT_WAREHOUSE_RECEIVE_ITEM", "None");
-
+    local msgbox = ui.MsgBox(str, "_EXEC_ACCOUNT_WAREHOUSE_RECEIVE_ITEM", "None");
+    SET_MODAL_MSGBOX(msgbox)
 end
 
 function _EXEC_ACCOUNT_WAREHOUSE_RECEIVE_ITEM()
     local frame = ui.GetFrame("accountwarehouse");
     item.TakeItemFromWarehouse_List(IT_ACCOUNT_WAREHOUSE, session.GetItemIDList(), frame:GetUserIValue("HANDLE"));
+    DISABLE_BUTTON_DOUBLECLICK("accountwarehouse", "receiveitem", 3)
 end
 
 function ACCOUNT_WAREHOUSE_WITHDRAW(frame, slot)

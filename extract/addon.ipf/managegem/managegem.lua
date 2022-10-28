@@ -288,7 +288,8 @@ function CLICK_REMOVE_GEM_BUTTON(frame, slot, argStr, argNum)
 		return;
 	end
 	
-	local isGemRemoveCare = IS_GEM_EXTRACT_CARE_20211125()
+	local pc = GetMyPCObject();
+	local isGemRemoveCare = IS_GEM_EXTRACT_FREE_CHECK(pc)
 
 	local itemname = argStr;
 	local yesScp = string.format("EXEC_REMOVE_GEM()");

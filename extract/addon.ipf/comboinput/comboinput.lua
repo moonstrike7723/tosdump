@@ -64,6 +64,44 @@ function COMBOINPUT_CANCEL_SETTING(frame)
     end
 end
 
+local function get_key_image_name(key_id)
+	config.InitHotKeyByCurrentUIMode('Battle')
+	
+	local key_idx = config.GetHotKeyElementIndex('ID', key_id)
+	local hotkey_str = config.GetHotKeyElementAttributeForConfig(key_idx, 'Key')
+
+	local use_shift = config.GetHotKeyElementAttributeForConfig(key_idx, 'UseShift')
+	local use_ctrl = config.GetHotKeyElementAttributeForConfig(key_idx, 'UseCtrl')
+    local use_alt = config.GetHotKeyElementAttributeForConfig(key_idx, 'UseAlt')
+
+	if string.find(hotkey_str, 'NUMPAD') ~= nil then
+        local find_start, find_end = string.find(hotkey_str, 'NUMPAD')
+        hotkey_str = string.sub(hotkey_str, find_end + 1, string.len(hotkey_str))
+	end
+	
+	local img_name = 'key_' .. hotkey_str
+	if IsJoyStickMode() == 1 then
+		if key_id == 'NormalAttack' then
+			img_name = 'x_button'
+		elseif key_id == 'Jump' then
+			img_name = 'a_button'
+		elseif key_id == 'MoveLeft' then
+			img_name = 'key_LEFT'
+		elseif key_id == 'MoveUp' then
+			img_name = 'key_UP'
+		elseif key_id == 'MoveRight' then
+			img_name = 'key_RIGHT'
+		elseif key_id == 'MoveDown' then
+			img_name = 'key_DOWN'
+		end
+		use_shift = 'NO'
+		use_ctrl = 'NO'
+		use_alt = 'NO'
+	end
+
+	return img_name, use_shift, use_ctrl, use_alt
+end
+
 function ON_COMBOINPUT_START(frame, msg, arg_str, arg_num)
 	if arg_str == nil then return end
 
@@ -74,11 +112,47 @@ function ON_COMBOINPUT_START(frame, msg, arg_str, arg_num)
 
 	local bg = GET_CHILD_RECURSIVELY(frame, 'bg')
 	bg:RemoveAllChild()
+
 	for i = 1, #key_list do
 		local ctrl = bg:CreateOrGetControlSet('comboinput_key', 'KEY_' .. i, (i - 1) * 80, 0)
 		if ctrl ~= nil then
+			local key_id = key_list[i]
+			local img_name, use_shift, use_ctrl, use_alt = get_key_image_name(key_id)
+
+			local combi_cnt = 0
+			if use_shift == 'YES' then
+				local img_shift = ctrl:CreateControl('picture', 'img_shift', 30, 30, ui.LEFT, ui.BOTTOM, 0, 0, 0, 0)
+				tolua.cast(img_shift, 'ui::CPicture')
+				img_shift:SetEnableStretch(1)
+				img_shift:SetImage('SHIFT')
+				combi_cnt = 1
+			end
+
+			if use_ctrl == 'YES' then
+				local horz = ui.LEFT
+				if combi_cnt > 0 then
+					horz = ui.RIGHT
+				end
+				local img_ctrl = ctrl:CreateControl('picture', 'img_ctrl', 30, 30, horz, ui.BOTTOM, 0, 0, 0, 0)
+				tolua.cast(img_ctrl, 'ui::CPicture')
+				img_ctrl:SetEnableStretch(1)
+				img_ctrl:SetImage('ctrl')
+				combi_cnt = combi_cnt + 1
+			end
+
+			if use_alt == 'YES' then
+				local horz = ui.LEFT
+				if combi_cnt > 0 then
+					horz = ui.RIGHT
+				end
+				local img_alt = ctrl:CreateControl('picture', 'img_alt', 30, 30, horz, ui.BOTTOM, 0, 0, 0, 0)
+				tolua.cast(img_alt, 'ui::CPicture')
+				img_alt:SetEnableStretch(1)
+				img_alt:SetImage('alt')
+			end
+
 			local keycap = GET_CHILD_RECURSIVELY(ctrl, 'keycap')
-			keycap:SetImage(key_list[i])
+			keycap:SetImage(img_name)
 		end
 	end
 
@@ -103,7 +177,7 @@ function ON_COMBOINPUT_SUCCESS(frame, msg, arg_str, arg_num)
 	local keycap = GET_CHILD_RECURSIVELY(ctrl, 'keycap')
 	if keycap ~= nil then
 		if arg_num < combo_size then
-			local input_sound = frame:GetUserConfig('KEY_INPUT_SOUNT')
+			local input_sound = frame:GetUserConfig('KEY_INPUT_SOUND')
 			imcSound.PlaySoundEvent(input_sound)
 		end
 		keycap:SetAlpha(30)
@@ -117,7 +191,7 @@ function ON_COMBOINPUT_FAILED(frame, msg, arg_str, arg_num)
 		if ctrl ~= nil then
 			local keycap = GET_CHILD_RECURSIVELY(ctrl, 'keycap')
 			if keycap ~= nil then
-				local input_sound = frame:GetUserConfig('KEY_INPUT_SOUNT')
+				local input_sound = frame:GetUserConfig('KEY_INPUT_SOUND')
 				imcSound.PlaySoundEvent(input_sound)
 				keycap:SetAlpha(100)
 			end
@@ -127,7 +201,7 @@ end
 
 function ON_COMBOINPUT_END(frame, msg, arg_str, arg_num)
 	if arg_num == 1 then
-		local input_sound = frame:GetUserConfig('LAST_KEY_INPUT_SOUNT')
+		local input_sound = frame:GetUserConfig('LAST_KEY_INPUT_SOUND')
 		imcSound.PlaySoundEvent(input_sound)
 	end
 	ui.CloseFrame('comboinput')

@@ -15,6 +15,8 @@ function NOTICE_RAID_PC_ON_INIT(addon, frame)
     addon:RegisterMsg("NOTICE_SOLO_BUFF_SEELCT_ICON_REMOVE", "ON_NOTICE_RAID_TO_UI");
     addon:RegisterMsg("NOTICE_DELMORE_BULLET_ICON", "ON_NOTICE_RAID_TO_UI");
     addon:RegisterMsg("NOTICE_DELMORE_BULLET_ICON_REMOVE", "ON_NOTICE_RAID_TO_UI");
+    addon:RegisterMsg("NOTICE_SHOW_WEEKLY_RAID_ICON", "ON_NOTICE_RAID_TO_UI");
+    addon:RegisterMsg("NOTICE_SHOW_WEEKLY_RAID_ICON_REMOVE", "ON_NOTICE_RAID_TO_UI");
 end
 
 function ON_NOTICE_RAID_TO_UI(frame, msg, argStr, argNum)
@@ -34,7 +36,7 @@ function ON_NOTICE_RAID_TO_UI(frame, msg, argStr, argNum)
         end
         local uiName = "notice_raid_pc"..frame:GetUserValue("SUFFIX");
         NOTICE_RAID_PC_UI_CREATE(uiName, msg, "None", handle, curTime, true, false);
-    elseif msg == "NOTICE_GILTINE_FIND_COLOR_RED" or msg == "NOTICE_GILTINE_FIND_COLOR_YELLOW" or msg == "NOTICE_GILTINE_DEMONICS_LANCE" or msg == "NOTICE_GILTINE_DEMONICS_PRANK" or msg == "NOTICE_SOLO_BUFF_SEELCT_ICON" or msg == "NOTICE_DELMORE_BULLET_ICON" then
+    elseif msg == "NOTICE_GILTINE_FIND_COLOR_RED" or msg == "NOTICE_GILTINE_FIND_COLOR_YELLOW" or msg == "NOTICE_GILTINE_DEMONICS_LANCE" or msg == "NOTICE_GILTINE_DEMONICS_PRANK" or msg == "NOTICE_SOLO_BUFF_SEELCT_ICON" or msg == "NOTICE_DELMORE_BULLET_ICON" or msg == "NOTICE_SHOW_WEEKLY_RAID_ICON" then
         local handle = tonumber(argNum);
         if handle ~= 0 then
             frame:SetUserValue("SUFFIX", handle);
@@ -42,7 +44,7 @@ function ON_NOTICE_RAID_TO_UI(frame, msg, argStr, argNum)
         local uiName = "notice_raid_pc"..frame:GetUserValue("SUFFIX");
         local iconName = argStr;
         NOTICE_RAID_PC_UI_CREATE(uiName, msg, iconName, handle, 0, false, true);
-    elseif msg == "NOTICE_GILTINE_DEMONICS_LANCE_REMOVE" or msg == "NOTICE_GILTINE_DEMONICS_PRANK_REMOVE" or msg == "NOTICE_GILTINE_FIND_COLOR_RED_REMOVE" or msg == "NOTICE_GILTINE_FIND_COLOR_YELLOW_REMOVE" or msg == "NOTICE_SOLO_BUFF_SEELCT_ICON_REMOVE" or msg == "NOTICE_DELMORE_BULLET_ICON_REMOVE" then
+    elseif msg == "NOTICE_GILTINE_DEMONICS_LANCE_REMOVE" or msg == "NOTICE_GILTINE_DEMONICS_PRANK_REMOVE" or msg == "NOTICE_GILTINE_FIND_COLOR_RED_REMOVE" or msg == "NOTICE_GILTINE_FIND_COLOR_YELLOW_REMOVE" or msg == "NOTICE_SOLO_BUFF_SEELCT_ICON_REMOVE" or msg == "NOTICE_DELMORE_BULLET_ICON_REMOVE" or msg == "NOTICE_SHOW_WEEKLY_RAID_ICON_REMOVE" then
         local handle = tonumber(argNum);
         local frame = ui.GetFrame("notice_raid_pc"..handle);
         if frame ~= nil then
@@ -61,6 +63,8 @@ function ON_NOTICE_RAID_TO_UI(frame, msg, argStr, argNum)
                     ctrlName = "NOTICE_SOLO_BUFF_SEELCT_ICON";
                 elseif msg == "NOTICE_DELMORE_BULLET_ICON_REMOVE" then
                     ctrlName = "NOTICE_DELMORE_BULLET_ICON";
+                elseif msg == "NOTICE_SHOW_WEEKLY_RAID_ICON_REMOVE" then
+                    ctrlName = "NOTICE_SHOW_WEEKLY_RAID_ICON";
                 end
 
                 local ctrl = GET_CHILD_RECURSIVELY(gbox, ctrlName);
@@ -98,9 +102,12 @@ function NOTICE_RAID_PC_UI_CREATE(uiName, msg, iconName, handle, curTime, isGaug
         elseif msg == "NOTICE_GILTINE_DEMONICS_LANCE" or msg == "NOTICE_GILTINE_DEMONICS_PRANK" then
             width = 60;
             height = 66;
-        elseif msg == "NOTICE_SOLO_BUFF_SEELCT_ICON" or "NOTICE_DELMORE_BULLET_ICON" then
+        elseif msg == "NOTICE_SOLO_BUFF_SEELCT_ICON" or msg == "NOTICE_DELMORE_BULLET_ICON" then
             width = 45;
             height = 45;
+        elseif msg == "NOTICE_SHOW_WEEKLY_RAID_ICON" then
+            width = 65;
+            height = 65;
         end
         NOTICE_RAID_PC_NORMAL_ICON_CREATE(frame, gbox, msg, iconName, handle, width, height);
     end

@@ -44,6 +44,10 @@ function UNLOCK_EARRING_BELONGING_SCROLL_EXEC_ASK_AGAIN(frame, btn)
 	end
 	local scrollObj = GetIES(scrollInvItem:GetObject());
 	local clmsg = ScpArgMsg("ReallyUnlockBelonging")    
+	if TryGetProp(scrollObj, 'StringArg', 'None') == 'unlock_earring_team_belonging' then
+		clmsg = ScpArgMsg('MakeTeamBelonging')
+	end
+
 	imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_BTN_OK_SOUND"));
 	ui.MsgBox_NonNested(clmsg, frame:GetName(), "UNLOCK_EARRING_BELONGING_SCROLL_EXEC", "None");
 end
@@ -213,7 +217,7 @@ function UNLOCK_EARRING_BELONGING_SCROLL_LOCK_ITEM(guid)
 	INVENTORY_ON_MSG(invframe, "UPDATE_ITEM_unlock_earring_belonging", lockItemGuid);
 end
 
-function UNLOCK_EARRING_BELONGING_SCROLL_UI_INIT()
+function UNLOCK_EARRING_BELONGING_SCROLL_UI_INIT()	
 	local frame = ui.GetFrame("unlock_earring_belonging");
 	local scrollGuid = frame:GetUserValue("ScrollGuid")	
 	local scrollInvItem = session.GetInvItemByGuid(scrollGuid);
@@ -228,15 +232,25 @@ function UNLOCK_EARRING_BELONGING_SCROLL_UI_INIT()
 	local transcend_gb = GET_CHILD_RECURSIVELY(frame, "transcend_gb");
 	transcend_gb:ShowWindow(1);
 	
-	local text_desc = GET_CHILD_RECURSIVELY(frame, "text_desc");		
-	text_desc:ShowWindow(1);	
+	local text_desc = GET_CHILD_RECURSIVELY(frame, "text_desc");
 
 	local text_desc2 = GET_CHILD_RECURSIVELY(frame, "text_desc_2");		
 	text_desc2:ShowWindow(0);	
 
 	local text_desc3 = GET_CHILD_RECURSIVELY(frame, "text_desc_3");		
-	text_desc3:ShowWindow(1);	
+	local text_title = GET_CHILD_RECURSIVELY(frame, "text_title");		
 
+	text_title:SetTextByKey("value", scrollObj.Name)
+	if TryGetProp(scrollObj, 'StringArg', 'None') == 'unlock_earring_team_belonging' then
+		text_desc3:SetTextByKey("value", ClMsg('NoNeedUnlockScrollCount'))
+		text_desc:SetTextByKey("value", ClMsg('TeamBelongingWhenUsage'))		
+	else
+		text_desc3:SetTextByKey("value", ClMsg('NeedUnlockScrollCount'))
+		text_desc:SetTextByKey('value', ClMsg('UnlockBelongingWhenUsage'))
+	end
+
+	text_desc3:ShowWindow(1);	
+	text_desc:ShowWindow(1);	
 
 	local main_gb = GET_CHILD_RECURSIVELY(frame, "main_gb");
 	main_gb:ShowWindow(0);
@@ -284,7 +298,6 @@ function UNLOCK_EARRING_BELONGING_SCROLL_SET_TARGET_ITEM(invframe, invItem)
 	local button_transcend = GET_CHILD(frame, "button_transcend");	
 	local button_close = GET_CHILD(frame, "button_close");
 	button_close:ShowWindow(0);	
-	button_transcend:ShowWindow(1);	
 	
 	local slot_temp = GET_CHILD(frame, "slot_temp");
 	slot_temp:StopActiveUIEffect();
@@ -306,30 +319,35 @@ function UNLOCK_EARRING_BELONGING_SCROLL_SET_TARGET_ITEM(invframe, invItem)
 		ui.SysMsg(ClMsg("MaterialItemIsLock"));
 		return;
 	end
-
+	
 	local scrollObj = GetIES(scrollInvItem:GetObject());	
 	local itemObj = GetIES(invItem:GetObject());
 
-	local ret, msg = shared_item_earring.is_valid_unlock_item(scrollObj, itemObj)
+	local ret, msg = shared_item_earring.is_valid_unlock_item(scrollObj, itemObj)	
 	if ret == false then
 		ui.SysMsg(ClMsg(msg))
 		return
 	end
 
-	local text_name = GET_CHILD_RECURSIVELY(frame, "text_name")			
-	
+	local text_name = GET_CHILD_RECURSIVELY(frame, "text_name")
 	local slot = GET_CHILD(frame, "slot");
 	
 	text_name:SetTextByKey("value", "");
 	text_name:SetTextByKey("value", itemObj.Name)
 	text_name:ShowWindow(1);
 
-	local text_desc_3 = GET_CHILD_RECURSIVELY(frame, 'text_desc_3')
-	text_desc_3:ShowWindow(0)
+	if TryGetProp(scrollObj, 'StringArg', 'None') ~= 'unlock_earring_team_belonging' then
+		local text_desc_3 = GET_CHILD_RECURSIVELY(frame, 'text_desc_3')
+		text_desc_3:ShowWindow(0)
+		local text_desc_2 = GET_CHILD_RECURSIVELY(frame, 'text_desc_2')
+		text_desc_2:ShowWindow(1)
+		text_desc_2:SetTextByKey("value", shared_item_earring.get_earring_grade(itemObj))
+		button_transcend:SetTextByKey("value", ClMsg("UnlockBelonging"));
+	else
+		button_transcend:SetTextByKey("value", ClMsg("TeamBelonging"));
+	end
 
-	local text_desc_2 = GET_CHILD_RECURSIVELY(frame, 'text_desc_2')
-	text_desc_2:ShowWindow(1)
-	text_desc_2:SetTextByKey("value", shared_item_earring.get_earring_grade(itemObj))
+	button_transcend:ShowWindow(1);	
 
 	UNLOCK_EARRING_BELONGING_SCROLL_CANCEL();
 	UNLOCK_EARRING_BELONGING_SCROLL_TARGET_ITEM_SLOT(slot, invItem, scrollObj.ClassID);

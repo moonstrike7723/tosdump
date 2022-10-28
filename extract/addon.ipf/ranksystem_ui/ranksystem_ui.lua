@@ -6,6 +6,7 @@ function RANKSYSTEM_UI_ON_INIT(addon, frame)
 end
 
 -- id list
+local curContents_id = 0
 local contents_id = 0
 local season_id = ""
 
@@ -30,7 +31,6 @@ function REQUEST_RANK_SYSTEM(id, targetFrame, prev)
     contents_id = id
     RequestRankSystemTimeTable(contents_id)
     local frame = ui.GetFrame("ranksystem_ui");
-    frame:SetUserValue("TARGET_FRAME", targetFrame)
     frame:SetUserValue("PREV", prev)
 end
 
@@ -42,6 +42,17 @@ function OPEN_RANKSYSTEM_UI(parent, ctrl, argStr, argNum)
 end
 
 function ON_RANK_SYSTEM_TIMETABLE(parent, ctrl, argStr, argNum)
+    if curContents_id ~= 1 then
+        local frame = ui.GetFrame("induninfo")
+        INDUNINFO_CREATE_CATEGORY(frame)
+    end
+
+    curContents_id = argNum
+    
+    if curContents_id ~= contents_id then
+        return
+    end
+
     local prev = parent:GetUserIValue("PREV")
     season_id = session.rank.GetPrevSeason(contents_id, prev)
     RequestRankSystemMyData(contents_id, season_id)
@@ -49,9 +60,10 @@ function ON_RANK_SYSTEM_TIMETABLE(parent, ctrl, argStr, argNum)
 end
 
 function ON_RANK_SYSTEM_DATA(parent, ctrl, argStr, argNum)
-    if parent:GetName() ~= parent:GetUserValue("TARGET_FRAME") then
-        return;
+    if curContents_id ~= contents_id then
+        return
     end
+
     local max_page = 1
     local now_page = 1
     if argStr ~= "NO_DATA" then
@@ -62,21 +74,16 @@ function ON_RANK_SYSTEM_DATA(parent, ctrl, argStr, argNum)
         now_page = argNum
     end
 
-    local frame = parent:GetTopParentFrame()
-    local frameName = frame:GetUserValue("TARGET_FRAME")
-    ui.OpenFrame(frameName)
-
+    ui.OpenFrame('ranksystem_ui')
     RANKSYSTEM_UI_INIT(now_page, max_page, argStr)
 end
 
 function ON_RANK_SYSTEM_MY_DATA(parent, msg, argStr, argNum)
-    if parent:GetName() ~= parent:GetUserValue("TARGET_FRAME") then
-        return;
+    if curContents_id ~= contents_id then
+        return
     end
-
-    local frame = parent:GetTopParentFrame()
-    local frameName = frame:GetUserValue("TARGET_FRAME")
-    ui.OpenFrame(frameName)
+    
+    ui.OpenFrame('ranksystem_ui')
 
     RANKSYSTEM_MY_DATA_INIT(argStr)
 end
@@ -112,8 +119,8 @@ function RANKSYSTEM_UI_OPEN()
 
 end
 
-function RANKSYSTEM_UI_CLOSE()
-
+function RANKSYSTEM_UI_CLOSE(frame)
+    contents_id = 0
 end
 
 -- Init
@@ -240,8 +247,11 @@ function RANKSYSTEM_UI_INIT(now_page, max_page, argStr)
 
     for idx = 1, tabCnt do
         local season = session.rank.GetPrevSeason(contents_id, idx-1)
+        local isNotSeason = season == "None"
         if season == "None" then
             tab:SetTabVisible(idx-1, false)
+        else
+            tab:SetTabVisible(idx-1, true)
         end
     end
     local season_num = session.rank.GetSeasonNum()
@@ -329,7 +339,6 @@ end
 -- Request
 function RANKSYSTEM_UI_PAGE_SELECT(pageCtrl, ctrl)
     local frame = ui.GetFrame("ranksystem_ui")
-    frame:SetUserValue("TARGET_FRAME","ranksystem_ui")
     RequestRankSystemRankList(pageCtrl:GetCurPage(), contents_id, season_id)
 end
 

@@ -241,6 +241,13 @@ function MAKE_SKILLTREE_CTRLSET_ICON(ctrlset, skillCls, sklObj)
 	icon:Set(iconname, "Skill", skillCls.ClassID, 1);	
     icon:SetDropFinallyScp("DROP_FINALLY_SKILL_ICON");
 
+    -- expand tooltip
+    if skillCls ~= nil then
+        if TryGetProp(skillCls, "ExpandSkillTooltip", "None") ~= 'None' then 
+            icon:SetTooltipType('skill_expand');
+        end
+    end
+
 	return skillSlot, icon;
 end
 

@@ -305,7 +305,7 @@ function CJ_UPDATE_RIGHT_INFOMATION(frame, jobid)
 
 		local icon = CreateIcon(skillslot)
 		local iconname = "icon_" .. skillClass.Icon;
-		
+
 		icon:SetImage(iconname)
 		icon:SetTooltipType('skill');
 		icon:SetTooltipStrArg(skillClass.ClassName);
@@ -314,6 +314,14 @@ function CJ_UPDATE_RIGHT_INFOMATION(frame, jobid)
 		if skl ~= nil then
 			icon:SetTooltipIESID(skl:GetIESID());
 		end
+
+		-- expand tooltip
+		if skillClass ~= nil then
+			if TryGetProp(skillClass, "ExpandSkillTooltip", "None") ~= 'None' then 
+				icon:SetTooltipType('skill_expand');
+			end
+		end
+
 		icon:Set(iconname, "Skill", skillClass.ClassID, 1);
 
 		skillslot:SetSkinName('slot');
