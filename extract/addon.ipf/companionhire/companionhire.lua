@@ -1,4 +1,6 @@
+
 function COMPANIONHIRE_ON_INIT(addon, frame)
+	addon:RegisterMsg('BUY_SLOT', 'REQ_CHAR_SLOT_BUY');
 end
 
 function OPEN_COMPANION_HIRE(clsName)
@@ -28,49 +30,26 @@ function OPEN_COMPANION_HIRE(clsName)
 	
 	local petname = frame:GetChild("petname");
 	petname:SetTextByKey("value", monCls.Name);
+        
+
 end
 
-function EXEC_BUY_CHARACTER_SLOT()
-	local buySlot = session.loginInfo.GetBuySlotCount();
-	local clmsg = ScpArgMsg("CurChar{CharCnt}CurSlot{SlotCnt}", "SlotCnt", GET_MY_AVAILABLE_CHARACTER_SLOT());
-	local yesscp = "control.CustomCommand('BUY_CHARACTER_SLOT', 0)";
-	ui.MsgBox(clmsg..'{nl}'..ScpArgMsg('{TP}ReqSlotBuy', 'TP', GetBarrackSlotPrice(session.loginInfo.GetPremiumState())), yesscp, 'None');
-end
-
-function TRY_COMPANION_HIRE(byShop)
-	local accountInfo = session.barrack.GetMyAccount();	
-	local barrackCls = GetClass("BarrackMap", accountInfo:GetThemaName());
-	local myCharCont = accountInfo:GetPCCount();
-	if myCharCont >= barrackCls.MaxCashPC + barrackCls.BaseSlot then
-		ui.SysMsg(ClMsg('CanCreateCharCuzMaxSlot')); -- êµ¬ìž…í•  ìŠ¬ë¡¯ì´ ì—†ë‹¤ëŠ”ê±°
-		return;
-	end
-
+function TRY_COMPANION_HIRE()
+	local accountInfo = session.barrack.GetMyAccount();
 	local petCnt = session.pet.GetPetTotalCount();
-	local availableSlotCnt = GET_MY_AVAILABLE_CHARACTER_SLOT();
-	if petCnt >= availableSlotCnt then
-		EXEC_BUY_CHARACTER_SLOT();
+	local myCharCont = accountInfo:GetPCCount() + petCnt;
+	local buySlot = session.loginInfo.GetBuySlotCount();
+	local barrackCls = GetClass("BarrackMap", accountInfo:GetThemaName());
+	if myCharCont > barrackCls.MaxCashPC + barrackCls.BaseSlot then
 		return;
 	end
 
-	-- ìŠ¬ë¡¯ ì‚°ë‹¤ëŠ”ê±°
-	local frame = ui.GetFrame("companionhire");
-	if byShop == true then
-		frame = ui.GetFrame('companionshop');
+	if myCharCont > barrackCls.BaseSlot + buySlot then
+		return;
 	end
-
-	local eggGuid = frame:GetUserValue("EGG_GUID");
-	if "None" ~= eggGuid  then
-		local newframe = ui.GetFrame("inputstring");
-		newframe:SetUserValue("InputType", "PetName");
-		newframe:SetUserValue("ItemIES", eggGuid);
-		newframe:SetUserValue("ItemType", "Companionhire");
-		INPUT_STRING_BOX(ClMsg("InputCompanionName"), "EXEC_CHANGE_NAME_BY_ITEM", "", 0, 16);
 	
-		frame:SetUserValue("EGG_GUID", 'None');
-		return;
-	end
-
+	-- ½½·Ô »ê´Ù´Â°Å
+	local frame = ui.GetFrame("companionhire");
 	local clsName = frame:GetUserValue("CLSNAME");
 	local exchange = frame:GetUserIValue("EXCHANGE_TIKET");
 	if 0 < exchange then
@@ -80,63 +59,49 @@ function TRY_COMPANION_HIRE(byShop)
 	end
 
 	local cls = GetClass("Companion", clsName);
-	if cls == nil then
-		return;
-	end
 	local sellPrice = cls.SellPrice;
 	if sellPrice == "None" then
 		return;
 	end
 
-	sellPrice = _G[sellPrice];
-	sellPrice = sellPrice(cls, pc);
+		sellPrice = _G[sellPrice];
+		sellPrice = sellPrice(cls, pc);
 
-	local name = nil;
-	local nameText = nil;
-	if byShop == true then
-		name = GET_CHILD_RECURSIVELY(frame, 'compaNameEdit');
-		nameText = name:GetText();
-	else
-		name = frame:GetChild("input");
-		nameText = name:GetText();
-	end
+	local name = frame:GetChild("input");
+		if string.find(name:GetText(), ' ') ~= nil then
+			ui.SysMsg(ClMsg("NameCannotIncludeSpace"));
+			return;
+		end
 
-	if name == nil or nameText == nil then -- companionhire ë˜ëŠ” companionshopì„ í†µí•˜ì§€ ì•Šì€ ê²½ìš°
+	if ui.IsValidCharacterName(name:GetText()) == false then
 		return;
 	end
-
-	if string.find(nameText, ' ') ~= nil then
-		ui.SysMsg(ClMsg("NameCannotIncludeSpace"));
-		return;
-	end
-
-	if ui.IsValidCharacterName(nameText) == false then
-		SysMsg(self, 'Instant', ScpArgMsg('CompanionNameIsInvalid'))
-		return;
-	end
-	if IsGreaterThanForBigNumber(sellPrice, GET_TOTAL_MONEY_STR()) == 1 then
-		ui.SysMsg(ClMsg('NotEnoughMoney'));
-	else
-		local scpString = string.format("EXEC_BUY_COMPANION(\"%s\", \"%s\")", clsName, nameText);
-		local nameMsg = ScpArgMsg("PossibleChangeName_2{Name}", "Name", nameText);
-		ui.MsgBox(nameMsg.." {nl}"..ScpArgMsg("ReallyBuyCompanion?"), scpString, "None");
-	end
-end
-
-function GET_MY_AVAILABLE_CHARACTER_SLOT()
-	local accountInfo = session.barrack.GetMyAccount();	
-	local barrackCls = GetClass("BarrackMap", accountInfo:GetThemaName());
-	local buySlot = session.loginInfo.GetBuySlotCount();
-	return barrackCls.BaseSlot + buySlot;
-end
+			if GET_TOTAL_MONEY() < sellPrice then
+				ui.SysMsg(ClMsg('NotEnoughMoney'));
+			else
+				local scpString = string.format("EXEC_BUY_COMPANION(\"%s\", \"%s\")", clsName, name:GetText());
+				ui.MsgBox(ScpArgMsg("ReallyBuyCompanion?"), scpString, "None");
+			end
+		end
 
 function TRY_CECK_BARRACK_SLOT_BY_COMPANION_EXCHANGE(select)
+	
+	local accountInfo = session.barrack.GetMyAccount();
 	local petCnt = session.pet.GetPetTotalCount();
-	local availableSlotCnt = GET_MY_AVAILABLE_CHARACTER_SLOT();
-	if petCnt >= availableSlotCnt then
+	local myCharCont = accountInfo:GetPCCount() + petCnt;
+	local buySlot = session.loginInfo.GetBuySlotCount();
+	local barrackCls = GetClass("BarrackMap", accountInfo:GetThemaName());
+	
+	if myCharCont > barrackCls.MaxCashPC + barrackCls.BaseSlot then
+		ui.SysMsg(ClMsg('CanCreateCharCuzMaxSlot')); -- ±¸ÀÔÇÒ ½½·ÔÀÌ ¾ø´Ù´Â°Å
+		return;
+	end
+
+		-- ½½·Ô »ê´Ù´Â°Å
+	if myCharCont >= barrackCls.BaseSlot + buySlot then
 		local frame = ui.GetFrame("companionhire");
 		frame:SetUserValue("EXCHANGE_TIKET", select);
-		EXEC_BUY_CHARACTER_SLOT();
+		control.ReqCharSlotTPPrice();
 		return;
 	end
 
@@ -175,37 +140,34 @@ function TRY_CECK_BARRACK_SLOT_BY_COMPANION_EXCHANGE(select)
 	pc.ReqExecuteTx_Item("SCR_USE_ITEM_COMPANION", itemIES, argList);
 end
 
-function TRY_CHECK_BARRACK_SLOT(handle, isAgit, byShop)	
-	local accountInfo = session.barrack.GetMyAccount();	
+function TRY_CHECK_BARRACK_SLOT(handle)
+	local accountInfo = session.barrack.GetMyAccount();
+	local petCnt = session.pet.GetPetTotalCount();
+	local myCharCont = accountInfo:GetPCCount() + petCnt;
+	local buySlot = session.loginInfo.GetBuySlotCount();
+
 	local barrackCls = GetClass("BarrackMap", accountInfo:GetThemaName());
-	local myCharCont = accountInfo:GetPCCount();
-	if myCharCont >= barrackCls.MaxCashPC + barrackCls.BaseSlot then
-		ui.SysMsg(ClMsg('CanCreateCharCuzMaxSlot')); -- êµ¬ìž…í•  ìŠ¬ë¡¯ì´ ì—†ë‹¤ëŠ”ê±°
+
+	if myCharCont > barrackCls.MaxCashPC + barrackCls.BaseSlot then
+		ui.SysMsg(ClMsg('CanCreateCharCuzMaxSlot')); -- ±¸ÀÔÇÒ ½½·ÔÀÌ ¾ø´Ù´Â°Å
 		return;
 	end
 	
-	local petCnt = session.pet.GetPetTotalCount();
-	local availableSlotCnt = GET_MY_AVAILABLE_CHARACTER_SLOT();
-	if petCnt >= availableSlotCnt then
-		EXEC_BUY_CHARACTER_SLOT();
-		return;
-	end
-
-	local isbutton = 1
-	if 1 == tonumber(isAgit) then
-		 isbutton = 0;
-	end
-
-	if nil == isAgit or 1 == isbutton then
-		if nil ~= handle and nil == isAgit then
-			local frame = ui.GetFrame("companionhire")
-			if frame:GetUserValue("EGG_GUID") ~= 'None' then
-				return;
-			end
-			frame:SetUserValue("EGG_GUID", handle:GetIESID());
+	if myCharCont < barrackCls.BaseSlot + buySlot then
+		if session.GetMapName() ~= "guild_agit_1" then
+			TRY_COMPANION_HIRE();
+		else
+			GUILD_SEND_CLICK_TRIGGER(handle);
+			return 1;
 		end
-		TRY_COMPANION_HIRE(byShop);
-		return 1;
+		return 0;
+	else
+		control.ReqCharSlotTPPrice();
+		return 0;
+	end
+
+	if session.GetMapName() ~= "guild_agit_1" then
+		 TRY_COMPANION_HIRE();
 	else
 		GUILD_SEND_CLICK_TRIGGER(handle);
 		return 1;
@@ -213,7 +175,18 @@ function TRY_CHECK_BARRACK_SLOT(handle, isAgit, byShop)
 	return 0;
 end
 
+function REQ_CHAR_SLOT_BUY(frame, msg, argStr, argNum)
+	local str = ScpArgMsg('{TP}ReqSlotBuy', "TP", argNum);
+	if nil == str then
+		return;
+	end
+
+	local yesScp = string.format("control.ReqCharSlotToZone()");
+	ui.MsgBox(ClMsg("DontHaveSlot")..str, yesScp, "None");
+end
+
 function EXEC_BUY_COMPANION(clsName, inputName)
+
 	local petCls = GetClass("Companion", clsName);
 	local scpString = string.format("/pethire %d %s",  petCls.ClassID, inputName);
 	ui.Chat(scpString);
@@ -224,9 +197,6 @@ function PET_ADOPT_SUC()
 	ui.CloseFrame("companionshop");
 
 	ui.SysMsg(ClMsg("CompanionAdoptionSuccess"));
-
-	local frame = ui.GetFrame("companionhire")
-	frame:SetUserValue("EGG_GUID", 'None');
 end
 
 function PET_ADOPT_SUC_BARRACK()
@@ -234,18 +204,5 @@ function PET_ADOPT_SUC_BARRACK()
 	ui.CloseFrame("companionshop");
 
 	ui.SysMsg(ClMsg("CompanionAdoptionSuccessBarrack"));
-
-	local frame = ui.GetFrame("companionhire")
-	frame:SetUserValue("EGG_GUID", 'None');
-end
-
-function PET_ADOPT_FAIL()
-	ui.CloseFrame("companionhire");
-	ui.CloseFrame("companionshop");
-
-	ui.SysMsg(ClMsg("HasFobiddenWord"));
-
-	local frame = ui.GetFrame("companionhire")
-	frame:SetUserValue("EGG_GUID", 'None');
 end
 
