@@ -431,8 +431,8 @@
 		<Class ClassID="2363" ClassName="IsNotOptionExtractKit_Tutorial4" Data="[튜토리얼]은빛 아이커 추출 키트를 사용해 진행해 주세요"/>
 		<Class ClassID="2364" ClassName="IsNotOptionExtractKit_Tutorial5" Data="[튜토리얼] 황금 아이커 무료 추출 키트를 사용해 진행해 주세요"/>
 		<Class ClassID="2365" ClassName="EnchantScrollTipText" Data="해당 고정 아이커는 추출할 수 없습니다."/>
-		<Class ClassID="2366" ClassName="EnchantScrollWarning{ITEM}" Data="아이템 변경사항 안내{nl} {nl} - 고정 아이커 옵션 변경{nl}{ITEM}"/>
-		<Class ClassID="2367" ClassName="SetoptionScrollWarning{OPTION}" Data="아이템 변경사항 안내{nl} {nl} - 세트 옵션 변경 변경{nl}{OPTION}"/>
+		<Class ClassID="2366" ClassName="EnchantScrollWarning{ITEM}" Data=" 고정 아이커 옵션 변경{nl} {nl}{@st66d}대상 아이템{/}{/}{nl}{@st66d_y}{ITEM}{/}{/}{nl} {nl}{@st66d}적용되는 고정 옵션{/}{/}{nl}{@st42_yellow}{s18}{OPTION}"/>
+		<Class ClassID="2367" ClassName="SetoptionScrollWarning{OPTION}" Data=" 세트 옵션 변경{nl} {nl}{@st66d}대상 아이템{/}{/}{nl}{@st66d_y}{ITEM}{/}{/}{nl} {nl}{@st66d}적용되는 세트 옵션{/}{/}{nl}{@st42_yellow}{s18}{OPTION}"/>
 	</Category>
 	<Category Name="ClassContents">
 		<Class ClassID="2500" ClassName="FullWeeklyGainClassResetExp" Data="주간 획득 가능한 클래스 변경 포인트를 모두 달성하였습니다."/>
@@ -1642,6 +1642,7 @@
 		<Class ClassID="10577" ClassName="WeaponTypeExchange_Help" Data="무기 계열 변경을 통해 보유 중인 무기를 같은 레벨 같은 등급 무기로 변경할 수 있습니다.{nl}무기장식이 아닌 포텐셜이 0 인 무기 아이템에만 가능하며, 변경 가능한 그룹 내에 속한 장비끼리만 변경할 수 있습니다.{nl} {nl}변경 가능한 장비 그룹{nl} - 한손무기 :  한손검, 한손창, 한손둔기, 레이피어, 로드, 쇠뇌{nl} - 양손무기 : 양손검, 양손창, 양손둔기, 활, 캐논, 머스킷, 스태프{nl} - 보조무기 : 단검, 권총, 방패{nl} {nl}각 레벨에 맞는 '무기 계열 변경의 서' 아이템이 필요합니다.{nl} {nl}레벨 별로 변경 가능한 장비는 무기 게열 변경의 서 아이템 툴팁을 참고해 주세요."/>
 		<Class ClassID="10578" ClassName="ChannelIsBusy" Data="채널이 붐비고 있어 지금 당장할 수 없습니다."/>
 		<Class ClassID="10579" ClassName="misc_Relic_GemFullEnough" Data="프리즘 콜 아이템을 너무 많이 보유하고 있어 분해할 수 없습니다."/>
+		<Class ClassID="10581" ClassName="InventoryIsFull_quest_complete_fail_1" Data="인벤토리에 빈자리가 없습니다.{nl}퀘스트 완료를 위해 인벤토리 공간을 확보해주세요."/>
 	</Category>
 	<Category Name="FoodTable">
 		<Class ClassID="20001" ClassName="IncreaseHP{Value}For{Time}Minute" Data="{Time}분 동안 HP가 {Value}% 증가합니다."/>

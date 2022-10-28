@@ -90,7 +90,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 	,{'2','19',{'Event_ATK_and_DEF_UP_BUFF','Event_LootingChance_Add_1000'}}
 	,{'2','20',{'Event_ATK_and_DEF_UP_BUFF','Event_Cooldown_SPamount_Decrease'}}
 	,{'2','21',{'Event_ATK_and_DEF_UP_BUFF','Event_LootingChance_Add_1000'}}
-	,{'2','26',{'Event_healHSP_Speedup','Event_Reagent_Bottle_Expup_100'}}
+	,{'2','26',{'Event_healHSP_Speedup','Event_Unique_Raid_Bonus_Limit'}}
 	,{'2','27',{'Event_healHSP_Speedup','Event_Reappraisal_Discount_50'}}
 	,{'2','28',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
 		}

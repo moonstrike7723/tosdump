@@ -561,6 +561,10 @@
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
                                 <Str Str="READY"/>
                             </ToolScp>
+                        <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
+                                <MGameObj List="READY/1"/>
+                                <Str Str="TEMP_SCR_MYTHIC_CASTLE_MINI_PC_MOVE"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                     <Event eventName="startcheckdead" execWithStart="0">

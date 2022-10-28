@@ -1,4 +1,4 @@
-﻿--- calc_property_skill.lua
+--- calc_property_skill.lua
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function HAS_DRAGON_POWER(pc)
@@ -172,13 +172,15 @@ function SCR_Get_SpendSP(skill)
         decsp = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "SpendSP", value)
     elseif IsBuffApplied(pc, "FIELD_SP_FULL_BUFF") == "YES" then
         decsp = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "SpendSP", value)
-    else
+    elseif IsBuffApplied(pc, 'premium_seal_2021_buff') == 'YES' and IsBuffApplied(pc, 'Event_Cooldown_SPamount_Decrease') == 'NO' and SCR_IS_LEVEL_DUNGEON(pc) == 'YES' then
+		decsp = value * 0.5
+	else
         if IsBuffApplied(pc, "Gymas_Buff") == "YES" then -- 기마스
             local ratio = 0.5;
             decsp = value * ratio
         end
     end
-
+	
     ----------
     value = value - decsp;
     if value < 1 then
@@ -192,7 +194,7 @@ function SCR_Get_SpendSP(skill)
 	if IsBuffApplied(pc, "ManaAmplify_Buff") == "YES" then
         value = value * 1.5
     end
-
+	
     return math.floor(value);
 end
 
@@ -14651,7 +14653,12 @@ function SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
         end
     end
     
-    return basicCoolDown
+	-- 2021 근본 인장
+	if IsBuffApplied(pc, 'premium_seal_2021_buff') == 'YES' and IsBuffApplied(pc, 'Event_Cooldown_SPamount_Decrease') == 'NO' and SCR_IS_LEVEL_DUNGEON(pc) == 'YES' then
+		basicCoolDown = basicCoolDown * 0.5
+	end
+
+	return basicCoolDown
 end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
