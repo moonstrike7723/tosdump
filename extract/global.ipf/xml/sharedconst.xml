@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by IMC (IMCGames Co., Ltd) -->
 <idspace id="SharedConst">
 	<Category Name="Premium">
 		<Class ClassID="10003" ClassName="CHARGE_FREE_TP_TIME" Value="14400"/>
@@ -12,5 +12,8 @@
 		<Class ClassID="10400" ClassName="PCBANG_POINT_TIME_EXCHANGE_RATE" Value="10" Desc="모인 시간과 몇 PC방 포인트를 교환할지" UseInScript="YES"/>
 		<Class ClassID="10402" ClassName="PCBANG_POINT_MAX_VALUE" Value="999999" Desc="PC방 포인트 최대치" UseInScript="YES"/>
 		<Class ClassID="10403" ClassName="ENABLE_USE_PCBANG_POINT_SHOP_EVERYBODY" Value="1" Desc="PC방 포인트샵을 모든 유저가 사용 가능하게 할지." UseInScript="YES"/>
+	</Category>
+	<Category Name="Relic">
+		<Class ClassID="12001" ClassName="RELIC_MAX_LEVEL" Value="10"/>
 	</Category>
 </idspace>

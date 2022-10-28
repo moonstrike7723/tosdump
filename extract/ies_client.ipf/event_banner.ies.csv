@@ -1,6 +1,6 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202104,200000,202104,250000,202105,250000,202105,200000,0,0,inGame_E1,Arbor Day Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2261,,,,
-999902,202104,200000,202104,250000,202105,40000,202104,300000,0,0,inGame_E2,Goddess' Blessed Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2260,,,,
+999901,202105,40000,202105,90000,202105,180000,202105,130000,0,0,inGame_E1,Leticia's Secret Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2270,,,,
+999902,202104,200000,202104,250000,202105,250000,202105,200000,0,0,inGame_E2,Arbor Day Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2261,,,,
 999903,202104,200000,202104,250000,202105,180000,202105,130000,0,0,inGame_E3,Demon God's Temptation,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2259,,,,
 999904,202104,130000,202104,180000,202105,250000,202105,130000,0,0,inGame_E4,Medeina's Arbor Day,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2255,,,,
 999905,202011,170000,202011,220000,202112,310000,202112,300000,0,0,inGame_E5,Costume Collection Event,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2142,,,,

@@ -33,6 +33,12 @@
 		<Class ClassID="128" ClassName="MASTERCARD_PVP_MINE_MONTH_28" SellStartTime="2021-04-06 06:00:00" SellEndTime="2021-05-04 06:00:00"/>
 		<Class ClassID="129" ClassName="MASTERCARD_PVP_MINE_MONTH_29" SellStartTime="2021-04-06 06:00:00" SellEndTime="2021-05-04 06:00:00"/>
 		<Class ClassID="130" ClassName="MASTERCARD_PVP_MINE_MONTH_30" SellStartTime="2021-04-06 06:00:00" SellEndTime="2021-05-04 06:00:00"/>
+		<Class ClassID="131" ClassName="MASTERCARD_PVP_MINE_MONTH_31" SellStartTime="2021-05-04 06:00:00" SellEndTime="2021-06-01 06:00:00"/>
+		<Class ClassID="132" ClassName="MASTERCARD_PVP_MINE_MONTH_32" SellStartTime="2021-05-04 06:00:00" SellEndTime="2021-06-01 06:00:00"/>
+		<Class ClassID="133" ClassName="MASTERCARD_PVP_MINE_MONTH_33" SellStartTime="2021-05-04 06:00:00" SellEndTime="2021-06-01 06:00:00"/>
+		
+		
+		
 	</Category>
 	<Category Name="SilverGachaShop">
 		<Class OverrideType="REMOVE" ClassID="201" ClassName="SilverGachaShop_1"/>
