@@ -576,6 +576,14 @@ function SKL_KEY_CASTING_OR_PARTY_TARGET(actor, obj, dik, movable, rangeChargeTi
 end
 
 function SKL_KEY_INPUT_RESURRECTION(actor, obj, dik, movable, rangeChargeTime, maxChargeTime, autoShot, rotateAble, execByKeyDown, upAbleSec, useDynamicLevel, isVisivle, isFullCharge, effectName, scale, nodeName, lifeTime, shockwave, intensity, time, frequency, angle, quickCast, hitCancel, showHPGauge)
+	local abil = session.GetAbilityByName('Priest39')
+	if abil ~= nil then
+		local abilObj = GetIES(abil:GetObject())
+		if abilObj.ActiveState == 1 then
+			return 0, 1
+		end
+	end
+
 	if IsPVPServer() == 1 then
 		if isVisivle == nil then
 			isVisivle = 1

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionDesc>
+    <Sound frame="9.00" soundFile="skl_eff_body_atk_3"/>
+    <Sound frame="14.00" soundFile="skl_eff_body_atk_3">
+        <modelsound ½Ã°£="   "/>
+    </Sound>
+    <Sound frame="19.00" soundFile="skl_eff_body_atk_12"/>
+</ActionDesc>

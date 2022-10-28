@@ -960,12 +960,13 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
         -- now play count
         local resetGroupID = TryGetProp(indunCls, "PlayPerResetType");
         local nowCount = TryGetProp(etc, "InDunCountType_"..tostring(resetGroupID), 0);
+
         if WeeklyEnterableCount ~= nil and WeeklyEnterableCount ~= "None" and WeeklyEnterableCount ~= 0 then            
             nowCount = GET_CURRENT_ENTERANCE_COUNT(resetGroupID);
         end
 
         if resetGroupID == 817 or resetGroupID == 813 or resetGroupID == 807 or resetGroupID == 5000 then
-            if resetGroupID == 813 or resetGroupID == 807 or resetGroupID == 5000 then 
+            if resetGroupID == 813 or resetGroupID == 817 or resetGroupID == 807 or resetGroupID == 5000 then 
                 nowCount = GET_CURRENT_ENTERANCE_COUNT(resetGroupID); 
         end
 

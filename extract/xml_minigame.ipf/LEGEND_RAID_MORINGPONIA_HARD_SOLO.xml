@@ -161,7 +161,7 @@
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="160065" Pos="-2613.26#292.69#-237.93" genCount="1" genTime="20000" objectKey="1"/>
+                    <Obj Type="Monster" MonType="160065" Pos="-2613.26#292.69#-237.93" genCount="1" autoGen="0" genTime="20000" objectKey="1"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="RETURN_ZONE">
@@ -227,6 +227,20 @@
                                 <Str Str="59514"/>
                                 <Str Str="LEGEND_RAID_MORINGPONIA_HARD_SOLO"/>
                                 <Str Str="NO"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="CreateExitPortal">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="SUCCESS/1"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
                             </ToolScp>
                         </execList>
                     </Event>

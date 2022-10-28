@@ -86,11 +86,9 @@ function DRT_C_SHOCKWAVE(actor, cmd, type, range, intensity, time, freq, angle)
 end
 
 function DRT_C_CAM_ZOOM_NEW(actor, cmd, dist, time, easing)
-	
 	if false == cmd:UseCameraZoom() then
 		return;
 	end
-	
 	camera.CustomZoom(dist, time, easing);
 end
 

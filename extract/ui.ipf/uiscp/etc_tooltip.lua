@@ -264,6 +264,11 @@ end
 function DRAW_USAGEDESC_INFO(invitem, desc)
 	local UsageDesc = TryGetProp(invitem, 'UsageDesc', 'None')
 
+	local nameFunc = _G[UsageDesc];
+	if nameFunc ~= nil then
+		UsageDesc = nameFunc(invitem)
+	end
+	
 	if UsageDesc ~= "None" then
 		local text = UsageDesc
 		desc = desc .. '{nl} {nl}' .. text

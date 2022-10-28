@@ -588,6 +588,24 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
         local cloneObjLevel = 0;
         if strarg == "Level" then
             cloneObjLevel = numarg2;
+        elseif strarg == 'quickslot' then
+            -- 퀵슬롯 스킬 변경 기능에 의한 변경 시 처리
+            local from_type = GET_QUICKSLOT_CHANGE_FROM_SKILL(numarg1);
+            if from_type ~= nil then
+                local from_cls = GetClassByType("Skill", from_type);
+                if from_cls ~= nil then
+                    local from_skill_class_name = TryGetProp(from_cls, "ClassName", "None");
+                    if from_skill_class_name ~= nil and from_skill_class_name ~= "None" then
+                        local from_skl = session.GetSkillByName(from_skill_class_name);
+                        if from_skl ~= nil then
+                            local from_obj = GetIES(from_skl:GetObject());
+                            if from_obj ~= nil then
+                                cloneObjLevel = from_obj.Level;
+                            end
+                        end
+                    end
+                end
+            end
         end
         obj = GetClassByType("Skill", numarg1);
         obj = CloneIES_UseCP(obj);

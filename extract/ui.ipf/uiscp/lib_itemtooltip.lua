@@ -1306,7 +1306,7 @@ function IS_DISABLED_TRADE(invitem, type)
 	if prProp ~= nil then
 		prCount = tonumber(prProp);
 	end
-
+	
 	if type == TRADE_TYPE_USER then
 		if invitem.MaxStack <= 1 and prCount <= 0 and (GetTradeLockByProperty(invitem) ~= "None" or 0 < blongCnt) or 
 		(invitem.MaxStack <= 1 and (GetTradeLockByProperty(invitem) ~= "None" or 0 < blongCnt)) or
@@ -1315,10 +1315,14 @@ function IS_DISABLED_TRADE(invitem, type)
 			return true;
 		end
 	elseif type == TRADE_TYPE_MARKET then
+		if TryGetProp(invitem, 'StringArg', 'None') == 'piece_penetration_belt' then
+			return false
+		end
+
 		if invitem.MaxStack <= 1 and 
 		((invitem.ItemType == 'Equip' and invitem.ClassType ~= 'Hair' and invitem.ClassType ~= 'Helmet' and invitem.ClassType ~= 'Armband' and prCount <= 0) or 
 		0 < blongCnt or 
-		(TryGetProp(invitem, 'ClassType', 'None') == 'Armband' and invitem.MarketTrade == "NO")) then
+		(TryGetProp(invitem, 'ClassType', 'None') == 'Armband' and invitem.MarketTrade == "NO")) then						
 			return true;
 		end
 	else
@@ -1326,7 +1330,7 @@ function IS_DISABLED_TRADE(invitem, type)
 			return true;
 		end
 	end
-
+	
     return false;
 end
 
@@ -1364,14 +1368,18 @@ function IS_ENABLED_MARKET_TRADE_ITEM(invitem)
 	end
 
     if false == itemProp:IsEnableMarketTrade() then
-        return false;
-    elseif true == IS_DISABLED_TRADE(invitem, TRADE_TYPE_MARKET) then
 		return false;
-	elseif TryGetProp(invitem, 'TeamBelonging', 0) ~= 0 or TryGetProp(invitem, 'CharacterBelonging', 0) ~= 0 then
+	end
+	
+	if true == IS_DISABLED_TRADE(invitem, TRADE_TYPE_MARKET) then		
 		return false;
-    else
-        return true;
-    end
+	end
+
+	if TryGetProp(invitem, 'TeamBelonging', 0) ~= 0 or TryGetProp(invitem, 'CharacterBelonging', 0) ~= 0 then
+		return false;
+	end
+	
+	return true;    
 end
 
 function IS_ENABLED_TEAM_TRADE_ITEM(invitem)
@@ -1449,4 +1457,24 @@ function SET_EVOLVED_TEXT(gBox, invitem, yPos, isEquiped)
 	end
 
 	return yPos;
+end
+
+function GET_CLMSG_BY_OPTION_GROUP(group)
+	local clmsg = 'None'
+	if group == 'ATK' then
+		clmsg = 'ItemRandomOptionGroupATK'
+	elseif group == 'DEF' then
+		clmsg = 'ItemRandomOptionGroupDEF'
+	elseif group == 'UTIL_WEAPON' then
+		clmsg = 'ItemRandomOptionGroupUTIL'
+	elseif group == 'UTIL_ARMOR' then
+		clmsg = 'ItemRandomOptionGroupUTIL'
+	elseif group == 'UTIL_SHILED' then
+		clmsg = 'ItemRandomOptionGroupUTIL'
+	elseif group == 'STAT' then
+		clmsg = 'ItemRandomOptionGroupSTAT'
+	elseif group == 'SPECIAL' then
+		clmsg = 'ItemRandomOptionGroupSPECIAL'
+	end
+	return clmsg
 end

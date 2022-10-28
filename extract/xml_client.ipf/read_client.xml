@@ -59,5 +59,6 @@
 	<ReadXml Name="raid_record_list"/>
 	<ReadXml Name="acronyms_list"/>
 	<ReadXml Name="ExpandSkillTooltip"/>
+	<ReadXml Name="missile_effect"/>
 </Category>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by dd (IMCGames Co., Ltd) -->

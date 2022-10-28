@@ -305,7 +305,8 @@ function UPDATE_RELIC_GEM_MANAGER_REINFORCE_DISCOUNT(frame)
 
             local slotindex = imcSlot:GetEmptySlotIndex(discountSet)
             local slot = discountSet:GetSlotByIndex(slotindex)
-            slot:SetMaxSelectCount(invItem.count)
+			slot:SetMaxSelectCount(invItem.count)
+			slot:SetSelectCountPerCtrlClick(1000)
 			slot:SetUserValue('DISCOUNT_POINT', obj.NumberArg1)
 			slot:SetUserValue('DISCOUNT_STONE', obj.NumberArg2)
 			slot:SetUserValue('DISCOUNT_TYPE', invItem.type)
@@ -618,6 +619,18 @@ function RELIC_GEM_MANAGER_REINFORCE_DISCOUNT_CLICK(slotSet, slot)
 	_REINFORCE_EXEC_BTN_UPDATE(frame)
 end
 
+-- Belonging Check Function To save resource DB loading in client
+function GET_RELIC_IS_BELONGING(guid)
+    local inv_item = session.GetInvItemByGuid(guid)
+	if inv_item == nil then return end
+
+	local item_obj = GetIES(inv_item:GetObject())	
+	if item_obj == nil then return end
+	
+	local belonging = TryGetProp(item_obj,"CharacterBelonging",0)
+	return tonumber(belonging)
+end
+
 function RELIC_GEM_MANAGER_REINFORCE_INV_RBTN(item_obj, slot)
 	local frame = ui.GetFrame('relic_gem_manager')
 	if frame == nil then return end
@@ -626,10 +639,16 @@ function RELIC_GEM_MANAGER_REINFORCE_INV_RBTN(item_obj, slot)
     local icon_info = icon:GetInfo()
 	local guid = icon_info:GetIESID()
 	
-    local inv_item = session.GetInvItemByGuid(guid)
+	if GET_RELIC_IS_BELONGING(guid) == 1 then
+		ui.SysMsg(ClMsg('InvalidGem'))
+		return
+	end
+
+	local inv_item = session.GetInvItemByGuid(guid)
 	if inv_item == nil then return end
 
 	local item_obj = GetIES(inv_item:GetObject())
+	
 	if item_obj == nil then return end
 	
 	local tab = GET_CHILD_RECURSIVELY(frame, 'type_Tab')
@@ -643,7 +662,6 @@ end
 
 function RELIC_GEM_MANAGER_REINFORCE_GEM_DROP(frame, icon, argStr, argNum)
 	if ui.CheckHoldedUI() == true then return end
-
 	frame = ui.GetFrame('relic_gem_manager')
 	if frame == nil then return end
 
@@ -654,7 +672,15 @@ function RELIC_GEM_MANAGER_REINFORCE_GEM_DROP(frame, icon, argStr, argNum)
 	if index ~= 0 then return end
 
 	local lift_icon = ui.GetLiftIcon()
+	local icon_info = lift_icon:GetInfo()
+	local guid = icon_info:GetIESID()
 	local from_frame = lift_icon:GetTopParentFrame()
+
+	if GET_RELIC_IS_BELONGING(guid) == 1 then
+		ui.SysMsg(ClMsg('InvalidGem'))
+		return
+	end
+
     if from_frame:GetName() == 'inventory' then
         local icon_info = lift_icon:GetInfo()
         local guid = icon_info:GetIESID()
@@ -1275,6 +1301,11 @@ function RELIC_GEM_MANAGER_COMPOSE_INV_RBTN(item_obj, cslot)
     local inv_item = session.GetInvItemByGuid(guid)
 	if inv_item == nil then return end
 
+	if GET_RELIC_IS_BELONGING(guid) == 1 then
+		ui.SysMsg(ClMsg('InvalidGem'))
+		return
+	end
+
 	local item_obj = GetIES(inv_item:GetObject())
 	if item_obj == nil then return end
 	
@@ -1662,6 +1693,14 @@ function RELIC_GEM_MANAGER_COMPOSE_GEM_DROP(frame, icon, argStr, argNum)
 	if index ~= 1 then return end
 
 	local lift_icon = ui.GetLiftIcon()
+	local icon_info = lift_icon:GetInfo()
+	local guid = icon_info:GetIESID()
+
+	if GET_RELIC_IS_BELONGING(guid) == 1 then
+		ui.SysMsg(ClMsg('InvalidGem'))
+		return
+	end
+
 	local from_frame = lift_icon:GetTopParentFrame()
     if from_frame:GetName() == 'inventory' then
         local icon_info = lift_icon:GetInfo()
@@ -1754,6 +1793,11 @@ function RELIC_GEM_MANAGER_TRANSFER_INV_RBTN(item_obj, slot)
     local inv_item = session.GetInvItemByGuid(guid)
 	if inv_item == nil then return end
 
+	if GET_RELIC_IS_BELONGING(guid) == 1 then
+		ui.SysMsg(ClMsg('InvalidGem'))
+		return
+	end
+
 	local item_obj = GetIES(inv_item:GetObject())
 	if item_obj == nil then return end
 	
@@ -1779,6 +1823,14 @@ function RELIC_GEM_MANAGER_TRANSFER_INV_ITEM_DROP(frame, icon, argStr, argNum)
 	if index ~= 2 then return end
 
 	local lift_icon = ui.GetLiftIcon()
+	local icon_info = lift_icon:GetInfo()
+	local guid = icon_info:GetIESID()
+
+	if GET_RELIC_IS_BELONGING(guid) == 1 then
+		ui.SysMsg(ClMsg('InvalidGem'))
+		return
+	end
+
 	local from_frame = lift_icon:GetTopParentFrame()
     if from_frame:GetName() == 'inventory' then
         local icon_info = lift_icon:GetInfo()
@@ -1969,8 +2021,8 @@ function UPDATE_RELIC_GEM_MANAGER_DECOMPOSE(frame)
 	local tab_index = tab:GetSelectItemIndex()
 	if tab_index ~= 3 then return end
 
-	local slotSet = GET_CHILD_RECURSIVELY(frame, 'slotlist', 'ui::CSlotSet')
-	slotSet:ClearIconAll()
+	local gem_slotset = GET_CHILD_RECURSIVELY(frame, 'slotlist', 'ui::CSlotSet')
+	gem_slotset:ClearIconAll()
 
 	local invItemList = session.GetInvItemList()
 	FOR_EACH_INVENTORY(invItemList, function(invItemList, invItem, slotSet, materialItemList)
@@ -1978,18 +2030,23 @@ function UPDATE_RELIC_GEM_MANAGER_DECOMPOSE(frame)
 		local group_name = TryGetProp(obj, 'GroupName', 'None')
 		local gem_level = TryGetProp(obj, 'GemLevel', 0)
 		local DecomposeAble = TryGetProp(obj, 'DecomposeAble', "NO")
-		if group_name == 'Gem_Relic' and gem_level == 1 and DecomposeAble == 'YES' then
-			local slotindex = imcSlot:GetEmptySlotIndex(slotSet)
-			local slot = slotSet:GetSlotByIndex(slotindex)
-			slot:SetUserValue('GEM_GUID', invItem:GetIESID())
-			slot:SetMaxSelectCount(invItem.count)
-			local icon = CreateIcon(slot)
-			icon:Set(obj.Icon, 'Item', invItem.type, slotindex, invItem:GetIESID(), invItem.count)
-			local class = GetClassByType('Item', invItem.type)
-			SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, obj, invItem.count)
-			ICON_SET_INVENTORY_TOOLTIP(icon, invItem, 'poisonpot', class)
+		local item_guid  = invItem:GetIESID()
+		if GET_RELIC_IS_BELONGING(item_guid) == 1 then
+			return
+		else
+			if group_name == 'Gem_Relic' and gem_level == 1 and DecomposeAble == 'YES' then
+				local slotindex = imcSlot:GetEmptySlotIndex(slotSet)
+				local slot = slotSet:GetSlotByIndex(slotindex)
+				slot:SetUserValue('GEM_GUID', invItem:GetIESID())
+				slot:SetMaxSelectCount(invItem.count)
+				local icon = CreateIcon(slot)
+				icon:Set(obj.Icon, 'Item', invItem.type, slotindex, invItem:GetIESID(), invItem.count)
+				local class = GetClassByType('Item', invItem.type)
+				SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, obj, invItem.count)
+				ICON_SET_INVENTORY_TOOLTIP(icon, invItem, 'poisonpot', class)
+			end
 		end
-	end, false, slotSet, materialItemList)
+	end, false, gem_slotset, materialItemList)
 
 	-- 할인 쿠폰
 	local dis_slotSet = GET_CHILD_RECURSIVELY(frame, 'dslotlist_discount', 'ui::CSlotSet')
@@ -1999,10 +2056,11 @@ function UPDATE_RELIC_GEM_MANAGER_DECOMPOSE(frame)
 		local obj = GetIES(invItem:GetObject())
 		for i, v in pairs(coupon_table) do
 			if v == TryGetProp(obj, "ClassName", "None") then
-				local slotindex = imcSlot:GetEmptySlotIndex(dis_slotSet)
-				local slot = dis_slotSet:GetSlotByIndex(slotindex)
+				local slotindex = imcSlot:GetEmptySlotIndex(slotSet)
+				local slot = slotSet:GetSlotByIndex(slotindex)
 				slot:SetUserValue('COUPON_GUID', invItem:GetIESID())
 				slot:SetMaxSelectCount(invItem.count)
+				slot:SetSelectCountPerCtrlClick(1000)
 				slot:SetUserValue('DISCOUNT_POINT', TryGetProp(obj, 'NumberArg1', 0))
 				local icon = CreateIcon(slot)
 				icon:Set(obj.Icon, 'Item', invItem.type, slotindex, invItem:GetIESID(), invItem.count)
@@ -2012,14 +2070,13 @@ function UPDATE_RELIC_GEM_MANAGER_DECOMPOSE(frame)
 			end
 		end
 
-	end, false, slotSet, materialItemList)
+	end, false, dis_slotSet, materialItemList)
 end
 
 function RELIC_GEM_DECOMPOSE_SET_COUNT(frame)
 	local slotSet = GET_CHILD_RECURSIVELY(frame, 'slotlist')
 	local d_slotSet = GET_CHILD_RECURSIVELY(frame, 'dprice_info')
 	local d_slotlist = GET_CHILD_RECURSIVELY(frame, 'dslotlist_discount')
-
 	local decompose_cnt = slotSet:GetSelectedSlotCount()
 	if decompose_cnt <= 0 then
 		d_slotSet:ShowWindow(0)

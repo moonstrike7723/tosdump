@@ -72,7 +72,8 @@ local function get_key_image_name(key_id)
 
 	local use_shift = config.GetHotKeyElementAttributeForConfig(key_idx, 'UseShift')
 	local use_ctrl = config.GetHotKeyElementAttributeForConfig(key_idx, 'UseCtrl')
-    local use_alt = config.GetHotKeyElementAttributeForConfig(key_idx, 'UseAlt')
+	local use_alt = config.GetHotKeyElementAttributeForConfig(key_idx, 'UseAlt')
+	local custom_txt = nil
 
 	if string.find(hotkey_str, 'NUMPAD') ~= nil then
         local find_start, find_end = string.find(hotkey_str, 'NUMPAD')
@@ -99,7 +100,12 @@ local function get_key_image_name(key_id)
 		use_alt = 'NO'
 	end
 
-	return img_name, use_shift, use_ctrl, use_alt
+	if ui.IsImageExist(img_name) == false then
+		img_name = 'key_empty'
+		custom_txt = hotkey_str
+	end
+
+	return img_name, use_shift, use_ctrl, use_alt, custom_txt
 end
 
 function ON_COMBOINPUT_START(frame, msg, arg_str, arg_num)
@@ -117,7 +123,7 @@ function ON_COMBOINPUT_START(frame, msg, arg_str, arg_num)
 		local ctrl = bg:CreateOrGetControlSet('comboinput_key', 'KEY_' .. i, (i - 1) * 80, 0)
 		if ctrl ~= nil then
 			local key_id = key_list[i]
-			local img_name, use_shift, use_ctrl, use_alt = get_key_image_name(key_id)
+			local img_name, use_shift, use_ctrl, use_alt, custom_txt = get_key_image_name(key_id)
 
 			local combi_cnt = 0
 			if use_shift == 'YES' then
@@ -153,6 +159,12 @@ function ON_COMBOINPUT_START(frame, msg, arg_str, arg_num)
 
 			local keycap = GET_CHILD_RECURSIVELY(ctrl, 'keycap')
 			keycap:SetImage(img_name)
+
+			if custom_txt ~= nil then
+				local txt = ctrl:CreateControl('richtext', 'key_name', 50, 30, ui.CENTER_HORZ, ui.CENTER_VERT, 0, -8, 0, 0)
+				txt:AdjustFontSizeByWidth(50)
+				txt:SetText('{@st45}{s16}' .. custom_txt .. '{/}{/}')
+			end
 		end
 	end
 

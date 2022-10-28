@@ -34,7 +34,7 @@
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="160065" Pos="474.39#23.86#2494.69" genCount="1" genTime="20000" objectKey="0"/>
+					<Obj Type="Monster" MonType="160065" Pos="474.39#23.86#2494.69" genCount="1" genTime="20000" autoGen="0" objectKey="0"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Return_Zone">
@@ -107,6 +107,20 @@
 								<Str Str="LEGEND_RAID_GILTINE_AUTO"/>
 								<Str Str="MinigameSuccess"/>
 							</ToolScp>
+                        </execList>
+                    </Event>
+					<Event execCount="1" eventName="CreateExitPortal">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="Success/0"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -192,7 +206,7 @@
                     <Event execCount="1" eventName="3Min">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="668"/>
+								<Num Num="908"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -426,22 +440,7 @@
                             <ToolScp Scp="GAME_EVT_OFF" Client="NO" UseSleep="NO"/>
                         </execList>
                     </Event>
-                    <Event execCount="1" eventName="EnterDirection">
-                        <execList>
-                            <ToolScp Scp="MGAME_EVT_EXEC_DIRECTION" Client="NO" UseSleep="NO">
-                                <Str Str="GILTINE_RAID_TRACK"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_EVT_ON_BYNAME" Client="NO" UseSleep="NO">
-                                <Str Str="EnterDirectionCheck"/>
-                            </ToolScp>
-                        </execList>
-                    </Event>
                     <Event eventName="EnterDirectionCheck" execWithStart="0">
-                        <condList>
-                            <ToolScp Scp="MGAME_EVT_COND_DIRECTION_PLAYING_CHECK" Client="NO" UseSleep="NO">
-                                <Str Str="GILTINE_RAID_TRACK"/>
-                            </ToolScp>
-                        </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
                                 <MGameObjIndex List="Boss_Giltine/0"/>

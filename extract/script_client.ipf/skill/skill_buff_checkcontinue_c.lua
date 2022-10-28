@@ -1,6 +1,5 @@
 -- skill_buff_checkcontinue.lua
 -- type : handle, type(Move or Stand)
-
 function SCR_BUFF_C_CHECKCONTINUE_HiphopEffect_pre(handle, type)
     local actor = world.GetActor(handle);
     if actor == nil then
@@ -102,5 +101,37 @@ function SCR_BUFF_C_CHECKCONTINUE_EP12DEMONLORD_EFFECT_PRE(handle, type)
         actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
     end
 
+    return 1;
+end
+
+function SCR_BUFF_C_CHECKCONTINUE_SwellHands_Buff(handle, type)
+    local actor = world.GetActor(handle);
+    if actor == nil then
+        return 0;
+    end
+
+    if type == "Move" and pc.IsBuffApplied(actor, "Limacon_Buff") == 1 then
+        local lh_item = session.GetEquipItemBySpot(item.GetEquipSpotNum("LH"));
+        if lh_item ~= nil then
+            local lh_obj = GetIES(lh_item:GetObject());
+            if lh_obj ~= nil then
+                local pc = GetMyPCObject();
+                if IsBattleState(pc) == 1 then
+                    actor:ShowModelByPart("LH", 0, 0); 
+                else
+                    actor:ShowModelByPart("LH", 1, 0); 
+                end
+            end
+        end
+    else
+        actor:ShowModelByPart("LH", 1, 0); 
+    end
+    return 1;
+end
+
+function SCR_BUFF_C_CHECKCONTINUE_TOY_EP14ZEMINA_OWNER(handle, type)
+    local actor = world.GetActor(handle);
+    if actor == nil then return 0; end
+    if type == "Move" then return 0; end
     return 1;
 end

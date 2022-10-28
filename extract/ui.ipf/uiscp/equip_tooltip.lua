@@ -140,7 +140,7 @@ function ITEM_TOOLTIP_EQUIP(tooltipframe, invitem, strarg, usesubframe, isForger
 	
 	ypos = _DRAW_SEAL_OPTION(tooltipframe, invitem, ypos, mainframename); -- 인장
 
-	local basicTooltipProp = 'None';
+	local basicTooltipProp = 'None';	
 	if invitem.BasicTooltipProp ~= 'None' and TryGetProp(invitem, 'GroupName', 'None') ~= 'Arcane' then
 		local basicTooltipPropList = StringSplit(invitem.BasicTooltipProp, ';');
 		for i = 1, #basicTooltipPropList do
@@ -1148,6 +1148,8 @@ function DRAW_EQUIP_RANDOM_ICHOR(invitem, property_gbox, inner_yPos)
             clientMessage = 'ItemRandomOptionGroupUTIL'
         elseif propItem[propGroupName] == 'STAT' then
             clientMessage = 'ItemRandomOptionGroupSTAT'
+		elseif propItem[propGroupName] == 'SPECIAL' then
+			clientMessage = 'ItemRandomOptionGroupSPECIAL'		
         end
         
         if propItem[propValue] ~= 0 and propItem[propName] ~= "None" then
@@ -1265,7 +1267,7 @@ function DRAW_EQUIP_FIXED_ICHOR(invitem, inheritanceItem, property_gbox, inner_y
                     local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), propValue);					
                     inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, strInfo, 0, inner_yPos);
                 end
-            elseif  invitem.GroupName == 'Armor' then
+            elseif  invitem.GroupName == 'Armor' then  -- 악세서리도 Armor
                 if invitem.ClassType == 'Gloves' then
                     if propName ~= "HR" then
                         local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), propValue);
@@ -1381,8 +1383,10 @@ function DRAW_EQUIP_DESC(tooltipframe, invitem, yPos, mainframename)
 	local gBox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
 	gBox:RemoveChild('tooltip_equip_desc');
 
-	local desc = GET_ITEM_TOOLTIP_DESC(invitem);
-	
+	-- 특수 옵션 추가
+	local desc = DRAW_SPECIAL_RANDOM_OPTION(invitem, '')	
+	desc = GET_ITEM_TOOLTIP_DESC(invitem, desc);	
+	desc = DRAW_REROLL_INFOMATION(invitem, desc)	
 	desc = DRAW_COLLECTION_INFO(invitem, desc)
 
 	if desc == "" or desc == " " then -- 일단 그릴 설명이 있는지 검사. 없으면 컨트롤 셋 자체를 안만듬
@@ -1780,7 +1784,7 @@ function DRAW_AETHER_SOCKET_FOR_EQUIP(tooltipframe, itemObj, yPos, addinfoframen
 					inner_yPos = _RELIC_GEM_SPEND_RP_OPTION(socket_gbox, inner_yPos, gem_class_id);
 				end
 				
-				--inner_yPos = _RELIC_GEM_OPTION_BY_LV(socket_gbox, inner_yPos, gem_type, 1, gem_class.ClassName, gem_lv);
+				inner_yPos = _RELIC_GEM_OPTION_BY_LV(socket_gbox, inner_yPos, gem_type, 1, gem_class.ClassName, gem_lv);
 			end
 		end
 	end
@@ -2446,9 +2450,9 @@ function DRAW_ENABLE_TREATMENT(tooltipframe, invitem, yPos, mainframename)
 	end
 		
 	local enable_frag = false
-	if TryGetProp(invitem, 'GroupName', 'None') == 'Earring' then		
+	if TryGetProp(invitem, 'GroupName', 'None') == 'Earring' or TryGetProp(invitem, 'GroupName', 'None') == 'BELT' then		
 		reinforce_flag = false
-		if TryGetProp(invitem, 'StringArg', 'None') == "piece_GabijaEarring" then
+		if TryGetProp(invitem, 'StringArg', 'None') == "piece_GabijaEarring" or TryGetProp(invitem, 'StringArg', 'None') == "piece_penetration_belt" then
 			enable_frag = true
 		end
 	end
@@ -2490,7 +2494,7 @@ function DRAW_EQUIP_PR_N_DUR(tooltipframe, invitem, yPos, mainframename)
 	gBox:RemoveChild('tooltip_pr_n_dur');
 
 	local itemClass = GetClassByType("Item", invitem.ClassID);
-	if (invitem.GroupName ~= "Armor" and invitem.GroupName ~= "Weapon" ) or invitem.EquipGroup == "WING" then -- 내구도 개념이 없는 템
+	if (invitem.GroupName ~= "Armor" and invitem.GroupName ~= "Weapon" and invitem.GroupName ~= "BELT" ) or invitem.EquipGroup == "WING" then -- 내구도 개념이 없는 템
 		if invitem.BasicTooltipProp == "None" then			
     		return yPos;
 		end
@@ -3493,6 +3497,141 @@ function ITEM_TOOLTIP_EARRING(tooltipframe, invitem, strarg, usesubframe)
 		ypos = DRAW_REMAIN_LIFE_TIME(tooltipframe, invitem, ypos, mainframename);
 	end
 	
+	ypos = ypos + 3;
+    ypos = DRAW_TOGGLE_EQUIP_DESC(tooltipframe, invitem, ypos, mainframename); -- 설명문 토글 여부
+
+    local gBox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
+    gBox:Resize(gBox:GetWidth(), ypos)
+end
+
+
+
+-- BELT
+function DRAW_EQUIP_BELT(invitem, property_gbox, inner_yPos)		
+	local init_yPos = inner_yPos;
+	
+	local reroll_index = TryGetProp(invitem, 'RerollIndex', 0)
+
+    for i = 1, MAX_OPTION_EXTRACT_COUNT do
+        local propGroupName = "RandomOptionGroup_"..i;
+        local propName = "RandomOption_"..i;
+        local propValue = "RandomOptionValue_"..i;
+        local clientMessage = 'None'
+
+        local propItem = invitem
+
+        if propItem[propGroupName] == 'ATK' then
+            clientMessage = 'ItemRandomOptionGroupATK'
+        elseif propItem[propGroupName] == 'DEF' then
+            clientMessage = 'ItemRandomOptionGroupDEF'
+        elseif propItem[propGroupName] == 'UTIL_WEAPON' then
+            clientMessage = 'ItemRandomOptionGroupUTIL'
+        elseif propItem[propGroupName] == 'UTIL_ARMOR' then
+            clientMessage = 'ItemRandomOptionGroupUTIL'
+        elseif propItem[propGroupName] == 'UTIL_SHILED' then
+            clientMessage = 'ItemRandomOptionGroupUTIL'
+        elseif propItem[propGroupName] == 'STAT' then
+			clientMessage = 'ItemRandomOptionGroupSTAT'
+		elseif propItem[propGroupName] == 'SPECIAL' then
+			clientMessage = 'ItemRandomOptionGroupSPECIAL'			
+		end
+        
+		if propItem[propValue] ~= 0 and propItem[propName] ~= "None" then
+			local cls_msg = ScpArgMsg(propItem[propName])
+			if i == reroll_index then
+				cls_msg = '{@st47}{s15}{#00EEEE}' .. cls_msg .. '{/}{/}{/}'
+			end
+			local opName = string.format("%s %s", ClMsg(clientMessage), cls_msg);
+			
+			local _, max = shared_item_belt.get_option_value_range_equip(invitem, propItem[propName])	
+			
+			local strInfo = nil
+			if max ~= nil then
+				local current_value = propItem[propValue]				
+				if max == current_value then
+					strInfo = ABILITY_DESC_NO_PLUS(opName, propItem[propValue], 1);
+				else
+					strInfo = ABILITY_DESC_NO_PLUS(opName, propItem[propValue], 0);
+				end
+				
+				if max ~= nil and max ~= current_value and (keyboard.IsKeyPressed('LALT') == 1 or keyboard.IsKeyDown('LALT') == 1) then
+					strInfo = strInfo .. ' {@st66b}{#e28500}{ol}(' .. max .. ')'
+				end
+			else
+				local current_value = propItem[propValue]
+				strInfo = ABILITY_DESC_NO_PLUS(opName, current_value, 0);
+			end
+
+            inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, strInfo, 0, inner_yPos);
+            margin = true;
+        end
+    end
+
+    if init_yPos < inner_yPos then
+        inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, " ", 0, inner_yPos);
+    end
+
+    return inner_yPos
+end
+
+function DRAW_BELT_PROPERTY(tooltipframe, invitem, inheritanceItem, yPos, mainframename, drawLableline)	
+	local gBox = GET_CHILD(tooltipframe, mainframename, 'ui::CGroupBox')
+	gBox:RemoveChild('tooltip_equip_property');
+
+    -- 컨트롤셋 생성
+    local tooltip_equip_property_CSet = gBox:CreateOrGetControlSet('tooltip_equip_property', 'tooltip_equip_property', 0, yPos);
+    
+    -- 라벨라인 처리 (아이커 아이템 툴팁)
+    local labelline = GET_CHILD(tooltip_equip_property_CSet, 'labelline');
+    if drawLableline == false then
+        tooltip_equip_property_CSet:SetOffset(tooltip_equip_property_CSet:GetX(), tooltip_equip_property_CSet:GetY() - 10);
+        labelline:ShowWindow(0);
+    else
+        labelline:ShowWindow(1);
+    end
+
+    local inner_yPos = 0;
+	local property_gbox = GET_CHILD(tooltip_equip_property_CSet, 'property_gbox', 'ui::CGroupBox');
+	
+	inner_yPos = DRAW_EQUIP_BELT(invitem, property_gbox, inner_yPos) -- 랜덤 옵션
+
+    -- 아무것도 못그렸으면 컨트롤셋 지우고 리턴
+    if inner_yPos == 0 then
+        gBox:RemoveChild('tooltip_equip_property')
+        return yPos
+    end
+    
+	tooltip_equip_property_CSet:Resize(tooltip_equip_property_CSet:GetWidth(),tooltip_equip_property_CSet:GetHeight() + property_gbox:GetHeight() + property_gbox:GetY());
+
+	gBox:Resize(gBox:GetWidth(),gBox:GetHeight() + tooltip_equip_property_CSet:GetHeight())
+	return tooltip_equip_property_CSet:GetHeight() + tooltip_equip_property_CSet:GetY();
+end
+
+function ITEM_TOOLTIP_BELT(tooltipframe, invitem, strarg, usesubframe)
+	if invitem.ClassType ~= 'BELT' then return end
+
+	tolua.cast(tooltipframe, "ui::CTooltipFrame");
+	local mainframename = 'equip_main'
+	local ypos = 0
+
+	ypos = DRAW_EQUIP_COMMON_TOOLTIP_SMALL_IMG(tooltipframe, invitem, mainframename); -- 장비라면 공통적으로 그리는 툴팁들
+	local basicTooltipPropList = StringSplit(invitem.BasicTooltipProp, ';');
+	for i = 1, #basicTooltipPropList do
+		local basicTooltipProp = basicTooltipPropList[i];
+		ypos = DRAW_EQUIP_ATK_N_DEF(tooltipframe, invitem, ypos, mainframename, strarg, basicTooltipProp); -- 공격력, 방어력, 타입 아이콘 
+	end
+
+	ypos = DRAW_BELT_PROPERTY(tooltipframe, invitem, nil, ypos, mainframename, true);		
+	ypos = DRAW_EQUIP_DESC(tooltipframe, invitem, ypos, mainframename) -- 각종 설명문
+	ypos = DRAW_EQUIP_TRADABILITY(tooltipframe, invitem, ypos, mainframename); 	-- 거래 제한
+	if TryGetProp(invitem, 'EquipActionType', 'None') == 'EquipCharacterBelonging' and TryGetProp(invitem, 'CharacterBelonging', 0) == 0 then
+		ypos = DRAW_EQUIP_BELONGING(tooltipframe, invitem, ypos, mainframename, 'char_belonging') -- 착용시 캐릭터 귀속
+	elseif TryGetProp(invitem, 'EquipActionType', 'None') == 'EquipTeamBelonging' and TryGetProp(invitem, 'TeamBelonging', 0) == 0 then
+		ypos = DRAW_EQUIP_BELONGING(tooltipframe, invitem, ypos, mainframename, 'team_belonging') -- 착용시 팀 귀속
+	end
+	ypos = DRAW_ENABLE_TREATMENT(tooltipframe, invitem, ypos, mainframename); 	-- 초월 및 강화불가
+	ypos = DRAW_EQUIP_PR_N_DUR(tooltipframe, invitem, ypos, mainframename) -- 포텐셜 및 내구도
+
 	ypos = ypos + 3;
     ypos = DRAW_TOGGLE_EQUIP_DESC(tooltipframe, invitem, ypos, mainframename); -- 설명문 토글 여부
 

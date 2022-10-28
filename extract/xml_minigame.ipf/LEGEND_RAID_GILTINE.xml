@@ -35,7 +35,7 @@
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="160065" Pos="474.39#23.86#2494.69" genCount="1" genTime="20000" objectKey="0"/>
+                    <Obj Type="Monster" MonType="160065" Pos="474.39#23.86#2494.69" genCount="1" genTime="20000" autoGen="0" objectKey="0"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Return_Zone">
@@ -128,6 +128,20 @@
                             <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
                                 <Str Str="LEGEND_RAID_GILTINE"/>
                                 <Str Str="MinigameSuccess"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="CreateExitPortal">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="Success/0"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -452,6 +466,13 @@
                         </execList>
                     </Event>
                     <Event execCount="1" eventName="EnterDirection">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
+                                <Str Str="is_skip_direction"/>
+                                <Str Str="=="/>
+                                <Num Num="0"/>
+                            </ToolScp>
+                        </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_EXEC_DIRECTION" Client="NO" UseSleep="NO">
                                 <Str Str="GILTINE_RAID_TRACK"/>

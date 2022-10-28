@@ -690,6 +690,8 @@ function MARKET_DRAW_CTRLSET_EQUIP(frame, isShowSocket)
 			    clientMessage = 'ItemRandomOptionGroupUTIL'
 			elseif propItem[propGroupName] == 'STAT' then
 			    clientMessage = 'ItemRandomOptionGroupSTAT'
+			elseif propItem[propGroupName] == 'SPECIAL' then
+				clientMessage = 'ItemRandomOptionGroupSPECIAL'
 			end
 			
 			if propItem[propValue] ~= 0 and propItem[propName] ~= "None" then                
@@ -1519,6 +1521,8 @@ function MARKET_DRAW_CTRLSET_OPTMISC(frame)
 					clientMessage = 'ItemRandomOptionGroupUTIL'
 				elseif propItem[propGroupName] == 'STAT' then
 					clientMessage = 'ItemRandomOptionGroupSTAT'
+				elseif propItem[propGroupName] == 'SPECIAL' then
+					clientMessage = 'ItemRandomOptionGroupSPECIAL'
 				end
 				
 				if propItem[propValue] ~= 0 and propItem[propName] ~= "None" then                

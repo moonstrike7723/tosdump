@@ -10,7 +10,8 @@ local _spot_list_without_sub = {
 	{"Ring2",{"RING2"}},
 	{"Seal",{"SEAL"}},
 	{"Ark",{"ARK"}},
-	{"Earring",{"EARRING"}}
+	{"Earring",{"EARRING"}},
+	{"BELT",{"BELT"}}
 }
 local _spot_list_with_sub = {
 	{"RH",{"RH"}},
@@ -26,7 +27,8 @@ local _spot_list_with_sub = {
 	{"Ring2",{"RING2"}},
 	{"Seal",{"SEAL"}},
 	{"Ark",{"ARK"}},
-	{"Earring",{"EARRING"}}
+	{"Earring",{"EARRING"}},
+	{"BELT",{"BELT"}}
 }
 
 function ITEM_EQUIP_HELPER_ON_INIT(addon, frame)

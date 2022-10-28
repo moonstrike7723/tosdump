@@ -49,7 +49,7 @@
                     <ToolScp Scp="RAID_CLEAR_TIME_RECORD" Client="NO" UseSleep="NO"/>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="160065" Pos="4.70#0.60#-498.03" genCount="1" genTime="20000" objectKey="1"/>
+                    <Obj Type="Monster" MonType="160065" Pos="4.70#0.60#-498.03" genCount="1" genTime="20000" autoGen="0" objectKey="1"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Quest_ClearCheck">
@@ -131,6 +131,20 @@
                                 <Str Str="59722"/>
                                 <Str Str="Goddess_Raid_Delmore_Solo"/>
                                 <Str Str="NO"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="CreateExitPortal">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="Success/1"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
                             </ToolScp>
                         </execList>
                     </Event>

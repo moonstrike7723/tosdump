@@ -177,9 +177,6 @@
                                 <Str Str="SCR_RAID_END_STOP_DEBUFF_MON"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
-                                <Str Str="SCR_GODDESS_RAID_REMOVE_RELIC_PENALTY"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="TB_REVIVAL_PAULIUS_RESET_CMD"/>
                             </ToolScp>
                         </execList>
@@ -263,6 +260,9 @@
                             </ToolScp>
                         </condList>
                         <execList>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_GODDESS_RAID_REMOVE_RELIC_PENALTY"/>
+                            </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
                                 <Str Str="Fail"/>
                             </ToolScp>
@@ -284,6 +284,9 @@
                             </ToolScp>
                         </condList>
                         <execList>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_GODDESS_RAID_REMOVE_RELIC_PENALTY"/>
+                            </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
                                 <Str Str="Fail"/>
                             </ToolScp>

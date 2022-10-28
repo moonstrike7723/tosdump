@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+	<BlendOn frame="2" R="100" G="40" B="10" A="100"/>
+	<BlendOn frame="7" R="150" G="70" B="50" A="100"/>
+	<Particle frame="0" attachNode="Bip01 L Hand" particleName="I_force017_trail4_yellow" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="true" targetPos="false"/>
+	<Particle frame="0" attachNode="Bip01 L Hand" particleName="I_force011_fire" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="true" targetPos="false"/>
+	<Particle frame="0" attachNode="Bip01 R Hand" particleName="I_force011_fire" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="true" targetPos="false"/>
+	<Particle frame="0" attachNode="Bip01 R Hand" particleName="I_force017_trail4_yellow" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="true" targetPos="false"/>
+	<BlendOff frame="010" R="0" G="0" B="0" A="0"/>
+</ActionDesc>

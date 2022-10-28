@@ -31,7 +31,10 @@ function WARNINGMSGBOX_FRAME_OPEN(clmsg, yesScp, noScp, itemGuid, title)
     if itemGuid ~= nil then
 		local item = session.GetInvItemByGuid(itemGuid)
         if item ~= nil then
-            local_item_grade = GetIES(item:GetObject()).ItemGrade
+			local_item_grade = GetIES(item:GetObject()).ItemGrade
+			if GetIES(item:GetObject()).StringArg == "Growth_Item_Legend" then
+				local_item_grade = 0
+			end
         else
             local_item_grade = 0
         end
@@ -509,7 +512,10 @@ function WARNINGMSGBOX_FRAME_OPEN_DELETE_ITEM(clmsg, yesScp, noScp, itemGuid)
 
     if itemGuid ~= nil then
         if item ~= nil then
-            local_item_grade = cls.ItemGrade
+			local_item_grade = cls.ItemGrade
+			if cls.StringArg == "Growth_Item_Legend" then
+				local_item_grade = 0
+			end
         else
             local_item_grade = 0
         end

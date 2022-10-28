@@ -393,7 +393,23 @@ function BUILD_FRIEND_LIST(frame, listType, groupName, iscustom)
 					    ctrlSet:Resize(ctrlSet:GetOriginalWidth(), FRIEND_MINIMIZE_HEIGHT);
 				    end                    
 				    UPDATE_FRIEND_CONTROLSET(ctrlSet, listType, friendInfo);
-                    showCnt = showCnt + 1;
+					showCnt = showCnt + 1;
+				else
+					local ctrlSet = GET_CHILD_RECURSIVELY(page, "FR_" .. listType .. "_" .. friendInfo:GetInfo():GetACCID());
+					if ctrlSet ~= nil then
+						local map_name_channel_text = ctrlSet:GetChild("map_name_channel_text");
+						local mapCls = GetClassByType("Map", friendInfo.mapID);
+						if map_name_channel_text ~= nil and mapCls ~= nil then
+							map_name_channel_text:SetColorTone(0);
+							map_name_channel_text:SetTextByKey("name", mapCls.Name)
+							map_name_channel_text:SetTextByKey("channel", friendInfo.channel+1)
+							if session.colonywar.GetProgressState() == true or session.world.IsIntegrateServer() == true then
+								map_name_channel_text:ShowWindow(0)
+							else
+								map_name_channel_text:ShowWindow(1)
+							end
+						end
+					end
 			    end
 		    end
         end
@@ -596,7 +612,7 @@ function UPDATE_FRIEND_CONTROLSET_BY_PCINFO(ctrlSet, mapID, channel, info, drawN
 			map_name_channel_text:SetColorTone(0);
 			map_name_channel_text:SetTextByKey("name", mapCls.Name)
 			map_name_channel_text:SetTextByKey("channel", channel+1)
-			if session.colonywar.GetProgressState() == true then
+			if session.colonywar.GetProgressState() == true or session.world.IsIntegrateServer() == true then
 				map_name_channel_text:ShowWindow(0)
 			else
 				map_name_channel_text:ShowWindow(1)
@@ -765,7 +781,7 @@ function ON_FRIEND_SESSION_CHANGE(frame, msg, aid, listType)
 				map_name_channel_text:SetTextByKey("name", mapCls.Name)
 				map_name_channel_text:SetTextByKey("channel", f.channel+1)
 				
-				if session.colonywar.GetProgressState() == true then
+				if session.colonywar.GetProgressState() == true or session.world.IsIntegrateServer() == true then
 					map_name_channel_text:ShowWindow(0)
 				else
 					map_name_channel_text:ShowWindow(1)

@@ -408,6 +408,8 @@ function INVENTORY_OPEN(frame)
 	ui.Chat("/requpdateequip"); -- 내구도 회복 유료템 때문에 정확한 값을 지금 알아야 함.
 	session.inventory.ReqTrustPoint();
 
+	EQUIP_TAB_BTN(frame, nil, "equip", 0)
+
 	local savedPos = frame:GetUserValue("INVENTORY_CUR_SCROLL_POS");		
 	if savedPos == 'None' then
 		savedPos = '0'
@@ -3035,6 +3037,24 @@ function _INV_EQUIP_LIST_SET_ICON(slot, icon, equipItem)
 		slot:SetEventScript(ui.RBUTTONDOWN, 'STATUS_SLOT_RBTNDOWN');
 		slot:SetEventScriptArgNumber(ui.RBUTTONDOWN, equipItem.equipSpot);
 		slot:Select(0);		
+	else
+		slot:EnableDrag(0);
+		local swapBtn1 = GET_CHILD_RECURSIVELY(frame, "weapon_swap_1")
+		local swapBtn2 = GET_CHILD_RECURSIVELY(frame, "weapon_swap_2")
+		local relocManager = GET_CHILD_RECURSIVELY(frame, "relic_manager")
+		local hat1 = GET_CHILD_RECURSIVELY(frame, "HAT_Visible")
+		local hat2 = GET_CHILD_RECURSIVELY(frame, "HAT_T_Visible")
+		local hat3 = GET_CHILD_RECURSIVELY(frame, "HAT_L_Visible")
+		local hatWig = GET_CHILD_RECURSIVELY(frame, "HAIR_WIG_Visible")
+		local hairColor = GET_CHILD_RECURSIVELY(frame, "HAIR_COLOR")
+		swapBtn1:SetVisible(0)
+		swapBtn2:SetVisible(0)
+		relocManager:SetVisible(0)
+		hat1:SetVisible(0)
+		hat2:SetVisible(0)
+		hat3:SetVisible(0)
+		hatWig:SetVisible(0)
+		hairColor:SetVisible(0)
 	end
 
 	slot:SetOverSound('button_over');
@@ -3118,8 +3138,8 @@ function SET_EQUIP_LIST_ANIM(frame, equipItemList, iconFunc, ...)
 				if spotName == "HELMET" then
 					spotName = "HAIR"
 				end
-
-				local child = GET_CHILD_RECURSIVELY(frame, spotName.."ANIM");	
+				local itemSlotSet = GET_CHILD_RECURSIVELY(frame, 'itemslotset')
+				local child = GET_CHILD_RECURSIVELY(itemSlotSet, spotName.."ANIM");	
 
 				if  child  ~=  nil  then	
 					local slot = tolua.cast(child, 'ui::CAnimPicture');
@@ -3129,8 +3149,7 @@ function SET_EQUIP_LIST_ANIM(frame, equipItemList, iconFunc, ...)
 						tabIndex = 1
 					end
 
-					local equipTab = GET_CHILD_RECURSIVELY(frame, "equiptype_Tab")
-					equipTab:SelectTab(tabIndex)
+					EQUIP_TAB_BTN(frame, nil, "equip", tabIndex)
 
 					slot:PlayAnimation();
 				end
@@ -3290,12 +3309,20 @@ function INVENTORY_DELETE(itemIESID, itemType)
 		s_dropDeleteItemIESID = itemIESID;
 		s_dropDeleteItemCount = 1;
 		s_dropDeleteItemName = cls.Name;
-        item_grade = GetIES(invItem:GetObject()).ItemGrade
+        	item_grade = GetIES(invItem:GetObject()).ItemGrade
+		
+		local isGrowthEquip = false
+		if TryGetProp(cls, "StringArg") == "Growth_Item_Legend" then
+			isGrowthEquip = true
+		end
+
 		local yesScp = string.format("EXEC_DELETE_ITEMDROP");
-        local clmsg = ScpArgMsg('ReallyDestroy{ITEM}', 'ITEM', s_dropDeleteItemName);
-        if item_grade >= 3 or warningMsgCostumeItem == true then
-            clmsg = ScpArgMsg('HighItemGradeReallyDestroy{msg}{ITEM}', 'msg', ClMsg('destory_now'), 'ITEM', s_dropDeleteItemName);
-        end
+        	local clmsg = ScpArgMsg('ReallyDestroy{ITEM}', 'ITEM', s_dropDeleteItemName);
+        	if item_grade >= 3 or warningMsgCostumeItem == true then
+			if isGrowthEquip ~= true then
+            			clmsg = ScpArgMsg('HighItemGradeReallyDestroy{msg}{ITEM}', 'msg', ClMsg('destory_now'), 'ITEM', s_dropDeleteItemName);
+        		end
+        	end
 		--ui.MsgBox(clmsg, yesScp, "None");
 		WARNINGMSGBOX_FRAME_OPEN_DELETE_ITEM(clmsg, yesScp, "None", itemIESID)
 	end
@@ -3359,10 +3386,17 @@ function CHECK_EXEC_DELETE_ITEMDROP(count, className)
 		warningMsgCostumeItem = true
 	end
 
+	local isGrowthEquip = false
+	if TryGetProp(cls, "StringArg") == "Growth_Item_Legend" then
+		isGrowthEquip = true
+	end
+
 	local clmsg = ScpArgMsg('ReallyDestroy{ITEM}{COUNT}', 'ITEM', s_dropDeleteItemName, 'COUNT', s_dropDeleteItemCount);
 	if item_grade >= 3 or warningMsgCostumeItem == true then
-                clmsg = ScpArgMsg('HighItemGradeReallyDestroy{msg}{ITEM}{COUNT}', 'msg', ClMsg('destory_now'), 'ITEM', s_dropDeleteItemName, 'COUNT', s_dropDeleteItemCount);
-        end
+		if isGrowthEquip ~= true then
+                	clmsg = ScpArgMsg('HighItemGradeReallyDestroy{msg}{ITEM}{COUNT}', 'msg', ClMsg('destory_now'), 'ITEM', s_dropDeleteItemName, 'COUNT', s_dropDeleteItemCount);
+        	end
+    	end
 
 	--ui.MsgBox(clmsg, yesScp, "None");
 	local inputstringframe = ui.GetFrame("inputstring");
@@ -4470,13 +4504,9 @@ function DO_WEAPON_SLOT_CHANGE(frame, index)
 	local WEAPONSWAP_DOWN_IMAGE = frame:GetUserConfig('WEAPONSWAP_DOWN_IMAGE')
 	
 	if index == 1 then
-		WEAPON_bg:ShowWindow(1)
-		SW_bg:ShowWindow(0)
 		weaponSwap1:SetImage(WEAPONSWAP_UP_IMAGE)
 		weaponSwap2:SetImage(WEAPONSWAP_DOWN_IMAGE)
 	elseif index == 2 then
-		WEAPON_bg:ShowWindow(0)
-		SW_bg:ShowWindow(1)
 		weaponSwap1:SetImage(WEAPONSWAP_DOWN_IMAGE)
 		weaponSwap2:SetImage(WEAPONSWAP_UP_IMAGE)
 	end
@@ -4518,7 +4548,7 @@ function SCR_CHECK_SWAPABLE_C()
 		if mGameName ~= nil then
 			local indunCls = GetClassByStrProp("Indun","MGame",mGameName)
 			local dungeonType = TryGetProp(indunCls,"DungeonType","None")
-			if mGameName == 'LEGEND_RAID_MORINGPONIA_EASY' or mGameName == 'LEGEND_RAID_GLACIER_EASY' or string.find(mGameName, "CHALLENGE_AUTO") ~= nil or string.find(mGameName, "CHALLENGE_SOLO") ~= nil or mGameName == "CHALLENGE_DIVISION_AUTO" or mGameName == "LEGEND_RAID_GILTINE_AUTO" or dungeonType == "MythicDungeon_Auto" then
+			if mGameName == 'LEGEND_RAID_MORINGPONIA_EASY' or mGameName == 'LEGEND_RAID_GLACIER_EASY' or string.find(mGameName, "CHALLENGE_AUTO") ~= nil or string.find(mGameName, "CHALLENGE_SOLO") ~= nil or mGameName == "CHALLENGE_DIVISION_AUTO" or mGameName == "LEGEND_RAID_GILTINE_AUTO" or mGameName == "LEGEND_RAID_GILTINE_SOLO" or dungeonType == "MythicDungeon_Auto" then
 				return false;
 			end
 		end

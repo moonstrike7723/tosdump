@@ -89,6 +89,20 @@ local MARKET_OPTION_GROUP_PROP_LIST = {
 		"RareOption_PVPDamageRate",
 		"RareOption_BossDamageRate",
 		"RareOption_MainWeaponDamageRate"
+	},
+	MARKET_SPECIAL = {
+		"normalatk_enhance",
+		"heal_dark_sphere",
+		"chain_lightning", 
+		"meteor", 
+		"dark_lash",
+		"whirlwind",
+		"poison_arrow",
+		"energy_bullet",
+		"ice_orb",
+		"gravitation_spear",
+		"carnage_scythe",
+		"ice_arrow"
 	}
 };
 

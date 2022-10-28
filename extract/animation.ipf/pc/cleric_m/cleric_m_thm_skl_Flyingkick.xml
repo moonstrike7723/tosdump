@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+	<BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="10" R="100" G="70" B="30" A="50"/>
+	<BlendOn frame="13" R="150" G="120" B="70" A="30"/>
+	<BlendOff frame="30" R="0" G="0" B="0" A="0"/>
+	<Particle frame="10" attachNode="Dummy_effect_darksight2" particleName="I_cleric_pointkick2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true"/>
+	<Particle frame="10" attachNode="Dummy_effect_darksight2" particleName="F_cleric_flyingkick001" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="true"/>
+</ActionDesc>

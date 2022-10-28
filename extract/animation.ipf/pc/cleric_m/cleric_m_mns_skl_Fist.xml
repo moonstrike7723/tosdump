@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+    <BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+    <Sound frame="0.00" soundFile="skl_eff_lama_action_cast"/>
+    <Particle frame="1" attachNode="Dummy_L_HAND" particleName="F_only_quest_ground194_fire1" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.3" pause="true" use2DEffect="true" soft2DValue="20" targetPos="false"/>
+    <Sound frame="3.00" soundFile="skl_eff_lama_action_fist"/>
+    <BlendOn frame="6" R="100" G="100" B="70" A="100"/>
+    <Shockwave frame="6" type="2" intensity="4" frequency="70" duration="0.1" range="1000"/>
+    <Particle frame="6" attachNode="Dummy_L_HAND" particleName="F_fire044_7_yellow" useAttach="true" hiddenObj="false" changeEffect="None" scale="2.3" pause="true" use2DEffect="true" soft2DValue="20" targetPos="false"/>
+    <BlendOff frame="7" R="0" G="0" B="0" A="0"/>
+    <Particle frame="8" attachNode="Dummy_L_HAND" particleName="F_fire044_7_yellow" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="true" soft2DValue="20" targetPos="false"/>
+</ActionDesc>

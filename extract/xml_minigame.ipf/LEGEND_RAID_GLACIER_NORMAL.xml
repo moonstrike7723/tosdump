@@ -72,7 +72,7 @@
                 </StartScpList>
                 <ObjList>
                     <Obj Type="Monster" MonType="156162" Pos="1217.45#602.46#1569.20" genCount="1" genTime="20000" objectKey="0" propList="&apos;Dialog&apos; &apos;NPC_DUNGEON_GACHA_CUBE&apos; "/>
-                    <Obj Type="Monster" MonType="160065" Pos="1353.36#602.46#1406.72" genCount="1" genTime="20000" objectKey="1"/>
+                    <Obj Type="Monster" MonType="160065" Pos="1353.36#602.46#1406.72" genCount="1" autoGen="0" genTime="20000" objectKey="1"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Return_Zone">
@@ -160,6 +160,20 @@
                         <execList>
                             <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_LEGEND_RAID_DPS_RESULT"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="CreateExitPortal">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="Success/1"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
                             </ToolScp>
                         </execList>
                     </Event>

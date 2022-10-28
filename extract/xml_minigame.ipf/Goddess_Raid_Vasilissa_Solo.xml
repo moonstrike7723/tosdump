@@ -36,7 +36,7 @@
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="160065" Pos="-1.64#10.56#-10.99" genCount="1" genTime="20000" objectKey="1"/>
+                    <Obj Type="Monster" MonType="160065" Pos="-1.64#10.56#-10.99" genCount="1" genTime="20000" autoGen="0" objectKey="0"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Return_Zone">
@@ -108,6 +108,20 @@
 								<Str Str="Goddess_Raid_Vasilissa_Solo"/>
 								<Str Str="MinigameSuccess"/>
 							</ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="CreateExitPortal">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="Success/0"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -335,26 +349,7 @@
                     <Obj Type="Monster" MonType="59684" Pos="10.39#10.56#-2.77" genCount="1" genTime="20000" autoGen="0" objectKey="0"/>
                 </ObjList>
                 <StageEvents>
-                    <Event execCount="1" eventName="Direction">
-                        <execList>
-                            <ToolScp Scp="MGAME_EVT_EXEC_DIRECTION" Client="NO" UseSleep="NO">
-                                <Str Str="VASILISSA_BORN_TRACK"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_SHOWBALLOONTEXT" Client="NO" UseSleep="NO">
-                                <Str Str="Goddess_Raid_Vasilissa_Start_Battle_Msg"/>
-                                <Num Num="3"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_EVT_ON_BYNAME" Client="NO" UseSleep="NO">
-                                <Str Str="Direction_text"/>
-                            </ToolScp>
-                        </execList>
-                    </Event>
                     <Event execCount="1" eventName="Vasilissa_Born">
-                        <condList>
-                            <ToolScp Scp="MGAME_EVT_COND_DIRECTION_PLAYING_CHECK" Client="NO" UseSleep="NO">
-                                <Str Str="VASILISSA_BORN_TRACK"/>
-                            </ToolScp>
-                        </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
                                 <MGameObjIndex List="Vasilissa/0"/>

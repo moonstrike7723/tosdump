@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionDesc>
+    <Sound frame="1.00" soundFile="skl_eff_atk_move_l_8"/>
+    <Sound frame="15.14" soundFile="skl_eff_atk_move_l_22"/>
+    <Sound frame="25.00" soundFile="mon_voice_jellyzele_born"/>
+    <Sound frame="44.00" soundFile="skl_eff_atk_move_l_23"/>
+</ActionDesc>

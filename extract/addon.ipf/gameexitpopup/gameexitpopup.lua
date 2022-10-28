@@ -55,6 +55,8 @@ function ON_GAMEEXIT_TIMER_UPDATE(frame, msg, reason, time)
 end
 
 function ON_GAMEEXIT_TIMER_END(frame)
+	QUICKSLOT_RETURN_ALL_SKILL() -- 퀵슬롯 스킬 정보를 원래대로 돌려놓음
+
 	local type = frame:GetUserValue("EXIT_TYPE");
 
 	if type == "Exit" then

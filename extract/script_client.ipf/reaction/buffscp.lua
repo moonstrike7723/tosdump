@@ -1824,6 +1824,17 @@ function PyeonJeonClientScp_LEAVE(actor, obj, buff)
     actor:SetAlwaysBattleState(false);
 end
 
+function DOLL_ZEMINA_BUFF_ENTER(actor, obj, buff)
+end
+
+function DOLL_ZEMINA_BUFF_UPDATE(actor, obj, buff)
+	SCR_CREATE_FAIRY(actor:GetHandleVal(), "doll_zemina");
+end
+
+function DOLL_ZEMINA_BUFF_LEAVE(actor, obj, buff)
+	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_zemina");
+end
+
 function DOLL_ZANAS_BUFF_ENTER(actor, obj, buff)
 end
 
@@ -2073,4 +2084,14 @@ function Hakkapeliter_Assault_ClientScp_LEAVE(actor, obj, buff)
     actor:SetAlwaysBattleState(false);
     actor:GetAnimation():PlayFixAnim("ASTD", 1, 1);
     ScpChangeMovingShotAnimationSet(actor, obj, buff);
+end
+
+function Lamapose_Buff_ENTER(actor, obj, buff)
+    C_SHOW_PARTS_MODEL(actor, obj, "LH", 0, 0)
+    C_SHOW_PARTS_MODEL(actor, obj, "RH", 0, 0)
+end
+
+function Lamapose_Buff_LEAVE(actor, obj, buff)
+    C_SHOW_PARTS_MODEL(actor, obj, "LH", 0, 1)
+    C_SHOW_PARTS_MODEL(actor, obj, "RH", 0, 1)
 end

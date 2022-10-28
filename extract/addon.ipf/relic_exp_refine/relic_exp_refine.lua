@@ -251,6 +251,7 @@ function UPDATE_RELIC_EXP_REFINE_UI(frame)
 			
             local slot = discountSet:GetSlotByIndex(slotindex)
             slot:SetMaxSelectCount(invItem.count)
+			slot:SetSelectCountPerCtrlClick(1000)
             slot:SetUserValue('DISCOUNT_POINT', obj.NumberArg1)
 
 			local icon = CreateIcon(slot)

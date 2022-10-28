@@ -106,6 +106,7 @@ function RELICMANAGER_TAB_CHANGE(parent, ctrl)
 end
 
 function RELICMANAGER_INV_RBTN(item_obj, slot)
+	
 	local frame = ui.GetFrame('relicmanager')
 	if frame == nil then return end
 
@@ -485,59 +486,64 @@ end
 
 function RELIC_AUTO_CHARGE()
 	if config.GetRelicAutoCharge() == 0 then
-		return
+		return;
 	end
 
 	local pc = GetMyPCObject()
 	if IsBuffApplied(pc, 'Colony_Limit_Relic_Release_Buff') == 'YES' or IsBuffApplied(pc, 'GuildRaid_Limit_Relic_Release_Buff') == 'YES' or IsBuffApplied(pc, 'Colony_Limit_Relic_Release_Buff2') == 'YES' or IsBuffApplied(pc, 'GoddessRaid_Limit_Relic_Release_Buff') == 'YES' then		
-		return
+		return;
 	end
 
-	local zoneName = GetZoneName()
-	local map = GetClass("Map",zoneName)		
-
-
-	
+	local zoneName = GetZoneName();
+	local map = GetClass("Map",zoneName);
 	local keyword = TryGetProp(map, "Keyword", "None")
-    local keyword_table = SCR_STRING_CUT(keyword, ';')
-    
+    local keyword_table = SCR_STRING_CUT(keyword, ';');
     local drop_bounty_ticket = 0
     for i = 1, #keyword_table do
         if keyword_table[i] == 'SilverDrop' then
-            drop_bounty_ticket = 1
+            drop_bounty_ticket = 1;
         end
     end
 
 	if TryGetProp(map, "MapType", "None") ~= "City" and drop_bounty_ticket == 0 then
-		return
+		return;
 	end
 
 	local relic_item, relic_obj = RELICMANAGER_GET_EQUIP_RELIC()
 	if relic_item == nil or relic_obj == nil then		
-		return
+		return;
 	end
 	
 	local cur_rp, max_rp = shared_item_relic.get_rp(pc)
 	if cur_rp == max_rp then
-		return
+		return;
+	end 
+	
+	local item_idx = nil;
+	local cur_count = 0;
+	local mat_item = session.GetInvItemByName('misc_Ectonite');
+	if mat_item ~= nil and mat_item.isLockState == false then
+		item_idx = mat_item:GetIESID()
+		cur_count = mat_item.count;
+	end
+
+	local item_care_idx = nil;
+	local care_cur_count = 0;
+	local mat_item_care = session.GetInvItemByName("misc_Ectonite_Care");
+	if mat_item_care ~= nil and mat_item_care.isLockState == false then
+		item_care_idx = mat_item_care:GetIESID();
+		care_cur_count = mat_item_care.count;
 	end
 	
-	local mat_item = session.GetInvItemByName('misc_Ectonite')
-	if mat_item == nil then return end
-
-	if mat_item.isLockState == true then		
-		return
+	session.ResetItemList();
+	if item_idx ~= nil and cur_count > 0 then
+		session.AddItemID(item_idx, cur_count);
 	end
-
-	session.ResetItemList()
-	local item_idx = mat_item:GetIESID()
-	local cur_count = mat_item.count
-	
-	if cur_count ~= nil and cur_count > 0 then
-		session.AddItemID(item_idx, cur_count)
-		local result_list = session.GetItemIDList()
-		item.DialogTransaction('RELIC_CHARGE_RP', result_list)
+	if item_care_idx ~= nil and care_cur_count > 0 then
+		session.AddItemID(item_care_idx, care_cur_count);
 	end
+	local result_list = session.GetItemIDList();
+	item.DialogTransaction('RELIC_CHARGE_RP', result_list)
 end
 
 function RELICMANAGER_RP_UP_END(frame, msg, argStr, argNum)
@@ -1120,6 +1126,7 @@ function RELICMANAGER_SOCKET_UPDATE(frame)
 
 	local bodyGbox_midle = GET_CHILD_RECURSIVELY(frame, 'bodyGbox_midle')
 	for _name, _type in pairs(relic_gem_type) do
+		local is_char_belonging = frame:GetUserIValue('SOCKET_GEM_BELONGING_'.._type)
 		local sub_ctrl = GET_CHILD_RECURSIVELY(frame, 'cset_'.._type)
 		sub_ctrl:SetUserValue('GEM_TYPE', _type)
 		local gem_slot = GET_CHILD_RECURSIVELY(sub_ctrl, 'gem_slot', 'ui::CSlot')
@@ -1128,8 +1135,8 @@ function RELICMANAGER_SOCKET_UPDATE(frame)
 		local socket_name = GET_CHILD_RECURSIVELY(sub_ctrl, 'socket_name', 'ui::CRichText')
 		socket_name:SetTextByKey('name', ScpArgMsg('EMPTY_RELIC_GEM_SOCKET', 'NAME', ClMsg(_name)))
 		local do_remove = GET_CHILD_RECURSIVELY(sub_ctrl, 'do_remove', 'ui::CButton')
-		
 		local gem_id = relic_item:GetEquipGemID(_type)
+		
 		if gem_id == 0 then
 			local empty_image = RELICMANAGER_GET_EMPTY_SOCKET_IMAGE(_type)
 			gem_name:ShowWindow(0)
@@ -1138,14 +1145,23 @@ function RELICMANAGER_SOCKET_UPDATE(frame)
 			socket_icon:ShowWindow(1)
 			socket_icon:SetImage(empty_image)			
 			do_remove:SetEnable(0)
-		else
+		else	
 			local gem_cls = GetClassByType('Item', gem_id)
 			local name_str = GET_RELIC_GEM_NAME_WITH_FONT(gem_cls)
 			socket_icon:ShowWindow(0)
 			socket_name:ShowWindow(0)
 			gem_name:ShowWindow(1)
 			gem_name:SetTextByKey('name', name_str)
-			SET_SLOT_ITEM_CLS(gem_slot, gem_cls)			
+			if is_char_belonging == 1 then
+				local icon = CreateIcon(gem_slot);
+				icon:SetImage(TryGetProp(gem_cls, 'Icon'));
+				icon:GetInfo().type = gem_cls.ClassID;
+				icon:SetTooltipNumArg(gem_cls.ClassID);
+				icon:SetTooltipStrArg('char_belonging');
+				icon:SetTooltipType('wholeitem')
+			else
+				SET_SLOT_ITEM_CLS(gem_slot, gem_cls)	
+			end			
 			do_remove:SetEnable(1)
 		end
 	end
@@ -1195,7 +1211,7 @@ function RELICMANAGER_SOCKET_GEM_ADD(frame, inv_item, item_obj)
 	session.ResetItemList()
 	session.AddItemID(relic_item:GetIESID(), 1)
 	session.AddItemID(inv_item:GetIESID(), 1)
-
+	
 	local scp_arg_msg = 'REALLY_EQUIP_RELIC_GEM'
 	local team_belong = TryGetProp(item_obj, 'TeamBelonging', 1)
 	if team_belong == 0 then
@@ -1205,6 +1221,14 @@ function RELICMANAGER_SOCKET_GEM_ADD(frame, inv_item, item_obj)
 	local gem_name = GET_RELIC_GEM_NAME_WITH_FONT(item_obj)
 	local msg = ScpArgMsg(scp_arg_msg, 'NAME', gem_name)
 	local yes_scp = '_RELICMANAGER_SOCKET_GEM_ADD()'
+
+	local invItem_Obj = GetIES(inv_item:GetObject())
+	local is_char_belonging = TryGetProp(invItem_Obj,"CharacterBelonging",0)
+	if tonumber(is_char_belonging) == 1 then
+		frame:SetUserValue('SOCKET_GEM_BELONGING_'..gem_type_num,is_char_belonging)
+	else
+		frame:SetUserValue('SOCKET_GEM_BELONGING_'..gem_type_num,is_char_belonging)
+	end
 
 	local msgbox = ui.MsgBox(msg, yes_scp, 'None')
 	SET_MODAL_MSGBOX(msgbox)

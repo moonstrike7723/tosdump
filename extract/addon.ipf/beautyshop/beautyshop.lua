@@ -1095,7 +1095,7 @@ local function BEAUTYSHOP_SET_PREVIEW_HAIR_COLOR(apc)
 	
 	local listCount = Selectclasslist:Count();
 	
-	for i=0, listCount do
+	for i = 0, listCount do
 		local cls = Selectclasslist:GetByIndex(i);
 		if cls ~= nil then
 			if nowengname == imcIES.GetString(cls, "EngName") and nowcolor == imcIES.GetString(cls, "EngColor") then
@@ -1308,11 +1308,15 @@ function BEAUTYSHOP_GET_HEADINDEX(gender, itemClassName, colorName)
 	end
 
 	local hairIndex = ui.GetHeadIndexByXML(gender, hairEngName, colorName);
+	if hairIndex == 0 then
+		hairIndex = ui.GetHeadIndexByXML(gender, hairEngName, "default");
+		ui.SysMsg(ClMsg('DesigncutNoExistColor'));
+	end
 	return hairIndex
 end
 
 function BEAUTYSHOP_SET_PREVIEW_HAIR_EQUIP_SLOT(apc, slot, existItem, classname)
-
+	
 	if apc == nil or slot == nil or existItem == nil or classname == nil then
 		return
 	end
@@ -1329,7 +1333,7 @@ function BEAUTYSHOP_SET_PREVIEW_HAIR_EQUIP_SLOT(apc, slot, existItem, classname)
 	apc:SetEquipItem(item.GetEquipSpotNum(defaultEqpSlot), 0);
 
 	-- headindex 구해서 적용.
-	local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), classname, colorName )
+	local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), classname, colorName);
 	apc:SetHeadType(headIndex);
 end
 
@@ -1368,7 +1372,7 @@ function BEAUTYSHOP_SET_PREVIEW_DESIGNCUT_EQUIP_SLOT(apc, slot, existItem, class
 		colorName = "default"
 	end
 
-	local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), classname, colorName)
+	local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), classname, colorName);
 	apc:SetHeadType(headIndex);
 	apc:SetEquipItem(item.GetEquipSpotNum(defaultEqpSlot), 0);
 	apc:SetHairWigVisible(true);
@@ -1737,7 +1741,7 @@ function BEAUTYSHOP_SET_PREVIEW_APC_IMAGE(frame, rotDir)
 	else 
 		imgName = ui.CaptureMyFullStdImageByAPC(apc, rotDir, 1);
 	end
-
+	
 	shihouette:SetImage(imgName);
 	frame:Invalidate();
 end

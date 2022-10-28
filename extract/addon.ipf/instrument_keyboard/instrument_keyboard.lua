@@ -170,7 +170,7 @@ function INSTRUMENT_SLOT_LBTN_DOWN(frame, slot, strarg, numarg)
 	end
 	
 	if type == 0 then
-		return;
+		type = slot:GetUserIValue("INSTRUMENT_SCALE_TYPE");
 	end
 
 	local cls = GetClassByType("instrument_scale", type);	
@@ -189,7 +189,7 @@ function INSTRUMENT_SLOT_LBTN_PRESSED(frame, slot, strarg, numarg)
 	end
 	
 	if type == 0 then
-		return;
+		type = slot:GetUserIValue("INSTRUMENT_SCALE_TYPE");
 	end
 
 	local cls = GetClassByType("instrument_scale", type);	
@@ -208,7 +208,7 @@ function INSTRUMENT_SLOT_LBTN_UP(frame, slot, strarg, numarg)
 	end
 	
 	if type == 0 then
-		return;
+		type = slot:GetUserIValue("INSTRUMENT_SCALE_TYPE");
 	end
 
 	local cls = GetClassByType("instrument_scale", type);	

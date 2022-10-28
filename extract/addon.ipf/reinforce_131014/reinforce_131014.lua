@@ -14,14 +14,18 @@ function _CHECK_REINFORCE_ITEM(slot)
 	end
 end
 
-function REINFORCE_131014_ITEM_LOCK(guid)
+function REINFORCE_131014_ITEM_LOCK(guid, from_hair_enchantchip)
 	if nil == guid then
 		guid = 'None'
 	end
-
+	
 	local invframe = ui.GetFrame("inventory");
-	invframe:SetUserValue("ITEM_GUID_IN_MORU", guid);
-	INVENTORY_ON_MSG(invframe, 'UPDATE_ITEM_REPAIR', "Equip");
+	if invframe ~= nil then
+		if from_hair_enchantchip == nil then
+			invframe:SetUserValue("ITEM_GUID_IN_MORU", guid);
+			INVENTORY_ON_MSG(invframe, 'UPDATE_ITEM_REPAIR', "Equip");
+		end
+	end
 
 	local rankresetFrame = ui.GetFrame("rankreset");
 	if 1 == rankresetFrame:IsVisible() then

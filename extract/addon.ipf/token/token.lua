@@ -459,7 +459,7 @@ function REQ_TOKEN_ITEM(parent, ctrl)
 								'Event_indunReset_Team_16','Event_indunReset_Team_17','Event_indunReset_Team_18','Event_indunReset_Team_18','Event_indunReset_Team_19','Event_indunReset_Team_205',
 								'Event_indunReset_Team_25','Event_indunReset_Team_30','Event_indunReset_Team_31','Event_indunReset_Team_32','Event_indunReset_Team_33','Event_indunReset_Team_34',
 								'Event_indunReset_Team_37','Event_indunReset_Team_38','Event_indunReset_Team_39','Event_indunReset_Team_41','Event_indunReset_limit',
-								'Event_indunReset_limit_1'}
+								'Event_indunReset_limit_1','Event_indunReset_limit_2'}
 	if table.find(indunResetItemList,argList) ~= 0 then
 		local etcObj = GetMyEtcObject();
 		-- 2개뿐이여서 고정으로 넣어둠

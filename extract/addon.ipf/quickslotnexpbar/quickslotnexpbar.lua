@@ -44,6 +44,8 @@ function QUICKSLOTNEXPBAR_ON_INIT(addon, frame)
 	addon:RegisterMsg("DELETE_SPECIFIC_SKILL", 'DELETE_SKILLICON_QUICKSLOTBAR');
 
 	addon:RegisterMsg('QUICKSLOT_CHANGE_ICON', 'ON_QUICKSLOT_CHANGE_ICON');
+	addon:RegisterMsg('QUICKSLOT_CHANGE_SKILL', 'ON_QUICKSLOT_CHANGE_SKILL');
+	addon:RegisterMsg('QUICKSLOT_RETURN_SKILL', 'ON_QUICKSLOT_RETURN_SKILL');
 	
 	local timer = GET_CHILD(frame, "addontimer", "ui::CAddOnTimer");
 	timer:SetUpdateScript("UPDATE_QUICKSLOT_OVERHEAT");
@@ -52,6 +54,7 @@ function QUICKSLOTNEXPBAR_ON_INIT(addon, frame)
 	SET_RAID_DEBUFF_UI_INIT_MARGIN(frame);
 	QUICKSLOT_TOGGLE_ITEM_LIST={}
 	QUICKSLOT_CHANGE_ICON_LIST = {}
+	QUICKSLOT_CHANGE_SKILL_LIST = {}
 end
 
 local function quickslot_item_amount_refresh(ies_id, class_id)
@@ -511,9 +514,13 @@ function QUICKSLOTNEXTBAR_UPDATE_ALL_SLOT()
 	end
 end
 
-function SET_QUICK_SLOT(frame, slot, category, type, iesID, makeLog, sendSavePacket, isForeceRegister)
+function SET_QUICK_SLOT(frame, slot, category, type, iesID, makeLog, sendSavePacket, isForeceRegister, checkSave)   
     if frame ~= nil and session.GetSkill(type) ~= nil and is_contain_skill_icon(frame, type) == true and isForeceRegister == false then        
         return 
+	end
+
+	if checkSave == nil then
+		checkSave = true
 	end
 
 	local icon = CreateIcon(slot);
@@ -753,7 +760,7 @@ function SET_QUICK_SLOT(frame, slot, category, type, iesID, makeLog, sendSavePac
 
 		local icon = slot:GetIcon()
 		if icon ~= nil then   
-		quickslot.SetInfo(slot:GetSlotIndex(), category, type, iesID);
+            quickslot.SetInfo(slot:GetSlotIndex(), category, type, iesID, checkSave);            
 		icon:SetDumpArgNum(slot:GetSlotIndex());
         end
 	else
@@ -835,6 +842,7 @@ function QUICKSLOTNEXPBAR_ON_MSG(frame, msg, argStr, argNum)
 
 	if msg == 'GAME_START' then
 		QUICKSLOT_CHANGE_ICON_LIST = {}
+		QUICKSLOT_CHANGE_SKILL_LIST = {}
 		ON_PET_SELECT(frame);
 	end
 
@@ -1729,4 +1737,90 @@ function ON_QUICKSLOT_CHANGE_ICON(frame, msg, arg_str, arg_num)
 			_CHANGE_QUICKSLOT_ICON_IMAGE(joystickQuickFrame, type, change_name)
 		end
 	end
+end
+
+local function _ON_CHANGE_QUICKSLOT_SKILL(frame, from_type, to_type)
+	local joystickQuickFrame = ui.GetFrame('joystickquickslot')
+	local monSklCnt = frame:GetUserIValue('SKL_MAX_CNT')
+	local joystickMonSklCnt = joystickQuickFrame:GetUserIValue('SKL_MAX_CNT')
+	for i = 0, MAX_QUICKSLOT_CNT - 1 do
+		local ind = i + 1
+		local quickSlotInfo = quickslot.GetInfoByIndex(i)
+		if quickSlotInfo.category == 'Skill' and quickSlotInfo.type == from_type then
+			local slot = GET_CHILD_RECURSIVELY(frame, 'slot' .. ind)
+			if slot ~= nil then
+				if monSklCnt > 0 and slot:GetUserIValue('ICON_TYPE') > 0 then
+					slot:SetUserValue('ICON_TYPE', to_type)
+				else
+					SET_QUICK_SLOT(frame, slot, 'Skill', to_type, 0, 0, false, true, false)
+				end
+			end
+
+			if joystickQuickFrame ~= nil then
+				local joystick_slot = GET_CHILD_RECURSIVELY(joystickQuickFrame, 'slot' .. ind)
+				if joystick_slot ~= nil then
+					if joystickMonSklCnt > 0 and joystick_slot:GetUserIValue('ICON_TYPE') > 0 then
+						joystick_slot:SetUserValue('ICON_TYPE', to_type)
+					else
+						SET_QUICK_SLOT(joystickQuickFrame, joystick_slot, 'Skill', to_type, 0, 0, false, true, false)
+					end
+				end
+			end
+		end
+	end
+end
+
+function ON_QUICKSLOT_CHANGE_SKILL(frame, msg, arg_str, arg_num)
+	local change_info = SCR_STRING_CUT(arg_str, '/')
+	if #change_info ~= 2 then return end
+
+	local from_type = tonumber(change_info[1])
+	local to_type = tonumber(change_info[2])
+	local from_cls = GetClassByType('Skill', from_type)
+	local to_cls = GetClassByType('Skill', to_type)
+	if from_cls == nil or to_cls == nil then return end
+
+	QUICKSLOT_CHANGE_SKILL_LIST[tostring(from_type)] = to_type
+
+	_ON_CHANGE_QUICKSLOT_SKILL(frame, from_type, to_type)
+end
+
+function ON_QUICKSLOT_RETURN_SKILL(frame, msg, arg_str, arg_num)
+	local from_type = arg_num
+	local from_cls = GetClassByType('Skill', from_type)
+	if from_cls == nil then return end
+
+	local to_type = QUICKSLOT_CHANGE_SKILL_LIST[tostring(from_type)]
+	if to_type == nil then return end
+
+	local to_cls = GetClassByType('Skill', to_type)
+	if to_cls == nil then return end
+
+	_ON_CHANGE_QUICKSLOT_SKILL(frame, to_type, from_type)
+end
+
+function QUICKSLOT_RETURN_ALL_SKILL()
+	local frame = ui.GetFrame('quickslotnexpbar')
+	for from_type, to_type in pairs(QUICKSLOT_CHANGE_SKILL_LIST) do
+		from_type = tonumber(from_type)
+		local from_cls = GetClassByType('Skill', from_type)
+		if from_cls ~= nil and to_type ~= nil then
+			local to_cls = GetClassByType('Skill', to_type)
+			if to_cls ~= nil then
+				_ON_CHANGE_QUICKSLOT_SKILL(frame, to_type, from_type)
+			end
+		end
+	end
+end
+
+function GET_QUICKSLOT_CHANGE_FROM_SKILL(to_type)
+	local from_type = nil
+	for _from_type, _to_type in pairs(QUICKSLOT_CHANGE_SKILL_LIST) do
+		if _to_type == to_type then
+			from_type = tonumber(_from_type)
+			break
+		end
+	end
+
+	return from_type
 end

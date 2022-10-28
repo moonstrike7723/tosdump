@@ -48,7 +48,8 @@
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="160065" Pos="3015.08#0.50#42.86" genCount="1" genTime="20000" objectKey="1"/>
+                    <Obj Type="Monster" MonType="160085" Pos="2889.71#0.50#-23.85" genCount="1" genTime="20000" objectKey="0"/>
+                    <Obj Type="Monster" MonType="160065" Pos="3015.08#0.50#42.86" genCount="1" genTime="20000" autoGen="0" objectKey="1"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Quest_ClearCheck">
@@ -152,6 +153,11 @@
                                 <Str Str="가디스 레이드 : 델무어 격전지(파티)"/>
                                 <Str Str="None"/>
                             </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_MULTIPLE_REWARD" Client="NO" UseSleep="NO">
+                                <Str Str="Multiple_Token_RevivalPaulius_Party"/>
+                                <Str Str="Goddess_Raid_Delmore_Party"/>
+                                <Str Str="SCR_GODDESS_RAID_DELMORE_REWARD_MULTIPLE"/>
+                            </ToolScp>
                             <ToolScp Scp="EXEC_DUNGEON_GIVE_TAKE_SOBJ_ACHIEVE_TX" Client="NO" UseSleep="NO">
                                 <Str Str="Goddess_Raid_Delmore_Party"/>
                                 <Str Str="None"/>
@@ -197,6 +203,20 @@
                             </ToolScp>
                         </execList>
                     </Event>
+                    <Event execCount="1" eventName="CreateExitPortal">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="Success/1"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
                 </StageEvents>
             </Stage>
             <Stage Name="Success_Direction_StartCheck" AutoStart="0">
@@ -232,6 +252,11 @@
                             <ToolScp Scp="SCR_LEGEND_RAID_CLEAR_CHECK" Client="NO" UseSleep="NO">
                                 <Str Str="가디스 레이드 : 델무어 격전지(파티)"/>
                                 <Str Str="None"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_MULTIPLE_REWARD" Client="NO" UseSleep="NO">
+                                <Str Str="Multiple_Token_RevivalPaulius_Party"/>
+                                <Str Str="Goddess_Raid_Delmore_Party"/>
+                                <Str Str="SCR_GODDESS_RAID_DELMORE_REWARD_MULTIPLE"/>
                             </ToolScp>
                             <ToolScp Scp="EXEC_DUNGEON_GIVE_TAKE_SOBJ_ACHIEVE_TX" Client="NO" UseSleep="NO">
                                 <Str Str="Goddess_Raid_Delmore_Party"/>
@@ -340,7 +365,8 @@
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="160065" Pos="3015.28#0.50#42.38" genCount="1" genTime="20000" objectKey="1"/>
+                    <Obj Type="Monster" MonType="160085" Pos="2889.71#0.50#-23.85" genCount="1" genTime="20000" objectKey="0"/>
+                    <Obj Type="Monster" MonType="160065" Pos="3015.28#0.50#42.38" genCount="1" genTime="20000" autoGen="0" objectKey="1"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Return_Zone">
@@ -418,6 +444,20 @@
                             </ToolScp>
                         </execList>
                     </Event>
+                    <Event execCount="1" eventName="CreateExitPortalDirection">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="Success_Direction/1"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
                 </StageEvents>
             </Stage>
             <Stage Name="Fail" AutoStart="0">
@@ -437,9 +477,6 @@
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_RAID_END_STOP_DEBUFF_MON"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
-                                <Str Str="SCR_GODDESS_RAID_REMOVE_RELIC_PENALTY"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -522,6 +559,9 @@
                             </ToolScp>
                         </condList>
                         <execList>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_GODDESS_RAID_REMOVE_RELIC_PENALTY"/>
+                            </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
                                 <Str Str="Fail"/>
                             </ToolScp>
@@ -543,6 +583,9 @@
                             </ToolScp>
                         </condList>
                         <execList>
+                            <ToolScp Scp="MGAME_EVT_SCRIPT" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_GODDESS_RAID_REMOVE_RELIC_PENALTY"/>
+                            </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
                                 <Str Str="Fail"/>
                             </ToolScp>

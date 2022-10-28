@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+	<Shockwave frame="14" type="2" intensity="1" frequency="70" duration="2" range="1000"/>
+	<Shockwave frame="55" type="2" intensity="10" frequency="70" duration="1" range="1000"/>
+	<BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="17" R="30" G="30" B="50" A="30"/>
+	<BlendOn frame="19" R="0" G="0" B="0" A="200"/>
+	<BlendOn frame="20" R="50" G="30" B="30" A="200"/>
+	<BlendOn frame="22" R="0" G="0" B="0" A="200"/>
+	<BlendOn frame="24" R="30" G="30" B="50" A="30"/>
+	<BlendOn frame="26" R="0" G="0" B="0" A="200"/>
+	<BlendOn frame="28" R="50" G="30" B="30" A="200"/>
+	<BlendOn frame="30" R="0" G="0" B="0" A="200"/>
+	<BlendOn frame="32" R="50" G="50" B="50" A="200"/>
+	<BlendOn frame="34" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="36" R="70" G="70" B="70" A="200"/>
+	<BlendOn frame="38" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="40" R="90" G="70" B="70" A="200"/>
+	<BlendOn frame="42" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="44" R="70" G="70" B="90" A="200"/>
+	<BlendOn frame="46" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="48" R="100" G="100" B="100" A="200"/>
+	<BlendOn frame="50" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="52" R="120" G="120" B="120" A="200"/>
+	<BlendOn frame="54" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="55" R="255" G="255" B="255" A="200"/>
+	<BlendOn frame="56" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="57" R="240" G="240" B="240" A="200"/>
+	<BlendOn frame="58" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="59" R="230" G="230" B="230" A="200"/>
+	<BlendOn frame="60" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="61" R="220" G="220" B="220" A="200"/>
+	<BlendOn frame="62" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="63" R="200" G="200" B="200" A="200"/>
+	<BlendOn frame="64" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="65" R="190" G="190" B="190" A="190"/>
+	<BlendOn frame="66" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="67" R="180" G="180" B="180" A="50"/>
+	<BlendOn frame="68" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="69" R="150" G="150" B="150" A="50"/>
+	<BlendOn frame="70" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="71" R="120" G="120" B="120" A="50"/>
+	<BlendOn frame="72" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="73" R="90" G="90" B="90" A="50"/>
+	<BlendOn frame="74" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="75" R="70" G="70" B="70" A="50"/>
+	<BlendOn frame="76" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="77" R="60" G="60" B="60" A="50"/>
+	<BlendOn frame="78" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="79" R="50" G="50" B="50" A="50"/>
+	<BlendOn frame="80" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="81" R="40" G="40" B="40" A="50"/>
+	<BlendOn frame="82" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="83" R="30" G="30" B="30" A="50"/>
+	<BlendOn frame="84" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="85" R="20" G="20" B="20" A="50"/>
+	<BlendOn frame="86" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="87" R="10" G="10" B="10" A="50"/>
+	<BlendOn frame="88" R="0" G="0" B="0" A="0"/>
+	<BlendOff frame="89" R="0" G="0" B="0" A="0"/>
+	<Particle frame="63" attachNode="Dummy_root" particleName="F_ground192_circle_rize_blue" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="58" attachNode="Dummy_root" particleName="F_explosion98_rize_purple" useAttach="true" hiddenObj="false" changeEffect="None" scale="7" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="58" attachNode="Dummy_body" particleName="F_smoke167_scatter_water4" useAttach="true" hiddenObj="false" changeEffect="None" scale="9" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Dummy_body" particleName="I_scout_cutlink_shot_rize2Blue" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bip001 Spine1" particleName="F_hit009_rize_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bip001 Spine1" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bip001 Spine1" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Dummy_effect_tail_R" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_R10" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_R08" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_R06" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_R05" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_R03" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Dummy_effect_tail_L" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_L10" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_L08" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_L06" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_L05" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_L03" particleName="F_smoke189_white" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="62" attachNode="Dummy_effect_tail_R" particleName="F_hit009_rize_blue" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="75" attachNode="Bone_hand_R10" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="88" attachNode="Bone_hand_R08" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="75" attachNode="Dummy_effect_tail_L" particleName="F_hit009_rize_blue" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="88" attachNode="Bone_hand_L10" particleName="F_hit009_rize_blue" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="83" attachNode="Bone_hand_L05" particleName="F_hit009_rize_blue" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="89" attachNode="Bone_hand_L03" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Dummy_effect_tail_R" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_R10" particleName="F_hit009_rize_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_R08" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_R06" particleName="F_hit009_rize_blue3" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_R05" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_R03" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Dummy_effect_tail_L" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_L10" particleName="F_hit009_rize_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_L08" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_L06" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_L05" particleName="F_hit009_rize_blue3" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Bone_hand_L03" particleName="F_hit009_rize_blue3" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Dummy_effect_tail_R" particleName="F_hit009_rize_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_R10" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="4" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_R08" particleName="F_hit009_rize_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_R06" particleName="F_hit009_rize_blue3" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_R05" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_R03" particleName="F_hit009_rize_blue3" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Dummy_effect_tail_L" particleName="F_hit009_rize_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_L10" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="4" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_L08" particleName="F_hit009_rize_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_L06" particleName="F_hit009_rize_blue3" useAttach="false" hiddenObj="false" changeEffect="None" scale="5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_L05" particleName="F_hit009_rize_blue3" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="53" attachNode="Bone_hand_L03" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="16" attachNode="Dummy_effect_tail_R" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="42" attachNode="Bone_hand_R10" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="51" attachNode="Bone_hand_R08" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="4" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="30" attachNode="Bone_hand_R06" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="2.7" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="33" attachNode="Bone_hand_R05" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="3.5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="25" attachNode="Bone_hand_R03" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="13" attachNode="Dummy_effect_tail_L" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="4" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="44" attachNode="Bone_hand_L10" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="2.7" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="18" attachNode="Bone_hand_L08" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="15" attachNode="Bone_hand_L06" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="2.2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="38" attachNode="Bone_hand_L05" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="24" attachNode="Bone_hand_L03" particleName="F_hit009_rize_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="3.7" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_R11" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.6" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_R09" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_R07" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="2.2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_R05" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_R04" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_R02" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.6" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_L11" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.6" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_L09" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="2.5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_L07" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_L05" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_L04" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.7" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Bone_hand_L03" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Dummy_effect_tail_R" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_R10" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_R08" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="2.2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_R06" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_R05" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_R03" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.6" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Dummy_effect_tail_L" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_L10" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="2.5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_L08" particleName="F_hit009_rize_blue1" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_L06" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_L05" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.7" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="12" attachNode="Bone_hand_L03" particleName="F_hit009_rize_blue1" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_effect_coral001" particleName="F_bubble003_green" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="50" attachNode="Dummy_effect_coral001" particleName="F_bubble003_green" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="15" attachNode="Dummy_effect_coral002" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="65" attachNode="Dummy_effect_coral002" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="30" attachNode="Dummy_effect_coral003" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="80" attachNode="Dummy_effect_coral003" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="8" attachNode="Dummy_effect_coral004" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="58" attachNode="Dummy_effect_coral004" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="20" attachNode="Dummy_effect_coral005" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Dummy_effect_coral005" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="40" attachNode="Dummy_effect_coral006" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="90" attachNode="Dummy_effect_coral006" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="25" attachNode="Dummy_effect_coral007" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="75" attachNode="Dummy_effect_coral007" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="10" attachNode="Dummy_effect_coral008" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="60" attachNode="Dummy_effect_coral008" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="5" attachNode="Dummy_effect_coral009" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="55" attachNode="Dummy_effect_coral009" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Dummy_effect_coral010" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="85" attachNode="Dummy_effect_coral010" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="30" attachNode="Dummy_effect_coral011" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="80" attachNode="Dummy_effect_coral011" particleName="F_bubble003_green" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="30" attachNode="Bone_seagrass22" particleName="F_bubble003_green2_1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="50" attachNode="Bone_seagrass27" particleName="F_bubble003_green2_1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="80" attachNode="Bone_seagrass04" particleName="F_bubble003_green2_1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="60" attachNode="Bone_seagrass30" particleName="F_bubble003_green2_1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_effect_tail_R" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_R10" particleName="I_force145_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_R08" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_R06" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_R05" particleName="I_force145_blue2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_R03" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Dummy_effect_tail_R" particleName="I_force145_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_R10" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_R08" particleName="I_force145_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_R06" particleName="I_force145_blue2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_R05" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_R03" particleName="I_force145_blue2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Dummy_effect_tail_R" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_R10" particleName="I_force145_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_R08" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_R06" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_R05" particleName="I_force145_blue2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_R03" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_effect_tail_L" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_L10" particleName="I_force145_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_L08" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_L06" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_L05" particleName="I_force145_blue2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Bone_hand_L03" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Dummy_effect_tail_L" particleName="I_force145_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_L10" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_L08" particleName="I_force145_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_L06" particleName="I_force145_blue2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_L05" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="35" attachNode="Bone_hand_L03" particleName="I_force145_blue2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Dummy_effect_tail_L" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_L10" particleName="I_force145_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_L08" particleName="I_force145_blue2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_L06" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_L05" particleName="I_force145_blue2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="70" attachNode="Bone_hand_L03" particleName="I_force145_pink" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="55" attachNode="Dummy_root" particleName="None" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="0" attachNode="Dummy_root" particleName="F_light089_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="50" attachNode="Dummy_root" particleName="F_light089_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Sound frame="0.63" soundFile="skl_eff_atk_move_l_22"/>
+	<Sound frame="0.63" soundFile="skl_eff_atk_move_l_20"/>
+	<Sound frame="20.00" soundFile="skl_eff_atk_move_l_23"/>
+	<Sound frame="40.56" soundFile="boss_skl_eff_atk_move_l_14"/>
+	<Sound frame="50.00" soundFile="boss_skl_eff_atk_move_l_13"/>
+	<Sound frame="60.00" soundFile="boss_skl_eff_atk_move_l_19"/>
+</ActionDesc>

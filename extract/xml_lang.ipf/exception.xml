@@ -246,4 +246,7 @@
 	<Wdord Msg="Reputation"/>
 	<Wdord Msg="Jewel"/>
 	<Wdord Msg="jewelry"/>
-</Exception>
+	<Wdord Msg="thunder"/>
+	<Wdord Msg="snipe"/>
+	<Wdord Msg="spike"/>
+	</Exception>

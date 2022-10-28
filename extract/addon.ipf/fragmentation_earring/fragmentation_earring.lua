@@ -32,7 +32,11 @@ local function SET_TARGET_SLOT(frame, targetItem)
 		SELECT_INV_SLOT_BY_GUID(guid, 1)
 
 		text_itemname:SetText(targetItemObj.Name);
-		text_desc:SetTextByKey('value', shared_item_earring.get_earring_grade(targetItemObj))
+		if TryGetProp(targetItemObj, 'GroupName', 'None') == 'Earring' then
+			text_desc:SetTextByKey('value', ScpArgMsg('ItemFragmentationMaxCount', 'count', shared_item_earring.get_fragmentation_count(targetItemObj)))
+		elseif TryGetProp(targetItemObj, 'GroupName', 'None') == 'BELT' then
+			text_desc:SetTextByKey('value', ScpArgMsg('ItemFragmentationCount', 'count', shared_item_earring.get_fragmentation_count(targetItemObj)))
+		end
 		text_desc:ShowWindow(1)
 		slot_bg_image:ShowWindow(0);
 		text_putonitem:ShowWindow(0);

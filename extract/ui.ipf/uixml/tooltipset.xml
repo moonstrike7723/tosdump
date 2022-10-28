@@ -74,6 +74,25 @@
 			<richtext name="richtext_cost" margin="0 0 0 10" rect="0 0 280 24" format="{img Silver 24 24} {@st41b}%s{/}" param1="costname" param1_def="zzzzzzzzz" textalign="center center" resizebytext="false" spacey="0" maxwidth="0" fontname="white_16_ol" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="center bottom"/>
 		</controls>
 	</tooltip>
+		<tooltip name="wholeitem_cabinet" x="0" y="0" fixwidth="false" width="1640" height="0" moveable="false" frameskin="None" draw="false" blendtime="" UpdateScp="UPDATE_ITEM_CABINET_TOOLTIP" CustomUpdate="UPDATE_NEW_TIP">
+		<userconfig BOTTOM_MARGIN="15"/>
+		<controls>
+			<groupbox name="changevalue" margin="665 0 0 0" rect="0 0 300 0" skin="" hittest="false" draw="true" updateparent="false" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="etc" margin="820 0 0 0" rect="0 0 410 0" skin="bg" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="etc_sub" margin="410 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_normal" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="equip_main" margin="820 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="equip_main_ichor" margin="410 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip_sub" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="equip_main_addinfo" margin="1230 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip_sub" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="equip_sub" margin="410 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="equip_sub_addinfo" margin="110 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip_sub" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="bosscard" margin="824 0 0 0" rect="0 0 380 0" skin="monstercard" hittest="false" draw="false" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="goddesscard" margin="824 0 0 0" rect="0 0 433 0" skin="monstercard" hittest="false" draw="false" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="gem" margin="820 0 0 0" rect="0 0 330 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="legendexppotion" margin="820 0 0 0" rect="0 0 330 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="appraisal" margin="940 -58 0 0" rect="0 0 160 54" skin="" hittest="false" draw="true" updateparent="false" scrollbar="false" layout_gravity="left top"/>
+			<groupbox name="extract_option" margin="820 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+		</controls>
+	</tooltip>
 	<tooltip name="wholeitem" x="0" y="0" fixwidth="false" width="1640" height="0" moveable="false" frameskin="None" draw="false" blendtime="" UpdateScp="UPDATE_ITEM_TOOLTIP" CustomUpdate="UPDATE_NEW_TIP">
 		<userconfig BOTTOM_MARGIN="15"/>
 		<controls>

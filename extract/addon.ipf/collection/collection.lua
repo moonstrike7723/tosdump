@@ -134,8 +134,7 @@ function SET_COLLECTION_PIC(frame, slotSet, itemCls, coll, type,drawitemset)
 		showedcount = drawitemset[itemCls.ClassID]
 	end
 
-	-- 컬렉션을 등록했을 경우
-	if coll ~= nil then
+	if coll ~= nil then		
 		local collecount = coll:GetItemCountByType(itemCls.ClassID);
 
 		-- 1. 내가 이미 모은 것들(컬렉션을 등록했을 때만)
@@ -824,6 +823,16 @@ function COLLECTION_ADD(collectionType, itemType, itemIesID)
 		return;
 	end
 
+	local inv_item = session.GetInvItemByGuid(itemIesID)
+	local item_obj = GetIES(inv_item:GetObject())
+	local groupName = TryGetProp(item_obj,"GroupName","None")
+	if groupName=='Gem' then 		
+		local belonging = TryGetProp(item_obj,"CharacterBelonging",0)
+		if tonumber(belonging)==1 then
+			ui.SysMsg(ClMsg('AddDenied'));	
+			return
+		end
+	end
 	local colls = session.GetMySession():GetCollection();
 	local coll = colls:Get(collectionType);
 	local nowcnt = coll:GetItemCountByType(itemType)

@@ -24,9 +24,13 @@ local g_account_prop_shop_table =
         ['coinName'] = 'dummy_TeamBattleCoin',
         ['propName'] = 'TeamBattleCoin',
     },
-    ['EVENT_2204_CAMPING_SHOP'] =
+    ['EVENT_2206_SUMMER_SHOP'] =
     {
-        ['coinName'] = 'Event_2103_Camping_Coin2'
+        ['coinName'] = 'EVENT_2006_POOL_ICE'
+    },
+    ['EVENT_2206_SUMMER_FOOD_SHOP'] =
+    {
+        ['coinName'] = 'EVENT_2006_ticket'
     }
 }
 

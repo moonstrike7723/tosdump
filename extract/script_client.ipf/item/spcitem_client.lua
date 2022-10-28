@@ -99,6 +99,10 @@ function SCR_BARRACK_CREATE_FAIRY_DOLL_VAKARINE(handle)
 	SCR_CREATE_FAIRY(handle, "doll_vakarine");
 end
 
+function SCR_BARRACK_CREATE_FAIRY_DOLL_ZEMINA(handle)
+	SCR_CREATE_FAIRY(handle, "doll_zemina");
+end
+
 function SCR_BARRACK_CREATE_FAIRY_DOLL_ZANAS(handle)
 	SCR_CREATE_FAIRY(handle, "doll_zanas");
 end

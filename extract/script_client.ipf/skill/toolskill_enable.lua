@@ -875,3 +875,23 @@ function SCR_FEATHERFOOT_USE_SKILL_BUFF_C(actor, skl, buffName)
 
     return 1;
 end
+
+function SCR_LAMA_USE_SKILL_BUFF_C(actor, skl, buffName)
+    if actor:GetBuff():GetBuff("Lamapose_Buff") == nil then
+        return 0;
+    end
+
+    return 1;
+end
+
+function SCR_LAMA_LOCK_SKILL_BUFF_C(actor, skl, buffName)
+    return 0;
+end
+
+function SKL_CHECK_Chronomancer_Pass_C(actor, skl, buffName)
+	if actor:GetBuff():GetBuff("Safe") ~= nil then
+        return 0
+    end
+
+    return 1
+end

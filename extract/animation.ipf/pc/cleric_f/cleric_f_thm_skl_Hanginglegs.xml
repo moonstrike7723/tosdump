@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+	<Particle frame="0" attachNode="Dummy_effect_root" particleName="F_hangingleg002" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.3" pause="true" use2DEffect="false" targetPos="false"/>
+	<Particle frame="0" attachNode="Dummy_effect_root" particleName="I_swordtrail033_fire" useAttach="true" hiddenObj="false" changeEffect="None" scale="3.5" pause="true" use2DEffect="false" targetPos="false"/>
+	<BlendOn frame="0" R="100" G="30" B="0" A="100"/>
+	<BlendOn frame="1" R="150" G="50" B="10" A="100"/>
+	<BlendOff frame="10" R="0" G="0" B="0" A="0"/>
+	<HeadRotBip frame="0" BipName="Dummy_head"/>
+</ActionDesc>

@@ -133,7 +133,7 @@
                     <ToolScp Scp="RAID_CLEAR_TIME_RECORD" Client="NO" UseSleep="NO"/>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="160065" Pos="839.11#254.27#2293.15" genCount="1" genTime="20000" objectKey="1"/>
+                    <Obj Type="Monster" MonType="160065" Pos="839.11#254.27#2293.15" genCount="1" genTime="20000" autoGen="0" objectKey="1"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Reward">
@@ -170,6 +170,20 @@
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Start/0"/>
                                 <Str Str="SCR_EARRING_RAID_REWARD"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="CreateExitPortal">
+                        <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="3"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
+                                <MGameObjIndex List="Success/1"/>
+                                <Num Num="1"/>
+                                <Num Num="0"/>
                             </ToolScp>
                         </execList>
                     </Event>

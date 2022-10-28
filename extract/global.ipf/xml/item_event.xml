@@ -3,6 +3,10 @@
 <idspace id="Item">
 	<Category Name="event">
 		<Category Name="Item">
+
+			<Class ClassID="10000022" ClassName="EVENT_2006_POOL_ICE" CT_ExpireDateTime="2022-08-16 00:00"/>
+			<Class ClassID="10000023" ClassName="EVENT_2006_ticket" CT_ExpireDateTime="2022-08-16 00:00"/>
+			<Class ClassID="10000024" ClassName="EVENT_2006_Fish" CT_ExpireDateTime="2022-08-16 00:00"/>
 			<Class ClassID="10000257" ClassName="EVENT_2102_CHOCO" CT_ExpireDateTime="2022-02-22 00:00"/>
 			<Class ClassID="10000305" ClassName="Event_2103_ARBOR_DAY_coin1" CT_ExpireDateTime="2022-06-07 00:00"/>
 			<Class ClassID="10000356" ClassName="Event_2103_Camping_Coin2" CT_ExpireDateTime="2022-07-12 00:00"/>
@@ -106,41 +110,41 @@
 			<Class ClassID="10000574" ClassName="Ticket_RevivalPaulius_Party_Enter_Event_41" CT_ExpireDateTime="2022-05-17 00:00"/>
 			<Class ClassID="10000575" ClassName="Ticket_RevivalPaulius_Auto_Enter_Event_41" CT_ExpireDateTime="2022-05-17 00:00"/>
 			<Class ClassID="10000576" ClassName="Ticket_earring_raid_Event_41" CT_ExpireDateTime="2022-05-17 00:00"/>
-			<Class ClassID="10000578" ClassName="Event_Ability_Point_Stone_10000_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000579" ClassName="Event_misc_pvpmine2_Ticket_5000_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000580" ClassName="Event_Contents_total_point_boost_Coupon_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000581" ClassName="Event_ChallengeExpertModeCountUp_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000582" ClassName="Event_Multiple_Token_MythicHARD_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000583" ClassName="Event_Elixir_Box_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000584" ClassName="Event_Enchantchip_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000585" ClassName="Event_awakeningStone_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000586" ClassName="Event_misc_reinforce_percentUp_470_NoTrade_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000587" ClassName="Event_misc_Enchant_460_NoTrade_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000588" ClassName="Event_misc_Engrave_460_NoTrade_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000589" ClassName="Event_Ability_Point_Stone_1000_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000590" ClassName="Moru_Ruby_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000591" ClassName="Moru_Gold_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000592" ClassName="Event_Ticket_Mythic_Auto_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000593" ClassName="Event_Multiple_Token_MythicAuto_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000594" ClassName="Event_misc_pvpmine2_Ticket_1000_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000595" ClassName="Event_dungeoncount_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000596" ClassName="Event_indunReset_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000597" ClassName="Event_Ability_Point_Stone_5_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000598" ClassName="Event_ChallengeModeReset_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000599" ClassName="Event_Goddess_Statue_Team_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000600" ClassName="Event_Adventure_Reward_Seed_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000601" ClassName="Event_Sandra_Glass_460_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000602" ClassName="Event_Sandra_Glass_1line_460_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000603" ClassName="Event_Master_Glass_460_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000604" ClassName="Event_Mystic_Glass_460_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000605" ClassName="Event_card_Xpupkit10_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000606" ClassName="Event_SoloRaidCntReset_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000607" ClassName="Event_misc_pvpmine2_Ticket_10000_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000608" ClassName="Event_Abrasive_460_NoTrade_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000609" ClassName="Event_misc_gemExpStone8_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000610" ClassName="Event_Ticket_RevivalPaulius_Auto_Enter_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000611" ClassName="Event_Ticket_Vasilissa_Party_Enter_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
-			<Class ClassID="10000612" ClassName="Event_Ticket_earring_raid_limit" CT_ExpireDateTime="2022-06-14 00:00"/>
+			<Class ClassID="10000578" ClassName="Event_Ability_Point_Stone_10000_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000579" ClassName="Event_misc_pvpmine2_Ticket_5000_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000580" ClassName="Event_Contents_total_point_boost_Coupon_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000581" ClassName="Event_ChallengeExpertModeCountUp_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000582" ClassName="Event_Multiple_Token_MythicHARD_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000583" ClassName="Event_Elixir_Box_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000584" ClassName="Event_Enchantchip_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000585" ClassName="Event_awakeningStone_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000586" ClassName="Event_misc_reinforce_percentUp_470_NoTrade_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000587" ClassName="Event_misc_Enchant_460_NoTrade_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000588" ClassName="Event_misc_Engrave_460_NoTrade_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000589" ClassName="Event_Ability_Point_Stone_1000_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000590" ClassName="Moru_Ruby_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000591" ClassName="Moru_Gold_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000592" ClassName="Event_Ticket_Mythic_Auto_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000593" ClassName="Event_Multiple_Token_MythicAuto_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000594" ClassName="Event_misc_pvpmine2_Ticket_1000_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000595" ClassName="Event_dungeoncount_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000596" ClassName="Event_indunReset_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000597" ClassName="Event_Ability_Point_Stone_5_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000598" ClassName="Event_ChallengeModeReset_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000599" ClassName="Event_Goddess_Statue_Team_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000600" ClassName="Event_Adventure_Reward_Seed_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000601" ClassName="Event_Sandra_Glass_460_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000602" ClassName="Event_Sandra_Glass_1line_460_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000603" ClassName="Event_Master_Glass_460_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000604" ClassName="Event_Mystic_Glass_460_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000605" ClassName="Event_card_Xpupkit10_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000606" ClassName="Event_SoloRaidCntReset_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000607" ClassName="Event_misc_pvpmine2_Ticket_10000_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000608" ClassName="Event_Abrasive_460_NoTrade_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000609" ClassName="Event_misc_gemExpStone8_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000610" ClassName="Event_Ticket_RevivalPaulius_Auto_Enter_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000611" ClassName="Event_Ticket_Vasilissa_Party_Enter_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
+			<Class ClassID="10000612" ClassName="Event_Ticket_earring_raid_limit" CT_ExpireDateTime="2022-08-23 00:00"/>
 		</Category>
 		<Category Name="Item_2">
 			<Class ClassID="10002000" ClassName="Event_Ability_Point_Stone_10000_limit_1" CT_ExpireDateTime="2022-07-19 00:00"/>
@@ -181,6 +185,11 @@
 			<Class ClassID="10002035" ClassName="Event_Ticket_earring_raid_limit_1" CT_ExpireDateTime="2022-07-19 00:00"/>
 		</Category>
 		<Category Name="Evnet_Item">
+			<Class ClassID="10003046" ClassName="EVENT_2006_SUMMER_brochette" CT_ExpireDateTime="2022-08-16 00:00"/>
+			<Class ClassID="10003047" ClassName="EVENT_2006_SUMMER_mojito" CT_ExpireDateTime="2022-08-16 00:00"/>
+			<Class ClassID="10003048" ClassName="EVENT_2006_SUMMER_coconut" CT_ExpireDateTime="2022-08-16 00:00"/>
+			<Class ClassID="10003049" ClassName="EVENT_2006_SUMMER_bingsu" CT_ExpireDateTime="2022-08-16 00:00"/>
+			<Class ClassID="10003050" ClassName="EVENT_2006_SUMMER_softice" CT_ExpireDateTime="2022-08-16 00:00"/>
 			<Class ClassID="10003461" ClassName="Event_Coin_Ticket_1000_25" CT_ExpireDateTime="2021-10-12 06:00"/>
 			<Class ClassID="10003462" ClassName="Event_2107_GR_Box_1" CT_ExpireDateTime="2021-10-12 06:00"/>
 			<Class ClassID="10003463" ClassName="Event_2107_GR_Box_2" CT_ExpireDateTime="2021-10-12 06:00"/>
@@ -210,6 +219,9 @@
 			<Class ClassID="10003563" ClassName="Event_2203_ARBOR_DAY_Box_4" CT_ExpireDateTime="2022-06-14 00:00"/>
 			<Class ClassID="10003572" ClassName="Event_2203_ARBOR_DAY_Box_1_GLOBAL" CT_ExpireDateTime="2022-06-14 00:00"/>
 			<Class ClassID="10003573" ClassName="Event_2203_ARBOR_DAY_Box_5_GLOBAL" CT_ExpireDateTime="2022-06-14 00:00"/>
+		</Category>
+		<Category Name="Event_Paste_Bait">
+			<Class ClassID="10007000" ClassName="EVENT_2006_Octopus_bait" CT_ExpireDateTime="2022-08-16 00:00"/>
 		</Category>
 		<Category Name="Event_item_Upgrade">
 			<Class ClassID="10010112" ClassName="Moru_Ruby_event_28" CT_ExpireDateTime="2021-12-21 00:00:00"/>

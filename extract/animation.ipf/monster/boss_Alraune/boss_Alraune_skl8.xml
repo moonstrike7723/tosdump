@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+    <Particle frame="0" attachNode="Dummy_emitter" particleName="None" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="0.85" soundFile="skl_eff_atk_move_l_1"/>
+    <Particle frame="2" attachNode="Dummy_emitter" particleName="None" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="45.00" soundFile="skl_eff_atk_move_l_12"/>
+    <Sound frame="54.93" soundFile="skl_eff_atk_move_l_2_far"/>
+</ActionDesc>

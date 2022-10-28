@@ -285,7 +285,8 @@ function INDUNINFO_CREATE_CATEGORY(frame, selectIndun)
             else temp = cls.PlayPerResetType; end
 
             if temp == 5000 then -- 영웅담 예외처리
-                countText:SetText(ScpArgMsg('ChallengeMode_HardMode_Count', 'Count', GET_CURRENT_ENTERANCE_COUNT(temp)))
+                countText:SetText(ScpArgMsg('ChallengeMode_HardMode_Count', 'Count', GET_CURRENT_ENTERANCE_COUNT(temp)));
+                countText:ShowWindow(0);
                 cyclePicImg:ShowWindow(0);
             else
             countText:SetTextByKey('current', GET_CURRENT_ENTERANCE_COUNT(temp));
@@ -322,7 +323,6 @@ function INDUNINFO_CREATE_CATEGORY(frame, selectIndun)
         if indunCls ~= nil and indunCls.Category ~= 'None' and enableCreate(indunCls.DungeonType) == true then
             local groupID = TryGetProp(indunCls,"GroupID","None");
             if groupID ~= 'None' and isFavorite(groupID) == true then
-                
                 local is_weekend_contents = IS_WEEKENDEVENT_CONTENTS(indunCls.ClassName)
                 if indunCls.DungeonType == 'MissionIndun' then
                     INDUNINFO_ADD_COUNT(missionIndunSet,groupID)
@@ -506,7 +506,6 @@ function INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, cls, is_weekly_reset,
             countText:SetTextByKey('max', GET_INDUN_MAX_ENTERANCE_COUNT(cls.PlayPerResetType));
             INDUNINFO_SET_CYCLE_PIC(cyclePic,cls,'_s')
         end
-     
     end
 
     if #g_selectedIndunTable == 0 then -- 디폴트는 리스트의 첫번째
@@ -790,7 +789,6 @@ function GET_RESET_CYCLE_PIC_TYPE(cls,postFix)
         end
     elseif idSpace == "Indun" then
         local indunCls = cls
-
         local etc = nil
         do
             if indunCls.UnitPerReset == 'ACCOUNT' then
@@ -1376,25 +1374,40 @@ function INDUNINFO_MAKE_DETAIL_COMMON_INFO(frame, indunCls, resetGroupID)
     local lvData = GET_CHILD_RECURSIVELY(frame, 'lvData');
     lvData:SetText(indunCls.Level);
 
-        local raid_time_box = GET_CHILD_RECURSIVELY(frame, "raid_time_box");
-        raid_time_box:ShowWindow(0);
         -- position
         local posBox = GET_CHILD_RECURSIVELY(frame, 'posBox');
-        DESTROY_CHILD_BYNAME(posBox, 'MAP_CTRL_');
+    DESTROY_CHILD_BYNAME(posBox, "MAP_CTRL_");
         posBox:ShowWindow(0);
 
         -- score
         local scoreBox = GET_CHILD_RECURSIVELY(frame, 'scoreBox');
         scoreBox:ShowWindow(0);
 
-    if indunCls.DungeonType == "TOSHero" then
+    local dungeon_type = TryGetProp(indunCls, "DungeonType", "None");
+    local sub_type = TryGetProp(indunCls, "SubType", "None");
+    if dungeon_type == "TOSHero" then
         scoreBox:ShowWindow(1);
     else
+        -- notice text
+        local map_box = GET_CHILD_RECURSIVELY(frame, "mapBox");
+        if map_box ~= nil then
+            local notice_text = GET_CHILD_RECURSIVELY(map_box, "noticeText");
+            if notice_text ~= nil then
+                if dungeon_type == "Solo_dungeon" then
+                    notice_text:ShowWindow(1);
+                    notice_text:SetTextByKey("text", ClMsg("InduninfoSoloDungeonNotice"));
+                else
+                    notice_text:ShowWindow(0);
+                end
+            end
+        end
+
         local raid_time_box = GET_CHILD_RECURSIVELY(frame, "raid_time_box");
+        if raid_time_box ~= nil then 
         raid_time_box:ShowWindow(0);
+        end
         
         local mapList = StringSplit(TryGetProp(indunCls, "StartMap", ""), '/');
-    
         -- 챌린지 분열 특이점 모드 & 분열 특이점 모드 자동매칭 예외처리
         if resetGroupID == -101 or resetGroupID == 816 then
             local sysTime = geTime.GetServerSystemTime();
@@ -1402,20 +1415,50 @@ function INDUNINFO_MAKE_DETAIL_COMMON_INFO(frame, indunCls, resetGroupID)
             local curMapName = mapList[sysTime.wDayOfWeek + 1]
             mapList = { curMapName }
         end
-    
+        -- 레벨 던전 체크
+        local is_level_dungeon = false;
+        if (dungeon_type == "Indun" or dungeon_type == "MissionIndun") and sub_type == "Level" then
+            is_level_dungeon = true;
+        end
+        -- 시작 맵 생성
         for i = 1, #mapList do
-            local mapCls = GetClass('Map', mapList[i]);    
-            if mapCls ~= nil then
-                local mapCtrlSet = posBox:CreateOrGetControlSet('indun_pos_ctrl', 'MAP_CTRL_'..mapCls.ClassID, 0, 0);            
-                local mapNameText = mapCtrlSet:GetChild('mapNameText');
-                mapCtrlSet:SetGravity(ui.RIGHT, ui.TOP);
-                mapCtrlSet:SetOffset(0, 10 + (10 + mapCtrlSet:GetHeight()) * (i-1));
-                mapCtrlSet:SetUserValue('INDUN_CLASS_ID', indunClassID);
-                mapCtrlSet:SetUserValue('INDUN_START_MAP_ID', mapCls.ClassID);
-                mapNameText:SetText(mapCls.Name);
-            end
+            local map_cls = GetClass('Map', mapList[i]);    
+            if map_cls ~= nil then
+                local map_class_id = TryGetProp(map_cls, "ClassID", 0);
+                local map_name = TryGetProp(map_cls, "Name", "None");
+                local map_ctrlset_name = "indun_pos_ctrl";
+                if is_level_dungeon == true then
+                    map_ctrlset_name = "indun_pos_ctrl_leveldungeon";
         end
 
+                local map_ctrl_set = posBox:CreateOrGetControlSet(map_ctrlset_name, "MAP_CTRL_"..map_class_id, 0, 0);
+                if map_ctrl_set ~= nil then
+                    if is_level_dungeon == true then
+                        map_ctrl_set:SetGravity(ui.LEFT, ui.TOP);
+                        map_ctrl_set:SetOffset(100 + (i - 1) * 100, 10);
+                        map_ctrl_set:SetUserValue("INDUN_CLASS_ID", indunClassID);
+                        map_ctrl_set:SetUserValue("INDUN_START_MAP_ID", map_class_id);
+                        local map_name_text = GET_CHILD_RECURSIVELY(map_ctrl_set, "text_map_name");
+                        if map_name_text ~= nil then
+                            map_name_text:SetText(map_name);
+                        end
+                        local world_map_btn = GET_CHILD_RECURSIVELY(map_ctrl_set, "btn_world_map");
+                        if world_map_btn ~= nil then
+                            world_map_btn:SetMargin(map_name_text:GetWidth(), 0, 0, 0);
+                        end
+                    else
+                        map_ctrl_set:SetGravity(ui.RIGHT, ui.TOP);
+                        map_ctrl_set:SetOffset(0, 10 + (10 + map_ctrl_set:GetHeight()) * (i-1));
+                        map_ctrl_set:SetUserValue('INDUN_CLASS_ID', indunClassID);
+                        map_ctrl_set:SetUserValue('INDUN_START_MAP_ID', map_class_id);
+                        local map_name_text = map_ctrl_set:GetChild('mapNameText');
+                        if map_name_text ~= nil then
+                            map_name_text:SetText(map_name);
+                        end
+                    end
+                end
+            end
+        end
         posBox:ShowWindow(1);
     end
     INDUNINFO_SET_BUTTONS(frame,indunCls)
@@ -1646,6 +1689,8 @@ function INDUNINFO_SET_BUTTONS(frame, indunCls)
         btnInfoCls = INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls);
         local recordBtn = GET_CHILD_RECURSIVELY(buttonBox, 'recordButton');
         recordBtn:ShowWindow(0);
+    elseif (dungeonType == "Indun" or dungeonType == "MissionIndun") and indunCls.SubType == "Level" then
+        btnInfoCls = INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls);
     end
 
     local type = 0
@@ -1808,7 +1853,7 @@ function INDUNINFO_SORT_BY_LEVEL(parent, ctrl)
             table.sort(g_selectedIndunTable, SORT_BY_LEVEL_BASE_NAME);
         end
 
-        local is_raid_tab = index == 2;
+        local is_raid_tab = index == 2 or index == 0;
         if is_raid_tab == true and groupID ~= "Gtower" then
             table.sort(g_selectedIndunTable, SORT_RAID_BY_RAID_TYPE);
         end
@@ -1896,18 +1941,21 @@ function SORT_BY_LEVEL_REVERSE(a, b)
 end
 
 function SORT_RAID_BY_RAID_TYPE(a, b)
-    if TryGetProp(a, "DungeonType", "None") ~= "Raid" or TryGetProp(b, "DungeonType", "None") ~= "Raid" then
+    if TryGetProp(a, "RaidType", "None") == "None" or TryGetProp(b, "RaidType", "None") == "None" then
         return false;
     end
 
     local function substitution_raid_type(raid_type)
-        if raid_type == "PartyNormal" then return 0;
-        elseif raid_type == "PartyHard" then return 1;
-        elseif raid_type == "Solo" then return 2;
+        if raid_type == "Solo" then return 1;
+        elseif raid_type == "SoloHard" then return 2;
         elseif raid_type == "AutoNormal" then return 3;
-        elseif raid_type == "AutoHard" then return 4; end
+        elseif raid_type == "AutoHard" then return 4; 
+        elseif raid_type == "PartyNormal" then return 5;
+        elseif raid_type == "PartyHard" then return 6;
+        elseif raid_type == 'PartyExtreme' then return 7
+        end
     end
-
+    
     local difficulty_a = substitution_raid_type(TryGetProp(a, "RaidType", "None"));
     local difficulty_b = substitution_raid_type(TryGetProp(b, "RaidType", "None"));
     return difficulty_a < difficulty_b;
@@ -3923,6 +3971,37 @@ function REQ_EARRING_RAID_UI_OPEN(frame, ctrl)
 
     ui.CloseFrame("induninfo");
     ReqEarringRaidEnter(indun_classid);
+end
+
+function REQ_LEVEL_DUNGEON_UI_OPEN(parent, ctrl)
+    if session.world.IsIntegrateServer() == true or IsPVPField(pc) == 1 or IsPVPServer(pc) == 1 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
+
+    if world.GetLayer() ~= 0 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
+
+    local map = GetClass('Map', session.GetMapName());
+    local keyword = TryGetProp(map, 'Keyword', 'None');
+    local keyword_table = StringSplit(keyword, ';');
+    if table.find(keyword_table, 'IsRaidField') > 0 or table.find(keyword_table, 'WeeklyBossMap') > 0 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
+
+    local indun_classid = tonumber(ctrl:GetUserValue("MOVE_INDUN_CLASSID"));
+    local indun_cls = GetClassByType("Indun", indun_classid);
+    local dungeon_type = TryGetProp(indun_cls, "DungeonType", "None");
+    local sub_type = TryGetProp(indun_cls, "SubType", "None");
+    if dungeon_type ~= "Indun" and dungeon_type ~= "MissionIndun" and sub_type ~= "Level" then
+        return;
+    end
+
+    ui.CloseFrame("induninfo");
+    ReqLevelDungeonEnter(indun_classid);
 end
 
 -- ** pilgrim mode ** --

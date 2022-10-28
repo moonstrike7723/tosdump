@@ -9,7 +9,6 @@ end
 
 
 function PC_COMPARE_SET_ICON(slot, icon, equipItem)
-
 	SET_ITEM_TOOLTIP_BY_TYPE(icon, equipItem.type)	
 end
 
@@ -163,9 +162,11 @@ function SHOW_PC_COMPARE(cid)
 
 	DESTROY_CHILD_BYNAME(g_equip, "EQUIPS"); -- 임시임
 
-	eqpSet = g_equip:CreateOrGetControlSet("itemslotset_compare", "EQUIPS", 40, 20);
+	eqpSet = g_equip:CreateOrGetControlSet("common_itemslotSet", "EQUIPS", 0, 0);
 	eqpSet:ShowWindow(1);
 	tolua.cast(eqpSet, "ui::CControlSet")
+
+	EQUIP_TAB_BTN(g_equip, nil, "groupbox_2", 0)
 
 	local imagename = ui.CaptureSomeonesFullStdImage(otherpcinfo:GetAppearance(), 7);	
 	
@@ -363,4 +364,25 @@ function SCROLL_COMPARE_HISTORY(frame, ctrl, str, scrollValue)
 		--geClientInteraction.RequestHistory(viewAID, maxPage + 1);
 	end
 
+end
+
+function EQUIP_TAB_BTN(parent, ctrl, argStr, argNum)
+	local frame = parent:GetTopParentFrame();
+	local dressBtn = GET_CHILD_RECURSIVELY(frame, "dressBtn");
+	local equipBtn = GET_CHILD_RECURSIVELY(frame, "equipBtn");
+	local groupbox2 = GET_CHILD_RECURSIVELY(frame, argStr)
+	
+	equipBtn:SetForceClicked(argNum == 0);
+	dressBtn:SetForceClicked(argNum == 1);
+
+	local equipBox = GET_CHILD_RECURSIVELY(groupbox2, "gbox_Equipped")
+	local dressBox = GET_CHILD_RECURSIVELY(groupbox2, "gbox_Dressed")
+
+	if argNum == 0 then
+		equipBox:ShowWindow(1)
+		dressBox:ShowWindow(0)
+	else
+		equipBox:ShowWindow(0)
+		dressBox:ShowWindow(1)
+	end
 end

@@ -184,6 +184,12 @@ function SKILLGEM_COMPOSITION_ITEM_REG(guid)
 end
 
 function SKILLGEM_COMPOSITION_INV_RBTNDOWN(itemObj, slot)
+	local isCharbelonging = TryGetProp(itemObj,'CharacterBelonging','0')
+	if isCharbelonging==1 then
+		ui.SysMsg(ClMsg('InvalidGem'))
+		return 
+	end
+
 	if ui.CheckHoldedUI() == true then
 		return;
 	end

@@ -804,33 +804,29 @@ function BGMPLAYER_PLAY(frame, btn)
 end
 
 function BGMPLAYER_REPLAY(argStr, argNum, argValue)
-    if argStr == nil then return; end
-    if argNum == nil then return; end
     local frame = ui.GetFrame("bgmplayer");
     if frame == nil then return; end
-
+    if argStr == nil then return; end
+    if argNum == nil then return; end
     local titleName = argStr;
     local ctrlSetName = argValue; 
     local gb = GET_CHILD_RECURSIVELY(frame, "musicinfo_gb"); 
     if gb == nil then return; end
+    local ctrl_set = GET_CHILD_RECURSIVELY(gb, ctrlSetName);
+    if ctrl_set == nil then return; end
 
-    local bgmMusicTitle_text = GET_CHILD_RECURSIVELY(frame, "bgm_music_title");
-    if bgmMusicTitle_text ~= nil then
-        bgmMusicTitle_text:SetTextByKey("value", titleName);
-        frame:SetUserValue("MUSIC_TITLE", gb:GetName().."/"..titleName);
-    end
-
-    BGMPLAYER_REDUCTION_SET_PLAYBTN(true);
-    
+    local startTime = 0;
     local totalTime = GetPlayBgmTotalTime();
     totalTime = totalTime / 1000;
-    local startTime = 0;
     if GetBgmPauseTime() > 0 then
         startTime = GetBgmPauseTime() / 1000;
-        SetPauseTime(0);
     end
 
     BGMPLAYER_PLAYTIME_GAUGE(startTime, totalTime);
+    BGMPLAYER_SET_MUSIC_TITLE(frame, gb, ctrl_set);
+    BGMPLAYER_SINGULAR_SELECTION_LISTINDEX(ctrl_set);
+    BGMPLAYER_REDUCTION_SET_PLAYBTN(true);
+    frame:Invalidate();
 end
 
 function BGMPLAYER_PLAYTIME_GAUGE(curtime, maxtime)
