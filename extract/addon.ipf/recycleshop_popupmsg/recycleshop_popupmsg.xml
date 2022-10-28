@@ -4,13 +4,13 @@
 	<frame fullheight="false" fasthide="false" layout_gravity="center center" margin="0 0 0 0" scale_align="center center"/>
 	<skin frameskin="test_pvp_skin"/>
 	<!-- 프레임 스킨인가? -->
-	<draw drawtitlebar="false"/>
-	<layer layerlevel="100"/>
+	<draw drawnotitlebar="false" drawtitlebar="false"/>
+	<layer layerlevel="1000"/>
 	<input moveable="false"/>
 	<sound opensound="sys_popup_open_1" closesound="character_item_window_close"/>
 	<effect open="character_item_window_open" close="character_item_window_close"/>
 	<controls>
-		<richtext name="title" margin="0 10 0 0" autofontsizebywidth="220" rect="0 0 220 50" caption="{@st43}교환 목록{/}" textalign="center center" resizebytext="false" spacey="0" maxwidth="0" fontname="white_16_ol" fixwidth="true" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="center top"/>
+		<richtext name="title" margin="0 10 0 0" rect="0 0 100 50" caption="{@st43}교환 목록{/}" textalign="center center" resizebytext="false" spacey="0" maxwidth="0" fontname="white_16_ol" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="center top"/>
 		<groupbox name="itemlistgbox" rect="0 0 450 350" margin="0 110 0 0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="true" image=""/>\		
     <labelline name="labelline_1" margin="0 0 0 235" rect="0 0 450 2" skin="labelline_def_2" layout_gravity="center bottom"/>
 		<richtext name="totalmedal_buy" margin="0 0 125 205" rect="0 0 100 50" caption="{@st41b}총 소비 메달 : {/}" textalign="center bottom" resizebytext="false" spacey="0" maxwidth="0" fontname="white_16_ol" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="right bottom"/>

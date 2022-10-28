@@ -1,10 +1,5 @@
 
-function RECYCLE_SHOW_TO_MEDAL(parent, ctrl, str, num)
-	if ctrl ~= nil then
-	ctrl:SetSkinName("baseyellow_btn");
-	local rcycle_group2 = GET_CHILD_RECURSIVELY(parent,"rcycle_group2");	
-	rcycle_group2:SetSkinName("base_btn");
-	end
+function RECYCLE_SHOW_TO_MEDAL()
 
 	local frame = ui.GetFrame('tpitem')
 	local rcycle_basketbuyslotset = GET_CHILD_RECURSIVELY(frame,"rcycle_basketbuyslotset");
@@ -23,16 +18,10 @@ function RECYCLE_SHOW_TO_MEDAL(parent, ctrl, str, num)
 	rcycle_mainSellText:ShowWindow(1)
 
 	UPDATE_RECYCLE_BASKET_MONEY(frame,"sell")
-	RECYCLE_CREATE_SELL_LIST();	
-	RECYCLE_CATE_SELECT(frame, false);
+	RECYCLE_CREATE_SELL_LIST()
 end
 
-function RECYCLE_SHOW_TO_ITEM(parent, ctrl, str, num)
-	if ctrl ~= nil then
-	    ctrl:SetSkinName("baseyellow_btn");
-	    local rcycle_group1 = GET_CHILD_RECURSIVELY(parent,"rcycle_group1");	
-	    rcycle_group1:SetSkinName("base_btn");
-	end
+function RECYCLE_SHOW_TO_ITEM()
 
 	local frame = ui.GetFrame('tpitem')
 	local rcycle_basketbuyslotset = GET_CHILD_RECURSIVELY(frame,"rcycle_basketbuyslotset");
@@ -50,20 +39,18 @@ function RECYCLE_SHOW_TO_ITEM(parent, ctrl, str, num)
 	rcycle_mainBuyText:ShowWindow(1)
 	rcycle_mainSellText:ShowWindow(0)
 
-	frame:SetUserValue('RECYCLE_SELECTED_CATEGORY', 'TotalTabName')
-
-	UPDATE_RECYCLE_BASKET_MONEY(frame,"buy");	
-	RECYCLE_CREATE_BUY_LIST();
-	RECYCLE_CATE_SELECT(frame, true);
+	UPDATE_RECYCLE_BASKET_MONEY(frame,"buy")	
+	RECYCLE_CREATE_BUY_LIST()
 end
 
 function RECYCLE_CREATE_BUY_LIST()
-	local frame = ui.GetFrame('tpitem');
+
+	local frame = ui.GetFrame('tpitem')
 	local rcycle_mainSubGbox = GET_CHILD_RECURSIVELY(frame,"rcycle_mainSubGbox");
 	DESTROY_CHILD_BYNAME(rcycle_mainSubGbox, "eachitem_");
 
 	local mainSubGbox = GET_CHILD_RECURSIVELY(frame,"rcycle_mainSubGbox");
-	mainSubGbox:RemoveAllChild();
+
 	local clsList, cnt = GetClassList('recycle_shop');	
 	if cnt == 0 or clsList == nil then
 		return;
@@ -73,137 +60,62 @@ function RECYCLE_CREATE_BUY_LIST()
 	local showitemcnt = 1
 	for i = 0, cnt - 1 do
 		local obj = GetClassByIndexFromList(clsList, i);
+
 		if obj.BuyPrice ~= 0 then
-            local itemobj = GetClass("Item", obj.ClassName);
-            local category = obj.SubCategory;
-			if CHECK_RECYCLE_SHOW_ITEM(frame, itemobj, category) == true then
-				x = ( (showitemcnt-1) % 3) * ui.GetControlSetAttribute("tpshop_recycle", 'width')
-				y = (math.ceil( (showitemcnt / 3) ) - 1) * (ui.GetControlSetAttribute("tpshop_recycle", 'height') * 1)
-				local itemcset = mainSubGbox:CreateOrGetControlSet('tpshop_recycle', 'eachitem_'..showitemcnt, x, y);
-				RECYCLE_DRAW_ITEM_DETAIL(obj, itemobj, itemcset, "buy");
 
-				showitemcnt = showitemcnt + 1
-			end
+			local itemobj = GetClass("Item", obj.ClassName)
+
+			x = ( (showitemcnt-1) % 3) * ui.GetControlSetAttribute("tpshop_recycle", 'width')
+			y = (math.ceil( (showitemcnt / 3) ) - 1) * (ui.GetControlSetAttribute("tpshop_recycle", 'height') * 1)
+			local itemcset = mainSubGbox:CreateOrGetControlSet('tpshop_recycle', 'eachitem_'..showitemcnt, x, y);
+			RECYCLE_DRAW_ITEM_DETAIL(obj, itemobj, itemcset, "buy");
+
+			showitemcnt = showitemcnt + 1
 		end
 	end
+
 end
 
-function CHECK_RECYCLE_SHOW_ITEM(frame, item, category)
-	-- category check	
-	local curSelectCate = frame:GetUserValue('RECYCLE_SELECTED_CATEGORY');		
-	if curSelectCate == 'Wiki_Accessory' and TryGetProp(item, 'ClassType') ~= 'Ring' and TryGetProp(item, 'ClassType') ~= 'Neck' then
-		return false;
-	end
-
-	if string.find(curSelectCate, 'costume') ~= nil then
-		if TryGetProp(item, 'ClassType') ~= 'Outer' then
-			return false;
-		else
-			local ctrlType = string.sub(curSelectCate, 0, string.find(curSelectCate, '_') - 1);			
-			if ctrlType == 'Com' and item.UseJob ~= 'All' then
-				return false;
-			elseif ctrlType == 'War' and item.UseJob ~= 'Char1' then
-				return false;
-			elseif ctrlType == 'Wiz' and item.UseJob ~= 'Char2' then
-				return false;
-			elseif ctrlType == 'Arc' and item.UseJob ~= 'Char3' then
-				return false;
-			elseif ctrlType == 'Cle' and item.UseJob ~= 'Char4' then
-				return false;
-			end
-		end
-	end
-	
-	local subCt = 'Recyle_Shop_' .. tostring(curSelectCate)
-
-	if curSelectCate == 'Equipmisc' and subCt ~= category then
-		return false;
-	end
-
-	if curSelectCate == 'Drug' and subCt ~= category then
-		return false;
-	end
-	
-	if curSelectCate == 'Misc' and subCt ~= category then
-		return false;
-	end
-	
-	if curSelectCate == 'Contents' and subCt ~= category then
-		return false;
-	end
-	
-	if curSelectCate == 'Growth' and subCt ~= category then
-		return false;
-	end
-	
-	if curSelectCate == 'Gem' and subCt ~= category then
-		return false;
-	end
-	
-	if curSelectCate == 'Equip' and subCt ~= category then
-		return false;
-	end
-	
-	if curSelectCate == 'Card' and subCt ~= category then
-		return false;
-	end
-	
-	if curSelectCate == 'Reset' and subCt ~= category then
-		return false;
-	end
-	
-	if curSelectCate == 'Etc' and subCt ~= category then
-		return false;
-	end
-
-	if curSelectCate == 'Toy' and subCt ~= category then
-		return false;
-	end
-	
-	if curSelectCate == 'recycle_special' and curSelectCate ~= category then
-        return false;
-	end
-
-	-- text check
-	local recycle_input = GET_CHILD_RECURSIVELY(frame, 'recycle_input');
-	local searchText = recycle_input:GetText();
-	if searchText ~= nil and searchText ~= '' then
-		local itemName = dic.getTranslatedStr(item.Name);
-		itemName = string.lower(itemName); -- 소문자로 변경
-		searchText = string.lower(searchText); -- 소문자로 변경
-		if string.find(itemName, searchText) == nil then
-			return false;
-		end
-	end
-
-	return true;
-end
 
 function RECYCLE_CREATE_SELL_LIST()
+
 	local frame = ui.GetFrame('tpitem')
 	local rcycle_mainSubGbox = GET_CHILD_RECURSIVELY(frame,"rcycle_mainSubGbox");
 	DESTROY_CHILD_BYNAME(rcycle_mainSubGbox, "eachitem_");
 
 	local mainSubGbox = GET_CHILD_RECURSIVELY(frame,"rcycle_mainSubGbox");
+
+
 	local invItemList = session.GetInvItemList();
-	local retTable = {showitemcnt = 1};
-	FOR_EACH_INVENTORY(invItemList, function(invItemList, invItem, retTable, mainSubGbox)
+	local index = invItemList:Head();
+	local itemCount = session.GetInvItemList():Count();
+	local x, y;
+	local showitemcnt = 1
+	for i = 0, itemCount - 1 do
+		
+		local invItem = invItemList:Element(index);
 		local itemobj = GetIES(invItem:GetObject());			
 		if invItem ~= nil then
 			local obj = GetClass("recycle_shop", itemobj.ClassName)
 			if obj ~= nil then
 				if obj.SellPrice ~= 0 then
-					local showitemcnt = retTable.showitemcnt;
-					local x = ( (showitemcnt-1) % 3) * ui.GetControlSetAttribute("tpshop_recycle", 'width')
-					local y = (math.ceil( (showitemcnt / 3) ) - 1) * (ui.GetControlSetAttribute("tpshop_recycle", 'height') * 1)
+				
+					x = ( (showitemcnt-1) % 3) * ui.GetControlSetAttribute("tpshop_recycle", 'width')
+					y = (math.ceil( (showitemcnt / 3) ) - 1) * (ui.GetControlSetAttribute("tpshop_recycle", 'height') * 1)
 					local itemcset = mainSubGbox:CreateOrGetControlSet('tpshop_recycle', 'eachitem_'..invItem:GetIESID(), x, y);
 					RECYCLE_DRAW_ITEM_DETAIL(obj, itemobj, itemcset, "sell", invItem:GetIESID());
-					retTable.showitemcnt = showitemcnt + 1
+
+					showitemcnt = showitemcnt + 1
+
 				end
+
 			end
 		end
-	end, false, retTable, mainSubGbox);
+
+		index = invItemList:Next(index);
+	end
 end
+
 
 function RECYCLE_DRAW_ITEM_DETAIL(obj, itemobj, itemcset, type, itemguid)
 
@@ -255,7 +167,7 @@ function RECYCLE_DRAW_ITEM_DETAIL(obj, itemobj, itemcset, type, itemguid)
 			
 	local icon = slot:GetIcon();
 	icon:SetTooltipType('wholeitem');
-	icon:SetTooltipArg('recycleshop', itemclsID, itemguid);
+	icon:SetTooltipArg('', itemclsID, 0);
 
 	local desc = GET_CHILD_RECURSIVELY(itemcset,"desc")
 	local tradeable = GET_CHILD_RECURSIVELY(itemcset,"tradeable")
@@ -276,7 +188,7 @@ function RECYCLE_DRAW_ITEM_DETAIL(obj, itemobj, itemcset, type, itemguid)
 
 		
 		local itemProp = geItemTable.GetPropByName(itemobj.ClassName);
-		if itemProp:IsEnableUserTrade() == true then
+		if itemProp:IsExchangeable() == true then
 			tradeable:ShowWindow(0)
 		else
 			tradeable:ShowWindow(1)
@@ -299,46 +211,14 @@ function RECYCLE_DRAW_ITEM_DETAIL(obj, itemobj, itemcset, type, itemguid)
 		buyBtn:SetEventScriptArgString(ui.LBUTTONUP, tpitem_clsName);
 		buyBtn:ShowWindow(1)
 		sellBtn:ShowWindow(0)
-		previewbtn:ShowWindow(0);
-
-		local previewable = false
-		if IS_EQUIP(itemobj) == true then
-			previewable = true
-
-			local lv = GETMYPCLEVEL();
-			local job = GETMYPCJOB();
-			local gender = GETMYPCGENDER();
-			local prop = geItemTable.GetProp(itemclsID);
-			local result = prop:CheckEquip(lv, job, gender);
-
-			if result ~= "OK" then
-				previewable = false
-			end	
-			local pc = GetMyPCObject();
-			if pc == nil then
-				return;
-			end
-		
-			local useGender = TryGetProp(itemobj,'UseGender')
-
-			if useGender =="Male" and pc.Gender ~= 1 then
-				previewable = false
-			end
-
-			if useGender =="Female" and pc.Gender ~= 2 then
-				previewable = false
-			end
+		local clstype = TryGetProp(itemobj, "ClassType");	
+		if clstype == "Hat" then
+			previewbtn:SetEventScriptArgNumber(ui.LBUTTONUP, tpitem_clsID);		
+			previewbtn:SetEventScriptArgString(ui.LBUTTONUP, tpitem_clsName);
+			previewbtn:ShowWindow(1);
+		else
+			previewbtn:ShowWindow(0);
 		end
-		if previewable == true then
-
-			local clstype = TryGetProp(itemobj, "ClassType");	
-			if clstype == "Hat" or clstype == "Outer" then
-				previewbtn:SetEventScriptArgNumber(ui.LBUTTONUP, tpitem_clsID);		
-				previewbtn:SetEventScriptArgString(ui.LBUTTONUP, tpitem_clsName);
-				previewbtn:ShowWindow(1);
-			end
-		end
-		
 	else
 		buyBtn:ShowWindow(0)
 		sellBtn:ShowWindow(1)
@@ -401,11 +281,6 @@ function TPSHOP_ITEM_TO_RECYCLE_SELL_BASKET_PREPROCESSOR(parent, control, itemgu
 		return;
 	end
 
-	if  invItem.isLockState == true then
-        ui.SysMsg(ClMsg("MaterialItemIsLock"));
-        return;
-    end
-
 	local itemobj = GetClassByType("Item", invItem.type)
 	
 	if itemobj == nil then
@@ -418,7 +293,7 @@ function TPSHOP_ITEM_TO_RECYCLE_SELL_BASKET_PREPROCESSOR(parent, control, itemgu
 	end
 
 	local addcnt = 1
-	if 1 == keyboard.IsKeyPressed("LSHIFT") then
+	if 1 == keyboard.IsPressed(KEY_SHIFT) then
 		addcnt = 10
 	end
 	TPSHOP_ITEM_TO_RECYCLE_SELL_BASKET(itemguid, addcnt)
@@ -432,10 +307,6 @@ function TPSHOP_ITEM_TO_RECYCLE_SELL_BASKET(itemguid, addcnt)
 
 	if invItem == nil then
 		return;
-	end
-
-	if addcnt > invItem.count then
-		addcnt = invItem.count;
 	end
 
 	local itemobj = GetClassByType("Item", invItem.type)
@@ -486,18 +357,18 @@ function TPSHOP_ITEM_TO_RECYCLE_SELL_BASKET(itemguid, addcnt)
 					nowcnt = nowcnt + addcnt
 
 					slot:SetUserValue("COUNT",tostring(nowcnt));
-					slot:SetText("{s20}{b}{ol}"..tostring(nowcnt), 'count', ui.RIGHT, ui.BOTTOM, -2, 1);
+					slot:SetText("{s20}{b}{ol}"..tostring(nowcnt), 'count', 'right', 'bottom', -2, 1);
 
 					TPSHOP_ITEM_RECYCLE_SELL_UPDATE_REMAINCNT(itemguid)
 					UPDATE_RECYCLE_BASKET_MONEY(frame,"sell")	
 					return;
 				end
 			else
-				if alreadyguid == itemguid then
-					ui.MsgBox(ScpArgMsg("CanNotSellDuplicateItem"))
-					return;
-				end
+			if alreadyguid == itemguid then
+				ui.MsgBox(ScpArgMsg("CanNotSellDuplicateItem"))
+				return;
 			end
+		end
 
 			
 		end
@@ -516,9 +387,6 @@ function TPSHOP_ITEM_TO_RECYCLE_SELL_BASKET(itemguid, addcnt)
 			slot:SetUserValue("TPITEMNAME", obj.ClassName);
 			slot:SetUserValue("SELLITEMGUID", itemguid);
 			slot:SetUserValue("COUNT", tostring(addcnt));
-			if addcnt > 1 then
-				slot:SetText("{s20}{b}{ol}"..tostring(addcnt), 'count', ui.RIGHT, ui.BOTTOM, -2, 1);
-			end
 
 			SET_SLOT_IMG(slot, GET_ITEM_ICON_IMAGE(itemobj));
 			local icon = slot:GetIcon();
@@ -554,7 +422,7 @@ function TPSHOP_ITEM_TO_RECYCLE_BUY_BASKET_PREPROCESSOR(parent, control, tpitemn
 	end
 
 	local allowDup = TryGetProp(item,'AllowDuplicate')
-
+	
 	local isHave = false;
 				
 	if allowDup == "NO" then
@@ -570,7 +438,7 @@ function TPSHOP_ITEM_TO_RECYCLE_BUY_BASKET_PREPROCESSOR(parent, control, tpitemn
 	end
 	
 	if isHave == true then
-		ui.MsgBox(ClMsg("AlearyHaveItemReallyBuy?"), string.format("TPSHOP_ITEM_TO_RECYCLE_BUY_BASKET('%s', %d)", tpitemname, classid), "None");
+		ui.MsgBox(ClMsg("AlearyHaveItemReallyBuy?"), string.format("TPSHOP_ITEM_TO_RECYCLE_BASKET('%s', %d)", tpitemname, classid), "None");
 	else
 		TPSHOP_ITEM_TO_RECYCLE_BUY_BASKET(tpitemname, classid)
 	end
@@ -590,9 +458,71 @@ function TPSHOP_ITEM_TO_RECYCLE_BUY_BASKET(tpitemname, classid)
 		return
 	end
 	
+	if IS_EQUIP(item) == true then
+		local lv = GETMYPCLEVEL();
+		local job = GETMYPCJOB();
+		local gender = GETMYPCGENDER();
+		local prop = geItemTable.GetProp(classid);
+		local result = prop:CheckEquip(lv, job, gender);
+
+		if result ~= "OK" then
+			ui.MsgBox(ScpArgMsg("CanNotEquip"))
+			return;
+		end	
+		local pc = GetMyPCObject();
+		if pc == nil then
+			return;
+		end
+		
+		local useGender = TryGetProp(item,'UseGender')
+
+		if useGender =="Male" and pc.Gender ~= 1 then
+			ui.MsgBox(ScpArgMsg("CanNotEquip"))
+			return;
+		end
+
+		if useGender =="Female" and pc.Gender ~= 2 then
+			ui.MsgBox(ScpArgMsg("CanNotEquip"))
+			return;
+		end
+	end
+
 	local frame = ui.GetFrame("tpitem")
 	local slotset = GET_CHILD_RECURSIVELY(frame,"rcycle_basketbuyslotset")
 	local slotCount = slotset:GetSlotCount();
+
+	local nodupliItems = {}
+	nodupliItems[tpitemname] = true;
+
+	for i = 0, slotCount - 1 do
+		local slotIcon	= slotset:GetIconByIndex(i);
+
+		if slotIcon ~= nil then
+
+			local slot  = slotset:GetSlotByIndex(i);
+			local classname = slot:GetUserValue("TPITEMNAME");
+			local alreadyItem = GetClass("recycle_shop",classname)
+
+			if alreadyItem ~= nil then
+
+				local item = GetClass("Item", alreadyItem.ClassName)
+				local allowDup = TryGetProp(item,'AllowDuplicate')
+
+				if allowDup == "NO" then
+		
+					if nodupliItems[classname] == nil then
+						nodupliItems[classname] = true
+					else
+						ui.MsgBox(ScpArgMsg("CanNotBuyDuplicateItem"))
+						return;
+					end
+				end
+			
+			end
+
+		end
+	end
+
 
 	for i = 0, slotCount - 1 do
 		local slotIcon	= slotset:GetIconByIndex(i);
@@ -667,7 +597,7 @@ function UPDATE_RECYCLE_BASKET_MONEY(frame, type) -- buy? sell?
 			local slot  = slotset:GetSlotByIndex(i);
 			local classname = slot:GetUserValue("TPITEMNAME");
 			local alreadyItem = GetClass("recycle_shop",classname)
-			
+
 			if alreadyItem ~= nil then
 
 				if type == "buy" then
@@ -730,12 +660,8 @@ function TPSHOP_ITEM_RECYCLE_PREVIEW_PREPROCESSOR(parent, control, tpitemname, t
 		return;
 	end
 	
-	-- 급한대로 코스튬과 헤어악세만 지원 중. 미리보기 여부를 TpItem에 의존하는 구조를 바꿔야 함
-	if TryGetProp(itemobj, 'ClassType') == "Outer" then
-		TPSHOP_PREVIEWSLOT_EQUIP(frame, GET_CHILD_RECURSIVELY(frame,"previewslotset0"), 1, tpitemname, itemobj);
-	elseif TryGetProp(itemobj, 'ClassType') == "Hat" then
-		TPSHOP_PREVIEWSLOT_EQUIP(frame, GET_CHILD_RECURSIVELY(frame,"previewslotset1"), 0, tpitemname, itemobj);
-	end
+	-- 무조�??�어 ?�세?�고 가??
+	TPSHOP_PREVIEWSLOT_EQUIP(frame, GET_CHILD_RECURSIVELY(frame,"previewslotset1"), 0, tpitemname, itemobj);
 end
 
 function TPSHOP_RECYCLE_ITEM_BASKET_BUY(parent, control)
@@ -785,7 +711,7 @@ function EXEC_BUY_RECYCLE_ITEM()
 	local slotCount = slotset:GetSlotCount();
 
 	local allprice = 0
-    local cannotEquip = {};
+
 	for i = 0, slotCount - 1 do
 		local slotIcon	= slotset:GetIconByIndex(i);
 
@@ -793,48 +719,12 @@ function EXEC_BUY_RECYCLE_ITEM()
 
 			local slot  = slotset:GetSlotByIndex(i);
 			local tpitemname = slot:GetUserValue("TPITEMNAME");
-            local itemClassName = slot:GetUserValue('CLASSNAME');
-			local item = GetClass("Item", itemClassName);
 			local tpitem = GetClass("recycle_shop",tpitemname)
 
 			if tpitem ~= nil then
-				-- check equip
-                if IS_EQUIP(item) == true then
-		            local lv = GETMYPCLEVEL();
-		            local job = GETMYPCJOB();
-		            local gender = GETMYPCGENDER();
-                    local itemCls = GetClass('Item', itemClassName);
-                    local classid = itemCls.ClassID;
-		            local prop = geItemTable.GetProp(classid);
-		            local result = prop:CheckEquip(lv, job, gender);
-
-		            if result ~= "OK" then
-                        cannotEquip[#cannotEquip + 1] = itemCls;
-                    else
-		                local pc = GetMyPCObject();
-		                if pc == nil then
-			                return;
-		                end
-
-		                local needJobClassName = TryGetProp(tpitem, "Job");
-		                local needJobGrade = TryGetProp(tpitem, "JobGrade");
-		                if needJobClassName ~= nil and needJobGrade ~= nil and IS_ENABLE_EQUIP_CLASS(pc, needJobClassName, needJobGrade) == false then
-			                cannotEquip[#cannotEquip + 1] = itemCls;
-                        else
-		                    local useGender = TryGetProp(item,'UseGender');
-		                    if useGender =="Male" and pc.Gender ~= 1 then
-			                    cannotEquip[#cannotEquip + 1] = itemCls;
-                            else
-		                        if useGender =="Female" and pc.Gender ~= 2 then
-			                        cannotEquip[#cannotEquip + 1] = itemCls;
-		                        end
-		                    end
-		                end
-		            end
-                end
-
-                -- calculate price
+							
 				allprice = allprice + tpitem.BuyPrice
+
 				if itemListStr == "" then
 					itemListStr = tostring(tpitem.ClassID)
 				else
@@ -842,6 +732,7 @@ function EXEC_BUY_RECYCLE_ITEM()
 				end
 				
 			else
+				
 				return
 			end
 
@@ -849,6 +740,7 @@ function EXEC_BUY_RECYCLE_ITEM()
 	end
 
 	if allprice == 0 then
+		
 		return
 	end
 
@@ -863,21 +755,7 @@ function EXEC_BUY_RECYCLE_ITEM()
 		return;
 	end
 
-    if #cannotEquip > 0 then
-        local clMsg = ClMsg('ExistCannotEquipItem')..'{nl}';
-        for i = 1, #cannotEquip do
-            local item = cannotEquip[i];
-            clMsg = clMsg..'{@st66d}{s18}'..item.Name..'{/}{/}{nl}';
-        end
-        clMsg = clMsg..ScpArgMsg("ReallyBuy?");
-        ui.MsgBox_NonNested_Ex(clMsg, 0x00000004, "tpitem_recycle", "_EXEC_BUY_RECYCLE_ITEM('"..itemListStr.."')", "TPSHOP_ITEM_BASKET_BUY_CANCEL");
-        return;	
-    end
-    _EXEC_BUY_RECYCLE_ITEM(itemListStr);
-end
-
-function _EXEC_BUY_RECYCLE_ITEM(itemListStr)
-    pc.ReqExecuteTx_NumArgs("SCR_TX_RECYCLE_BUY", itemListStr);	
+	pc.ReqExecuteTx_NumArgs("SCR_TX_RECYCLE_BUY", itemListStr);	
 	
 	local frame = ui.GetFrame("tpitem");
 	frame:ShowWindow(0);
@@ -885,6 +763,7 @@ function _EXEC_BUY_RECYCLE_ITEM(itemListStr)
 end
 
 function EXEC_SELL_RECYCLE_ITEM()
+
 	session.ResetItemList();
 	
 	local slotsetname = nil
@@ -901,35 +780,28 @@ function EXEC_SELL_RECYCLE_ITEM()
 	local slotCount = slotset:GetSlotCount();
 
 	local allprice = 0
-	local isHatOption = 0
 
 	for i = 0, slotCount - 1 do
 		local slotIcon	= slotset:GetIconByIndex(i);
 
 		if slotIcon ~= nil then
+
 			local slot  = slotset:GetSlotByIndex(i);
 			local tpitemname = slot:GetUserValue("TPITEMNAME");
 			local itemguid = slot:GetUserValue("SELLITEMGUID");
-			local invitem = session.GetInvItemByGuid(itemguid);
-			if invitem ~= nil then 
-				local itemobj = GetIES(invitem:GetObject());
-				if itemobj ~= nil then
-					if itemobj["HatPropName_1"] ~= "None" then
-						isHatOption = 1
-					end
-				end
-			end
-
 			local cnt = tonumber(slot:GetUserValue("COUNT"));
 			local tpitem = GetClass("recycle_shop",tpitemname)
 
 			if tpitem ~= nil then
+							
 				allprice = allprice + (tpitem.SellPrice * cnt)
 
 				session.AddItemID(itemguid, cnt);
+				
 			else
 				return
 			end
+
 		end
 	end
 
@@ -937,76 +809,10 @@ function EXEC_SELL_RECYCLE_ITEM()
 		return
 	end
 
-	if isHatOption == 1 then
-		local msg = ScpArgMsg('ConfirmExchangeHatAccHaveOption{msg}', 'msg', ClMsg('exchange_enchant_item'));
-		WARNINGMSGBOX_FRAME_OPEN_EXCHANGE_RECYCLE(msg, 'CONFIRM_SELL_RECYCLE_ITEM');
-	else
-		CONFIRM_SELL_RECYCLE_ITEM()
-	end
-end
-
-function CONFIRM_SELL_RECYCLE_ITEM()
 	local resultlist = session.GetItemIDList();
 	item.DialogTransaction("RECYCLE_SHOP_SELL", resultlist);
 	
 	local frame = ui.GetFrame("tpitem");
 	frame:ShowWindow(0);
 	TPITEM_CLOSE(frame);
-end
-
-function RECYCLE_MAKE_TREE(frame)
-	local recycleCateTree = GET_CHILD_RECURSIVELY(frame, 'recycleCateTree');
-	recycleCateTree:Clear();
-	recycleCateTree:SetFitToChild(true,10);
-	DESTROY_CHILD_BYNAME(recycleCateTree, 'CATEGORY_');
-	recycleCateTree:CloseNodeAll();
-
-	-- TODO: 추후 카테고리를 늘릴 때에는 여기 아래를 수정하면 됨. 지금은 고정된 것들만 하기로 하였음
-	local firstItem = RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'TotalTabName');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Equipmisc');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Drug');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Misc');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Contents');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Growth');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Gem');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Equip');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Card');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Reset');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Etc');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Toy');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Com_costume_M');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'War_costume_F');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Wiz_costume_F');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Arc_costume_F');
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'Cle_costume_F');	
-	RECYCLE_CREATE_CATEGORY_ITEM(recycleCateTree, 'recycle_special');		
-	recycleCateTree:OpenNodeAll();
-end
-
-function RECYCLE_CREATE_CATEGORY_ITEM(tree, key)		
-	local htreeitem = tree:FindByValue(key);
-	if tree:IsExist(htreeitem) == 0 then
-	    htreeitem = tree:Add('{@st66}'..ScpArgMsg(key), key);
-    end
-    return htreeitem;
-end
-
-function RECYCLE_TREE_CLICK(parent, ctrl)
-	local frame = parent:GetTopParentFrame();
-	local selectNode = ctrl:GetLastSelectedNode();
-	frame:SetUserValue('RECYCLE_SELECTED_CATEGORY', selectNode:GetValue());
-	RECYCLE_CREATE_BUY_LIST();	
-end
-
-function RECYCLE_CATE_SELECT(frame, forceSelect)
-	local recycleCateTree = GET_CHILD_RECURSIVELY(frame, 'recycleCateTree');
-	local firstItem = recycleCateTree:FindByValue('TotalTabName');
-	if firstItem == nil then
-		return;
-	end
-	if forceSelect == true then
-		recycleCateTree:Select(firstItem);
-	else
-		recycleCateTree:DeSelectAll();
-	end
 end
