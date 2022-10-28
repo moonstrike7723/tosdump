@@ -14767,6 +14767,7 @@
 		<Class ClassID="138425" ClassName="OtherSlotEquipMent{ITEM1}{ITEM2}" Data="선택한 장비가 계승 전과 같은 종류의 장비가 아닙니다.{nl} {nl}정말 {#fe7e00}[{ITEM1}]{/}을/를{nl}{#fe7e00}[{ITEM2}]{/}으로 계승하시겠습니까?"/>
 		<Class ClassID="138426" ClassName="earring_raid_1d_MSG" Data="여신의 전언: 불꽃의 기억 콘텐츠의 1회 추가 횟수를 받으셨습니다"/>
 	<Class ClassID="138427" ClassName="Auto_isnotPassTutorial_startline3" Data="해당 캐릭터는 모로스 라인 튜토리얼을 진행 중이거나 완료하지 않았습니다."/>
+		<Class ClassID="138428" ClassName="DontSellTaembelongingItem" Data="팀에 귀속된 아이템은 리사이클 메달로 변환할 수 없습니다."/>
 	</Category>
 	<Category Name="SkillMsg">
 		<Class ClassID="200001" ClassName="DontBuildCampThisAria" Data="해당 지역에서는 거점을 설치할 수 없습니다."/>
@@ -16130,7 +16131,7 @@
 		<Class ClassID="302756" ClassName="EVENT_2206_SUMMER_CHECK_MESSAGE1{COIN}{BAIT}{EXCHANGE}{TIME}" Data="[Summer Festa 이벤트 현황]{nl}[이벤트] 특별한 얼음 일일 획득 {#3366FF}({COIN}/1200){/}{nl}[이벤트] 문어발 미끼 일일 무료 수령 횟수 {#3366FF}({BAIT}/1){/}{nl}[이벤트] 수박 물고기 교환 {#3366FF}({EXCHANGE}/150){/}{nl}일일 누적 접속 시간 {#3366FF}({TIME}분){/}{nl} {nl}{#FF0000}※ 누적 접속 1 시간 당 '[이벤트] 특별한 얼음 90 개' 를 획득합니다.{/}{nl}{#FF0000}※ 일일 획득량은 매일 오전 6시 초기화 됩니다.{/}{nl}{#FF0000}※ 이벤트 업적을 통해 획득은 일일 획득 제한에 포함되지 않습니다.{/}{nl}{#FF0000}※[이벤트] 수박 물고기 반납 150 개 이후엔 이벤트 버프만 획득합니다.{/}"/>
 		<Class ClassID="302757" ClassName="EVENT_2206_SUMMER_SHOP" Data="특별한 얼음 상점"/>
 		<Class ClassID="302758" ClassName="EVENT_2206_SUMMER_FOOD_SHOP" Data="[이벤트] 음식 교환권 상점"/>
-	
+		<Class ClassID="302759" ClassName="EVENT_2209_ATTENDANCE_CHECK_MESSAGE{TIME}" Data="[9월 접속 보상 이벤트 현황]{nl}누적 접속 시간 {#3366FF}({TIME}/120){/}{nl}{#FF0000}※누적 접속 시간은 매일 오전 6시 초기화 됩니다.{/}"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -17508,6 +17509,12 @@
 		<Class ClassID="560055" ClassName="Baubas_Valentine_01" Data="{nl} {nl}사용 시 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560056" ClassName="Baubas_toothbrushing_01" Data="{nl} {nl}사용 시 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560057" ClassName="Gabija_EarringRaid_emoticon_1" Data="{nl} {nl}사용 시 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560058" ClassName="Mulia_emotion138" Data="{nl} {nl}사용 시 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560059" ClassName="Mulia_emotion139" Data="{nl} {nl}사용 시 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560060" ClassName="Mulia_emotion140" Data="{nl} {nl}사용 시 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560061" ClassName="Mulia_emotion141" Data="{nl} {nl}사용 시 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560062" ClassName="Mulia_emotion142" Data="{nl} {nl}사용 시 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560063" ClassName="Mulia_emotion143" Data="{nl} {nl}사용 시 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 	</Category>
 	<Category Name="Gesture">
 		<Class ClassID="570000" ClassName="Already_Gesture" Data="이미 보유한 제스처입니다."/>

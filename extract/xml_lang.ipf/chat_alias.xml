@@ -89,5 +89,6 @@
 		<Class ClassID="101" ClassName="/festival" Alias="/전야제" ConvertWhenSend="1"/>
 		<Class ClassID="102" ClassName="/halloween" Alias="/할로윈" ConvertWhenSend="1"/>
 		<Class ClassID="103" ClassName="/winter" Alias="/고구마" ConvertWhenSend="1"/>
+		<Class ClassID="104" ClassName="/tiger" Alias="/어흥" ConvertWhenSend="1"/>
 	</Category>
 </idspace>

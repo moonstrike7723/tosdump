@@ -98,6 +98,7 @@ function GACHA_START(gachaDetail)
 	local rboxbg = GET_CHILD_RECURSIVELY(frame,"bg_rbox")
     local hairText = GET_CHILD_RECURSIVELY(frame, 'richtext_2');
 	local costumeText = GET_CHILD_RECURSIVELY(frame, 'richtext_3');
+	local bg_count = GET_CHILD_RECURSIVELY(frame, 'bg_count');
 	local btn = GET_CHILD_RECURSIVELY(frame,"button")
 	local skip_animation = GET_CHILD_RECURSIVELY(frame, "skip_animation");
 
@@ -115,6 +116,17 @@ function GACHA_START(gachaDetail)
 		rboxbg:SetVisible(0);
 		hairText:SetVisible(1);
 		costumeText:SetVisible(0);
+		if gachaDetail.OpenCountAllow == 'YES' then
+			bg_count:SetVisible(1)
+			local aObj = GetMyAccountObj()
+			if aObj ~= nil then
+				local countText = GET_CHILD_RECURSIVELY(frame, 'count_text');
+				local count = TryGetProp(aObj, 'HAIRACC_CUBE_OPEN_COUNT', 0)
+				countText:SetTextByKey('count', count)
+			end
+		else
+			countText:SetVisible(0)
+		end
 	elseif gachaDetail.GachaType == "rbox" then
 		hairbg:SetVisible(0);
 		rboxbg:SetVisible(1);

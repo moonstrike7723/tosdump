@@ -192,7 +192,7 @@ function RECYCLE_CREATE_SELL_LIST()
 		if invItem ~= nil then
 			local obj = GetClass("recycle_shop", itemobj.ClassName)
 			if obj ~= nil then
-				if obj.SellPrice ~= 0 then
+				if obj.SellPrice ~= 0 and obj.TeamBelonging ~= 1 then
 					local showitemcnt = retTable.showitemcnt;
 					local x = ( (showitemcnt-1) % 3) * ui.GetControlSetAttribute("tpshop_recycle", 'width')
 					local y = (math.ceil( (showitemcnt / 3) ) - 1) * (ui.GetControlSetAttribute("tpshop_recycle", 'height') * 1)

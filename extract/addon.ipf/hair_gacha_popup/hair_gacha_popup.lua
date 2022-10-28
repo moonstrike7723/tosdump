@@ -99,11 +99,13 @@ function GACHA_POPUP_MSG(frame, msg, itemname, itemcnt)
 
 	local type = nil
     local isLeticia = 0;
-    if string.find(msg, 'LETICIA_POPUP') ~= nil then
+	if string.find(msg, 'LETICIA_POPUP') ~= nil then
         isLeticia = 1;
     end
     local fulldark = ui.GetFrame('fulldark');
-    fulldark:SetUserValue('GACHA_COUNT', 0);  
+	fulldark:SetUserValue('GACHA_COUNT', 0);
+	
+	frame:SetUserValue('IS_LETICIA', isLeticia);
 
 	if msg == "HAIR_GACHA_POPUP" or msg == "HAIR_GACHA_POPUP_10"  then
 		type = "hair"
@@ -431,7 +433,10 @@ function OPEN_COUNT_REWARD_POP_BIG_FRAME(openCount, itemGrade, itemClassName, it
 		return;
 	end
 
-	DARK_FRAME_DO_OPEN(1, 1);
+	local popup_frame = ui.GetFrame('hair_gacha_popup')
+	local isLeticia = popup_frame:GetUserIValue('IS_LETICIA')
+
+	DARK_FRAME_DO_OPEN(isLeticia, 1);
 
 	local bigframe = ui.CreateNewFrame("hair_gacha_fullscreen", "HAIRGACHA_BIG_11");
 	if bigframe == nil then
@@ -489,4 +494,14 @@ function OPEN_COUNT_REWARD_POP_BIG_FRAME(openCount, itemGrade, itemClassName, it
 	
 	bonusimg:Resize(100, 100);
 	bonusimg:SetMargin(150, 180, 0, 0);
+
+	local continueBtn = GET_CHILD_RECURSIVELY(bigframe, "continueBtn");
+	local closeBtn = GET_CHILD_RECURSIVELY(bigframe, "closeBtn");
+	if isLeticia == 1 then
+		continueBtn:ShowWindow(1);
+		closeBtn:SetGravity(ui.RIGHT, ui.CENTER_VERT);
+    else
+		continueBtn:ShowWindow(0);
+		closeBtn:SetGravity(ui.CENTER_HORZ, ui.CENTER_VERT);
+    end
 end

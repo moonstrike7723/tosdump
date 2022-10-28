@@ -1824,6 +1824,28 @@ function PyeonJeonClientScp_LEAVE(actor, obj, buff)
     actor:SetAlwaysBattleState(false);
 end
 
+function DOLL_LAIMA_BUFF_ENTER(actor, obj, buff)
+end
+
+function DOLL_LAIMA_BUFF_UPDATE(actor, obj, buff)
+	SCR_CREATE_FAIRY(actor:GetHandleVal(), "doll_laima");
+end
+
+function DOLL_LAIMA_BUFF_LEAVE(actor, obj, buff)
+	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_laima");
+end
+
+function DOLL_MEDEINA_BUFF_ENTER(actor, obj, buff)
+end
+
+function DOLL_MEDEINA_BUFF_UPDATE(actor, obj, buff)
+	SCR_CREATE_FAIRY(actor:GetHandleVal(), "doll_medeina");
+end
+
+function DOLL_MEDEINA_BUFF_LEAVE(actor, obj, buff)
+	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_medeina");
+end
+
 function DOLL_ZEMINA_BUFF_ENTER(actor, obj, buff)
 end
 
