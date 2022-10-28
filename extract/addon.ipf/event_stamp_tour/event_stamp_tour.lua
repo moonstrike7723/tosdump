@@ -92,7 +92,7 @@ function EVENT_STAMP_TOUR_SET_PAGE(argnum)
 		
 		-- 미션 내용
 		local desc = GET_CHILD_RECURSIVELY(ctrlSet, 'desc');
-		local missiontext = TryGetProp(missionCls, "Desc"..i, "");
+		local missiontext = dic.getTranslatedStr(TryGetProp(missionCls, "Desc"..i, ""));
 		local delimeter = string.find(missiontext,':')
 
 		-- 툴팁으로 자세한 미션 내용 출력
@@ -349,7 +349,7 @@ function SCR_EVENT_STAMP_OPEN_ADVENTURE_BOOK_MAP()
 end
 
 function EVENT_STAMP_IS_COMING_SOON(week)
-	local startTime = imcTime.GetSysTime(2020,4,16,6)
+	local startTime = imcTime.GetSysTime(2020,6,9,0)
 	local week_startTime = imcTime.AddSec(startTime,(week-1)*7*24*60*60)
 	local currentDate = geTime.GetServerSystemTime()
 	if imcTime.GetDifSec(week_startTime,currentDate) > 0 then

@@ -2368,7 +2368,7 @@ function PUSH_BACK_IF_NOT_EXIST(list, element)
 end
 
 function SCR_REINFORCE_COUPON()
-    local couponList = { 'Event_Reinforce_100000coupon', 'Event_Reinforce_100000coupon_Event', 'Event_Reinforce_100000coupon_14d'}
+    local couponList = { 'Event_Reinforce_100000coupon', 'Event_Reinforce_100000coupon_Event'}
     return couponList
 end
 
