@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 http://www.altova.com by MintPC Mi -->
 <skinset name="Base">
 	<imagelist category="item_tooltip_icon">
@@ -840,6 +840,8 @@
 		<image name="icon_item_ep13toswinter03_2_m" file="\icon\equip\icon_item_ep13toswinter03_2_m.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep13toswinter03_f" file="\icon\equip\icon_item_ep13toswinter03_f.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep13toswinter03_m" file="\icon\equip\icon_item_ep13toswinter03_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_6th_Arbor_Day_Costume_m" file="\icon\equip\icon_item_6th_Arbor_Day_Costume_m.png" imgrect="0 0 256 256" CMM_Caption="21년 식목일 코스튬"/>
+		<image name="icon_item_6th_Arbor_Day_Costume_f" file="\icon\equip\icon_item_6th_Arbor_Day_Costume_f.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep13cherryblossom02_2_f" file="\icon\equip\icon_item_ep13cherryblossom02_2_f.png" imgrect="0 0 256 256" CMM_Caption="통합콘텐츠 21년 3월테마 코스튬 6종"/>
 		<image name="icon_item_ep13cherryblossom02_2_m" file="\icon\equip\icon_item_ep13cherryblossom02_2_m.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep13cherryblossom03_2_f" file="\icon\equip\icon_item_ep13cherryblossom03_2_f.png" imgrect="0 0 256 256"/>
@@ -6359,6 +6361,7 @@
 		<image name="icon_item_valentinebox" file="\icon\item\icon_item_valentinebox.png" imgrect="0 0 256 256" CMM_Caption="20년 발렌타인 상자"/>
 		<image name="icon_item_vibora_ticket" file="\icon\item\icon_item_vibora_ticket.png" imgrect="0 0 256 256" CMM_Caption="바이보라 합성권"/>
 		<image name="icon_item_Relic_exp_refine_conversion" file="\icon\item\icon_item_Relic_exp_refine_conversion.png" imgrect="0 0 256 256" CMM_Caption="권능의 숨결 정화제"/>
+		<image name="icon_item_reputation_relief_blue" file="\icon\item\icon_item_reputation_relief_blue.png" imgrect="0 0 256 256" CMM_Caption="명성 증가 쿠폰"/>
 		<image name="icon_item_Event_2101_NK1" file="\icon\item\icon_item_Event_2101_NK1.png" imgrect="0 0 128 128" CMM_Caption="피난민 목걸이1"/>
 		<image name="icon_item_Event_2101_NK2" file="\icon\item\icon_item_Event_2101_NK2.png" imgrect="0 0 128 128" CMM_Caption="피난민 목걸이2"/>
 		<image name="icon_item_Event_2101_NK3" file="\icon\item\icon_item_Event_2101_NK3.png" imgrect="0 0 128 128" CMM_Caption="피난민 목걸이3"/>
