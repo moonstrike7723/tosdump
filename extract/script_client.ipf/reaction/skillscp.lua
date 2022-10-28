@@ -175,17 +175,8 @@ function SCR_SKILL_PUZZLECRAFT(skillType)
 	end
 
 	local obj = GetIES(skl:GetObject());
-	local row = 1 + math.floor(obj.Level);
-	local col = 1 + math.floor(obj.Level);
-
-    if row > 6 then
-        row = 6;
-	end
-	
-	if col > 6 then
-        col = 6;
-    end
-
+	local row = 1 + math.floor(obj.LevelByDB);
+	local col = 1 + math.floor(obj.LevelByDB);
 	PUZZLECRAFT_SET_MAXSIZE(row, col);
 	ui.ToggleFrame("puzzlecraft");
 	return 0;

@@ -9,7 +9,7 @@ function PORTAL_SHOP_REGISTER_OPEN(skillObj)
         return;
     end
 
-    PORTAL_SHOP_REGISTER_INIT(frame, skillObj);    
+    PORTAL_SHOP_REGISTER_INIT(frame, skillObj);
     frame:ShowWindow(1);
 end
 
@@ -17,7 +17,6 @@ function PORTAL_SHOP_REGISTER_INIT(frame, skillObj)
     AUTOSELLER_REGISTER_FRAME_INIT(frame, skillObj);
     PORTAL_SHOP_REGISTER_INIT_INGREDIENT(frame, skillObj.ClassName);
     PORTAL_SHOP_REGISTER_INIT_PORTAL(frame, skillObj);
-    PORTAL_SHOP_REGISTER_INIT_USER_PRICE(frame, skillObj.ClassName);
 end
 
 function PORTAL_SHOP_REGISTER_INIT_INGREDIENT(frame, skillName)
@@ -74,8 +73,8 @@ function PORTAL_SHOP_REGISTER_INIT_PORTAL(frame, skillObj)
             pos:SetTextByKey('z', z);
 
             -- picture
-            local isValid = ui.IsImageExist(mapName);
-		    if isValid == false then
+            local mapimage = ui.GetImage(mapName);
+		    if mapimage == nil then
 			    world.PreloadMinimap(mapName);
 		    end
 
@@ -169,13 +168,6 @@ function PORTAL_SHOP_REGISTER_EXECUTE(parent, ctrl)
 	if true == material.isLockState then
 		ui.MsgBox(ClMsg("MaterialItemIsLock"));
 		return;
-    end
-    
-    local pc = GetMyPCObject();
-	local x, y, z = GetPos(pc);
-	if 0 == IsFarFromNPC(pc, x, y, z, 50) then
-		ui.SysMsg(ClMsg("TooNearFromNPC"));	
-		return 0;
 	end
 
 	session.autoSeller.RequestRegister(sklName, 'Portal', titleInput:GetText(), sklName);    
@@ -195,8 +187,4 @@ function PORTAL_SHOP_REGISTER_CREATE_PORTAL_INFO(frame, sklName, price)
             end
         end
     end
-end
-
-function PORTAL_SHOP_REGISTER_INIT_USER_PRICE(frame, skillClassName)
-    PROCESS_USER_SHOP_PRICE(skillClassName, GET_CHILD_RECURSIVELY(frame, 'moneyInput'))
 end

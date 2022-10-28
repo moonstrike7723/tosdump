@@ -7,6 +7,7 @@ function CHANCLE_CHANGE_NAME(frame, ctrl)
 end
 
 function CHANGE_NAME_USE_TP(frame, ctrl)
+	local itemIES = frame:GetUserValue("itemIES");
 	frame:ShowWindow(0);
 	local inputframeName = frame:GetUserValue("inputframe");
 	local inputframe = ui.GetFrame(inputframeName)
@@ -14,24 +15,10 @@ function CHANGE_NAME_USE_TP(frame, ctrl)
 
 	local nameType = frame:GetUserValue("nameType")
 	local changeName = frame:GetUserValue("changeName")
-	local charGuid = frame:GetUserValue("charGuid")
-
-	if nameType == "pcName" then
-    	CHANGE_PC_NAME_SETTING_CHECK_TP(changeName);
-	elseif nameType == "petName" then
-		CHANGE_PET_NAME_SETTING_CHECK_TP(charGuid, changeName);
-	end
+	CHANGE_NAME_SETTING_CHECK_TP(nameType, changeName);
 end
 
-local function _GET_MY_PET_COUPON()
-	local petCouponCnt, petCouponList = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='CompanionReNameCoupon'}}, true);
-	if petCouponCnt < 1 then
-		return nil;
-	end
-	return petCouponList[1];
-end
-
-function OPEN_CHECK_USER_MIND_BEFOR_YES(inputframe, nameType, changedName, charName, charGuid)
+function OPEN_CHECK_USER_MIND_BEFOR_YES(inputframe, nameType, changedName, charName)
 	if charName == nil then
         return;
     end
@@ -47,63 +34,41 @@ function OPEN_CHECK_USER_MIND_BEFOR_YES(inputframe, nameType, changedName, charN
 	frame:SetUserValue("changeName", changedName);
 	frame:SetUserValue("nameType", nameType);
 	frame:SetUserValue("inputframe", inputframe:GetName());
-	frame:SetUserValue("charGuid", charGuid);
-
-	local DEFAULT_CONSUME_IMG = frame:GetUserConfig('DEFAULT_CONSUME_IMG');
-	local picture_1 = GET_CHILD_RECURSIVELY(frame, 'picture_1');
-	picture_1:SetImage(DEFAULT_CONSUME_IMG);
-
 	local prop = frame:GetChild("prop");
-	local NeedTP = frame:GetChild("NeedTP");
 	if nameType == "pcName" then
 		prop:SetTextByKey("value", ClMsg("Change Name"))
-		NeedTP:SetTextByKey("value", tostring(CHANGE_CAHR_NAME_TP))
 	elseif nameType == "petName" then
-		prop:SetTextByKey("value", ClMsg("ChangePetName"));
-		local petCouponInvItem = _GET_MY_PET_COUPON();		
-		if petCouponInvItem ~= nil then			
-			local petCouponObj = GetIES(petCouponInvItem:GetObject());			
-			picture_1:SetImage(petCouponObj.Icon);
-			NeedTP:SetTextByKey("value", 1);
-		else
-			NeedTP:SetTextByKey("value", tostring(CHANGE_PET_NAME_TP));
-		end
+		prop:SetTextByKey("value", ClMsg("ChangePetName"))
 	else
 		prop:SetTextByKey("value", "")
-        NeedTP:SetTextByKey("value", "")
 	end
 
-	local myNameText = frame:GetChild("myName");
-	myNameText:SetTextByKey("value", charName)
+	local myName = frame:GetChild("myName");
+	myName:SetTextByKey("value", charName)
 
-	local ChangeNameText = frame:GetChild("ChangeName");
-	ChangeNameText:SetTextByKey("value", changedName)
+	local ChangeName = frame:GetChild("ChangeName");
+	ChangeName:SetTextByKey("value", changedName)
+
+	local price = tostring(CHANGE_PET_NAME_TP);
+	local NeedTP = frame:GetChild("NeedTP");
+	NeedTP:SetTextByKey("value", price)
 end
 
-function CHANGE_PC_NAME_SETTING_CHECK_TP(changedName)
+function CHANGE_NAME_SETTING_CHECK_TP(nameType, changedName)
 	local accountObj = GetMyAccountObj();
 	if 0 > GET_CASH_TOTAL_POINT_C() - CHANGE_CAHR_NAME_TP then
 		ui.MsgBox(ClMsg("NotEnoughMedal"));
 		return;
 	end
 
-	if ui.IsValidCharacterName(changedName) == true then
-		local msg = string.format("/name %s", changedName);
-		ui.Chat(msg);
-	end
-end
-
-function CHANGE_PET_NAME_SETTING_CHECK_TP(petGuid, changedName)
-	local petCouponInvItem = _GET_MY_PET_COUPON();		
-	if petCouponInvItem == nil then
-		local accountObj = GetMyAccountObj();
-		if 0 > GET_CASH_TOTAL_POINT_C() - CHANGE_PET_NAME_TP then
-			ui.MsgBox(ClMsg("NotEnoughMedal"));
-			return;
+	if nameType == "pcName" then
+		if ui.IsValidCharacterName(changedName) == true then
+			local msg = string.format("/name %s", changedName);
+			ui.Chat(msg);
 		end
-	end
-
-	if ui.IsValidCharacterName(changedName) == true then
-		pc.RequestChangePetName(petGuid, changedName);
+	elseif nameType == "petName" then
+		if ui.IsValidCharacterName(changedName) == true then
+			pc.RequestChangePetName(changedName);
+		end
 	end
 end
