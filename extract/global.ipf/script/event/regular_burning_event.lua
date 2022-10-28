@@ -87,23 +87,21 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 }
     
     local daycheckbuff = 
-	{{'9','25',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-	,{'9','26',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-	,{'9','27',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'10','2',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
-	,{'10','3',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'10','4',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'10','9',{'Event_RootCrystal_Check_Buff','Event_Reagent_Bottle_Expup_100'}}
-	,{'10','10',{'Event_RootCrystal_Check_Buff','Event_Cooldown_SPamount_Decrease'}}
-	,{'10','11',{'Event_RootCrystal_Check_Buff','Event_Unique_Raid_Bonus_Limit'}}
-	,{'10','16',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
-	,{'10','17',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'10','18',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'10','23',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-	,{'10','24',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
-	,{'10','25',{'Event_LootingChance_Add_1000','Event_Reappraisal_Discount_50'}}
-	,{'10','30',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
+	{{'10','30',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
 	,{'10','31',{'Event_healHSP_Speedup','Event_Legend_Uphill_Count_Reset'}}
+	,{'11','1',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'11','6',{'Event_healHSP_Speedup','Event_Cooldown_SPamount_Decrease'}}
+	,{'11','7',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+	,{'11','8',{'Event_RootCrystal_Check_Buff','Event_Reagent_Bottle_Expup_100'}}
+	,{'11','13',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'11','14',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'11','15',{'Event_LootingChance_Add_1000','Event_Reinforce_Discount_50'}}
+	,{'11','20',{'Event_ATK_and_DEF_UP_BUFF','Event_Class_Change_Pointup_500'}}
+	,{'11','21',{'Event_LootingChance_Add_1000','Event_Unique_Raid_Bonus_Limit'}}
+	,{'11','22',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+	,{'11','27',{'Event_LootingChance_Add_1000','Event_Legend_Uphill_Count_Reset'}}
+	,{'11','28',{'Event_LootingChance_Add_1000','Event_Even_Transcend_Discount_50'}}
+	,{'11','29',{'Event_RootCrystal_Check_Buff','Event_Reagent_Bottle_Expup_100'}}
 		}
 	
 	-- 기본 적용 버프
@@ -171,7 +169,6 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_803", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_805", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_806", 0)
-                        TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_808", 0)
                         TxSetIESProp(tx, accountObject, "REGULAR_BURNING_EVENT_COUNT_RESET", 1)
                         local ret = TxCommit(tx)
         

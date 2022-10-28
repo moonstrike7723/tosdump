@@ -220,7 +220,7 @@ return BuffTime;"/>
                 </Scp>
                 <Scp Client="YES" Scp="C_EFFECT_ATTACH" Time="300" UseSleep="NO">
                     <Str_Arg Arg="1" Str="F_ground083_smoke"/>
-                    <Num Num="0.40000001"/>
+                    <Num Num="1.3"/>
                     <Pos Angle="0" Dist="0"/>
                     <Num Num="0"/>
                 </Scp>

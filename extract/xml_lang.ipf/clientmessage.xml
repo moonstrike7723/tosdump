@@ -783,7 +783,9 @@
 		<Class ClassID="4302" ClassName="Cannon_Icor" Data="아이커_CAN"/>
 		<Class ClassID="4303" ClassName="Musket_Icor" Data="아이커_MSK"/>
 		<Class ClassID="4304" ClassName="Trinket_Icor" Data="아이커_ACC"/>
-	</Category>
+    <Class ClassID="4305" ClassName="honored_rose_thema" Data="아너드 로즈 테마"/>
+    <Class ClassID="4306" ClassName="curtain_call_thema" Data="커튼 콜 테마"/>    
+  </Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
 		<Class ClassID="5002" ClassName="WhenEquipToMainOrSubWeapon" Data="무기, 보조 장비 장착 시 효과"/>

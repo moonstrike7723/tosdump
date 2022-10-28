@@ -1483,10 +1483,10 @@ function GET_CLS_GROUP(idSpace, groupName)
 end
 
 
-function GET_MAP_ACHI_NAME(mapCls)
+function GET_MAP_ACHI_NAME(mapName)
 
-    local name = ScpArgMsg("Auto_{Auto_1}_TamSaJa", "Auto_1", mapCls.Name);
-    local desc = ScpArgMsg("Auto_{Auto_1}_Jiyeogeul_MoDu_TamSaHayeossSeupNiDa.", "Auto_1", mapCls.Name);
+    local name = ScpArgMsg("Auto_{Auto_1}_TamSaJa", "Auto_1", mapName);
+    local desc = ScpArgMsg("Auto_{Auto_1}_Jiyeogeul_MoDu_TamSaHayeossSeupNiDa.", "Auto_1", mapName);
     local desctitle = name -- 임시. 나중에 맵 업적 달성시 보상및 칭호에 대한 데이터 세팅 이루어 지면 바꾸자.
     local reward = "None"
     return desc, name, desctitle, reward;

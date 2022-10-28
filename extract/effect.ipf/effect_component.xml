@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <ComponentList>
+	<Particle name="leaf007" texture="leaf007" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="256" texel_height="256"/>
 	<Particle name="status_icon_badword" texture="status_icon_badword" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="100" texel_height="100"/>
 	<Particle name="line006" texture="line006" width="5.00" height="5.00" pivot_x="0.5" pivot_y="0.5" texel_x="0" texel_y="0" texel_width="128" texel_height="128"/>
 	<Particle name="bat3" texture="bat3" width="5.00" height="5.00" pivot_x="0.5" pivot_y="0.5" texel_x="101" texel_y="0" texel_width="64" texel_height="64"/>
@@ -693,6 +694,7 @@
 	<Model name="thornbush002" model="thornbush002.xac" motion="thornbush002_ani.xsm" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="BLEND"/>
 	<Model name="thornbush001" model="thornbush001.xac" motion="thornbush001_ani.xsm" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="BLEND"/>
 	<Model name="giltine_wing_rangdagirl" model="giltine_wing_rangdagirl.xac" motion="giltine_wing_rangdagirl_ani.xsm" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="BLEND"/>
+	<Model name="effect_ep12musical" model="effect_ep12musical.xac" motion="None" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
 	<Model name="anvil_fail_diamond" model="anvil_fail_diamond.xac" motion="anvil_fail_diamond_ani.xsm" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="BLEND"/>
 	<Model name="anvil_fail_gold" model="anvil_fail_gold.xac" motion="anvil_fail_ani.xsm" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="BLEND"/>
 	<Model name="anvil_fail_platinum" model="anvil_fail_platinum.xac" motion="anvil_fail_ani.xsm" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="BLEND"/>

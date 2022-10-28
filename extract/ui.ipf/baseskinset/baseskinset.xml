@@ -6982,6 +6982,9 @@
 		<image name="test_companion_30" file="\icon\companion.tga" imgrect="0 738 100 122" CMM_Caption="사관생도 아르마딜로_탭버튼"/>
 		<image name="test_companion_30_cursoron" file="\icon\companion.tga" imgrect="101 738 100 122"/>
 		<image name="test_companion_30_clicked" file="\icon\companion.tga" imgrect="101 738 100 122"/>
+		<image name="test_companion_31" file="\icon\companion.tga" imgrect="202 738 100 122" CMM_Caption="달맞이 참새_탭버튼"/>
+		<image name="test_companion_31_cursoron" file="\icon\companion.tga" imgrect="303 738 100 122"/>
+		<image name="test_companion_31_clicked" file="\icon\companion.tga" imgrect="303 738 100 122"/>
 		<image name="test_com_ability" file="\skin\pip_test.tga" imgrect="1832 851 54 35" CMM_Caption="컴패니언_특성플러스"/>
 		<image name="test_com_ability_cursoron" file="\skin\pip_test.tga" imgrect="1832 887 54 35"/>
 		<image name="test_com_ability_clicked" file="\skin\pip_test.tga" imgrect="1832 923 54 35"/>
@@ -8924,6 +8927,7 @@
 		<image name="companion_hedgehog" file="\icon\companion_Velhider.tga" imgrect="160 320 80 80"/>
 		<image name="companion_policedog" file="\icon\companion_Velhider.tga" imgrect="240 320 80 80"/>
 		<image name="companion_pet_cadet_armadillo" file="\icon\companion_Velhider.tga" imgrect="320 320 80 80"/>
+		<image name="companion_sparrow_thanksgiving" file="\icon\companion_Velhider.tga" imgrect="400 320 80 80"/>
 		<image name="bg_w" file="\skin\button.tga" imgrect="252 974 50 50"/>
 		<image name="barrack_signboard" file="\skin\barrack.tga" imgrect="356 0 257 192"/>
 		<image name="barrack_attack_icon" file="\skin\barrack.tga" imgrect="59 720 55 61"/>
@@ -11252,6 +11256,7 @@
 		<image name="icon_arch_Coursingabil" file="\icon\buff_icon3.tga" imgrect="768 1664 128 128" CMM_Caption="피의 얼룩 디버프"/>
 		<image name="icon_pet_cadet_armadillo_buff" file="\icon\buff_icon3.tga" imgrect="896 1664 128 128" CMM_Caption="사관생도 아르마딜로"/>
 		<image name="icon_Provoke_fury" file="\icon\buff_icon3.tga" imgrect="128 1792 128 128" CMM_Caption="프로보크-격노"/>
+		<image name="icon_pet_sparrow_thanksgivng_buff" file="\icon\buff_icon3.tga" imgrect="384 1920 128 128" CMM_Caption="달맞이 참새"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>

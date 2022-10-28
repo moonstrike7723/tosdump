@@ -889,7 +889,7 @@ function GET_INDUNINFO_DROPBOX_LIST_MOUSE_OVER(index, classname)
 
     local newobj = CreateIES('Item', classname);
     itemFrame:SetTooltipType('wholeitem');
-    newobj = tolua.cast(newobj, 'imcIES::IObject');
+    newobj = tolua.cast(newobj, 'size_t');
     itemFrame:SetToolTipObject(newobj);
 
     currentFrame = itemFrame;
@@ -913,7 +913,7 @@ function GET_INDUNINFO_DROPBOX_LIST_TOOLTIP_VIEW(index, classname)
 
     local newobj = CreateIES('Item', classname);
     itemFrame:SetTooltipType('wholeitem');
-    newobj = tolua.cast(newobj, 'imcIES::IObject');
+    newobj = tolua.cast(newobj, 'size_t');
     itemFrame:SetToolTipObject(newobj);
 
     currentFrame = itemFrame;
