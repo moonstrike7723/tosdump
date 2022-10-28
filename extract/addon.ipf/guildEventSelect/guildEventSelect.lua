@@ -1,18 +1,15 @@
-function GUILDEVENTSELECT_ON_INIT(addon, frame)
-	addon:RegisterMsg("GUILD_EVENT_START_REQUEST_MSG_BOX", "ON_GUILD_EVENT_START_REQUEST_MSG_BOX");
-	addon:RegisterMsg("ACCEPT_GUILD_EVENT", "ON_ACCEPT_GUILD_EVENT");
+function REQ_OPEN_GUILD_EVENT_PIP()
+ 	gGuileEventList = {"FBOSS", "MISSION"}
+	GUILD_EVENT_OPEN(nil)
 end
 
-function REQ_OPEN_GUILD_EVENT_PIP()
- 	gGuileEventList = {"FBOSS", "MISSION"};
-	GUILD_EVENT_OPEN(nil);
-end
 
 function GUILD_EVENT_OPEN(frame)
+
 	if frame == nil then
 		frame = ui.GetFrame("guildEventSelect")
 	end
-
+	
 	ui.OpenFrame("guildEventSelect");
 
 	local pcGuild = session.party.GetPartyInfo(PARTY_GUILD);
@@ -26,8 +23,8 @@ function GUILD_EVENT_OPEN(frame)
 	local lvText = GET_CHILD_RECURSIVELY(frame, "guildLevel");
 	lvText:SetTextByKey("value", lv);
 
-	CREATE_GUILD_EVENT_LIST_INIT(frame);
-	CREATE_GUILD_EVENT_LIST(frame);
+	CREATE_GUILD_EVENT_LIST_INIT(frame)
+	CREATE_GUILD_EVENT_LIST(frame)
 end
 
 function CREATE_GUILD_EVENT_LIST(frame)
@@ -45,15 +42,9 @@ function CREATE_GUILD_EVENT_LIST(frame)
 	for i = 0, cnt - 1 do	
 		local cls = GetClassByIndexFromList(clsList, i);
 		if cls.EventType == gGuileEventList[droplist:GetSelItemIndex()+1] then
-		    local ticket_value = 1
-		    if cls.ClassName == 'GM_BorutosKapas_1' or cls.ClassName == "GM_Giltine_1" then
-		        ticket_value = 3
-		    end
-
 			if cls.GuildLv > 0 and lv >= cls.GuildLv then
 				local ctrlSet = gbox:CreateControlSet("guild_event", cls.ClassName, ui.LEFT, ui.TOP, 0, 0, 0, 0);
 				ctrlSet:SetUserValue("GUILD_EVENT_CTRL", "YES");
-
 				local eventName = GET_CHILD(ctrlSet, "EventName");
 				eventName:SetTextByKey("value", cls.Name);
 
@@ -67,19 +58,25 @@ function CREATE_GUILD_EVENT_LIST(frame)
 				detailInfo:SetTextByKey("value", cls.DetailInfo);
 
 				local ticketText = GET_CHILD(ctrlSet, "ticketText");	
-				ticketText:SetTextByKey("value", ticket_value);
+				ticketText:SetTextByKey("value", 1);
 
 				local eventType = GET_CHILD_RECURSIVELY(ctrlSet, "EventType", "ui::CPicture");
 				local imgName = frame:GetUserConfig("EVENT_TYPE_"..droplist:GetSelItemIndex())
 				eventType:SetImage(imgName);
 				ctrlSet:SetUserValue("CLSID", cls.ClassID);
+				--local addheight = gbox:GetHeight() - gbox:GetOriginalHeight()
+				--ctrlSet:Resize(ctrlSet:GetOriginalWidth(), ctrlSet:GetOriginalHeight() + addheight)
 			end
 		end
 	end
+
 	GBOX_AUTO_ALIGN(gbox, 0, 0, 10, true, false);
+
+	--local ctrlSet = gbox:CreateControlSet("guild_event", "A", ui.LEFT, ui.TOP, 0, 0, 0, 0);	
 end
 
 function CREATE_GUILD_EVENT_LIST_INIT(frame)
+	
 	local droplist = GET_CHILD(frame, "droplist_1", "ui::CDropList");
 	droplist:ClearItems();
 	droplist:AddItem("0",  ClMsg("GuildIBossSummon"), 0);
@@ -91,103 +88,30 @@ function CREATE_GUILD_EVENT_LIST_CLICK(frame, ctrl)
 	CREATE_GUILD_EVENT_LIST(frame)
 end
 
+
 function ACCEPT_GUILD_EVENT(parent, ctrl)
 	local clsID = parent:GetUserIValue("CLSID");
-	-- local cls = GetClassByType("GuildEvent", clsID)
-
-	-- 길드 이벤트 진행 여부 체크
-	control.CustomCommand("REQ_EXIST_GUILD_EVENT_CHECK", clsID)
-	-- 진행중인 퀘스트가 없고 새로 시작할 경우 ON_ACCEPT_GUILD_EVENT 실행
-end
-
-function ON_ACCEPT_GUILD_EVENT(clsID)
 	local cls = GetClassByType("GuildEvent", clsID)
-
 	local msg = ScpArgMsg("DoYouWant{GuildEvent}Start?", "GuildEvent", cls.Name);
-	if clsID == 500 then -- boruta
-		local compare_cls = GetClassByType("GuildEvent", 501);
-		if compare_cls ~= nil then
-			msg = ScpArgMsg("guild_event_start{guildEvent}{compareEvent}", "guildEvent", cls.Name, "compareEvent", compare_cls.Name);
-		end
-	elseif clsID == 501 then -- Giltine
-		local compare_cls = GetClassByType("GuildEvent", 500);
-		if compare_cls ~= nil then
-			msg = ScpArgMsg("guild_event_start{guildEvent}{compareEvent}", "guildEvent", cls.Name, "compareEvent", compare_cls.Name);
-		end
-	end
 	local yesScp = string.format("EXEC_GUILD_EVENT(%d)", clsID);
 	ui.MsgBox(msg, yesScp, "None");
 end
 
--- Dev #97866 길드 퀘스트 바로가기 기능 추가
-function MOVE_GUILD_EVENT(parent, ctrl)
-	local clsID = parent:GetUserIValue("CLSID")
-	
-	-- 맵 이름
-	local cls = GetClassByType("GuildEvent", clsID)
-	if cls == nil then return end
-	local mapClsName = TryGetProp(cls, "StartMap", "None")
-	if mapClsName == "None" then return end
-	local mapCls = GetClassByStrProp("Map", "ClassName", mapClsName);
-	if mapCls == nil then return end
-	local mapName = TryGetProp(mapCls, "Name", "None")
-	if mapName == "None" then return end
-
-	local msg = ScpArgMsg("{StartMap}DoYouWantMove", "StartMap", mapName)
-	local yesScp = string.format("MOVE_GUILD_EVENT_RUN(%d)", clsID);
-
-	ui.MsgBox(msg, yesScp, "None");
-end
-
-function MOVE_GUILD_EVENT_RUN(clsID)
-	control.CustomCommand("GUILD_EVENT_MOVE_MAP", clsID)
-end
-
 function EXEC_GUILD_EVENT(clsID)
-    local cls = GetClassByType("GuildEvent", clsID)
-    local special_mission = false;
-    if cls.ClassName == 'GM_BorutosKapas_1' or cls.ClassName == "GM_Giltine_1" then
-        special_mission = true;
-    end
-
+	
 	local pcGuild = session.party.GetPartyInfo(PARTY_GUILD);
 	if pcGuild == nil then
 		return;
 	end
-
 	local guildObj = GetIES(pcGuild:GetObject());
+
 	local haveTicket = GET_REMAIN_TICKET_COUNT(guildObj)
+
 	if haveTicket <= 0 then
 		ui.SysMsg(ScpArgMsg("NotEnoughTicketPossibleCount"));
 		return;
 	end
 	
-	if special_mission == true then
-		-- 보루타
-	    if haveTicket < 3 then
-    		ui.SysMsg(ScpArgMsg("NotEnoughTicketPossibleCount"));
-    		return;
-		end
-	end
-	
 	ui.CloseFrame('guildEventSelect');
 	control.CustomCommand("GUILD_EVENT_START_REQUEST", clsID);
-end
-
-function ON_GUILD_EVENT_START_REQUEST_MSG_BOX(frame, msg, argStr, argNum)
-	if frame ~= nil then 
-		local eventID = tonumber(argStr);
-		EXEC_GUILD_EVENT_START_REQUEST_MSG_BOX(eventID);
-		--[[ local yesScp = string.format("EXEC_GUILD_EVENT_START_REQUEST_MSG_BOX(%d)", eventID);
-		ui.MsgBox(ScpArgMsg("GuildEventStartNoticeMessage"), yesScp, "None"); ]]
-	end
-end
-
-function EXEC_GUILD_EVENT_START_REQUEST_MSG_BOX(eventID)
-	if eventID ~= nil then
-		local class = GetClassByType("GuildEvent", eventID);
-		if class ~= nil then
-			control.CustomCommand("GUILD_EVENT_START", eventID);
-		end
-	end
 end
