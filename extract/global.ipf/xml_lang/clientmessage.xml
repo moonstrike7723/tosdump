@@ -157,4 +157,7 @@
 		<Class ClassID="21298" ClassName="PCBangPointShopPurchaseFailed" Data="Popo Shop 아이템 구매에 실패했습니다. 다시 시도해 주세요."/>
 		<Class ClassID="21302" ClassName="PCBangLackOfPoint" Data="Popo Shop 포인트가 부족합니다."/>
 	</Category>
+	<Category Name="SysMsg">
+		<Class ClassID="124068" ClassName="CharLevelMoreThan{LEVEL}" Data="Character Lv.{LEVEL} or above"/>
+	</Category>
 </idspace>

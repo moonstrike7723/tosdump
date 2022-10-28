@@ -111,17 +111,33 @@ function ADVENTURE_BOOK_ACHIEVE.FILL_LIST_CONTROL(list, list_box, category)
 		if info['level_group_name'] == nil then -- 레벨 그룹 정보가 없음
 			isDraw = true
 		else -- 레벨 그룹 정보가 있음
-			-- 그룹의 가장 높은 레벨 하나만 보여줌
 			if drawGroup[info['level_group_name']] == nil then
-				local progressID = GetCurProgressLevelAchieve(info['level_group_name'])
-				drawGroup[info['level_group_name']] = progressID
-				if progressID ~= 0 then
-					isDraw = true
-					if progressID ~= clsID then
-						-- ID가 다르면 정보 다시 가져옴
-						clsID = progressID
-						cls = GetClassByType("Achieve", clsID);
-						info = ADVENTURE_BOOK_ACHIEVE_CONTENT.ACHIEVE_INFO(clsID)
+				-- 이전 레벨에 받을 수 있는 보상이 있으면 보상이 있는걸 먼저 보여줌
+				-- 이전 레벨에 받을 수 있는 보상이 없으면 그룹의 가장 높은 레벨 하나만 보여줌
+				local groupCnt = GetLevelAchieveCount(info['level_group_name'])
+				if groupCnt > 0 then
+					local viewID = 0
+					for i = 1, groupCnt do
+						local ClassID = GetAchieveByGroupLevel(info['level_group_name'], i)
+						if ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_COMPLETE(ClassID) == 1 then
+							if ADVENTURE_BOOK_ACHIEVE_CONTENT.IS_HAVE_REWARD(ClassID) == 1 then
+								viewID = ClassID
+								break
+							end
+						else
+							viewID = GetCurProgressLevelAchieve(info['level_group_name'])
+							break
+						end
+					end
+					drawGroup[info['level_group_name']] = viewID
+					if viewID ~= 0 then
+						isDraw = true
+						if viewID ~= clsID then
+							-- ID가 다르면 정보 다시 가져옴
+							clsID = viewID
+							cls = GetClassByType("Achieve", clsID);
+							info = ADVENTURE_BOOK_ACHIEVE_CONTENT.ACHIEVE_INFO(clsID)
+						end
 					end
 				end
 			end

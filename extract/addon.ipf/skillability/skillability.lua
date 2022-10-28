@@ -1449,6 +1449,8 @@ function SKILLABILITY_FILL_ACCOUNT_ABILITY_CTRLSET(ability_gb, classCtrl, abilCl
     local abilMasterPic = GET_CHILD(classCtrl, "abilMasterPic");
     local toggle = GET_CHILD(classCtrl, "toggle");
 
+    local pc = GetMyPCObject();
+    local pcLv = TryGetProp(pc, "Lv");
     local aObj = GetMyAccountObj();
 
     local abilClsName = TryGetProp(abilCls, "ClassName", "None");
@@ -1507,8 +1509,14 @@ function SKILLABILITY_FILL_ACCOUNT_ABILITY_CTRLSET(ability_gb, classCtrl, abilCl
     end
 
     -- condition
-    abilConditionText:SetTextByKey("value", "캐릭터 레벨 460 이상");
-    abilConditionText:SetTextTooltip("캐릭터 레벨 460 이상");
+    local condition = '';
+    if isMax == 1 then
+        condition = ScpArgMsg('Auto_{@st}_ChoeKo_LeBel_MaSeuTeo!');
+    elseif pcLv < 460 then
+        condition = ScpArgMsg('CharLevelMoreThan{LEVEL}', 'LEVEL', 460);
+    end
+    abilConditionText:SetTextByKey("value", condition);
+    abilConditionText:SetTextTooltip(condition);
 
     -- master.
     abilMasterPic:SetVisible(isMax);
@@ -1552,9 +1560,8 @@ function SKILLABILITY_FILL_ACCOUNT_ABILITY_CTRLSET(ability_gb, classCtrl, abilCl
     revBtn:SetEventScriptArgString(ui.LBUTTONUP, abilClsName);
     revBtn:SetOverSound('button_over');
     revBtn:SetClickSound('button_click_big');
-
-    local pc = GetMyPCObject();
-    if TryGetProp(pc, "Lv") >= 460 then
+    
+    if pcLv >= 460 then
         addBtn:SetEnable(1);
         revBtn:SetEnable(1);
     else

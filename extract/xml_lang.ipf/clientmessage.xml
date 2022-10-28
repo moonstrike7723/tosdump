@@ -11877,6 +11877,7 @@
 		<Class ClassID="124064" ClassName="ReallySelect{NAME}Item" Data="정말 [{NAME}]을 선택하시겠습니까?"/>
 		<Class ClassID="124065" ClassName="ItemDel_For_UserCare_msg1" Data="삭제한다"/>
 		<Class ClassID="124066" ClassName="FIX_CHAT_EMOTICON_MSG1" Data="중복 이모티콘 아이템을 이벤토리에서 제거했습니다{nl}{ITEMNAME} : {COUNT} 개"/>
+		<Class ClassID="124068" ClassName="CharLevelMoreThan{LEVEL}" Data="캐릭터 레벨 {LEVEL} 이상"/>
 	</Category>
 	<Category Name="Quest">
 		<Class ClassID="125001" ClassName="QuestAlignFilter_All" Data="모든 퀘스트"/>
