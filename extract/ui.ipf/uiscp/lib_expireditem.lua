@@ -36,12 +36,7 @@ function IS_EXPIRED_ITEM_BY_ITEMLIFETIMEOVER(itemObj)
     end
 end
 
-function IS_SCHEDULED_TO_EXPIRED_ITEM_BY_SYSTIME(itemGuid, sysTime)
-    local invitem = GET_ITEM_BY_GUID(itemGuid);
-    if invitem == nil then
-        return false;
-    end
-    local itemObj = GetIES(invitem:GetObject());
+function IS_SCHEDULED_TO_EXPIRED_ITEM_BY_SYSTIME(itemObj, sysTime)
     local lifeTime = TryGetProp(itemObj, "ItemLifeTime");
     if lifeTime == nil or lifeTime == "None" then
         return false;
@@ -66,9 +61,9 @@ function GET_SCHEDULED_TO_EXPIRED_ITEM_LIST(addSec)
     local list = GetInvItemList(pc);
     local out = {};
     for i=1, #list do
-        local itemGuid = list[i];
-        if true == IS_SCHEDULED_TO_EXPIRED_ITEM_BY_SYSTIME(itemGuid, nearFutureSysTime) then
-            out[#out+1]=itemGuid;
+        local item = list[i];
+        if true == IS_SCHEDULED_TO_EXPIRED_ITEM_BY_SYSTIME(item, nearFutureSysTime) then
+            out[#out+1]=item;
         end
     end
     return out;
@@ -77,29 +72,18 @@ end
 function GET_ITEM_REMAIN_LIFETIME_BY_SEC(itemObj)
     local lifeTime = TryGetProp(itemObj, "ItemLifeTime");
     local lifeTimeOver = TryGetProp(itemObj, "ItemLifeTimeOver");
-    local expireDateTime = TryGetProp(itemObj, 'ExpireDateTime', 'None') 
 
     if lifeTimeOver == 1 then
         return "Expired"
     end
-    if expireDateTime == 'None' and (lifeTime == nil or lifeTime == "None") then
+    if lifeTime == nil or lifeTime == "None" then
         return "None"
     end
     
-    if lifeTime ~= 'None' or expireDateTime ~= 'None' then
-        if expireDateTime == 'None' then
-            local expirationSysTime = imcTime.GetSysTimeByStr(lifeTime);
-            local nowSysTime = geTime.GetServerSystemTime();
-            local diffSec = imcTime.GetDifSec(expirationSysTime, nowSysTime);
-            return diffSec;
-        else
-            local expired_time = TryGetProp(itemObj, 'ExpireDateTime', 'None')
-            local expirationSysTime = imcTime.GetSysTimeByYYMMDDHHMMSS(expired_time);
-            local nowSysTime = geTime.GetServerSystemTime();
-            local diffSec = imcTime.GetDifSec(expirationSysTime, nowSysTime);
-            return diffSec;
-        end
-    end
+    local expirationSysTime = imcTime.GetSysTimeByStr(lifeTime);
+    local nowSysTime = geTime.GetServerSystemTime();
+    local diffSec = imcTime.GetDifSec(expirationSysTime, nowSysTime);
+    return diffSec;
 end
 
 function COMPARE_BY_LIFETIME(itemObj1, itemObj2)
@@ -122,61 +106,26 @@ function SORT_ITEM_LIST_BY_LIFETIME(list)
     return list;
 end
 
-function GET_REMAIN_ITEM_LIFE_TIME(item)
-    local nowSysTime = geTime.GetServerSystemTime();
-    if TryGetProp(item, "ItemLifeTime") ~= nil and item.ItemLifeTime ~= "None" then
-        local expirationSysTime = imcTime.GetSysTimeByStr(item.ItemLifeTime);    
-        local diffSec = imcTime.GetDifSec(expirationSysTime, nowSysTime);
-        return diffSec;
-    end
-    return nil;
-end
-
-function GET_REMAIN_TOKEN_SEC()
-    local sysTime = geTime.GetServerSystemTime();
-    local endTime = session.loginInfo.GetTokenTime();
-    local difSec = imcTime.GetDifSec(endTime, sysTime);
-    return difSec;
-end
-
-function IS_NEED_TO_ALERT_TOKEN_EXPIRATION(nearFutureSec)
-    if true ~= session.loginInfo.IsPremiumState(ITEM_TOKEN) then
-        return false;
-    end
-
-    local difSec = GET_REMAIN_TOKEN_SEC();
-    if difSec < nearFutureSec and difSec > 0 then     
-        return true;
-    end
-    
-    return false;
-end
-
-function ADD_EXPIRED_ITEM(groupbox, itemName, itemIcon, i, ypos, diffSec, isOver, skinName)
+function ADD_EXPIRED_ITEM(groupbox, item, i, ypos)
     local ctrlset = groupbox:CreateOrGetControlSet('expireditem_ctrlset', 'expireditem_ctrlset' .. i , 0, ypos);
     tolua.cast(ctrlset, "ui::CGroupBox");
-    local top_bg = GET_CHILD_RECURSIVELY(ctrlset, 'top_bg');
     local name = GET_CHILD_RECURSIVELY(ctrlset, 'name', 'ui::CRichText')
     local expirationTime = GET_CHILD_RECURSIVELY(ctrlset, 'expirationTime', 'ui::CRichText')
     local remainingTime = GET_CHILD_RECURSIVELY(ctrlset, 'remainingTime', 'ui::CRichText')
     local item_pic = GET_CHILD_RECURSIVELY(ctrlset, 'item_pic', 'ui::CPicture')
-    name:SetTextByKey('itemname', itemName);
-    
-    if skinName ~= nil then
-        top_bg:SetSkinName(skinName);
-    end
+    name:SetTextByKey('itemname', item.Name);
 
-    if diffSec ~= nil then
-        local expirationSysTime = geTime.GetServerSystemTime();
-        expirationSysTime = imcTime.AddSec(expirationSysTime, diffSec);
-
+    if TryGetProp(item, "ItemLifeTime") ~= nil and TryGetProp(item, "ItemLifeTime") ~= "None" then
+        local expirationSysTime = imcTime.GetSysTimeByStr(item.ItemLifeTime);
         expirationTime:SetTextByKey('year', expirationSysTime.wYear);
         expirationTime:SetTextByKey('month', GET_TWO_DIGIT_STR(expirationSysTime.wMonth));
         expirationTime:SetTextByKey('day', GET_TWO_DIGIT_STR(expirationSysTime.wDay));
 
-        if isOver then
+        if TryGetProp(item, "ItemLifeTimeOver") == 1 then
             remainingTime:SetText(ClMsg("TimeExpired"))
         else
+            local nowSysTime = geTime.GetServerSystemTime();
+            local diffSec = imcTime.GetDifSec(expirationSysTime, nowSysTime);
             local days = math.floor(diffSec / 86400);
             local hours = math.floor((diffSec % 86400) / 3600)
             local mins = math.floor(((diffSec % 86400) % 3600) / 60)
@@ -197,7 +146,7 @@ function ADD_EXPIRED_ITEM(groupbox, itemName, itemIcon, i, ypos, diffSec, isOver
         end
     end
 
-    item_pic:SetImage(itemIcon);
+    item_pic:SetImage(item.Icon);
 
     local timeParentCtrl = remainingTime:GetParent();
     local amendHeight = remainingTime:GetY() + remainingTime:GetHeight();
@@ -214,22 +163,14 @@ end
 -- slot
 
 -- ICON_SET_ITEM_COOLDOWN ī��
-function ICON_SET_ITEM_REMAIN_LIFETIME(icon, invType)
+function ICON_SET_ITEM_REMAIN_LIFETIME(icon)	
     if icon == nil then
 		return;
 	end
-    
-    local iconInfo = icon:GetInfo();
-    local invItem = nil;
-    if invType ~= nil then
-        invItem = session.GetEtcItemByGuid(invType, iconInfo:GetIESID());
-        icon:SetUserValue('INV_TYPE', invType);
-    else
-        invItem = session.GetInvItemByGuid(iconInfo:GetIESID());
-        icon:SetUserValue('INV_TYPE', IT_INVENTORY);
-    end
-    
-    if invItem == nil then
+	
+	local iconInfo = icon:GetInfo();
+	local invItem = session.GetInvItemByGuid(iconInfo:GetIESID());
+	if invItem == nil then
         return;
     end
 
@@ -238,9 +179,8 @@ function ICON_SET_ITEM_REMAIN_LIFETIME(icon, invType)
         return;
     end
     
-    local remainTimeSec = GET_ITEM_REMAIN_LIFETIME_BY_SEC(obj);   
+    local remainTimeSec = GET_ITEM_REMAIN_LIFETIME_BY_SEC(obj);
     if remainTimeSec ~= "None" then
-        icon:SetDrawLifeTimeText(1)
 	    icon:SetOnLifeTimeUpdateScp('ICON_UPDATE_ITEM_REMAIN_LIFETIME');
     end
 end
@@ -250,15 +190,8 @@ function ICON_UPDATE_ITEM_REMAIN_LIFETIME(icon)
 		return 0;
 	end
 	
-    local iconInfo = icon:GetInfo();
-    local invType = icon:GetUserIValue('INV_TYPE');
-    local invItem = nil;
-    if invType ~= IT_INVENTORY then
-        invItem = session.GetEtcItemByGuid(invType, iconInfo:GetIESID());
-    else
-        invItem = session.GetInvItemByGuid(iconInfo:GetIESID());
-    end
-    
+	local iconInfo = icon:GetInfo();
+	local invItem = session.GetInvItemByGuid(iconInfo:GetIESID());
 	if invItem == nil then
         return 0;
     end
@@ -270,7 +203,6 @@ function ICON_UPDATE_ITEM_REMAIN_LIFETIME(icon)
     
     local remainTimeSec = GET_ITEM_REMAIN_LIFETIME_BY_SEC(obj);
     if remainTimeSec == "None" or remainTimeSec == "Expired" then
-        icon:SetColorTone("FFFF0000");
         return 0;
     else
         return remainTimeSec;
@@ -315,28 +247,4 @@ function GET_LATEST_ITEM_LIFE_TIME_OVERED()
 
     latestSysTimeStr = imcTime.GetStringSysTime(latestSysTime);
     return latestSysTimeStr;
-end
-
-function CLEAR_ICON_REMAIN_LIFETIME(slot, icon)    
-    icon:SetDrawLifeTimeText(0);
-    slot:SetFrontImage('None');
-end
-
-function GET_REMAIN_CHATBALLOON_SKIN_SEC(skinID)
-    
-    local skinData = session.chatballoonskin.GetChatBalloonSkinDataByClassID(skinID);
-    if skinData == nil then
-        return;
-    end
-
-    local sysTime = geTime.GetServerSystemTime();
-    local endTime = skinData.endTime;
-    local difSec = imcTime.GetDifSec(endTime, sysTime);
-    
-    if endTime.wYear == 2999 then
-        -- 2999.12.31.23.59.59 = 무제한
-        difSec = 0;
-    end
-
-    return difSec;
 end

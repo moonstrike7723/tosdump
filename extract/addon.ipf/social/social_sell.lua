@@ -25,7 +25,7 @@ function SOCIAL_SELL_ON_DROP(sellGbox, itemGbox, argStr, argNum)
 		return;
 	end
 	
-	if dropIconInfo:GetCategory() ~= "Item" then
+	if dropIconInfo.category ~= "Item" then
 		return;
 	end
 
@@ -184,7 +184,16 @@ function SOCIAL_SELL_ITEM_LIST(frame)
 	sellItemGbox:DeleteAllControl();
 	
 	local list = session.GetSocialSellModeItemList();
-	FOR_EACH_INVENTORY(list, function(invItemList, info)			
-		SOCIAL_SELL_CTRL_SET(info.invIndex, info.type, info.count);
-	end, false);
+	local i = list:Head();
+	local idx = 0;
+	while 1 do
+		if i == list:InvalidIndex() then
+			break;
+		end
+		
+		local info = list:Element(i);
+		SOCIAL_SELL_CTRL_SET(info.invIndex, info.type, info.count);		
+		idx = idx + 1;
+		i = list:Next(i);
+	end
 end
