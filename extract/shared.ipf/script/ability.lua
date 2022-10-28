@@ -427,7 +427,7 @@ function SCR_ABIL_CLOTH_ACTIVE(self, ability)
     local value = 0;
     
     if count >= 4 then
-	    value = 150     -- 15%
+	    value = 200     -- 20%
 	end
     
     SetExProp(self, "CLOTH_ARMOR_ABIL_VALUE", value);
@@ -489,7 +489,7 @@ function SCR_ABIL_IRON_ACTIVE(self, ability)
     local value = 0;
     
     if count >= 4 then
-	    value = 150     -- 15%
+	    value = 200     -- 20%
 	end
     
     SetExProp(self, "IRON_ARMOR_ABIL_VALUE", value);
@@ -1359,6 +1359,7 @@ function SCR_ABIL_Doppelsoeldner27_ACTIVE(self, ability)
     local skill = GetSkill(self, "Doppelsoeldner_Zornhau");
     if skill ~= nil then
         SetSkillOverHeat(self, skill.ClassName, 3, 1);
+        RequestResetOverHeat(self, "Zornhau_OH")
     end
 end
 
@@ -1366,6 +1367,7 @@ function SCR_ABIL_Doppelsoeldner27_INACTIVE(self, ability)
     local skill = GetSkill(self, "Doppelsoeldner_Zornhau");
     if skill ~= nil then
         SetSkillOverHeat(self, skill.ClassName, 0, 1);
+        RequestResetOverHeat(self, "Zornhau_OH")
     end
 end
 

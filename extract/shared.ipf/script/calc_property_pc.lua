@@ -2167,12 +2167,13 @@ function SCR_Get_MSPD(self)
                 maxWeight = 8000;
             end
             
-            if nowWeight >= maxWeight then
+            local mapCls = GetMapProperty(self);
+            if (mapCls == nil or 'City' ~= mapCls.MapType) and nowWeight >= maxWeight then
                 value = value / 3;
             end
         else
             local pc = GetMyPCObject();
-            
+
             nowWeight = TryGetProp(pc, "NowWeight");
             if nowWeight == nil then
                 nowWeight = 0;
@@ -2182,8 +2183,10 @@ function SCR_Get_MSPD(self)
             if maxWeight == nil then
                 maxWeight = 8000;
             end
-            
-            if nowWeight >= maxWeight then
+
+            local mymapname = session.GetMapName();
+            local map = GetClass("Map", mymapname);
+            if (map == nil or map.isVillage ~= "YES") and nowWeight >= maxWeight then
                 value = value / 3;
             end
         end
@@ -2646,8 +2649,11 @@ function SCR_Get_Sta_Run(self)
     
     value = value + (value * addRateConsumptionSTA);
     
+    -- 이런 버프 늘어나면 구조화 필요
     if IsBuffApplied(self, 'Sprint_Buff') == 'YES' then
         value = 0;
+    elseif IsBuffApplied(self, 'Stamina_Max_buff') == 'YES' then
+        value = SCR_FIELD_DUNGEON_CONSUME_DECREASE(self, 'Sta_Run', value);
     end
 
     return math.floor(value);
@@ -3453,6 +3459,22 @@ function SCR_GET_LargeSize_ATK(pc)
     local value = byItem + byBuff;
     
     return math.floor(value);
+end
+
+function SCR_GET_BOSS_ATK(pc)
+    local byItem = GetSumOfEquipItem(pc, "ADD_BOSS_ATK");
+    if byItem == nil then
+        byItem = 0;
+    end
+  
+    local byBuff = TryGetProp(pc, "BOSS_ATK_BM");
+    if byBuff == nil then
+        byBuff = 0;
+    end
+    
+    local value = byItem + byBuff;
+
+    return math.floor(value)
 end
 
 function SCR_GET_BASE_WEAPON_DEF(pc)

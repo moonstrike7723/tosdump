@@ -2,6 +2,8 @@ random_item = { }
 date_time = { }
 account_warehouse = {} 
 
+unpack = unpack or table.unpack
+
 random_item.is_sealed_random_item = function(itemobj)
     if IS_EQUIP(itemobj) == false then
         return false;
@@ -1218,7 +1220,7 @@ function SCR_DATE_TO_YHOUR_BASIC_2000(yy, mm, dd, hh)
     nonleapyears = math.floor((yy - 2000) / 100)
     nonnonleapyears = math.floor((yy - 1600) / 400)
 
-    if ((math.mod(yy, 4) == 0) and mm < 3) then
+    if ((math.fmod(yy, 4) == 0) and mm < 3) then
         leapyears = leapyears - 1
     end
 
@@ -1246,7 +1248,7 @@ function SCR_DATE_TO_YMIN_BASIC_2000(yy, mm, dd, hh, min)
     nonleapyears = math.floor((yy - 2000) / 100)
     nonnonleapyears = math.floor((yy - 1600) / 400)
 
-    if ((math.mod(yy, 4) == 0) and mm < 3) then
+    if ((math.fmod(yy, 4) == 0) and mm < 3) then
         leapyears = leapyears - 1
     end
 
@@ -1325,7 +1327,7 @@ function SCR_DATE_TO_YDAY_BASIC_2000(yy, mm, dd)
     nonleapyears = math.floor((yy - 2000) / 100)
     nonnonleapyears = math.floor((yy - 1600) / 400)
 
-    if ((math.mod(yy, 4) == 0) and mm < 3) then
+    if ((math.fmod(yy, 4) == 0) and mm < 3) then
         leapyears = leapyears - 1
     end
 
@@ -1711,7 +1713,7 @@ function GET_MS_TXT(sec)
     local appTime = imcTime.GetAppTime();
     local m, s = GET_MS(sec);
     local colon = ":";
-    if math.mod(math.floor(appTime * 2.0), 2) == 1 then
+    if math.fmod(math.floor(appTime * 2.0), 2) == 1 then
         colon = " ";
     end
 
@@ -2036,6 +2038,19 @@ function NUM_KILO_CHANGE(num)
         str = string.sub(str, 1, -2)
     end
     return str
+end
+
+function STR_KILO_CHANGE(num)
+    local padding = 3 - string.len(num) % 3
+    if padding == 3 then
+        padding = 0
+    end
+    for i = 1,padding do
+        num = '0' .. num
+    end
+    num = string.gsub(num,"[0-9][0-9][0-9]",function(w) return w..',' end)
+    num = string.sub(num,padding+1,string.len(num) - 1)
+    return num
 end
 
 function SCR_POSSIBLE_UI_OPEN_CHECK(pc, questIES, subQuestZoneList, chType)
@@ -3239,4 +3254,12 @@ function GET_MODIFIED_PROPERTIES_STRING(item, invitem)
         str = str .. invitem:GetAdditionalModifiedString();
     end
     return str;
+end
+
+function RANDOM_SHUFFLE(tbl)
+    for i = #tbl, 2, -1 do
+        local j = math.random(1, i);
+        tbl[i], tbl[j] = tbl[j], tbl[i];
+    end
+    return tbl
 end

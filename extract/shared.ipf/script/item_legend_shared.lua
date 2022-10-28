@@ -35,9 +35,8 @@ function GET_OPTION_EXTRACT_MATERIAL_NAME()
     return 'misc_ore23'; 
 end
 
-function GET_OPTION_EXTRACT_NEED_MATERIAL_COUNT(itemobj)
-
-    return math.floor(itemobj.UseLv / (3 * (5 - itemobj.ItemGrade)));
+function GET_OPTION_EXTRACT_NEED_MATERIAL_COUNT(item)
+    return math.floor(item.UseLv / (3 * (5 - item.ItemGrade)));
 end
 
 function IS_ENABLE_NOT_TAKE_MATERIAL_KIT(kitCls)

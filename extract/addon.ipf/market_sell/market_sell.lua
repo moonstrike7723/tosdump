@@ -104,8 +104,12 @@ function ON_MARKET_SELL_LIST(frame, msg, argStr, argNum)
 		SET_SLOT_ITEM_CLS(pic, itemObj)
 		icon:SetImage(imgName);
         SET_SLOT_STYLESET(pic, itemObj)
-        if itemObj.MaxStack > 1 then        	
-			SET_SLOT_COUNT_TEXT(pic, marketItem.count, '{s16}{ol}{b}');
+		if itemObj.MaxStack > 1 then
+			local font = '{s16}{ol}{b}';
+			if 100000 <= marketItem.count then	-- 6자리 수 폰트 크기 조정
+				font = '{s14}{ol}{b}';
+			end
+			SET_SLOT_COUNT_TEXT(pic, marketItem.count, font);
 		end
 
 		local nameCtrl = ctrlSet:GetChild("name");
@@ -751,22 +755,23 @@ function UPDATE_FEE_INFO(frame, free, count, price)
 	local feeValue = 0;
 	local isTokenState = session.loginInfo.IsPremiumState(ITEM_TOKEN);
 	local isPremiumStateNexonPC = session.loginInfo.IsPremiumState(NEXON_PC);
-	if isTokenState == true then		
-		feeValue = tonumber(math.mul_int_for_lua(GetCashValue(ITEM_TOKEN, "marketSellCom"), 0.01));		
-		
+	if isTokenState == true then
+		feeValue = math.mul_for_lua(GetCashValue(ITEM_TOKEN, "marketSellCom"), 0.01);
+		feeValue = tonumber(feeValue);
 	elseif isPremiumStateNexonPC == true then
-		feeValue = tonumber(math.mul_int_for_lua(GetCashValue(NEXON_PC, "marketSellCom"), 0.01));		
-		
+		feeValue = math.mul_for_lua(GetCashValue(NEXON_PC, "marketSellCom"), 0.01);
+		feeValue = tonumber(feeValue);
 	else
-		feeValue = tonumber(math.mul_int_for_lua(GetCashValue(NONE_PREMIUM, "marketSellCom"), 0.01))		
-		
+		feeValue = math.mul_for_lua(GetCashValue(NONE_PREMIUM, "marketSellCom"), 0.01);
+		feeValue = tonumber(feeValue);
 	end	
 	
 	feeValue = math.mul_int_for_lua(totalPrice, feeValue)
 	feeValue = tonumber(feeValue)
 	feeValue = math.floor(feeValue)
 	if feeValue > 0 then
-		feeValue = tonumber(math.mul_int_for_lua(feeValue, -1));
+		feeValue = math.mul_int_for_lua(feeValue, -1);
+		feeValue = tonumber(feeValue);
 	end
 	feeValue = math.floor(feeValue)	
 	local finalValue =SumForBigNumberInt64(totalPrice, feeValue);

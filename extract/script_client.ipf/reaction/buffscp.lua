@@ -67,12 +67,21 @@ end
 
 function ShieldChargeClientScp_LEAVE(actor, obj, buff)
 
-    actor:GetAnimation():ResetSTDAnim();
-    actor:GetAnimation():ResetRUNAnim();
-    actor:GetAnimation():ResetWLKAnim();
-    actor:GetAnimation():ResetTURNAnim();
-    actor:SetAlwaysBattleState(false);
+    local buffRamMuay = actor:GetBuff():GetBuff('RamMuay_Buff');
 
+    if buffRamMuay ~= nil then
+        actor:GetAnimation():SetSTDAnim("SKL_NAKMUAY_ASTD");
+        actor:GetAnimation():SetRUNAnim("SKL_NAKMUAY_ARUN");actor:GetAnimation():SetRAISEAnim("SKL_NAKMUAY_RAISE");
+        actor:GetAnimation():SetOnAIRAnim("SKL_NAKMUAY_ONAIR");
+        actor:GetAnimation():SetFALLAnim("SKL_NAKMUAY_FALL");   
+    else
+        actor:GetAnimation():ResetSTDAnim();
+        actor:GetAnimation():ResetRUNAnim();
+        actor:GetAnimation():ResetWLKAnim();
+        actor:GetAnimation():ResetTURNAnim();
+    end
+
+    actor:SetAlwaysBattleState(false);
 end
 
 
@@ -88,10 +97,19 @@ end
 
 function SlitheringClientScp_LEAVE(actor, obj, buff)
 
-    actor:GetAnimation():ResetSTDAnim();
-    actor:GetAnimation():ResetRUNAnim();
-    actor:GetAnimation():ResetWLKAnim();
-    actor:GetAnimation():ResetTURNAnim();
+    local buffRamMuay = actor:GetBuff():GetBuff('RamMuay_Buff');
+
+    if buffRamMuay ~= nil then
+        actor:GetAnimation():SetSTDAnim("SKL_NAKMUAY_ASTD");
+        actor:GetAnimation():SetRUNAnim("SKL_NAKMUAY_ARUN");actor:GetAnimation():SetRAISEAnim("SKL_NAKMUAY_RAISE");
+        actor:GetAnimation():SetOnAIRAnim("SKL_NAKMUAY_ONAIR");
+        actor:GetAnimation():SetFALLAnim("SKL_NAKMUAY_FALL");   
+    else
+        actor:GetAnimation():ResetSTDAnim();
+        actor:GetAnimation():ResetRUNAnim();
+        actor:GetAnimation():ResetWLKAnim();
+        actor:GetAnimation():ResetTURNAnim();
+    end
     
     actor:SetAlwaysBattleState(false);
 
@@ -113,10 +131,20 @@ function PouncingClientScp_ENTER(actor, obj, buff)
 end
 
 function PouncingClientScp_LEAVE(actor, obj, buff)
-    actor:GetAnimation():ResetSTDAnim();
-    actor:GetAnimation():ResetRUNAnim();
-    actor:GetAnimation():ResetWLKAnim();
-    actor:GetAnimation():ResetTURNAnim();
+
+    local buffRamMuay = actor:GetBuff():GetBuff('RamMuay_Buff');
+
+    if buffRamMuay ~= nil then
+        actor:GetAnimation():SetSTDAnim("SKL_NAKMUAY_ASTD");
+        actor:GetAnimation():SetRUNAnim("SKL_NAKMUAY_ARUN");actor:GetAnimation():SetRAISEAnim("SKL_NAKMUAY_RAISE");
+        actor:GetAnimation():SetOnAIRAnim("SKL_NAKMUAY_ONAIR");
+        actor:GetAnimation():SetFALLAnim("SKL_NAKMUAY_FALL");   
+    else
+        actor:GetAnimation():ResetSTDAnim();
+        actor:GetAnimation():ResetRUNAnim();
+        actor:GetAnimation():ResetWLKAnim();
+        actor:GetAnimation():ResetTURNAnim();
+    end
 
     actor:SetAlwaysBattleState(false);
 end
@@ -1109,8 +1137,6 @@ function RamMuay_UPDATE(actor, obj, buff)
     if lhObj.ClassType == "Artefact" then
         actor:ShowModelByPart("LH", 0, 0);
     end
-    
-    actor:GetAnimation():SetSTDAnim("SKL_NAKMUAY_ASTD");
 end
 
 function RamMuay_LEAVE(actor, obj, buff)
@@ -1130,35 +1156,26 @@ function ScpChangeMovingShotAnimationSet(actor, obj, buff)
     local AssaultFire = actor:GetBuff():GetBuff('AssaultFire_Buff');
     local Outrage = actor:GetBuff():GetBuff('Outrage_Buff');
     
-    -- RunningShot_Buff (and) DoubleGunStance_Buff(스위프트 스텝과 더블건스탠스 무빙샷이속 동시적용 안되게 수정함)
---     if buffSwiftStep ~= nil and buffDoubleGunStance ~= nil and Outrage == nil then
---         actor:ChangeEquipNode(EmAttach.eRHand, "Dummy_Sword");
---         actor:CopyAttachedModel(EmAttach.eLHand, "Dummy_L_HAND");
---         actor:SetAlwaysBattleState(true);
---         actor:SetMovingShotAnimation("DOUBLEGUN_ATKRUN");
-        
---         actor:GetAnimation():SetTURNAnim("SKL_DOUBLEGUN_ATURN");
---         actor:GetAnimation():SetSTDAnim("SKL_DOUBLEGUN_ASTD");
---         actor:GetAnimation():SetRUNAnim("SKL_DOUBLEGUN_ARUN");
---         actor:GetAnimation():SetLANDAnim("SKL_DOUBLEGUN_LAND")
---         actor:GetAnimation():SetRAISEAnim("SKL_DOUBLEGUN_RAISE")
--- --        actor:GetAnimation():SetOnAIRAnim("SKL_DOUBLEGUN_AONAIR")
---         actor:GetAnimation():SetFALLAnim("SKL_DOUBLEGUN_FALL")
     -- Outrage_Buff
     -- elseif Outrage ~= nil and buffDoubleGunStance ~= nil then
+    if buffDoubleGunStance ~= nil then
+        actor:GetBuff():SetDoubleGunStanceState(actor:GetHandleVal(), true);
+    else
+        actor:GetBuff():SetDoubleGunStanceState(actor:GetHandleVal(), false);
+    end
+
     if Outrage ~= nil and buffDoubleGunStance ~= nil then
         actor:ChangeEquipNode(EmAttach.eRHand, "Dummy_Sword");
         actor:CopyAttachedModel(EmAttach.eLHand, "Dummy_L_HAND");
         actor:SetAlwaysBattleState(true);
         actor:SetMovingShotAnimation("DOUBLEGUN_ATKRUN");
-        
         actor:GetAnimation():SetTURNAnim("SKL_DOUBLEGUN_ATURN");
         actor:GetAnimation():SetSTDAnim("SKL_DOUBLEGUN_ASTD");
         actor:GetAnimation():SetRUNAnim("SKL_DOUBLEGUN_ARUN");
         actor:GetAnimation():SetLANDAnim("SKL_DOUBLEGUN_LAND")
         actor:GetAnimation():SetRAISEAnim("SKL_DOUBLEGUN_RAISE")
---        actor:GetAnimation():SetOnAIRAnim("SKL_DOUBLEGUN_AONAIR")
         actor:GetAnimation():SetFALLAnim("SKL_DOUBLEGUN_FALL")
+        --actor:GetAnimation():SetOnAIRAnim("SKL_DOUBLEGUN_AONAIR")
     else
         -- RunningShot_Buff
         if buffSwiftStep ~= nil then
@@ -1176,8 +1193,8 @@ function ScpChangeMovingShotAnimationSet(actor, obj, buff)
             actor:GetAnimation():SetRUNAnim("SKL_DOUBLEGUN_ARUN");
             actor:GetAnimation():SetLANDAnim("SKL_DOUBLEGUN_LAND")
             actor:GetAnimation():SetRAISEAnim("SKL_DOUBLEGUN_RAISE")
---            actor:GetAnimation():SetOnAIRAnim("SKL_DOUBLEGUN_ONAIR")
-            actor:GetAnimation():SetFALLAnim("SKL_DOUBLEGUN_FALL")            
+            actor:GetAnimation():SetFALLAnim("SKL_DOUBLEGUN_FALL")
+            --actor:GetAnimation():SetOnAIRAnim("SKL_DOUBLEGUN_ONAIR")
         end
     end
     
@@ -1276,4 +1293,27 @@ end
 
 function DOLL_GABIA_BUFF_LEAVE(actor, obj, buff)
 	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_gabia");
+end
+
+function XMAS_EFFECT_2019_ENTER(actor, obj, buff)
+    effect.AddActorEffectByOffset(actor, "E_effectitem_whitebird", 0.4, "BOT");
+end
+
+function XMAS_EFFECT_2019_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "E_effectitem_whitebird", 0.0);
+end
+
+function WEEKLY_MIRTIS_EFFECT_ENTER(actor, obj, buff)
+    effect.AddActorEffectByOffset(actor, "E_effectitem_mirtis", 1, "BOT");
+end
+
+function WEEKLY_MIRTIS_EFFECT_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "E_effectitem_mirtis", 0.0);
+end
+
+function HiphopEffect_pre_ENTER(actor, obj, buff)
+end
+
+function HiphopEffect_pre_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "E_pc_effectitem_hiphop", 0);
 end

@@ -177,6 +177,8 @@ function SCR_Get_SpendSP(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         decsp = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "SpendSP", value)
+    elseif IsBuffApplied(pc, "FIELD_SP_FULL_BUFF") == "YES" then
+        decsp = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "SpendSP", value)
     else
         if IsBuffApplied(pc, "Gymas_Buff") == "YES" then
             local ratio = 0.25;
@@ -586,6 +588,8 @@ function SCR_GET_SKL_COOLDOWN(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -598,6 +602,98 @@ function SCR_GET_SKL_COOLDOWN(skill)
         end
     end
     -----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+function SCR_GET_SKL_COOLDOWN_ADD_LEVEL_BYGEM(skill)
+    
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    
+    local level = TryGetProp(skill, "Level", 1)
+    local decreaseCoolDown = math.floor(basicCoolDown * (level-1) * 0.1)
+
+    if decreaseCoolDown > basicCoolDown then
+        decreaseCoolDown = basicCoolDown
+    end
+    
+    basicCoolDown = basicCoolDown - decreaseCoolDown 
+
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+    
+    local laimaCoolTime = GetExProp(pc, "LAIMA_BUFF_COOLDOWN")
+    if laimaCoolTime ~= 0 then
+        basicCoolDown = basicCoolDown * (1 - laimaCoolTime)
+    elseif IsBuffApplied(pc, 'CarveLaima_Debuff') == 'YES' then
+        basicCoolDown = basicCoolDown * 1.2;
+    end
+
+    --burning_event
+    if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
+        basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
+    else
+        if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
+            basicCoolDown = basicCoolDown * 0.9;
+        end
+        
+        if IsBuffApplied(pc, 'SpeForceFom_Buff') == 'YES' then
+            if skill.ClassName ~= "Centurion_SpecialForceFormation" then
+                basicCoolDown = basicCoolDown * 0.5;
+            end
+        end
+    end
+    -----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
     if coolDownClassify == "Fix" then
@@ -625,13 +721,22 @@ function SCR_GET_SKL_COOLDOWN_KaguraDance(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
         end
     end
     -----------
-    
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -662,6 +767,8 @@ function SCR_GET_SKL_COOLDOWN_BUNSIN(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -673,6 +780,14 @@ function SCR_GET_SKL_COOLDOWN_BUNSIN(skill)
         end
     end
     -------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
 
     if IsBuffApplied(pc, "Bunshin_Debuff") == "YES" then
 --      local bunshinBuff = nil
@@ -719,6 +834,8 @@ function SCR_GET_SKL_COOLDOWN_PrimeAndLoad(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -731,6 +848,14 @@ function SCR_GET_SKL_COOLDOWN_PrimeAndLoad(skill)
         end
     end
     ----------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
 
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;   
@@ -761,6 +886,8 @@ function SCR_GET_SKL_COOLDOWN_CounterSpell(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
 
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
@@ -774,6 +901,14 @@ function SCR_GET_SKL_COOLDOWN_CounterSpell(skill)
         end
     end
     -----------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     local ret = math.floor(basicCoolDown) / 1000
     
@@ -812,6 +947,8 @@ function SCR_GET_SKL_CoolDown_BackSlide(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -824,6 +961,14 @@ function SCR_GET_SKL_CoolDown_BackSlide(skill)
         end
     end
     ----------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -854,6 +999,8 @@ function SCR_GET_SKL_CoolDown_Prevent(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -866,6 +1013,14 @@ function SCR_GET_SKL_CoolDown_Prevent(skill)
         end
     end
     ------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -914,12 +1069,22 @@ function SCR_GET_SKL_COOLDOWN_Golden_Bell_Shield(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
         end
     end
     -----------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     if IsPVPServer(pc) == 1 then
         basicCoolDown = basicCoolDown + 10000;
@@ -945,6 +1110,8 @@ function SCR_GET_SKL_COOLDOWN_VisibleTalent(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -957,6 +1124,14 @@ function SCR_GET_SKL_COOLDOWN_VisibleTalent(skill)
         end
     end
     ---------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     local ret = math.floor(basicCoolDown) / 1000
     
@@ -982,6 +1157,8 @@ function SCR_GET_SKL_COOLDOWN_Chronomancer_Stop(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -994,6 +1171,14 @@ function SCR_GET_SKL_COOLDOWN_Chronomancer_Stop(skill)
         end
     end
     ----------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     local ret = math.floor(basicCoolDown) / 1000
     
@@ -1042,12 +1227,71 @@ function SCR_GET_SKL_COOLDOWN_WIZARD(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
         end
     end
     ------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
+    if basicCoolDown < skill.MinCoolDown then
+        return skill.MinCoolDown;
+    end
+    
+    if coolDownClassify == "FIX" then
+        basicCoolDown = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        basicCoolDown = zoneAddCoolDown + basicCoolDown
+    end
+    
+    return basicCoolDown;
+end
+
+function SCR_GET_SKL_COOLDOWN_Teleportation(skill)
+    local pc = GetSkillOwner(skill);
+    
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    
+    basicCoolDown = (basicCoolDown - (TryGetProp(skill, "Level", 0) - 1) * 1000) + abilAddCoolDown;
+    
+    local laimaCoolTime = GetExProp(pc, "LAIMA_BUFF_COOLDOWN")
+    if laimaCoolTime ~= 0 then
+        basicCoolDown = basicCoolDown * (1 - laimaCoolTime)
+    elseif IsBuffApplied(pc, 'CarveLaima_Debuff') == 'YES' then
+        basicCoolDown = basicCoolDown * 1.2;
+    end
+    
+    --burning_event
+    if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
+        basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
+    else
+        if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
+            basicCoolDown = basicCoolDown * 0.9;
+        end
+    end
+    ------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
     if basicCoolDown < skill.MinCoolDown then
         return skill.MinCoolDown;
     end
@@ -1079,12 +1323,22 @@ function SCR_GET_SKL_COOLDOWN_SummonFamiliar(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
         end
     end
     -----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     if basicCoolDown < skill.MinCoolDown then
         return skill.MinCoolDown;
@@ -1113,6 +1367,8 @@ function SCR_GET_SKL_COOLDOWN_Bloodletting(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -1125,6 +1381,14 @@ function SCR_GET_SKL_COOLDOWN_Bloodletting(skill)
         end
     end
     -------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     if IsPVPServer(pc) == 1 then
         basicCoolDown = basicCoolDown + 20000;
@@ -1152,6 +1416,8 @@ function SCR_GET_SKL_COOLDOWN_HealingFactor(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -1164,6 +1430,14 @@ function SCR_GET_SKL_COOLDOWN_HealingFactor(skill)
         end
     end
     ------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     if IsPVPServer(pc) == 1 then
         basicCoolDown = basicCoolDown + 20000;
@@ -1191,12 +1465,22 @@ function SCR_GET_SKL_COOLDOWN_GravityPole(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
         end
     end
     ----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     if IsPVPServer(pc) == 1 then
         basicCoolDown = basicCoolDown + 15000;
@@ -2874,6 +3158,8 @@ function SCR_GET_SKL_COOLDOWN_MortalSlash(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -2886,6 +3172,14 @@ function SCR_GET_SKL_COOLDOWN_MortalSlash(skill)
         end
     end
     ----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     if IsBuffApplied(pc, "Bunshin_Debuff") == "YES" then
         local bunshinBuff = nil
@@ -3172,7 +3466,7 @@ function SCR_GET_ShadowPool_Bufftime(skill)
 end
 
 function SCR_GET_ShadowFatter_Bufftime(skill)
-    local value = 3 + skill.Level
+    local value = 5 + skill.Level * 2
     
     return value
 end
@@ -4082,6 +4376,8 @@ function SCR_GET_SKL_COOLDOWN_CannonBarrage(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -4094,6 +4390,14 @@ function SCR_GET_SKL_COOLDOWN_CannonBarrage(skill)
         end
     end
     ----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
 
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;   
@@ -4442,10 +4746,11 @@ function SCR_GET_IceBlast_Ratio(skill)
 end
 
 function SCR_GET_SnowRolling_Ratio2(skill)
-	local value = 3 + skill.Level
-	if value>=10 then
-		value = 10;
-	end
+    local value = 3 + skill.Level
+    if value > 10 then
+        value = 10
+    end
+    
 	return value
 end
 
@@ -5600,14 +5905,10 @@ function SCR_Get_BloodCurse_BuffTime(skill)
 end
 
 function SCR_GET_Smite_Ratio(skill)
-
     local pc = GetSkillOwner(skill);
-    local abil = GetAbility(pc, "Paladin14") 
-    local value = 0
-    if abil ~= nil then 
-        return SCR_ABIL_ADD_SKILLFACTOR_TOOLTIP(abil);
-    end
+    local value = 10
 
+    return value;
 end
 
 function SCR_GET_Demolition_Ratio(skill)
@@ -7318,7 +7619,7 @@ function SCR_GET_Blessing_Ratio(skill)
     local mna_bonus = pcMNA * 1.5
     local int_bonus = int * 1.5
     local baseDamageValue = 100 + (skill.Level) * 100    
-    local value = baseDamageValue + mna_bonus + int    
+    local value = baseDamageValue + mna_bonus + int_bonus    
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     return math.floor(value);
 end
@@ -8069,7 +8370,6 @@ function SCR_GET_SpellShop_Sacrament_Ratio(skill)
     local pc = GetSkillOwner(skill)
 	
     local value = SCR_GET_Sacrament_Ratio(skill)
-    value = value / SCR_REINFORCEABILITY_TOOLTIP(skill) 
     value = value * 0.3
     
     -- 주문 ?�매?�점 개설 강화 ?�성?�??�러개라??SCR_REINFORCEABILITY_TOOLTIP ?�수???�용 불�?. 직접 ?�용 ----
@@ -8093,7 +8393,6 @@ function SCR_GET_SpellShop_Blessing_Ratio(skill)
     local pc = GetSkillOwner(skill)
 	
     local value = SCR_GET_Blessing_Ratio(skill)
-    value = value / SCR_REINFORCEABILITY_TOOLTIP(skill) 
     value = value * 0.3
     
     -- 주문 ?�매?�점 개설 강화 ?�성?�??�러개라??SCR_REINFORCEABILITY_TOOLTIP ?�수???�용 불�?. 직접 ?�용 ----
@@ -9421,8 +9720,19 @@ function SCR_GET_PatronSaint_Bufftime(skill)
 end
 
 function SCR_GET_PatronSaint_Raito(skill)
+    local pc = GetSkillOwner(skill)
     local value = skill.Level * 5
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+    return value;
+end
+
+function SCR_GET_PatronSaint_Raito2(skill)
+    local pc = GetSkillOwner(skill)
+    local value = 0
+    local abil = GetAbility(pc, 'Cleric29');
+    if abil ~= nil and 1 == TryGetProp(abil, "ActiveState", 0) then
+        value = 20
+    end
     return value;
 end
 
@@ -11272,7 +11582,7 @@ function SCR_GET_CarveLaima_Ratio3(skill)
 end
 
 function SCR_GET_CarveAusirine_Ratio(skill)
-    local value = skill.Level * 60
+    local value = skill.Level * 3
     
     return value
 end
@@ -11476,8 +11786,8 @@ function SCR_GET_GroovingMuzzle_BuffTime(skill)
 end
 
 function SCR_GET_Sabbath_Ratio(skill)
-    local value = 40
-    value = value + (TryGetProp(skill, "Level") * 4)
+    local value = 50
+    value = value + (TryGetProp(skill, "Level") * 10)
     return value
 end
 
@@ -11487,12 +11797,18 @@ function SCR_GET_SubweaponCancel_Ratio(skill)
 end
 
 function SCR_GET_FishingNetsDraw_Ratio(skill)
-    local value = 3 + (0.3 * skill.Level);
+    local value = 2.5 + skill.Level;
     return value;
 end
 
 function SCR_GET_FishingNetsDraw_Ratio2(skill)
-    local value = 3 + skill.Level;
+    local pc = GetSkillOwner(skill);
+    local value = 3 + skill.Level * 3;
+    
+    if IsPVPServer(pc) == 1 then
+        value = value / 3
+    end
+    
     return value;
 end
 
@@ -11505,13 +11821,20 @@ end
 
 function SCR_GET_ThrowingFishingNet_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    local value = 2.5 + skill.Level * 0.5;
+    local value = 5 + skill.Level * 1;
     
     return value;
 end
 
 function SCR_GET_ThrowingFishingNet_Ratio2(skill)
-    return 3 + skill.Level;
+    local pc = GetSkillOwner(skill);
+    local value = 3 + skill.Level * 3;
+    
+    if IsPVPServer(pc) == 1 then
+        value = value / 3
+    end
+    
+    return value;
 end
 
 function SCR_GET_ThrowingFishingNet_Ratio3(skill)
@@ -12039,6 +12362,11 @@ function SCR_GET_Aggress_Ratio(skill)
     return value;
 end
 
+function SCR_GET_Aggress_Ratio2(skill)
+    local value = skill.Level * 2
+    return value;
+end
+
 function SCR_GET_SiegeBurst_Ratio2(skill)
     local value = skill.Level * 0.1
     
@@ -12221,13 +12549,19 @@ function SCR_GET_Bunshin_no_jutsu_Ratio3(skill)
 end
 
 function SCR_Get_DragonFear_Ratio(skill)
-    local value = 10 + (skill.Level * 2)
+    local value = 10 + (skill.Level-1) * 5
     
     return value
 end
 
 function SCR_Get_DragonFear_Ratio2(skill)
-    local value = skill.Level
+    local value = 10 + (skill.Level-1) * 3
+    
+    return value
+end
+
+function SCR_Get_DragonFear_Ratio3(skill)
+    local value = skill.Level * 10
     
     return value
 end
@@ -12290,12 +12624,22 @@ function SCR_GET_SKL_COOLDOWN_Preparation(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
         end
     end
     --------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     
     return math.floor(basicCoolDown);
 end
@@ -12317,12 +12661,23 @@ function SCR_GET_SKL_COOLDOWN_KnifeThrowing(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
         end
     end
     ---------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
 
     return math.floor(basicCoolDown);
 end
@@ -12437,7 +12792,7 @@ end
 -- TigerHunter_Tracking
 function SCR_GET_Tracking_Time(skill)
     local pc = GetSkillOwner(skill)
-    local value = 11 + skill.Level * 0.6
+    local value = 10 + skill.Level * 4
     
     local abil = GetAbility(pc, "TigerHunter2");
     if abil ~= nil and abil.ActiveState == 1 then
@@ -12448,7 +12803,7 @@ function SCR_GET_Tracking_Time(skill)
 end
 
 function SCR_GET_Tracking_Ratio(skill)
-    local value = 10 + (skill.Level * 6)
+    local value = 20 * skill.Level
     return value
 end
 
@@ -12465,12 +12820,12 @@ function SCR_GET_EyeofBeast_Time(skill)
 end
 
 function SCR_GET_EyeofBeast_Ratio(skill)
-    local value = skill.Level * 3
+    local value = skill.Level * 6
     return value
 end
 
 function SCR_GET_EyeofBeast_Ratio2(skill)
-    local value = skill.Level * 5
+    local value = skill.Level * 10
     return value
 end
 
@@ -12547,6 +12902,18 @@ end
 
 function SCR_GET_Taglio_Ratio(skill)
     local value = 10
+    return value
+end
+
+function SCR_GET_QuckDraw_Ratio(skill)
+    local value = skill.Level * 0.1
+    return value
+end
+
+function SCR_GET_Fanning_Ratio(skill)
+    local pc = GetSkillOwner(skill)
+    local value = math.floor(TryGetProp(pc, 'SR', 0) / 7) + 4
+    value = math.min(value, 10)
     return value
 end
 
@@ -12797,6 +13164,8 @@ function SCR_GET_SKL_COOLDOWN_ControlBlade(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -12809,6 +13178,15 @@ function SCR_GET_SKL_COOLDOWN_ControlBlade(skill)
         end
     end
     ---------------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
     
     local ret = math.floor(basicCoolDown) / 1000
     
@@ -12853,9 +13231,17 @@ function SCR_GET_Kutukan_Time(skill)
 end
 
 function SCR_GET_Penyerapan_Ratio(skill)
-    local value = 50 * skill.Level;
+    local pc = GetSkillOwner(skill);
+    local value = 500 + (skill.Level-1) * 100;
+    
+    if pc ~= nil then
+        local str = TryGetProp(pc, "STR", 0)
+        local dex = TryGetProp(pc, "DEX", 0)
+        value = value + (str * 2 + dex * 3)
+    end
+    
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
-    return value
+    return math.floor(value)
 end
 
 function SCR_GET_Keletihan_Time(skill)
@@ -12864,7 +13250,7 @@ function SCR_GET_Keletihan_Time(skill)
 end
 
 function SCR_GET_Keletihan_Ratio(skill)
-    local value = 10 * skill.Level;
+    local value = 0.5 * skill.Level;
     return value
 end
 
@@ -12973,6 +13359,8 @@ function SCR_GET_SKL_COOLDOWN_SeptEtoiles(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -12985,6 +13373,15 @@ function SCR_GET_SKL_COOLDOWN_SeptEtoiles(skill)
         end
     end
     -----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
     if coolDownClassify == "Fix" then
@@ -13038,6 +13435,8 @@ function SCR_GET_SKL_COOLDOWN_Fleche(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -13050,6 +13449,15 @@ function SCR_GET_SKL_COOLDOWN_Fleche(skill)
         end
     end
     -----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
     if coolDownClassify == "Fix" then
@@ -13103,6 +13511,8 @@ function SCR_GET_SKL_COOLDOWN_HolySmash(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -13115,6 +13525,15 @@ function SCR_GET_SKL_COOLDOWN_HolySmash(skill)
         end
     end
     -----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
     if coolDownClassify == "Fix" then
@@ -13168,6 +13587,8 @@ function SCR_GET_SKL_COOLDOWN_Condemn(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -13180,6 +13601,15 @@ function SCR_GET_SKL_COOLDOWN_Condemn(skill)
         end
     end
     -----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
+    
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
     if coolDownClassify == "Fix" then
@@ -13232,6 +13662,8 @@ function SCR_GET_SKL_COOLDOWN_BlossomSlash(skill)
     --burning_event
     if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
         basicCoolDown = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "CoolDown", basicCoolDown)
+    elseif IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_DEFAULTCOOLDOWN_BUFF") == "YES" or IsBuffApplied(pc, "FIELD_COOLDOWNREDUCE_MIN_BUFF") == "YES" then
+        basicCoolDown = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "CoolDown", basicCoolDown)
     else
         if IsBuffApplied(pc, 'GM_Cooldown_Buff') == 'YES' then
             basicCoolDown = basicCoolDown * 0.9;
@@ -13244,6 +13676,14 @@ function SCR_GET_SKL_COOLDOWN_BlossomSlash(skill)
         end
     end
     -----------
+    --Mon_Buff--
+    local monCoolDownRate = GetExProp(pc, "MON_COOLDOWN_RATE")
+    if monCoolDownRate ~= 0 then
+        if monCoolDownRate <= -0.9 then
+            monCoolDownRate = -0.9
+        end
+        basicCoolDown = basicCoolDown + (basicCoolDown * monCoolDownRate)
+    end
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
     if coolDownClassify == "Fix" then
@@ -13262,3 +13702,21 @@ function SCR_GET_Crusader_Chants_Heal_Ratio(skill)
     return math.floor(value)
 end
 
+function SCR_GET_InfernalShadow_CaptionRatio2(skill)
+    return skill.Level * 4
+end
+
+function SCR_GET_BreakBrick_Ratio(skill)
+    local value = skill.Level
+    return value
+end
+
+function SCR_GET_BreakBrick_Ratio(skill)
+    local value = skill.Level
+    return value
+end
+
+function SCR_GET_ShadowFatter_Ratio(skill)
+    local value = 20 + skill.Level * 2
+    return value
+end

@@ -1887,6 +1887,7 @@ function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
         local addCount = math.floor((nowCount - indunCls.WeeklyEnterableCount) * admissionPlayAddItemCount)
         local nowAdmissionItemCount = admissionItemCount + addCount - isTokenState
 
+--        if SCR_RAID_EVENT_20190102(nil , false) and admissionItemName == "Dungeon_Key01" then
         if IsBuffApplied(user,"Event_Steam_New_World_Buff") == "YES" and admissionItemName == "Dungeon_Key01" then
             nowAdmissionItemCount = 1
         elseif IsBuffApplied(user, "Event_Unique_Raid_Bonus") == "YES" and admissionItemName == "Dungeon_Key01" then
@@ -1904,6 +1905,31 @@ function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
         if indunCls.DungeonType == "Raid" or indunCls.DungeonType == "GTower" then
             if nowCount < indunCls.WeeklyEnterableCount then
                 return true;
+            else
+                local multipleCnt = frame:GetUserIValue("multipleCount");
+                local yesScp = string.format("ReqMoveToIndun(%d,%d)", 1, multipleCnt);
+                local itemCls = GetClass("Item", admissionItemName);
+                local itemName = TryGetProp(itemCls, "Name");
+
+                if indunCls.SubType ~= 'Casual' then
+                    if invItem == nil or cnt == nil or cnt < nowAdmissionItemCount then
+                        ui.MsgBox(ScpArgMsg("HaveNoAdmissionItem", "Name", itemName), yesScp, "None");
+                    elseif invItem.isLockState == true then
+                        ui.MsgBox(ScpArgMsg("AdmissionItemIsLocked", "Name", itemName, "Count", nowAdmissionItemCount), yesScp, "None");
+                    else
+                        ui.MsgBox(ScpArgMsg("EnterWithAdmissionItem", "Name", itemName, "Count", nowAdmissionItemCount), yesScp, "None");
+                    end
+                    return false;
+                else
+                    if invItem == nil or cnt == nil or cnt < nowAdmissionItemCount then
+                        
+                    elseif invItem.isLockState == true then
+                        
+                    else
+                        ui.MsgBox(ScpArgMsg("EnterWithAdmissionItem", "Name", itemName, "Count", nowAdmissionItemCount), yesScp, "None");
+                        return false;
+                    end
+                end
             end
         end 
 

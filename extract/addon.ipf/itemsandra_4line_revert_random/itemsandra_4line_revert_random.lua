@@ -114,14 +114,11 @@ function ITEM_SANDRA_4LINE_REVERT_RANDOM_DROP(frame, icon, argStr, argNum)
 	if ui.CheckHoldedUI() == true then
 		return;
 	end
-		
+
 	local liftIcon 				= ui.GetLiftIcon();
 	local FromFrame 			= liftIcon:GetTopParentFrame();
-	local toFrame				= frame:GetTopParentFrame();	
-	CLEAR_ITEM_SANDRA_4LINE_REVERT_RANDOM_UI();	
-	
-	local revert_guid = toFrame:GetUserValue('REVERTITEM_GUID')
-	local revert_item = GetIES(session.GetInvItemByGuid(revert_guid):GetObject())
+	local toFrame				= frame:GetTopParentFrame();
+	CLEAR_ITEM_SANDRA_4LINE_REVERT_RANDOM_UI();
 
 	if FromFrame:GetName() == 'inventory' then
 		local iconInfo = liftIcon:GetInfo();
@@ -130,7 +127,7 @@ function ITEM_SANDRA_4LINE_REVERT_RANDOM_DROP(frame, icon, argStr, argNum)
 		if invItem == nil then return; end
 		local itemObj = GetIES(invItem:GetObject());
 
-		local ret, reason = IS_ENABLE_4LINE_REVERT_RANDOM_ITEM(itemObj, revert_item)
+		local ret, reason = IS_ENABLE_4LINE_REVERT_RANDOM_ITEM(itemObj)
 
 		if ret == false then
 			if reason == 'Level' then
@@ -139,8 +136,6 @@ function ITEM_SANDRA_4LINE_REVERT_RANDOM_DROP(frame, icon, argStr, argNum)
 				ui.SysMsg(ClMsg("4lineRevertRandomItemEnableRandomOptionCount"));
 			elseif reason == 'NoRandom' then
 				ui.SysMsg(ClMsg("OnlyUseRandomIcor"));			
-			elseif reason == 'ItemLevelIsGreaterThanMatItem' then
-				ui.SysMsg(ClMsg('ItemLevelIsGreaterThanMatItem'))
 			end
 			return
 		end
@@ -424,16 +419,13 @@ function REMOVE_SANDRA_4LINE_REVERT_RANDOM_TARGET_ITEM(frame)
 end
 
 -- 인벤토리에서 마우스 오른쪽 버튼을 이용해 슬롯에 아이템 등록
-function ITEM_SANDRA_4LINE_REVERT_RANDOM_INV_RBTN(itemObj, slot)		
+function ITEM_SANDRA_4LINE_REVERT_RANDOM_INV_RBTN(itemObj, slot)	
 	local frame = ui.GetFrame("itemsandra_4line_revert_random");
 	if frame == nil then
 		return;
 	end
 
-	local revert_guid = frame:GetUserValue('REVERTITEM_GUID')
-	local revert_item = GetIES(session.GetInvItemByGuid(revert_guid):GetObject())
-	
-	local ret, reason = IS_ENABLE_4LINE_REVERT_RANDOM_ITEM(itemObj, revert_item)
+	local ret, reason = IS_ENABLE_4LINE_REVERT_RANDOM_ITEM(itemObj)
 
 	if ret == false then
 		if reason == 'Level' then
@@ -442,8 +434,6 @@ function ITEM_SANDRA_4LINE_REVERT_RANDOM_INV_RBTN(itemObj, slot)
 			ui.SysMsg(ClMsg("4lineRevertRandomItemEnableRandomOptionCount"));
 		elseif reason == 'NoRandom' then
 			ui.SysMsg(ClMsg("OnlyUseRandomIcor"));		
-		elseif reason == 'ItemLevelIsGreaterThanMatItem' then
-			ui.SysMsg(ClMsg('ItemLevelIsGreaterThanMatItem'))
 		end		
 		return
 	end

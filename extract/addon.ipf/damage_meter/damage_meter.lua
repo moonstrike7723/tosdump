@@ -12,17 +12,12 @@ end
 function DAMAGE_METER_UI_OPEN(frame,msg,strArg,numArg)
     frame:ShowWindow(1)
     WEEKLYBOSS_DPS_INIT(frame,strArg,numArg)
+    local button = GET_CHILD_RECURSIVELY(frame,"stageGiveUp")
+    button:SetEnable(1)
 end
 
-function WEEKLYBOSS_DPS_INIT(frame,strArg,appTime)
-    local stringList = StringSplit(strArg,'/');
-    local handle = stringList[1]
-    local is_practice = stringList[2]
-
-    local stageGiveUp = GET_CHILD_RECURSIVELY(frame,'stageGiveUp')
-    stageGiveUp:SetEnable(BoolToNumber(is_practice == "PRACTICE"))
-
-    DAMAGE_METER_SET_WEEKLY_BOSS(frame,handle);
+function WEEKLYBOSS_DPS_INIT(frame,handle,appTime)
+    DAMAGE_METER_SET_WEEKLY_BOSS(frame,tonumber(handle));
 
     frame:SetUserValue("NOW_TIME",appTime)
     frame:SetUserValue("END_TIME",appTime + 60*7)
@@ -90,34 +85,24 @@ function WEEKLY_BOSS_UPDATE_DPS(frame,totalTime,elapsedTime)
     local gaugeCnt = damageRankGaugeBox:GetChildCount()
     local maxGaugeCount = 5
 
-    local handleStr = frame:GetUserValue("WEEKLY_BOSS_HANDLE")
-    local handleList = StringSplit(handleStr,';')
-
+    local handle = tonumber(frame:GetUserValue("WEEKLY_BOSS_HANDLE"))
     for i = idx, cnt - 1 do
         local info = session.dps.Get_alldpsInfoByIndex(i)
-        local handleExist = false
-        for i=1,#handleList do
-            if tonumber(handleList[i]) == info:GetHandle() then
-                handleExist = true
-                break;
-            end
-        end
-        if handleExist == true then
+        if info:GetHandle() == handle then
             local damage = info:GetStrDamage();
-			if damage ~= '0' then
+            if damage ~= '0' then
                 local sklID = info:GetSkillID();
                 local sklCls = GetClassByType("Skill",sklID)
-                local sklClsName = TryGetProp(sklCls, "ClassName", "None")
                 local keyword = TryGetProp(sklCls,"Keyword","None")
                 keyword = StringSplit(keyword,';')
-                if IsNormalSkill(sklClsName) == 1 and table.find(keyword, "NormalSkillWeeklyBoss") <= 0 then
-                    sklID = 1
+                for i = 1,#keyword do
+                    if keyword[i] == 'NormalSkill' then
+                        sklID = 1
+                        break;
+                    end
                 end
-                if IsSummonSkill(sklClsName) == 1 then
+                if table.find(keyword, "pcSummonSkill") > 0 then
                     sklID = 163915
-                end
-                if table.find(keyword, "Ancient") > 0 then
-                    sklID = 179999
                 end
                 --update gauge damage info
                 local function getIndex(table, val)

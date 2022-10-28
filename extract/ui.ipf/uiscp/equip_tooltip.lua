@@ -1683,8 +1683,13 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 	if IS_ENABLE_GIVE_HIDDEN_PROP_ITEM(invitem) == false then
 		awaken_flag = 1;
 	end
+	
+	local enchant_flag = 0
+	if IS_ENABLE_APPLY_JEWELL_TOOLTIPTEXT(invitem) == false then
+	    enchant_flag = 1
+	end
 
-	if reinforce_flag == 0 and transcend_flag == 0 and extract_flag == 0 and socket_flag == 0 and briquet_flag == 0 and exchange_flag == 0 and awaken_flag == 0 and decomposeAble_flag == 0 then
+	if reinforce_flag == 0 and transcend_flag == 0 and extract_flag == 0 and socket_flag == 0 and briquet_flag == 0 and exchange_flag == 0 and awaken_flag == 0 and decomposeAble_flag == 0 and enchant_flag == 0 then
 		return yPos
 	end
 
@@ -1717,6 +1722,7 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 	text = _APPEND_LIMITATION_TEXT(briquet_flag, text, CSet:GetUserConfig("BRIQUET_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(exchange_flag, text, CSet:GetUserConfig("EXCHANGE_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(awaken_flag, text, CSet:GetUserConfig("AWAKEN_TEXT"));
+	text = _APPEND_LIMITATION_TEXT(enchant_flag, text, CSet:GetUserConfig("ENCHANT_TEXT"))
 
 	if text:sub(-#',') == ',' then
 		text = text:sub(0, text:len() - 1);

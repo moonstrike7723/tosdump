@@ -128,7 +128,9 @@ function BEFORE_APPLIED_TOKEN_OPEN(invItem)
 		arg1 = 10800 -- 3시간
 	elseif itemobj.ClassName == "PremiumToken_15d" or itemobj.ClassName == "PremiumToken_15d_Steam" or itemobj.ClassName == "PremiumToken_15d_vk" then
 		arg1 = 1296000 -- 15일
-        elseif itemobj.ClassName == "PremiumToken_30d" then
+	elseif itemobj.ClassName == "PremiumToken_14d_event" then
+		arg1 = 1209600 -- 14일
+	elseif itemobj.ClassName == "PremiumToken_30d" then
 		arg1 = 2592000 -- 30O
 	elseif itemobj.ClassName == "PremiumToken_60d" then
 		arg1 = 5184000 -- 60O

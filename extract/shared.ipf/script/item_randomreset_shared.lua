@@ -164,6 +164,38 @@ function IS_ENABLE_APPLY_JEWELL(jewell, targetItem)
 	return true;
 end
 
+-- 아이템 툴팁 인챈트 불가 표시
+function IS_ENABLE_APPLY_JEWELL_TOOLTIPTEXT(targetItem)
+
+	local itemStarCheck = TryGetProp(targetItem , 'ItemStar')
+	if itemStarCheck < 0 then
+	    return false, 'Type';
+	end
+	
+	if IS_NEED_APPRAISED_ITEM(targetItem) == true or IS_NEED_RANDOM_OPTION_ITEM(targetItem) == true then 
+		return false, 'NeedRandomOption';
+	end
+	
+	local woodCarvingCheck = TryGetProp(targetItem , 'StringArg')
+	if woodCarvingCheck == 'WoodCarving' then
+	    return false, 'WoodCarving';
+	end
+	
+	if targetItem.ItemLifeTimeOver > 0 or tonumber(targetItem.LifeTime) > 0 then
+		return false, 'LimitTime';
+	end
+		
+    local classType = TryGetProp(targetItem, 'ClassType');
+    local classList = {'Seal', 'Ark','Ring' , 'Neck'}
+    for i = 1, #classList do
+        if classList[i] == classType then
+	        return false, 'Type';
+	    end
+	end
+	
+end
+
+
 function CHECK_NEED_RANDOM_OPTION(item)
 	if item == nil then
 		return false;
@@ -210,4 +242,92 @@ function IS_HAVE_RANDOM_OPTION(item)
 	end
 
 	return false;
+end
+
+function GET_RANDOM_OPTION_COUNT(itemObj)
+	if itemObj == nil then
+		return 0;
+	end
+
+	local optionCnt = 0;
+    for i = 1, MAX_RANDOM_OPTION_COUNT do
+        local itemOptionGroup = TryGetProp(itemObj, 'RandomOptionGroup_'..i)
+        if itemOptionGroup ~= nil and itemOptionGroup ~= 'None' then
+            optionCnt = optionCnt + 1;
+        end
+	end
+
+	return optionCnt;
+end
+
+revertrandomitemlist = {'itemrandomreset', 'itemrevertrandom', 'itemunrevertrandom', 'itemsandrarevertrandom', 'itemsandraoneline_revert_random', 'itemsandra_4line_revert_random', 'itemsandra_6line_revert_random'};
+
+-- 산드라의 완벽한 돋보기 사용 가능 아이템 확인
+function IS_ENABLE_4LINE_REVERT_RANDOM_ITEM(itemObj)
+	local icor = TryGetProp(itemObj, 'GroupName', 'None')
+
+	if icor == 'Icor' then
+		local item_name = TryGetProp(itemObj, 'InheritanceRandomItemName', 'None')
+		if item_name ~= 'None' then
+			local cls = GetClass('Item', item_name)			
+			if cls == nil then 
+				return false, 'None'
+			end
+
+			if TryGetProp(cls, 'UseLv', 1) ~= 430 then
+				return false, 'Level';
+			end
+			
+			if 4 < GET_RANDOM_OPTION_COUNT(itemObj) then
+				return false, 'Count';
+			end	
+		else
+			return false, 'NoRandom'
+		end		
+	else
+		if TryGetProp(itemObj, 'UseLv', 1) ~= 430 then
+			return false, 'Level';
+		end
+	
+		if 4 < GET_RANDOM_OPTION_COUNT(itemObj) then
+			return false, 'Count';
+		end
+	end
+
+	return true;
+end
+
+-- 산드라의 궁극의 돋보기 사용 가능 아이템 확인
+function IS_ENABLE_6LINE_REVERT_RANDOM_ITEM(itemObj)
+	local icor = TryGetProp(itemObj, 'GroupName', 'None')
+
+	if icor == 'Icor' then
+		local item_name = TryGetProp(itemObj, 'InheritanceRandomItemName', 'None')
+		if item_name ~= 'None' then
+			local cls = GetClass('Item', item_name)
+			if cls == nil then 
+				return false, 'None'
+			end
+
+			if TryGetProp(cls, 'UseLv', 1) ~= 430 then				
+				return false, 'Level';
+			end
+			
+			if 6 < GET_RANDOM_OPTION_COUNT(itemObj) then
+				return false, 'Count';
+			end	
+		else
+			return false, 'NoRandom'
+		end		
+	else		
+		if TryGetProp(itemObj, 'UseLv', 1) ~= 430 then
+			return false, 'Level';
+		end
+		
+		if 6 < GET_RANDOM_OPTION_COUNT(itemObj) then
+			return false, 'Count';
+		end
+	end
+	
+	return true;
 end

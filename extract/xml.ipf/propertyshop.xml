@@ -2,28 +2,8 @@
 <!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <PropertyShop>
 	<Shop Name="PVPShop" PointScript="GET_PVP_POINT">
-		<Item Script="None" Name="egg_007" Count="1" Price="18000" DailyBuyLimit="1"/>
-		<Item Script="None" Name="NECK05_005" Count="1" Price="4320" DailyBuyLimit="1"/>
-		<Item Script="None" Name="BRC05_005" Count="1" Price="2880" DailyBuyLimit="1"/>
-		<Item Script="None" Name="NECK05_007" Count="1" Price="4320" DailyBuyLimit="1"/>
-		<Item Script="None" Name="BRC05_007" Count="1" Price="2880" DailyBuyLimit="1"/>
-		<Item Script="None" Name="NECK05_006" Count="1" Price="4320" DailyBuyLimit="1"/>
-		<Item Script="None" Name="BRC05_006" Count="1" Price="2880" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628134" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628135" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628025" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628092" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628111" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628119" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628086" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628019" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628071" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Hat_628012" Count="1" Price="3500" DailyBuyLimit="1"/>
-		<Item Script="None" Name="GIMMICK_Drug_PMATK2" Count="5" Price="80" DailyBuyLimit="3"/>
-		<Item Script="None" Name="GIMMICK_Drug_Restore01" Count="5" Price="80" DailyBuyLimit="3"/>
-		<Item Script="None" Name="GIMMICK_Drug_PMDEF2" Count="5" Price="80" DailyBuyLimit="3"/>
-		<Item Script="None" Name="misc_gemExpStone_randomQuest5" Count="1" Price="1200" DailyBuyLimit="1"/>
-		<Item Script="None" Name="Uphille_Power_Potion1" Count="1" Price="20" DailyBuyLimit="0"/>
+		<Item Script="None" Name="misc_pvp_mine2" Count="14" Price="1" DailyBuyLimit="0"/>
+		<Item Script="None" Name="misc_pvp_mine2" Count="1400" Price="100" DailyBuyLimit="0"/>
 	</Shop>
 	<Shop Name="MINEShop" PointScript="GET_PVP_MINE_POINT">
 		<Item Script="None" Name="Point_Stone_100" Count="1" Price="200" DailyBuyLimit="0"/>
@@ -90,13 +70,14 @@
 		<Item Script="None" Name="GuildQuestEnterCount_1add" Count="1" Price="5000" DailyBuyLimit="0"/>
 	</Shop>
 	<Shop Name="CONTENTS_TOTAL_SHOP" PointScript="GET_CONTENTS_TOTAL_POINT">
-		<Item Script="None" Name="Gesture_Wave" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_1"/>
-		<Item Script="None" Name="LENS01_015" Count="1" Price="1500" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_2"/>
-		<Item Script="None" Name="LENS01_016" Count="1" Price="1500" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_3"/>
-		<Item Script="None" Name="Chat_Balloon_RollingDoor_Pink_90d" Count="1" Price="1200" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_4"/>
-		<Item Script="None" Name="Chat_Balloon_RollingDoor_BlueSky_90d" Count="1" Price="1200" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_5"/>
-		<Item Script="None" Name="ABAND01_147" Count="1" Price="1000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_6"/>
-		<Item Script="None" Name="motion_medeina_emotion01" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_7"/>
-		<Item Script="None" Name="motion_medeina_emotion02" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_8"/>
+		<Item Script="None" Name="egg_003_ContentsTotalShop" Count="1" Price="4000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2002_1"/>
+		<Item Script="None" Name="Gesture_Cheerup" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2002_2"/>
+		<Item Script="None" Name="Gesture_Unbelievable" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2002_3"/>
+		<Item Script="None" Name="Chat_Balloon_tiny_badge_90d" Count="1" Price="1200" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2002_4"/>
+		<Item Script="None" Name="Chat_Balloon_poporion_badge_90d" Count="1" Price="1200" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2002_5"/>
+		<Item Script="None" Name="Chat_Balloon_kepa_badge_90d" Count="1" Price="1200" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2002_6"/>
+		<Item Script="None" Name="motion_kupole_emotion01" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2002_7"/>
+		<Item Script="None" Name="motion_kupole_emotion02" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2002_8"/>
+		<Item Script="None" Name="motion_kupole_emotion03" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2002_9"/>
 	</Shop>
 </PropertyShop>

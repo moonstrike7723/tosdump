@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!--editedwithXMLSPYv2004rel.2U(http://www.xmlspy.com)byimc(imc)-->
+<idspace id="ItemTradeShop">
+	<Category Name="PVPMine">
+		<Class ClassID="101" ClassName="MASTERCARD_PVP_MINE_MONTH_1" SellStartTime="2020-03-31 06:00:00" SellEndTime="2020-04-28 06:00:00"/>
+		<Class ClassID="102" ClassName="MASTERCARD_PVP_MINE_MONTH_2" SellStartTime="2020-03-31 06:00:00" SellEndTime="2020-04-28 06:00:00"/>
+	</Category>
+</idspace>

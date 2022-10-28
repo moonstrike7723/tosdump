@@ -521,6 +521,12 @@ function INVENTORY_WEIGHT_UPDATE(frame)
 
 	arrowPicture:Resize(arrowPicture:GetOriginalWidth() * rulerRate, arrowPicture:GetOriginalHeight())
 
+	if rate >= 100 then
+		SYSMENU_INVENTORY_WEIGHT_NOTICE();
+	else
+		SYSMENU_INVENTORY_WEIGHT_NOTICE_CLOSE();
+	end
+
 	if rate > 100 then	
 		arrowPicture:SetOffset(-489, arrowPicture:GetOriginalY())
 		return;
@@ -529,8 +535,8 @@ function INVENTORY_WEIGHT_UPDATE(frame)
 	--SetOffset : rate에 맞춘 offset 움직임 값
 	local arrowPictureOffSetX = rate * arrowPicture:GetOriginalWidth() * 3.65 * 0.01;	
 	arrowPicture:SetOffset((arrowPictureOffSetX) * -1, arrowPicture:GetOriginalY())
-end
 
+end
 
 function INVITEM_INVINDEX_CHANGE(itemGuid)
 
@@ -1622,7 +1628,7 @@ function TRY_TO_USE_WARP_ITEM(invitem, itemobj)
 		end
 	end
 	
-	if IsBuffApplied(pc, 'Event_Penalty') == 'YES' or IsBuffApplied(pc, 'PVP_MINE_BUFF1') == 'YES' or IsBuffApplied(pc, 'PVP_MINE_BUFF2') == 'YES' then
+	if IsBuffApplied(pc, 'WEEKLY_BOSS_RAID_BUFF') == 'YES' or IsBuffApplied(pc, 'Event_Penalty') == 'YES' or IsBuffApplied(pc, 'PVP_MINE_BUFF1') == 'YES' or IsBuffApplied(pc, 'PVP_MINE_BUFF2') == 'YES' then
 		ui.SysMsg(ScpArgMsg("CannotUseThieInThisMap"));
 		return 0;
 	end
@@ -1967,7 +1973,7 @@ end
 
 function REQUEST_SUMMON_BOSS_TX()
 	local invFrame = ui.GetFrame("inventory");
-	local itemGuid = invFrame:GetUserValue("INVITEM_GUID");
+	local itemGuid = invFrame:GetUserValue("REQ_USE_ITEM_GUID");
 	local invItem = session.GetInvItemByGuid(itemGuid)
 	
 	if nil == invItem then
@@ -4080,7 +4086,7 @@ function BEFORE_APPLIED_NON_EQUIP_ITEM_OPEN(invItem)
 	if itemobj == nil then
 		return;
 	end
-	invFrame:SetUserValue("INVITEM_GUID", invItem:GetIESID());
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
 	
 	if itemobj.Script == 'SCR_SUMMON_MONSTER_FROM_CARDBOOK' then
 		local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg("Card_Summon_check_Use"));
@@ -4103,7 +4109,7 @@ function BEFORE_APPLIED_YESSCP_OPEN(invItem)
 	if itemobj == nil then
 		return;
 	end
-	invFrame:SetUserValue("INVITEM_GUID", invItem:GetIESID());
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
 	
 	local strLang = TryGetProp(itemobj , 'StringArg')
 	if strLang ~='None' then
@@ -4115,7 +4121,7 @@ end
 
 function REQUEST_USE_ITEM_TX()
 	local invFrame = ui.GetFrame("inventory");
-	local itemGuid = invFrame:GetUserValue("INVITEM_GUID");
+	local itemGuid = invFrame:GetUserValue("REQ_USE_ITEM_GUID");
 	local invItem = session.GetInvItemByGuid(itemGuid)
 	
 	if nil == invItem then
@@ -4152,7 +4158,7 @@ function BEFORE_APPLIED_GESTURE_YESSCP_OPEN(invItem)
 	if itemobj == nil then
 		return;
 	end
-	invFrame:SetUserValue("INVITEM_GUID", invItem:GetIESID());
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
 	
 	local strLang = TryGetProp(itemobj , 'StringArg')
 	if strLang ~='None' then
@@ -4172,7 +4178,7 @@ function BEFORE_APPLIED_CAHT_BALLOON_YESSCP_OPEN(invItem)
 	if itemobj == nil then
 		return;
 	end
-	invFrame:SetUserValue("INVITEM_GUID", invItem:GetIESID());
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
 	
 	local strLang = TryGetProp(itemobj , 'StringArg')
 	local numLang = TryGetProp(itemobj , 'NumberArg1')

@@ -267,6 +267,13 @@ end
 
 function JOIN_WORLDPVP(parent, ctrl)
 
+	local accObj = GetMyAccountObj();
+
+	if IsBuffApplied(GetMyPCObject(), "TeamBattleLeague_Penalty_Lv1") == "YES" or IsBuffApplied(GetMyPCObject(), "TeamBattleLeague_Penalty_Lv2") == "YES" then
+		ui.SysMsg(ClMsg("HasTeamBattleLeaguePenalty"));
+		return;
+	end
+
 	local frame = parent:GetTopParentFrame();
 	local bg = frame:GetChild("bg");
 	local charinfo = bg:GetChild("charinfo");
@@ -684,7 +691,6 @@ function ON_WORLDPVP_RANK_PAGE(frame)
 	end
 
 	local rankPageFont = frame:GetUserConfig("RANK_PAGE_FONT");
-
 	for i = 0 , cnt - 1 do
 		local info = session.worldPVP.GetRankInfoByIndex(i);
 		local ctrlSet = gbox_ctrls:CreateControlSet("pvp_rank_ctrl", "CTRLSET_" .. i,  ui.CENTER_HORZ, ui.TOP, 0, 0, 0, 0);

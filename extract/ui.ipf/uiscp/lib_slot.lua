@@ -467,8 +467,16 @@ function SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, obj, count, font)
 			end
 		else
 			if count ~= nil then
+				if 100000 <= count then	-- 6자리 수 폰트 크기 조정
+					font = "{s14}{ol}{b}";
+				end
+
 				SET_SLOT_COUNT_TEXT(slot, count, font);
 			else
+				if 100000 <= invItem.count then	-- 6자리 수 폰트 크기 조정
+					font = "{s14}{ol}{b}";
+				end
+
 				SET_SLOT_COUNT_TEXT(slot, invItem.count, font);
 			end
 		end

@@ -116,12 +116,13 @@ function GET_MORE_EVENT_EXP(pc)
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_Expup_50'); --burning_event
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_Expup_100'); --burning_event
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'STM_PIZZA_BUFF'); --피자
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'NEWUSER_PARTY_BUFF') -- 신규/복귀 유저 파티 버프
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF1'); -- 더 달콤한 발렌타인 초콜릿 1단계
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF2'); -- 더 달콤한 발렌타인 초콜릿 2단계
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF3'); -- 더 달콤한 발렌타인 초콜릿 3단계
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF4'); -- 더 달콤한 발렌타인 초콜릿 4단계
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF5'); -- 더 달콤한 발렌타인 초콜릿 5단계
-	sumExp = sumExp + IsBuffAppliedEXP(pc, 'NEWUSER_PARTY_BUFF') -- 신규/복귀 유저 파티 버프
+	-- sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_FISHING_CAT_BUFF'); -- 2002 낚시 이벤트 고양이 버프
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_Steam_New_World_Buff'); -- 스팀 시즌 서버 혜택
 --	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_SEASON_NEWWRORLD_PASSIVE_1'); -- 2002 [이벤트] 시즌서버 정착지원
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_SEASON_NEWWRORLD_PASSIVE_2'); -- 2002 [이벤트] 유대감

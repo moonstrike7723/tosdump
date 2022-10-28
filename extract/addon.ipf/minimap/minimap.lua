@@ -130,6 +130,16 @@ function UPDATE_MINIMAP(frame)
 		return;
 	end
 
+	local curmapname = session.GetMapName();
+	local housingPlaceClass = GetClass("Housing_Place", curmapname);
+	if housingPlaceClass ~= nil then
+		local placeType = TryGetProp(housingPlaceClass, "Type");
+		if placeType == "Personal" then
+			frame:ShowWindow(0);
+			return;
+		end
+	end
+
 	local mylevel = info.GetLevel(session.GetMyHandle());
 	SET_MINIMAPSIZE(___cursize);
 
@@ -314,7 +324,7 @@ function UPDATE_MINIMAP(frame)
 						local checkMapName = "None";
 						local x, y, z, range = 0;
 
-						for locationMapName in string.gfind(mapPointGroupStr, "%S+") do
+						for locationMapName in string.gmatch(mapPointGroupStr, "%S+") do
 							if count == 0 and locationMapName ~= mapname then
 								count = 0;
 								roundCount = roundCount + 1;
