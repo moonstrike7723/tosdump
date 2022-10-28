@@ -26,7 +26,7 @@
 	
 	local npc = GetScpObjectList(self, "WEEKEND_REGULAR_EVENT")
 	if #npc == 0 then
-		if weekday == 1 or weekday == 6 or weekday == 7 or tonumber(year..month..day) == 20210822 then --일, 금, 토
+		if weekday == 1 or weekday == 6 or weekday == 7 or tonumber(year..month..day) == 20210907 or tonumber(year..month..day) == 20210920 then --일, 금, 토
 			if tonumber(hour..minute..second) > 0 then
 				local countResetNPC = CREATE_MONSTER_EX(self, 'NPC_GM2', x, y, z, GetDirectionByAngle(self), "Neutral", 1, WEEKEND_REGULAR_BURNING_EVENT_NPC_INFORMATION)
 				AddScpObjectList(self, "WEEKEND_REGULAR_EVENT", countResetNPC)
@@ -47,7 +47,7 @@ function REGULAR_BURNING_EVENT_SUPPORTER_AI(self)
         day = "0"..tostring(day)
     end
 
-     if weekday > 1 and weekday < 6 and tonumber(year..month..day) ~= 20210822 then --월~목
+     if weekday > 1 and weekday < 6 and tonumber(year..month..day) ~= 20210907 and tonumber(year..month..day) ~= 20210920 then --월~목
         Kill(self)
 		return;
     end
@@ -80,25 +80,25 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 ,{'나무뿌리 수정 파괴 시, 이동 속도 5 증가','Event_RootCrystal_Check_Buff'}
 					 ,{'경험치 50% 증가','Event_Expup_50'}
 					 ,{'통합 포인트 획득량 2배 증가 ','EVENT_CONTENTS_TOTAL_POINT_BOOST'}
-					 ,{'필드 드롭율 50% 증가','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}			 
+					 ,{'필드 드롭율 50% 증가','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}
+					 ,{'[주말 앤 버닝] 성물 레이드 : 자동 매칭 (Normal) 입장 횟수 초기화','Event_Mythic_Auto_Count_Reset'}					 
 					 }
     
     local daycheckbuff = 
-	{{'7','30',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
-	,{'7','31',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-	,{'8','1',{'Event_Expup_50','Event_healHSP_Speedup'}}
-	,{'8','6',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-	,{'8','7',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-	,{'8','8',{'Event_LootingChance_Add_1000','EVENT_CONTENTS_TOTAL_POINT_BOOST'}}
-	,{'8','13',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
-	,{'8','14',{'Event_Expup_50','Event_healHSP_Speedup'}}
-	,{'8','15',{'Event_Expup_50','Event_Reinforce_Discount_50'}}
-	,{'8','20',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-	,{'8','21',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
-	,{'8','22',{'Event_LootingChance_Add_1000','Event_Challenge_Count_Reset'}}
-	,{'8','27',{'Event_Expup_50','Event_Reagent_Bottle_Expup_100'}}
-	,{'8','28',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
-	,{'8','29',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
+	{{'9','3',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+	,{'9','4',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+	,{'9','5',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
+	,{'9','7',{'Event_Expup_100','Event_Reappraisal_Discount_50'}}
+	,{'9','10',{'Event_Expup_50','Event_Reagent_Bottle_Expup_100'}}
+	,{'9','11',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
+	,{'9','12',{'Event_Expup_50','Event_healHSP_Speedup'}}
+	,{'9','17',{'Event_LootingChance_Add_1000','Event_Mythic_Auto_Count_Reset'}}
+	,{'9','18',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+	,{'9','19',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
+	,{'9','20',{'Event_Expup_100','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}}
+	,{'9','24',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
+	,{'9','25',{'Event_Expup_50','Event_healHSP_Speedup'}}
+	,{'9','26',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
 		}
 	
 	-- 기본 적용 버프
@@ -117,6 +117,8 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 		distractor = ShowSelDlg(pc, 0, "REGULAR_BURNING_EVENT_COUNT_RESET_CHECK", ScpArgMsg("NPC_EVENT_MAGAZINE_NUM1_SEL2"), ScpArgMsg("Auto_SeonTaegChoKiHwa"), ScpArgMsg("Cancel"))
 	elseif table.find(dayBuffList,'Event_Challenge_Count_Reset') ~= 0 then
 		distractor = ShowSelDlg(pc, 0, 'REGULAR_BURNING_EVENT_CHALLENGE_RESET_CHECK', ScpArgMsg("NPC_EVENT_MAGAZINE_NUM1_SEL2"),ScpArgMsg("BURNING_EVENT_COUNT_RESET_SEL1"), ScpArgMsg("Cancel"))
+	elseif table.find(dayBuffList,'Event_Mythic_Auto_Count_Reset') ~= 0 then
+		distractor = ShowSelDlg(pc, 0, 'REGULAR_BURNING_MYTHIC_AUTO_RESET_CHECK', ScpArgMsg("NPC_EVENT_MAGAZINE_NUM1_SEL2"),ScpArgMsg("BURNING_EVENT_COUNT_RESET_SEL2"), ScpArgMsg("Cancel"))
 	else
 		distractor = ShowSelDlg(pc, 0, 'FLASHMOB_EVENT_REWARD_SUCCESS', ScpArgMsg("NPC_EVENT_MAGAZINE_NUM1_SEL2"), ScpArgMsg("Cancel"))
 	end
@@ -200,40 +202,84 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 				return
 			end
 			
-                if IsBuffApplied(pc, "Event_Challenge_Count_Reset") == "YES" then
-                    local challengeCount = TryGetProp(accountObject, "REGULAR_BURNING_EVENT_CHALLENGE_RESET")
-                    if challengeCount < 3 then
-                        local etcObj = GetETCObject(pc)
-                        if etcObj ~= nil then
-                            local count = TryGetProp(etcObj, 'ChallengeModeCompleteCount', 0)
-                            if count > 0 then
-                                local aid = GetPcAIDStr(pc)
-                                local cid = GetPcCIDStr(pc)
-                                IMC_LOG("INFO_CHALLENGE_MODE", "step:RemoveCount; aid:" .. tostring(aid) .. "; cid:" .. tostring(cid) .. ";")
-                                if IsRunningScript(pc, '_SCR_USE_ChallengeModeReset') ~= 1 then
-                                    RunScript('_SCR_USE_ChallengeModeReset', pc)
-                                end
-                                local tx = TxBegin(pc)
-                                TxSetIESProp(tx, accountObject, "REGULAR_BURNING_EVENT_CHALLENGE_RESET", challengeCount+1)
-                                local ret = TxCommit(tx)
+			if IsBuffApplied(pc, "Event_Challenge_Count_Reset") == "YES" then
+				local challengeCount = TryGetProp(accountObject, "REGULAR_BURNING_EVENT_CHALLENGE_RESET")
+				if challengeCount < 3 then
+					local etcObj = GetETCObject(pc)
+					if etcObj ~= nil then
+						local count = TryGetProp(etcObj, 'ChallengeModeCompleteCount', 0)
+						if count > 0 then
+							local aid = GetPcAIDStr(pc)
+							local cid = GetPcCIDStr(pc)
+							IMC_LOG("INFO_CHALLENGE_MODE", "step:RemoveCount; aid:" .. tostring(aid) .. "; cid:" .. tostring(cid) .. ";")
+							if IsRunningScript(pc, '_SCR_USE_ChallengeModeReset') ~= 1 then
+								RunScript('_SCR_USE_ChallengeModeReset', pc)
+							end
+							local tx = TxBegin(pc)
+							TxSetIESProp(tx, accountObject, "REGULAR_BURNING_EVENT_CHALLENGE_RESET", challengeCount+1)
+							local ret = TxCommit(tx)
 
-                                if ret == "SUCCESS" then
-                                    SendAddOnMsg(pc, "NOTICE_Dm_Clear", ScpArgMsg("REGULAR_BURNING_EVENT_CHALLENGE_RESET_SUCCESS"), 5)
-                                    ShowOkDlg(pc, "REGULAR_BURNING_EVENT_COUNT_RESET_SUCCESS")
-                                    CustomMongoLog(pc, "REGULAR_BURNING_EVENT", "Type", "Event_Challenge_Count_Reset", "Result", "Success")
-                                elseif ret == "FAIL" then
-                                    SendAddOnMsg(pc, "NOTICE_Dm_scroll", ScpArgMsg("REGULAR_BURNING_EVENT_COUNT_RESET_FAIL"), 5)
-                                    ShowOkDlg(pc, "REGULAR_BURNING_EVENT_COUNT_RESET_FAIL")
-                                    CustomMongoLog(pc, "REGULAR_BURNING_EVENT", "Type", "Event_Challenge_Count_Reset", "Result", "Fail", "Reason", "TxError")
-                                end
-                            elseif count <= 0 then
-                                ShowOkDlg(pc, "REGULAR_BURNING_EVENT_CHALLENGE_COUNT_NOT_USE")
-                            end
-                        end
-                    else
-                        ShowOkDlg(pc, "REGULAR_BURNING_EVENT_CHALLENGE_COUNT_NOT_USE")
-                    end
-                end
-        end
-    end
+							if ret == "SUCCESS" then
+								SendAddOnMsg(pc, "NOTICE_Dm_Clear", ScpArgMsg("REGULAR_BURNING_EVENT_CHALLENGE_RESET_SUCCESS"), 5)
+								ShowOkDlg(pc, "REGULAR_BURNING_EVENT_COUNT_RESET_SUCCESS")
+								CustomMongoLog(pc, "REGULAR_BURNING_EVENT", "Type", "Event_Challenge_Count_Reset", "Result", "Success")
+							elseif ret == "FAIL" then
+								SendAddOnMsg(pc, "NOTICE_Dm_scroll", ScpArgMsg("REGULAR_BURNING_EVENT_COUNT_RESET_FAIL"), 5)
+								ShowOkDlg(pc, "REGULAR_BURNING_EVENT_COUNT_RESET_FAIL")
+								CustomMongoLog(pc, "REGULAR_BURNING_EVENT", "Type", "Event_Challenge_Count_Reset", "Result", "Fail", "Reason", "TxError")
+							end
+						elseif count <= 0 then
+							ShowOkDlg(pc, "REGULAR_BURNING_EVENT_CHALLENGE_COUNT_NOT_USE")
+						end
+					end
+				else
+					ShowOkDlg(pc, "REGULAR_BURNING_EVENT_CHALLENGE_COUNT_NOT_USE")
+				end
+			end
+		end
+	        --MYTHIC_AUTO_RESET
+	elseif  REGULAR_BURNING_EVENT_SERVER_TIME_CHECK(self) == 20210917 then -- before active select dialog
+		local mythicrecheck = TryGetProp(accountObject,"REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET",0)
+		
+		if distractor == 2 then
+
+
+		    if mythicrecheck >= 1 then
+			    ShowOkDlg(pc, "EVENT_BURINING_NPC_DLG_1")
+                return
+            end
+		end
+
+		local now = TryGetProp(accountObject, 'IndunWeeklyEnteredCount_812', 0)
+		if now <= 0 then
+			ShowOkDlg(pc, "EVENT_BURINING_NPC_DLG_5")
+			return
+		end
+
+
+		local buffCheck = GetExProp(pc,"REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET")
+		if buffCheck == 1 then
+			if mythicrecheck < 1 then
+				if IsRunningScript(pc, 'SCR_USE_Mythic_Auto_2d') == 1 then
+					SendAddOnMsg(pc, "NOTICE_Dm_scroll", ScpArgMsg("REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET_FAIL"), 5)
+					ShowOkDlg(pc, "EVENT_BURINING_NPC_DLG_4")
+					return
+				end
+					local tx = TxBegin(pc)
+					TxSetIESProp(tx, accountObject, "REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET", 1)
+					TxSetIESProp(tx, accountObject, 'IndunWeeklyEnteredCount_812', 0)
+					local ret = TxCommit(tx)
+
+					if ret == "SUCCESS" then
+						SendAddOnMsg(pc, "NOTICE_Dm_Clear", ScpArgMsg("REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET_SUCCESS"), 5)
+						ShowOkDlg(pc, "EVENT_BURINING_NPC_DLG_3")
+					elseif ret == "FAIL" then
+						SendAddOnMsg(pc, "NOTICE_Dm_scroll", ScpArgMsg("REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET_FAIL"), 5)
+						ShowOkDlg(pc, "EVENT_BURINING_NPC_DLG_4")
+					end
+				CustomMongoLog(pc, "REGULAR_BURNING_EVENT","TX", tx, "EVCOUNT",mythicrecheck,"EVBUFF",buffCheck)
+			end
+		end
+	end	
+
 end

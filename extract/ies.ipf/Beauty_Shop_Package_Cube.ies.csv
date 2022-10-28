@@ -1,7 +1,3 @@
 ClassID,Price,PriceRatio,StampCount,ClassName,Category,Gender,ItemClassName,EquipType,JobOnly,SellStartTime,SellEndTime,PackageList,IsPremium,TAG,ItemAddDate
 2501,30,0,0,Gacha_HairAcc_001,Cube,,Gacha_HairAcc_001,,,,,Gacha_HairAcc_001,NO,,
 2502,300,0,0,Gacha_HairAcc_010,Cube,,Gacha_HairAcc_010,,,,,Gacha_HairAcc_001,NO,,
-2506,59,0,0,Gacha_HairAcc_ReSale001_M_STM,Cube,,Gacha_HairAcc_ReSale001_M_STM,,,,,Gacha_HairAcc_ReSale001_M_STM,NO,,
-2507,590,0,0,Gacha_HairAcc_ReSale010_M_STM,Cube,,Gacha_HairAcc_ReSale010_M_STM,,,,,Gacha_HairAcc_ReSale010_M_STM,NO,,
-2508,59,0,0,Gacha_HairAcc_ReSale001_F_STM,Cube,,Gacha_HairAcc_ReSale001_F_STM,,,,,Gacha_HairAcc_ReSale001_F_STM,NO,,
-2509,590,0,0,Gacha_HairAcc_ReSale010_F_STM,Cube,,Gacha_HairAcc_ReSale010_F_STM,,,,,Gacha_HairAcc_ReSale010_F_STM,NO,,

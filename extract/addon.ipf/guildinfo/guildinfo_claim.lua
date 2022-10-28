@@ -57,7 +57,7 @@ function ON_CLAIM_GET(code, ret_json) -- run once on zone enter
         end
         local authIndex = math.floor(authIdx/10)
         local layoutName = nil
-        if authIndex == 1 then -- guild manager
+        if authIndex == 1 or authIdx == '20' then -- guild manager
             layoutName = "claimCheckbox2"
         elseif authIndex == 10 then -- fund manager
             layoutName = "claimCheckbox3"
@@ -70,6 +70,7 @@ function ON_CLAIM_GET(code, ret_json) -- run once on zone enter
 		elseif authIndex == 50 then	-- housing manager
 			layoutName = "claimCheckbox7"
         end
+
         authlist[i] = { authName, authIdx }
 
         local grid = GET_CHILD_RECURSIVELY(curFrame, layoutName, "ui::CGrid");

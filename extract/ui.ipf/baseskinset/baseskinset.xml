@@ -13320,6 +13320,7 @@
 		<image name="plate_achieve_Vasilisa_clear_01" file="\skin\user_title_skin.tga" imgrect="0 434 214 34" CMM_Caption="바실리사_클리어 동"/>
 		<image name="plate_achieve_Vasilisa_clear_02" file="\skin\user_title_skin.tga" imgrect="215 434 214 34" CMM_Caption="바실리사_클리어 은"/>
 		<image name="plate_achieve_Vasilisa_clear_03" file="\skin\user_title_skin.tga" imgrect="430 434 214 34" CMM_Caption="바실리사_클리어 금"/>
+		<image name="plate_achieve_Prank_of_Apolonija" file="\skin\user_title_skin.tga" imgrect="0 889 214 34" CMM_Caption="스팀_성별이 바뀐 npc 보상"/>
 	</imagelist>
 	<imagelist category="skin_hair">
 		<image name="icon_skintone_01_m01" file="\skin\skinhair\icon_skintone_01_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 01"/>

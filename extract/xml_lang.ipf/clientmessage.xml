@@ -15604,6 +15604,7 @@
 		<Class ClassID="501283" ClassName="WarpBanBountyHunt" Data="빠른 이동 기능을 사용할 수 없는 콘텐츠를 진행 중입니다."/>
 		<Class ClassID="501284" ClassName="BountyHuntBoss_Chat01" Data="요녀석, 기절해버렸구나!!"/>
 		<Class ClassID="501285" ClassName="BountyHuntStartDistanceCheck" Data="지령서는 지명수배 게시판 앞에서 사용해야 합니다."/>
+		<Class ClassID="501298" ClassName="BURNING_EVENT_COUNT_RESET_SEL2" Data="성물 레이드 : 자동 매칭 (Normal) 입장 횟수 초기화 하기"/>
 	</Category>
 	<Category Name="GEM_GACHA">
 		<Class ClassID="510001" ClassName="GEM_GACHA_SEL1" Data="젬 1회 뽑기"/>

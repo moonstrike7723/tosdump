@@ -16,7 +16,8 @@
 	<Class Code="16" Desc="배너 교체"/>
 	<Class Code="17" Desc="직급 임명"/>
 	<Class Code="19" Desc="길드 가입 신청서 수락"/>
-	<!-- don't delate and modify (default) string -->
+	<Class Code="20" Desc="길드 보관함 분배"/>
+	<!-- don't delete and modify (default) string -->
 	<Class Code="103" Desc="길드 자금 입금(default)"/>
 	<Class Code="104" Desc="길드 공용 창고 입고"/>
 	<Class Code="105" Desc="길드 공용 창고 출고"/>

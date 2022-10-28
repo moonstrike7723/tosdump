@@ -129,6 +129,7 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 2161,1,EVENT_2106_Title_2,AchievePoint,이벤트,{img Collar_Silver_Watermelon 24 24} Silver Watermelon,Silver Watermelon(이벤트),icon_item_Misc_00021,YES,Silver Watermelon,,False,EVENT_2106_Title_2,NO,,,,,NO,YES,
 2162,1,EVENT_2106_Title_3,AchievePoint,이벤트,{img Collar_Bronze_Watermelon 24 24} Bronze Watermelon,Bronze Watermelon(이벤트),icon_item_Misc_00021,YES,Bronze Watermelon,,False,EVENT_2106_Title_3,NO,,,,,NO,YES,
 2163,1,EVENT_Best_Painter_3rd,AchievePoint,이벤트,3rd Best Painter,3rd 최고의 화가입니다.,icon_item_Misc_00021,YES,Best Painter,,False,EVENT_Best_Painter_3rd,NO,,,,,NO,YES,plate_achieve_contest_Event_3rd
+2168,1,EVENT_Prank_Title,AchievePoint,이벤트,Apolonija's Prank,성별이 바뀐 NPC 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Apolonija's Prank,,False,EVENT_Prank_Title,NO,,,,,NO,YES,plate_achieve_Prank_of_Apolonija
 2030,1,Passionate_Artist_Ev,AchievePoint,이벤트,{img Collar_Brush 20 20}Passionate Artist,발렌타인 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Passionate Artist,,False,Passionate_Artist_Ev,NO,,,,,,NO,
 2046,1,FinestMoment,AchievePoint,이벤트,{img Collar_FinestMoment 30 30}Finest Moment,봄맞이 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Finest Moment,,False,FinestMoment,NO,,,,,,NO,
 2050,1,Event_170823_Fanart_Steam,AchievePoint,이벤트,{img Collar_GivingShade 30 30}Giving Shade,2017년 여름 팬아트 공모전 수상자에게 주어지는 칭호.,icon_item_Misc_00021,YES,Giving Shade,,False,Event_170823_Fanart_Steam,NO,,,,,,NO,
