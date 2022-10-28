@@ -286,8 +286,10 @@ function CARD_PRESET_APPLY_PRESET(parent, self)
 	local droplist = GET_CHILD_RECURSIVELY(parent,"preset_list")
 	local page = tonumber(droplist:GetSelItemKey())
 
-	pc.ReqExecuteTx_NumArgs("SCR_TX_APPLY_CARD_PRESET", page)
-	_DISABLE_CARD_PRESET_APPLY_SAVE_BTN()
+	if page ~= nil then
+		pc.ReqExecuteTx_NumArgs("SCR_TX_APPLY_CARD_PRESET", page)
+		_DISABLE_CARD_PRESET_APPLY_SAVE_BTN()
+	end
 end
 
 function _CHECK_CARD_PRESET_CHANGE_NAME_BTN()

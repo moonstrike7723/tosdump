@@ -24,6 +24,10 @@ local g_account_prop_shop_table =
         ['coinName'] = 'dummy_TeamBattleCoin',
         ['propName'] = 'TeamBattleCoin',
     },
+    ['EVENT_2204_CAMPING_SHOP'] =
+    {
+        ['coinName'] = 'Event_2103_Camping_Coin2'
+    }
 }
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -171,7 +175,7 @@ end
 function EARTHTOWERSHOP_BUY_ITEM_RESULT(frame, msg, argStr, argNum)
     local token = StringSplit(argStr, '/')
     local shopType = token[1]
-
+    
     if g_account_prop_shop_table[shopType] == nil then
         return
     end
@@ -220,6 +224,18 @@ function EARTHTOWERSHOP_BUY_ITEM_RESULT(frame, msg, argStr, argNum)
 
         local aObj = GetMyAccountObj()
         local count = TryGetProp(aObj, propName, '0')
+        if count == 'None' then
+            count = '0'
+        end
+
+        propertyRemain:SetTextByKey('itemCount', GET_COMMAED_STRING(count))
+    elseif shopType == "EVENT_2204_CAMPING_SHOP" then
+        local propertyRemain = GET_CHILD_RECURSIVELY(frame,"propertyRemain")
+        local itemCls = GetClass('Item', coinName)
+
+        propertyRemain:SetTextByKey('itemName', itemCls.Name)
+
+        local count = GetInvItemCount(GetMyPCObject(), coinName)
         if count == 'None' then
             count = '0'
         end
@@ -747,6 +763,9 @@ function EARTH_TOWER_INIT(frame, shopType)
         close:SetTextTooltip(ScpArgMsg('ui_close'));
     else
         title:SetText('{@st43}'..ScpArgMsg(shopType));
+        if g_account_prop_shop_table[shopType]~=nil then
+            EARTH_TOWER_SET_PROPERTY_COUNT(propertyRemain, g_account_prop_shop_table[shopType]['coinName'], "Event")
+        end
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
     end
     
@@ -806,6 +825,10 @@ function EARTH_TOWER_SET_PROPERTY_COUNT(ctrl, itemName, propName)
 
     if count == 'None' then
         count = '0'
+    end
+
+    if propName == "Event" then
+        count = tostring(GetInvItemCount(GetMyPCObject(), itemName))
     end
 
     ctrl:SetTextByKey('itemName', itemCls.Name)
@@ -1471,7 +1494,8 @@ function EARTH_TOWER_SHOP_EXEC(parent, ctrl)
         end
         
     else        
-            if g_account_prop_shop_table[shopType] ~= nil  then
+            
+            if g_account_prop_shop_table[shopType] ~= nil and g_account_prop_shop_table[shopType]['propName'] ~= nil then
             AddLuaTimerFuncWithLimitCountEndFunc("ACCOUNT_PROPERTY_SHOP_TRADE_ENTER", 100, 0, "");
         else
             AddLuaTimerFuncWithLimitCountEndFunc("EARTH_TOWER_SHOP_TRADE_ENTER", 100, 0, "EARTH_TOWER_SHOP_TRADE_LEAVE");

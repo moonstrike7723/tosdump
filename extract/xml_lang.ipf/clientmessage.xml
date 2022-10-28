@@ -1256,6 +1256,8 @@
 		<Class ClassID="4542" ClassName="TeamBelonging" Data="팀 귀속"/>		
 		<Class ClassID="4544" ClassName="MYSTIC_SAVIOR_CHAGE_LUMEN" Data="찬란하게 빛나는 정의로운 빛,{nl}이터널 세이비어 루멘!"/>
 		<Class ClassID="4545" ClassName="MYSTIC_SAVIOR_CHAGE_NOX" Data="파멸을 향하는 칠흑 같은 어둠,{nl}이터널 세이비어 녹스!"/>	
+		<Class ClassID="4546" ClassName="EquipItemCategory" Data="장비 관련"/>		
+		<Class ClassID="4547" ClassName="RelicItemCategory" Data="성물/젬"/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -16020,6 +16022,17 @@
 		<Class ClassID="302738" ClassName="EVENT_2201_SEOLLAL_DAY_CHECK_MSG" Data="{#0066FF}[설날]{/} 출석체크 이벤트 현황{nl}2시간 접속 시 보상 획득 ({#0066FF}{TIME}{/}분){nl}{#FF3333}※보상 획득 기간{nl}1월 29일 오전 06시 ~ 2월 3일 오전 06시 까지 총 5회{/}"/>
 		<Class ClassID="302739" ClassName="EVENT_2201_ARBOR_DAY_MSG4{COIN1}" Data="{#00BFFF}[식목일 이벤트 현황]{/}{nl}[이벤트] 식목일 새싹 일일 획득 ({#3366FF}{COIN1}{/}/1200){nl}{#FF0000}※  누적 접속 1 시간 당 '[이벤트] 식목일 새싹 250 개' 를 획득합니다.{/}{nl}{#FF0000}※ 일일 획득량 제한은 매일 오전 06시 초기화 됩니다.{/}"/>
 		<Class ClassID="302740" ClassName="EVENT_2203_ARBOR_DAY_SHOP" Data="{#003399}[식목일]{/} 이벤트 상점"/>
+		<Class ClassID="302741" ClassName="EVENT_2204_CAMPING_CHECK_MESSAGE{COIN1}{COIN2}{TREASURE}" Data="{#0066FF}[TOS 봄 캠핑 이벤트 현황]{/}{nl}[이벤트] 잔가지 일일 획득 제한 [콘텐츠 클리어]{#0066FF}({COIN1}/500){/}{nl}점프 액티비티 체크 포인트 {#0066FF}({COIN2}/4){/}{nl}보물 찾기 {#0066FF}({TREASURE}/1){/}{nl}{#FF3333}※ 매일 오전 06시 초기화 됩니다.{nl}※ 이벤트 업적을 통해 획득한 '[이벤트] 잔가지' 는 일일 획득 제한에 포함되지 않습니다.{/}"/>
+		<Class ClassID="302742" ClassName="EVENT_2204_CAMPING_SEL1" Data="이벤트 안내"/>
+		<Class ClassID="302743" ClassName="EVENT_2204_CAMPING_SEL2" Data="업적 안내"/>
+		<Class ClassID="302744" ClassName="EVENT_2204_CAMPING_SEL3" Data="트오세 둘레길로 이동"/>
+		<Class ClassID="302745" ClassName="EVENT_2204_CAMPING_SEL4" Data="이벤트 상점"/>
+		<Class ClassID="302746" ClassName="EVENT_2204_CAMPING_BONFIRE_TRADE{CNT}" Data="사용할 개수를 입력하세요({CNT} 개 보유)."/>
+		<Class ClassID="302747" ClassName="EVENT_2204_CAMPING_SHOP" Data="불의 조각 상점"/>
+		<Class ClassID="302748" ClassName="Result_EVENT_2204_COIN" Data="[이벤트] 불의 조각 : {count1} → {count2}"/>
+		<Class ClassID="302749" ClassName="EVENT_2204_CAMPING_NO_CHECKPOINT" Data="현재 저장된 체크 포인트가 없습니다."/>
+		<Class ClassID="302750" ClassName="EP13_PERSONAL_REPUTATUIN_ADD_DELETE_MSG_OVER" Data="{#FF3333}※현재 명성이 한계에 도달하여 더 이상 올릴 수 없습니다. 해당 아이템은 자동 삭제됩니다.{/}"/>
+
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
