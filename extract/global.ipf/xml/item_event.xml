@@ -3,6 +3,7 @@
 <idspace id="Item">
 	<Category Name="event">
 		<Category Name="Item">
+			<Class ClassID="10000257" ClassName="EVENT_2102_CHOCO" CT_ExpireDateTime="2022-02-22 00:00"/>
 			<Class ClassID="10000400" ClassName="Event_Ability_Point_Stone_1000_25" CT_ExpireDateTime="2021-10-12 06:00"/>
 			<Class ClassID="10000401" ClassName="Event_repairPotion_25" CT_ExpireDateTime="2021-10-12 06:00"/>
 			<Class ClassID="10000402" ClassName="Event_Goddess_Statue_Team_25" CT_ExpireDateTime="2021-10-12 06:00"/>
