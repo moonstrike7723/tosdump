@@ -1,7 +1,7 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3
-999901,202003,310000,202004,50000,202004,120000,202004,70000,0,0,inGame_E1,4th Attendance,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1959,,,
-999902,202003,240000,202003,290000,202004,70000,202004,20000,0,0,inGame_E2,Leticia Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1954,,,
-999903,202003,100000,202003,150000,202004,70000,202004,20000,0,0,inGame_E3,Lovely Rolly Polly,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1947,,,
+999901,202004,70000,202004,120000,202005,120000,202005,70000,0,0,inGame_E1,Abor Day Event,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1966,,,
+999902,202004,70000,202004,120000,202004,210000,202004,160000,0,0,inGame_E2,Goddess's Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1965,,,
+999903,202003,310000,202004,50000,202004,120000,202004,70000,0,0,inGame_E3,4th Attendance,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1959,,,
 999904,202003,310000,202004,50000,202011,120000,202011,70000,0,0,inGame_E4,WeekEnd Burning Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=1957,,,
 999905,202002,110000,202002,160000,202005,120000,202005,70000,0,0,inGame_E5,NewWorld Guild Event,inGame_E5,https://treeofsavior.com/page/news/view.php?n=1911,,,
 999906,202002,110000,202002,160000,202005,120000,202005,70000,0,0,inGame_E6,NewWorld Rullet Event,inGame_E6,https://treeofsavior.com/page/news/view.php?n=1910,,,

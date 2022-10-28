@@ -4406,6 +4406,17 @@
 			<img name="bottomcore" imgrect="712 724 110 35"/>
 			<img name="bottomright" imgrect="823 724 65 35"/>
 		</skin>
+		<skin name="arbor_day_balloon" texture="\skin\say_balloon.tga">
+			<img name="topleft" imgrect="86 658 55 30"/>
+			<img name="topcore" imgrect="142 658 62 30"/>
+			<img name="topright" imgrect="205 658 55 30"/>
+			<img name="bodyleft" imgrect="86 689 55 28"/>
+			<img name="bodycore" imgrect="142 689 62 28"/>
+			<img name="bodyright" imgrect="205 689 55 28"/>
+			<img name="bottomleft" imgrect="86 718 55 30"/>
+			<img name="bottomcore" imgrect="142 718 62 30"/>
+			<img name="bottomright" imgrect="205 718 55 30"/>
+		</skin>
 	</skinlist>
 	<skinlist category="buttons">
 		<skin name="button_companion" texture="\skin\barrack.tga">
@@ -7447,6 +7458,8 @@
 		<image name="red_check_line" file="\skin\stamp_tour.tga" imgrect="889 725 430 22" CMM_Caption="오늘 할 일 밑줄"/>
 		<image name="stamp_roulette_mark" file="\skin\stamp_tour.tga" imgrect="1281 650 97 74" CMM_Caption="룰렛 도장"/>
 		<image name="coming_soon_notice" file="\skin\stamp_tour.tga" imgrect="727 760 316 76" CMM_Caption="커밍순"/>
+		<image name="arbor_day_balloon_direction" file="\skin\say_balloon.tga" imgrect="1 457 82 75" CMM_Caption="식목일 말풍선 말꼬리"/>
+		<image name="arbor_day_balloon_decoration" file="\skin\say_balloon.tga" imgrect="263 539 75 57" CMM_Caption="식목일 말풍선 장식"/>
 	</imagelist>
 	<imagelist category="je_button">
 		<image name="menu_guild_info" file="\skin\guild_skin.tga" imgrect="165 298 45 45" CMM_Caption="길드 정보"/>
@@ -10309,6 +10322,7 @@
 		<image name="icon_Weekly_SpecialForce" file="\icon\buff_icon3.tga" imgrect="0 768 128 128" CMM_Caption="특공"/>
 		<image name="icon_Weekly_Sphere" file="\icon\buff_icon3.tga" imgrect="128 768 128 128" CMM_Caption="비전 구체"/>
 		<image name="icon_Weekly_Warning" file="\icon\buff_icon3.tga" imgrect="256 768 128 128" CMM_Caption="사전 경고"/>
+		<image name="icon_Buff_Event_Blessed_Fruit" file="\icon\buff_icon3.tga" imgrect="128 896 128 128" CMM_Caption="축복받은 열매"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>

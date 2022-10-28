@@ -126,6 +126,11 @@ function GET_MORE_EVENT_EXP(pc)
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_Steam_New_World_Buff'); -- 스팀 시즌 서버 혜택
 --	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_SEASON_NEWWRORLD_PASSIVE_1'); -- 2002 [이벤트] 시즌서버 정착지원
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_SEASON_NEWWRORLD_PASSIVE_2'); -- 2002 [이벤트] 유대감
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2004_FRUIT_BUFF1'); -- 축복받은 열매 1단계
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2004_FRUIT_BUFF2'); -- 축복받은 열매 2단계
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2004_FRUIT_BUFF3'); -- 축복받은 열매 3단계
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2004_FRUIT_BUFF4'); -- 축복받은 열매 4단계
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2004_FRUIT_BUFF5'); -- 축복받은 열매 5단계
 	if  TryGetProp(pc, 'Lv', 0) < 380 then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_1905_TOS_CHIILD_BUFF1'); --자라나라 나무나무 성장 버프 --
 	end
