@@ -3539,8 +3539,7 @@
 		<Class ClassID="22413" ClassName="doNotJoinGuildEvent" Data="길드 이벤트에 참여하지 않았습니다."/>
 		<Class ClassID="22414" ClassName="GuildMember{Name}Get{Item}By{Count}FromGuildWareHouse" Data="길드원 {Name}이 길드 보관함으로부터 {Item} {Count}개를 받았습니다."/>
 		<Class ClassID="22415" ClassName="ReceivedItemFromGuildWareHouse_GetItFromBarrack" Data="길드 보관함에 아이템을 수령했습니다. 숙소에서 아이템을 확인하세요."/>
-<Class ClassID="22417" ClassName="YouCanBuildInTheOtherGuildAgit" Data="다른 길드 아지트에서는 사용하실 수 없습니다."/>
-<Class ClassID="22418" ClassName="CannotChangeNeutralityState" Data="아직 중립상태를 변경할 수 없습니다."/>
+    <Class ClassID="22418" ClassName="CannotChangeNeutralityState" Data="아직 중립상태를 변경할 수 없습니다."/>
 		<Class ClassID="22419" ClassName="YouCanBuildInTheOtherGuildAgit" Data="다른 길드 아지트에서는 사용하실 수 없습니다."/>
 		<Class ClassID="22421" ClassName="WantTobeChangedNeutralityState{DAY}" Data="길드 중립 상태로 변경하시길 원합니까?{nl}중립 상태에서는 필드 전쟁이 불가능합니다.{nl}상태는 {DAY}동안 유지됩니다."/>
 		<Class ClassID="22422" ClassName="WantTobeChangedNoneNeutralityState{DAY}" Data="길드 중립 상태로 변경하시길 원합니까?{nl}중립 상태에서는 필드 전쟁이 불가능합니다.{nl}상태는 {DAY}동안 유지됩니다."/>
