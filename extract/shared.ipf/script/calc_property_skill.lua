@@ -192,11 +192,6 @@ function SCR_Get_SpendSP(skill)
         end
     end
 
-    -- EVENT_2004_UPHILL
-    if IsBuffApplied(pc, "EVENT_2004_UPHILL_BUFF") == "YES" then
-        return 0
-    end
-
     ----------
     value = value - decsp;
     if value < 1 then
@@ -10763,11 +10758,6 @@ function SCR_GET_SPENDITEM_COUNT_Samsara(skill)
     local pc = GetSkillOwner(skill);
     local addCount = GetAbilityAddSpendValue(pc, skill.ClassName, "SpendItem");
 
-    -- EVENT_2004_UPHILL
-    if IsBuffApplied(pc, "EVENT_2004_UPHILL_BUFF") == "YES" then
-        return 0;
-    end
-
     return count + addCount;
 end
 
@@ -12980,13 +12970,6 @@ function SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
         basicCoolDown = basicCoolDown * 0.9;
     end
 
-    -- EVENT_2004_UPHILL
-    if IsBuffApplied(pc, 'EVENT_2004_UPHILL_USER_BUFF') == 'YES' then
-        basicCoolDown = basicCoolDown * 0.1;
-    elseif IsBuffApplied(pc, 'EVENT_2004_UPHILL_TREE_BUFF_2') == 'YES' then
-        basicCoolDown = basicCoolDown * 0.7;
-    end
-    
     -- -- Centurion Buff (Removed)
     -- if IsBuffApplied(pc, 'SpeForceFom_Buff') == 'YES' then
     --     if skill.ClassName ~= "Centurion_SpecialForceFormation" then

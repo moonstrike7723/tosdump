@@ -1,4 +1,4 @@
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <Category>
 	<ReadXml Name="bonescale"/>
 	<ReadXml Name="skill_Simony"/>
@@ -11,12 +11,13 @@
 	<ReadXml Name="cell"/>
 	<ReadXml Name="item"/>
 	<ReadXml Name="item_Equip_EP12"/>
+	<ReadXml Name="item_HiddenAbility"/>
 	<ReadXml Name="item_colorspray"/>
 	<ReadXml Name="item_Equip"/>
 	<ReadXml Name="item_event"/>
 	<ReadXml Name="item_event_Equip"/>
-	<ReadXml Name="item_GuildHousing"/>	
-	<ReadXml Name="item_PersonalHousing"/>	
+	<ReadXml Name="item_GuildHousing"/>
+	<ReadXml Name="item_PersonalHousing"/>
 	<ReadXml Name="item_Quest"/>
 	<ReadXml Name="item_opt"/>
 	<ReadXml Name="item_common"/>
@@ -252,7 +253,7 @@
 	<ReadXml Name="Episode_Quest"/>
 	<ReadXml Name="Episode_Reward"/>
 	<ReadXml Name="contents_info"/>
-	<ReadXml Name="item_ark_option"/>	
+	<ReadXml Name="item_ark_option"/>
 	<ReadXml Name="playlist_playtime"/>
 	<ReadXml Name="boss_pattern_table"/>
 	<ReadXml Name="item_skillmake_costume"/>

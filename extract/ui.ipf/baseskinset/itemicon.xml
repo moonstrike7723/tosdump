@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 http://www.altova.com by MintPC Mi -->
 <skinset name="Base">
 	<imagelist category="item_tooltip_icon">
@@ -3262,6 +3262,8 @@
 		<image name="icon_item_bracelet_moth_05" file="\icon\acc\icon_item_bracelet_moth_05.png" imgrect="0 0 256 256" CMM_Caption="모링포니아 색배리_파랑"/>
 		<image name="icon_item_necklace_moth_05" file="\icon\acc\icon_item_necklace_moth_05.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_trinket_disnai" file="\icon\acc\icon_item_trinket_disnai.png" imgrect="0 0 256 256" CMM_Caption="무기장식"/>
+		<image name="icon_item_bracelet_2020ArborDay" file="\icon\acc\icon_item_bracelet_2020ArborDay.png" imgrect="0 0 256 256" CMM_Caption="2020 식목일 팔찌"/>
+		<image name="icon_item_necklace_2020ArborDay" file="\icon\acc\icon_item_necklace_2020ArborDay.png" imgrect="0 0 256 256" CMM_Caption="2020 식목일 목걸이"/>
 	</imagelist>
 	<imagelist category="hair_accesory">
 		<image name="hairacc_1_egg" file="\icon\hairacc\hairacc_1_egg.png" imgrect="0 0 256 256"/>
@@ -7138,6 +7140,10 @@
 		<image name="item_icon_allbox_littleprince" file="\icon\payment\item_icon_allbox_littleprince.png" imgrect="0 0 256 256"/>
 		<image name="item_icon_Effect_littleprince" file="\icon\payment\item_icon_Effect_littleprince.png" imgrect="0 0 256 256" CMM_Caption="2020 4월 어린왕자 여큡 이펙트"/>
 		<image name="icon_item_egg_school_dodo" file="\icon\payment\icon_item_egg_school_dodo.png" imgrect="0 0 256 256" CMM_Caption="스쿨 도도 에그"/>
+		<image name="icon_item_2020_ArborDay_Package_All" file="\icon\payment\icon_item_2020_ArborDay_Package_All.png" imgrect="0 0 256 256" CMM_Caption="2020 식목일 특판 패키지_4종"/>
+		<image name="icon_item_2020_ArborDay_Package_BattleA" file="\icon\payment\icon_item_2020_ArborDay_Package_BattleA.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2020_ArborDay_Package_BattleB" file="\icon\payment\icon_item_2020_ArborDay_Package_BattleB.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2020_ArborDay_Package_Growth" file="\icon\payment\icon_item_2020_ArborDay_Package_Growth.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>

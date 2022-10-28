@@ -134,6 +134,9 @@ function GET_MORE_EVENT_EXP(pc)
 	if  TryGetProp(pc, 'Lv', 0) < 380 then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_1905_TOS_CHIILD_BUFF1'); --자라나라 나무나무 성장 버프 --
 	end
+	if  TryGetProp(pc, 'Lv', 0) < 450 then
+	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'ITEM_BUFF_2020ArborDay_ExpUP'); --2020 근본--
+	end
 	return sumExp; 
 end
 

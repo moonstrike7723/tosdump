@@ -2655,11 +2655,6 @@ function SCR_Get_Sta_Run(self)
     elseif IsBuffApplied(self, 'Stamina_Max_buff') == 'YES' then
         value = SCR_FIELD_DUNGEON_CONSUME_DECREASE(self, 'Sta_Run', value);
     end
-
-    -- EVENT_2004_UPHILL
-    if IsBuffApplied(self, "EVENT_2004_UPHILL_BUFF") == "YES" then
-        return 0
-    end
     
     return math.floor(value);
 end
@@ -2700,12 +2695,6 @@ function SCR_Get_Sta_Runable(self)
 end
 
 function SCR_Get_Sta_Jump(self)
-    
-    -- EVENT_2004_UPHILL
-    if IsBuffApplied(self, "EVENT_2004_UPHILL_BUFF") == "YES" then
-        return 0
-    end
-
     return 1000;
 end
 
