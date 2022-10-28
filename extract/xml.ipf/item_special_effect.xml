@@ -2591,7 +2591,7 @@
 		<Layer effect="I_wing_ep13dessert" TargetNode="wing_Dummy_effect001" scale="1" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2599,7 +2599,7 @@
 		<Layer effect="I_light020_pink_loop" TargetNode="wing_Dummy_effect002" scale="1" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2607,7 +2607,7 @@
 		<Layer effect="I_light020_mint_loop" TargetNode="wing_Dummy_effect003" scale="0.3" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2615,7 +2615,7 @@
 		<Layer effect="I_light020_yellow_loop2" TargetNode="wing_Dummy_effect004" scale="0.5" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2623,7 +2623,7 @@
 		<Layer effect="I_light020_yellow_loop" TargetNode="wing_Dummy_effect005" scale="1" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2631,7 +2631,7 @@
 		<Layer effect="I_light020_mint_loop2" TargetNode="wing_Dummy_effect006" scale="1" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2639,7 +2639,7 @@
 		<Layer effect="I_light020_pink_loop2" TargetNode="wing_Dummy_effect007" scale="1" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2647,7 +2647,7 @@
 		<Layer effect="I_light020_pink_loop" TargetNode="wing_Dummy_effect008" scale="1" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2655,7 +2655,7 @@
 		<Layer effect="I_light020_pink_loop2" TargetNode="wing_Dummy_effect009" scale="1" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2663,7 +2663,7 @@
 		<Layer effect="I_light020_mint_loop" TargetNode="wing_Dummy_effect010" scale="1" offset="0;0">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" Use2DEffect="YES" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="NO" IgnoreAnimEventEffect="YES" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2673,7 +2673,7 @@
 		<Layer effect="F_drop_water002_mint_loop" TargetNode="wepon_Dummy001" scale="1" offset="0;-11">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" Use2DEffect="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2681,7 +2681,7 @@
 		<Layer effect="F_drop_water002_mint_loop2" TargetNode="wepon_Dummy002" scale="2.2" offset="0;-7">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" Use2DEffect="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2691,7 +2691,7 @@
 		<Layer effect="F_drop_water002_white_loop" TargetNode="swepon_Dummy001" scale="1" offset="0;-5.5">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" Use2DEffect="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2699,7 +2699,7 @@
 		<Layer effect="F_drop_water002_mint_loop_s" TargetNode="swepon_Dummy002" scale="0.8" offset="0;-9">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" Use2DEffect="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
@@ -2707,7 +2707,17 @@
 		<Layer effect="F_drop_water002_white_loop2" TargetNode="swepon_Dummy004" scale="0.6" offset="0;-4">
 			<Creation>
 				<Property PlayMoment="None">
-					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" Use2DEffect="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
+					<Sound SoundName="None" SoundVolume="1"/>
+				</Property>
+			</Creation>
+		</Layer>
+	</ItemList>
+	<ItemList ItemClassName="EP13_Artefact_014">
+		<Layer effect="F_light179_red_loop" TargetNode="wing_Dummy_effect" scale="1" offset="0;0">
+			<Creation>
+				<Property PlayMoment="None">
+					<Option ReinforceValue="0" ReinforceEffectState="None" UseAttach="YES" IgnoreAnimEventEffect="NO" SubWeaponPistol="NO"/>
 					<Sound SoundName="None" SoundVolume="1"/>
 				</Property>
 			</Creation>
