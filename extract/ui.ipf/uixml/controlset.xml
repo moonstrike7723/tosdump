@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <controlsetlist>
 	<controlset name="barrack_pet_mini" toggle="false" hittest="true" width="400" height="60" skin="">
 		<controls>
@@ -460,7 +460,7 @@
 		</controls>
 	</controlset>
 	<controlset name="tooltip_equip_cannot_reinforce" hittest="true" width="410" height="45">
-		<userconfig BOTTOM_MARGIN="10" TEXT_FONT="{#62100c}" REINFORCE_TEXT="강화 불가" TRANSCEND_TEXT="초월 불가" EXTRACT_TEXT="추출 불가" SOCKET_TEXT="소켓 추출 불가" BRIQUET_TEXT="외형 변경 불가" EXCHANGE_TEXT="{#00fec5}{ol}계열 변경 가능(1월 24일까지){/}" AWAKEN_TEXT="각성 불가" DECOMPOSEABLE_TEXT="분해 불가"ENCHANT_TEXT="인챈트 불가"/>
+		<userconfig BOTTOM_MARGIN="10" TEXT_FONT="{#62100c}" REINFORCE_TEXT="강화 불가" TRANSCEND_TEXT="초월 불가" EXTRACT_TEXT="추출 불가" SOCKET_TEXT="소켓 추출 불가" BRIQUET_TEXT="외형 변경 불가" EXCHANGE_TEXT="{#00fec5}{ol}계열 변경 가능(1월 24일까지){/}" AWAKEN_TEXT="각성 불가" DECOMPOSEABLE_TEXT="분해 불가" ENCHANT_TEXT="인챈트 불가"/>
 		<controls>
 			<labelline name="labelline" margin="0 0 0 0" rect="0 0 390 3" skin="labelline_def_2" layout_gravity="center top"/>
 			<richtext name="socket_text" layout_gravity="left top" rect="0 0 390 45" margin="17 5 0 0" fixwidth="true" format="" hittest="false" textalign="left center" fontname="brown_16"/>
@@ -4838,7 +4838,8 @@
 			<picture name="arrow" rect="0 0 20 20" margin="300 0 0 0" layout_gravity="left center" image="icon_white_arrow" draw="true"/>
 			<richtext name="result" rect="0 0 250 36" margin="350 0 0 0" layout_gravity="left center" draw="true" textalign="left center" format="{@st66d_y}{s16}%s x 1" param1="value" param1_def="인첸트 아이템 명" fontname="yellow_16_ol"/>
 		</controls>
-	</controlset><!--BgmPlayer-->
+	</controlset>
+	<!--BgmPlayer-->
 	<controlset name="bgmplayer_musicinfo" width="325" height="25" draw="true" skin="None" updateparent="true">
 		<controls>
 			<groupbox name="musicselect_gbox" rect="0 0 325 25" margin="3 0 0 0" layout_gravity="left top" hittestbox="true" draw="true" skin="list_choice_box" scrollbar="false"/>
@@ -5013,7 +5014,7 @@
 	<controlset name="content_status_board_rank_attribute" toggle="false" hittest="false" hittestset="false" width="486" height="79" skin="">
 		<controls>
 			<groupbox name="attr_bg" rect="0 0 486 79" margin="0 0 0 0" layout_gravity="left center" stretch="true" skin="base_btn"/>
-			<picture name="attr_rank_pic" rect="0 0 75 62" margin="10 0 0 0" layout_gravity="left center" stretch="true" image="raid_week_rank_01" hittest="false" />
+			<picture name="attr_rank_pic" rect="0 0 75 62" margin="10 0 0 0" layout_gravity="left center" stretch="true" image="raid_week_rank_01" hittest="false"/>
 			<richtext name="attr_rank_text" rect="0 0 75 62" margin="12 1 0 0" layout_gravity="left center" resizebytext="false" textalign="center center" format="{@st43}{s18}{ol}{ds}%s위" param1="value" param1_def="0" fontname="white_14_ol"/>
 			<richtext name="attr_name_text" rect="0 0 130 20" margin="100 0 0 0" layout_gravity="left center" resizebytext="false" textalign="center center" format="%s" param1="value" param1_def="이름" fontname="black_16_b"/>
 			<richtext name="attr_value_text" rect="0 0 200 20" margin="0 0 20 0" layout_gravity="right center" resizebytext="false" textalign="right center" format="%s" param1="value" param1_def="값" fontname="black_16_b"/>
@@ -5031,7 +5032,7 @@
 		<controls>
 			<picture name="attr_pic" rect="0 0 50 50" margin="0 0 0 0" layout_gravity="left center" MouseOnAnim="btn_mouseover" MouseOffAnim="btn_mouseoff" stretch="true" skin="test_skin_01_btn" oversound="button_over" LBtnUpScp="" hittest="true"/>
 			<richtext name="attr_name_text" rect="0 0 180 20" margin="60 1 0 0" layout_gravity="left center" resizebytext="false" format="%s" param1="value" param1_def="아이템 이름" fontname="black_16_b" textalign="left center"/>
-			<richtext name="attr_count_text" rect="0 0 100 40" margin="0 1 0 10" layout_gravity="right center" format="%s개" param1="value" param1_def="0" fontname="black_16_b" textalign="right center" />
+			<richtext name="attr_count_text" rect="0 0 100 40" margin="0 1 0 10" layout_gravity="right center" format="%s개" param1="value" param1_def="0" fontname="black_16_b" textalign="right center"/>
 		</controls>
 	</controlset>
 	<controlset name="indun_reward_each" hittest="false" width="420" height="35" hittestset="false" draw="false">
@@ -5077,7 +5078,7 @@
 		<controls>
 			<richtext name="patternName" rect="0 0 50 18" margin="80 20 0 0" layout_gravity="left top" caption="{@st66b}{s16}불장벽"/>
 			<picture name="patternPic" rect="0 0 64 64" margin="10 0 0 0" layout_gravity="left center" image="fullred" stretch="true"/>
-			<groupbox name="patternDescBox" rect="0 0 277 47" margin="80 40 0 0" skin="ability_deck" resizebyparent="true"  scrollbar="false"/>
+			<groupbox name="patternDescBox" rect="0 0 277 47" margin="80 40 0 0" skin="ability_deck" resizebyparent="true" scrollbar="false"/>
 			<richtext name="patternDesc" parent="patternDescBox" rect="0 0 274 44" margin="3 3 0 0" layout_gravity="left top" fixwidth="true" fontname="black_12_b" caption="화염의 벽을 만들어 접근한 적에게 지속적으로 불 속성 피해를 입힙니다. 피격된 적은 넉백됩니다."/>
 		</controls>
 	</controlset>
