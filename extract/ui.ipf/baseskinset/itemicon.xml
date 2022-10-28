@@ -6072,6 +6072,12 @@
 		<image name="icon_item_2010_cosplay_box_m" file="\icon\item\icon_item_2010_cosplay_box_m.png" imgrect="0 0 128 128"/>
 		<image name="icon_item_2010_pumpkin_candy" file="\icon\item\icon_item_2010_pumpkin_candy.png" imgrect="0 0 128 128" CMM_Caption="2020_할로윈 특제 캔디"/>
 		<image name="icon_item_costume_trade_ticket" file="\icon\item\icon_item_costume_trade_ticket.png" imgrect="0 0 128 128" CMM_Caption="2020_할로윈 코스튬 영구제 교환권"/>
+		<image name="icon_item_Event_Roulette_Moringponia_box" file="\icon\item\icon_item_Event_Roulette_Moringponia_box.png" imgrect="0 0 128 128" CMM_Caption="룰렛 모링포니아 액세서리 상자"/>
+		<image name="icon_item_Event_Roulette_Master" file="\icon\item\icon_item_Event_Roulette_Master.png" imgrect="0 0 128 128" CMM_Caption="룰렛 마스터 카드 카드첩"/>
+		<image name="icon_item_event_Roulette_weaponbox1" file="\icon\item\icon_item_event_Roulette_weaponbox1.png" imgrect="0 0 128 128" CMM_Caption="룰렛 장비 상자"/>
+		<image name="icon_item_Roulette_costumebox" file="\icon\item\icon_item_Roulette_costumebox.png" imgrect="0 0 256 256" CMM_Caption="룰렛 코스튬 상자"/>
+		<image name="icon_item_Roulette_effectcostumebox" file="\icon\item\icon_item_Roulette_effectcostumebox.png" imgrect="0 0 256 256" CMM_Caption="룰렛 이펙트 코스튬 상자"/>
+		<image name="icon_item_viborabox_2" file="\icon\item\icon_item_viborabox_2.png" imgrect="0 0 256 256" CMM_Caption="바이보라 랜덤 상자"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_h_bigplant_set_01_green" file="\icon\housing\icon_item_h_bigplant_set_01_green.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 화단_01(초록색)"/>

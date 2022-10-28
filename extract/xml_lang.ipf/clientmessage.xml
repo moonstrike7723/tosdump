@@ -13938,6 +13938,7 @@
 		<Class ClassID="300198" ClassName="Premium_JobArtsResetLng" Data="해당 직업의 전체 아츠를 초기화 시킵니다."/>
 		<Class ClassID="300199" ClassName="CanUseIcorMultiple" Data="아이커 일괄 장착/해제 가능"/>
 		<Class ClassID="300200" ClassName="CanUseWorldMapToken" Data="여신상 비용 면제 및 월드맵 토큰 이동 가능"/>
+		<Class ClassID="300201" ClassName="Event_Master_Card" Data="마스터 카드 선택"/>
 	</Category>
 	<Category Name="TPHistory">
 		<Class ClassID="301001" ClassName="RemainLogoutPC" Data="로그아웃 PC 만들기"/>

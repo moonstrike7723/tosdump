@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by IMC (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <idspace id="Item">
 	<Category Name="event">
 		<Category Name="Item">
@@ -29,13 +29,13 @@
 			<Class ClassID="10000066" ClassName="Event_dungeoncount_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
 			<Class ClassID="10000068" ClassName="EVENT_SECOND_CHALLENG_4" CT_ExpireDateTime="2020-11-17 00:00:00"/>
 			<Class ClassID="10000071" ClassName="Event_ChallengeModeReset_4" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10000034" ClassName="EVENT_SECOND_CHALLENG_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10000037" ClassName="Event_ChallengeModeReset_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10000053" ClassName="Event_gemExpStone09_2" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10000057" ClassName="Event_Ability_Point_Stone_1000_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10000077" ClassName="Event_indunReset_Team_4" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10000080" ClassName="Event_dungeoncount_4" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10000083" ClassName="Event_Ability_Point_Stone_10000_4" CT_ExpireDateTime="2020-11-17 00:00:00"/>
+			<Class ClassID="10000034" ClassName="EVENT_SECOND_CHALLENG_3" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10000037" ClassName="Event_ChallengeModeReset_3" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10000053" ClassName="Event_gemExpStone09_2" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10000057" ClassName="Event_Ability_Point_Stone_1000_3" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10000077" ClassName="Event_indunReset_Team_4" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10000080" ClassName="Event_dungeoncount_4" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10000083" ClassName="Event_Ability_Point_Stone_10000_4" CT_ExpireDateTime="2020-12-08 00:00:00"/>
 			<Class ClassID="10000069" ClassName="EVENT_SECOND_CHALLENG_5" CT_ExpireDateTime="2020-10-20 00:00:00"/>
 			<Class ClassID="10000072" ClassName="Event_ChallengeModeReset_5" CT_ExpireDateTime="2020-10-20 00:00:00"/>
 			<Class ClassID="10000078" ClassName="Event_indunReset_Team_5" CT_ExpireDateTime="2020-10-20 00:00:00"/>
@@ -65,10 +65,10 @@
 			<Class ClassID="10010019" ClassName="Extract_kit_Gold_Team_4" CT_ExpireDateTime="2020-11-17 00:00:00"/>
 			<Class ClassID="10010022" ClassName="Extract_kit_Sliver_Team_4" CT_ExpireDateTime="2020-11-17 00:00:00"/>
 			<Class ClassID="10010011" ClassName="Old_Socket_Gold_Event_2" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10010003" ClassName="Extract_kit_Gold_Team_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10010015" ClassName="Moru_Event_Silver_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10010017" ClassName="Moru_Event_Gold_2" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10010023" ClassName="Extract_kit_Sliver_Team_5" CT_ExpireDateTime="2020-11-17 00:00:00"/>
+			<Class ClassID="10010003" ClassName="Extract_kit_Gold_Team_3" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10010015" ClassName="Moru_Event_Silver_3" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10010017" ClassName="Moru_Event_Gold_2" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10010023" ClassName="Extract_kit_Sliver_Team_5" CT_ExpireDateTime="2020-12-08 00:00:00"/>
 			<Class ClassID="10010018" ClassName="Moru_Event_Gold_3" CT_ExpireDateTime="2020-10-20 00:00:00"/>
 			<Class ClassID="10010020" ClassName="Extract_kit_Gold_Team_5" CT_ExpireDateTime="2020-10-20 00:00:00"/>
 			<Class ClassID="10010024" ClassName="Extract_kit_Sliver_Team_6" CT_ExpireDateTime="2020-10-20 00:00:00"/>
@@ -90,11 +90,11 @@
 			<Class ClassID="10600014" ClassName="Event_Sandra_Glass_1line_2" CT_ExpireDateTime="2020-09-08 00:00:00"/>
 			<Class ClassID="10600011" ClassName="Event_Sandra_Glass_2" CT_ExpireDateTime="2020-09-08 00:00:00"/>
 			<Class ClassID="10600028" ClassName="Event_Sandra_Glass_1line_4" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10600012" ClassName="Event_Sandra_Glass_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10600018" ClassName="Event_Mystic_Glass_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10600021" ClassName="Event_Master_Glass_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10600024" ClassName="Event_awakeningStone_3" CT_ExpireDateTime="2020-11-17 00:00:00"/>
-			<Class ClassID="10600029" ClassName="Event_Sandra_Glass_1line_5" CT_ExpireDateTime="2020-11-17 00:00:00"/>
+			<Class ClassID="10600012" ClassName="Event_Sandra_Glass_3" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10600018" ClassName="Event_Mystic_Glass_3" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10600021" ClassName="Event_Master_Glass_3" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10600024" ClassName="Event_awakeningStone_3" CT_ExpireDateTime="2020-12-08 00:00:00"/>
+			<Class ClassID="10600029" ClassName="Event_Sandra_Glass_1line_5" CT_ExpireDateTime="2020-12-08 00:00:00"/>
 			<Class ClassID="10600027" ClassName="Event_Enchantchip_3" CT_ExpireDateTime="2020-10-20 00:00:00"/>
 			<Class ClassID="10600030" ClassName="Event_Sandra_Glass_1line_6" CT_ExpireDateTime="2020-10-20 00:00:00"/>
 			<Class ClassID="10600031" ClassName="Event_Master_Glass_4" CT_ExpireDateTime="2020-10-20 00:00:00"/>
