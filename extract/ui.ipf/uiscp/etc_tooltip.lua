@@ -171,7 +171,7 @@ function DRAW_ETC_DESC_TOOLTIP(tooltipframe, invitem, yPos, mainframename)
 	local descRichtext= GET_CHILD(CSet,'desc_text','ui::CRichText')
 
 	local customSet = false;
-	local customTooltip = TryGetProp(invitem, "CustomToolTip");
+	local customTooltip = TryGetProp(invitem, "CustomToolTip", 'None');		
 	if customTooltip ~= nil and customTooltip ~= "None" then
 		local nameFunc = _G[customTooltip .. "_DESC"];
 		if nameFunc ~= nil then
@@ -182,7 +182,67 @@ function DRAW_ETC_DESC_TOOLTIP(tooltipframe, invitem, yPos, mainframename)
 		end
 	end
 
-	if false == customSet then
+	-------- 확률 공개 큐브일 경우 reward_ratio_open_list.xml에서 툴팁을 불러온다
+	if false == customSet and (TryGetProp(invitem, "GroupName", "None") == "Cube" or TryGetProp(invitem, "GroupName", "None") == "Premium" or TryGetProp(invitem, "GroupName", "None") == "Misc" or TryGetProp(invitem, "GroupName", "None") == "Drug") then
+		local Desc = ClMsg('tooltip_reward_ratio_open_list')
+		local cls_list, cls_cnt = GetClassList("reward_ratio_open_list")
+        local TableGroup = TryGetProp(invitem, 'StringArg', 'None')
+  		local Tablelist = {}
+		local RatioSum = 0
+
+		local itemcls = GetClass('Item', invitem.ClassName)
+		local clsName = itemcls.ClassName
+		local count = 0
+		local equalRatioCheck = 0
+		local isEqualRatio = 1
+        for i = 0, cls_cnt - 1 do
+            local cls = GetClassByIndexFromList(cls_list, i)
+			if TryGetProp(cls, 'Group', 'None') == TableGroup then
+				local ItemName = TryGetProp(GetClass('Item', TryGetProp(cls, "ItemName", "None")), "Name", "None")
+				local Count = tostring(TryGetProp(cls, 'Count', 1))
+				local Ratio = TryGetProp(cls, 'Ratio', '')
+				Tablelist[#Tablelist + 1] = '{nl} - '..ItemName..' x'..Count..' '..'{@st45ty}{s14}['..Ratio..']{/}{/}'
+				
+				-- 확률 합계가 100이 되는지 검사
+				local RatioNum = string.gsub(Ratio,'%%','')
+				RatioSum = RatioSum + tonumber(RatioNum)
+
+				-- -- 균등확률인지 검사
+				if equalRatioCheck ~= 0 and tonumber(RatioNum) ~= tonumber(equalRatioCheck) then
+					isEqualRatio = 0
+				end
+
+				equalRatioCheck = RatioNum
+				count = count + 1
+			end
+		end
+
+		-- 합계가 100이 안되면 경고 메시지 삽입. 소숫점 7자리까지 오차 범위 허용
+		if RatioSum < 99.9999999 or RatioSum > 100.0000009 then
+			Desc = Desc.."{#ff0000}!!!!!!!!!!! Wrong Ratio Sum !!!!!!!!!!!!!!{/}{/}"
+		end
+
+		if isEqualRatio == 1 then
+			Desc = ClMsg('tooltip_reward_ratio_open_list3')
+		end
+
+		if TryGetProp(invitem, "ClassName", "None") == "Piece_BorutaSeal" or TryGetProp(invitem, "ClassName", "None") == "Piece_LegendMisc" then
+			Desc = ScpArgMsg("tooltip_reward_ratio_open_list_spendcount", "COUNT", 10)
+		end
+
+		if #Tablelist > 0 then
+			Desc = Desc
+		else
+			Desc = invitem.Desc
+		end
+
+		if TableGroup == "Cube_ALL_SKLGEM" or TableGroup == "Cube_ALL_SKLGEM_2" then
+			Desc = ScpArgMsg("tooltip_reward_ratio_open_list_sklgem", "COUNT", count)
+		end
+
+		descRichtext:SetText(Desc)
+
+	elseif false == customSet then
 		descRichtext:SetText(invitem.Desc);
 	end
 
@@ -398,21 +458,25 @@ function UPDATE_INDUN_INFO_TOOLTIP(tooltipframe, cidStr, param1, param2, actor)
 			local indunGroupBox = indunListBox:CreateOrGetControl("groupbox", "INDUN_CONTROL_".. indunCls.PlayPerResetType, ctrlLeftMargin, 0, ctrlWidth, ctrlHeight)
 			indunGroupBox = tolua.cast(indunGroupBox, "ui::CGroupBox")
 			indunGroupBox:EnableDrawFrame(0)
-			local indunLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_NAME_" .. indunCls.PlayPerResetType, 0, 0, ctrlWidth / 2, ctrlHeight)
+			local indunLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_NAME_" .. indunCls.PlayPerResetType, 0, 0, ctrlWidth - 60, ctrlHeight)
 			indunLabel = tolua.cast(indunLabel, 'ui::CRichText')
+			indunLabel:SetTextFixWidth(1);
+			indunLabel:SetTextFixHeight(true);
+			indunLabel:SetAutoFontSizeByWidth(indunLabel:GetWidth())
 			indunLabel:SetText('{@st42b}' .. indunCls.Category)
 			indunLabel:SetEnable(0)
 			local difficulty = TryGetProp(indunCls, "Difficulty", "None")
             if difficulty ~= "None" then
                 indunLabel:SetText('{@st42b}' .. indunCls.Category .. ' - ' .. difficulty)
             end
-		
+			
+
 			local indunCntLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_COUNT_" .. indunCls.PlayPerResetType, 0, 0, ctrlWidth / 2, ctrlHeight)
 			indunCntLabel:SetGravity(ui.RIGHT, ui.TOP)
 			indunCntLabel:SetEnable(0)
 
 			local entranceCount = BARRACK_GET_CHAR_INDUN_ENTRANCE_COUNT(cidStr, indunCls.PlayPerResetType)
-
+		
 			if entranceCount ~= nil then
 				if entranceCount == 'None' then
 					entranceCount = 0;
@@ -678,4 +742,33 @@ function DRAW_ETC_EVENT_EQUIP(tooltipframe, invitem, argStr)
 
 	local CompItemToolTipScp = _G[ 'ITEM_TOOLTIP_' .. itemCls.ToolTipScp];
 	CompItemToolTipScp(tooltipframe, itemCls, argStr, "usesubframe"); -- usesubframe frame
+end
+
+-- 강화 복구 스크롤
+function SAVED_REINFORCE_AND_PR_DESC(item)
+	local rein = TryGetProp(item, 'Saved_Reinforce', 0)
+	local pr = TryGetProp(item, 'Saved_PR', 0)	
+	local trans = TryGetProp(item, 'Saved_Transcend', 0)	
+	local clmsg = ScpArgMsg("SavedReinforceAndPR{reinforce}{pr}{trans}", "reinforce", rein ,"pr", pr, 'trans', trans);	
+	return clmsg
+end
+
+local function comma_value(n)
+	local left,num,right = string.match(n,'^([^%d]*%d)(%d*)(.-)$')
+	return left..(num:reverse():gsub('(%d%d%d)','%1,'):reverse())..right
+end
+
+-- 용병단 증표 부스트
+function PVP_MINE_MISC_BOOST_DESC(item)	
+	local pc = GetMyPCObject()
+	
+	local a = comma_value(GET_PVP_MINE_MISC_BOOST_COUNT2(pc)) -- 주간 최대치
+	local b = comma_value(GET_ADDITIONAL_DROP_COUNT_PVP_MINE_MISC_BOOST2(pc, 'uphill')) -- 업힐
+	local c = comma_value(GET_ADDITIONAL_DROP_COUNT_PVP_MINE_MISC_BOOST2(pc, 'rift')) -- 차붕
+	local d = comma_value(GET_ADDITIONAL_DROP_COUNT_PVP_MINE_MISC_BOOST2(pc, 'solo_dun')) -- 베르니케
+	local e = comma_value(GET_ADDITIONAL_DROP_COUNT_PVP_MINE_MISC_BOOST2(pc, 'weekly_boss')) -- 주간 보스
+	local f = comma_value((GET_PVP_MINE_MISC_BOOST_FIELD_RATE2(pc) - 1) * 100) -- 필드 획득량
+
+	local clmsg = ScpArgMsg("pvp_mine_misc_boost_tooltip{a}{b}{c}{d}{e}{f}", "a", a ,"b", b, 'c', c, 'd', d, 'e', e, 'f', f);	
+	return clmsg
 end

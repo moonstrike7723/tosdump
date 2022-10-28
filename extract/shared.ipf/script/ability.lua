@@ -1,4 +1,4 @@
-﻿function PC_PCAA(pc)
+function PC_PCAA(pc)
     local jobHistory = GetJobHistorySting(pc)
         print(jobHistory)
     end
@@ -9,6 +9,7 @@ function LOGGING_ABILITY_CHECK(isEnableLogging, abilityName, logMsg)
     end
 end
 
+-- CAbilityList::CheckAbilityLock(imcIES::ClassID abilID)
 function CHECK_ABILITY_LOCK(pc, ability, isEnableLogging)    
     if IsServerSection(pc) == 1 then
         if IS_REAL_PC(pc) == 'NO' then  -- 진짜 PC가 ??니??--
@@ -223,11 +224,20 @@ function SCR_ABIL_HIGHLANDER9_ACTIVE(self, ability)
     if GetExProp(self, "BUNSIN") == 1 then
         return
     end
+
+    local cnt = 0
     
     local rItem  = GetEquipItem(self, 'RH');
-    if rItem.ClassType == "THSword" or rItem.ClassType == "Sword" then
-        AddBuff(self, self, "Highlander9_Buff");
+    if TryGetProp(rItem, "ClassType") == "THSword" or TryGetProp(rItem, "ClassType") == "Sword" then
+        cnt = cnt + 1
     end
+
+    local r_subItem  = GetEquipItem(self, 'RH_SUB');
+    if TryGetProp(r_subItem, "ClassType") == "THSword" or TryGetProp(r_subItem, "ClassType") == "Sword" then
+        cnt = math.min(cnt + 1, 2)
+    end
+
+    AddBuff(self, self, "Highlander9_Buff", cnt);
 end
 
 function SCR_ABIL_HIGHLANDER9_INACTIVE(self, ability)
@@ -627,31 +637,12 @@ function SCR_ABIL_RODELERO30_INACTIVE(self, ability)
 end
 
 function SCR_ABIL_SCHWARZEREITER1_ACTIVE(self, ability)
-
-    local rItem  = GetEquipItem(self, 'RH');
-    local lItem  = GetEquipItem(self, 'LH');
-    local addhr = 0;
-    
-    if rItem.ClassType == "Musket" then
-        addhr = ability.Level * 500
-        SetExProp(self, "MUSKET_HR_ADD", addhr)
-    elseif lItem.ClassType == "Pistol" then
-        addhr = ability.Level * 500
-        SetExProp(self, "PISTOL_HR_ADD", addhr)
-    end
-    
-    --self.HR_BM = self.HR_BM + addhr;
-    
-    --SetExProp(ability, "ADD_HR", addhr);
-    --SetExProp(self, "ABIL_HR_ADD", addhr)
+    local addhr = ability.Level * 500
+    SetExProp(self, "Schwarzereiter1_HR_ADD", addhr)
 end
 
 function SCR_ABIL_SCHWARZEREITER1_INACTIVE(self, ability)
-    --local addhr = GetExProp(ability, "ADD_HR");
-    
-    --self.HR_BM = self.HR_BM - addhr;
-    DelExProp(self, "MUSKET_HR_ADD")
-    DelExProp(self, "PISTOL_HR_ADD")
+    DelExProp(self, "Schwarzereiter1_HR_ADD")
 end
 
 function SCR_ABIL_CATAPHRACT31_ACTIVE(self, ability)
@@ -719,13 +710,8 @@ function SCR_ABIL_KRIWI1_INACTIVE(self, ability)
 
 end
 
-function SCR_ABIL_INQUISITOR9_ACTIVE(self, ability)
-    local rItem  = GetEquipItem(self, 'RH');
-    
-    local addresdark = 0
-    if rItem.ClassType == "Mace" or rItem.ClassType == "THMace" then
-        addresdark = ability.Level * 10
-    end
+function SCR_ABIL_INQUISITOR9_ACTIVE(self, ability)    
+    local addresdark = ability.Level * 10
     
     self.ResDark_BM = self.ResDark_BM + addresdark
     
@@ -740,40 +726,41 @@ end
 
 function SCR_ABIL_SWORDMASTERY_ACTIVE(self, ability)
     local addDEF = 0;
-    local addSpeed = 0;
 
     local rItem  = GetEquipItem(self, 'RH');
-    if rItem.ClassType == "Sword" then
+    local rClassType = TryGetProp(rItem, "ClassType")
+    if rClassType == "Sword" or rClassType == "Spear" or rClassType == "Rapier" then
         local lItem  = GetEquipItem(self, 'LH');
-        if lItem.ClassType == "Shield" then
-            local akt = (rItem.MINATK + rItem.MAXATK) / 2
-            addDEF = math.floor(akt * 0.2);
-            
-            local abilHackapell25 = GetAbility(self, "Hackapell25")
-            if abilHackapell25 ~= nil and TryGetProp(abilHackapell25, "ActiveState", 0) == 1 then
-                addDEF = 0
-            end
-        else
-            addSpeed = 200;
+        if TryGetProp(lItem, "ClassType") == "Shield" then
+            local akt = (TryGetProp(rItem, "MINATK", 0) + TryGetProp(rItem, "MAXATK", 0)) / 2
+            addDEF = addDEF + math.floor(akt * 0.1);
+        end
+    end
+
+    local r_subItem  = GetEquipItem(self, 'RH_SUB');
+    local r_subClassType = TryGetProp(r_subItem, "ClassType")
+    if r_subClassType == "Sword" or r_subClassType == "Spear" or r_subClassType == "Rapier" then
+        local l_subItem  = GetEquipItem(self, 'LH_SUB');
+        if TryGetProp(l_subItem, "ClassType") == "Shield" then
+            local akt = (TryGetProp(r_subItem, "MINATK", 0) + TryGetProp(r_subItem, "MAXATK", 0)) / 2
+            addDEF = addDEF + math.floor(akt * 0.1);
         end
     end
     
     self.DEF_BM = self.DEF_BM + addDEF;
     
     SetExProp(ability, "ABIL_ADD_DEF", addDEF);
-    SetExProp(self, "ABIL_ADD_ATKSPD", addSpeed);
 end
 
 function SCR_ABIL_SWORDMASTERY_INACTIVE(self, ability)
     local addDEF = GetExProp(ability, "ABIL_ADD_DEF");
-    DelExProp(self, "ABIL_ADD_ATKSPD");
     self.DEF_BM = self.DEF_BM - addDEF;
 end
 
 function SCR_ABIL_SCHWARZEREITER2_ACTIVE(self, ability)
-    local lItem  = GetEquipItem(self, 'LH');
+    local rItem  = GetEquipItem(self, 'RH');
     local value = 0;
-    if lItem.ClassType == "Pistol" then
+    if rItem.ClassType == "Pistol" then
         value = 1;
     end
     SetExProp(self, "ABIL_ADD_HIT", value)
@@ -897,9 +884,14 @@ end
 
 function SCR_ABIL_THSWORD_ACTIVE(self, ability)
     local rItem  = GetEquipItem(self, 'RH');
+    local r_subItem  = GetEquipItem(self, 'RH_SUB');
     local addSR = 0
-    if rItem.ClassType == "THSword" then
-        addSR = 1
+    if TryGetProp(rItem, "ClassType") == "THSword" then
+        addSR = addSR + 3
+    end
+
+    if TryGetProp(r_subItem, "ClassType") == "THSword" then
+        addSR = addSR + 3
     end
 
     SetExProp(self, "ABIL_THSWORD_SR", addSR)
@@ -923,26 +915,35 @@ function SCR_ABIL_THSTAFF_INACTIVE(self, ability)
     DelExProp(self, "ABIL_THSTAFF_SR")
 end
 
-function SCR_ABIL_THSPEAR_ACTIVE(self, ability)
-    local rItem  = GetEquipItem(self, 'RH');
-    local addSkillRange = 0
-    if rItem.ClassType == "THSpear" then
-        addSkillRange = 10
-    end
+function SCR_ABIL_SPEARMASTERY_Battle_ACTIVE(self, ability)
     
-    SetExProp(self, "ABIL_THSPEAR_RANGE", addSkillRange)
+    local addSkillRange = 0
+    local spear_cnt = 0
+
+    local rItem  = GetEquipItem(self, 'RH');
+    if TryGetProp(rItem, "ClassType2") == "Spear" then
+        addSkillRange = addSkillRange + 5
+        spear_cnt = spear_cnt + 1
+    end
+
+    local r_subItem  = GetEquipItem(self, 'RH_SUB');
+    if TryGetProp(r_subItem, "ClassType2") == "Spear" then
+        addSkillRange = math.min(addSkillRange + 5, 10)
+        spear_cnt = math.min(spear_cnt + 1, 2)
+    end
+
+    SetExProp(self, "ABIL_SPEAR_RANGE", addSkillRange)
+    SetExProp(self, "ABIL_SPEAR_Count", spear_cnt)
 end
 
-function SCR_ABIL_THSPEAR_INACTIVE(self, ability)
-    DelExProp(self, "ABIL_THSPEAR_RANGE")
+function SCR_ABIL_SPEARMASTERY_Battle_INACTIVE(self, ability)
+    DelExProp(self, "ABIL_SPEAR_RANGE")
+    DelExProp(self, "ABIL_SPEAR_Count")
 end
 
 function SCR_ABIL_THMACE_ACTIVE(self, ability)
     local rItem  = GetEquipItem(self, 'RH');
-    local addBlkBreak = 0
-    if rItem.ClassType == "THMace" then
-        addBlkBreak = 85
-    end
+    local addBlkBreak = 85
     
     SetExProp(self, "ABIL_THMACE_BLKBLEAK", addBlkBreak)
 end
@@ -953,10 +954,7 @@ end
 
 function SCR_ABIL_THMACE_SR_ACTIVE(self, ability)
     local rItem  = GetEquipItem(self, 'RH');
-    local addSR = 0
-    if rItem.ClassType == "THMace" then
-        addSR = 5
-    end
+    local addSR = 5
     
     SetExProp(self, "ABIL_THMACE_SR", addSR)
 end
@@ -978,22 +976,6 @@ end
 function SCR_ABIL_THMACE_StrikeDamage_INACTIVE(self, ability)
     DelExProp(self, "ABIL_THMACE_STRIKE_DAMAGE")
 end
-
-function SCR_ABIL_SPEAR_ACTIVE(self, ability)
-    local rItem  = GetEquipItem(self, 'RH');
-    local addSkillRange = 0
-    if rItem.ClassType == "Spear" then
-        addSkillRange = 5
-    end
-    
-    SetExProp(self, "ABIL_SPEAR_RANGE", addSkillRange)
-end
-
-function SCR_ABIL_SPEAR_INACTIVE(self, ability)
-    DelExProp(self, "ABIL_SPEAR_RANGE")
-end
-
-
 
 function SCR_ABIL_KABBALIST21_ACTIVE(self, ability)
         local addMaxMATKRate = 0.0;
@@ -1062,11 +1044,8 @@ end
 
 function SCR_ABIL_MACE_ACTIVE(self, ability)
     local addHeaLPwrRate = 0;
-    local rItem  = GetEquipItem(self, 'RH');
-    if TryGetProp(rItem, "ClassType") == "Mace" then
-        addHeaLPwrRate = ability.Level * 0.02
-    end
-    
+    addHeaLPwrRate = ability.Level * 0.02
+
     SetExProp(self, "ABIL_MACE_ADDHEAL", addHeaLPwrRate);
 end
 
@@ -1076,9 +1055,20 @@ end
 
 
 function SCR_ABIL_PELTASTA5_ACTIVE(self, ability)
+    local cnt = 0
+    
     local lItem  = GetEquipItem(self, 'LH');
     if TryGetProp(lItem, "ClassType") == "Shield" then
-        AddBuff(self, self, "Peltasta5_Shield_Buff", TryGetProp(ability, "Level", 0));
+        cnt = cnt + 1
+    end
+
+    local l_subItem  = GetEquipItem(self, 'LH_SUB');
+    if TryGetProp(l_subItem, "ClassType") == "Shield" then
+        cnt = cnt + 1
+    end
+        
+    if cnt > 0 then
+        AddBuff(self, self, "Peltasta5_Shield_Buff", TryGetProp(ability, "Level", 0), cnt);
     end
 end
 
@@ -1395,33 +1385,6 @@ function SCR_ABIL_Exorcist19_INACTIVE(self, ability)
     end
 end
 
-function SCR_ABIL_Appraiser7_ACTIVE(self, ability)
-    local skill = GetSkill(self, "Appraiser_Blindside");
-    if skill ~= nil then
-        local attribute = TryGetProp(skill, "Attribute");
-        skill.Attribute = "Fire";
-        SetExProp_Str(self, "Appraiser7_Attribute", attribute);
-
-        skill.CastingCategory = "channeling"
-
-        InvalidateSkill(self, skill.ClassName);
-        SendSkillProperty(self, skill);
-    end
-end
-
-function SCR_ABIL_Appraiser7_INACTIVE(self, ability)
-    local skill = GetSkill(self, "Appraiser_Blindside");
-    if skill ~= nil then
-        local attribute = GetExProp_Str(self, "Appraiser7_Attribute");
-        skill.Attribute = attribute;
-
-        skill.CastingCategory = "instant"
-
-        InvalidateSkill(self, skill.ClassName);
-        SendSkillProperty(self, skill);
-    end
-end
-
 function SCR_ABIL_Hoplite33_ACTIVE(self, ability)
     local skill = GetSkill(self, "Hoplite_ThrouwingSpear");
     if skill ~= nil then
@@ -1698,13 +1661,10 @@ function SCR_ABIL_Outlaw20_ACTIVE(self, ability)
     local skill = GetSkill(self, "OutLaw_Rampage");
     if skill ~= nil then
         local attribute = TryGetProp(skill, "Attribute");
-        local enableCompanion = TryGetProp(skill, "EnableCompanion");
 
         skill.Attribute = "Ice";
-        skill.EnableCompanion = "None";
 
         SetExProp_Str(self, "Outlaw20_Attribute", attribute);
-        SetExProp_Str(self, "Outlaw20_companion", enableCompanion);
     end
 end
 
@@ -1712,10 +1672,8 @@ function SCR_ABIL_Outlaw20_INACTIVE(self, ability)
     local skill = GetSkill(self, "OutLaw_Rampage");
     if skill ~= nil then
         local attribute = GetExProp_Str(self, "Outlaw20_Attribute");
-        local enableCompanion = GetExProp_Str(self, "Outlaw20_companion");
 
         skill.Attribute = attribute;
-        skill.EnableCompanion = enableCompanion;
     end
 end
 
@@ -1850,14 +1808,14 @@ end
 function SCR_ABIL_Swordman33_ACTIVE(self, ability)
     local skill = GetSkill(self, "Swordman_Thrust");
     if skill ~= nil then
-        SetSkillOverHeat(self, skill.ClassName, 2, 1);
+        SetSkillOverHeat(self, skill.ClassName, 0, 1);
     end
 end
 
 function SCR_ABIL_Swordman33_INACTIVE(self, ability)
     local skill = GetSkill(self, "Swordman_Thrust");
     if skill ~= nil then
-        SetSkillOverHeat(self, skill.ClassName, 5, 1);
+        SetSkillOverHeat(self, skill.ClassName, 0, 1);
     end
 end
 
@@ -2013,14 +1971,14 @@ function SCR_ABIL_SPEARMASTERY_Dagger_ACTIVE(self, ability)
 
     addATK = addATK * add_rate;
     
-    self.PATK_MAIN_BM = self.PATK_MAIN_BM + addATK;
+    self.EQUIP_PATK_MAIN = self.EQUIP_PATK_MAIN + addATK;
     
     SetExProp(ability, "ABIL_ADD_ATK", addATK);
 end
 
 function SCR_ABIL_SPEARMASTERY_Dagger_INACTIVE(self, ability)
     local addATK = GetExProp(ability, "ABIL_ADD_ATK");
-    self.PATK_MAIN_BM = self.PATK_MAIN_BM - addATK;
+    self.EQUIP_PATK_MAIN = self.EQUIP_PATK_MAIN - addATK;
 end
 
 function SCR_ABIL_Chaplain20_ACTIVE(self, ability)
@@ -3235,6 +3193,24 @@ function SCR_ABIL_CLOWN12_INACTIVE(self, ability)
     end
 end
 
+function SCR_ABIL_Schwarzereiter31_ACTIVE(self, ability)
+    if IsBuffApplied(self, "Schwarzereiter_MaxR_Buff") ~= "YES" then
+        AddBuff(self, self, "Schwarzereiter_MaxR_Buff", 1, 0, 0, 1);
+    end
+end
+
+function SCR_ABIL_Schwarzereiter31_INACTIVE(self, ability)
+    RemoveBuff(self, "Schwarzereiter_MaxR_Buff");
+end
+
+function SCR_ABIL_Schwarzereiter18_ACTIVE(self, ability)
+    StartCoolTime(self, 'Schwarzereiter_Limacon')
+end
+
+function SCR_ABIL_Schwarzereiter18_INACTIVE(self, ability)
+    StartCoolTime(self, 'Schwarzereiter_Limacon')
+end
+
 function SCR_ABIL_Crusader22_ACTIVE(self, ability)
     local skill = GetSkill(self, "Crusader_RingOfLight");
     if skill ~= nil then
@@ -3251,4 +3227,101 @@ function SCR_ABIL_Crusader22_INACTIVE(self, ability)
 
         InvalidateSkill(self, TryGetProp(skill, "ClassName", "None"))
     end
+end
+
+function SCR_ABIL_MATADOR11_ACTIVE(self, ability)
+    local cnt = 0
+    
+    local rItem = GetEquipItem(self, 'RH');
+    if TryGetProp(rItem, "ClassType") == "Rapier" then
+        cnt = cnt + 1
+    end
+
+    local r_subItem = GetEquipItem(self, 'RH_SUB');
+    if TryGetProp(r_subItem, "ClassType") == "Rapier" then
+        cnt = math.min(cnt + 1, 2)
+    end
+    
+    SetExProp(self, "ABIL_MATADOR11_Count", cnt)
+end
+
+function SCR_ABIL_MATADOR11_INACTIVE(self, ability)
+    DelExProp(self, "ABIL_MATADOR11_Count")
+end
+
+function SCR_ABIL_FENCER1_ACTIVE(self, ability)
+    local cnt = 0
+    
+    local rItem = GetEquipItem(self, 'RH');
+    local lItem = GetEquipItem(self, 'LH');
+    if TryGetProp(rItem, "ClassType") == "Rapier" and TryGetProp(lItem, "ClassType") ~= "Shield" then
+        cnt = cnt + 1
+    end
+
+    local r_subItem = GetEquipItem(self, 'RH_SUB');
+    local l_subItem = GetEquipItem(self, 'LH_SUB');
+    if TryGetProp(r_subItem, "ClassType") == "Rapier" and TryGetProp(l_subItem, "ClassType") ~= "Shield" then
+        cnt = math.min(cnt + 1, 2)
+    end
+
+    SetExProp(self, "ABIL_FENCER1_Count", cnt)
+end
+
+function SCR_ABIL_FENCER1_INACTIVE(self, ability)
+    DelExProp(self, "ABIL_FENCER1_Count")
+end
+
+function SCR_ABIL_STAFFMASTERY_Splash_ACTIVE(self, ability)
+    local addSR = 6
+    SetExProp(self, "ABIL_THSTAFF_SR", addSR)
+end
+
+function SCR_ABIL_STAFFMASTERY_Splash_INACTIVE(self, ability)
+    DelExProp(self, "ABIL_THSTAFF_SR")
+end
+
+function SCR_ABIL_STAFFMASTERY_Casting_ACTIVE(self, ability)
+    SetCastingSpeedBuffInfo(self, "StaffMastery", 50);
+end
+
+function SCR_ABIL_STAFFMASTERY_Casting_INACTIVE(self, ability)
+    RemoveCastingSpeedBuffInfo(self, "StaffMastery");
+end
+
+function SCR_ABIL_Schwarzereiter35_ACTIVE(self, ability)
+    if IsBuffApplied(self, "Schwarzereiter35_Buff") == "NO" then
+        AddBuff(self, self, "Schwarzereiter35_Buff", 1, 0, 0, 1);
+    end
+end
+
+function SCR_ABIL_Schwarzereiter35_INACTIVE(self, ability)
+    RemoveBuff(self, "Schwarzereiter35_Buff");
+end
+
+function SCR_ABIL_QuarrelShooter38_ACTIVE(self, ability)
+    if IsBuffApplied(self, "QuarrelShooter38_Buff") == "NO" then
+        AddBuff(self, self, "QuarrelShooter38_Buff", 1, 0, 0, 1);
+    end
+end
+
+function SCR_ABIL_QuarrelShooter38_INACTIVE(self, ability)
+    RemoveBuff(self, "QuarrelShooter38_Buff");
+end
+
+function SCR_ABIL_Chaplain24_ACTIVE(self, ability)
+    if IsBuffApplied(self, "Chaplain24_Buff") == "NO" then
+        AddBuff(self, self, "Chaplain24_Buff", 1, 0, 0, 1);
+    end
+end
+
+function SCR_ABIL_Chaplain24_INACTIVE(self, ability)
+    RemoveBuff(self, "Chaplain24_Buff");
+end
+
+function SCR_ABIL_Schwarzereiter34_ACTIVE(self, ability)
+    RemoveBuff(self, "EvasiveAction_Buff");
+end
+
+function SCR_ABIL_Schwarzereiter34_INACTIVE(self, ability)
+    RemoveBuff(self, "EvasiveAction_Buff");
 end

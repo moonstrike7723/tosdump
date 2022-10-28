@@ -1,10 +1,11 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202108,100000,202108,150000,202108,240000,202108,190000,0,0,inGame_E1,Leticia's Secret Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2332,,,,
-999902,202107,270000,202108,10000,202108,170000,202108,120000,0,0,inGame_E2,[Special] Hot Summer Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2324,,,,
+999901,202108,240000,202108,290000,202109,70000,202109,20000,0,0,inGame_E1,Goddess' Blessed Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2342,,,,
+999902,202108,240000,202108,290000,202109,210000,202109,160000,0,0,inGame_E2,[Special] A Whole Renewed World Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2343,,,,
 999903,202107,200000,202107,250000,202108,310000,202108,260000,0,0,inGame_E3,Fashion Museum: All Stars,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2317,,,,
-999904,202108,30000,202108,80000,202108,240000,202108,190000,0,0,inGame_E4,Watermelon Fishing,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2329,,,,
-999905,202107,280000,202108,10000,202108,240000,202108,190000,0,0,inGame_E5,Demon God's Temptation,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2323,,,,
-999906,202011,170000,202011,220000,203012,310000,203012,260000,0,0,inGame_E6,Costume Collection,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2142,time_del,,,
-999907,202101,60000,202101,110000,203012,310000,203012,260000,0,0,inGame_E7,Item Restore Policy,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2151,time_del,,,Normal
-999908,202105,280000,202106,20000,203106,270000,203106,220000,0,0,inGame_E8,Weekend Burning,inGame_E8,https://treeofsavior.com/page/news/view.php?n=2325,time_del,,,
-999909,202007,90000,202007,140000,203012,310000,203012,260000,0,0,inGame_E9,Applying Steam Guard,inGame_E9,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
+999904,202108,240000,202108,290000,202109,70000,202109,20000,0,0,inGame_E4,Hot Week,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2341,,,,
+999905,202108,240000,202108,290000,202110,50000,202109,300000,0,0,inGame_E5,A Whole Renewed World Event,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2339,,,,
+999906,202108,240000,202108,290000,202109,280000,202109,230000,0,0,inGame_E6,Demon God's Temptation,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2338,,,,
+999907,202011,170000,202011,220000,203012,310000,203012,260000,0,0,inGame_E7,Costume Collection,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2142,time_del,,,
+999908,202101,60000,202101,110000,203012,310000,203012,260000,0,0,inGame_E8,Item Restore Policy,inGame_E8,https://treeofsavior.com/page/news/view.php?n=2151,time_del,,,Normal
+999909,202105,280000,202106,20000,203106,270000,203106,220000,0,0,inGame_E9,Weekend Burning,inGame_E9,https://treeofsavior.com/page/news/view.php?n=2325,time_del,,,
+999910,202007,90000,202007,140000,203012,310000,203012,260000,0,0,inGame_E10,Applying Steam Guard,inGame_E10,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,

@@ -1808,7 +1808,7 @@ function GODDESS_MGR_REFORGE_TRANSCEND_EXEC(parent, btn)
 	end
 
 	local need_count = mat_slot:GetUserIValue('MAT_NEED_COUNT')
-	if need_count <= 0 then
+	if need_count < 0 then
 		ui.SysMsg(ClMsg('NotEnoughRecipe'))
 		return
 	end
@@ -2120,7 +2120,7 @@ function _GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(gBox, item_obj, option_list)
 	local property_gbox = GET_CHILD(tooltip_equip_property_CSet, 'property_gbox', 'ui::CGroupBox')
 	
 	tooltip_equip_property_CSet:Resize(gBox:GetWidth(), tooltip_equip_property_CSet:GetHeight())
-	property_gbox:Resize(gBox:GetWidth() + 5, property_gbox:GetHeight())
+	property_gbox:Resize(gBox:GetWidth(), property_gbox:GetHeight())
 
 	local inner_yPos = 0
 	if item_obj == nil then
@@ -2323,9 +2323,6 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_CLEAR(frame)
 	local rand_item_text = GET_CHILD_RECURSIVELY(frame, 'rand_item_text')
 	rand_item_text:ShowWindow(1)
 
-	local rand_equip_list = GET_CHILD_RECURSIVELY(frame, 'rand_equip_list')
-	rand_equip_list:SetMargin(30, rand_item_text:GetMargin().top + rand_item_text:GetHeight() + 10, 0, 0)
-
 	local rand_engrave_current_inner = GET_CHILD_RECURSIVELY(frame, 'rand_engrave_current_inner')
 	rand_engrave_current_inner:RemoveChild('tooltip_equip_property_narrow')
 
@@ -2506,9 +2503,6 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_REG_ITEM(frame, inv_item, item_obj, sp
 	local rand_item_name = GET_CHILD_RECURSIVELY(frame, 'rand_item_name')
 	rand_item_name:SetTextByKey('name', dic.getTranslatedStr(TryGetProp(item_obj, 'Name', 'NONE')))
 	rand_item_name:ShowWindow(1)
-
-	local rand_equip_list = GET_CHILD_RECURSIVELY(frame, 'rand_equip_list')
-	rand_equip_list:SetMargin(30, rand_item_name:GetMargin().top + rand_item_name:GetHeight() + 10, 0, 0)
 
 	local rand_engrave_current_inner = GET_CHILD_RECURSIVELY(frame, 'rand_engrave_current_inner')
 	rand_engrave_current_inner:RemoveChild('tooltip_equip_property_narrow')
@@ -2919,7 +2913,7 @@ function GODDESS_MGR_RANDOMOPTION_APPLY_EXEC(parent, btn)
 	end
 
 	local yesscp = string.format('_GODDESS_MGR_RANDOMOPTION_APPLY_EXEC()')
-	local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetApply'), yesscp, 'None')
+	local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetEngrave'), yesscp, 'None')
 	SET_MODAL_MSGBOX(msgbox)
 end
 
@@ -3744,8 +3738,17 @@ function GODDESS_MGR_SOCKET_REQ_GEM_REMOVE(parent, btn)
 			msg_cls_name = 'ReallyRemoveGem_AetherGem'
 			clmsg = "[" .. item_name .. "]" .. ScpArgMsg(msg_cls_name) .. tostring(price)
 		else
-			local isGemRemoveCare = IS_GEM_EXTRACT_CARE_20211125()
-		
+			local startTimeStr = "2021-04-22 09:00:00"
+			local endTimeStr = "2021-07-22 08:59:59"
+			local nowTime = date_time.get_lua_now_datetime_str()
+			local isBeforeTime = date_time.is_later_than(nowTime, startTimeStr)
+			local isAfterTime = date_time.is_later_than(nowTime, endTimeStr)
+			local isGemRemoveCare = false
+			if isBeforeTime == true and isAfterTime == false then
+				isGemRemoveCare = true
+			end
+
+
 			if isGemRemoveCare == true then
 				msg_cls_name = "ReallyRemoveGem_Care"
 			else
@@ -4879,7 +4882,7 @@ function GODDESS_MGR_CONVERT_MAT_LIST_UPDATE(frame)
 	local target_cls_id = gbox:GetUserIValue('NOW_SELECT_ITEM_ID')
 	local target_cls = GetClassByType('Item', target_cls_id)
 	if target_cls == nil then return end
-	
+
 	local pc = GetMyPCObject()
 	if pc == nil then return end
 
@@ -4891,34 +4894,9 @@ function GODDESS_MGR_CONVERT_MAT_LIST_UPDATE(frame)
 
 	local drawDivisionArrow = mat_list_bg:CreateOrGetControlSet('draw_division_arrow', 'DIVISION_ARROW', 12, 0)
 	local divisionArrow = GET_CHILD_RECURSIVELY(drawDivisionArrow, 'division_arrow')
-
-	local taget_is_weapon = false
-
-	if TryGetProp(target_cls, "EquipGroup" ,"None") == "Weapon" or TryGetProp(target_cls, "EquipGroup" ,"None") == "THWeapon" or TryGetProp(target_cls, "EquipGroup" ,"None") == "SubWeapon" then
-		taget_is_weapon = true
-	end
-
+	
 	-- material
 	local ex_group = TryGetProp(target_cls, 'ExchangeGroup', 'None')
-	
-	if ex_group == 'Weapon_Vasilisa' and taget_is_weapon == true then
-		local invCareItemCount1 = GetInvItemCount(pc, 'Exchange_Weapon_Book_460_limit')
-		if invCareItemCount1 > 0 then
-			ex_group = 'Weapon_Vasilisa_BalanceCare'
-		end
-		local invCareItemCount2 = GetInvItemCount(pc, 'Exchange_Weapon_Book_460_14d')
-		if invCareItemCount2 > 0 then
-			ex_group = 'Weapon_Vasilisa_Care'
-		end
-	end
-	
-	if ex_group == 'Armor_Vasilisa' and taget_is_weapon == false then
-		local invCareItemCount = GetInvItemCount(pc, 'Exchange_Weapon_Book_460_limit')
-		if invCareItemCount > 0 then
-			ex_group = 'Armor_Vasilisa_BalanceCare'
-		end
-	end
-
 	local nameList, countList = GET_EXCHANGE_WEAPONTYPE_MATERIAL(ex_group, target_cls.ClassName)
 	if nameList ~= nil and countList ~= nil and #nameList > 0 and #countList > 0 then
 		for i = 1, #nameList do
@@ -5132,19 +5110,9 @@ function GODDESS_MGR_CONVERT_EXEC(parent, btn)
 	local selected_id = list_bg:GetUserIValue('NOW_SELECT_ITEM_ID')
 	if selected_id <= 0 then return end
 
-	local selected_item_cls = GetClassByNumProp("Item", "ClassID", selected_id);
-	if selected_item_cls == nil then return; end
+	local selectedName = TryGetProp(GetClassByNumProp("Item", "ClassID", selected_id), "Name", "None")
 
-	local clmsg = "None";
-	local selectedName = TryGetProp(selected_item_cls, "Name", "None");
-	local selected_item_group_name = TryGetProp(selected_item_cls, "GroupName", "None");
-	local selected_item_class_type = TryGetProp(selected_item_cls, "ClassType", "None");
-	if selected_item_group_name == "Armor" and selected_item_class_type ~= "Shield" then
-		clmsg = ScpArgMsg('ReallyDoCraftByConvertArmor{item1}{item2}', 'item1', item_name, 'item2', selectedName);
-	else
-		clmsg = ScpArgMsg('ReallyDoCraftByConvert{item1}{item2}', 'item1', item_name, 'item2', selectedName);
-    end
-
+	local clmsg = ScpArgMsg('ReallyDoCraftByConvert{item1}{item2}', 'item1', item_name, 'item2', selectedName)
 	local yesscp = string.format('_GODDESS_MGR_CONVERT_EXEC(%d)', selected_id)
 	local msgbox = ui.MsgBox(clmsg, yesscp, '')
 	SET_MODAL_MSGBOX(msgbox)

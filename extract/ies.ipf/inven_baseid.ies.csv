@@ -82,8 +82,8 @@ ClassID,BaseID,ClassName,TreeGroup,TreeGroupCaption,TreeSSetTitle,InvenTabName,M
 81,405001,Misc_Mineral,Material,재료,광물,Etc,NO
 82,410001,Misc_Usual,Material,재료,기본,Etc,NO
 83,415001,Misc_Etc,Material,재료,기타,Etc,NO
-84,420001,Misc_Quest,Material,재료,퀘스트,Etc,NO
-85,425001,Quest,QuestGroup,퀘스트,퀘스트,Etc,NO
+84,420001,Misc_Quest,Material,재료,퀘스트,Quest,NO
+85,425001,Quest,QuestGroup,퀘스트,퀘스트,Quest,NO
 86,430001,Misc_Collect,Material,재료,컬렉션,Etc,NO
 87,435001,Recipe_Weapon,Recipe,제작서,무기,Recipe,NO
 88,440001,Recipe_Armor,Recipe,제작서,방어구,Recipe,NO
@@ -148,3 +148,5 @@ ClassID,BaseID,ClassName,TreeGroup,TreeGroupCaption,TreeSSetTitle,InvenTabName,M
 147,735001,Gem_Relic_Cyan,Gem,젬,시안 젬,Gem,NO
 148,740001,Gem_Relic_Magenta,Gem,젬,마젠타 젬,Gem,NO
 149,745001,Gem_Relic_Black,Gem,젬,블랙 젬,Gem,NO
+150,750001,Weapon_Arcane,EquipGroup,장비,비전,Equip,NO
+151,755001,Gem_High_Color,Gem,젬,에테르 젬,Gem,NO

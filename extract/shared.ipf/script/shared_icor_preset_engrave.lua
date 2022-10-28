@@ -10,9 +10,6 @@ function GET_MAX_ENGARVE_SLOT_COUNT(acc_obj)
         base = base + 5
     end
 
-    base = base + TryGetProp(acc_obj, 'ADDITIONAL_ENGRAVE_SLOT_TEAMBATTLE', 0)
-    base = base + TryGetProp(acc_obj, 'ADDITIONAL_ENGRAVE_SLOT_ACHIEVELEVEL', 0)
-
     return base
 end
 

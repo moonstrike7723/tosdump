@@ -13,7 +13,7 @@ function BOUNTYHUNT_MILESTONE_OPEN(frame, msg, strarg, numarg)
     local frame = ui.GetFrame("bountyhunt_milestone");
     if frame == nil then return end
 
-	CHASEINFO_CLOSE_FRAME()
+	ui.CloseFrame('questinfoset_2');
 
     local frame = ui.GetFrame("bountyhunt_milestone");
     if frame ~= nil then
@@ -125,7 +125,8 @@ function BOUNTYHUNT_YESSCP_EXITMSGBOX()
 	
 	    ui.CloseFrame("bountyhunt_milestone")
 	
-		CHASEINFO_OPEN_FRAME()
+		ui.OpenFrame('questinfoset_2')
+
 	end
 end
 
@@ -153,12 +154,3 @@ function BOUNTYHUNT_MILESTONE_RESET()
     ui.CloseFrame("bountyhunt_milestone");
 end
 
-function UPDATE_BOUNTYHUNT_MON_MARK(monhandle, x, y, z, isAlive, MonRank)
-    if isAlive == 1 and MonRank == 'Normal' then
-        session.minimap.AddIconInfo(monhandle, "trasuremapmark", x, y, z, ClMsg('BountyMonMark'), true, nil, 1);
-    elseif isAlive == 1 and MonRank == 'Boss' then
-        session.minimap.AddIconInfo(monhandle, "trasuremapmark", x, y, z, ClMsg('BountyBossMark'), true, nil, 2);
-	else
-		session.minimap.RemoveIconInfo(monhandle);
-	end
-end

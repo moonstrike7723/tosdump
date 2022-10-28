@@ -102,7 +102,7 @@ end"/>
 			</EtcList>
 		</MainSkl>
 	</Skill>
-	<Skill Name="Enchanter_LightningHands">
+    <Skill Name="Enchanter_LightningHands">
 		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<EtcList>
 				<Scp Client="NO" Scp="SKL_BUFF" Time="0" UseSleep="NO">

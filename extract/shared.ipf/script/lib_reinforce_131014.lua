@@ -24,6 +24,7 @@ function IS_MORU_FREE_PRICE(moruItem)
         or moruItem.ClassName == 'Moru_Silver_Team'
         or moruItem.ClassName == 'Moru_Silver_Team_event1909'
         or moruItem.ClassName == 'Moru_Ruby_noCharge'
+        or TryGetProp(moruItem, 'StringArg2', 'None') == 'free_Moru'
         then
         return true;
     end
@@ -219,18 +220,18 @@ function GET_REINFORCE_PRICE(fromItem, moruItem, pc)
         else
             priceRatio = 1;
         end
-    elseif slot == 'LH' then
+    elseif slot == 'LH' or slot == 'LH RH' then
         if fromItem.ClassType == 'Shield' then
             priceRatio = 0.8;
+        elseif TryGetProp(fromItem, 'ClassType', 'None') == 'Trinket' then
+            priceRatio = 0.6    
         else
             priceRatio = 0.8;
         end
     elseif slot == 'SHIRT' or slot == 'PANTS' or slot == 'GLOVES' or slot == 'BOOTS' then
         priceRatio = 0.75;
     elseif slot == 'NECK' or slot == 'RING' then
-        priceRatio = 0.5;
-    elseif slot == 'TRINKET' then
-        priceRatio = 0.6
+        priceRatio = 0.5;    
     else
         return 0;
     end

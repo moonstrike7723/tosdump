@@ -31,7 +31,6 @@ function SCR_CREATE_FAIRY(ownerHandle, monName)
 	local monActor = ownerActor:GetClientMonster():GetClientMonsterByName(monName);
 	if monActor == nil then
 		local ownerPos = ownerActor:GetPos();
-
 		ownerActor:GetClientMonster():ClientMonsterToPos(monName, "STD", ownerPos.x, ownerPos.y, ownerPos.z, 0, 0);
 		monActor = ownerActor:GetClientMonster():GetClientMonsterByName(monName);
 		local monHandle = monActor:GetHandleVal();
@@ -43,6 +42,24 @@ end
 function SCR_REMOVE_FAIRY(ownerHandle, monName)
 	local ownerActor = world.GetActor(ownerHandle);
 	ownerActor:GetClientMonster():DeleteClientMonster(monName, 0.75);
+end
+
+function SCR_CREATE_FAIRY_GROUND(owner_handle, mon_name)
+	local owner_actor = world.GetActor(owner_handle); 
+	local mon_actor = owner_actor:GetClientMonster():GetClientMonsterByName(mon_name);
+	if mon_actor == nil then
+		local owner_pos = owner_actor:GetPos();
+		owner_actor:GetClientMonster():ClientMonsterToPos(mon_name, "STD", owner_pos.x, owner_pos.y, owner_pos.z, 0, 0);
+		mon_actor = owner_actor:GetClientMonster():GetClientMonsterByName(mon_name);
+		local mon_handle = mon_actor:GetHandleVal();
+		FollowToActorGround(mon_handle, owner_handle, "None", 0, 0, 0, 1, 0.1, 20);
+		StartImitatingAnimation(mon_handle, owner_handle);
+	end
+end
+
+function SCR_REMOVE_FAIRY_GROUND(owner_handle, mon_name)
+	local ownerActor = world.GetActor(owner_handle);
+	ownerActor:GetClientMonster():DeleteClientMonster(mon_name, 0.75);
 end
 
 
@@ -80,6 +97,10 @@ end
 
 function SCR_BARRACK_CREATE_FAIRY_DOLL_VAKARINE(handle)
 	SCR_CREATE_FAIRY(handle, "doll_vakarine");
+end
+
+function SCR_BARRACK_CREATE_FAIRY_DOLL_EFFECT_EP13RAINCOAT(handle)
+	SCR_CREATE_FAIRY_GROUND(handle, "effect_ep13raincoat");
 end
 
 -- wing item effect offset

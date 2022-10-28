@@ -1,14 +1,25 @@
-function LETICIA_CUBE_ON_INIT(addon, frame)
+﻿function LETICIA_CUBE_ON_INIT(addon, frame)
     addon:RegisterMsg("LETICIA_CUBE_NOT_ENABLE", "LETICIA_CUBE_CLOSE_ALL");
 end
 
 function LETICIA_CUBE_OPEN(frame)
+	local button = ui.GetFrame('minimized_leticia_button')
+	local lua_endTime = button:GetUserIValue('lua_endTime')
+    local cls = TryGetProp(GetClassByType('leticia_date', 1), "EndTime", "None")    
+	local lua_endTime = date_time.get_lua_datetime_from_str(cls)
+	local lua_now = date_time.get_lua_now_datetime()
+    
+	if lua_now > lua_endTime then
+		return
+	end
+
 	local frame = ui.GetFrame('leticia_cube');
 	LETICIA_CUBE_LIST_UPDATE(frame);
 	frame:ShowWindow(1);
 	if config.GetServiceNation() ~= "KOR" then
-		local infoText = GET_CHILD_RECURSIVELY(frame,"infoText")
-		infoText:SetText("")
+        GET_CHILD_RECURSIVELY(frame,"openBtn2"):SetEnable(0)
+        GET_CHILD_RECURSIVELY(frame,"openBtn2"):ShowWindow(0)
+		GET_CHILD_RECURSIVELY(frame,"openBtn"):SetMargin(0, 0, 0, 40);
 		session.shop.RequestUsedMedalTotal()
 	end
 end
@@ -169,4 +180,22 @@ end
 function LETICIA_CUBE_CLOSE_ALL()
     ui.CloseFrame('fulldark');
     LETICIA_CUBE_MSG_BOX_RESET();
+end
+
+
+function LETICIA_CUBE_ITEM_LIST_BUTTON()
+    if config.GetServiceNation() ~= "KOR" then
+        return
+    end
+
+	local textmsg = string.format("[ %s ]{nl}%s", '{@st66d_y}'..ClMsg('ContainWarningItem2')..'{/}{/}', '{nl} {nl}'..ScpArgMsg("ContainWarningItem_URL"))
+	ui.MsgBox(textmsg, 'LETICIA_CUBE_ITEM_LIST_BUTTON_URL', "None")
+end
+
+function LETICIA_CUBE_ITEM_LIST_BUTTON_URL()
+    if config.GetServiceNation() ~= "KOR" then
+        return
+    end
+
+	login.OpenURL('http://iteminfo.nexon.com/probability/games/tos')
 end

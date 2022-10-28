@@ -1,4 +1,4 @@
-﻿-- tpitem.lua : (tp shop)
+-- tpitem.lua : (tp shop)
 
 local eventUserType = {
 	normalUser = 0,		-- 일반
@@ -50,7 +50,7 @@ end
 
 function ON_SHOP_BUY_LIMIT_INFO(frame)	--해당 아이템에 대하여 월별 구매 제한 기능. 으로 추정
 	TPSHOP_SORT_TAB(frame)
-	TPSHOP_REDRAW_TPITEMLIST();
+	--TPSHOP_REDRAW_TPITEMLIST();
 	
 	local tabObj = GET_CHILD_RECURSIVELY(frame, 'shopTab');
 	local itembox_tab = tolua.cast(tabObj, "ui::CTabControl");
@@ -63,6 +63,10 @@ function ON_SHOP_BUY_LIMIT_INFO(frame)	--해당 아이템에 대하여 월별 �
 end
 
 function ON_SHOP_USER_INFO(frame)
+	if session.world.IsIntegrateServer() == true then
+		return
+	end
+
 	TPSHOP_SORT_TAB(frame)
 	
 	if session.shop.GetEventUserType() ~= eventUserType.normalUser  then
@@ -259,6 +263,10 @@ function TPSHOP_GLOBAL_UI_SETTING(frame)
 end
 
 function TPSHOP_TAB_VIEW(frame, curtabIndex)
+	if session.world.IsIntegrateServer() == true then
+		return
+	end
+
 	local frame = ui.GetFrame("tpitem");
 	local rightFrame = frame:GetChild('rightFrame');
 	local rightgbox = rightFrame:GetChild('rightgbox');
@@ -395,7 +403,10 @@ function TPSHOP_IS_EXIST_COSTUME_EXCHANGE_COUPON()
 end
 
 function TPSHOP_SORT_TAB(frame)
-
+	if session.world.IsIntegrateServer() == true then
+		return
+	end
+	
 	-- 프리미엄
 	-- 리사이클
 	-- 계열 코스튬
@@ -800,10 +811,46 @@ function MAKE_CATEGORY_TREE()
 
 	local selectcategoty = "";
 
+	local isLimitedPackageExist = false
+
 	for i = 0, cnt - 1 do
 		local obj = GetClassByIndexFromList(clsList, i);
+		if obj.SubCategory == "TP_Package" and obj.SellEndTime ~= "None" then
+			local lua_time = date_time.get_lua_datetime_from_str(obj.SellEndTime)
+			local lua_now = date_time.get_lua_now_datetime()
 
-		local usedTPTypeindex = table.find(usedTPType, obj.SubCategory)			-- 플레이어 사용 tp 값에 따라 구매할 수 있는 아이템 카테고리는 여기에서 생성하지 않음
+			if lua_time > lua_now then
+				isLimitedPackageExist = true
+				break
+			end
+
+		end
+	end
+
+	local indexTable = {}
+
+	for i = 0, cnt - 1 do
+		local obj = GetClassByIndexFromList(clsList, i);
+		if obj.SubCategory == "TP_Package" and isLimitedPackageExist == false then
+			indexTable[#indexTable + 1] = i
+		else
+			local usedTPTypeindex = table.find(usedTPType, obj.SubCategory)
+		if obj.Category ~= 'TP_Premium_Sale' and usedTPTypeindex == 0 then
+			firstTreeItem = CREATE_TPITEM_TREE(obj, tpitemtree, i, firstTreeItem);
+		elseif ((config.GetServiceNation() == "GLOBAL") or (config.GetServiceNation() == "GLOBAL_JP")) and usedTPTypeindex >  0 then
+			local usedTP = session.shop.GetUsedMedalTotal();
+			if frame:GetUserIValue("is_RequestUsedMedal") == 1 and IS_USED_MEDAL_TYPE(obj, usedTP) then
+				firstTreeItem = CREATE_TPITEM_TREE(obj, tpitemtree, i, firstTreeItem);
+				selectcategoty = obj.Category.."#"..obj.SubCategory;
+			end
+        end
+	end
+	end
+
+	for idx = 1, #indexTable do
+		local i = indexTable[idx]
+		local obj = GetClassByIndexFromList(clsList, i);
+		local usedTPTypeindex = table.find(usedTPType, obj.SubCategory)
 		if obj.Category ~= 'TP_Premium_Sale' and usedTPTypeindex == 0 then
 			firstTreeItem = CREATE_TPITEM_TREE(obj, tpitemtree, i, firstTreeItem);
 		elseif ((config.GetServiceNation() == "GLOBAL") or (config.GetServiceNation() == "GLOBAL_JP")) and usedTPTypeindex >  0 then
@@ -1589,11 +1636,11 @@ function SHOW_REMAIN_SALE_TIME(ctrl)
 end
 
 function TPITEM_DRAW_ITEM_DETAIL(obj, itemobj, itemcset)
-	-- 프리미엄 아이템 확인
-	local IsPremiumCase = 0;
-	if itemobj.ItemGrade == 0 then
-		IsPremiumCase = 1;
-	end
+--	-- 프리미엄 아이템 확인
+--	local IsPremiumCase = 0;
+--	if itemobj.ItemGrade == 0 then
+--		IsPremiumCase = 1;
+--	end
 
 	-- 프리미엄 여부에 따라 분류되느 UI를 일괄적으로 받아오고
 	local title = GET_CHILD_RECURSIVELY(itemcset,"title");
@@ -1621,22 +1668,22 @@ function TPITEM_DRAW_ITEM_DETAIL(obj, itemobj, itemcset)
 	local tpitem_clsName = obj.ClassName;
 	local tpitem_clsID = obj.ClassID;
 
-	if 1 == IsPremiumCase then	--프리미엄일 경우
+--	if 1 == IsPremiumCase then	--프리미엄일 경우
 		local sucValue = string.format("{@st41b}%s", itemName);
 		title:SetText(sucValue);
 		pre_Line:SetVisible(1);
 		pre_Box:SetVisible(1);
 		pre_Text:SetVisible(1);
-	else						--프리미엄이 아닐 경우
-		title:SetText(itemName);
-		pre_Line:SetVisible(0);
-		pre_Box:SetVisible(0);
-		pre_Text:SetVisible(0);
-	end
+--	else						--프리미엄이 아닐 경우
+--		title:SetText(itemName);
+--		pre_Line:SetVisible(0);
+--		pre_Box:SetVisible(0);
+--		pre_Text:SetVisible(0);
+--	end
 
 	-- 구매 여부와 착용 여부를 검사한다.
 	itemcset:SetUserValue("TPITEM_CLSID", tpitem_clsID);
-	TPITEM_SET_SPECIALMARK(isNew_mark, isHot_mark, isEvent_mark, isLimit_mark, tpitem_clsID);
+	TPITEM_SET_SPECIALMARK(isNew_mark, isHot_mark, isEvent_mark, isLimit_mark, tpitem_clsID, isSale_mark);
 
 	if IS_TIME_SALE_ITEM(tpitem_clsID) == true then
 		local curTime = geTime.GetServerSystemTime()
@@ -1908,15 +1955,9 @@ function TPSHOP_TPITEMLIST_TYPEDROPLIST(alignmentgbox, clsID)
 	return false;
 end
 
+local frame, alignTypeList, typeIndex, mainSubGbox 
+
 function TPSHOP_SORT_LIST(a, b)
-	local frame = ui.GetFrame("tpitem");
-	local leftgFrame = frame:GetChild("leftgFrame");	
-	local leftgbox = leftgFrame:GetChild("leftgbox");
-	local alignmentgbox = GET_CHILD(leftgbox,"alignmentgbox");	
-	local alignTypeList = GET_CHILD_RECURSIVELY(frame,"alignTypeList");	
-	local typeIndex = alignTypeList:GetSelItemIndex();
-	
-	local mainSubGbox = GET_CHILD_RECURSIVELY(frame,"mainSubGbox");
 	local itemcset1 = mainSubGbox:GetControlSet('tpshop_item', 'eachitem_'..a);
 	local itemcset2 = mainSubGbox:GetControlSet('tpshop_item', 'eachitem_'..b);
 	if (itemcset1 == nil) or  (itemcset2 == nil)then
@@ -1990,10 +2031,15 @@ function TPSHOP_TPITEM_ALIGN_LIST(cnt)
 	local srcTable = {};
 	for i = 1, cnt do
 		srcTable[#srcTable + 1] = i;
-		table.sort(srcTable, TPSHOP_SORT_LIST);
 	end
-	local frame = ui.GetFrame("tpitem");
-	local mainSubGbox = GET_CHILD_RECURSIVELY(frame,"mainSubGbox");	
+	
+	frame = ui.GetFrame("tpitem");
+	alignTypeList = GET_CHILD_RECURSIVELY(frame,"alignTypeList");	
+	typeIndex = alignTypeList:GetSelItemIndex();
+	mainSubGbox = GET_CHILD_RECURSIVELY(frame,"mainSubGbox");
+	
+	table.sort(srcTable, TPSHOP_SORT_LIST);
+
 	local x = 0;
 	local y = 0;
 	for i = 1, cnt do
@@ -2030,14 +2076,15 @@ function _TPSHOP_TPITEM_SET_SPECIAL()
 		local isHot_mark = GET_CHILD_RECURSIVELY(itemcset,"isHot_mark");
 		local isNew_mark = GET_CHILD_RECURSIVELY(itemcset,"isNew_mark");
 		local isLimit_mark = GET_CHILD_RECURSIVELY(itemcset,"isLimit_mark");
+		local isSale_mark = GET_CHILD_RECURSIVELY(itemcset,"isSale_mark");
 
-		TPITEM_SET_SPECIALMARK(isNew_mark, isHot_mark, isEvent_mark, isLimit_mark, classID);
+		TPITEM_SET_SPECIALMARK(isNew_mark, isHot_mark, isEvent_mark, isLimit_mark, classID, isSale_mark);
 	end	
 	
 	DebounceScript("TPSHOP_CREATE_TOP5_CTRLSET", 1);
 end
 
-function TPITEM_SET_SPECIALMARK(isNew_mark, isHot_mark, isEvent_mark, isLimit_mark, classID)
+function TPITEM_SET_SPECIALMARK(isNew_mark, isHot_mark, isEvent_mark, isLimit_mark, classID, isSale_mark)
 	local founded_info = session.ui.Getlistitem_TPITEM_ADDITIONAL_INFO_Map_byID(classID);
 	local bisNew = 0;
 	local bisHot = 0;
@@ -2066,6 +2113,13 @@ function TPITEM_SET_SPECIALMARK(isNew_mark, isHot_mark, isEvent_mark, isLimit_ma
 	isHot_mark:SetVisible(bisHot);		
 	isEvent_mark:SetVisible(bisEvent);
 	isLimit_mark:SetVisible(bisLimit);
+
+	local bisSale = 0
+	if TryGetProp(GetClassByType('TPitem', classID), 'SubCategory', 'None') == 'TP_Premium_Sale' then
+		bisSale = 1
+end
+
+	isSale_mark:SetVisible(bisSale)
 end
 
 function TPSHOP_CREATE_TOP5_CTRLSET()
@@ -2757,12 +2811,26 @@ function TPSHOP_ITEM_TO_BASKET_PREPROCESSOR(parent, control, tpitemname, tpitem_
 	if isHave == true then
 		ui.MsgBox(ClMsg("AlearyHaveItemReallyBuy?"), string.format("TPSHOP_ITEM_TO_BASKET('%s', %d)", tpitemname, classid), "None");
     elseif limit == 'ACCOUNT' then
-		local curBuyCount = session.shop.GetCurrentBuyLimitCount(0, obj.ClassID, classid);
-		if curBuyCount >= obj.AccountLimitCount then
-			ui.MsgBox_OneBtnScp(ScpArgMsg("PurchaseItemExceeded","Value", obj.AccountLimitCount), "")
-            return false;
+		if TryGetProp(obj, 'ItemSocial', 'None') == 'Gesture' then		
+			local pc = GetMyPCObject()
+			if pc ~= nil then	
+				local accObj = GetMyAccountObj(pc)
+				local pose_prop = TryGetProp(GetClass('Pose', TryGetProp(itemobj, "StringArg", "None")), 'RewardName', 'None')				
+				if pose_prop ~= nil and pose_prop ~= 'None' then
+					if TryGetProp(accObj, pose_prop, 0) ~= 0 then
+						ui.SysMsg(ClMsg('AlreadyHaveGesture'))
+						return false
+					else TPSHOP_ITEM_TO_BASKET(tpitemname, classid)	end
+				end
+			end
 		else
-			ui.MsgBox(ScpArgMsg("SelectPurchaseRestrictedItem","Value", obj.AccountLimitCount - curBuyCount), string.format("TPSHOP_ITEM_TO_BASKET('%s', %d)", tpitemname, classid), "None");
+			local curBuyCount = session.shop.GetCurrentBuyLimitCount(0, obj.ClassID, classid);
+			if curBuyCount >= obj.AccountLimitCount then
+				ui.MsgBox_OneBtnScp(ScpArgMsg("PurchaseItemExceeded","Value", obj.AccountLimitCount), "")
+				return false;
+			else
+				ui.MsgBox(ScpArgMsg("SelectPurchaseRestrictedItem","Value", obj.AccountLimitCount - curBuyCount), string.format("TPSHOP_ITEM_TO_BASKET('%s', %d)", tpitemname, classid), "None");
+			end
 		end
     elseif limit == 'MONTH' then
         local curBuyCount = session.shop.GetCurrentBuyLimitCount(0, obj.ClassID, classid);
@@ -2774,6 +2842,18 @@ function TPSHOP_ITEM_TO_BASKET_PREPROCESSOR(parent, control, tpitemname, tpitem_
 		end
 	elseif TPITEM_IS_ALREADY_PUT_INTO_BASKET(parent:GetTopParentFrame(), obj) == true then
 		ui.MsgBox(ClMsg("AleadyPutInBasketReallyBuy?"), string.format("TPSHOP_ITEM_TO_BASKET('%s', %d)", tpitemname, classid), "None");	
+	elseif TryGetProp(obj, 'ItemSocial', 'None') == 'Gesture' then
+		local pc = GetMyPCObject()
+		if pc == nil then return false end
+
+		local accObj = GetMyAccountObj(pc)
+		local pose_prop = TryGetProp(GetClass('Pose', TryGetProp(itemobj, "StringArg", "None")), 'RewardName', 'None')		
+		if pose_prop ~= nil and pose_prop ~= 'None' then			
+			if TryGetProp(accObj, pose_prop, 0) ~= 0 then
+				ui.SysMsg(ClMsg('AlreadyHaveGesture'))
+				return false
+			else TPSHOP_ITEM_TO_BASKET(tpitemname, classid)	end
+		end
 	else
 		TPSHOP_ITEM_TO_BASKET(tpitemname, classid)
 	end
@@ -2781,27 +2861,24 @@ function TPSHOP_ITEM_TO_BASKET_PREPROCESSOR(parent, control, tpitemname, tpitem_
 end
 
 function TPSHOP_ITEM_TO_BASKET(tpitemname, classid)	
-	
 	if g_TpShopParent == nil or g_TpShopcontrol == nil then
 		return;
 	end
 
 	local parent = g_TpShopParent;
 	local control = g_TpShopcontrol;
-
 	g_TpShopParent = nil;
 	g_TpShopcontrol = nil;
 
-	local item = GetClassByType("Item", classid)
-
+	local item = GetClassByType("Item", classid);
 	if item == nil then
 		return;
 	end
 
 	local tpitem = GetClass("TPitem", tpitemname);
 	if tpitem == nil then
-		ui.MsgBox(ScpArgMsg("DataError"))
-		return
+		ui.MsgBox(ScpArgMsg("DataError"));
+		return;
 	end
 
 	local frame = parent:GetTopParentFrame();
@@ -2811,16 +2888,30 @@ function TPSHOP_ITEM_TO_BASKET(tpitemname, classid)
 	end
 
 	if tpitem.SubCategory == "TP_Costume_Color" then
-		local etc = GetMyEtcObject();
-		if nil == etc then
-			ui.MsgBox(ScpArgMsg("DataError"))
-			return;
+		local pc_object = nil;
+		local color = item.StringArg;
+		if IS_ACHIEVE_HAIR_COLOR(color) == true then
+			local acc = GetMyAccountObj();
+			if acc == nil then
+				ui.MsgBox(ScpArgMsg("DataError"));
+				return;
+			end
+			pc_object = acc;
+		else
+			local etc = GetMyEtcObject();
+			if etc == nil then
+				ui.MsgBox(ScpArgMsg("DataError"));
+				return;
+			end
+			pc_object = etc;
 		end
 
-		local nowAllowedColor = etc['AllowedHairColor']
-		if string.find(nowAllowedColor, item.StringArg) ~= nil or TryGetProp(etc, "HairColor_"..item.StringArg) == 1 then
-			ui.MsgBox(ScpArgMsg("AlearyEquipColor"))
-			return;
+		if pc_object ~= nil then
+			local now_allowed_color = pc_object['AllowedHairColor']
+			if string.find(now_allowed_color, item.StringArg) ~= nil or TryGetProp(pc_object, "HairColor_"..item.StringArg) == 1 then
+				ui.MsgBox(ScpArgMsg("AlearyEquipColor"));
+				return;
+			end
 		end
            
         if session.GetInvItemByType(item.ClassID) ~= nil then
@@ -2829,33 +2920,24 @@ function TPSHOP_ITEM_TO_BASKET(tpitemname, classid)
         end
 	end
 
-	local slotset = GET_CHILD_RECURSIVELY(frame,"basketslotset")
+	local slotset = GET_CHILD_RECURSIVELY(frame, "basketslotset")
 	local slotCount = slotset:GetSlotCount();
-
 	for i = 0, slotCount - 1 do
 		local slotIcon	= slotset:GetIconByIndex(i);
-
 		if slotIcon == nil then
-
 			local slot  = slotset:GetSlotByIndex(i);
-
 			slot:SetEventScript(ui.RBUTTONDOWN, 'TPSHOP_BASKETSLOT_REMOVE');
 			slot:SetEventScriptArgNumber(ui.RBUTTONDOWN, classid);
 			slot:SetUserValue("CLASSNAME", item.ClassName);
 			slot:SetUserValue("TPITEMNAME", tpitemname);
-
 			SET_SLOT_IMG(slot, GET_ITEM_ICON_IMAGE(item));
 			local icon = slot:GetIcon();
 			icon:SetTooltipType('wholeitem');
 			icon:SetTooltipArg('', item.ClassID, 0);
-
 			break;
-
 		end
 	end
-
-	UPDATE_BASKET_MONEY(frame)	
-	
+	UPDATE_BASKET_MONEY(frame);
 end
 
 function TPSHOP_BASKETSLOT_REMOVE(parent, control, strarg, classid)	

@@ -125,6 +125,8 @@ function PARSE_TOOLTIP_CAPTION(_obj, caption, predictSkillPoint)
                 elseif skillAttackType == "Cannon" then
                     addCaption = addCaption.." - "..ScpArgMsg('SKILL_CAPTION_MSG9')
                 end
+            elseif skillClassType == "Responsive" then
+                addCaption = addCaption..ScpArgMsg('SKILL_CAPTION_MSG24')
             end
             
             if skillAttribute == "Fire" then
@@ -405,6 +407,15 @@ function UPDATE_ABILITY_TOOLTIP(frame, strarg, numarg1, numarg2)
 		if (reqstance == "TwoHandBow") and (stance.ClassName == "Bow") then
 			index = nil;
 		end
+
+        if string.find(reqstance, "PistolOneHandSword") ~= nil and stance.ClassName == "OneHandSword" then
+            index = nil
+        end
+
+        if string.find(reqstance, "DaggerOneHandSword") ~= nil and stance.ClassName == "OneHandSword" then
+            index = nil
+        end
+
 		if index ~= nil then
 			local index = string.find(stance.ClassName, "Artefact")
 			if index == nil then
@@ -1061,25 +1072,34 @@ end
     for i = beginLv, maxLevel do
         caption = caption .. "Lv."..i;
         caption = caption .. "," .. originCaption;
-        if i == beginLv and className == "Elementalist_ElementalEssence" then
+        if i == beginLv then
             local pc = GetMyPCObject()
-            local att = GetExProp(pc, "Vibora_Skill_Attribute_Cl")
-            local skillAtt = "None"
-            local addDesc = "tooltip_"
-            if att == 1 then
-                skillAtt = "Fire"
-            elseif att == 2 then
-                skillAtt = "Ice"
-            elseif att == 3 then
-                skillAtt = "Lightning"
-            elseif att == 0 then
-                skillAtt = "None"
-            end
-
-            if skillAtt ~= "None" then
-                addDesc = addDesc .. skillAtt .. "_Extinction"
-                local caption2 = ScpArgMsg(addDesc)
-                caption = caption .. caption2
+            if className == "Elementalist_ElementalEssence" then
+                local att = GetExProp(pc, "Vibora_Skill_Attribute_Cl")
+                local skillAtt = "None"
+                local addDesc = "tooltip_"
+                if att == 1 then
+                    skillAtt = "Fire"
+                elseif att == 2 then
+                    skillAtt = "Ice"
+                elseif att == 3 then
+                    skillAtt = "Lightning"
+                elseif att == 0 then
+                    skillAtt = "None"
+                end
+            
+                if skillAtt ~= "None" then
+                    addDesc = addDesc .. skillAtt .. "_Extinction"
+                    local caption2 = ScpArgMsg(addDesc)
+                    caption = caption .. caption2
+                end
+            elseif className == "Thaumaturge_SwellHands" then
+                local atkValue = tostring(GetExProp(pc, "RapidGrowth_Lv4_cl"))
+                local addDesc = "tooltip_RapidGrowth_Skill"
+                if atkValue ~= '0' then
+                    local caption2 = ScpArgMsg(addDesc, 'value', atkValue)
+                    caption = caption .. caption2
+                end
             end
         end
     end
@@ -1323,8 +1343,14 @@ function ADD_SPEND_SKILL_LV_DESC_TOOLTIP(ctrlSet, pcAbilList, pcAbilCnt)
         local addValueStr = tostring(totalAddValueSP);
         if totalAddValueSP > 0 then
             addValueStr = "+"..addValueStr
+			if string.len(spendSP..addValueStr) >= 6 then
+				local spendSP_Str = string.sub(spText:GetText(), string.len(spText:GetText()) - string.len(spendSP), string.len(spText:GetText()))
+				local fixed_txt = string.gsub(spText:GetText(), spendSP_Str, '{s14}'..spendSP_Str)
+				spText:SetText(fixed_txt..ADD_ABILITY_STYLE.."("..addValueStr..")")
+			else 
             spText:SetText(spText:GetText()..ADD_ABILITY_STYLE.."("..addValueStr..")")
         end
+    end
     end
 
     if addValueCoolTime ~= 0 then       

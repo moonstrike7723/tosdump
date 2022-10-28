@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <ToolSkill><Skill Name="Chronomancer_TimeForward">
 		<KeyInput>
-			<ToolScp Client="YES" Scp="SKL_KEY_GROUND_EVENT" UseSleep="NO">
-				<Num Num="3" />
+            <ToolScp Client="YES" Scp="SKL_KEY_GROUND_EVENT" UseSleep="NO">
+                <Num Num="3" />
 				<Num Num="0" />
 				<Num Num="0" />
 				<Num Num="1" />
@@ -11,7 +11,7 @@
 				<Num Num="0" />
 				<Num Num="0" />
 				<Num Num="0" />
-				<Str_Arg Arg="1" Str="None" />
+                <Str_Arg Arg="1" Str="None" />
 				<Str Str="None" />
 				<Num Num="0" />
 				<Num Num="0" />
@@ -21,39 +21,39 @@
 				<Num Num="0" />
 				<Num Num="0" />
 				<Num Num="0" />
-				<Num Num="0" />
+                <Num Num="0" />
 			</ToolScp>
 		</KeyInput>
-		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
-			<EtcList>
-				<Scp Client="NO" Scp="SKL_SET_TARGET_CIRCLE" Time="0" UseSleep="NO">
+        <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
+            <EtcList>
+                <Scp Client="NO" Scp="SKL_SET_TARGET_CIRCLE" Time="0" UseSleep="NO">
 					<Pos Angle="0" Dist="0" PosType="3" />
-					<Num Num="50" />
-					<Num Num="5" />
+                    <Num Num="50" />
+                    <Num Num="5" />
 					<Num Num="2" />
 					<Num Num="0" />
-					<Num Num="1" />
+                    <Num Num="1" />
 					<Num Num="1" />
 				</Scp>
-				<Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
+                <Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
 					<Str Str="voice_wiz_m_timeforward_cast" />
 					<Str Str="voice_wiz_f_timeforward_cast" />
 				</Scp>
-				<Scp Client="YES" Scp="C_SOUND" Time="100" UseSleep="NO">
-					<Str Str="skl_eff_timeforward" />
-				</Scp>
-				<Scp Client="NO" Scp="SKL_TGT_BUFF" Time="100" UseSleep="NO">
-					<Str Str="TimeForward_Debuff" />
+                <Scp Client="YES" Scp="C_SOUND" Time="100" UseSleep="NO">
+                    <Str Str="skl_eff_timeforward" />
+                </Scp>
+                <Scp Client="NO" Scp="SKL_TGT_BUFF" Time="100" UseSleep="NO">
+                    <Str Str="TimeForward_Debuff" />
 					<Num Num="1" />
 					<Num Num="0" />
-					<Num Num="1000" />
-					<Num Num="1" />
+                    <Num Num="1000" />
+                    <Num Num="1" />
 					<Num Num="100" />
 					<Num Num="0" />
-					<Num Num="1" />
+                    <Num Num="1" />
 				</Scp>
-                <Scp Client="NO" Scp="SKL_TGT_REMOVE_BUFF" Time="100" UseSleep="NO">
-                <Str FuncTxt="local func_name = 'get_remove_buff_tooltip_' .. TryGetProp(obj, 'ClassName', 'None')
+                <Scp Client="NO" Scp="SKL_TGT_REMOVE_BUFF" Time="100" UseSleep="NO" >
+                    <Str FuncTxt="local func_name = 'get_remove_buff_tooltip_' .. TryGetProp(obj, 'ClassName', 'None')
                local func = _G[func_name]
                if func == nil then return end
                return func(obj.Level)" Str="0" UseFunc="1"/>
@@ -164,14 +164,14 @@
 	</Skill>
 	<Skill Name="Chronomancer_BackMasking">
 		<EnableScripts>
-			<ToolScp Client="BOTH" Scp="SKL_CHECK_NEAR_PAD" UseSleep="NO">
-				<Str Str="BackMasking" />
-				<Num Num="0" />
-				<Num Num="200" />
-				<Str Str="ALL" />
+            <ToolScp Client="BOTH" Scp="SKL_CHECK_NEAR_PAD" UseSleep="NO">
+                <Str Str="BackMasking" />
+                <Num Num="0" />
+                <Num Num="200" />
+                <Str Str="ALL" />
 			</ToolScp>
-		</EnableScripts>
-		<KeyInput>
+        </EnableScripts>
+        <KeyInput>
             <ToolScp Client="YES" Scp="SKL_KEY_DYNAMIC_CASTING" UseSleep="NO">
                 <Num Num="0"/>
                 <Num Num="0"/>
@@ -195,39 +195,39 @@
                 <Num Num="0"/>
                 <Num Num="0"/>
                 <Num Num="0"/>
-            </ToolScp>
+			</ToolScp>
         </KeyInput>                    
         <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
-				<Frame Angle="0" AniTime="10599" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="10399" Type="FAN" Width="30" />
+                <Frame Angle="0" AniTime="10599" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="10399" Type="FAN" Width="30" />
 			</HitList>
 			<EtcList>
-				<Scp Client="YES" Scp="C_EFFECT" Time="0" UseSleep="NO">
-					<Str_Arg Arg="1" Str="None" />
-					<Str Str="None" />
-					<Num Num="0" />
-				</Scp>
-				<Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="0" UseSleep="NO">
-					<Pos Angle="0" Dist="0" />
-					<Angle Angle="0" />
-					<Str Str="BackMasking" />
-				</Scp>
-				<Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
-					<Str Str="voice_wiz_m_backmasking_shot" />
-					<Str Str="voice_wiz_backmasking_shot" />
-				</Scp>
-				<Scp Client="YES" Scp="BACKMASKING_READY" Time="500" UseSleep="NO">
-					<Num FuncTxt=" return 50 +  obj.Level * 10;" Num="100" UseFunc="1" />
-				</Scp>
-				<Scp Client="YES" Scp="C_EFFECT_POS" Time="700" UseSleep="NO">
-					<Str_Arg Arg="1" Str="F_light059" />
-					<Pos Angle="-1.9156131" Dist="0.10491843" />
-					<Num Num="0" />
-					<Str Str="None" />
-				</Scp>
-				<Scp Client="NO" Scp="BACKMASKING_START" Time="800" UseSleep="NO">
-					<Num FuncTxt=" return 50 +  obj.Level * 10;" Num="100" UseFunc="1" />
-				</Scp>
+                <Scp Client="YES" Scp="C_EFFECT" Time="0" UseSleep="NO">
+                    <Str_Arg Arg="1" Str="None" />
+                    <Str Str="None" />
+                    <Num Num="0" />
+                </Scp>
+                <Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="0" UseSleep="NO">
+                    <Pos Angle="0" Dist="0" />
+                    <Angle Angle="0" />
+                    <Str Str="BackMasking" />
+                </Scp>
+                <Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
+                    <Str Str="voice_wiz_m_backmasking_shot" />
+                    <Str Str="voice_wiz_backmasking_shot" />
+                </Scp>
+                <Scp Client="YES" Scp="BACKMASKING_READY" Time="500" UseSleep="NO">
+                    <Num FuncTxt=" return 50 +  obj.Level * 10;" Num="100" UseFunc="1" />
+                </Scp>
+                <Scp Client="YES" Scp="C_EFFECT_POS" Time="700" UseSleep="NO">
+                    <Str_Arg Arg="1" Str="F_light059" />
+                    <Pos Angle="-1.9156131" Dist="0.10491843" />
+                    <Num Num="0" />
+                    <Str Str="None" />
+                </Scp>
+                <Scp Client="NO" Scp="BACKMASKING_START" Time="800" UseSleep="NO">
+                    <Num FuncTxt=" return 50 +  obj.Level * 10;" Num="100" UseFunc="1" />
+                </Scp>
                 <Scp Client="NO" Scp="SKL_TGT_REMOVE_DEBUFF" Time="110" UseSleep="NO">
                 <Str FuncTxt="local func_name = 'get_remove_debuff_tooltip_' .. TryGetProp(obj, 'ClassName', 'None')
                local func = _G[func_name]
@@ -240,63 +240,63 @@
                </Scp>
 			</EtcList>
 		</MainSkl>
-		<ByCondSkills>
-			<SubSkl>
-				<Cond>
-					<ToolScp Client="NO" Scp="SKL_SELECT_ABIL" UseSleep="NO">
-						<Str Str="Chronomancer5" />
-					</ToolScp>
-				</Cond>
-				<Skill JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
-					<HitList>
-						<Frame Angle="0" AniTime="10599" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="10399" Type="FAN" Width="30" />
-					</HitList>
-					<EtcList>
-						<Scp Client="YES" Scp="C_EFFECT" Time="0" UseSleep="NO">
-							<Str_Arg Arg="1" Str="None" />
-							<Str Str="None" />
-							<Num Num="0" />
-						</Scp>
-						<Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="0" UseSleep="NO">
-							<Pos Angle="0" Dist="0" />
-							<Angle Angle="0" />
-							<Str Str="BackMasking" />
-						</Scp>
-						<Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
-							<Str Str="voice_wiz_m_backmasking_shot" />
-							<Str Str="voice_wiz_backmasking_shot" />
-						</Scp>
-						<Scp Client="YES" Scp="BACKMASKING_READY" Time="500" UseSleep="NO">
-							<Num Num="200" />
-						</Scp>
-						<Scp Client="YES" Scp="C_EFFECT_POS" Time="700" UseSleep="NO">
-							<Str_Arg Arg="1" Str="F_light059" />
-							<Pos Angle="-1.9156131" Dist="0.10491843" />
-							<Num Num="0" />
-							<Str Str="None" />
-						</Scp>
-						<Scp Client="NO" Scp="BACKMASKING_START" Time="800" UseSleep="NO">
-							<Num Num="200" />
-						</Scp>
-						<Scp Client="NO" Scp="SKL_SET_TARGET_CIRCLE" Time="800" UseSleep="NO">
-							<Pos Angle="0" Dist="0" />
-							<Num Num="100" />
-							<Num Num="10" />
-							<Num Num="2" />
-							<Num Num="0" />
-							<Num Num="1" />
-						</Scp>
-						<Scp Client="NO" Scp="SKL_TGT_BUFF" Time="800" UseSleep="NO">
-							<Str Str="UC_confuse" />
-							<Num Num="1" />
-							<Num Num="0" />
-							<Num FuncTxt="return 4000 + 2000 * GET_ABIL_LEVEL(self, 'Chronomancer5')" Num="0" UseFunc="1" />
-							<Num Num="1" />
-							<Num Num="100" />
-						</Scp>
-					</EtcList>
-				</Skill>
-			</SubSkl>
+        <ByCondSkills>
+            <SubSkl>
+                <Cond>
+                    <ToolScp Client="NO" Scp="SKL_SELECT_ABIL" UseSleep="NO">
+                        <Str Str="Chronomancer5" />
+                    </ToolScp>
+                </Cond>
+                <Skill JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
+                    <HitList>
+                        <Frame Angle="0" AniTime="10599" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="10399" Type="FAN" Width="30" />
+                    </HitList>
+                    <EtcList>
+                        <Scp Client="YES" Scp="C_EFFECT" Time="0" UseSleep="NO">
+                            <Str_Arg Arg="1" Str="None" />
+                            <Str Str="None" />
+                            <Num Num="0" />
+                        </Scp>
+                        <Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="0" UseSleep="NO">
+                            <Pos Angle="0" Dist="0" />
+                            <Angle Angle="0" />
+                            <Str Str="BackMasking" />
+                        </Scp>
+                        <Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
+                            <Str Str="voice_wiz_m_backmasking_shot" />
+                            <Str Str="voice_wiz_backmasking_shot" />
+                        </Scp>
+                        <Scp Client="YES" Scp="BACKMASKING_READY" Time="500" UseSleep="NO">
+                            <Num Num="200" />
+                        </Scp>
+                        <Scp Client="YES" Scp="C_EFFECT_POS" Time="700" UseSleep="NO">
+                            <Str_Arg Arg="1" Str="F_light059" />
+                            <Pos Angle="-1.9156131" Dist="0.10491843" />
+                            <Num Num="0" />
+                            <Str Str="None" />
+                        </Scp>
+                        <Scp Client="NO" Scp="BACKMASKING_START" Time="800" UseSleep="NO">
+                            <Num Num="200" />
+                        </Scp>
+                        <Scp Client="NO" Scp="SKL_SET_TARGET_CIRCLE" Time="800" UseSleep="NO">
+                            <Pos Angle="0" Dist="0" />
+                            <Num Num="100" />
+                            <Num Num="10" />
+                            <Num Num="2" />
+                            <Num Num="0" />
+                            <Num Num="1" />
+                        </Scp>
+                        <Scp Client="NO" Scp="SKL_TGT_BUFF" Time="800" UseSleep="NO">
+                            <Str Str="UC_confuse" />
+                            <Num Num="1" />
+                            <Num Num="0" />
+                            <Num FuncTxt="return 4000 + 2000 * GET_ABIL_LEVEL(self, 'Chronomancer5')" Num="0" UseFunc="1" />
+                            <Num Num="1" />
+                            <Num Num="100" />
+                        </Scp>
+                    </EtcList>
+                </Skill>
+            </SubSkl>
             <SubSkl>
                 <Cond>
                     <ToolScp Client="NO" Scp="SKL_SELECT_ACTIVE_ABIL" UseSleep="NO">
@@ -312,10 +312,13 @@
                     </EtcList>
                 </Skill>
             </SubSkl>
-		</ByCondSkills>
+        </ByCondSkills>
 	</Skill>
 	<Skill Name="Chronomancer_Samsara">
-		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
+		<EnableScripts>
+            <ToolScp Client="BOTH" Scp="CHECK_IS_NO_CHANGEDROPLIST" UseSleep="NO"/>
+        </EnableScripts>
+        <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
 				<Frame Angle="0" AniTime="10199" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="9999" Type="FAN" Width="30" />
 			</HitList>
@@ -358,7 +361,7 @@
 							<Str Str="Samsara_Abil_Buff" />
 							<Num FuncTxt="return obj.Level;" Num="0" UseFunc="1" />
 							<Num Num="0" />
-							<Num FuncTxt="local value = 5000 + obj.Level * 1000; if IsPVPServer(self) == 1 then value = value * 0.5 end return value" Num="0" UseFunc="1" />
+							<Num FuncTxt="local value = 5000 + obj.Level * 1000; if IsPVPServer(self) == 1 then value = 10000 end return value" Num="0" UseFunc="1"/>
 							<Num Num="1" />
 							<Num Num="100" />
 							<Num Num="1" />
@@ -439,21 +442,21 @@
 		</MainSkl>
 	</Skill>
 	<Skill Name="Chronomancer_Stop">
-		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
+        <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
-				<Frame Angle="0" AniTime="200" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" TermMax="0" TermMin="0" Time="0" Type="FAN" />
+                <Frame Angle="0" AniTime="200" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" TermMax="0" TermMin="0" Time="0" Type="FAN" />
 			</HitList>
 			<EtcList>
-				<Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="0" UseSleep="NO">
+                <Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="0" UseSleep="NO">
 					<Pos Angle="0" Dist="0" />
 					<Angle Angle="0" />
 					<Str Str="Chronomancer_Stop" />
 				</Scp>
-				<Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
+                <Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
 					<Str Str="voice_wiz_m_stop_shot" />
 					<Str Str="voice_wiz_stop_shot" />
 				</Scp>
-				<Scp Client="YES" Scp="C_SOUND" Time="600" UseSleep="NO">
+                <Scp Client="YES" Scp="C_SOUND" Time="600" UseSleep="NO">
 					<Str Str="skl_eff_stop_shot_start" />
 				</Scp>
 			</EtcList>
@@ -461,20 +464,20 @@
 		<ByCondSkills>
 			<SubSkl>
 				<Cond>
-					<ToolScp Client="NO" Scp="SKL_SELECT_ABIL" UseSleep="NO">
+                    <ToolScp Client="NO" Scp="SKL_SELECT_ABIL" UseSleep="NO">
 						<Str Str="Chronomancer10" />
 					</ToolScp>
 				</Cond>
-				<Skill JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
+                <Skill JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 					<HitList>
-						<Frame Angle="0" AniTime="99999" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="99799" Type="FAN" Width="30" />
+                        <Frame Angle="0" AniTime="99999" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="99799" Type="FAN" Width="30" />
 					</HitList>
 					<EtcList>
-						<Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
+                        <Scp Client="YES" Scp="C_VOICE_SOUND" Time="0" UseSleep="NO">
 							<Str Str="voice_wiz_m_stop_shot" />
 							<Str Str="voice_wiz_stop_shot" />
 						</Scp>
-						<Scp Client="NO" Scp="SKL_BUFF" Time="0" UseSleep="NO">
+                        <Scp Client="NO" Scp="SKL_BUFF" Time="0" UseSleep="NO">
 							<Str Str="Stop_Abil_Debuff" />
 							<Num Num="1" />
 							<Num Num="0" />
@@ -483,7 +486,7 @@
 							<Num Num="100" />
 							<Num Num="0" />
 						</Scp>
-						<Scp Client="YES" Scp="C_SOUND" Time="600" UseSleep="NO">
+                        <Scp Client="YES" Scp="C_SOUND" Time="600" UseSleep="NO">
 							<Str Str="skl_eff_stop_shot_start" />
 						</Scp>
 					</EtcList>
@@ -491,4 +494,4 @@
 			</SubSkl>
 		</ByCondSkills>
 	</Skill>
-	</ToolSkill>
+</ToolSkill>

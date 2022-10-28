@@ -668,6 +668,17 @@ function GET_PVP_BATTLE_POINT_C()
 	return point
 end
 
+
+function GET_TOSHERO_TRADE_POINT_C()
+	local item = session.GetInvItemByName('TOSHERO_TRADE_POINT')
+	local point = 0;
+	if item ~= nil then
+		point = item.count
+	end
+	return point
+end
+
+
 function PVP_CARD_GET_ITEM_C()
 	local level = GETMYPCLEVEL();
 	local name, count = GetWorldPVPExpCard(level);
@@ -939,6 +950,10 @@ end
 
 function SEASONOFF_CONTENTS_TOTAL_SHOP_OPEN()
 	TOGGLE_PROPERTY_SHOP('SEASONOFF_CONTENTS_TOTAL_SHOP',1);
+end
+
+function CLASS_COSTUME_TOTAL_SHOP_OPEN()
+	TOGGLE_PROPERTY_SHOP('CLASS_COSTUME_TOTAL_SHOP',1);
 end
 
 function GET_CONTENTS_TOTAL_POINT_C()

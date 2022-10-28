@@ -16,7 +16,6 @@ function MANAGEGEM_MSG(frame, msg, argStr, argNum)
 		local richtext_howmuch = GET_CHILD_RECURSIVELY(frame, 'richtext_howmuch')
 		CLEAR_MANAGEGEM_UI()
 		SET_COLONY_TAX_RATE_TEXT(richtext_howmuch, "add_tax_rate")
-		SET_COLONY_TAX_RATE_TEXT(richtext_howmuch, "remove_tax_rate")
 	end
 end
 
@@ -78,10 +77,8 @@ function CLEAR_MANAGEGEM_UI()
 
 	local richtext_howmuch = GET_CHILD_RECURSIVELY(frame, 'richtext_howmuch', 'ui::CRichText')
 	richtext_howmuch:SetTextByKey("add",'--')
-	richtext_howmuch:SetTextByKey("remove",'--')
 	
 	SET_COLONY_TAX_RATE_TEXT(richtext_howmuch, "add_tax_rate", false)
-	SET_COLONY_TAX_RATE_TEXT(richtext_howmuch, "remove_tax_rate", false)
 	
 	frame:SetUserValue("NOW_SELECT_INDEX",0);
 
@@ -255,10 +252,8 @@ function ADD_ITEM_TO_MANAGEGEM_FROM_INV(item)
 	    return 0;
 	end
 	richtext_howmuch:SetTextByKey("add",GET_COMMAED_STRING(GET_MAKE_SOCKET_PRICE(lv, grade ,nextSlotIdx, GET_COLONY_TAX_RATE_CURRENT_MAP())));
-	richtext_howmuch:SetTextByKey("remove",GET_COMMAED_STRING(GET_REMOVE_GEM_PRICE(lv, GET_COLONY_TAX_RATE_CURRENT_MAP())));
 
 	SET_COLONY_TAX_RATE_TEXT(richtext_howmuch, "add_tax_rate")
-	SET_COLONY_TAX_RATE_TEXT(richtext_howmuch, "remove_tax_rate")
 	
 	richtext_howmuch:ShowWindow(1)
 	frame:SetUserValue("TEMP_IESID", id);
@@ -292,8 +287,10 @@ function CLICK_REMOVE_GEM_BUTTON(frame, slot, argStr, argNum)
 		ui.MsgBox(ScpArgMsg("SelectSomeItemPlz"))
 		return;
 	end
+	
 	local itemname = argStr;
 	local yesScp = string.format("EXEC_REMOVE_GEM()");
+
 	ui.MsgBox( "'"..itemname ..ScpArgMsg("Auto_'_SeonTaeg")..ScpArgMsg("ReallyRemoveGem"), yesScp, "None");
 end
 
@@ -320,17 +317,12 @@ function EXEC_REMOVE_GEM()
 		return 0;
 	end
 
-	local price = GET_REMOVE_GEM_PRICE(lv, GET_COLONY_TAX_RATE_CURRENT_MAP())
-	if IsGreaterThanForBigNumber(price, GET_TOTAL_MONEY_STR()) == 1 then
-		ui.MsgBox(ScpArgMsg("NOT_ENOUGH_MONEY"))
-		return;
-	end
+	local price = 0
 
 	session.ResetItemList();
 	session.AddItemID(tempiesid);	
 	local resultlist = session.GetItemIDList();
 	item.DialogTransaction("REMOVE_GEM", resultlist, selectedNum-1);
-
 end
 
 function CLICK_MAKE_SOCKET_BUTTON(frame, slot, argStr, argNum)

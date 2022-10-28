@@ -42,7 +42,7 @@ function OPEN_RANKSYSTEM_UI(parent, ctrl, argStr, argNum)
 end
 
 function ON_RANK_SYSTEM_TIMETABLE(parent, ctrl, argStr, argNum)
-    local prev = parent:GetUserIValue("PREV")
+    local prev = parent:GetUserValue("PREV")
     season_id = session.rank.GetPrevSeason(contents_id, prev)
     RequestRankSystemMyData(contents_id, season_id)
     RequestRankSystemRankList(0, contents_id, season_id)

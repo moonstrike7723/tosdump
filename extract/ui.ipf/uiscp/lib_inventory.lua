@@ -570,6 +570,13 @@ function GET_ITEM_ICON_IMAGE(itemCls, gender)
 			 if nil ~= cls then
 				iconImg = cls.Icon;
 			 end
+
+			-- vibora vision
+			if TryGetProp(cls, "ClassType", "None") == "Arcane" and TryGetProp(cls, "StringArg", "None") == "Vibora" then
+				local filename = TryGetProp(cls, "FileName", "None")
+				local vibora_cls = GetClassByStrProp2('Item', "FileName", filename, "StringArg", "WoodCarving")
+				iconImg = vibora_cls.Icon
+		end
 		end
 	elseif itemCls.GroupName == "ExpOrb" or itemCls.GroupName == "SubExpOrb" then
 		local exp = TryGetProp(itemCls, "ItemExpString");
@@ -1005,5 +1012,23 @@ function SET_SLOT_ICOR_CATEGORY(slot, item_obj)
 			
 			slot:SetText(msg, 'quickiconfont', ui.CENTER_VERT, ui.CENTER_HORZ, -2, 1);
 		end
+	elseif TryGetProp(item_obj, 'GroupName', 'None') == 'Arcane' then
+		local font = '{s14}{ol}{b}'		
+		local msg = font
+
+		local type = TryGetProp(item_obj, 'Name', 'None')
+		local token = StringSplit(type, '-')
+		local name = ''
+		
+		if #token > 1 then
+			name = TrimString(token[2])
+		end
+		if config.GetServiceNation() == "KOR" then
+			msg = msg .. name
+		else
+			msg = msg .. name
+		end
+		
+		slot:SetText(msg, 'quickiconfont', ui.CENTER_VERT, ui.CENTER_HORZ, -2, 1);
 	end	
 end

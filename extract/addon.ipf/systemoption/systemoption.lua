@@ -37,6 +37,9 @@ function SYSTEMOPTION_CREATE(frame)
 	SET_RENDER_SHADOW(frame);
 	SET_QUESTINFOSET_TRANSPARENCY(frame);
 	SET_COOLDOWN_DECIMAL_POINT_SEC(frame);
+	SET_ENABLE_AUTO_CASTING(frame)
+	SET_POPUP_PICK_ITEM(frame)
+	SET_PICK_ITEM_MESSAGE(frame)
 	SHOW_COLONY_BATTLEMESSAGE(frame);		
 	SYSTEMOPTION_INIT_TAB(frame);
 end
@@ -372,24 +375,22 @@ function INIT_GRAPHIC_CONFIG(frame)
 	
 	local performance_limit_text = GET_CHILD_RECURSIVELY(frame, "performance_limit_text");
 	if performance_limit_text ~= nil then
-		if imc.Is64BitWindows() == true then
-			performance_limit_text:ShowWindow(1);
-			performance_limit_text:SetTextByKey("opValue", config.GetPerformanceLimit());
-		else
-			performance_limit_text:ShowWindow(0);
-		end
+		performance_limit_text:SetTextByKey("opValue", config.GetPerformanceLimit());
 	end
-
 	local performance_limit_slide = GET_CHILD_RECURSIVELY(frame, "performance_limit_slide");
 	if performance_limit_slide ~= nil then
-		if imc.Is64BitWindows() == true then
-			performance_limit_slide:ShowWindow(1);
-			performance_limit_slide:SetLevel(config.GetPerformanceLimit());
-		else
-			performance_limit_slide:ShowWindow(0);
-		end
+		performance_limit_slide:SetLevel(config.GetPerformanceLimit());
 	end
 	
+	local bgmaxfps_text = GET_CHILD_RECURSIVELY(frame, "bgmaxfps_text");
+	if bgmaxfps_text ~= nil then
+		bgmaxfps_text:SetTextByKey("opValue", config.GetBackgroundMaxFPS());
+	end
+	local bgmaxfps_slide = GET_CHILD_RECURSIVELY(frame, "bgmaxfps_slide");
+	if bgmaxfps_slide ~= nil then
+		bgmaxfps_slide:SetLevel(config.GetBackgroundMaxFPS());
+	end
+
 	local IsEnableSummonAlpha = GET_CHILD_RECURSIVELY(frame, "Check_IsEnableSummonAlpha", "ui::CCheckBox");
 	if IsEnableSummonAlpha ~= nil then
 		IsEnableSummonAlpha:SetCheck(config.GetIsEnableSummonAlpha());
@@ -510,6 +511,14 @@ function SET_PERFORMANCE_LIMIT(frame, ctrl, str, num)
 	config.SetPerformanceLimit(ctrl:GetLevel());
 	
 	local txt = GET_CHILD_RECURSIVELY(frame, "performance_limit_text", "ui::CRichText");
+	txt:SetTextByKey("opValue", ctrl:GetLevel());
+end
+
+function SET_BACKGROUND_MAXFPS(frame, ctrl, str, num)
+	tolua.cast(ctrl, "ui::CSlideBar");
+	config.SetBackgroundMaxFPS(ctrl:GetLevel());
+	
+	local txt = GET_CHILD_RECURSIVELY(frame, "bgmaxfps_text", "ui::CRichText");
 	txt:SetTextByKey("opValue", ctrl:GetLevel());
 end
 
@@ -1064,6 +1073,7 @@ function SET_ENABLE_DAYLIGHT_OPTION(frame, ctrl, str, num)
     config.SetEnableDayLight(isEnable);
 	config.SaveConfig();
 end
+
 function CONFIG_COOLDOWN_DECIMAL_POINT_SEC(frame, ctrl, str, num)
 	tolua.cast(ctrl, "ui::CSlideBar")
 	config.SetCoolDownDecimalPointSec(ctrl:GetLevel())
@@ -1092,4 +1102,54 @@ function SET_USE_URO(parent, ctrl)
 	local isEnable = ctrl:IsChecked();
     config.SetUseURO(isEnable);
 	config.SaveConfig();
+end
+
+function CONFIG_ENABLE_AUTO_CASTING(parent, ctrl)
+	local enable = ctrl:IsChecked()
+	config.SetEnableAutoCasting(enable)
+	config.SaveConfig()
+end
+
+function SET_ENABLE_AUTO_CASTING(frame)
+	local Check_EnableAutoCasting = GET_CHILD_RECURSIVELY(frame, "Check_EnableAutoCasting", "ui::CCheckBox")
+	if Check_EnableAutoCasting ~= nil then
+		Check_EnableAutoCasting:SetCheck(config.GetEnableAutoCasting())
+	end
+end
+
+-- 아이템 획득 팝업
+function CONFIG_POPUP_PICK_ITEM(parent, ctrl)
+	local enable = ctrl:IsChecked()		
+	config.SetPopupPickItem(enable)
+	config.SaveConfig()
+end
+function SET_POPUP_PICK_ITEM(frame)
+	local Check_PopupPickItem = GET_CHILD_RECURSIVELY(frame, "Check_PopupPickItem", "ui::CCheckBox")
+	if Check_PopupPickItem ~= nil then
+		Check_PopupPickItem:SetCheck(config.GetPopupPickItem())
+	end
+end
+-- 아이템 획득 메시지
+function CONFIG_PICK_ITEM_MESSAGE(parent, ctrl)
+	local enable = ctrl:IsChecked()		
+	config.SetPickItemMessage(enable)
+	config.SaveConfig()
+end
+function SET_PICK_ITEM_MESSAGE(frame)		
+	local Check_PickItemMessage = GET_CHILD_RECURSIVELY(frame, "Check_PickItemMessage", "ui::CCheckBox")
+	if Check_PickItemMessage ~= nil then
+		Check_PickItemMessage:SetCheck(config.GetPickItemMessage())
+	end
+end
+-- 성물(마력) 자동 충전
+function CONFIG_RELIC_AUTO_CHARGE(parent, ctrl)
+	local enable = ctrl:IsChecked()		
+	config.SetRelicAutoCharge(enable)
+	config.SaveConfig()
+end
+function SET_RELIC_AUTO_CHARGE(frame)
+	local Check_RelicAutoCharge = GET_CHILD_RECURSIVELY(frame, "Check_RelicAutoCharge", "ui::CCheckBox")
+	if Check_RelicAutoCharge ~= nil then
+		Check_RelicAutoCharge:SetCheck(config.GetRelicAutoCharge())
+	end
 end

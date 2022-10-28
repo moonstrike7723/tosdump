@@ -1,4 +1,4 @@
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+﻿<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <idspace id="ClientMessage">
 	<Category Name="Event">
 		<Class ClassID="302008" OverrideType="ADD" ClassName="Kepa_Event_Enter" Data="이벤트 던전 입장 하기"/>
@@ -42,7 +42,6 @@
 		<Class ClassID="501069" OverrideType="ADD" ClassName="Event_Today_Number_3" Data="이벤트 진행 정보"/>
 		<Class ClassID="501070" OverrideType="ADD" ClassName="Event_Today_Number_4" Data="지금까지 {NUMCOUNT} 번 보상 받았습니다."/>
 		<Class ClassID="501071" OverrideType="ADD" ClassName="Event_Nru2_Guide_1" Data="새로운 시작 이벤트 (신규)"/>
-		<Class ClassID="501072" OverrideType="ADD" ClassName="Event_Nru2_Guide_2" Data="장비 선택"/>
 		<Class ClassID="501073" OverrideType="ADD" ClassName="Event_CB_1" Data="다시 시작 이벤트 (복귀자의 선물)"/>
 		<Class ClassID="501075" OverrideType="ADD" ClassName="Event_Steam_fishing_1" Data="은빛 물고기 건네주기"/>
 		<Class ClassID="501076" OverrideType="ADD" ClassName="Event_Steam_YC_1" Data="당신의 선택은? 이벤트"/>
@@ -51,12 +50,10 @@
 		<Class ClassID="501082" OverrideType="ADD" ClassName="Event_Steam_YC_7" Data="제작서-[이벤트] 복원된 여신상 받기"/>
 		<Class ClassID="501083" OverrideType="ADD" ClassName="Event_Steam_YC_8" Data="오늘 받은 보상 : {TODAY}회{nl}제작서 받은 뒤 경과 시간 : {COUNT}분"/>
 		<Class ClassID="501084" OverrideType="ADD" ClassName="Event_Steam_YC_9" Data="바로 획득 가능합니다."/>
-		<Class ClassID="501085" OverrideType="ADD" ClassName="Event_Steam_Together_Master_1" Data="이벤트 미션 참가"/>
 		<Class ClassID="501086" OverrideType="ADD" ClassName="Event_Steam_Together_Master_2" Data="증표 교환"/>
 		<Class ClassID="501087" OverrideType="ADD" ClassName="Event_Together_Master_1" Data="오늘은 마스터의 증표를 모두 받으셨습니다"/>
 		<Class ClassID="501088" OverrideType="ADD" ClassName="Event_Together_Master_2" Data="마스터의 증표를 획득하셨습니다"/>
 		<Class ClassID="501089" OverrideType="ADD" ClassName="Event_Steam_Together_Master_3" Data="마스터와 함께"/>
-		<Class ClassID="501091" OverrideType="ADD" ClassName="EVENT_SELECT_BOSSLV_SEL1" Data="육성하기"/>
 		<Class ClassID="501099" OverrideType="ADD" ClassName="EVENT_SURVIVAL_NAME" Data="서바이벌 이벤트"/>
 		<Class ClassID="501100" OverrideType="ADD" ClassName="EVENT_JUMP_MISSION_1" Data="크리스마스 이벤트 : 깊은 산속의 선물 상자"/>
 		<Class ClassID="501101" OverrideType="ADD" ClassName="EVENT_STEAM_CHRISTMAS_SEL1" Data="크리스마스 이벤트 : 착한 거짓말"/>
@@ -105,7 +102,6 @@
 		<Class ClassID="501169" OverrideType="ADD" ClassName="NPC_EVENT_USER_ROUTE_SEL14" Data="웹진 기사"/>
 		<Class ClassID="501170" OverrideType="ADD" ClassName="NPC_EVENT_USER_ROUTE_SEL15" Data="인스타그램 광고"/>
 		<Class ClassID="501171" OverrideType="ADD" ClassName="NPC_EVENT_USER_ROUTE_SEL16" Data="기타"/>
-		<Class ClassID="501174" OverrideType="ADD" ClassName="EVENT_VIVID_TIME_CHECK_SEL1" Data="클리어 시간 : {MIN}분 {SEC}초 입니다."/>
 		<Class ClassID="501181" OverrideType="ADD" ClassName="EVENT_CURSED_COAST_NPC_SEL1" Data="저주받은 혼을 보여준다."/>
 		<Class ClassID="501182" OverrideType="ADD" ClassName="EVENT_CURSED_COAST_NPC_SEL2" Data="{Name}님이 저주받은 석화 고래를 깨웠습니다."/>
 		<Class ClassID="501183" OverrideType="ADD" ClassName="EVENT_STEAM_SOCCER_NPC_SEL1" Data="응원 도구 받기"/>

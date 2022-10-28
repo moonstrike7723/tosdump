@@ -38,8 +38,8 @@ end
 
 function SCR_NEWCLE_MATERIAL(item)
 
- 	local itemGradeRatio = {75, 50, 35, 20, 20};
-    local itemMaxRatio = {1.4, 1.5, 1.8, 2, 2};
+ 	local itemGradeRatio = {75, 50, 35, 20, 20, 20};
+    local itemMaxRatio = {1.4, 1.5, 1.8, 2, 2, 2};
 
 	local itemLv = TryGetProp(item, "UseLv")
 	if itemLv == nil then
@@ -249,6 +249,19 @@ function IS_HAVE_RANDOM_OPTION(item)
 	return false;
 end
 
+function GET_MAX_RANDOMOPTION_COUNT(item)
+	if item == nil then
+		return 0
+	end
+
+	local max_count = 4
+	if TryGetProp(item, 'DBLHand', 'None') == 'YES' and TryGetProp(item, 'UseLv', 0) < 460 then
+		max_count = max_count + 2
+	end
+
+	return max_count
+end
+
 function GET_RANDOM_OPTION_COUNT(itemObj)
 	if itemObj == nil then
 		return 0;
@@ -268,7 +281,7 @@ end
 revertrandomitemlist = {'itemrandomreset', 'itemrevertrandom', 'itemunrevertrandom', 'itemsandrarevertrandom', 'itemsandraoneline_revert_random', 'itemsandra_4line_revert_random', 'itemsandra_6line_revert_random'};
 
 -- 산드라의 완벽한 돋보기 사용 가능 아이템 확인
-function IS_ENABLE_4LINE_REVERT_RANDOM_ITEM(itemObj)
+function IS_ENABLE_4LINE_REVERT_RANDOM_ITEM(itemObj, mat_item)
 	local icor = TryGetProp(itemObj, 'GroupName', 'None')
     local Lv = TryGetProp(itemObj, 'UseLv', 1)
     
@@ -281,7 +294,7 @@ function IS_ENABLE_4LINE_REVERT_RANDOM_ITEM(itemObj)
 			end
             
             Lv = TryGetProp(cls, "UseLv", 1)
-		    if Lv < 430 then
+		    if Lv < 430 or Lv > 440 then
 				return false, 'Level';
 			end
 			
@@ -292,8 +305,14 @@ function IS_ENABLE_4LINE_REVERT_RANDOM_ITEM(itemObj)
 			return false, 'NoRandom'
 		end		
 	else
+		local glass_lv = TryGetProp(mat_item, 'NumberArg1', 0)		
+
 		if Lv < 430 then
 			return false, 'Level';
+		end
+	
+		if Lv > glass_lv then
+			return false, 'ItemLevelIsGreaterThanMatItem'
 		end
 	
 		if 4 < GET_RANDOM_OPTION_COUNT(itemObj) then
@@ -318,7 +337,7 @@ function IS_ENABLE_6LINE_REVERT_RANDOM_ITEM(itemObj)
 			end
             
             Lv = TryGetProp(cls, "UseLv", 1)
-			if Lv < 430 then				
+			if Lv < 430 or Lv > 440 then				
 				return false, 'Level';
 			end
 			
@@ -329,7 +348,7 @@ function IS_ENABLE_6LINE_REVERT_RANDOM_ITEM(itemObj)
 			return false, 'NoRandom'
 		end		
 	else		
-		if Lv < 430 then
+		if Lv < 430 or Lv > 440 then
 			return false, 'Level';
 		end
 		

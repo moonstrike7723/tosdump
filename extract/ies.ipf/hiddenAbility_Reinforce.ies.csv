@@ -184,7 +184,7 @@ ClassID,FactorByLevel,AddFactor,ClassName,HiddenReinforceAbil,CMM_Caption
 183,1.25,0,Hunter_Retrieve,Hunter19,[아츠] 리트리브: 상급 강화
 184,1.25,0,Wugushi_WugongGu,Wugushi30,[아츠] 오공고: 상급 강화
 185,1.25,0,Wugushi_ThrowGuPot,Wugushi31,[아츠] 독 항아리: 상급 강화
-186,1.25,0,Wugushi_JincanGu,Wugushi32,[아츠] 금잠고: 상급 강화
+186,1.25,0,Wugushi_JincanGu,Wugushi32,[아츠] 금와: 상급 강화
 187,1.25,0,Wugushi_LatentVenom,Wugushi33,[아츠] 잠독백세: 상급 강화
 188,1.25,0,Wugushi_WideMiasma,Wugushi34,[아츠] 독무만상: 상급 강화
 189,1.25,0,Fletcher_BroadHead,Fletcher28,[아츠] 브로드 헤드: 상급 강화
@@ -376,9 +376,14 @@ ClassID,FactorByLevel,AddFactor,ClassName,HiddenReinforceAbil,CMM_Caption
 375,1.25,0,QuarrelShooter_RunningShot,QuarrelShooter37,[아츠] 런닝 샷: 상급 강화
 376,1.25,0,Cleric_Heal_Cleric34,Cleric34,[아츠] 힐: 타락 구체 상급 강화
 377,1.25,0,Kriwi_Melstis,Kriwi31,[아츠] 파이어티: 상급 강화
+408,1.25,0,Schwarzereiter_DoubleBullet,Schwarzereiter29,[아츠] 연쇄탄환: 상급 강화
+412,1.25,0,Appraiser_LargeMagnifyingGlass,Appraiser11,[아츠] 대형 돋보기: 상급 강화
+413,1.25,0,Appraiser_TripletLens,Appraiser14,[아츠] 트리플렛 렌즈: 상급 강화
+414,1.25,0,Appraiser_Devaluation,Appraiser15,[아츠] 평가절하: 상급 강화
 10001,0,0,Barbarian35,Barbarian35,[아츠] 가죽 마스터리: 야수성
 10002,0,0,Sadhu26,Sadhu26,[아츠] 사두: 고행
 10003,0,0,Exorcist20,Exorcist20,[아츠] 루브릭: 타락
 10004,0,0,Thaumaturge20,Thaumaturge20,[아츠] 스웰 브레인: 물리
 10005,0,0,Thaumaturge21,Thaumaturge21,[아츠] 스웰 브레인: 마법
 10006,0,0,Arbalester19,Arbalester19,[아츠] 유도화살: 추가피해
+10007,0,0,Schwarzereiter32,Schwarzereiter32,[아츠] 리마콘: 추가 대미지

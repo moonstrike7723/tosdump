@@ -1,4 +1,6 @@
 function RESTART_ON_INIT(addon, frame)
+    addon:RegisterMsg('RESTART_WAIT', 'RESTART_ON_MSG');
+    addon:RegisterMsg('RESTART_WAIT_END', 'RESTART_ON_MSG');
  	addon:RegisterMsg('RESTART_HERE', 'RESTART_ON_MSG');
 	addon:RegisterMsg('RESTARTSELECT_UP', 'RESTART_ON_MSG');
 	addon:RegisterMsg('RESTARTSELECT_DOWN', 'RESTART_ON_MSG');
@@ -129,7 +131,12 @@ function AUTORESIZE_RESTART(frame)
 		return;
 	end
 	campGroup:RemoveAllChild();	
-	campGroup:SetOffset(campGroup:GetX(), ctrly);	
+	campGroup:SetOffset(campGroup:GetX(), ctrly);
+
+	if GetExProp(GetMyPCObject(), 'BOUNTYHUNT_PLAYING') == 1 then
+		frame:Resize(frame:GetWidth(), maxy + 40);
+		return;
+	end
 
 	-- 파티원이 존재 할 때
 	if 0 < count then
@@ -233,13 +240,12 @@ function RESTART_MOVE_INDEX(frame, isDown)
 end
 
 function RESTART_ON_MSG(frame, msg, argStr, argNum)
-
 	local minigameover = ui.GetFrame('minigameover');	
 	if minigameover:IsVisible() == 1 then
 		return;
-	end
+    end
 
-	if msg == 'RESTART_HERE' then
+    if msg == 'RESTART_HERE' then
 		for i = 1 , 5 do
 			local btnName = "restart" .. i .. "btn";
 			local resButtonObj	= GET_CHILD(frame, btnName, 'ui::CButton');
@@ -304,9 +310,40 @@ function RESTART_ON_MSG(frame, msg, argStr, argNum)
 					restart1btn:ShowWindow(0);
 				end
 
+				-- start point restart
+				local use_start_point = 1;
+				if argStr ~= "" then
+					local restart_class = GetClass("resurrect_return_control", argStr);
+					if restart_class ~= nil then
+						use_start_point = TryGetProp(restart_class, "StartPoint", 1);
+					end
+				end
+
 				local restart10btn = GET_CHILD(frame, "restart10btn", "ui::CButton");
 				if restart10btn ~= nil then
-					restart10btn:ShowWindow(1);
+					if use_start_point == 1 then
+						restart10btn:ShowWindow(1);
+					else
+						restart10btn:ShowWindow(0);
+					end
+				end
+
+				-- return city restart
+				local use_save_point = 0;
+				if argStr ~= "" then
+					local restart_class = GetClass("resurrect_return_control", argStr);
+					if restart_class ~= nil then
+						use_save_point = TryGetProp(restart_class, "SavePoint", 0);
+					end
+				end
+
+				local restart1btn = GET_CHILD(frame, "restart1btn", "ui::CButton");
+				if restart1btn ~= nil then
+					if use_save_point == 1 then
+						restart1btn:ShowWindow(1);
+					else
+						restart1btn:ShowWindow(0);
+					end
 				end
 			end
 		else
@@ -316,7 +353,8 @@ function RESTART_ON_MSG(frame, msg, argStr, argNum)
 			end
 		end
 
-		AUTORESIZE_RESTART(frame);
+        AUTORESIZE_RESTART(frame);
+        RESTART_WAIT_STOP();
 		frame:ShowWindow(1);
 	elseif msg == 'RESTARTSELECT_UP' then
 		RESTART_MOVE_INDEX(frame, -1);
@@ -331,8 +369,58 @@ function RESTART_ON_MSG(frame, msg, argStr, argNum)
 		local scp = ItemBtn:GetEventScript(ui.LBUTTONUP);
 		local argString = ItemBtn:GetEventScriptArgString(ui.LBUTTONUP);
 		scp = _G[scp];
-		scp(frame, ItemBtn,argString );
+        scp(frame, ItemBtn,argString );
+    elseif msg == 'RESTART_WAIT' then
+        for i = 1, 10 do
+            GET_CHILD(frame, "restart" .. i .. "btn", 'ui::CButton'):ShowWindow(0)
+        end
+        
+        local text = GET_CHILD(frame, "restart_wait", 'ui::CRichText')
+
+        text:ShowWindow(1)
+        text:SetTextByKey("sec", argNum)
+
+        AddUniqueTimerFunccWithLimitCount("RESTART_WAIT_UPDATE", 1000, argNum)
+    elseif msg == 'RESTART_WAIT_END' then
+        RemoveLuaTimerFunc("RESTART_WAIT_UPDATE")
 	end
+end
+
+function RESTART_WAIT_UPDATE()
+    local frame = ui.GetFrame("restart")
+    if frame == nil then
+        return
+    end
+
+    frame:ShowWindow(1)
+    frame:Resize(frame:GetWidth(), 160)
+
+    local text = GET_CHILD(frame, "restart_wait", 'ui::CRichText')
+    if text == nil then
+        return
+    end
+
+    local sec = tonumber(text:GetTextByKey("sec"))
+    if sec == 0 then
+        return
+    end
+
+    text:SetTextByKey("sec", sec - 1)
+end
+
+function RESTART_WAIT_STOP()
+    local frame = ui.GetFrame("restart")
+    if frame == nil then
+        return
+    end
+
+    local text = GET_CHILD(frame, "restart_wait", 'ui::CRichText')
+    if text == nil then
+        return
+    end
+
+    RemoveLuaTimerFunc('RESTART_WAIT_UPDATE')
+    text:ShowWindow(0)
 end
 
 function RESTARTSELECT_ITEM_SELECT(frame)

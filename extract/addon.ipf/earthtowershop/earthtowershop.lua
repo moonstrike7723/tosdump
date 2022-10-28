@@ -14,6 +14,12 @@ local g_account_prop_shop_table =
         ['coinName'] = 'misc_silver_gacha_mileage',
         ['propName'] = 'Mileage_SilverGacha',
     },
+    ['GabijaCertificate'] = 
+    {
+        ['coinName'] = 'dummy_GabijaCertificate',
+        ['propName'] = 'GabijaCertificate',
+    },
+
 }
 
 --------------------------------------------------------------------------------------------------------------------------
@@ -59,11 +65,9 @@ local function _INSERT_ITEM_INFO(cls, shopType)
 
     local groupName = item.GroupName;
     
-    if shopType == 'PVPMine' then
-        local item_category = TryGetProp(cls, 'ItemCategory', 'None')
-        if item_category ~= 'None' then
-            groupName = item_category;
-        end
+    local item_category = TryGetProp(cls, 'ItemCategory', 'None')
+    if item_category ~= 'None' then
+        groupName = item_category;
     end
 
     local classType = nil;
@@ -202,6 +206,21 @@ function EARTHTOWERSHOP_BUY_ITEM_RESULT(frame, msg, argStr, argNum)
         end
 
         propertyRemain:SetTextByKey('itemCount', GET_COMMAED_STRING(count))
+    elseif shopType == "GabijaCertificate" then
+        ui.SysMsg(ScpArgMsg("Result_GabijaCertificate", "count1", GET_COMMAED_STRING(token[2]), "count2", GET_COMMAED_STRING(token[3])));
+
+        local propertyRemain = GET_CHILD_RECURSIVELY(frame,"propertyRemain")
+        local itemCls = GetClass('Item', coinName)
+
+        propertyRemain:SetTextByKey('itemName', itemCls.Name)
+
+        local aObj = GetMyAccountObj()
+        local count = TryGetProp(aObj, propName, '0')
+        if count == 'None' then
+            count = '0'
+        end
+
+        propertyRemain:SetTextByKey('itemCount', GET_COMMAED_STRING(count))
     end
 end
 
@@ -227,8 +246,8 @@ function EARTHTOWERSHOP_BUY_ITEM(frame, msg, itemName, itemCount)
 		local tradeBtn = GET_CHILD(ctrlset, "tradeBtn");
 		if sCount <= 0 then
 			cntText = ScpArgMsg("Excnaged_No_Enough");
-            tradeBtn:SetColorTone("FF444444");
-            tradeBtn:SetEnable(0);
+			tradeBtn:SetColorTone("FF444444");
+			tradeBtn:SetEnable(0);
 		end;
 		exchangeCountText:SetTextByKey("value", cntText);
 	end;
@@ -248,10 +267,30 @@ function EARTHTOWERSHOP_BUY_ITEM(frame, msg, itemName, itemCount)
 		end
         local tradeBtn = GET_CHILD(ctrlset, "tradeBtn");
         if sCount <= 0 then
+            if TryGetProp(recipecls, 'MaxOverBuyCount', 0) > 0 then
+                local overbuy_prop = TryGetProp(recipecls, 'OverBuyProperty', 'None')          
+                local overbuy_count = TryGetProp(aObj, overbuy_prop, 0)          
+                
+                if overbuy_prop ~= 'None' then
+                    if recipecls.ResetInterval == 'Week' then
+                        cntText = ScpArgMsg("OverBuyCount{count}_Week{max}","count", overbuy_count, 'max', TryGetProp(recipecls, 'MaxOverBuyCount', 100) )
+                    elseif recipecls.ResetInterval == 'Day' then
+                        cntText = ScpArgMsg("OverBuyCount{count}_Day{max}","count", overbuy_count, 'max', TryGetProp(recipecls, 'MaxOverBuyCount', 100) )
+                    end
+                end
+                
+                if overbuy_count >= TryGetProp(recipecls, 'MaxOverBuyCount', 100) then
+                    cntText = ScpArgMsg("Excnaged_No_Enough");
+                    tradeBtn:SetColorTone("FF444444");
+                    tradeBtn:SetEnable(0);
+                end
+            else
             cntText = ScpArgMsg("Excnaged_No_Enough");
             tradeBtn:SetColorTone("FF444444");
             tradeBtn:SetEnable(0);
-        end;
+        end
+        end
+        
         exchangeCountText:SetTextByKey("value", cntText);
     end
 
@@ -365,6 +404,12 @@ end
 function REQ_PVP_MINE_SHOP_OPEN()
     local frame = ui.GetFrame("earthtowershop");
     frame:SetUserValue("SHOP_TYPE", 'PVPMine');
+    ui.OpenFrame('earthtowershop');
+end
+
+function REQ_GabijaCertificate_SHOP_OPEN()
+    local frame = ui.GetFrame("earthtowershop");
+    frame:SetUserValue("SHOP_TYPE", 'GabijaCertificate');
     ui.OpenFrame('earthtowershop');
 end
 
@@ -551,8 +596,8 @@ function EARTH_TOWER_INIT(frame, shopType)
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EVENT_HALLOWEEN_SHOP_NAME")));
     elseif shopType == 'PVPMine' then
         title:SetText('{@st43}'..ScpArgMsg("pvp_mine_shop_name"));
-        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("pvp_mine_shop_name")));
-        EARTH_TOWER_SET_PROPERTY_COUNT(propertyRemain, 'misc_pvp_mine2', "MISC_PVP_MINE2")
+        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("pvp_mine_shop_name")));        
+        EARTH_TOWER_SET_PROPERTY_COUNT(propertyRemain, 'misc_pvp_mine2', "MISC_PVP_MINE2")    
     elseif shopType == 'MCShop1' then
         title:SetText('{@st43}'..ScpArgMsg("MASSIVE_CONTENTS_SHOP_NAME"));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("MASSIVE_CONTENTS_SHOP_NAME")));
@@ -663,6 +708,14 @@ function EARTH_TOWER_INIT(frame, shopType)
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
 
         remain_time:ShowWindow(1);
+	elseif shopType == "BOSS_COOP_SHOP" then
+		 title:SetText('{@st43}'..ScpArgMsg(shopType));
+        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("bosscoopshop")));
+    elseif shopType == 'GabijaCertificate' then -- 여신의 증표(가비야) 상점
+        title:SetText('{@st43}'..ScpArgMsg("GabijaCertificate_shop"));
+        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("GabijaCertificate_shop")));        
+        EARTH_TOWER_SET_PROPERTY_COUNT(propertyRemain, 'dummy_GabijaCertificate', "GabijaCertificate")
+        pointbuyBtn:ShowWindow(1)
     else
         title:SetText('{@st43}'..ScpArgMsg(shopType));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
@@ -846,7 +899,7 @@ function EXCHANGE_CREATE_TREE_PAGE(tree, slotHeight, groupName, classType, cls, 
 end
 
 function EXCHANGE_CREATE_TREE_NODE_CTRL(ctrlset, cls, shopType) 
-   
+    local aObj = GetMyAccountObj()
     local x = 180;
     local startY = 80;
     local y = startY; 
@@ -887,7 +940,12 @@ function EXCHANGE_CREATE_TREE_NODE_CTRL(ctrlset, cls, shopType)
     if targetItem.StringArg == "EnchantJewell" and cls.TargetItemAppendProperty ~= 'None' then
         SET_ITEM_TOOLTIP_BY_CLASSID(itemIcon, targetItem.ClassName, 'ItemTradeShop', cls.ClassName);
     else  
-        SET_ITEM_TOOLTIP_ALL_TYPE(itemIcon, nil, targetItem.ClassName, '', targetItem.ClassID, 0);
+        SET_ITEM_TOOLTIP_ALL_TYPE(itemIcon, nil, targetItem.ClassName, '', targetItem.ClassID, 0);    
+        if TryGetProp(recipecls, 'BelongingType', 'None') == 'Team' then
+            itemIcon:SetTooltipStrArg('team_belonging') -- 팀 귀속용 str arg
+        elseif TryGetProp(recipecls, 'BelongingType', 'None') == 'Character' then
+            itemIcon:SetTooltipStrArg('char_belonging') -- 캐릭터 귀속용 str arg
+        end
     end
     
     local itemCount = 0;
@@ -939,6 +997,9 @@ function EXCHANGE_CREATE_TREE_NODE_CTRL(ctrlset, cls, shopType)
 
                 local slot = GET_CHILD(itemSet, "slot", "ui::CSlot");
                 local needcountTxt = GET_CHILD(itemSet, "needcount", "ui::CSlot");
+
+                recipeItemCnt = GET_CURRENT_OVERBUY_COUNT(shopType, recipeItemCnt, recipecls, GetMyAccountObj()) -- 추가 회득
+
                 needcountTxt:SetTextByKey("count", recipeItemCnt);
 
                 SET_SLOT_ITEM_CLS(slot, dragRecipeItem);
@@ -1002,10 +1063,9 @@ function EXCHANGE_CREATE_TREE_NODE_CTRL(ctrlset, cls, shopType)
     end;
     
     if recipecls.AccountNeedProperty ~= 'None' then
-        local aObj = GetMyAccountObj()
 		local sCount = TryGetProp(aObj, recipecls.AccountNeedProperty); 
 		local cntText
-		if recipecls.ShopType == "PVPMine" then
+		if recipecls.ShopType == "PVPMine" or recipecls.ShopType == "GabijaCertificate" then
 			if recipecls.ResetInterval == 'Week' then
 				cntText = ScpArgMsg("Excnaged_AccountCount_Remind_Week","COUNT",string.format("%d", sCount))
 			else
@@ -1021,10 +1081,28 @@ function EXCHANGE_CREATE_TREE_NODE_CTRL(ctrlset, cls, shopType)
 		end
         local tradeBtn = GET_CHILD(ctrlset, "tradeBtn");
         if sCount <= 0 then
+            if TryGetProp(recipecls, 'MaxOverBuyCount', 0) > 0 then
+                local overbuy_prop = TryGetProp(recipecls, 'OverBuyProperty', 'None')          
+                local overbuy_count = TryGetProp(aObj, overbuy_prop, 0)          
+                if overbuy_prop ~= 'None' then
+                    if recipecls.ResetInterval == 'Week' then
+                        cntText = ScpArgMsg("OverBuyCount{count}_Week{max}","count", overbuy_count, 'max', TryGetProp(recipecls, 'MaxOverBuyCount', 100) )
+                    elseif recipecls.ResetInterval == 'Day' then
+                        cntText = ScpArgMsg("OverBuyCount{count}_Day{max}","count", overbuy_count, 'max', TryGetProp(recipecls, 'MaxOverBuyCount', 100) )
+                    end
+                end
+
+                if overbuy_count >= TryGetProp(recipecls, 'MaxOverBuyCount', 100) then
+                    cntText = ScpArgMsg("Excnaged_No_Enough");
+                    tradeBtn:SetColorTone("FF444444");
+                    tradeBtn:SetEnable(0);
+                end
+            else
             cntText = ScpArgMsg("Excnaged_No_Enough");
             tradeBtn:SetColorTone("FF444444");
             tradeBtn:SetEnable(0);
-        end;
+        end
+        end
         
         exchangeCountText:SetTextByKey("value", cntText);
 
@@ -1163,7 +1241,7 @@ function CLICK_EXCHANGE_SHOP_CATEGORY(ctrlSet, ctrl, strArg, numArg)
     DRAW_EXCHANGE_SHOP_IETMS(strArg)
 end
 
-function DRAW_EXCHANGE_SHOP_IETMS(categoryName)
+function DRAW_EXCHANGE_SHOP_IETMS(categoryName)    
     if categoryName == nil then
         return;
     end
@@ -1260,6 +1338,8 @@ function EARTH_TOWER_SHOP_EXEC(parent, ctrl)
                 local itemName = recipecls[clsName];
                 local recipeItemCnt, invItemCnt, dragRecipeItem, invItem, recipeItemLv, invItemlist = GET_RECIPE_MATERIAL_INFO(recipecls, index, GetMyPCObject());
 
+                recipeItemCnt = GET_CURRENT_OVERBUY_COUNT(shopType, recipeItemCnt, recipecls, GetMyAccountObj()) -- 추가 회득
+
                 if dragRecipeItem ~= nil then
                     local itemCount = GET_TOTAL_ITEM_CNT(dragRecipeItem.ClassID);
                     if itemCount < recipeItemCnt * resultCount then
@@ -1285,6 +1365,19 @@ function EARTH_TOWER_SHOP_EXEC(parent, ctrl)
         end
     end
     
+    if shopType == 'PVPMine' and resultCount >= 10 then
+        local target_item = GetClass('Item', TryGetProp(recipecls, 'TargetItem', 'None'))
+        local name = TryGetProp(target_item, 'Name', 'None')
+        if recipecls==nil or recipecls["Item_2_1"] ~='None' then                 
+            local msg = ScpArgMsg("TooManyItemBuy{name}{count}", "name", name, "count", resultCount);
+            local yesscp = string.format('YES_SCP_BUY_SHOP_EXEC_1(%d)', resultCount);
+            ui.MsgBox_NonNested(msg, frame:GetName(), yesscp, 'None');
+        else            
+            local msg = ScpArgMsg("TooManyItemBuy{name}{count}", "name", name, "count", resultCount);
+            local yesscp = string.format('YES_SCP_BUY_SHOP_EXEC_2(%d)', resultCount);
+            ui.MsgBox_NonNested(msg, frame:GetName(), yesscp, 'None');
+        end
+    else
     if recipecls==nil or recipecls["Item_2_1"] ~='None' then        
         if g_account_prop_shop_table[shopType] ~= nil then
             AddLuaTimerFuncWithLimitCountEndFunc("ACCOUNT_PROPERTY_SHOP_TRADE_ENTER", 100, resultCount - 1, "EARTH_TOWER_SHOP_TRADE_LEAVE");            
@@ -1294,12 +1387,30 @@ function EARTH_TOWER_SHOP_EXEC(parent, ctrl)
         
     else        
         if g_account_prop_shop_table[shopType] ~= nil  then
-            AddLuaTimerFuncWithLimitCountEndFunc("ACCOUNT_PROPERTY_SHOP_TRADE_ENTER", 100, 0, "EARTH_TOWER_SHOP_TRADE_LEAVE");
+            AddLuaTimerFuncWithLimitCountEndFunc("ACCOUNT_PROPERTY_SHOP_TRADE_ENTER", 100, 0, "");
         else
             AddLuaTimerFuncWithLimitCountEndFunc("EARTH_TOWER_SHOP_TRADE_ENTER", 100, 0, "EARTH_TOWER_SHOP_TRADE_LEAVE");
         end
     end
 end
+end
+
+function YES_SCP_BUY_SHOP_EXEC_1(resultCount)    
+    if g_account_prop_shop_table['PVPMine'] ~= nil then            
+        AddLuaTimerFuncWithLimitCountEndFunc("ACCOUNT_PROPERTY_SHOP_TRADE_ENTER", 100, resultCount - 1, "EARTH_TOWER_SHOP_TRADE_LEAVE");
+    else
+        AddLuaTimerFuncWithLimitCountEndFunc("EARTH_TOWER_SHOP_TRADE_ENTER", 100, resultCount - 1, "EARTH_TOWER_SHOP_TRADE_LEAVE");
+    end
+end
+
+function YES_SCP_BUY_SHOP_EXEC_2(resultCount)    
+    if g_account_prop_shop_table['PVPMine'] ~= nil  then                    
+        AddLuaTimerFuncWithLimitCountEndFunc("ACCOUNT_PROPERTY_SHOP_TRADE_ENTER", 100, 0, "");
+    else        
+        AddLuaTimerFuncWithLimitCountEndFunc("EARTH_TOWER_SHOP_TRADE_ENTER", 100, 0, "EARTH_TOWER_SHOP_TRADE_LEAVE");
+    end
+end
+
 
 function EARTH_TOWER_SHOP_TRADE_ENTER()
 	local frame = ui.GetFrame(s_earth_shop_frame_name);
@@ -1349,6 +1460,9 @@ function EARTH_TOWER_SHOP_TRADE_ENTER()
         local clsName = "Item_"..index.."_1";
         local itemName = recipeCls[clsName];
         local recipeItemCnt, invItemCnt, dragRecipeItem, invItem, recipeItemLv, invItemlist = GET_RECIPE_MATERIAL_INFO(recipeCls, index, GetMyPCObject());
+
+        local shopType = frame:GetUserValue("SHOP_TYPE");        
+        recipeItemCnt = GET_CURRENT_OVERBUY_COUNT(shopType, recipeItemCnt, recipeCls, GetMyAccountObj()) -- 추가 회득
 
         if dragRecipeItem ~= nil then
             local itemCount = GET_TOTAL_ITEM_CNT(dragRecipeItem.ClassID);
@@ -1508,6 +1622,8 @@ function ACCOUNT_PROPERTY_SHOP_TRADE_ENTER()
     item.DialogTransaction("PVP_MINE_SHOP", resultlist, cntText);    
     elseif shopType == 'SilverGachaShop' then
         item.DialogTransaction("SILVER_GACHA_SHOP", resultlist, cntText);
+    elseif shopType == 'GabijaCertificate' then -- 여신의 증표(가비야)
+        item.DialogTransaction("GabijaCertificate_SHOP", resultlist, cntText);
     end
 end
 
@@ -1551,6 +1667,9 @@ function EARTH_TOWER_SHOP_TRADE_LEAVE()
             if invItemlist == nil and eachSet~=nil then
                -- needCount Reset
                local needCount = GET_CHILD_RECURSIVELY(eachSet, "needcount");
+                               
+                local shopType = frame:GetUserValue("SHOP_TYPE");                
+                recipeItemCnt = GET_CURRENT_OVERBUY_COUNT(shopType, recipeItemCnt, recipecls, GetMyAccountObj()) -- 추가 회득                
                needCount:SetTextByKey("count", recipeItemCnt)
                 
                -- material icon Reset
@@ -1655,11 +1774,21 @@ function EARTHTOWERSHOP_CHANGECOUNT(frame, ctrl, change)
                     if recipecls["Item_"..j.."_1"] ~= "None" then
                        local recipeItemCnt, recipeItemLv = GET_RECIPE_REQITEM_CNT(recipecls, "Item_"..j.."_1", GetMyPCObject());
 
+                       local main_frame = ui.GetFrame("earthtowershop");
+                       local shopType = main_frame:GetUserValue("SHOP_TYPE");
+                       
+                        recipeItemCnt = GET_TOTAL_AMOUNT_OVERBUY(shopType, recipeItemCnt, recipecls, GetMyAccountObj(), tonumber(countText))                        
+
+                        if IS_OVERBUY_ITEM(shopType, recipecls, GetMyAccountObj()) == true then
+                            local needcountText = GET_CHILD_RECURSIVELY(eachSet, "needcount", "ui::CSlot");
+                            needcountText:SetTextByKey("count", recipeItemCnt);
+                        else
                        -- needCnt Setting
                        local needcountText = GET_CHILD_RECURSIVELY(eachSet, "needcount", "ui::CSlot");
                        needcountText:SetTextByKey("count", countText * recipeItemCnt);
                     end
                 end
+            end
             end
 
             eachSet:Invalidate();
@@ -1672,19 +1801,31 @@ function UPDATE_EARTHTOWERSHOP_CHANGECOUNT(parent, ctrl)
 end
 
 function EARTHTOWERSHOP_CHANGECOUNT_NUM_CHANGE(ctrlset,change)
-    
+    local recipecls = GetClass('ItemTradeShop', ctrlset:GetName());
+
     local edit_itemcount = GET_CHILD_RECURSIVELY(ctrlset, "itemcount");
     local countText = tonumber(edit_itemcount:GetText());
     if countText == nil then
         countText = 0
     end
     countText = countText + change
+    
+    local target_acc = TryGetProp(recipecls, 'TargetAccountProperty', 'None')
+    local max_target_acc = TryGetProp(recipecls, 'MaxTargetAccountProperty', 9999)
+
+    if target_acc ~= 'None' then
+        local now = TryGetProp(GetMyAccountObj(), target_acc, 0)
+        if now + countText > max_target_acc then
+            countText = countText - 1
+        end
+    end
+
     if countText < 0 then
         countText = 0
-    elseif countText>9999 then
+    elseif countText > 9999 then
         countText = 9999
     end
-    local recipecls = GetClass('ItemTradeShop', ctrlset:GetName());
+    
     if recipecls.NeedProperty ~= 'None' then
 		local sObj = GetSessionObject(GetMyPCObject(), "ssn_shop");
         local sCount = TryGetProp(sObj, recipecls.NeedProperty); 
@@ -1703,6 +1844,17 @@ function EARTHTOWERSHOP_CHANGECOUNT_NUM_CHANGE(ctrlset,change)
 --                sCount = sCount - 2
 --            end
 --        end
+
+        local frame = ui.GetFrame("earthtowershop");
+        local shopType = frame:GetUserValue("SHOP_TYPE");
+        if IS_OVERBUY_ITEM(shopType, recipecls, aObj) == true then 
+            sCount = countText            
+            if IS_EXCEED_OVERBUY_COUNT(shopType, aObj, recipecls, 1) == true then
+                sCount = 0
+            end
+            countText = TryGetProp(recipecls, 'MaxOverBuyCount', 100) - TryGetProp(aObj, TryGetProp(recipecls, 'OverBuyProperty', 'None'), 0)                    
+        end
+
         if sCount < countText then
             countText = sCount
         end
@@ -1743,6 +1895,9 @@ function EARTHTOWERSHOP_POINT_BUY_OPEN()
     if shopType == "SilverGachaShop" then
         REQ_ITEM_POINT_EXTRACTOR_OPEN("Mileage_SilverGacha")
         ui.GetFrame('item_point_extractor'):SetMargin(575, 5, 0, 0)
+    elseif shopType == "GabijaCertificate" then
+		ui.CloseFrame('earthtowershop')
+		control.CustomCommand('REQ_SEASON_COIN_SHOP_OPEN',0);
     end
 end
 
@@ -1781,4 +1936,10 @@ function RELEASE_2011_5TH_SPECIAL_SHOP_UPDATE_HOLD()
     btn:SetEnable(1);
 
     ui.SetHoldUI(false);
+end
+
+function REQ_BOSS_CO_OP_SHOP_OPEN()
+    local frame = ui.GetFrame("earthtowershop")
+    frame:SetUserValue("SHOP_TYPE", 'BOSS_COOP_SHOP')
+    ui.OpenFrame('earthtowershop')
 end

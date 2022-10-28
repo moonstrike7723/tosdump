@@ -1,5 +1,5 @@
 function ITEMDUNGEON_ON_INIT(addon, frame)
-	addon:RegisterMsg('SUCCESS_ITEM_AWAKENING', 'ITEMDUNGEON_CLEARUI');
+	addon:RegisterMsg('SUCCESS_ITEM_AWAKENING', 'SUCCESS_ITEM_AWAKENING');
 	addon:RegisterMsg('UPDATE_SPEND_ITEM', 'ITEMDUNGEON_INIT_NEEDITEM');
 end
 
@@ -228,7 +228,7 @@ function EXEC_ITEM_DUNGEON(parent, ctrl)
 
 	local pc = GetMyPCObject();
 	local x, y, z = GetPos(pc);
-	if 0 == IsFarFromNPC(pc, x, y, z, 50) then
+	if 0 == IsFarFromNPC(pc, x, y, z, 60) then
 		ui.SysMsg(ClMsg("TooNearFromNPC"));	
 		return 0;
 	end
@@ -438,8 +438,13 @@ function ITEMDUNGEON_BUY_ITEM(parent, ctrl)
 	local buyerBox = GET_CHILD_RECURSIVELY(frame, 'buyerBox');
 	buyerBox:EnableHitTest(0);
 
-	warningmsg = warningmsg .. ClMsg("IsSureItemdungeon");	
-	WARNINGMSGBOX_FRAME_OPEN(warningmsg, '_ITEMDUNGEON_BUY_ITEM', 'ITEMDUNGEON_BUY_ITEM_ENABLEHITTEST');
+	local check = GET_CHILD_RECURSIVELY(frame, 'check_no_msgbox')
+	if check:IsChecked() == 1 then
+		_ITEMDUNGEON_BUY_ITEM()
+	else
+		warningmsg = warningmsg .. ClMsg("IsSureItemdungeon");	
+		WARNINGMSGBOX_FRAME_OPEN(warningmsg, '_ITEMDUNGEON_BUY_ITEM', 'ITEMDUNGEON_BUY_ITEM_ENABLEHITTEST');
+	end
 end
 
 function ITEMDUNGEON_BUY_ITEM_ENABLEHITTEST()
@@ -623,5 +628,12 @@ function ITEMDUNGEON_INV_RBTN(itemobj, invslot, invguid)
 			ui.SysMsg(ClMsg("WrongDropItem"));
 		end	
 	end
+end
 
+function SUCCESS_ITEM_AWAKENING(frame, msg, arg_str, arg_num)
+	ITEMDUNGEON_BUY_ITEM_ENABLEHITTEST();
+	ITEMDUNGEON_RESET_STONE(frame);
+	ITEMDUNGEON_RESET_ABRASIVE(frame);
+
+	UPDATE_ITEMDUNGEON_CURRENT_ITEM(frame);
 end

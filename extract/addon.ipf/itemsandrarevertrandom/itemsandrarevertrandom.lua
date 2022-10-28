@@ -1,6 +1,7 @@
 -- 산드라의 감정 돋보기
 function ITEMSANDRAREVERTRANDOM_ON_INIT(addon, frame)
 	addon:RegisterMsg("MSG_SUCCESS_SANDRAREVERT_RANDOM_OPTION", "SUCCESS_SANDRAREVERT_RANDOM_OPTION");
+	addon:RegisterMsg("ON_UI_TUTORIAL_NEXT_STEP", "SANDRAREVERT_RANDOM_TUTO_CHECK");
 end
 
 function OPEN_SANDRAREVERT_RANDOM(invItem)
@@ -34,6 +35,8 @@ function ITEM_SANDRAREVERT_RANDOM_OPEN(frame)
 	tab:SelectTab(0);
 
 	INVENTORY_SET_CUSTOM_RBTNDOWN("ITEM_SANDRAREVERT_RANDOM_INV_RBTN")
+
+	SANDRAREVERT_RANDOM_TUTO_CHECK(frame)
 end
 
 function ITEM_SANDRAREVERT_RANDOM_CLOSE(frame)
@@ -43,6 +46,59 @@ function ITEM_SANDRAREVERT_RANDOM_CLOSE(frame)
 	INVENTORY_SET_CUSTOM_RBTNDOWN("None");
 	frame:ShowWindow(0);
 	control.DialogOk();
+	TUTORIAL_TEXT_CLOSE(frame);
+end
+
+function SANDRAREVERT_RANDOM_TUTO_CHECK(frame, msg, arg_str, arg_num)
+	if frame == nil or frame:IsVisible() == 0 then return end
+
+	if session.shop.GetEventUserType() == 0 then return end
+
+	if arg_num == 100 then
+		TUTORIAL_TEXT_CLOSE(frame)
+		return
+	end
+
+	local open_flag = false
+	if msg == nil then
+		open_flag = true
+	end
+
+	local prop_name = "UITUTO_GLASS2"
+	frame:SetUserValue('TUTO_PROP', prop_name)
+	local tuto_step = GetUITutoProg(prop_name)
+	if tuto_step >= 100 then return end
+
+	local tuto_cls = GetClass('UITutorial', prop_name .. '_' .. tuto_step + 1)
+	if tuto_cls == nil then
+		tuto_cls = GetClass('UITutorial', prop_name .. '_100')
+		if tuto_cls == nil then return end
+	end
+
+	local ctrl_name = TryGetProp(tuto_cls, 'ControlName', 'None')
+	local title = dic.getTranslatedStr(TryGetProp(tuto_cls, 'Title', 'None'))
+	local text = dic.getTranslatedStr(TryGetProp(tuto_cls, 'Note', 'None'))
+	local ctrl = GET_CHILD_RECURSIVELY(frame, ctrl_name)
+	if ctrl == nil then return end
+
+	if open_flag == true then
+		
+	end
+
+	TUTORIAL_TEXT_OPEN(ctrl, title, text, prop_name)
+end
+
+function SANDRAREVERT_RANDOM_CHECKBOX_CHECK(parent, ctrl)
+	local frame = parent:GetTopParentFrame()
+	if ctrl:IsChecked() == 1 then
+		local tuto_prop = frame:GetUserValue('TUTO_PROP')
+		if tuto_prop == 'UITUTO_GLASS2' then
+			local tuto_value = GetUITutoProg(tuto_prop)
+			if tuto_value == 1 then
+				pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+			end
+		end
+	end
 end
 
 function CLEAR_ITEM_SANDRAREVERT_RANDOM_UI()
@@ -82,6 +138,10 @@ function CLEAR_ITEM_SANDRAREVERT_RANDOM_UI()
 	local bodyGbox2_1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox2_1');
 	bodyGbox2_1:RemoveAllChild();
 
+	for i = 1, MAX_RANDOM_OPTION_COUNT do
+		frame:SetUserValue("IS_CHECKED_" .. i, 0)
+	end
+
 	UPDATE_REMAIN_SANDRA_GLASS_COUNT(frame)
 end
 
@@ -109,6 +169,18 @@ function SENDOK_ITEM_SANDRAREVERT_RANDOM_UI()
 	local bodyGbox1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox1');
 	bodyGbox1:ShowWindow(1)
 	local bodyGbox1_1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox1_1');
+	local cnt = frame:GetUserIValue("RANDOM_PROP_CNT");
+	for i = 1, cnt do
+		local controlset = GET_CHILD_RECURSIVELY(bodyGbox1_1, "PROPERTY_CSET_"..i);
+		if controlset ~= nil then
+			local checkbox = GET_CHILD_RECURSIVELY(controlset, "checkbox");	
+			if checkbox:IsChecked() == 1 then
+				frame:SetUserValue("IS_CHECKED_" .. i, 1)
+			else
+				frame:SetUserValue("IS_CHECKED_" .. i, 0)
+			end			
+		end
+	end
 	bodyGbox1_1:RemoveAllChild();
 	bodyGbox1_1:EnableHitTest(1);
 
@@ -118,6 +190,14 @@ function SENDOK_ITEM_SANDRAREVERT_RANDOM_UI()
 	bodyGbox2_1:RemoveAllChild();
 
 	ITEM_SANDRAREVERT_RANDOM_REG_TARGETITEM(frame, iconInfo:GetIESID())
+
+	local tuto_prop = frame:GetUserValue('TUTO_PROP')
+	if tuto_prop == 'UITUTO_GLASS2' then
+		local tuto_value = GetUITutoProg(tuto_prop)
+		if tuto_value == 3 then
+			pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+		end
+	end
 end
 
 function ITEM_SANDRAREVERT_RANDOM_DROP(frame, icon, argStr, argNum)
@@ -215,6 +295,14 @@ function ITEM_SANDRAREVERT_RANDOM_REG_TARGETITEM(frame, itemID)
 			itemClsCtrl:Move(0, i * pos_y);
 			local propertyList = GET_CHILD_RECURSIVELY(itemClsCtrl, "property_name", "ui::CRichText");
 			propertyList:SetText(strInfo);
+			local checkbox = GET_CHILD_RECURSIVELY(itemClsCtrl, "checkbox");
+			checkbox:SetEventScript(ui.LBUTTONUP, 'SANDRAREVERT_RANDOM_CHECKBOX_CHECK')
+			if frame:GetUserIValue("IS_CHECKED_" .. i) == 1 then
+				checkbox:SetCheck(1);
+			else
+				checkbox:SetCheck(0);
+			end
+
 			ypos = i * pos_y + propertyList:GetHeight() + 5;
 			
 			cnt = cnt + 1;
@@ -225,6 +313,14 @@ function ITEM_SANDRAREVERT_RANDOM_REG_TARGETITEM(frame, itemID)
 	SET_SLOT_ITEM(slot, invItem);
 
 	frame:SetUserValue("RANDOM_PROP_CNT", cnt);	
+
+	local tuto_prop = frame:GetUserValue('TUTO_PROP')
+	if tuto_prop == 'UITUTO_GLASS2' then
+		local tuto_value = GetUITutoProg(tuto_prop)
+		if tuto_value == 0 then
+			pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+		end
+	end
 end
 
 function ITEM_SANDRAREVERT_RANDOM_EXEC(frame)
@@ -248,8 +344,13 @@ function ITEM_SANDRAREVERT_RANDOM_EXEC(frame)
 		return;
 	end
 
-	local clmsg = ScpArgMsg("DoSandrarevertRandomResetOptionCountNoReset")
-	ui.MsgBox_NonNested(clmsg, frame:GetName(), "_ITEM_SANDRAREVERT_RANDOM_EXEC", "None");
+	local check_no_msgbox = GET_CHILD_RECURSIVELY(frame, 'check_no_msgbox')
+	if check_no_msgbox:IsChecked() == 1 then
+		_ITEM_SANDRAREVERT_RANDOM_EXEC()
+	else
+		local clmsg = ScpArgMsg("DoSandrarevertRandomResetOptionCountNoReset")
+		ui.MsgBox_NonNested(clmsg, frame:GetName(), "_ITEM_SANDRAREVERT_RANDOM_EXEC", "None");
+	end
 end
 
 function _ITEM_SANDRAREVERT_RANDOM_EXEC()
@@ -414,6 +515,14 @@ function _SUCCESS_SANDRAREVERT_RANDOM_OPTION()
 	bodyGbox2:ShowWindow(1)
 
 	UPDATE_REMAIN_SANDRA_GLASS_COUNT(frame)
+
+	local tuto_prop = frame:GetUserValue('TUTO_PROP')
+	if tuto_prop == 'UITUTO_GLASS2' then
+		local tuto_value = GetUITutoProg(tuto_prop)
+		if tuto_value == 2 then
+			pc.ReqExecuteTx('SCR_UI_TUTORIAL_NEXT_STEP', tuto_prop)
+		end
+	end
 end
 
 function UPDATE_REMAIN_SANDRA_GLASS_COUNT(frame)

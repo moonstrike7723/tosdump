@@ -1,4 +1,4 @@
--- tpshop_server.lua
+﻿-- tpshop_server.lua
 
 local eventUserType = {
 	normalUser = 0,		-- 일반
@@ -381,6 +381,50 @@ function SCR_TX_NEWBIE_TP_SHOP(pc, argList)
 			end	
 		end
 
+		local startProp = TryGetProp(tpitem, "SellStartTime");
+		local endProp = TryGetProp(tpitem, "SellEndTime");
+
+		if startProp ~= nil and endProp ~= nil then
+			if startProp ~= "None" and endProp ~= "None" then
+				local curTime = GetDBTime()
+				local curSysTimeStr = string.format("%04d%02d%01d%02d%02d%02d%02d", curTime.wYear, curTime.wMonth, '0', curTime.wDay, curTime.wHour, curTime.wMinute, curTime.wSecond)
+				local startTime = TryGetProp(tpitem, "SellStartTime")
+				local endTime = TryGetProp(tpitem, "SellEndTime");
+                
+				local curYear = curTime.wYear
+				if startTime > endTime then
+					curYear = curYear + 1
+				end
+
+                local curYear = curTime.wYear
+                local endYear = curTime.wYear
+                startTime, curYear = CONVERT_NEWTIME_FORMAT_TO_OLDTIME_FORMAT_SERVER(startTime)
+                endTime, endYear = CONVERT_NEWTIME_FORMAT_TO_OLDTIME_FORMAT_SERVER(endTime)
+                startTime = tonumber(startTime)
+                endTime = tonumber(endTime)
+
+				local startSysTimeStr = string.format("%04d%09d%02d", curYear, startTime, '00')	
+				local endSysTimeStr = string.format("%04d%09d%02d", endYear, endTime, '00')
+
+				local curSysTime = imcTime.GetSysTimeByStr(curSysTimeStr)
+				local startSysTime = imcTime.GetSysTimeByStr(startSysTimeStr)
+				local endSysTime = imcTime.GetSysTimeByStr(endSysTimeStr)
+				
+				local startDifSec = imcTime.GetDifSec(startSysTime, curSysTime);
+				local difSec = imcTime.GetDifSec(endSysTime, curSysTime);
+	
+				if 0 >= difSec then
+					SendSysMsg(pc, "ExistSaleTimeExpiredItem")
+					return
+				end
+
+				if 0 <= startDifSec then
+					SendSysMsg(pc, "ExistSaleTimeExpiredItem")
+					return
+				end
+			end
+		end
+
 		local cmdIdx = TxGiveItem(tx, itemcls.ClassName, 1, "Newbie_Shop"); -- PremiumItemGet 컬렉션 Reason : Newbie_Shop
 		itemID = TxGetGiveItemID(tx, cmdIdx);
 		TxAddIESProp(tx, aobj, "Medal", -tpitem.Price, "Newbie_Shop:"..itemcls.ClassID..":"..itemID, cmdIdx); -- TP 사용로그
@@ -559,6 +603,49 @@ function SCR_TX_RETURNUSER_TP_SHOP(pc, argList)
 			end	
 		end
 
+		local startProp = TryGetProp(tpitem, "SellStartTime");
+		local endProp = TryGetProp(tpitem, "SellEndTime");
+
+		if startProp ~= nil and endProp ~= nil then
+			if startProp ~= "None" and endProp ~= "None" then
+				local curTime = GetDBTime()
+				local curSysTimeStr = string.format("%04d%02d%01d%02d%02d%02d%02d", curTime.wYear, curTime.wMonth, '0', curTime.wDay, curTime.wHour, curTime.wMinute, curTime.wSecond)
+				local startTime = TryGetProp(tpitem, "SellStartTime")
+				local endTime = TryGetProp(tpitem, "SellEndTime");
+                
+				local curYear = curTime.wYear
+				if startTime > endTime then
+					curYear = curYear + 1
+				end
+
+                local curYear = curTime.wYear
+                local endYear = curTime.wYear
+                startTime, curYear = CONVERT_NEWTIME_FORMAT_TO_OLDTIME_FORMAT_SERVER(startTime)
+                endTime, endYear = CONVERT_NEWTIME_FORMAT_TO_OLDTIME_FORMAT_SERVER(endTime)
+                startTime = tonumber(startTime)
+                endTime = tonumber(endTime)
+
+				local startSysTimeStr = string.format("%04d%09d%02d", curYear, startTime, '00')	
+				local endSysTimeStr = string.format("%04d%09d%02d", endYear, endTime, '00')
+
+				local curSysTime = imcTime.GetSysTimeByStr(curSysTimeStr)
+				local startSysTime = imcTime.GetSysTimeByStr(startSysTimeStr)
+				local endSysTime = imcTime.GetSysTimeByStr(endSysTimeStr)
+				
+				local startDifSec = imcTime.GetDifSec(startSysTime, curSysTime);
+				local difSec = imcTime.GetDifSec(endSysTime, curSysTime);
+	
+				if 0 >= difSec then
+					SendSysMsg(pc, "ExistSaleTimeExpiredItem")
+					return
+				end
+
+				if 0 <= startDifSec then
+					SendSysMsg(pc, "ExistSaleTimeExpiredItem")
+					return
+				end
+			end
+		end
 
 		local cmdIdx = TxGiveItem(tx, itemcls.ClassName, 1, "ReturnUser_Shop"); -- PremiumItemGet 컬렉션 Reason : Newbie_Shop
 		itemID = TxGetGiveItemID(tx, cmdIdx);

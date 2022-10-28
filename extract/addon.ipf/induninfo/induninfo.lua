@@ -5,8 +5,8 @@ function INDUNINFO_ON_INIT(addon, frame)
     addon:RegisterMsg('FIELD_BOSS_MONSTER_UPDATE', 'ON_FIELD_BOSS_MONSTER_UPDATE');
     addon:RegisterMsg('FIELD_BOSS_RANKING_UPDATE', 'ON_FIELD_BOSS_RANKING_UPDATE');
     addon:RegisterMsg('BORUTA_RANKING_UI_UPDATE', 'BORUTA_RANKING_UI_UPDATE');
-	addon:RegisterMsg("PVP_STATE_CHANGE", "INDUNINFO_TEAM_BATTLE_STATE_CHANGE");
-
+    addon:RegisterMsg("PVP_STATE_CHANGE", "INDUNINFO_TEAM_BATTLE_STATE_CHANGE");
+    addon:RegisterMsg("FAVORITE_CHANGE","INDUN_INFO_UPDATE_FAVORITE")
 	g_selectedIndunTable = {};
 end
 
@@ -19,7 +19,7 @@ g_pvpIndunCategoryList = {600, 700, 900};
     카테고리 안의 탭들(디테일 컨트롤)에 주/일 횟수를 표시하고 싶다면
     ㄴ> Difficulty에 값을 넣어주면 됨(스트링); 난이도나 모드, 간결화된 이름을 넣길 권장;
 ]]
-g_indunCategoryList = {"Unique", "Unique_Solo", "Gtower", "Velcoffer"};
+g_indunCategoryList = {"Indun","Uphill","Solo_dungeon","Raid_Solo","Challenge","Unique", "Unique_Solo", "Gtower", "Velcoffer"};
 
 --[[
     프던 보스 카운트 및 챌린지 모드 정보 표시하려고 추가함
@@ -61,20 +61,23 @@ function INDUNINFO_UI_OPEN(frame, index)
     if session.weeklyboss.GetNowWeekNum() == 0 then
         weekly_boss.RequestWeeklyBossNowWeekNum();                  -- 현재 week_num 요청
     elseif imcTime.IsLaterThan(now_time,weekly_boss_endtime) ~= 0 then
+        weekly_boss.RequestWeeklyBossEndTime(session.weeklyboss.GetNowWeekNum());                
         weekly_boss.RequestWeeklyBossNowWeekNum();                  -- 현재 week_num 요청
 	end
 
     local boruta_endtime = session.boruta_ranking.GetBorutaEndTime();
     if session.boruta_ranking.GetNowWeekNum() == 0 then
-        boruta.RequestBorutaNowWeekNum();
+        boruta.RequestBorutaNowWeekNum();                    
     elseif imcTime.IsLaterThan(now_time, boruta_endtime) ~= 0 then
-        boruta.RequestBorutaNowWeekNum();
+        boruta.RequestBorutaEndTime(session.boruta_ranking.GetNowWeekNum())
+        boruta.RequestBorutaNowWeekNum();                    
     end
 
     local tab = GET_CHILD_RECURSIVELY(frame, "tab");
     tab:SelectTab(index);
     TOGGLE_INDUNINFO(frame,index)
     
+
     INDUNINFO_RESET_USERVALUE(frame);
 	INDUNINFO_CREATE_CATEGORY(frame);
 end
@@ -90,7 +93,7 @@ end
 function TOGGLE_INDUNINFO(frame,type)
 	--indun
 	do
-		local isShow = BoolToNumber(0 == type or 1 == type)
+		local isShow = BoolToNumber(0 == type or 1 == type or 2 == type)
 		local indunbox = GET_CHILD_RECURSIVELY(frame,'indunbox')
 		indunbox:ShowWindow(isShow)
 		local lvAscendRadio = GET_CHILD_RECURSIVELY(frame,'lvAscendRadio')
@@ -102,7 +105,7 @@ function TOGGLE_INDUNINFO(frame,type)
 	end
 	--weeklyboss rank
 	do
-		local isShow = BoolToNumber(2 == type)
+		local isShow = BoolToNumber(3 == type)
 		local WeeklyBossbox = GET_CHILD_RECURSIVELY(frame, 'WeeklyBossbox')
 		WeeklyBossbox:ShowWindow(isShow)
 
@@ -112,33 +115,33 @@ function TOGGLE_INDUNINFO(frame,type)
 	end
 	--raid rank
 	do
-		local isShow = BoolToNumber(3 == type)
+		local isShow = BoolToNumber(4 == type)
 		local raidrankingBox = GET_CHILD_RECURSIVELY(frame, 'raidrankingBox');
 		raidrankingBox:ShowWindow(isShow);
 	end
 	--boruta rank
 	do
-		local isShow = BoolToNumber(4 == type)
+		local isShow = BoolToNumber(5 == type)
 		local boruta_box = GET_CHILD_RECURSIVELY(frame, 'boruta_box')
 		boruta_box:ShowWindow(isShow)
 	end
 	--pvp
 	do
-		local isShow = BoolToNumber(5 == type)
+		local isShow = BoolToNumber(6 == type)
 		local pvpBox = GET_CHILD_RECURSIVELY(frame,'pvpbox')
 		pvpBox:ShowWindow(isShow)
 	end
 	--pvp and indun common
 	do
-		local isShow = BoolToNumber(5 == type or 0 == type or 1 == type)
+		local isShow = BoolToNumber(6 == type or 0 == type or 1 == type or 2 == type)
 		local categoryBox = GET_CHILD_RECURSIVELY(frame, 'categoryBox')
 		categoryBox:ShowWindow(isShow)
 		local contentBox = GET_CHILD_RECURSIVELY(frame, 'contentBox')
-		contentBox:ShowWindow(isShow)
+        contentBox:ShowWindow(isShow)
 	end
 	--field boss
 	do
-		local isShow = BoolToNumber(6 == type)
+		local isShow = BoolToNumber(7 == type)
 		local field_boss_box = GET_CHILD_RECURSIVELY(frame, 'field_boss_box')
 		field_boss_box:ShowWindow(isShow)
 	end
@@ -174,10 +177,13 @@ function INDUNINFO_CREATE_CATEGORY(frame)
     local missionIndunSet = {};
 
     local tab = GET_CHILD_RECURSIVELY(frame, "tab")
-    local isRaidTab = (tab:GetSelectItemIndex() == 1)
+    local isRaidTab = (tab:GetSelectItemIndex() == 2)
+    local isFavoriteTab = (tab:GetSelectItemIndex() == 0)
+    local favorite_indunlist = INDUNINFO_GET_FAVORITE_INDUN_LIST();
+
     local enableCreate = function(dungeonType)
         local isRaid = (dungeonType == 'UniqueRaid' or dungeonType == 'Raid' or dungeonType == 'GTower' or dungeonType == "MythicDungeon_Auto" or dungeonType == "MythicDungeon_Auto_Hard")
-        return ((isRaid == true and isRaidTab == true) or (isRaid == false and isRaidTab == false))
+        return ((isRaid == true and isRaidTab == true) or (isRaid == false and isRaidTab == false) or isFavoriteTab == true)
     end
     -- 카테고리 버튼 생성 함수
     local createCategory = function(groupID,cls)
@@ -191,12 +197,20 @@ function INDUNINFO_CREATE_CATEGORY(frame)
         local name = categoryCtrl:GetChild("name");
         local btn = categoryCtrl:GetChild("button");
         local countText = categoryCtrl:GetChild('countText');
-
+      
         -- 주/일 횟수 텍스트
         local countText = categoryCtrl:GetChild('countText');
         -- 주/일 표시 이미지
         local cyclePicImg = GET_CHILD_RECURSIVELY(categoryCtrl, 'cycleCtrlPic')   
 
+        local favorite_img = GET_CHILD_RECURSIVELY(categoryCtrl, "favorite");
+
+        if table.find(favorite_indunlist, groupID) ~= 0 then 
+            favorite_img:SetImage("star_in_arrow")
+        else
+            favorite_img:SetImage("star_out_arrow")
+        end
+        
         btn:Resize(categoryBtnWidth, categoryCtrl:GetHeight());
         name:SetTextByKey("value", category);
 
@@ -210,9 +224,15 @@ function INDUNINFO_CREATE_CATEGORY(frame)
             if TryGetProp(cls,"GroupID","None") == "Rift" then temp = -300;
             elseif TryGetProp(cls,"GroupID","None")  == "Ancient" then temp = -500;
             else temp = cls.PlayPerResetType; end
+
+            if temp == 5000 then -- 영웅담 예외처리
+                countText:SetText(ScpArgMsg('ChallengeMode_HardMode_Count', 'Count', GET_CURRENT_ENTERANCE_COUNT(temp)))
+                cyclePicImg:ShowWindow(0);
+            else
             countText:SetTextByKey('current', GET_CURRENT_ENTERANCE_COUNT(temp));
             countText:SetTextByKey('max', GET_INDUN_MAX_ENTERANCE_COUNT(temp));
         INDUNINFO_SET_CYCLE_PIC(cyclePicImg,cls,'_s')
+        end
         end
 
         categoryCtrl:SetUserValue('RESET_GROUP_ID', groupID);
@@ -220,33 +240,37 @@ function INDUNINFO_CREATE_CATEGORY(frame)
             firstBtn = btn;
         end
     end
+    local isFavorite = function(groupID)
+        local isfavorite = table.find(favorite_indunlist, groupID) ~= 0
+        return ((isfavorite == true and isFavoriteTab == true) or isFavoriteTab == false)
+    end
 
     local indunClsList, cnt = GetClassList('Indun');
     for i = 0, cnt - 1 do
-        local indunCls = GetClassByIndexFromList(indunClsList, i); -- 클래스 id로 가져옴
+        local indunCls = GetClassByIndexFromList(indunClsList, i);
         if indunCls ~= nil and indunCls.Category ~= 'None' and enableCreate(indunCls.DungeonType) == true then
-            local groupID = TryGetProp(indunCls,"GroupID","None") ;
-            if groupID ~= 'None' then
-            if indunCls.DungeonType == 'MissionIndun' then
-                INDUNINFO_ADD_COUNT(missionIndunSet,groupID)
-                INDUNINFO_PUSH_BACK_TABLE(g_indunCategoryList, groupID)
-                createCategory(groupID, indunCls)
-			elseif string.find(indunCls.DungeonType, "MythicDungeon") == 1 then
-				local pattern_info = mythic_dungeon.GetPattern(mythic_dungeon.GetCurrentSeason())
-				local mapCls = GetClassByType("Map",pattern_info.mapID)
-                -- "성물 레이드 : 레이드 이름" 으로 표현하기 위해서는 생성 함수를 각각 줄 수 밖에 없었음
-				if TryGetProp(mapCls,"ClassName") == indunCls.MapName then
+            local groupID = TryGetProp(indunCls,"GroupID","None");
+            if groupID ~= 'None' and isFavorite(groupID) == true then
+                if indunCls.DungeonType == 'MissionIndun' then
+                    INDUNINFO_ADD_COUNT(missionIndunSet,groupID)
+                    INDUNINFO_PUSH_BACK_TABLE(g_indunCategoryList, groupID)
+                    createCategory(groupID, indunCls)
+			    elseif string.find(indunCls.DungeonType, "MythicDungeon") == 1 then
+			    	local pattern_info = mythic_dungeon.GetPattern(mythic_dungeon.GetCurrentSeason())
+			    	local mapCls = GetClassByType("Map",pattern_info.mapID)
+                    -- "성물 레이드 : 레이드 이름" 으로 표현하기 위해서는 생성 함수를 각각 줄 수 밖에 없었음
+			    	if TryGetProp(mapCls,"ClassName") == indunCls.MapName then
+                        INDUNINFO_ADD_COUNT(groupTable, groupID)
+                        INDUNINFO_PUSH_BACK_TABLE(g_indunCategoryList, groupID)
+                        createCategory(groupID, indunCls)
+			    	end
+                else
                     INDUNINFO_ADD_COUNT(groupTable, groupID)
                     INDUNINFO_PUSH_BACK_TABLE(g_indunCategoryList, groupID)
                     createCategory(groupID, indunCls)
-				end
-            else
-                INDUNINFO_ADD_COUNT(groupTable, groupID)
-                INDUNINFO_PUSH_BACK_TABLE(g_indunCategoryList, groupID)
-                createCategory(groupID, indunCls)
+			    end
             end
         end
-    end
     end
 
     for key,_ in pairs(missionIndunSet) do
@@ -260,14 +284,11 @@ function INDUNINFO_CREATE_CATEGORY(frame)
             local contentsCls = GetClassByIndexFromList(contentsClsList, i)
             if contentsCls ~= nil and contentsCls.Category ~='None' then
                 local groupID = TryGetProp(contentsCls,"GroupID","None") 
-                
-                INDUNINFO_ADD_COUNT(groupTable,groupID)
-                INDUNINFO_PUSH_BACK_TABLE(g_contentsCategoryList,groupID);
-                -- local function contents_sort(a, b) 어짜피 클래스 아이디 순번이니까 의미 없는 정렬 
-                --     return a.ResetGroupID > b.ResetGroupID
-                -- end
-                -- table.sort(g_contentsCategoryList, contents_sort)
-                createCategory(groupID,contentsCls)
+                if isFavorite(groupID) == true then
+                    INDUNINFO_ADD_COUNT(groupTable,groupID)
+                    INDUNINFO_PUSH_BACK_TABLE(g_contentsCategoryList,groupID);
+                    createCategory(groupID,contentsCls)
+                end
             end
         end
     end
@@ -280,7 +301,23 @@ function INDUNINFO_CREATE_CATEGORY(frame)
 
     INDUNINFO_CATEGORY_ALIGN_DEFAULT(categoryBox);
     -- default select
-    INDUNINFO_CATEGORY_LBTN_CLICK(firstBtn:GetParent(), firstBtn);
+    local infoBox = GET_CHILD_RECURSIVELY(frame, 'infoBox');
+    local resetText = GET_CHILD_RECURSIVELY(frame, "resetInfoText");
+    local resetText_week = GET_CHILD_RECURSIVELY(frame, "resetInfoText_Week");
+    local canNotEnterText = GET_CHILD_RECURSIVELY(frame, "canNotEnterText");
+
+    if firstBtn == nil then
+        infoBox:ShowWindow(0);
+        resetText:ShowWindow(0);
+        resetText_week:ShowWindow(0);
+        canNotEnterText:ShowWindow(0)
+    else
+        infoBox:ShowWindow(1);
+        resetText:ShowWindow(1);
+        resetText_week:ShowWindow(0);
+        INDUNINFO_CATEGORY_LBTN_CLICK(firstBtn:GetParent(), firstBtn);
+        INDUNINFO_FAVORITE_TAB_FIRST_BTN(favorite_indunlist, categoryBox, tab);
+    end
 end
 
 function INDUNINFO_CATEGORY_ALIGN_DEFAULT(categoryBox)
@@ -379,7 +416,7 @@ function INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, cls, is_weekly_reset)
         -- if resetGroupID == -101 or resetGroupID == 816 or resetGroupID == 817 or resetGroupID == 813 then
         -- 분열 특이점, 성물레이드, 성물레이드 도전모드 예외 처리; 
         -- -101 : contents_info에 있는 분열특이점, 챌린지모드는 어따 쓰는지 모르겠음 일단 현황판 탭에서는 안쓰이는중
-        if cls.PlayPerResetType == 816 or cls.PlayPerResetType == 813 or cls.PlayPerResetType == 817 or cls.PlayPerResetType == 807 then
+        if TryGetProp(cls, 'TicketingType', 'None') == 'Entrance_Ticket' then        
             countText:SetText(ScpArgMsg('ChallengeMode_HardMode_Count', 'Count', GET_CURRENT_ENTERANCE_COUNT(cls.PlayPerResetType)))
             cyclePic:ShowWindow(0);
         else
@@ -398,6 +435,7 @@ function INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, cls, is_weekly_reset)
 
     -- 주간 입장 텍스트 설정
     local topFrame = indunListBox:GetTopParentFrame()
+    local canNotEnterText = GET_CHILD_RECURSIVELY(topFrame, 'canNotEnterText');         --랭킹 집계로 인해 토요일 오전 0시부터 오전 6시 사이에는 입장이 불가능합니다.    
     local resetInfoText = GET_CHILD_RECURSIVELY(topFrame, 'resetInfoText');             --"입장 횟수는 매일 %s시에 초기화 됩니다."
     local resetInfoText_Week = GET_CHILD_RECURSIVELY(topFrame, 'resetInfoText_Week');   --"입장 횟수는 매주 월요일 %s시에 초기화 됩니다."
 
@@ -420,6 +458,15 @@ function INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, cls, is_weekly_reset)
         return
     end
 
+    if TryGetProp(cls, 'DungeonType', 'None') == 'TOSHero' then
+        canNotEnterText:ShowWindow(1);
+        resetInfoText:ShowWindow(0)
+        resetInfoText_Week:ShowWindow(0)
+        return
+    end
+
+
+    canNotEnterText:ShowWindow(0);
     if is_weekly_reset == true then
         --주간
         local resetText_wkeely = string.format('%s %s', ampm, resetTime);
@@ -494,7 +541,7 @@ function INDUNINFO_CATEGORY_LBTN_CLICK(categoryCtrl, ctrl)
 
             if add_flag == true then
 				local is_weekly_reset = (indunCls.WeeklyEnterableCount ~= nil and indunCls.WeeklyEnterableCount > 0)
-				if indunCls.DungeonType == "Solo_dungeon" or indunCls.DungeonType == "MythicDungeon_Auto_Hard" then
+				if indunCls.DungeonType == "Solo_dungeon" or indunCls.DungeonType == "MythicDungeon_Auto_Hard" or indunCls.DungeonType == "TOSHero" then
 					is_weekly_reset = true
                 end
                 INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, indunCls, is_weekly_reset)
@@ -550,22 +597,16 @@ function GET_CURRENT_ENTERANCE_COUNT(resetGroupID)
     else 
         if indunCls.UnitPerReset == 'PC' then
             return etc['InDunCountType_'..resetGroupID]; --매일 남은 횟수
-        else
-            if resetGroupID == 807 then
-                return acc_obj["Giltine_Raid_EnableEntryCount"]; 
+        else -- 'ACCOUNT'            
+            if TryGetProp(indunCls, 'CheckCountName', 'None') ~= 'None' then
+                return acc_obj[TryGetProp(indunCls, 'CheckCountName', 'None')]
             end
-            
-            if indunCls.DungeonType == "Challenge_Auto" then
+
+            if indunCls.DungeonType == "Challenge_Auto" or indunCls.DungeonType == "Challenge_Solo" then
                 if string.find(indunCls.ClassName, "Challenge_Division") == nil then
                     -- 챌린지 자동매칭 남은 횟수
                     return etc["ChallengeModeCompleteCount"]; 
-                else
-                    -- 챌린지 분열 자동매칭 남은 횟수
-                    return acc_obj["ChallengeMode_HardMode_EnableEntryCount"]; 
                 end
-            elseif indunCls.DungeonType == "MythicDungeon_Auto_Hard" then
-                -- 성물 던전 자동매칭 HardMode 남은 횟수
-                return acc_obj["MythicDungeon_Auto_Hard_EnableEntryCount"];
             else
                 return acc_obj['InDunCountType_'..resetGroupID]; --매일 남은 횟수
             end
@@ -690,6 +731,8 @@ function GET_RESET_CYCLE_PIC_TYPE(cls,postFix)
             cyclePicType = "None";
         elseif string.find(dungeonType, "MythicDungeon") ~= nil then
             cyclePicType = "week";
+        elseif string.find(dungeonType, "TOSHero") ~= nil then
+            cyclePicType = "None";
         end
     elseif idSpace == 'PVPIndun' then
         local indunCls = cls
@@ -768,7 +811,7 @@ function INDUNINFO_DETAIL_LBTN_CLICK(parent, detailCtrl, clicked)
     indunListBox:SetUserValue('SELECTED_DETAIL', indunClassID);
     -- 인스턴스 던전 정보 처리를 위한 임시 처리 끝 --
     local resetGroupID = topFrame:GetUserValue('SELECT')
-    if index == 5 then
+    if index == 6 then
         PVP_INDUNINFO_MAKE_DETAIL_INFO_BOX(topFrame, indunClassID);
     elseif table.find(g_contentsCategoryList,resetGroupID) ~= 0 then
         INDUNINFO_MAKE_DETAIL_INFO_BOX_OTHER(topFrame, indunClassID)
@@ -1196,10 +1239,20 @@ function INDUNINFO_MAKE_DETAIL_COMMON_INFO(frame, indunCls, resetGroupID)
 
         local raid_time_box = GET_CHILD_RECURSIVELY(frame, "raid_time_box");
         raid_time_box:ShowWindow(0);
-
+        -- position
         local posBox = GET_CHILD_RECURSIVELY(frame, 'posBox');
         DESTROY_CHILD_BYNAME(posBox, 'MAP_CTRL_');
-        posBox:ShowWindow(1);
+        posBox:ShowWindow(0);
+
+        -- score
+        local scoreBox = GET_CHILD_RECURSIVELY(frame, 'scoreBox');
+        scoreBox:ShowWindow(0);
+
+    if indunCls.DungeonType == "TOSHero" then
+        scoreBox:ShowWindow(1);
+    else
+        local raid_time_box = GET_CHILD_RECURSIVELY(frame, "raid_time_box");
+        raid_time_box:ShowWindow(0);
         local mapList = StringSplit(TryGetProp(indunCls, "StartMap", ""), '/');
     
         -- 챌린지 분열 특이점 모드 & 분열 특이점 모드 자동매칭 예외처리
@@ -1222,6 +1275,9 @@ function INDUNINFO_MAKE_DETAIL_COMMON_INFO(frame, indunCls, resetGroupID)
                 mapNameText:SetText(mapCls.Name);
             end
         end
+
+        posBox:ShowWindow(1);
+    end
    
     INDUNINFO_SET_BUTTONS(frame,indunCls)
     INDUNINFO_MAKE_PATTERN_BOX(frame,indunCls)
@@ -1271,7 +1327,7 @@ function INDUNINFO_SET_ENTERANCE_COUNT(frame, resetGroupID)
     --todo
     local countData = GET_CHILD_RECURSIVELY(frame, 'countData');
     local countData2 = GET_CHILD_RECURSIVELY(frame, 'countData2');
-    if resetGroupID == -101 or resetGroupID == 816 or resetGroupID == 817 or resetGroupID == 807 then
+    if resetGroupID == -101 or resetGroupID == 816 or resetGroupID == 817 or resetGroupID == 807 or resetGroupID == 5000 then
         countData2:SetTextByKey('now', GET_CURRENT_ENTERANCE_COUNT(resetGroupID))
         countData:ShowWindow(0)
         countData2:ShowWindow(1)
@@ -1349,7 +1405,7 @@ function INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls)
                         class_name = "Raid";
                     end
 
-                    if class_name ~= nil and class_name ~= "None" and class_name == dungeonType then
+                    if class_name ~= nil and class_name ~= "None" and (class_name == dungeonType or subType == "MoveEnterNPC" and dungeonType == "GTower") then
                         local sub_type = TryGetProp(cls, "SubType", "None");
                         if sub_type ~= nil and sub_type ~= "None" and sub_type == subType then
                             btnInfoCls = cls;
@@ -1410,7 +1466,7 @@ function INDUNINFO_SET_BUTTONS(frame, indunCls)
         if buttonScp ~= 'None' then
             local text = TryGetProp(btnInfoCls,"Button"..i.."Text","None")
             button:SetEventScript(ui.LBUTTONUP,buttonScp)
-			button:SetTextByKey("btnText",text)
+            button:SetTextByKey("btnText",text)
 			button:SetEventScriptArgString(ui.LBUTTONUP,indunCls.ClassName)
             button:ShowWindow(1)
             type = math.max(BoolToNumber(i<=2)+1,type)
@@ -1439,7 +1495,7 @@ function INDUNINFO_SET_ADMISSION_ITEM(frame,indunCls)
     local nowAdmissionItemCount = GET_INDUN_ADMISSION_ITEM_COUNT(indunCls)
     if nowAdmissionItemCount <= 0 then
         countText:SetText(ScpArgMsg("IndunAdmissionItemReset"))
-        if indunCls.DungeonType == 'ChallengeMode_HardMode' or string.find(indunCls.ClassName, "Challenge_Division_Auto") ~= nil or indunCls.DungeonType == "MythicDungeon_Auto_Hard" or indunCls.PlayPerResetType == 807 then
+        if indunCls.DungeonType == 'ChallengeMode_HardMode' or string.find(indunCls.ClassName, "Challenge_Division_Auto") ~= nil or indunCls.DungeonType == "MythicDungeon_Auto_Hard" or indunCls.DungeonType == "MythicDungeon" or TryGetProp(indunCls, "PlayPerResetType",-1) == 807 or indunCls.DungeonType == 'TOSHero' then
             countData:ShowWindow(0);
             countData2:ShowWindow(1);
         else
@@ -1525,18 +1581,32 @@ end
 
 function INDUNINFO_SORT_BY_LEVEL(parent, ctrl)
     local topFrame = parent:GetTopParentFrame();
+    local infoBox = GET_CHILD_RECURSIVELY(topFrame, "infoBox");
+    if infoBox:IsVisible() == 0 then 
+        return;
+    end
+
+    local tab = GET_CHILD(topFrame, "tab");
+    local index = tab:GetSelectItemIndex();
+    
     local groupID = topFrame:GetUserValue('SELECT')
     local radioBtn = GET_CHILD_RECURSIVELY(topFrame, 'lvAscendRadio');
     local selectedBtn = radioBtn:GetSelectedButton();
     if selectedBtn:GetName() == 'lvAscendRadio' then
-        table.sort(g_selectedIndunTable, SORT_BY_LEVEL_BASE_NAME);
+        if groupID ~= "Challenge" then
+            table.sort(g_selectedIndunTable, SORT_BY_LEVEL_BASE_NAME);
+        end
+
+        local is_raid_tab = index == 2;
+        if is_raid_tab == true and groupID ~= "Gtower" then
+            table.sort(g_selectedIndunTable, SORT_RAID_BY_RAID_TYPE);
+        end
     else
         table.sort(g_selectedIndunTable, SORT_BY_LEVEL_REVERSE);
     end
-    local tab = GET_CHILD(topFrame, "tab");
-    local index = tab:GetSelectItemIndex();
+
     local SCROLL_WIDTH = 20
-    if index == 5 then
+    if index == 6 then
         SCROLL_WIDTH = 0
     end
     local MARGIN = 18
@@ -1547,6 +1617,7 @@ function INDUNINFO_SORT_BY_LEVEL(parent, ctrl)
     firstChild = tolua.cast(firstChild, 'ui::CControlSet');
         startY = firstChild:GetY();    
     end
+    
     for i = 1, #g_selectedIndunTable do
         local indunCls = g_selectedIndunTable[i];        
         local detailCtrl = indunListBox:GetChild('DETAIL_CTRL_'..indunCls.ClassID);        
@@ -1607,6 +1678,24 @@ function SORT_BY_LEVEL_REVERSE(a, b)
     return tonumber(a.Level) > tonumber(b.Level)
 end
 
+function SORT_RAID_BY_RAID_TYPE(a, b)
+    if TryGetProp(a, "DungeonType", "None") ~= "Raid" or TryGetProp(b, "DungeonType", "None") ~= "Raid" then
+        return false;
+    end
+
+    local function substitution_raid_type(raid_type)
+        if raid_type == "PartyNormal" then return 0;
+        elseif raid_type == "PartyHard" then return 1;
+        elseif raid_type == "Solo" then return 2;
+        elseif raid_type == "AutoNormal" then return 3;
+        elseif raid_type == "AutoHard" then return 4; end
+    end
+
+    local difficulty_a = substitution_raid_type(TryGetProp(a, "RaidType", "None"));
+    local difficulty_b = substitution_raid_type(TryGetProp(b, "RaidType", "None"));
+    return difficulty_a < difficulty_b;
+end
+
 function INDUNINFO_OPEN_INDUN_MAP(parent, ctrl)
     local mapID = parent:GetUserValue('INDUN_START_MAP_ID')
     local mapName = GetClassByType("Map", mapID).ClassName
@@ -1631,17 +1720,17 @@ function INDUNINFO_TAB_CHANGE(parent, ctrl)
 	local frame = parent:GetTopParentFrame();
 	local tab = GET_CHILD_RECURSIVELY(frame, "tab");
 	local index = tab:GetSelectItemIndex();
-    if index == 0 or index == 1 then
+    if index == 0 or index == 1 or index == 2 then
 		INDUNINFO_UI_OPEN(frame, index);
-    elseif index == 2 then
-        WEEKLYBOSSINFO_UI_OPEN(frame);
     elseif index == 3 then
+        WEEKLYBOSSINFO_UI_OPEN(frame);
+    elseif index == 4 then
         RAID_RANKING_UI_OPEN(frame);
-	elseif index == 4 then
+	elseif index == 5 then
         BORUTA_RANKING_UI_OPEN(frame);
-    elseif index == 5 then
-		PVP_INDUNINFO_UI_OPEN(frame);
-	elseif index == 6 then
+    elseif index == 6 then
+        PVP_INDUNINFO_UI_OPEN(frame);
+	elseif index == 7 then
 		FIELD_BOSS_UI_OPEN(frame);
 	end
 	TOGGLE_INDUNINFO(frame,index)
@@ -1653,7 +1742,9 @@ function PVP_INDUNINFO_UI_OPEN(frame)
 	local categoryBox = GET_CHILD_RECURSIVELY(frame, 'categoryBox');
 	categoryBox:RemoveAllChild();
 
-
+    local infoBox = GET_CHILD_RECURSIVELY(frame, 'infoBox')
+    infoBox:ShowWindow(1)
+    
     local categoryBtnWidth = categoryBox:GetWidth();
     local resetGroupTable = {};
     local indunClsList, cnt = GetClassList('PVPIndun');
@@ -1894,9 +1985,26 @@ function INDUNINFO_MOVE_TO_ENTER_NPC(frame, ctrl)
 end
 
 function INDUNINFO_MOVE_TO_SOLO_DUNGEON(parent,ctrl)
-    local indunClsID = ctrl:GetUserValue('MOVE_INDUN_CLASSID');
-    local yesScp = string.format("_INDUNINFO_MOVE_TO_DUNGEON(%d,0)",indunClsID)
-    ui.MsgBox(ClMsg('EnterRightNow'), yesScp, 'None');
+    local indun_cls_id = ctrl:GetUserValue('MOVE_INDUN_CLASSID');
+    local indun_cls = GetClassByType("Indun", indun_cls_id);
+    if indun_cls ~= nil then
+        local name = TryGetProp(indun_cls, "Name", "None");
+        local account_obj = GetMyAccountObj();
+        if account_obj ~= nil then
+            local stage = TryGetProp(account_obj, "SOLO_DUNGEON_MINI_CLEAR_STAGE", 0);
+            local yesScp = "INDUNINFO_MOVE_TO_SOLO_DUNGEON_PRECHECK";
+            local title = ScpArgMsg("Select_Stage_SoloDungeon", "Stage", stage + 5); 
+            INDUN_EDITMSGBOX_FRAME_OPEN(indun_cls_id, title, "", yesScp, "", 1, stage + 5, 1);
+        end
+    end
+end
+
+function INDUNINFO_MOVE_TO_SOLO_DUNGEON_PRECHECK(type, num)
+    if type ~= nil and num ~= nil then
+        local msg = ScpArgMsg("SoloDungeonSelectStageEnterMsg", "Stage", num);
+        local yes_scp = string.format("_INDUNINFO_MOVE_TO_DUNGEON(\"%s\",\"%s\",\"%s\")", type, 0, num);
+        ui.MsgBox(msg, yes_scp, "None");
+    end
 end
 
 function INDUNINFO_MOVE_TO_ANCIENT_DUNGEON(parent,ctrl)
@@ -1915,8 +2023,8 @@ function GET_ANCIENT_STAGE_OF_CLASS(indunCls)
     return selectStage
 end
 
-function _INDUNINFO_MOVE_TO_DUNGEON(type,argNum)
-    ReqEnterSoloIndun(type,argNum)
+function _INDUNINFO_MOVE_TO_DUNGEON(type, argNum, argNum2)
+    ReqEnterSoloIndun(tonumber(type), tonumber(argNum), tonumber(argNum2));
     ui.CloseFrame('induninfo')
 end
 
@@ -1927,6 +2035,10 @@ function SCR_OPEN_OBSERVE_TEAMBATTLE()
 end
 
 function REQ_OPEN_SOLO_DUNGEON_RANKING_UI()
+    if session.world.IsIntegrateServer() == true or IsPVPField(pc) == 1 or IsPVPServer(pc) == 1 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
     pc.ReqExecuteTx("SEND_SOLO_DUNGEON_RANKING_FULL","None")
     ui.CloseFrame('induninfo')
 end
@@ -2262,6 +2374,12 @@ function WEEKLY_BOSS_RANK_REWARD_CLICK()
     WEEKLYBOSSREWARD_SHOW(0);
 end
 
+-- 영웅담 보상 버튼 클릭
+function TOSHERO_REWARD_CLICK()
+    TOSHEROREWARD_SHOW(3,0);
+end
+
+
 -- 입장하기 버튼 클릭
 function WEEKLY_BOSS_JOIN_ENTER_CLICK(parent,ctrl)
     local pc = GetMyPCObject()
@@ -2467,12 +2585,21 @@ function RAID_RANKING_INFO_DETAIL(y, rank, time, member)
     local membery = 20;
     for i = 1, memberCnt do
         local infostrlist = StringSplit(memberstrlist[i], ' ');
+        local end_count = #infostrlist
+
         local teamname = "";
         local guildname = "";
         local memberCtrl = membergb:CreateOrGetControlSet("raid_ranking_info_member", "member_"..i, 0, membery);
         if 1 < #infostrlist then
-            guildname = infostrlist[1];
-            teamname = infostrlist[2];
+            for j = 1, end_count - 1 do
+                if j == 1 then
+                    guildname = infostrlist[j]
+                else
+                    guildname = guildname .. ' ' .. infostrlist[j];
+                end
+            end
+                        
+            teamname = infostrlist[end_count];
 
             local guildCtrl = GET_CHILD(memberCtrl, "guild");
             guildCtrl:SetText(guildname);
@@ -3309,19 +3436,18 @@ function REQ_CHALLENGE_AUTO_UI_OPEN(frame, ctrl)
     local keywordTable = StringSplit(zoneKeyword, ';')
     if table.find(keywordTable, 'IsRaidField') > 0 or table.find(keywordTable, 'WeeklyBossMap') > 0 then
         ui.SysMsg(ScpArgMsg('ThisLocalUseNot'))
-        return
+        return;
     end
 
     local challengeType = 0
     local indunClsID = tonumber(ctrl:GetUserValue('MOVE_INDUN_CLASSID'))
     local indunCls = GetClassByType('Indun', indunClsID)
-    if TryGetProp(indunCls, 'DungeonType', 'None') ~= 'Challenge_Auto' then
-        return
+    local dungeonType = TryGetProp(indunCls, 'DungeonType', 'None');
+    if dungeonType ~= "Challenge_Auto" and dungeonType ~= "Challenge_Solo" then
+        return;
     end
-
-    ui.CloseFrame('induninfo')
-
-    ReqChallengeAutoUIOpen(indunClsID)
+    ui.CloseFrame('induninfo');
+    ReqChallengeAutoUIOpen(indunClsID);
 end
 
 function REQ_RAID_AUTO_UI_OPEN(frame, ctrl)
@@ -3355,4 +3481,120 @@ function REQ_RAID_AUTO_UI_OPEN(frame, ctrl)
 
     ui.CloseFrame("induninfo");
     ReqRaidAutoUIOpen(indun_classid);
+end
+
+function REQ_TOSHERO_ENTER(frame, ctrl)
+    -- 매칭 던전중이거나 pvp존이면 이용 불가
+    if session.world.IsIntegrateServer() == true or IsPVPField(pc) == 1 or IsPVPServer(pc) == 1 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
+
+    -- 퀘스트나 챌린지 모드로 인해 레이어 변경되면 이용 불가
+    if world.GetLayer() ~= 0 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
+    
+    -- 레이드 지역에서 이용 불가
+    local map = GetClass('Map', session.GetMapName());
+    local keyword = TryGetProp(map, 'Keyword', 'None');
+    local keyword_table = StringSplit(keyword, ';');
+    if table.find(keyword_table, 'IsRaidField') > 0 or table.find(keyword_table, 'WeeklyBossMap') > 0 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
+
+    local indunClassID = tonumber(ctrl:GetUserValue("MOVE_INDUN_CLASSID"));
+	local indunClass = GetClassByType("Indun", indunClassID);
+	local dungeonType = TryGetProp(indunClass, "DungeonType", "None")
+    if dungeonType ~= "TOSHero" then
+        return;
+    end
+
+    ui.CloseFrame("induninfo");
+    ReqTOSHeroEnter(indunClassID);
+end
+
+function INDUNINFO_FAVORITE_BUTTON(parent, ctrl)
+    local frame = parent:GetTopParentFrame();
+    local ctrl_name = parent:GetName();
+    local groupID = string.gsub(ctrl_name,"CATEGORY_CTRL_","");
+    local favorite_list = INDUNINFO_GET_FAVORITE_INDUN_LIST();
+    
+    if table.find(favorite_list, groupID) ~= 0 then
+        ui.SetFavoriteIndun(groupID, true)
+    else
+        if #favorite_list < 10 then
+            ui.SetFavoriteIndun(groupID, false)
+        end
+    end
+end
+
+function INDUN_INFO_UPDATE_FAVORITE(frame, msg, groupID)
+    local frame = ui.GetFrame("induninfo")
+    local tab = GET_CHILD_RECURSIVELY(frame, "tab");
+    local categoryBox = GET_CHILD_RECURSIVELY(frame,"categoryBox")
+    local favorite_list = INDUNINFO_GET_FAVORITE_INDUN_LIST();
+    local tab_idx = tab:GetSelectItemIndex()
+
+    if INDUNINFO_FAVORITE_TAB_FIRST_BTN(favorite_list, categoryBox, tab) == false then
+        categoryBox:RemoveAllChild();
+        GET_CHILD_RECURSIVELY(frame,"infoBox"):ShowWindow(0);
+        GET_CHILD_RECURSIVELY(frame,"resetInfoText"):ShowWindow(0);
+        GET_CHILD_RECURSIVELY(frame,"resetInfoText_Week"):ShowWindow(0);
+    else 
+        if tab_idx == 0 then
+            local ctrl_name = GET_CHILD(categoryBox,"CATEGORY_CTRL_"..groupID):GetName();
+            categoryBox:RemoveChild(ctrl_name);
+            INDUNINFO_CATEGORY_ALIGN_DEFAULT(categoryBox);
+        else
+            INDUNINFO_CHANGE_FAVORITE_IMG(categoryBox, groupID)
+        end
+    end
+end
+
+
+function INDUNINFO_GET_FAVORITE_INDUN_LIST()
+    local list = {};
+    local aObj = GetMyAccountObj();
+    for i = 1, 10 do
+        local induninfo = TryGetProp(aObj, "FAVORITE_INDUN_"..i, "None");
+        if induninfo ~= "None" then
+            table.insert(list, induninfo);
+        end
+    end
+    return list;
+end
+
+function INDUNINFO_FAVORITE_TAB_FIRST_BTN(favorite_list, categoryBox, tab)
+    if tab:GetSelectItemIndex() == 0 then
+        for k,v in pairs(g_indunCategoryList) do
+            if table.find(favorite_list, v) ~= 0 then
+                local ctrl = categoryBox:GetChild("CATEGORY_CTRL_"..v);
+                local btn = ctrl:GetChild("button");
+                INDUNINFO_CATEGORY_LBTN_CLICK(ctrl, btn);
+                return true;
+            end
+        end
+        for k,v in pairs(g_contentsCategoryList) do
+            if table.find(favorite_list, v) ~= 0 then
+                local ctrl = categoryBox:GetChild("CATEGORY_CTRL_"..v);
+                local btn = ctrl:GetChild("button");
+                INDUNINFO_CATEGORY_LBTN_CLICK(ctrl, btn);
+                return true;
+            end
+        end
+        return false;
+    end
+end
+
+function INDUNINFO_CHANGE_FAVORITE_IMG(categoryBox, groupID)
+    local categoryCtrl = categoryBox:GetChild("CATEGORY_CTRL_"..groupID);
+    local favorite_img = GET_CHILD_RECURSIVELY(categoryCtrl, "favorite");
+    if favorite_img:GetImageName() == "star_in_arrow" then
+        favorite_img:SetImage("star_out_arrow");
+    else
+        favorite_img:SetImage("star_in_arrow")
+    end
 end

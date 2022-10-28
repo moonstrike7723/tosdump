@@ -105,6 +105,8 @@ ClassID,WikiPoint,TeachPoint,AutoGet,ClassName,TargetClassName,TargetMapName,Ill
 9038,0,0,0,R_God_Potion_DEF,R_God_Potion_DEF,,icon_item_recipe_misc1,제작서 - 여신의 지원 상자: 가호,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,포션을 만들 수 있는 제작서입니다.
 9039,0,0,0,R_Premium_Sandra_Glass_MAX_4line,R_Premium_Sandra_Glass_MAX_4line,,icon_item_recipe_misc1,제작서 - 산드라의 완벽한 돋보기,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,특별한 돋보기를 만들 수 있는 제작서입니다.
 9040,0,0,0,R_Premium_Sandra_Glass_MAX_6line,R_Premium_Sandra_Glass_MAX_6line,,icon_item_recipe_misc1,제작서 - 산드라의 궁극의 돋보기,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,특별한 돋보기를 만들 수 있는 제작서입니다.
+9041,0,0,0,R_Premium_boostToken05,R_Premium_boostToken05,,icon_item_recipe_misc1,제작서-x16 경험의 서,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
+9042,0,0,0,R_Premium_boostToken06,R_Premium_boostToken06,,icon_item_recipe_misc1,제작서-x32 경험의 서,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
 9023,0,0,0,R_Steam_YC_Event,R_Steam_YC_Event,,icon_item_stonepaper_03,제작서-[이벤트] 복원된 여신상,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,[이벤트] 복원된 여신상을 만들 수 있는 제작서
 10006,10,5,0,R_SWD01_109,R_SWD01_109,,icon_item_weapon_misc1,제작서-크리스,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 10008,10,5,0,R_SWD01_116,R_SWD01_116,,icon_item_weapon_misc1,제작서-모플라,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
@@ -1247,11 +1249,13 @@ ClassID,WikiPoint,TeachPoint,AutoGet,ClassName,TargetClassName,TargetMapName,Ill
 50190,10,5,0,R_Potion_duration_Elixir,R_Potion_duration_Elixir,,icon_item_recipe_misc1,제작서 - 지속 회복의 영약,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,포션을 만들 수 있는 제작서입니다.
 50191,10,5,0,R_Relic_exp_token_refine,R_Relic_exp_token_refine,,icon_item_recipe_misc1,제작서 - 정화된 권능의 숨결 (10개),Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
 50192,10,5,0,R_Ticket_Mythic_Auto_Hard,R_Ticket_Mythic_Auto_Hard,,icon_item_recipe_misc1,제작서 - 성물 레이드: 자동 매칭(Hard) 1회 입장권,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
-50193,10,5,0,R_Dungeon_Key01_EP13,R_Dungeon_Key01_EP13,,icon_item_recipe_misc1,제작서 - 레이드 포탈 스톤,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
+50193,10,5,0,R_Dungeon_Key01_EP13,R_Dungeon_Key01_EP13,,icon_item_recipe_misc1,제작서 - 레이드 포탈 스톤(3개),Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
 50194,10,5,0,R_Premium_Drug_Looting_Potion_1000,R_Premium_Drug_Looting_Potion_1000,,icon_item_recipe_misc1,제작서 - 루팅 찬스: 1000,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
 50195,10,5,0,R_WeeklyBossReductionPotion_Lv2,R_WeeklyBossReductionPotion_Lv2,,icon_item_recipe_misc1,제작서 - [주간 보스 레이드] 레티샤 특제 포션 Lv.2,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
 50196,10,5,0,R_Legend_Giltine_Raid_Entrance_Ticket,R_Legend_Giltine_Raid_Entrance_Ticket,,icon_item_recipe_misc1,제작서 - 마신의 성소: 레전드 1회 입장권,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
-50197,10,5,0,R_Dungeon_Key01_EP13_2,R_Dungeon_Key01_EP13_2,,icon_item_recipe_misc1,제작서 - 레이드 포탈 스톤(거래 불가),Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
+50197,10,5,0,R_Dungeon_Key01_EP13_2,R_Dungeon_Key01_EP13_2,,icon_item_recipe_misc1,제작서 - 레이드 포탈 스톤(3개) (거래 불가),Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
+50198,10,5,0,R_Abrasive_460_NoTrade,R_Abrasive_460_NoTrade,,icon_item_recipe_misc1,제작서 - [Lv.460] 각성 연마재,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
+50199,10,5,0,R_Ticket_Vasilissa_Party_Enter_NoTrade,R_Ticket_Vasilissa_Party_Enter_NoTrade,,icon_item_recipe_misc1,제작서 - 성자의 기도소: 가디스 1회 입장권(거래불가),Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
 100000,0,0,0,R_HIDDEN_BULLETMARKER_ITEM1,R_HIDDEN_BULLETMARKER_ITEM1,,icon_item_recipe_misc1,제작서 - 냉기탄,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
 100001,0,0,0,R_HIDDEN_BULLETMARKER_ITEM2,R_HIDDEN_BULLETMARKER_ITEM2,,icon_item_recipe_misc1,제작서 - 화염탄,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
 100002,0,0,0,R_HIDDEN_BULLETMARKER_ITEM3,R_HIDDEN_BULLETMARKER_ITEM3,,icon_item_recipe_misc1,제작서 - 전기탄,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
