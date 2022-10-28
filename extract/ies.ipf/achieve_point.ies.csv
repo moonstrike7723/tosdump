@@ -185,6 +185,7 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 6093,WEB_PROPOSAL_3,건의왕,NO,NO
 6094,Event_1808_Lab_3_1,[TOS 3기 연구원],NO,NO
 6096,EVENT_1809_UCC_ACHIEVE,축제를 즐기는,NO,NO
+6097,Achieve_Event_Game_Guide_Creator,Game Guide Creator,NO,NO
 6098,EVENT_1809_CHUSEOK_MOON_ACHIEVE,달아 달아 밝은 달아,NO,NO
 6101,COLONYWAR_KOR_BETA_REWARD_ACHIEVE,콜로니 선봉대,NO,NO
 6102,EVENT_1809_OTP_ACHIEVE1,OTP는 0원 보안은 영원,NO,NO
@@ -248,7 +249,6 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 6082,Achieve_Event_Creative_TPP_Player,Creative TPP Player,NO,NO
 6090,Achieve_Event_Loving_Summer,Loving Summer,NO,NO
 6095,Achieve_Event_With_Friend,With Friend,NO,NO
-6097,Achieve_Event_Game_Guide_Creator,Game Guide Creator,NO,NO
 6100,Achieve_Event_Horror_Night,Horror Night,NO,NO
 6103,Achieve_Event_Weapon_Designer,TOS Weapon Designer,NO,NO
 6108,Achieve_Event_2019_New_Year_Artist,New Year Artist,NO,NO

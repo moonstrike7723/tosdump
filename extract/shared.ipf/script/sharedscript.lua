@@ -3486,6 +3486,12 @@ function GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX()
     local nation = GetServerNation();
     local groupid = GetServerGroupID();
 
+    return GET_AUTO_MEMBER_JOIN_GUILD_IDX(groupid, nation)      
+end
+
+function GET_AUTO_MEMBER_JOIN_GUILD_IDX(groupid, nation)
+    groupid = tonumber(groupid)
+
     if nation == "KOR" then
         if groupid == 1006 then -- qa
             return "518402552627671";
@@ -3497,6 +3503,22 @@ function GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX()
             return "1137006692273513";
         elseif groupid == 1002 then -- 바이보라
             return "1137058231881971";
+        end
+    elseif nation == 'GLOBAL_JP' then
+        if groupid == 1202 then
+            return '32461362823197'
+        end
+    elseif nation == 'GLOBAL' then
+        if groupid == 1001 then
+            return '506544147923578'
+        elseif groupid == 1003 then
+            return '377991481786398'
+        elseif groupid == 1004 then 
+            return '693014448046952'
+        elseif groupid == 1005 then
+            return '578656648822807' 
+        elseif groupid == 1201 then
+            return '103371272880147'
         end
     end
 

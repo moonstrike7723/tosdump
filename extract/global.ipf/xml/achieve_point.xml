@@ -19,7 +19,6 @@
 		<Class ClassID="6082" ClassName="Achieve_Event_Creative_TPP_Player" OverrideType="ADD" Name="Creative TPP Player" UseDaily="NO" UseWeekly="NO"/>
 		<Class ClassID="6090" ClassName="Achieve_Event_Loving_Summer" OverrideType="ADD" Name="Loving Summer" UseDaily="NO" UseWeekly="NO"/>
 		<Class ClassID="6095" ClassName="Achieve_Event_With_Friend" OverrideType="ADD" Name="With Friend" UseDaily="NO" UseWeekly="NO"/>
-		<Class ClassID="6097" ClassName="Achieve_Event_Game_Guide_Creator" OverrideType="ADD" Name="Game Guide Creator" UseDaily="NO" UseWeekly="NO"/>
 		<Class ClassID="6100" ClassName="Achieve_Event_Horror_Night" OverrideType="ADD" Name="Horror Night" UseDaily="NO" UseWeekly="NO"/>
 		<Class ClassID="6103" ClassName="Achieve_Event_Weapon_Designer" OverrideType="ADD" Name="TOS Weapon Designer" UseDaily="NO" UseWeekly="NO"/>
 		<Class ClassID="6108" ClassName="Achieve_Event_2019_New_Year_Artist" OverrideType="ADD" Name="New Year Artist" UseDaily="NO" UseWeekly="NO"/>
