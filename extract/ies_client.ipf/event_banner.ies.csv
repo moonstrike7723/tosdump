@@ -1,8 +1,8 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3
-999901,202002,250000,202003,10000,202003,240000,202003,190000,0,0,inGame_E1,Blossom Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1936,,,
-999902,202002,250000,202003,10000,202003,100000,202003,50000,0,0,inGame_E2,Leticia's Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1934,,,
-999903,202002,250000,202003,10000,202003,170000,202003,120000,0,0,inGame_E3,Re:Cube,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1935,,,
-999904,202002,180000,202002,230000,202003,30000,202002,270000,0,0,inGame_E4,Teliavelis Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=1927,,,
+999901,202003,30000,202003,80000,202011,120000,202011,70000,0,0,inGame_E1,WeekEnd Burning Event,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1943,,,
+999902,202002,250000,202003,10000,202003,240000,202003,190000,0,0,inGame_E2,Blossom Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1936,,,
+999903,202002,250000,202003,10000,202003,100000,202003,50000,0,0,inGame_E3,Leticia's Cube,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1934,,,
+999904,202002,250000,202003,10000,202003,170000,202003,120000,0,0,inGame_E4,Re:Cube,inGame_E4,https://treeofsavior.com/page/news/view.php?n=1935,,,
 999905,202002,180000,202002,230000,202003,170000,202003,120000,0,0,inGame_E5,Wash your hands!,inGame_E5,https://treeofsavior.com/page/news/view.php?n=1928,,,
 999906,202002,110000,202002,160000,202005,120000,202005,70000,0,0,inGame_E6,NewWorld Guild Event,inGame_E6,https://treeofsavior.com/page/news/view.php?n=1911,,,
 999907,202002,110000,202002,160000,202005,120000,202005,70000,0,0,inGame_E7,NewWorld Rullet Event,inGame_E7,https://treeofsavior.com/page/news/view.php?n=1910,,,
