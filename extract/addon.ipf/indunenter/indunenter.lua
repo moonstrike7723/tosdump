@@ -1,4 +1,4 @@
-function INDUNENTER_ON_INIT(addon, frame)
+﻿function INDUNENTER_ON_INIT(addon, frame)
     addon:RegisterMsg('MOVE_ZONE', 'INDUNENTER_CLOSE');
     addon:RegisterMsg('CLOSE_UI', 'INDUNENTER_CLOSE');
     addon:RegisterMsg('ESCAPE_PRESSED', 'INDUNENTER_ON_ESCAPE_PRESSED');
@@ -829,6 +829,7 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
     end
     
     local countData = GET_CHILD_RECURSIVELY(frame, 'countData');
+    local countData2 = GET_CHILD_RECURSIVELY(frame, "countData2");
     local countItemData = GET_CHILD_RECURSIVELY(frame, 'countItemData');
     local cycleCtrlPic = GET_CHILD_RECURSIVELY(frame, 'cycleCtrlPic');
     cycleCtrlPic:ShowWindow(0);
@@ -846,14 +847,20 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
     end
 
     admissionItemCount = math.floor(admissionItemCount);
-
     if admissionItemName == "None" or admissionItemName == nil then
         -- now play count
         local nowCount = TryGetProp(etc, "InDunCountType_"..tostring(TryGetProp(indunCls, "PlayPerResetType")), 0)        
         if WeeklyEnterableCount ~= nil and WeeklyEnterableCount ~= "None" and WeeklyEnterableCount ~= 0 then            
-            nowCount = GET_CURRENT_ENTERANCE_COUNT(TryGetProp(indunCls, "PlayPerResetType"))            
+            nowCount = GET_CURRENT_ENTERANCE_COUNT(TryGetProp(indunCls, "PlayPerResetType"));
         end
 
+        local resetGroupID = TryGetProp(indunCls, "PlayPerResetType", "None");
+        if resetGroupID == 817 then
+            countData2:SetTextByKey("now", nowCount);
+            countData:ShowWindow(0);
+            countData2:ShowWindow(1);
+            countItemData:ShowWindow(0);
+        else
         -- add count
         local addCount = math.floor(nowCount * admissionPlayAddItemCount);
         countData:SetTextByKey("now", nowCount);
@@ -881,8 +888,10 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
         frame:SetUserValue("MAX_MULTI_CNT", maxCount - nowCount);
 
         local countText = GET_CHILD_RECURSIVELY(frame, 'countText');
-        countData:ShowWindow(1)
-        countItemData:ShowWindow(0)
+            countData:ShowWindow(1);
+            countData2:ShowWindow(0);
+            countItemData:ShowWindow(0);
+        end
     else
         local pc = GetMyPCObject();
         if pc == nil then
@@ -902,8 +911,9 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
     
                 local countText = GET_CHILD_RECURSIVELY(frame, 'countText');
                 countText:SetText(ScpArgMsg("IndunAdmissionItemPossession"))
-                countItemData:ShowWindow(1)
-                countData:ShowWindow(0)
+                countItemData:ShowWindow(1);
+                countData:ShowWindow(0);
+                countData2:ShowWindow(0);
     
                 if indunCls.DungeonType == 'UniqueRaid' then
                     if IsBuffApplied(pc, "Event_Unique_Raid_Bonus") == "YES"and admissionItemName == "Dungeon_Key01" then
@@ -937,6 +947,7 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
             
                 local countText = GET_CHILD_RECURSIVELY(frame, 'countText');
                 countData:ShowWindow(1)
+                countData2:ShowWindow(0);
                 countItemData:ShowWindow(0)
             end
         else
@@ -947,6 +958,7 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
             countText:SetText(ScpArgMsg("IndunAdmissionItemPossession"))
             countItemData:ShowWindow(1)
             countData:ShowWindow(0)
+            countData2:ShowWindow(0);
 
             local pc = GetMyPCObject()
             if indunCls.DungeonType == 'UniqueRaid' then
@@ -977,7 +989,7 @@ function INDUNENTER_MAKE_PARTY_CONTROLSET(pcCount, memberTable, understaffCount)
     local memberBox = GET_CHILD_RECURSIVELY(frame, 'memberBox');
     local memberCnt = #memberTable / PC_INFO_COUNT;
 
-    if pcCount < 1 then -- member초기?�해주자
+    if pcCount < 1 then -- member초기??해주자
         memberCnt = 0;
     end
 
@@ -1025,8 +1037,8 @@ function INDUNENTER_MAKE_PARTY_CONTROLSET(pcCount, memberTable, understaffCount)
         matchedIcon:ShowWindow(0);
         understaffAllowImg:ShowWindow(0);
 
-        if i <= pcCount then -- 참여???�원만큼 보여주는 부�?
-            if i * PC_INFO_COUNT <= #memberTable then -- ?�티?�인 경우      
+        if i <= pcCount then -- 참여????원만큼 보여주는 부??
+            if i * PC_INFO_COUNT <= #memberTable then -- ??티??인 경우      
                 -- show leader
                 local aid = memberTable[i * PC_INFO_COUNT - (PC_INFO_COUNT - 1)];
                 local pcparty = session.party.GetPartyInfo(PARTY_NORMAL);
@@ -1056,7 +1068,7 @@ function INDUNENTER_MAKE_PARTY_CONTROLSET(pcCount, memberTable, understaffCount)
                     understaffAllowImg:ShowWindow(1);
                     understaffShowCount = understaffShowCount + 1;
                 end
-            else -- ?�티?��? ?�닌??매칭???�람
+            else -- ??티???? ??닌??매칭????람
                 jobIcon:ShowWindow(0);
                 matchedIcon:ShowWindow(1);
 
@@ -2201,4 +2213,18 @@ function IS_EXIST_CLASSNAME_IN_LIST(list, value)
         end
     end
     return false;
+end
+
+function IS_INDUN_AUTOMATCH_WAITING()
+    local frame = ui.GetFrame('indunenter')
+    if frame ~= nil then
+        local waiting = frame:GetUserValue('AUTOMATCH_MODE')
+        local with_party = frame:GetUserValue('WITHMATCH_MODE')
+        local finded = frame:GetUserValue('AUTOMATCH_FIND')
+        if waiting == 'YES' or with_party == 'YES' or finded == 'YES' then
+            return true
+        end
+    end
+
+    return false
 end

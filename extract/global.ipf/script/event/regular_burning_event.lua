@@ -26,7 +26,7 @@
 	
 	local npc = GetScpObjectList(self, "WEEKEND_REGULAR_EVENT")
 	if #npc == 0 then
-		if weekday == 1 or weekday == 6 or weekday == 7 then --일, 금, 토
+		if weekday == 1 or weekday == 6 or weekday == 7 or tonumber(year..month..day) == 20210422 then --일, 금, 토
 			if tonumber(hour..minute..second) > 0 then
 				local countResetNPC = CREATE_MONSTER_EX(self, 'NPC_GM2', x, y, z, GetDirectionByAngle(self), "Neutral", 1, WEEKEND_REGULAR_BURNING_EVENT_NPC_INFORMATION)
 				AddScpObjectList(self, "WEEKEND_REGULAR_EVENT", countResetNPC)
@@ -47,7 +47,7 @@ function REGULAR_BURNING_EVENT_SUPPORTER_AI(self)
         day = "0"..tostring(day)
     end
 
-     if weekday > 1 and weekday < 6 then --월~목
+     if weekday > 1 and weekday < 6 and tonumber(year..month..day) ~= 20210422 then --월~목
         Kill(self)
 		return;
     end
@@ -77,26 +77,29 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 ,{'챌린지 모드 횟수 초기화 (하루 3회 제한)','Event_Challenge_Count_Reset'}					 
 					 ,{'스킬 쿨타임, SP 소모량 90% 감소 (지역 제한)','Event_Cooldown_SPamount_Decrease'}	
 					 ,{'물리 및 마법 공격력 +500, 물리 및 마법 방어력 +3,000','Event_ATK_and_DEF_UP_BUFF'}
-					 ,{'나무뿌리 수정 파괴 시, 이동 속도 5 증가','Event_RootCrystal_Check_Buff'}				 
+					 ,{'나무뿌리 수정 파괴 시, 이동 속도 5 증가','Event_RootCrystal_Check_Buff'}
+					 ,{'경험치 50% 증가','Event_Expup_50'}
+					 ,{'통합 포인트 획득량 2배 증가 ','EVENT_CONTENTS_TOTAL_POINT_BOOST'}			 
 					 }
     
     local daycheckbuff = 
-	{{'3','5',{'Event_LootingChance_Add_1000','Event_Legend_Uphill_Count_Reset'}}
-	,{'3','6',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-	,{'3','7',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-	,{'3','12',{'Event_ATK_and_DEF_UP_BUFF','Event_RootCrystal_Check_Buff'}}
-	,{'3','13',{'Event_ATK_and_DEF_UP_BUFF','Event_Class_Change_Pointup_500'}}
-	,{'3','14',{'Event_ATK_and_DEF_UP_BUFF','Event_Reagent_Bottle_Expup_100'}}
-	,{'3','19',{'Event_healHSP_Speedup','Event_Reinforce_Discount_50'}}
-	,{'3','20',{'Event_healHSP_Speedup','Event_Worship_Affect_10fold'}}
-	,{'3','21',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'3','26',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
-	,{'3','27',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-	,{'3','28',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
+	{{'4','2',{'Event_LootingChance_Add_1000','EVENT_CONTENTS_TOTAL_POINT_BOOST'}}
+	,{'4','3',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
+	,{'4','4',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+	,{'4','9',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
+	,{'4','10',{'Event_Expup_50','Event_healHSP_Speedup'}}
+	,{'4','11',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'4','16',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+	,{'4','17',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+	,{'4','18',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+	,{'4','22',{'Event_Expup_50','Event_Challenge_Count_Reset'}}
+	,{'4','23',{'Event_Expup_50','Event_Legend_Uphill_Count_Reset'}}
+	,{'4','24',{'Event_Expup_50','Event_Reinforce_Discount_50'}}
+	,{'4','25',{'Event_Expup_50','Event_Reappraisal_Discount_50'}}
 		}
 	
 	-- 기본 적용 버프
-	local dayBuffList = {'Event_Expup_100'}
+	local dayBuffList = {'Event_RootCrystal_Check_Buff'}
 	--날짜별 버프
 	for i = 1, #daycheckbuff do
 		if (tostring(month) == daycheckbuff[i][1]) and (tostring(day) == daycheckbuff[i][2])then
@@ -109,6 +112,8 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 	local distractor;
 	if table.find(dayBuffList,'Event_Legend_Uphill_Count_Reset') ~= 0 then
 		distractor = ShowSelDlg(pc, 0, "REGULAR_BURNING_EVENT_COUNT_RESET_CHECK", ScpArgMsg("NPC_EVENT_MAGAZINE_NUM1_SEL2"), ScpArgMsg("Auto_SeonTaegChoKiHwa"), ScpArgMsg("Cancel"))
+	elseif table.find(dayBuffList,'Event_Challenge_Count_Reset') ~= 0 then
+		distractor = ShowSelDlg(pc, 0, 'REGULAR_BURNING_EVENT_CHALLENGE_RESET_CHECK', ScpArgMsg("NPC_EVENT_MAGAZINE_NUM1_SEL2"),ScpArgMsg("BURNING_EVENT_COUNT_RESET_SEL1"), ScpArgMsg("Cancel"))
 	else
 		distractor = ShowSelDlg(pc, 0, 'FLASHMOB_EVENT_REWARD_SUCCESS', ScpArgMsg("NPC_EVENT_MAGAZINE_NUM1_SEL2"), ScpArgMsg("Cancel"))
 	end
@@ -159,12 +164,12 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_802", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_803", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_805", 0)
-                        TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_806", 0)
-                        TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_807", 0)
+						TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_806", 0)
+						TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_807", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_808", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_810", 0)
-                        TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_811", 0)
-                        TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_814", 0)
+						TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_811", 0)
+						TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_814", 0)
                         TxSetIESProp(tx, accountObject, "REGULAR_BURNING_EVENT_COUNT_RESET", 1)
                         local ret = TxCommit(tx)
         
@@ -188,7 +193,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 	elseif table.find(dayBuffList,'Event_Challenge_Count_Reset') ~= 0 then 
         if distractor == 2 then
 		
-			if TryGetProp(accountObject, "REGULAR_BURNING_EVENT_CHALLENGE_RESET") ~= 3 then
+			if TryGetProp(accountObject, "REGULAR_BURNING_EVENT_CHALLENGE_RESET") >= 3 then
 				ShowOkDlg(pc, "REGULAR_BURNING_EVENT_COUNT_ALREADY_DOING")
 				return
 			end
@@ -223,6 +228,8 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
                                 ShowOkDlg(pc, "REGULAR_BURNING_EVENT_CHALLENGE_COUNT_NOT_USE")
                             end
                         end
+                    else
+                        ShowOkDlg(pc, "REGULAR_BURNING_EVENT_CHALLENGE_COUNT_NOT_USE")
                     end
                 end
         end

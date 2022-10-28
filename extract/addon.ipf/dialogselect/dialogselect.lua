@@ -1,4 +1,4 @@
-function DIALOGSELECT_ON_INIT(addon, frame)
+﻿function DIALOGSELECT_ON_INIT(addon, frame)
 	DialogSelect_index = 0;
 	DialogSelect_count = 0;
 	DialogSelect_offsetY = frame:GetY();
@@ -276,14 +276,16 @@ function DIALOGSELECT_ON_MSG(frame, msg, argStr, argNum)
 		for i = 1, itemBtnCount do
 			local childName = 'item' .. i .. 'Btn'
 			local ItemBtn = frame:GetChild(childName);
+			if ItemBtn ~= nil then
 			ItemBtn:ShowWindow(0);
+		end
 		end
 
 		local numberEdit = frame:GetChild('numberEdit');
-		local numberHelp = frame:GetChild('numberHelp');
-		numberHelp:ShowWindow(0);
-		numberEdit:ShowWindow(0);
+		if numberEdit ~= nil then numberEdit:ShowWindow(0); end
 
+		local numberHelp = frame:GetChild('numberHelp');
+		if numberHelp ~= nil then numberHelp:ShowWindow(0); end
 		DialogSelect_index = 0;
 		DialogSelect_count = 0;
 	elseif msg == 'DIALOG_NUMBER_RANGE' then

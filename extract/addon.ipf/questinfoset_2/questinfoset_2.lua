@@ -1366,7 +1366,7 @@ function QUESTION_QUEST_WARP(frame, ctrl, argStr, questID)
         return;
 	end
 
-	if obj.Keyword == "WeeklyBossMap" then
+	if obj.Keyword == "WeeklyBossMap" or string.find(obj.Keyword, "MythicMap") ~= nil then
 		ui.SysMsg(ScpArgMsg("WarpQuestDisabled"));
 		return;
 	end

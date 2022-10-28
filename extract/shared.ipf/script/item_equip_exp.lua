@@ -108,6 +108,7 @@ function GET_MORE_EVENT_EXP(pc)
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_Steam_Carnival_Fire_2'); --스팀 카니발 불꽃축제 이벤트 --
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_ep11_Expup'); --자라나라 나무나무 주말 앤 버닝 이벤트 -- --EVENT_1903_WEEKEND
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_ep11_Expup_base'); --자라나라 나무나무 주말 앤 버닝 이벤트 --
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_Monster_EXP_UP'); --해외 페이스북 컴패니언 이벤트
 --	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT1909_FULLMOON_BUFF_EXP_1'); --[보름달 키우기 대작전] 경험치 획득량 증가 1단계
 --	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT1909_FULLMOON_BUFF_EXP_2'); --[보름달 키우기 대작전] 경험치 획득량 증가 2단계
 --	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT1909_FULLMOON_BUFF_EXP_3'); --[보름달 키우기 대작전] 경험치 획득량 증가 3단계
@@ -155,6 +156,11 @@ function GET_MORE_EVENT_EXP(pc)
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'event_RiceCake_Buff_4'); -- 가레떡 4단계 이벤트 버프
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'event_RiceCake_Buff_5'); -- 가레떡 5단계 이벤트 버프
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2102_STATUE_BUFF'); -- STM 딥디르비와 여신상 버프
+	-- sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_LuckyBreak_Add_Exp_1'); -- 럭키브레이크 성장 경험치 증가 1
+	-- sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_LuckyBreak_Add_Exp_2'); -- 럭키브레이크 성장 경험치 증가 2
+	-- sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_LuckyBreak_Add_Exp_3'); -- 럭키브레이크 성장 경험치 증가 3
+
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2102_STATUE_BUFF'); -- STM 딥디르비와 여신상 버프
 	if  TryGetProp(pc, 'Lv', 0) < 450 then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'ITEM_BUFF_2020ArborDay_ExpUP'); --2020 근본--
 	end
@@ -164,6 +170,10 @@ function GET_MORE_EVENT_EXP(pc)
 	
 	if  TryGetProp(pc, 'Lv', 0) < PC_MAX_LEVEL then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'pet_winter_rabbit_buff'); --하얀 눈 토끼 동행 버프--
+	end
+	
+	if  TryGetProp(pc, 'Lv', 0) < PC_MAX_LEVEL then
+	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'pet_twnpanda_buff'); -- 판다 동행 버프--
 	end
 
 	if  TryGetProp(pc, 'Lv', 0) < 460 then
@@ -183,6 +193,10 @@ function GET_MORE_ANCIENT_EXP(pc)
 	end
     
     if IsBuffApplied(pc, "pet_winter_rabbit_buff") == "YES" then
+	    sumExp = sumExp + 1
+	end
+    
+    if IsBuffApplied(pc, "pet_twnpanda_buff") == "YES" then
 	    sumExp = sumExp + 1
 	end
     

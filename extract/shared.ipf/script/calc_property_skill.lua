@@ -1,4 +1,4 @@
---- calc_property_skill.lua
+﻿--- calc_property_skill.lua
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function HAS_DRAGON_POWER(pc)
@@ -278,6 +278,77 @@ function SCR_Get_SpendSP_Magic(skill)--여기
         return 0
     end
 
+    return math.floor(value);
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_SpendSP_Praise(skill)
+    local basicSP = skill.BasicSP;
+    local decsp = 0;
+    local bylvCorrect = 0
+
+    local pc = GetSkillOwner(skill);
+    
+    if basicSP == 0 then
+        return 0;
+    end
+
+    if pc == nil and ui.GetFrame("pub_createchar"):IsVisible() == 1 then
+        return basicSP;
+    end
+
+    local lv = pc.Lv
+    bylvCorrect = lv - 300
+
+    if bylvCorrect < 0 then
+        bylvCorrect = bylvCorrect * 2.75 / 1000
+    elseif bylvCorrect >= 0 then
+        bylvCorrect = bylvCorrect * 1.25 / 1000
+    end
+
+    local skillLv = TryGetProp(skill, "Level", 1)
+    local value = basicSP * (1 + bylvCorrect) * (1 - ((skillLv - 1) * 0.1))
+    
+    local abilAddSP = GetAbilityAddSpendValue(pc, skill.ClassName, "SP");
+    abilAddSP = abilAddSP / 100;
+    value = math.floor(value) + math.floor(value * abilAddSP);
+   
+    local zeminaSP = GetExProp(pc, "ZEMINA_BUFF_SP");
+    if zeminaSP ~= 0 then
+        decsp = value * zeminaSP
+    end
+   
+    local hochmaSP = GetExProp(pc, "HOCHMA_BUFF_SP");
+    if hochmaSP ~= 0 then
+        decsp = value * hochmaSP
+    end
+
+    value = value - decsp;
+    
+    --burning_event
+    if IsBuffApplied(pc, "Event_Cooldown_SPamount_Decrease") == "YES" then
+        decsp = SCR_COOLDOWN_SPAMOUNT_DECREASE(pc, "SpendSP", value)
+    elseif IsBuffApplied(pc, "FIELD_SP_FULL_BUFF") == "YES" then
+        decsp = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "SpendSP", value)
+    elseif IsBuffApplied(pc, 'premium_seal_2021_buff') == 'YES' and IsBuffApplied(pc, 'Event_Cooldown_SPamount_Decrease') == 'NO' and SCR_IS_LEVEL_DUNGEON(pc) == 'YES' then
+		decsp = value * 0.5
+	else
+        if IsBuffApplied(pc, "Gymas_Buff") == "YES" then -- 기마스
+            local ratio = 0.5;
+            decsp = value * ratio
+        end
+    end
+	
+    ----------
+    value = value - decsp;
+    if value < 1 then
+        value = 0
+    end
+
+	if IsBuffApplied(pc, "ManaAmplify_Buff") == "YES" then
+        value = value * 1.5
+    end
+	
     return math.floor(value);
 end
 
@@ -3416,7 +3487,10 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_StoneShot_Ratio(skill)
-    local value = 50
+    local value = 25 + skill.Level * 5
+    if value >= 100 then
+        value = 100
+    end
     return value
 end
 
@@ -4093,7 +4167,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Bazooka_Ratio2(skill)
-    local value = 80
+    local value = 80 + (skill.Level - 1) * 20;
     return value
 end
 
@@ -5520,11 +5594,21 @@ end
 function SCR_GET_Portal_Ratio(skill)
     local value = 3
     local pc = GetSkillOwner(skill);
-    local abil = GetAbility(pc, "Sage1")
-    if abil ~= nil and 1 == abil.ActiveState then
-        value = value + abil.Level
+    local abil1 = GetAbility(pc, "Sage1")
+    if abil1 ~= nil and 1 == abil1.ActiveState then
+        value = value + abil1.Level
     end
-    
+
+    local abil2 = GetAbility(pc, "Sage16")
+    if abil2 ~= nil and 1 == abil2.ActiveState then
+        value = value + abil2.Level
+    end
+
+    local abil3 = GetAbility(pc, "Sage17")
+    if abil3 ~= nil and 1 == abil3.ActiveState then
+        value = value + abil3.Level
+    end
+
     return value;
 end
 
@@ -5660,10 +5744,16 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_DivineMight_BuffTime(skill)
-    local value = 60
+    local value = 20 + skill.Level * 0.5
     local pc = GetSkillOwner(skill)
-    local abil = GetAbility(pc, "Oracle23")
-    if abil ~= nil and abil.ActiveState == 1 then
+
+    local abilOracle20 = GetAbility(pc, "Oracle20");
+    if abilOracle20 ~= nil and TryGetProp(abilOracle20, "ActiveState") == 1 then
+        value = value + TryGetProp(abilOracle20, "Level")
+    end
+
+    local abilOracle23 = GetAbility(pc, "Oracle23")
+    if abilOracle23 ~= nil and abilOracle23.ActiveState == 1 then
         value = 10
     end
     
@@ -7279,7 +7369,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_Get_SwellBody_Ratio(skill)    
-    return math.floor(4 + skill.Level * 0.4) 
+    return 4 + (skill.Level * 0.4) 
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
@@ -7464,14 +7554,16 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Daino_Ratio(skill)
-    local value = TryGetProp(skill, 'Level', 1) * 5
+    local value = TryGetProp(skill, 'Level', 1) * 2
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     
     return value;
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Daino_Ratio2(skill)
-    local value = TryGetProp(skill, 'Level', 1) * 1.5
+    local value = TryGetProp(skill, 'Level', 1) * 2
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     
     return value;
 end
@@ -8419,8 +8511,12 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Roasting_Ratio(skill)
     local value = skill.Level * 1
-    return value
 
+    if value > 10 then
+        value = 10
+    end
+    
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
@@ -8524,6 +8620,11 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Barrier_Bufftime(skill)
     local value = skill.Level * 4
+    local pc = GetSkillOwner(skill)
+    if IsPVPServer(pc) == 1 then
+        value = value / 2
+    end
+
     return math.floor(value)
 end
 
@@ -8804,7 +8905,10 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_StereaTrofh_Ratio(skill)
     local value = skill.Level * 7
+    local pc = GetSkillOwner(skill)
+
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+
     return value
 end
 
@@ -9319,7 +9423,7 @@ end
 -- 대미지 증가 --
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_Get_Zhendu_Ratio2(skill)
-    local value = 20 + (10 * skill.Level);
+    local value = 5 + skill.Level;
     
     return value
 end
@@ -9837,8 +9941,9 @@ function SCR_GET_FirstStrike_Ratio(skill)
     elseif bylvCorrect >= 0 then
         bylvCorrect = bylvCorrect * 1.25 / 1000
     end
-    
-    local spendSP = spendSP * (1 + bylvCorrect)
+
+    local skillLv = TryGetProp(skill, "Level", 1)
+    local spendSP = spendSP * (1 + bylvCorrect) * (1 - ((skillLv - 1) * 0.1))
     
     return math.floor(spendSP)
 end
@@ -10403,18 +10508,11 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Aukuras_Ratio2(skill)
     local pc = GetSkillOwner(skill)
-    local value = 0
+    local pcLv = TryGetProp(pc, "Lv", 1)
+    local sklLv = TryGetProp(skill, "Level", 1)
     
-    if pc ~= nil then        
-        -- 지??+ ?�신 계수 ?�산
-        local casterINT = TryGetProp(pc, 'INT', 1);
-        local casterMNA = TryGetProp(pc, 'MNA', 1);        
-        value = 100 + (TryGetProp(skill, 'Level', 0) * 90) + (casterINT + casterMNA)        
-    else
-        value = 100 + (TryGetProp(skill, 'Level', 0) * 90)
-    end
-    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill);
-    
+    local value = (14*pcLv) + (sklLv*pcLv*1.5)
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     return math.floor(value)
 end
 
@@ -10434,13 +10532,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_DivineStigma_Time(skill)
-    local pc = GetSkillOwner(skill)
-    local value = 60;
-    local abil = GetAbility(pc, "Kriwi9")
-    if abil ~= nil and abil.ActiveState == 1 then
-        value = value + (abil.Level * 6);
-    end
-    
+    local value = 5 + skill.Level;
     return math.floor(value);
 end
 
@@ -10628,7 +10720,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Prakriti_Ratio(skill)
-    local value = skill.Level * 5
+    local value = skill.Level * 2
     
     return value
 end
@@ -10936,8 +11028,8 @@ end
 function SCR_GET_MagnumOpus_Ratio(skill)
     local value = 2 + skill.Level;
     
-    if value > 10 then
-        value = 10;
+    if value > 7 then
+        value = 7;
     end
     
     return math.floor(value)
@@ -11931,24 +12023,24 @@ function SCR_GET_SKILLLV_WITH_BM(skill)
         return fixedLevel;
     end
     
-    -- ?�바??마이???�용 불�????�킬 ----
-    if CHECK_SKILL_KEYWORD(skill, "ExpertSkill") == 1 and CHECK_SKILL_KEYWORD(skill, "LimitInstanceLevelUp") == 1 then
-        return skill.LevelByDB;
+    local value = skill.LevelByDB
+
+    if CHECK_SKILL_KEYWORD(skill, "ExpertSkill") ~= 1 or CHECK_SKILL_KEYWORD(skill, "LimitInstanceLevelUp") ~= 1 then
+        value = value + skill.Level_BM;
     end
     
-    local value = skill.LevelByDB + skill.Level_BM;
-    if skill.GemLevel_BM > 0 then
-        value = value + 1;
+    if TryGetProp(skill, "GemLevel_BM", 0) > 0 then
+        value = value + TryGetProp(skill, "GemLevel_BM", 0);
     end
     
     if skill.LevelByDB == 0 then
         return 0;
     end
-    
+
     if TryGetProp(skill, "ClassName", "None") == "Peltasta_Guardian" and value > 7 then
         value = 7;
     end
-    
+
     if value < 1 then
         value = 1;
     end
@@ -12483,7 +12575,7 @@ end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_SnipersSerenity_Ratio(skill)
-    local value = 4 - ((skill.Level - 1) * 0.4)
+    local value = 4 - (skill.Level * 0.72)
     if value < 0.4 then
         value = 0.4
     end
@@ -13020,7 +13112,7 @@ end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_Get_Crescendo_Bane2(skill)
-    local value = skill.Level * 14
+    local value = skill.Level * 20
     
     return value;
 end
@@ -13186,7 +13278,13 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_InfernalShadow_CaptionRatio(skill)
-    return 20 + (skill.Level -1) * 20;
+    local value = 20 + (skill.Level -1) * 20;
+
+    if value > 120 then
+        value = 120
+    end
+    
+    return value
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
@@ -13685,7 +13783,7 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Roar_Ratio(skill)
     local pc = GetSkillOwner(skill)
-    local value = skill.Level * 6
+    local value = 30 + skill.Level * 3
     
     return value
 end
@@ -13720,11 +13818,11 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Tracking_Time(skill)
     local pc = GetSkillOwner(skill)
-    local value = 20 + skill.Level * 6
+    local value = 5
     
     local abil = GetAbility(pc, "TigerHunter2");
     if abil ~= nil and abil.ActiveState == 1 then
-        value = value + 10;
+        value = value + 5;
     end
     
     return value;
@@ -13733,6 +13831,9 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Tracking_Ratio(skill)
     local value = 20 * skill.Level
+    if value >= 100 then
+        value = 100
+    end
     return value
 end
 
@@ -13752,7 +13853,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_EyeofBeast_Ratio(skill)
-    local value = skill.Level * 6
+    local value = 10 + skill.Level * 2
     return value
 end
 
@@ -14010,8 +14111,10 @@ end
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Sacred_Heal_Ratio(skill)
     --value = skill.SklFactor + (skill.Level - 1) * skill.SklFactorByLevel;
-	value = 10 + (skill.Level - 1) * 2.7
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (10 + (skill.Level - 1) * 2.7) * 0.4
+    
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
@@ -14023,36 +14126,46 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_HolySmash_Heal_Ratio(skill)
-    value = 16 + (skill.Level - 1) * 2.7
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (16 + (skill.Level - 1) * 2.7) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_RingOfLight_Heal_Ratio(skill)
-    value = 42 + (skill.Level - 1) * 7.1
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (42 + (skill.Level - 1) * 7.1) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Condemn_Heal_Ratio(skill)
-    value = 14 + (skill.Level - 1) * 3.7
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (14 + (skill.Level - 1) * 3.7) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_ProtectionOfGoddess_Heal_Ratio(skill)
-    value = 67 + (skill.Level - 1) * 67.3
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (67 + (skill.Level - 1) * 67.3) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Retaliation_Heal_Ratio(skill)
-    value = 76 + (skill.Level - 1) * 20
-	value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    local value = (76 + (skill.Level - 1) * 20) * 0.4
+
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+    
     return math.floor(value)
 end
 
@@ -14073,7 +14186,7 @@ end
 
 -- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Chants_Ratio2(skill)
-    value = (30 + skill.Level * 6)
+    value = (20 + skill.Level * 5)
 	
     return math.floor(value)
 end
@@ -14198,7 +14311,7 @@ function SCR_GET_Penyerapan_Ratio(skill)
     local pcLv = TryGetProp(pc, "Lv", 1)
     local sklLv = TryGetProp(skill, "Level", 1)
 
-    local value = (14*pcLv) + (sklLv*pcLv*1.5)
+    local value = (14 * pcLv) + (sklLv * pcLv * 1.5)
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     return math.floor(value)
 end
@@ -14543,9 +14656,7 @@ function SCR_GET_Crusader_Chants_Heal_Ratio(skill)
     local pc = GetSkillOwner(skill);
     local skills = GetSkill(pc, 'Crusader_Chants')
     local value = 100
-    if skills ~= nil then
-        value = 100 + skills.Level * 80
-    end
+    
     return math.floor(value)
 end
 
@@ -14573,7 +14684,7 @@ end
 
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_Tracking_Ratio2(skill)
-    local value = 20 + skill.Level * 6
+    local value = 30 + skill.Level * 4
     return value
 end
 
@@ -14630,6 +14741,8 @@ function SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     --     end
     -- end
     
+    -- 여신 방어구 체크
+    if IsPVPField(pc) ~= 1 and IsPVPServer(pc) ~= 1 then
     local tempskill = GetSkill(pc, TryGetProp(skill, "ClassName", "None"))
 -- 바카리네 방어구
     if tempskill ~= nil and GetExProp(pc, 'ep12_vakarine_leather_stack') > 0 and IsShieldSkill(TryGetProp(tempskill, 'ClassName', 'None')) == 1 and TryGetProp(tempskill, 'ValueType', 'None') == 'Attack' then 
@@ -14651,6 +14764,7 @@ function SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
         elseif TryGetProp(tempskill, 'CastingCategory', 'None') == 'dynamic_casting' and TryGetProp(tempskill, 'ValueType', 'None') == 'Attack' then
             basicCoolDown = basicCoolDown * (1 - (0.05 * 0.75 * stack)) -- 부위당 3.75%
         end
+    end
     end
     
 	-- 2021 근본 인장
@@ -14733,11 +14847,10 @@ end
 -- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
 function SCR_GET_SnipersSerenitySPD_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    local value = 10
+    local lv = TryGetProp(skill, "Level", 1)
+    local value = 45 + lv
         
-    if IsPVPServer(pc) ~= 1 or IsPVPField(pc) ~= 1 then
-        value = 10 + TryGetProp(skill, 'Level', '1')
-    end
+
         
     return value;
 end
@@ -15070,7 +15183,7 @@ function SCR_Get_SkillFactor_Vibora_Katadikazo(skill)
     local skl = GetSkill(pc, "Exorcist_Katadikazo")
     local value = TryGetProp(skl, "SkillFactor", 0)
 
-    value = (value * 3) * 2
+    value = (value * 3) * 0.5
     
     return value
 end
@@ -15977,4 +16090,39 @@ function SCR_GET_SKL_COOLDOWN_BreastRipper(skill)
     basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
 
     return math.floor(basicCoolDown)
+end
+
+function SCR_GET_Escape_Ratio2(skill)
+    local value = skill.Level * 1
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_BlockAndShoot_Ratio2(skill)
+    local pc = GetSkillOwner(skill)
+    local value = math.floor(2+pc.SR/3)
+
+    return value
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_Zhendu_Ratio3(skill)
+    local pc = GetSkillOwner(skill)
+    local pcLv = TryGetProp(pc, "Lv", 1)
+    local sklLv = TryGetProp(skill, "Level", 1)
+
+    local value = (15*pcLv) + (sklLv*pcLv*3.3)
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+    return math.floor(value)
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_Get_SkillFactor_Matador_Muleta_Faena(skill)
+    local value = 100
+    local pc = GetSkillOwner(skill)
+    local faena_skill = GetSkill(pc, 'Matador_Faena')
+    if faena_skill ~= nil then
+        value = TryGetProp(faena_skill, 'SkillFactor', 100)
+    end
+    return value
 end

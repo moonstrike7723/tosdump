@@ -261,6 +261,9 @@
         <Effect Name="F_boss_Moringponia_Debuff_Pad"/>
         <Effect Name="boss_misrus_circlewave"/>
         <Effect Name="SnowRolling_Buff"/>
+        <Effect Name="Crusader_DivineHammer"/>
+        <Effect Name="Crusader_DivineHammer2"/>
+        <Effect Name="Crusader_DivineHammer3"/>
     </Category>
     <Category ID="187">
         <Effect Name="F_bg_boil002"/>
@@ -556,7 +559,13 @@
     <Effect Name="id_castle"/>
 		<Effect Name="id_firetower"/>
 	<Effect Name="F_buff_basic008_white"/>
-	</Category>
+	<Effect Name="Mythic_Link"/>
+          <Effect Name="mineloader_laser2"/>
+        <Effect Name="Mythic_Mon_Zaibas"/>
+        <Effect Name="Mythic_Mon_Fireball_santan"/>
+        <Effect Name="Mythic_boss_firewall_red"/>
+        <Effect Name="Mythic_Grinender_FirePillar"/>
+    </Category>
     <Category ID="146">
         <Effect Name="beginner"/>
         <Effect Name="Phase0"/>
@@ -814,6 +823,11 @@
         <Effect Name="F_ground174_darkRed"/>
         <Effect Name="F_line002_dark_red"/>
         <Effect Name="F_rize004_dark_damballa"/>
+        <Effect Name="F_moru_5"/>
+        <Effect Name="F_moru_4"/>
+        <Effect Name="F_buff_basic046_red##2"/>
+        <Effect Name="F_spread_out029_red##3"/>
+        <Effect Name="I_smoke044_dark##3"/>
     </Category>
     <Category ID="144">
         <Effect Name="F_pc_CardBook_ground_dark"/>
@@ -2263,6 +2277,7 @@
         <Effect Name="Elemental_Burst_Pad_Fire2"/>
         <Effect Name="Elemental_Burst_Pad_Ice"/>
         <Effect Name="Elemental_Burst_Pad_Lightning"/>
+        <Effect Name="SweepingCannon_Pad"/>
     </Category>
     <Category ID="124">
         <Effect Name="rope_pad_abil"/>
@@ -3150,7 +3165,10 @@
 		<Effect Name="Bone_hair16"/>
 		<Effect Name="F_buff_basic038"/>
 		<Effect Name="F_buff_basic047"/>
-	</Category>
+        <Effect Name="F_cleric_melstis_piety"/>
+        <Effect Name="Exorcist_Koinonia"/>
+        <Effect Name="Cleric_Barrier_Paladin20"/>
+    </Category>
 	<Category ID="84">
 		<Effect Name="M_PAST_FLIBRARY_1"/>
 	</Category>
@@ -3981,6 +3999,23 @@
 		<Effect Name="Elemental_Burst_Pad_Fire"/>
 		<Effect Name="Elemental_Burst_Pad_Lightning"/>
 		<Effect Name="Elemental_Burst_Pad_Fire2"/>
+        <Effect Name="E_warrior_Sturzhau_shot"/>
+        <Effect Name="E_warrior_Embowel_shot"/>
+        <Effect Name="E_fanwiseshot001"/>
+        <Effect Name="E_warrior_handknife_shot_trail"/>
+        <Effect Name="I_warrior_chrage_shot_dash_yellow"/>
+        <Effect Name="I_warrior_rimblow_shot_mash1_new"/>
+        <Effect Name="I_cleric_Aspergillum_shot_water"/>
+        <Effect Name="I_archer_fanwiseshots"/>
+        <Effect Name="I_archer_fanwiseshots"/>
+        <Effect Name="F_cleric_1inchpunch_shot_hit"/>
+        <Effect Name="E_Scout_Quickshot"/>
+        <Effect Name="E_archer_skl_chargeshot"/>
+        <Effect Name="LEGEND_RAID_GILTINE_AUTO_HARD"/>
+        <Effect Name="F_explosion99_red2"/>
+        <Effect Name="I_cleric_skl_shieldcharge_mash"/>
+        <Effect Name="I_caltrops002_mesh"/>
+        <Effect Name="ScatterCaltrop_Pad"/>
         <Effect Name="E_wizard_Tiwaz_shot_line_abil#Dummy_emitter"/>
         <Effect Name="E_wizard_Tiwaz_shot_line_abil"/>
 	</Category>
@@ -7223,7 +7258,6 @@
         <Effect Name="CHALLENGE_AUTO_2"/>
         <Effect Name="CHALLENGE_AUTO_1"/>
         <Effect Name="I_knife002_rotate#Dummy_Force"/>
-        <Effect Name="F_ground174_pink"/>
     </Category>
     <Category ID="27">
         <Effect Name="SAPPER_TRAP_Sapper_BroomTrap"/>

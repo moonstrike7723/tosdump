@@ -308,5 +308,8 @@
 	<ReadXml Name="tutorialnotelist"/>
 	<ReadXml Name="relic_exp"/>
 	<ReadXml Name="relic_gem_info"/>
+	<ReadXml Name="mythic_rule"/>
+	<ReadXml Name="ancient_slot_extend"/>
 	<ReadXml Name="instrument_scale"/>
+<ReadXml Name="explorer_quiz"/>
 </Category>

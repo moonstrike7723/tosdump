@@ -1,16 +1,15 @@
-function DIALOGILLUST_ON_INIT(addon, frame)
+ï»¿function DIALOGILLUST_ON_INIT(addon, frame)
 	dialogelapsedTime = 0;
-
 	addon:RegisterMsg('DIALOG_CHANGE_OK', 'DIALOGILLUST_ON_MSG');
 	addon:RegisterMsg('DIALOG_CHANGE_NEXT', 'DIALOGILLUST_ON_MSG');
 	addon:RegisterMsg('DIALOG_CHANGE_SELECT', 'DIALOGILLUST_ON_MSG');	
 	addon:RegisterMsg('DIALOG_CLOSE', 'DIALOGILLUST_ON_MSG');
 end
 
---ClassNameÀ» ¹Þ¾Æ, ±×°ÍÀ» ClientÀÇ µ¥ÀÌÅÍÅÂÀÌºí¿¡¼­, °ªÀ» ¹Þ¾Æ ¿À´Â Çü½ÄÀ» ±¸¼ºÇÑ´Ù
+--ClassNameï¿½ï¿½ ï¿½Þ¾ï¿½, ï¿½×°ï¿½ï¿½ï¿½ Clientï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìºï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½
 function DIALOGILLUST_TEXTVIEW(frame, msg, argStr, argNum)
-		
     local frame = ui.GetFrame('dialogillust');
+	if frame ~= nil then
 	local DialogTable		= GetClass( 'DialogText', argStr);
 	if DialogTable == nil then
 		local dd = string.find(argStr, "\\");
@@ -29,14 +28,13 @@ function DIALOGILLUST_TEXTVIEW(frame, msg, argStr, argNum)
 			imgObject:SetImage("");
 		end
 	end
-
 	frame:ShowWindow(1);
+end
 end
 
 function DIALOGILLUST_ON_MSG(frame, msg, argStr, argNum)
-
+	if frame ~= nil then
 	frame:Invalidate();
-
 	if  msg == 'DIALOG_CHANGE_OK'  then
 		DIALOGILLUST_TEXTVIEW(frame, msg, argStr, argNum)
 	end
@@ -53,4 +51,5 @@ function DIALOGILLUST_ON_MSG(frame, msg, argStr, argNum)
 		ui.CloseFrame(frame:GetName());
 		dialogelapsedTime = 0;
 	end
+end
 end

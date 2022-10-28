@@ -2458,7 +2458,7 @@ function SCR_Get_MSPD(self)
         value = 55;
     end
 
-    if IsBuffApplied(self, 'SnipersSerenity_Buff') == 'YES' then
+    if IsBuffApplied(self, 'SnipersSerenity_Buff') == 'YES' and (IsPVPField(self) == 1 or IsPVPServer(self) == 1) then
         if IsBuffApplied(self, 'DesperateDefense_Buff') == 'YES' then
             return math.floor(value);
         else

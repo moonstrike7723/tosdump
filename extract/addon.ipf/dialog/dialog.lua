@@ -1,4 +1,4 @@
-
+﻿
 function DIALOG_ON_INIT(addon, frame)
     local screenWidth 	= ui.GetClientInitialWidth();
     --frame:Resize(frame:GetWidth(), frame:GetHeight());
@@ -127,6 +127,7 @@ function DIALOG_TEXTVIEW(frame, msg, argStr)
 end
 
 function DIALOG_ON_MSG(frame, msg, argStr, argNum)
+	if frame == nil then return; end
 	frame:Invalidate();
 
 	local appsFrame = ui.GetFrame('apps');

@@ -199,7 +199,7 @@ function RunningShotClientScp_LEAVE(actor, obj, buff)
 end
 
 function SnipersSerenityClientScp_ENTER(actor, obj, buff)
-    if pc.IsBuffApplied(actor, "DesperateDefense_Buff") == 0 then
+    if pc.IsBuffApplied(actor, "DesperateDefense_Buff") == 0 and (IsPVPField(actor) == 1 or IsPVPServer(actor) == 1) then
         actor:GetAnimation():SetWLKAnim("SKL_SNIPERSSERENITY_AWLK");
         actor:GetAnimation():SetRUNAnim("SKL_SNIPERSSERENITY_AWLK");
     end
@@ -723,6 +723,16 @@ function Mythic_InfectiousDisease_ENTER(actor, obj, buff)
 end
 
 function Mythic_InfectiousDisease_LEAVE(actor, obj, buff)
+    actor:SetAuraInfo("");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_Link_ENTER(actor, obj, buff)
+    actor:SetAuraInfo("Mythic_Link");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_Link_LEAVE(actor, obj, buff)
     actor:SetAuraInfo("");
     actor:GetTitle():UpdateCaption();
 end

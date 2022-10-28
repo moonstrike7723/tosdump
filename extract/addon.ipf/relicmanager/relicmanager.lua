@@ -731,14 +731,15 @@ function RELICMANAGER_EXP_REG_MAT_ITEM(frame, inv_item, item_obj)
 	local mat_ctrl = GET_CHILD_RECURSIVELY(frame, 'exp_mat_ctrl')
 	if mat_ctrl == nil then return end
 
-	local mat_class_name = TryGetProp(item_obj, 'ClassName', 'None')
-	local name = shared_item_relic.get_exp_material_name()
-	if name ~= mat_class_name then
+	local mat_name = TryGetProp(item_obj, 'ClassName', 'None')
+	local mat_name_list = shared_item_relic.get_exp_material_name()
+	local mat_index = table.find(mat_name_list, mat_name)
+	if mat_index <= 0 then
 		ui.SysMsg(ClMsg('IMPOSSIBLE_ITEM'))
 		return
 	end
-	
-	local mat_class = GetClass('Item', mat_class_name)
+
+	local mat_class = GetClass('Item', mat_name)
 	local mat_class_id = TryGetProp(mat_class, 'ClassID', 0)
 	local mat_guid = inv_item:GetIESID()
 	local exp_per = shared_item_relic.get_exp_material_value()

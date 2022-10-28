@@ -233,7 +233,7 @@ function TRANSCEND_SCROLL_EXEC_ASK_AGAIN(frame, btn)
             clmsg = ScpArgMsg("TranscendScrollWarning{Before}To{After}100Percent", "Before", beforeTranscend, "After", transcend)
         end
     end
-
+    
 	imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_BTN_OK_SOUND"));
 	ui.MsgBox_NonNested(clmsg, frame:GetName(), "TRANSCEND_SCROLL_EXEC", "None");
 end
@@ -468,7 +468,7 @@ function TRANSCEND_SCROLL_SELECT_TARGET_ITEM(scrollItem)
 	local tab = gbox:GetChild("inventype_Tab");	
 	tolua.cast(tab, "ui::CTabControl");
 	tab:SelectTab(1);
-
+	
 	SET_SLOT_APPLY_FUNC(invframe, "TRANSCEND_SCROLL_CHECK_TARGET_ITEM", nil, "Equip");
 	INVENTORY_SET_CUSTOM_RBTNDOWN("TRANSCEND_SCROLL_INV_RBTN");
 end
@@ -570,6 +570,9 @@ function TRANSCEND_SCROLL_UI_RESET()
 	local text_name = GET_CHILD(frame, "text_name");
 	local text_itemtranscend = frame:GetChild("text_itemtranscend");	
 
+	local text_title = GET_CHILD(frame, "text_title");
+	text_title:SetTextByKey("value", "");
+	
 	text_name:ShowWindow(0);
 	text_itemtranscend:ShowWindow(0);
 end

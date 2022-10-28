@@ -1,4 +1,4 @@
-function SCR_LETICIA_CUBE_AI_BORN(self)
+﻿function SCR_LETICIA_CUBE_AI_BORN(self)
 	--회차보상때문에 npc는 항상 띄워두도록 수정. 여큡/레티샤 모두 진행하지 않을때는 NO로 바꿔주어야함
 	local nowtime = "NO"
 	if nowtime == "YES" then

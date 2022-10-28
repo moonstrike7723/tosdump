@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by IMC (IMCGames Co., Ltd) -->
 <PropertyShop>
 	<Shop Name="PVPShop" PointScript="GET_PVP_POINT">
 		<Item Script="None" Name="misc_pvp_mine2" Count="14" Price="1" DailyBuyLimit="0"/>
@@ -103,12 +103,12 @@
 		<Item Script="None" Name="Guild_RESET_GUILD_ABILITY" Count="1" Price="2000" DailyBuyLimit="0"/>
 	</Shop>
 	<Shop Name="CONTENTS_TOTAL_SHOP" PointScript="GET_CONTENTS_TOTAL_POINT">
-		<Item Script="None" Name="Gesture_Homerun" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_1"/>
-		<Item Script="None" Name="Gesture_BASEBALL" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_2"/>
-		<Item Script="None" Name="EVENT_accessory_snowflower" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_3"/>
-		<Item Script="None" Name="motion_medeinacon1" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_4"/>
-		<Item Script="None" Name="motion_medeinacon2" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_5"/>
-		<Item Script="None" Name="motion_medeinacon3" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_6"/>
+		<Item Script="None" Name="Gesture_SHOOTDANCE" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_1"/>
+		<Item Script="None" Name="Gesture_CHEER" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_2"/>
+		<Item Script="None" Name="artefact_chick_umbrella" Count="1" Price="30000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_3"/>
+		<Item Script="None" Name="motion_popocon1" Count="1" Price="2100" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_4"/>
+		<Item Script="None" Name="motion_popocon2" Count="1" Price="2100" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_5"/>
+		<Item Script="None" Name="motion_popocon3" Count="1" Price="2100" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_6"/>
 		<Item Script="None" Name="DRESS_ROOM_COLLECT_4" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_7"/>
 		<Item Script="None" Name="give_ticket_ep13vakarine03_m" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_8"/>
 		<Item Script="None" Name="give_ticket_ep13vakarine03_f" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_9"/>

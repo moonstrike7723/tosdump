@@ -382,7 +382,7 @@ function _RELIC_GEM_RELEASE_OPTION(gBox, ypos, gem_class_id)
 		infoNameText:SetFontName('brown_16')
 		ypos = ypos + infoNameText:GetHeight() + margin
 
-		local infoText = gBox:CreateControl('richtext', 'relic_release2', 15, ypos, gBox:GetWidth(), 30)
+		local infoText = gBox:CreateControl('richtext', 'relic_release2', relic_gem_text_margin, ypos, gBox:GetWidth() - relic_gem_text_margin, 30)
 		local option_name = TryGetProp(gem_class, 'RelicGemOption', 'None')
 		local msgstr = string.format('RelicGem_%s_DescText', option_name)
 		local strInfo = ClMsg(msgstr)
