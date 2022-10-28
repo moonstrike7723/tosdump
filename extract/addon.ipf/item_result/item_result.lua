@@ -77,22 +77,14 @@ local function ADD_ITEM_RESULT_CTRL(frame, itemBgBox, xpos, itemClsName, cnt)
 	AUTO_CAST(getText);
 	getText:SetGravity(ui.CENTER_HORZ, ui.BOTTOM);
 	getText:SetText(TEXT_STYLE..itemCls.Name..' x'..cnt..' '..ClMsg('Gain')..'!{/}');
-	if getText:GetWidth() >= 500 then
-			getText:AdjustFontSizeByWidth(500)
-	end
+
 	xpos = xpos + itemBox:GetWidth();
 	return xpos, CTRLSET_HEIGHT, itemPic;
 end
 
-function ON_DRAW_ITEM_RESULT(frame, msg, itemInfoStr, argNum)
+function ON_DRAW_ITEM_RESULT(frame, msg, itemInfoStr, argNum)	
 	local itemBgBox = GET_CHILD_RECURSIVELY(frame, 'itemBgBox');
 	itemBgBox:RemoveAllChild();
-
-	local listgb = GET_CHILD_RECURSIVELY(frame, 'listgb');
-	listgb:RemoveAllChild();
-	listgb:SetScrollPos(0);
-
-	local allMatCnt = 0;
 
 	local xpos = 0;
 	local ypos = 0;
@@ -103,65 +95,12 @@ function ON_DRAW_ITEM_RESULT(frame, msg, itemInfoStr, argNum)
 		local _itemInfo = StringSplit(_itemInfoStr, '#');
 		local itemClsName = _itemInfo[1];
 		local cnt = _itemInfo[2];
-		
-		local MatItemList = {};
-		if _itemInfo[3] ~= nil then
-			local _itemMatInfo = StringSplit(_itemInfo[3], ':');			
-			for j = 1, cnt do
-				MatItemList[j] = _itemMatInfo[j]
-			end
-		end
 
 		xpos, ypos, itemPic = ADD_ITEM_RESULT_CTRL(frame, itemBgBox, xpos, itemClsName, cnt);
 		local effectName = GET_ENCHANT_EFFECT_NAME(frame, itemClsName);
 		itemPic:StopUIEffect('ON_DRAW_ITEM_RESULT', true, 0.5);
-		itemPic:PlayUIEffect(effectName, EFFECT_SIZE, 'ON_DRAW_ITEM_RESULT');	
-		
-		-- 재료 아이템 표시
-		allMatCnt =  ADD_MATITEM_ITEM_CTRL(frame, itemClsName, allMatCnt, listgb, MatItemList);
+		itemPic:PlayUIEffect(effectName, EFFECT_SIZE, 'ON_DRAW_ITEM_RESULT');		
 	end
-	
-	local infogb = GET_CHILD(frame, 'infogb');
-	if allMatCnt == 0 then		
-		infogb:ShowWindow(0);
-	else
-		infogb:ShowWindow(1);
-	end
-
 	itemBgBox:Resize(xpos, ypos);
 	frame:ShowWindow(1);
 end
-
-function ADD_MATITEM_ITEM_CTRL(frame, itemClsName, allMatCnt, listgb, MatItemList)
-	local TEXT_STYLE = frame:GetUserConfig('TEXT_STYLE');	
-
-	local cnt = #MatItemList;
-	for i = 1, cnt do
-        local ctrlset = listgb:CreateOrGetControlSet("item_result", "item_result"..allMatCnt, 0, 0);
-        ctrlset:Move(0, ctrlset:GetHeight() * allMatCnt)
-		ctrlset:ShowWindow(1);      
-
-		local MatitemCls = GetClass('Item', MatItemList[i]);
-		local matitempic = GET_CHILD(ctrlset, 'itempic');
-		matitempic:SetImage(MatitemCls.Icon)
-		
-		local matitemname = GET_CHILD(ctrlset, 'itemname');
-		matitemname:SetTextByKey('value', MatitemCls.Name);
-		local resultitemCls = GetClass('Item', itemClsName);
-		local result = GET_CHILD(ctrlset, 'result');	
-		result:SetTextByKey('value', resultitemCls.Name);
-	
-	if matitemname:GetWidth() >= 220 then
-		matitemname:AdjustFontSizeByWidth(220)
-	end
-	
-	if result:GetWidth() >= 280 then
-		result:AdjustFontSizeByWidth(280)
-	end
-		allMatCnt = allMatCnt + 1;
-	end
-
-	return allMatCnt;
-end
-
-

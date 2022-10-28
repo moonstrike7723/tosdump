@@ -97,15 +97,22 @@ function REPAIR_FILL_SELL_LIST(frame)
 	end
 
 	local sortlist = session.GetSortItemList("Dur", isequip, 1);
-	local cnt = sortlist:Count();	
+
+    local cnt = sortlist:Count();
+
+
     local idx = 0;
+
     for i = 0, cnt - 1 do
-        local sortItemGuid = sortlist:Element(i);
+
+        local sortItem = sortlist:PtrAt(i);
+
+
         local invitem;
 		if sortItem.isEquip == 1 then
-			invitem = session.GetInvItemByGuid(sortItemGuid);
+			invitem = tolua.cast(sortItem.item, "EQUIP_ITEM_INFO_C");
 		else
-			invitem = session.GetEquipItemByGuid(sortItemGuid);
+			invitem = tolua.cast(sortItem.item, "INV_ITEM_INFO_C");
 		end
 		
 		local itemobj = GetIES(sortItem.obj);
@@ -133,7 +140,14 @@ function REPAIR_FILL_SELL_LIST(frame)
 			icon:Set(imageName, 'Item', invitem.type, 0, invitem:GetIESID());
 			Slot:EnableHitTest(0);
 
-			local ase = invitem.type;
+			local ase = invitem.type
+			--SET_ITEM_TOOLTIP_TYPE(Item_Ctrl, ase);
+
+			--Item_Ctrl:SetTooltipArg('repair', 0, invitem:GetIESID());
+
+			
+			
+
 			local string = string.format( "{s16}%s {#FF6600}(%s : %d){/}", itemobj.Name, ScpArgMsg("REPAIR_PRICE"),GET_REPAIR_PRICE(itemobj,repairamount));
 			Item_Ctrl:SetTextByKey('text', string);
 			string = string.format("%s%s : (%d / %d){/}", GET_ENDURE_COLOR(itemobj), ScpArgMsg("DURABILITY"), itemobj.Dur / DUR_DIV(), itemobj.MaxDur / DUR_DIV())

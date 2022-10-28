@@ -34,17 +34,12 @@ local MARKET_OPTION_GROUP_PROP_LIST = {
 		"RES_HOLY",
 		"RES_DARK",
 		"CRTDR",
-		"Cloth_Def",
-		"Leather_Def",
-		"Iron_Def",
-		"MiddleSize_Def",
-		"ResAdd_Damage"
 	},
     MARKET_ATK = {
 		"PATK",
 		"ADD_MATK",
 		"CRTATK",
-		"CRTMATK",
+		"ADD_MHR",
 		"ADD_CLOTH",
 		"ADD_LEATHER",
 		"ADD_IRON",
@@ -65,31 +60,12 @@ local MARKET_OPTION_GROUP_PROP_LIST = {
 		"ADD_SOUL",
 		"ADD_HOLY",
 		"ADD_DARK",
-		"Add_Damage_Atk",
-		"ADD_BOSS_ATK"
 	},
     ETC = {
 		"SR",
 		"MSPD",
-		"SDR",		
+		"SDR",
 	},
-	MARKET_ENCHANT ={
-		"RareOption_SR",
-		"RareOption_MSPD",
-		"RareOption_BlockRate",
-		"RareOption_BlockBreakRate",
-		"RareOption_DodgeRate",
-		"RareOption_HitRate",
-		"RareOption_CriticalDodgeRate",
-		"RareOption_CriticalHitRate",
-		"RareOption_PVPReducedRate",
-		"RareOption_MeleeReducedRate",
-		"RareOption_MagicReducedRate",
-		"RareOption_CriticalDamage_Rate",
-		"RareOption_PVPDamageRate",
-		"RareOption_BossDamageRate",
-		"RareOption_MainWeaponDamageRate"
-	}
 };
 
 local MARKET_DETAIL_SETTING_LIST = {
@@ -104,8 +80,7 @@ local MARKET_ITEM_COUNT_PER_PAGE = {
 	Accessory = 7,	
 	HairAcc = 7,
 	RecipeMaterial = 7,
-	Recipe_Detail = 3,    
-    OPTMisc = 7,    
+	Recipe_Detail = 3,
 	Default = 11
 };
 

@@ -3,54 +3,6 @@ function RAREOPTION_ON_INIT(addon, frame)
 	addon:RegisterMsg('SUCESS_ENCHANT_JEWELL', 'ON_SUCESS_ENCHANT_JEWELL');
 end
 
--- 인챈트 쥬얼의 ItemGrade는 3부터 시작
-local gradestr_list = {"", "", ClMsg("Rare"), ClMsg("Unique"),  ClMsg("Legend")}
-
-local function _RAREOPTION_SET_JEWELL_ITEM(frame, jewellItem)	
-	if jewellItem == nil then
-		local curSettedLv = frame:GetUserIValue('JEWELL_LEVEL');
-		local curSettedGrade = frame:GetUserIValue('JEWELL_GRADE');
-		if curSettedLv == 0 or curSettedGrade == 0 then
-			return;
-		end
-
-		local haveCount = 0
-		local itemList = {}
-
-		haveCount, itemList = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'Level', Value = frame:GetUserIValue('JEWELL_LEVEL')}, {Name = 'ItemGrade', Value = frame:GetUserIValue('JEWELL_GRADE')}});
-		if haveCount == 0 then
-			haveCount, itemList = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'NumberArg1', Value = frame:GetUserIValue('JEWELL_LEVEL')}, {Name = 'ItemGrade', Value = frame:GetUserIValue('JEWELL_GRADE')}});
-		end
-		if haveCount < 1 then
-			ui.MsgBox(ScpArgMsg('UseUp{LEVEL}{GRADE}Jewell', 'LEVEL', curSettedLv, 'GRADE', gradestr_list[curSettedGrade]), 'ui.CloseFrame("rareoption")', 'None');
-			return;
-		end
-		for i = 1, #itemList do
-			local itemObj = GetIES(itemList[i]:GetObject());
-			local itemObjLevel = TryGetProp(itemObj, 'Level', 1)
-			
-			if itemObjLevel == 1 then
-				itemObjLevel = itemObj.NumberArg1
-			end
-
-			if itemObjLevel == curSettedLv and itemObj.ItemGrade == curSettedGrade then
-				jewellItem = itemList[i];
-				break;
-			end
-		end
-	end
-	
-	local jewellObj = GetIES(jewellItem:GetObject());
-	local margin = frame:GetMargin();	
-	frame:SetUserValue('JEWELL_GUID', jewellItem:GetIESID());
-	local lv = TryGetProp(jewellObj, 'Level', 1)
-	if lv == 1 then
-		lv = TryGetProp(jewellObj, 'NumberArg1', 1)		
-	end
-	frame:SetUserValue('JEWELL_LEVEL', lv);
-	frame:SetUserValue('JEWELL_GRADE', jewellObj.ItemGrade);
-end
-
 function OPEN_RARE_OPTION(invItem)
 	local indun_reward_hud = ui.GetFrame('indun_reward_hud');
 	if info.HasHoldItemBuff() == true or session.world.IsIntegrateServer() == true or IsPVPServer() == 1 or session.world.IsDungeon() == true then
@@ -58,8 +10,8 @@ function OPEN_RARE_OPTION(invItem)
 		return;
 	end
 
-	local rareoption = ui.GetFrame('rareoption');
-	_RAREOPTION_SET_JEWELL_ITEM(rareoption, invItem);
+	local rareoption = ui.GetFrame('rareoption');	
+	RAREOPTION_SET_JEWELL_ITEM(rareoption, invItem);
 	rareoption:ShowWindow(1);
 end
 
@@ -83,14 +35,14 @@ local function GET_JEWELL_ITEM_OBJECT_BY_FRAME(frame)
 	return GetIES(jewellItem:GetObject()), jewellItem;
 end
 
-local function SET_TARGET_SLOT(frame, targetItem)	
+local function SET_TARGET_SLOT(frame, targetItem)
 	local slot = GET_CHILD_RECURSIVELY(frame, 'slot');
 	local slot_bg_image = GET_CHILD_RECURSIVELY(frame, 'slot_bg_image');
 	local text_putonitem = GET_CHILD_RECURSIVELY(frame, 'text_putonitem');
 	local text_itemname = GET_CHILD_RECURSIVELY(frame, 'text_itemname');
 
 	if targetItem ~= nil then
-		local targetItemObj = GetIES(targetItem:GetObject());		
+		local targetItemObj = GetIES(targetItem:GetObject());
 		SET_SLOT_ITEM(slot, targetItem);		
 		text_itemname:SetText(targetItemObj.Name);		
 		slot_bg_image:ShowWindow(0);
@@ -124,20 +76,10 @@ local function ADD_RARE_OPTION_CTRLSET(box, itemID)
 		if rareOptionText ~= nil then
 			local rareOptionCtrl = box:CreateOrGetControlSet('eachproperty_in_itemrandomreset', 'PROPERTY_CSET_RARE', 0, 0);
 			rareOptionCtrl = AUTO_CAST(rareOptionCtrl);
-			rareOptionCtrl:Resize(box:GetWidth(), rareOptionCtrl:GetWidth())
 			rareOptionCtrl:Move(0, 30);
 			local propertyList = GET_CHILD_RECURSIVELY(rareOptionCtrl, "property_name", "ui::CRichText");
 			propertyList:SetOffset(30, propertyList:GetY());
 			propertyList:SetText(rareOptionText);
-			
-			local width = propertyList:GetWidth();
-			local frame = box:GetTopParentFrame();
-			local fixwidth = box:GetWidth() - 30
-
-			if fixwidth < width then
-				propertyList:SetTextFixWidth(1);
-				propertyList:SetTextMaxWidth(fixwidth);
-			end			
 		end
 	end
 end
@@ -174,30 +116,14 @@ local function CHECK_EXECUTE_ENCHNAT_JEWELL(frame, targetItemID)
 		ui.SysMsg(ScpArgMsg('CannotApplyJewellBecause{REASON}', 'REASON', ClMsg(reason)));
 		return false;
 	end
-
-	local targetItemObj = GetIES(targetItem:GetObject());
-	if TryGetProp(targetItemObj, 'ItemGrade', 1) >= 6 then
-		ui.SysMsg(ClMsg("CantUseGoddessItemByEnchantJewellItem"))
-		return false
-	end
-
 	return true;
 end
 
 local function RAREOPTION_UPDATE_JEWELL_COUNT(frame)	
 	local text_havematerial = GET_CHILD_RECURSIVELY(frame, 'text_havematerial');
-	local haveCount = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'Level', Value = frame:GetUserIValue('JEWELL_LEVEL')}, {Name = 'ItemGrade', Value = frame:GetUserIValue('JEWELL_GRADE')}});
-	if haveCount == 0 then
-		haveCount = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'NumberArg1', Value = frame:GetUserIValue('JEWELL_LEVEL')}, {Name = 'ItemGrade', Value = frame:GetUserIValue('JEWELL_GRADE')}});
-	end
-	text_havematerial:SetTextByKey('grade', gradestr_list[frame:GetUserIValue('JEWELL_GRADE')]);
+	local haveCount = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'Level', Value = frame:GetUserIValue('JEWELL_LEVEL')}});
 	text_havematerial:SetTextByKey('count', haveCount);
 	return haveCount;
-end
-
-local function RAREOPTION_UPDATE_USABLE_JEWELL_NAME(frame)	
-	local text_havematerial = GET_CHILD_RECURSIVELY(frame, 'text_needmaterial');
-	text_havematerial:SetTextByKey('grade', gradestr_list[frame:GetUserIValue('JEWELL_GRADE')]);
 end
 
 -- endregion
@@ -220,6 +146,31 @@ function RAREOPTION_INVENTORY_RBTN_CLICK(itemObj, invSlot, invItemGuid)
 	end
 end
 
+function RAREOPTION_SET_JEWELL_ITEM(frame, jewellItem)	
+	if jewellItem == nil then
+		local curSettedLv = frame:GetUserIValue('JEWELL_LEVEL');
+		if curSettedLv == 0 then
+			return;
+		end
+
+		local haveCount, itemList = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'Level', Value = frame:GetUserIValue('JEWELL_LEVEL')}});
+		if haveCount < 1 then
+			ui.MsgBox(ScpArgMsg('UseUp{LEVEL}Jewell', 'LEVEL', curSettedLv), 'ui.CloseFrame("rareoption")', 'None');
+			return;
+		end
+		for i = 1, #itemList do
+			local itemObj = GetIES(itemList[i]:GetObject());
+			if itemObj.Level == curSettedLv then
+				jewellItem = itemList[i];
+				break;
+			end
+		end
+	end
+	local jewellObj = GetIES(jewellItem:GetObject());
+	frame:SetUserValue('JEWELL_GUID', jewellItem:GetIESID());
+	frame:SetUserValue('JEWELL_LEVEL', jewellObj.Level);
+end
+
 function RAREOPTION_INIT(frame, clearTarget)
 	if ui.CheckHoldedUI() == true then
 		return;
@@ -227,7 +178,6 @@ function RAREOPTION_INIT(frame, clearTarget)
 
 	frame = frame:GetTopParentFrame();
 	RAREOPTION_UPDATE_JEWELL_COUNT(frame);
-	RAREOPTION_UPDATE_USABLE_JEWELL_NAME(frame);
 
 	local do_unrevertrandom = GET_CHILD_RECURSIVELY(frame, 'do_unrevertrandom');	
 	local send_ok = GET_CHILD_RECURSIVELY(frame, 'send_ok');
@@ -266,10 +216,9 @@ function RAREOPTION_REGISTER_ITEM(frame, invItemID)
 	end
 
 	local jewellItem = GET_JEWELL_ITEM_OBJECT_BY_FRAME(frame);	
-	if jewellItem == nil then
+	if jewellItem ==nil then
 		local curSettedLv = frame:GetUserIValue('JEWELL_LEVEL');
-		local curSettedGrade = frame:GetUserIValue('JEWELL_GRADE');
-		ui.MsgBox(ScpArgMsg('UseUp{LEVEL}{GRADE}Jewell', 'LEVEL', curSettedLv, 'GRADE', gradestr_list[curSettedGrade]), 'ui.CloseFrame("rareoption")', 'None');
+		ui.MsgBox(ScpArgMsg('UseUp{LEVEL}Jewell', 'LEVEL', curSettedLv), 'ui.CloseFrame("rareoption")', 'None');
 		return;
 	end
 	if CHECK_EXECUTE_ENCHNAT_JEWELL(frame, invItemID) == false then
@@ -293,8 +242,7 @@ function RAREOPTION_EXECUTE(parent, ctrl)
 	local jewellItemObj, jewellItem = GET_JEWELL_ITEM_OBJECT_BY_FRAME(frame);
 	if jewellItem == nil then
 		local curSettedLv = frame:GetUserIValue('JEWELL_LEVEL');
-		local curSettedGrade = frame:GetUserIValue('JEWELL_GRADE');
-		ui.MsgBox(ScpArgMsg('UseUp{LEVEL}{GRADE}Jewell', 'LEVEL', curSettedLv, 'GRADE', gradestr_list[curSettedGrade]), 'ui.CloseFrame("rareoption")', 'None');
+		ui.MsgBox(ScpArgMsg('UseUp{LEVEL}Jewell', 'LEVEL', curSettedLv), 'ui.CloseFrame("rareoption")', 'None');
 		return;
 	end
 
@@ -362,7 +310,6 @@ function _SUCCESS_ENCHANT_JEWELL()
 	ENABLE_CONTROL_WITH_UI_HOLD(false);
 	local frame = ui.GetFrame('rareoption');
 	RAREOPTION_UPDATE_JEWELL_COUNT(frame);
-	RAREOPTION_UPDATE_USABLE_JEWELL_NAME(frame);
 
 	local send_ok = GET_CHILD_RECURSIVELY(frame, 'send_ok');
 	send_ok:ShowWindow(1);
@@ -381,12 +328,7 @@ function _SUCCESS_ENCHANT_JEWELL()
 		ADD_RARE_OPTION_CTRLSET(bodyGbox2_1, icon:GetInfo():GetIESID());
 	end
 
-	_RAREOPTION_SET_JEWELL_ITEM(frame, nil);
-	local pic_bg = GET_CHILD_RECURSIVELY(frame, 'pic_bg');
-	if pic_bg == nil then
-		return;
-	end
-	pic_bg:StopUIEffect('RESET_SUCCESS_EFFECT', true, 0.5);
+	RAREOPTION_SET_JEWELL_ITEM(frame, nil);
 end
 
 function RAREOPTION_INIT_EXCEPT_TARGET(parent, ctrl)
