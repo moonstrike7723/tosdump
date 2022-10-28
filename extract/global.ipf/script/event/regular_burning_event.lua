@@ -82,25 +82,30 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 ,{'통합 포인트 획득량 2배 증가 ','EVENT_CONTENTS_TOTAL_POINT_BOOST'}
 					 ,{'필드 드롭율 50% 증가','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}
 					 ,{'[주말 앤 버닝] 성물 레이드 : 자동 매칭 (Normal) 입장 횟수 초기화','Event_Mythic_Auto_Count_Reset'}					 
+					 ,{'여신의 전언: 불꽃의 기억 콘텐츠 보상 증가','EVENT_EARRING_REWARD_BOOST'}					 
 					 ,{'성물 레이드 - 자동매칭(Normal) 보상 증가','EVENT_MYTHIC_REWARD_BOOST'}					 
 					 ,{'마신의 성소 - 자동매칭(Normal) 보상 증가','EVENT_GILTINE_REWARD_BOOST'}					 
 					 ,{'챌린지 모드 보상 증가','EVENT_CHALLENGE_REWARD_BOOST'}					 
-					 ,{'분열 특이점(자동매칭) 모드 보상 증가','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}					 
+					 ,{'분열 특이점(자동매칭) 모드 보상 증가','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}		
+					 ,{'베르니케 파편 던전 에테르 젬 강화 횟수 증가','EVENT_SOLO_DUNGEON_REWARD_BOOST'}					 
 					 }
     
 	local daycheckbuff = 
-					 {{'6','3',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
-					 ,{'6','4',{'Event_Expup_50','Event_healHSP_Speedup'}}
-					 ,{'6','5',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
-					 ,{'6','10',{'Event_Expup_100','EVENT_GILTINE_REWARD_BOOST'}}
-					 ,{'6','11',{'Event_Expup_100','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}}
-					 ,{'6','12',{'Event_Expup_100','Event_Challenge_Count_Reset'}}
-					 ,{'6','17',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-					 ,{'6','18',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
-					 ,{'6','19',{'Event_Expup_50','Event_healHSP_Speedup'}}
-					 ,{'6','24',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
-					 ,{'6','25',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
-					 ,{'6','26',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
+					 {{'7','1',{'Event_Expup_100','EVENT_SOLO_DUNGEON_REWARD_BOOST'}}
+					 ,{'7','2',{'Event_Expup_100','EVENT_GILTINE_REWARD_BOOST'}}
+					 ,{'7','3',{'Event_Expup_100','EVENT_EARRING_REWARD_BOOST'}}
+					 ,{'7','8',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
+					 ,{'7','9',{'Event_Expup_50','Event_healHSP_Speedup'}}
+					 ,{'7','10',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
+					 ,{'7','15',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+					 ,{'7','16',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'7','17',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+					 ,{'7','22',{'Event_LootingChance_Add_1000','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}}
+					 ,{'7','23',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
+					 ,{'7','24',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'7','29',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+					 ,{'7','30',{'Event_Expup_50','Event_Challenge_Count_Reset'}}
+					 ,{'7','31',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
 						 }
 	
 	-- 기본 적용 버프
