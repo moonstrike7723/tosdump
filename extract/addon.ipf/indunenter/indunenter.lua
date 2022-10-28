@@ -1887,12 +1887,12 @@ function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
         local addCount = math.floor((nowCount - indunCls.WeeklyEnterableCount) * admissionPlayAddItemCount)
         local nowAdmissionItemCount = admissionItemCount + addCount - isTokenState
 
-        if IsBuffApplied(pc,"Event_Steam_New_World_Buff") == "YES" and admissionItemName == "Dungeon_Key01" then
+        if IsBuffApplied(user,"Event_Steam_New_World_Buff") == "YES" and admissionItemName == "Dungeon_Key01" then
             nowAdmissionItemCount = 1
         elseif IsBuffApplied(user, "Event_Unique_Raid_Bonus") == "YES" and admissionItemName == "Dungeon_Key01" then
             nowAdmissionItemCount = admissionItemCount
-        elseif IsBuffApplied(pc, "Event_Unique_Raid_Bonus_Limit") == "YES" and admissionItemName == "Dungeon_Key01" then
-            local accountObject = GetMyAccountObj(pc)
+        elseif IsBuffApplied(user, "Event_Unique_Raid_Bonus_Limit") == "YES" and admissionItemName == "Dungeon_Key01" then
+            local accountObject = GetMyAccountObj(user)
             if TryGetProp(accountObject, "EVENT_UNIQUE_RAID_BONUS_LIMIT") > 0 then
                 nowAdmissionItemCount = admissionItemCount
             end
