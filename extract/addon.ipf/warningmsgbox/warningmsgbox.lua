@@ -588,6 +588,9 @@ function WARNINGMSGBOX_FRAME_OPEN_EXCHANGE_RECYCLE(clmsg, yesScp, noScp, itemGui
     input_frame:ShowWindow(1)
 	input_frame:SetText('')
 	input_frame:SetMaxLen(20)
+
+	local showTooltipCheck = GET_CHILD_RECURSIVELY(frame, "cbox_showTooltip")
+	showTooltipCheck:ShowWindow(0);
     
 	local yesBtn = GET_CHILD_RECURSIVELY(frame, "yes")
 	tolua.cast(yesBtn, "ui::CButton");
