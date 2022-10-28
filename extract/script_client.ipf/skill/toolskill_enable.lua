@@ -764,6 +764,14 @@ function SKL_CHECK_FLETCHER_ARROW_SHOT_C(actor, skl)
         return 0
     end
 
+    local target = world.GetActor(handle);
+    if target ~= nil and target:GetObjType() == GT_MONSTER  then
+        local monCls = GetClassByType("Monster", target:GetType());
+        if monCls.MonRank == 'NPC' then
+            return 0
+        end
+    end
+
     if actor:GetBuff():GetBuff('Fletcher_BodkinPoint_Buff') ~= nil then
         return 1
     end

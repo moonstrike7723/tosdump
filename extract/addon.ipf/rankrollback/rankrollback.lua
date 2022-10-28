@@ -185,7 +185,15 @@ function RANKROLLBACK_ITEM_USE_BUTTON_CLICK(frame, ctrl)
 		WARNINGMSGBOX_EX_FRAME_OPEN(frame, 'None', 'TargetJobIsLocked;CantRollbackThisChangeJob/RANKROLLBACK_REQUEST_RANK_RESET', 0, opt)
 		return;
 	end
-    
+	
+	local frame = ui.GetFrame('rankrollback');
+	local targetJobID = frame:GetUserIValue('TARGET_JOB_CLASS_ID');
+
+	if IS_DEFAULT_COSTUME_LOCK(targetJobID) == 1 then
+    	ui.SysMsg(ClMsg('DefaultCostumeIsLock'));
+		return; 
+	end
+
     RANKROLLBACK_REQUEST_RANK_RESET();
 end
 

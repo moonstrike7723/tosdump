@@ -84,23 +84,20 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 ,{'[주말 앤 버닝] 성물 레이드 : 자동 매칭 (Normal) 입장 횟수 초기화','Event_Mythic_Auto_Count_Reset'}					 
 					 }
     
-    local daycheckbuff = 
-	{{'12','31',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
-	,{'1','1',{'Event_Expup_100','Event_Mythic_Auto_Count_Reset'}}
-	,{'1','2',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
-	,{'1','7',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
-	,{'1','8',{'Event_LootingChance_Add_1000','Event_Challenge_Count_Reset'}}
-	,{'1','9',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'1','14',{'Event_Expup_50','Event_healHSP_Speedup'}}
-	,{'1','15',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
-	,{'1','16',{'Event_Expup_50','EVENT_CONTENTS_TOTAL_POINT_BOOST'}}
-	,{'1','21',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-	,{'1','22',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
-	,{'1','23',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-	,{'1','28',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'1','29',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
-	,{'1','30',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
-		}
+	local daycheckbuff = 
+					 {{'2','4',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'2','5',{'Event_Expup_100','Event_Mythic_Auto_Count_Reset'}}
+					 ,{'2','6',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
+					 ,{'2','11',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+					 ,{'2','12',{'Event_Expup_50','Event_Challenge_Count_Reset'}}
+					 ,{'2','13',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
+					 ,{'2','18',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+					 ,{'2','19',{'Event_Expup_50','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}}
+					 ,{'2','20',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+					 ,{'2','25',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+					 ,{'2','26',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'2','27',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+						 }
 	
 	-- 기본 적용 버프
 	local dayBuffList = {'Event_RootCrystal_Check_Buff'}
@@ -239,7 +236,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 			end
 		end
 	        --MYTHIC_AUTO_RESET
-	elseif  REGULAR_BURNING_EVENT_SERVER_TIME_CHECK(self) == 20220101 then -- before active select dialog
+	elseif  REGULAR_BURNING_EVENT_SERVER_TIME_CHECK(self) == 20220205 then -- before active select dialog
 		local mythicrecheck = TryGetProp(accountObject,"REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET",0)
 		
 		if distractor == 2 then
