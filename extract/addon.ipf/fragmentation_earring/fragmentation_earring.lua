@@ -34,7 +34,9 @@ local function SET_TARGET_SLOT(frame, targetItem)
 		text_itemname:SetText(targetItemObj.Name);
 		if TryGetProp(targetItemObj, 'GroupName', 'None') == 'Earring' then
 			text_desc:SetTextByKey('value', ScpArgMsg('ItemFragmentationMaxCount', 'count', shared_item_earring.get_fragmentation_count(targetItemObj)))
-		elseif TryGetProp(targetItemObj, 'GroupName', 'None') == 'BELT' then
+		elseif TryGetProp(targetItemObj, 'GroupName', 'None') == 'BELT' or shared_item_goddess_icor.get_goddess_icor_grade(targetItemObj) > 0 then
+			text_desc:SetTextByKey('value', ScpArgMsg('ItemFragmentationCount', 'count', shared_item_earring.get_fragmentation_count(targetItemObj)))
+		elseif IS_RANDOM_OPTION_SKILL_GEM(targetItemObj) then
 			text_desc:SetTextByKey('value', ScpArgMsg('ItemFragmentationCount', 'count', shared_item_earring.get_fragmentation_count(targetItemObj)))
 		end
 		text_desc:ShowWindow(1)

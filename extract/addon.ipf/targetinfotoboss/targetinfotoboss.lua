@@ -1,5 +1,4 @@
 function TARGETINFOTOBOSS_ON_INIT(addon, frame)
-
 	addon:RegisterMsg('TARGET_SET_BOSS', 'TARGETINFOTOBOSS_TARGET_SET');
 	addon:RegisterMsg('TARGET_BUFF_UPDATE', 'TARGETINFOTOBOSS_ON_MSG');
 	addon:RegisterMsg('TARGET_CLEAR_BOSS', 'TARGETINFOTOBOSS_ON_MSG');
@@ -90,12 +89,8 @@ function TARGETINFOTOBOSS_TARGET_SET(frame, msg, argStr, argNum)
 	-- hp
 	local stat = targetinfo.stat;
 	local hpGauge = GET_CHILD(frame, "hp", "ui::CGauge");
-    local hpText = frame:GetChild('hpText');
+	if hpGauge ~= nil then
 	hpGauge:SetPoint(stat.HP, stat.maxHP);
-
-	local strHPValue = TARGETINFO_TRANS_HP_VALUE(targetHandle, stat.HP, frame:GetUserConfig("HPTEXT_STYLESHEET") ); 
-    hpText:SetText(strHPValue);
-
 	if targetinfo.isInvincible ~= hpGauge:GetValue() then
 		hpGauge:SetValue(targetinfo.isInvincible);
 		if targetinfo.isInvincible == 1 then
@@ -104,7 +99,27 @@ function TARGETINFOTOBOSS_TARGET_SET(frame, msg, argStr, argNum)
 			hpGauge:SetColorTone("FFFFFFFF");
 		end
 	end
+	end
+	
+	-- hp text
+	local strHPValue = TARGETINFO_TRANS_HP_VALUE(targetHandle, stat.HP, frame:GetUserConfig("HPTEXT_STYLESHEET")); 
+	local hpText = frame:GetChild('hpText');
+	if hpText ~= nil then
+		hpText:SetText(strHPValue);
+	end
 
+	-- shield
+	local shield = stat:GetShieldStr();
+	if shield ~= nil and shield ~= "None" and shield ~= "0" then
+		local shield_gauge = GET_CHILD_RECURSIVELY(frame, "shield", "ui::CGauge");
+		if shield_gauge ~= nil then
+			shield_gauge:ShowWindow(1);
+			shield_gauge:SetShieldPoint(shield, stat.maxHP);
+		end
+	else
+		local shield_gauge = GET_CHILD_RECURSIVELY(frame, "shield", "ui::CGauge");
+		shield_gauge:ShowWindow(0);		
+	end
 	frame:ShowWindow(1);
 	frame:Invalidate();
 	frame:SetValue(argNum);	-- argNum 가 핸들임
@@ -127,11 +142,25 @@ function TARGETINFOTOBOSS_ON_MSG(frame, msg, argStr, argNum)
 		
 		local stat = info.GetStat(session.GetTargetBossHandle());	
 		if stat ~= nil then
+			-- hp
 			local hpGauge = GET_CHILD(frame, "hp", "ui::CGauge");
 			hpGauge:SetPoint(stat.HP, stat.maxHP);
+			-- hp text
 			local strHPValue = TARGETINFO_TRANS_HP_VALUE(session.GetTargetBossHandle(), stat.HP, frame:GetUserConfig("HPTEXT_STYLESHEET"));
 			local hpText = frame:GetChild('hpText');
             hpText:SetText(strHPValue);
+			-- shield
+			local shield = stat:GetShieldStr();
+			if shield ~= nil and shield ~= "None" and shield ~= "0" then
+				local shield_gauge = GET_CHILD_RECURSIVELY(frame, "shield", "ui::CGauge");
+				if shield_gauge ~= nil then
+					shield_gauge:ShowWindow(1);
+					shield_gauge:SetShieldPoint(shield, stat.maxHP);
+				end
+			else
+				local shield_gauge = GET_CHILD_RECURSIVELY(frame, "shield", "ui::CGauge");
+				shield_gauge:ShowWindow(0);		
+			end
 			if frame:IsVisible() == 0 then
 				frame:ShowWindow(1)
 			end
@@ -193,7 +222,6 @@ function UPDATE_MISSCHECK_ICON_REMOVE(frame, timer, argStr, argNum, time)
 			if boss_misscheck:IsBlinking() == 1 then
 				boss_misscheck:ReleaseBlink();
 			end
-
 			boss_misscheck:SetVisible(0);
 			boss_misscheck:SetText("");
 			timer:Stop();

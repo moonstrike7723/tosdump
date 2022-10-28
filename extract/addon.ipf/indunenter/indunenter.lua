@@ -91,9 +91,8 @@ function SHOW_INDUNENTER_DIALOG(indunType, isAlreadyPlaying, enableAutoMatch, en
 local indun_cls = GetClassByType("Indun", indunType);
     if indun_cls == nil then return; end
 
-    if string.find(indun_cls.DungeonType, "TOSHero") == 1 then
-        indun_cls = GetClass("Indun", session.rank.GetCurrentDungeon(1));
-        indunType = indun_cls.ClassID;
+    if string.find(indun_cls.DungeonType, "TOSHero") == 1 then        
+        indunType = 652;
     end
     -- get data and check
     local indunCls = GetClassByType('Indun', indunType);
@@ -379,26 +378,50 @@ function INDUNENTER_MAKE_CHALLENGE_DIVISION_HELP_TEXT(frame)
     if map_list ~= nil then
         local map_help_text = GET_CHILD_RECURSIVELY(frame, "mapHelpText");
         map_help_text:SetTextByKey("text", ClMsg("challenge_auto_division_mode_day_help_text"));
-
-        for i = 1, 7 do
-            local map_text = GET_CHILD_RECURSIVELY(frame, "mapText"..i);
-            if map_text ~= nil then
-                local map = map_list[i];
-                if map ~= nil then
-                    local map_cls = GetClass("Map", map);
-                    if map_cls ~= nil then
-                        local name = map_cls.Name;
-                        local cl_msg = "challenge_auto_division_mode_day_"..i.."{mapName}";
-                        local text = ScpArgMsg(cl_msg, "mapName", name);
-                        map_text:SetText(text);
-                    end
-                else
-                    if i == 7 then
-                        map_text:SetText(ClMsg("challenge_auto_division_mode_day_"..i));
-                    end
-                end
-            end
+        for i = 1, 3 do
+            local map_text = GET_CHILD_RECURSIVELY(frame, "mapText" .. i);
+            map_text:SetTextFixWidth(0)
+            map_text:EnableTextOmitByWidth(0)
+            map_text:Resize(350, map_text:GetHeight())
+            map_text:SetText(GetClass("Map", map_list[i]).Name);
         end
+
+        for i = 4, 7 do
+            local map_text = GET_CHILD_RECURSIVELY(frame, "mapText" .. i);
+            map_text:ShowWindow(0)
+        end
+        
+        -- for i = 1, 7 do
+            
+        --     if map_text ~= nil then
+        --         local map = map_list[i];
+        --         if map ~= nil then
+        --             local map_cls = GetClass("Map", map);
+        --             if map_cls ~= nil then
+        --                 local name = map_cls.Name;
+        --                 local cl_msg = "challenge_auto_division_mode_day_"..i.."{mapName}";
+        --                 local text = ScpArgMsg(cl_msg, "mapName", name);
+        --                 map_text:SetText(text);
+        --                 if IS_SEASON_SERVER() == 'YES' then
+        --                     map_text:ShowWindow(0)
+        --                 end
+        --             end
+        --         else
+        --             if i == 7 then
+        --                 if IS_SEASON_SERVER() ~= 'YES' then                 
+                            
+        --                     map_text:SetText(ClMsg("challenge_auto_division_mode_day_"..i));
+        --                 else
+        --                     map_text:SetTextFixWidth(0)
+	    --                     map_text:EnableTextOmitByWidth(0)
+        --                     map_text:Resize(350, map_text:GetHeight())
+        --                     map_text:SetText(ClMsg("challenge_Mode_Auto_Disable_Portal_Season"));
+        --                 end
+                        
+        --             end
+        --         end
+        --     end
+        -- end
     end
 end
 
@@ -508,7 +531,7 @@ function INDUNENTER_SHOW_WINDOW_MAPINFO(frame, indunCls, isVisible)
     mapInfoBox:ShowWindow(isVisible)
 end
 
-function INDUNENTER_MAKE_MONLIST(frame, indunCls)
+function INDUNENTER_MAKE_MONLIST(frame, indunCls)    
     if frame == nil then
         return;
     end
@@ -518,12 +541,18 @@ function INDUNENTER_MAKE_MONLIST(frame, indunCls)
     local monLeftBtn = GET_CHILD_RECURSIVELY(frame, 'monLeftBtn');
     local monText = GET_CHILD_RECURSIVELY(frame, "monText");
     local monPic = GET_CHILD_RECURSIVELY(frame, "monPic");
-
+    local scoreBtn = GET_CHILD_RECURSIVELY(frame, "scoreBtn");
     local dungeonType = TryGetProp(indunCls,"DungeonType","None")
     local is_mythic_dungeon = string.find(dungeonType, "MythicDungeon") == 1
     local is_toshero_dungeon = string.find(dungeonType, "TOSHero") == 1
     local is_solo_dungeon = dungeonType == "Solo_dungeon";
-
+    if scoreBtn ~= nil then
+        if is_toshero_dungeon then 
+            scoreBtn:ShowWindow(1)
+        else
+            scoreBtn:ShowWindow(0)
+        end
+    end
      -- 챌린지 모드 자동매칭 분열 위치 표시 처리
     if indunCls ~= nil and TryGetProp(indunCls, "PlayPerResetType") == 816 then
         if frame:GetName() == "induninfo" then

@@ -71,7 +71,9 @@ function IS_NEED_DRAW_AETHER_GEM_TOOPTIP(item_obj)
 	local inv_item = GET_INV_ITEM_BY_ITEM_OBJ(item_obj);
 	if inv_item == nil then return false; end
 	if item_obj.ItemGrade < 6 then return false; end
-	if inv_item:IsAvailableSocket(item_obj.MaxSocket_COUNT) == false then return false; end
+	
+	local start_index, end_index = GET_AETHER_GEM_INDEX_RANGE(TryGetProp(item_obj, 'UseLv', 0))
+	if inv_item:IsAvailableSocket(start_index) == false then return false; end
 	return true;
 end
 
@@ -1345,13 +1347,21 @@ end
 
 function IS_ENABLED_USER_TRADE_ITEM(invitem)
 	local itemProp = geItemTable.GetPropByName(invitem.ClassName);
-
+	local check = GetClassByType('market_trade_restrict', TryGetProp(invitem, 'ClassID', 0))
 	if false == itemProp:IsEnableUserTrade()then
         return false;
 	elseif true == IS_DISABLED_TRADE(invitem, TRADE_TYPE_USER) then
 		return false;
 	elseif TryGetProp(invitem, 'TeamBelonging', 0) ~= 0 or TryGetProp(invitem, 'CharacterBelonging', 0) ~= 0 then
 		return false;
+	elseif check ~= nil then
+		if IS_SEASON_SERVER() == "YES" then
+			if TryGetProp(check, 'Type', 'None') == 'NoTrade2' then
+				ui.AlarmMsg("ItemIsNotTradable");	
+				return false
+			end
+		end
+		return true;
     else
         return true;
 	end
@@ -1364,6 +1374,12 @@ function IS_ENABLED_MARKET_TRADE_ITEM(invitem)
 	if check ~= nil then
 		if TryGetProp(check, 'Type', 'None') == 'NoTrade' then			
 			return false
+		end
+
+		if IS_SEASON_SERVER() == "YES" then
+			if TryGetProp(check, 'Type', 'None') == 'NoTrade2' then
+				return false;
+			end
 		end
 	end
 

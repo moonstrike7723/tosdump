@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+    <BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+    <Particle frame="0" attachNode="Dummy_root" particleName="I_TransmutationSpreader_crystal_atk_mesh" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.8" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="0.00" soundFile="skl_eff_lightninghands_cast"/>
+    <Sound frame="5.00" soundFile="skl_eff_boss_missile_whoosh"/>
+    <Particle frame="8" attachNode="Dummy_root" particleName="E_TransmutationSpreader_crystal" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="20.00" soundFile="skl_eff_born_crystal_1"/>
+    <Sound frame="20.00" soundFile="skl_eff_rune_born_light_1"/>
+    <Sound frame="33.00" soundFile="skl_eff_boss_missile"/>
+    <Sound frame="33.21" soundFile="skl_eff_dethrone_whoosh"/>
+    <Shockwave frame="40" type="2" intensity="9" frequency="70" duration="0.6" range="1000"/>
+    <BlendOn frame="40" R="255" G="150" B="200" A="100"/>
+    <Particle frame="40" attachNode="Dummy_root" particleName="E_TransmutationSpreader_crystal_atk_hit" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Dummy_root001" particleName="E_TransmutationSpreader_crystal_atk_hit" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="41" R="200" G="100" B="150" A="200"/>
+    <BlendOff frame="42" R="0" G="0" B="0" A="0"/>
+</ActionDesc>

@@ -89,6 +89,10 @@ function GET_DEF_PROP_CHANGEVALUETOOLTIP_LIST()
     list[#list+1] = "LootingChance";
     list[#list+1] = "ADD_BOSS_ATK";
    	list[#list+1] = "ResAdd_Damage";
+    list[#list+1] = 'AllMaterialType_Def';
+    list[#list+1] = 'AllMaterialType_Atk';
+    list[#list+1] = 'AllSize_Atk';
+    list[#list+1] = 'AllRace_Atk';
 	return list;
 
 end
@@ -168,6 +172,10 @@ function GET_ATK_PROP_CHANGEVALUETOOLTIP_LIST()
     list[#list+1] = "DR";
     list[#list+1] = "LootingChance";
 	list[#list+1] = "ResAdd_Damage";
+    list[#list+1] = 'AllMaterialType_Def';
+    list[#list+1] = 'AllMaterialType_Atk';
+    list[#list+1] = 'AllSize_Atk';
+    list[#list+1] = 'AllRace_Atk';
 	return list;
 
 end
@@ -252,6 +260,10 @@ function GET_DEF_PROP_LIST()
     list[#list+1] = "ADD_BOSS_ATK";
     list[#list+1] = "MiddleSize_Def";
 	list[#list+1] = "ResAdd_Damage";
+    list[#list+1] = 'AllMaterialType_Def';
+    list[#list+1] = 'AllMaterialType_Atk';
+    list[#list+1] = 'AllSize_Atk';
+    list[#list+1] = 'AllRace_Atk';
 	return list;
 
 end
@@ -343,6 +355,10 @@ function GET_ATK_PROP_LIST()
     list[#list+1] = "Magic_Fire_Atk";
     list[#list+1] = "Magic_Lightning_Atk";
     list[#list+1] = "ResAdd_Damage";
+    list[#list+1] = 'AllMaterialType_Def';
+    list[#list+1] = 'AllMaterialType_Atk';
+    list[#list+1] = 'AllSize_Atk';
+    list[#list+1] = 'AllRace_Atk';
     list[#list+1] = "Magic_Holy_Atk";
 	return list;
 

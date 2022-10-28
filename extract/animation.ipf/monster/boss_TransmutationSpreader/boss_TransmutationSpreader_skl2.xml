@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+    <BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+    <Particle frame="0" attachNode="Dummy_effect_tail" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="0" attachNode="Dummy_effect_skl1_001" particleName="I_smoke066_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="4" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="0.00" soundFile="mon_voice_helgasercle_9"/>
+    <Particle frame="16" attachNode="Dummy_effect_jewel001" particleName="F_cleric_Gematria_shot_light_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="23.00" soundFile="boss_skl_eff_atk_move_l_22"/>
+    <Sound frame="24.00" soundFile="skl_eff_dash_2"/>
+    <Particle frame="29" attachNode="Dummy_effect_skl2_003" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Shockwave frame="30" type="2" intensity="8" frequency="70" duration="1.2" range="1000"/>
+    <BlendOn frame="30" R="150" G="50" B="120" A="100"/>
+    <Particle frame="30" attachNode="Dummy_weapon01" particleName="F_spread_in056_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="30" attachNode="Bip001 L Finger2" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="30" attachNode="Bip001 R Finger2" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="30" attachNode="Dummy_effect_skl2_001" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="30" attachNode="Dummy_effect_emitter2" particleName="F_stone002" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="30" attachNode="Dummy_effect_emitter2" particleName="F_explosion046_red2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="31" R="0" G="0" B="0" A="50"/>
+    <Particle frame="32" attachNode="Dummy_effect_skl2_005" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="32" attachNode="Dummy_effect_emitter2" particleName="I_smoke035_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="33" R="120" G="50" B="150" A="100"/>
+    <BlendOn frame="34" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="35" R="150" G="50" B="120" A="100"/>
+    <Particle frame="35" attachNode="Dummy_effect_tail" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_skl2_002" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_skl2_004" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_emitter2" particleName="F_stone002" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_emitter2" particleName="F_explosion046_red2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="36" R="0" G="0" B="0" A="50"/>
+    <Particle frame="36" attachNode="Dummy_effect_skl2_003" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="37" attachNode="Dummy_effect_skl2_001" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="38" R="120" G="50" B="150" A="100"/>
+    <Particle frame="38" attachNode="Dummy_effect_skl2_006" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="39" R="0" G="0" B="0" A="50"/>
+    <Particle frame="39" attachNode="Dummy_effect_skl2_005" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bip001 L Finger2" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bip001 R Finger2" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Dummy_effect_emitter2" particleName="F_stone002" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Dummy_effect_emitter2" particleName="F_explosion046_red2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="41" R="150" G="50" B="120" A="100"/>
+    <BlendOn frame="42" R="0" G="0" B="0" A="50"/>
+    <Particle frame="42" attachNode="Dummy_effect_skl2_002" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="42" attachNode="Dummy_effect_skl2_004" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="44" R="120" G="50" B="150" A="100"/>
+    <BlendOn frame="45" R="0" G="0" B="0" A="50"/>
+    <Particle frame="45" attachNode="Dummy_effect_skl2_006" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="45" attachNode="Dummy_effect_emitter2" particleName="I_smoke035_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="45" attachNode="Dummy_effect_emitter2" particleName="F_stone002" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="45" attachNode="Dummy_effect_emitter2" particleName="F_explosion046_red2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="47" R="150" G="50" B="120" A="100"/>
+    <Particle frame="47" attachNode="Dummy_effect_emitter2" particleName="F_explosion046_red2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="48" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="50" R="120" G="50" B="150" A="100"/>
+    <Particle frame="50" attachNode="Bip001 L Finger2" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="50" attachNode="Bip001 R Finger2" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="50" attachNode="Dummy_effect_emitter2" particleName="F_stone002" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="51" R="0" G="0" B="0" A="50"/>
+    <Particle frame="52" attachNode="Dummy_effect_skl2_001" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect_skl2_002" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect_skl2_003" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect_skl2_004" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect_skl2_005" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect_skl2_006" particleName="I_ground017_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="53" R="150" G="50" B="120" A="100"/>
+    <BlendOn frame="54" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="55" R="120" G="50" B="150" A="100"/>
+    <BlendOn frame="57" R="100" G="40" B="120" A="50"/>
+    <BlendOn frame="58" R="80" G="30" B="90" A="50"/>
+    <BlendOn frame="59" R="50" G="20" B="70" A="50"/>
+    <BlendOn frame="60" R="30" G="10" B="30" A="50"/>
+    <BlendOn frame="61" R="15" G="5" B="20" A="50"/>
+    <BlendOn frame="62" R="5" G="3" B="8" A="100"/>
+    <BlendOff frame="63" R="0" G="0" B="0" A="0"/>
+</ActionDesc>

@@ -263,6 +263,8 @@ function STATUS_ONLOAD(frame, obj, argStr, argNum)
     STATUS_TAB_CHANGE(frame);
     STATUS_INFO();
     STATUS_UPDATE_EXP_UP_BOX(frame);
+
+    pc.ReqExecuteTx('GUIDE_QUEST_OPEN_UI', frame:GetName())
 end
 
 function STATUS_CLOSE(frame, obj, argStr, argNum)
@@ -776,6 +778,9 @@ function SETEXP_SLOT(gbox, addBuffClsName, isAdd)
             --    if info.GetLevel(handle) < 380 then
             --        expupValue = SETEXP_SLOT_ADD_ICON(expupBuffBox, buffCls.ClassName);
             --    end
+            elseif buffCls.ClassName == 'SEASON_EXP_Buff' then
+                expupValue = SETEXP_SLOT_ADD_ICON(expupBuffBox, buffCls.ClassName, 1200);
+            
             else
                 expupValue = SETEXP_SLOT_ADD_ICON(expupBuffBox, buffCls.ClassName);
             end
@@ -1017,12 +1022,14 @@ function STATUS_INFO()
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MiddleSize_Atk", y);
     if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "LargeSize_Atk", y);
-    if returnY ~= y then y = returnY + 3; end
+    if returnY ~= y then y = returnY + 3; end    
+    y = returnY + 10;
+
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "BOSS_ATK", y);
     y = returnY + 10;
 
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MiddleSize_Def", y);
-    y = returnY + 10;
+    y = returnY + 10;    
 
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Cloth_Atk", y);
     if returnY ~= y then y = returnY + 3; end
@@ -1030,17 +1037,22 @@ function STATUS_INFO()
     if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Iron_Atk", y);
     if returnY ~= y then y = returnY + 3; end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Ghost_Atk", y);
-    y = returnY + 10; 
-
-
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Ghost_Atk", y);    
+    y = returnY + 10;
+    
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Cloth_Def", y);
     if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Leather_Def", y);
     if returnY ~= y then y = returnY + 3; end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Iron_Def", y);
-    y = returnY + 10;
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Iron_Def", y);    
+    if returnY ~= y then y = returnY + 3; end
 
+    local set_list = {'stun_res', 'high_fire_res', 'high_freezing_res', 'high_lighting_res', 'high_poison_res', 'high_laceration_res', 'portion_expansion'}
+    for k, v in pairs(set_list) do
+        returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, v, y);    
+        if returnY ~= y then y = returnY + 3; end
+    end
+    y = returnY + 10;
     
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Forester_Atk", y);
     if returnY ~= y then y = returnY + 3; end
@@ -1051,7 +1063,15 @@ function STATUS_INFO()
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Paramune_Atk", y);
     if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Velnias_Atk", y);
-    y = returnY + 10;
+    if returnY ~= y then y = returnY + 3; end
+
+    set_list = {'perfection', 'revenge'}
+    for k, v in pairs(set_list) do
+        returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, v, y);    
+        if returnY ~= y then y = returnY + 3; end
+    end
+    
+    y = returnY + 10;    
 
     -- Property Name은  calc_property_pc.lua 에서 SCR_GET_Cloth_ATK 와 일치
 
@@ -1253,7 +1273,7 @@ function GET_USING_ITEM_OBJ()
 end
 
 function SET_VALUE_ZERO(value)
-    if value == 0 then
+    if value == 0 or value == nil then
         return 1, '0';
     else
         -- 실제로는 소수점 값이 있지만, UI상으로는 0으로 표기. (ex: 메니스샷 이동불가 처리)
@@ -1261,11 +1281,11 @@ function SET_VALUE_ZERO(value)
     end
 end
 
-function STATUS_ATTR_SET_PERCENT(pc, opc, frame, gboxctrl, attibuteName)
-    local txtctrl_CRTHR = gboxctrl:GetChild(attibuteName);
+function STATUS_ATTR_SET_PERCENT(pc, opc, frame, gboxctrl, attributeName)
+    local txtctrl_CRTHR = gboxctrl:GetChild(attributeName);
     if txtctrl_CRTHR ~= nil then
-        local textValue = STATUS_TEXT_SET(string.format("%.2f%%", pc[attibuteName] / 100));
-        if opc ~= nil and opc[attibuteName] ~= pc[attibuteName] then
+        local textValue = STATUS_TEXT_SET(string.format("%.2f%%", pc[attributeName] / 100));
+        if opc ~= nil and opc[attributeName] ~= pc[attributeName] then
             local colStr = frame:GetUserConfig("ADD_STAT_COLOR")
             txtctrl_CRTHR:SetText(colStr .. textValue);
         else
@@ -1274,8 +1294,8 @@ function STATUS_ATTR_SET_PERCENT(pc, opc, frame, gboxctrl, attibuteName)
     end
 end
 
-function STATUS_ATTRIBUTE_VALUE_RANGE(pc, opc, frame, gboxctrl, attibuteName, minName, maxName)
-    local txtctrl = GET_CHILD(gboxctrl, attibuteName, 'ui::CRichText');
+function STATUS_ATTRIBUTE_VALUE_RANGE(pc, opc, frame, gboxctrl, attributeName, minName, maxName)
+    local txtctrl = GET_CHILD(gboxctrl, attributeName, 'ui::CRichText');
     if txtctrl == nil then
         return;
     end
@@ -1296,7 +1316,7 @@ function STATUS_ATTRIBUTE_VALUE_RANGE(pc, opc, frame, gboxctrl, attibuteName, mi
     else
         grayStyle = 0;
 
-        if attibuteName == "ATK" and item.IsUseJungtanRank() > 0 then
+        if attributeName == "ATK" and item.IsUseJungtanRank() > 0 then
             value = string.format("%d~%d(+%d)", minVal, maxVal, item.GetJungtanDamage());
         else
             value = string.format("%d~%d", minVal, maxVal);
@@ -1309,7 +1329,7 @@ function STATUS_ATTRIBUTE_VALUE_RANGE(pc, opc, frame, gboxctrl, attibuteName, mi
 
 
         local beforeValue = value;
-        if attibuteName == "ATK" and item.IsUseJungtanRank() > 0 then
+        if attributeName == "ATK" and item.IsUseJungtanRank() > 0 then
             beforeValue = string.format("%d~%d(+%d)", opc[minName], opc[maxName], item.GetJungtanDamage());
         else
             beforeValue = string.format("%d~%d", opc[minName], opc[maxName]);
@@ -1325,13 +1345,13 @@ function STATUS_ATTRIBUTE_VALUE_RANGE(pc, opc, frame, gboxctrl, attibuteName, mi
     end
 end
 
-function STATUS_ATTRIBUTE_VALUE_RANGE_NEW(pc, opc, frame, gboxctrl, attibuteName, minName, maxName, y)    
-    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attibuteName, 0, y);
+function STATUS_ATTRIBUTE_VALUE_RANGE_NEW(pc, opc, frame, gboxctrl, attributeName, minName, maxName, y)    
+    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attributeName, 0, y);
     tolua.cast(controlSet, "ui::CControlSet");
 
     local title = GET_CHILD(controlSet, "title", "ui::CRichText");
-    title:SetText(ScpArgMsg(attibuteName));
-    if attibuteName == 'PATK_SUB' then
+    title:SetText(ScpArgMsg(attributeName));
+    if attributeName == 'PATK_SUB' then
         title:SetTextTooltip(ScpArgMsg("StatusTooltipMsg1"))
     end
 
@@ -1475,6 +1495,7 @@ color_attribute['Cloth_Def'] = 'Cloth_Def_status'
 color_attribute['Leather_Def'] = 'Leather_Def_status'
 color_attribute['Iron_Def'] = 'Iron_Def_status'
 color_attribute['MiddleSize_Def'] = 'MiddleSize_Def_status'
+color_attribute['AllMaterialType_Def'] = 'AllMaterialType_Def_status'
 color_attribute['ResAdd_Damage'] = 'ResAdd_Damage_status'
 
 color_attribute['SmallSize_Atk'] = 'SmallSize_Atk_status'
@@ -1491,8 +1512,101 @@ color_attribute['Velnias_Atk'] = 'Velnias_Atk_status'
 color_attribute['Ghost_Atk'] = 'Ghost_Atk_status'
 color_attribute['Add_Damage_Atk'] = 'Add_Damage_Atk_status'
 color_attribute['BOSS_ATK'] = 'BOSS_ATK_status'
+color_attribute['AllMaterialType_Atk'] = 'AllMaterialType_Atk_status'
+color_attribute['AllSize_Atk'] = 'AllSize_Atk_status'
+color_attribute['AllRace_Atk'] = 'AllRace_Atk_status'
+color_attribute['perfection'] = 'perfection_status'
+color_attribute['revenge'] = 'revenge_status'
+color_attribute['stun_res'] = 'stun_res_status'
+color_attribute['high_fire_res'] = 'high_fire_res_status'
+color_attribute['high_freezing_res'] = 'high_freezing_res_status'
+color_attribute['high_lighting_res'] = 'high_lighting_res_status'
+color_attribute['high_poison_res'] = 'high_poison_res_status'
+color_attribute['high_laceration_res'] = 'high_laceration_res_status'
+color_attribute['portion_expansion'] = 'portion_expansion_status'
 
-function STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, attributeName, y)        
+local all_attribute_list = {}
+all_attribute_list['Leather_Def'] = 1
+all_attribute_list['Cloth_Def'] = 1
+all_attribute_list['Iron_Def'] = 1
+all_attribute_list['Cloth_Atk'] = 1
+all_attribute_list['Leather_Atk'] = 1
+all_attribute_list['Iron_Atk'] = 1
+all_attribute_list['Ghost_Atk'] = 1
+all_attribute_list['SmallSize_Atk'] = 1
+all_attribute_list['MiddleSize_Atk'] = 1
+all_attribute_list['LargeSize_Atk'] = 1
+all_attribute_list['Widling_Atk'] = 1
+all_attribute_list['Paramune_Atk'] = 1
+all_attribute_list['Forester_Atk'] = 1
+all_attribute_list['Velnias_Atk'] = 1
+all_attribute_list['Klaida_Atk'] = 1
+
+local special_option_list = {}
+special_option_list['perfection'] = 1
+special_option_list['revenge'] = 1
+special_option_list['stun_res'] = 1
+special_option_list['high_fire_res'] = 1
+special_option_list['high_freezing_res'] = 1
+special_option_list['high_lighting_res'] = 1
+special_option_list['high_poison_res'] = 1
+special_option_list['high_laceration_res'] = 1
+special_option_list['portion_expansion'] = 1
+
+
+function ADD_ALL_ATK_STATUS(pc, attributeName, value)
+    if attributeName == 'SmallSize_Atk' or attributeName == 'MiddleSize_Atk' or attributeName == 'LargeSize_Atk' then
+        value = value + TryGetProp(pc, 'AllSize_Atk', 0)
+    elseif attributeName == 'Cloth_Atk' or attributeName == 'Leather_Atk' or attributeName == 'Iron_Atk' or attributeName == 'Ghost_Atk' then
+        value = value + TryGetProp(pc, 'AllMaterialType_Atk', 0)        
+    elseif attributeName == 'Cloth_Def' or attributeName == 'Leather_Def' or attributeName == 'Iron_Def' then
+        value = value + TryGetProp(pc, 'AllMaterialType_Def', 0)        
+    elseif attributeName == 'Forester_Atk' or attributeName == 'Widling_Atk' or attributeName == 'Klaida_Atk' or attributeName == 'Paramune_Atk' or attributeName == 'Velnias_Atk' then
+        value = value + TryGetProp(pc, 'AllRace_Atk', 0)        
+    end
+
+    return value
+end
+
+function GET_SPECIAL_OPTION_VALUE(pc, name)
+    local value = 0
+    local tooltip_text = nil
+
+    local equip_item_list = session.GetEquipItemList();
+    local equip_guid_list = equip_item_list:GetGuidList();
+    local count = equip_guid_list:Count();
+    
+    for i = 0, count - 1 do
+        local guid = equip_guid_list:Get(i);
+        if guid ~= '0' then
+            local equip_item = equip_item_list:GetItemByGuid(guid);
+            if equip_item ~= nil and equip_item:GetObject() ~= nil then
+                local item = GetIES(equip_item:GetObject())
+
+                for j = 1, shared_item_goddess_icor.get_max_option_count() do
+                    local _name = 'RandomOption_' .. j
+                    local _value = 'RandomOptionValue_' .. j
+                    
+                    if TryGetProp(item, _name, 'None') == name then
+                        value = value + TryGetProp(item, _value, 0)                        
+                    end
+                end
+            end
+        end
+    end
+
+    if value > 0 then
+        if name == 'revenge' then
+            tooltip_text = ScpArgMsg(name .. '_desc', 'value', value, 'value2', math.floor(value * 0.25))
+        else
+            tooltip_text = ScpArgMsg(name .. '_desc', 'value', value)
+        end
+    end
+
+    return value, tooltip_text
+end
+
+function STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, attributeName, y)         
     local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attributeName, 0, y);
     tolua.cast(controlSet, "ui::CControlSet");
     local title = GET_CHILD(controlSet, "title", "ui::CRichText");
@@ -1502,6 +1616,13 @@ function STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, attributeName, y)
         title:SetText(ScpArgMsg(attributeName));
     end
     
+    local s_value, s_tooltip = 0, nil
+
+    if special_option_list[attributeName] ~= nil then
+        s_value, s_tooltip = GET_SPECIAL_OPTION_VALUE(pc, attributeName)
+    end
+
+    local enable_zero = false
     if attributeName == 'SR' then
         title:SetTextTooltip(ScpArgMsg("StatusTooltipMsg2"))
     elseif attributeName == 'BLK' then
@@ -1514,22 +1635,49 @@ function STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, attributeName, y)
         title:SetTextTooltip(ScpArgMsg('StatusTooltipMsgRHPRSP'))
     elseif attributeName == 'Forester_Atk' or attributeName == 'Widling_Atk' or attributeName == 'Klaida_Atk' or attributeName == 'Paramune_Atk' or attributeName == 'Velnias_Atk' or attributeName == 'BOSS_ATK' then
         title:SetTextTooltip(ScpArgMsg('StatusTooltipMsgRacetype'))
+    elseif attributeName == 'Cloth_Atk' or attributeName == 'Leather_Atk' or attributeName == 'Iron_Atk' or attributeName == 'Ghost_Atk' then
+        title:SetTextTooltip(ScpArgMsg('StatusTooltipMsgRacetype'))
+    elseif attributeName == 'SmallSize_Atk' or attributeName == 'MiddleSize_Atk' or attributeName == 'LargeSize_Atk' then
+        title:SetTextTooltip(ScpArgMsg('StatusTooltipMsgRacetype'))
+    elseif attributeName == 'AllMaterialType_Def' then        
+        title:SetTextTooltip(ScpArgMsg('StatusTooltipMsgAllMaterialTypeDef'))
+    elseif attributeName == 'AllSize_Atk' then        
+        title:SetTextTooltip(ScpArgMsg('StatusTooltipMsgAllSizeAtk'))    
+    elseif attributeName == 'AllMaterialType_Atk' then
+        title:SetTextTooltip(ScpArgMsg('StatusTooltipMsgAllMaterialTypeAtk'))
+    elseif attributeName == 'AllRace_Atk' then
+        title:SetTextTooltip(ScpArgMsg('StatusTooltipMsgAllMaterialTypeAtk'))        
+    elseif s_tooltip ~= nil then        
+        title:SetTextTooltip(s_tooltip)
+    end
+
+    if all_attribute_list[attributeName] == 1 then
+        enable_zero = true
     end
 
     local stat = GET_CHILD(controlSet, "stat", "ui::CRichText");
     title:SetUseOrifaceRect(true)
     stat:SetUseOrifaceRect(true)
 
-    -- stat:SetText('120');    
-    local grayStyle, value = SET_VALUE_ZERO(pc[attributeName]);
-    
-    if 1 == grayStyle then
+    -- stat:SetText('120');
+
+    local grayStyle, value = 1, 0
+    if special_option_list[attributeName] == nil then
+        grayStyle, value = SET_VALUE_ZERO(TryGetProp(pc, attributeName, 0));            
+    else
+        if s_value > 0 then
+            grayStyle = 0
+            value = s_value            
+        end
+    end
+
+    if enable_zero == false and 1 == grayStyle then
         stat:SetText('');
         controlSet:Resize(controlSet:GetWidth(), stat:GetHeight());
         return y + controlSet:GetHeight();
     end
     
-    if opc ~= nil and opc[attributeName] ~= value then
+    if opc ~= nil and special_option_list[attributeName] == nil and opc[attributeName] ~= value then        
         local colBefore = frame:GetUserConfig("BEFORE_STAT_COLOR");
         local colStr = frame:GetUserConfig("ADD_STAT_COLOR")
 
@@ -1541,8 +1689,19 @@ function STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, attributeName, y)
             stat:SetText(value); 
         end
     else
-        value = get_percent_format(attributeName, value)        
-        stat:SetText(value);        
+        if special_option_list[attributeName] == nil then
+            value = ADD_ALL_ATK_STATUS(pc, attributeName, value)
+            if value == 0 then
+                stat:SetText('');
+                controlSet:Resize(controlSet:GetWidth(), stat:GetHeight());
+                return y + controlSet:GetHeight();
+            end
+            value = get_percent_format(attributeName, value)        
+            stat:SetText(value);        
+        else
+            value = s_value
+            stat:SetText(value);        
+        end
     end
 	
     if title:GetWidth() >= 350 then
@@ -1566,17 +1725,17 @@ function get_percent_format(attribute_name, value)
 end
 
 
-function STATUS_ITEM_RARE_OPTION_VALUE(pc, opc, frame, gboxctrl, attibuteName, y)
-    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attibuteName, 0, y);
+function STATUS_ITEM_RARE_OPTION_VALUE(pc, opc, frame, gboxctrl, attributeName, y)
+    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attributeName, 0, y);
     tolua.cast(controlSet, "ui::CControlSet");
     local title = GET_CHILD(controlSet, "title", "ui::CRichText");
-    title:SetText(ScpArgMsg(attibuteName));
+    title:SetText(ScpArgMsg(attributeName));
 	
     local stat = GET_CHILD(controlSet, "stat", "ui::CRichText");
     title:SetUseOrifaceRect(true)
     stat:SetUseOrifaceRect(true)
     
-    local grayStyle, value = SET_VALUE_ZERO(pc[attibuteName]);
+    local grayStyle, value = SET_VALUE_ZERO(pc[attributeName]);
 	
     if 1 == grayStyle then
         stat:SetText('');
@@ -1586,7 +1745,7 @@ function STATUS_ITEM_RARE_OPTION_VALUE(pc, opc, frame, gboxctrl, attibuteName, y
     
     -- 상수 값 예외 처리 --
     local isRatioValue = 1;
-    if attibuteName == 'EnchantMSPD' or attibuteName == 'EnchantSR' then
+    if attributeName == 'EnchantMSPD' or attributeName == 'EnchantSR' then
         isRatioValue = 0;
     end
     
@@ -1605,11 +1764,11 @@ function STATUS_ITEM_RARE_OPTION_VALUE(pc, opc, frame, gboxctrl, attibuteName, y
     end
 	-- value 값 String 및 소수점 처리 끝 --
 	local statText = nil;
-    if opc ~= nil and opc[attibuteName] ~= value then
+    if opc ~= nil and opc[attributeName] ~= value then
         local colBefore = frame:GetUserConfig("BEFORE_STAT_COLOR");
         local colStr = frame:GetUserConfig("ADD_STAT_COLOR")
 
-        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attibuteName]);
+        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attributeName]);
 		
         if beforeValue ~= value then
             statText = colBefore .. beforeValue .. ScpArgMsg("Auto_{/}__{/}") .. colStr .. stringValue;
@@ -1632,17 +1791,17 @@ function STATUS_ITEM_RARE_OPTION_VALUE(pc, opc, frame, gboxctrl, attibuteName, y
     return y + controlSet:GetHeight();
 end
 
-function STATUS_ATTRIBUTE_VALUE_WITH_PERCENT_SYMBOL(pc, opc, frame, gboxctrl, attibuteName, y)
-    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attibuteName, 0, y);
+function STATUS_ATTRIBUTE_VALUE_WITH_PERCENT_SYMBOL(pc, opc, frame, gboxctrl, attributeName, y)
+    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attributeName, 0, y);
     tolua.cast(controlSet, "ui::CControlSet");
     local title = GET_CHILD(controlSet, "title", "ui::CRichText");
-    title:SetText(ScpArgMsg(attibuteName));
+    title:SetText(ScpArgMsg(attributeName));
 	
     local stat = GET_CHILD(controlSet, "stat", "ui::CRichText");
     title:SetUseOrifaceRect(true)
     stat:SetUseOrifaceRect(true)
     
-    local grayStyle, value = SET_VALUE_ZERO(pc[attibuteName]);
+    local grayStyle, value = SET_VALUE_ZERO(pc[attributeName]);
 	
     if 1 == grayStyle then
         stat:SetText('');
@@ -1651,11 +1810,11 @@ function STATUS_ATTRIBUTE_VALUE_WITH_PERCENT_SYMBOL(pc, opc, frame, gboxctrl, at
     end
     
 	local statText = nil;
-    if opc ~= nil and opc[attibuteName] ~= value then
+    if opc ~= nil and opc[attributeName] ~= value then
         local colBefore = frame:GetUserConfig("BEFORE_STAT_COLOR");
         local colStr = frame:GetUserConfig("ADD_STAT_COLOR")
 
-        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attibuteName]);
+        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attributeName]);
 		
         if beforeValue ~= value then
             statText = colBefore .. beforeValue .. ScpArgMsg("Auto_{/}__{/}") .. colStr .. value;
@@ -1688,32 +1847,32 @@ end
 
 
 
-function STATUS_ATTRIBUTE_VALUE_DIVISIONBYTHOUSAND_NEW(pc, opc, frame, gboxctrl, attibuteName, y)
+function STATUS_ATTRIBUTE_VALUE_DIVISIONBYTHOUSAND_NEW(pc, opc, frame, gboxctrl, attributeName, y)
 
-    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attibuteName, 0, y);
+    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attributeName, 0, y);
     tolua.cast(controlSet, "ui::CControlSet");
 
     local title = GET_CHILD(controlSet, "title", "ui::CRichText");
-    title:SetText(ScpArgMsg(attibuteName));
+    title:SetText(ScpArgMsg(attributeName));
 
     local stat = GET_CHILD(controlSet, "stat", "ui::CRichText");
 
 
     -- stat:SetText('120');
 
-    local grayStyle, value = SET_VALUE_ZERO(pc[attibuteName]);
+    local grayStyle, value = SET_VALUE_ZERO(pc[attributeName]);
     if 1 == grayStyle then
         stat:SetText('');
         controlSet:Resize(controlSet:GetWidth(), stat:GetHeight());
         return y + controlSet:GetHeight();
     end
     value = math.floor(value / 1000);
-    if opc ~= nil and opc[attibuteName] ~= value then
+    if opc ~= nil and opc[attributeName] ~= value then
         local colBefore = frame:GetUserConfig("BEFORE_STAT_COLOR");
         local colStr = frame:GetUserConfig("ADD_STAT_COLOR")
 
-        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attibuteName]);
-        if 'MaxSta' == attibuteName then
+        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attributeName]);
+        if 'MaxSta' == attributeName then
             beforeValue = math.floor(beforeValue / 1000);
         end
         if beforeValue ~= value then
@@ -1728,23 +1887,23 @@ function STATUS_ATTRIBUTE_VALUE_DIVISIONBYTHOUSAND_NEW(pc, opc, frame, gboxctrl,
     return y + controlSet:GetHeight();
 end
 
-function STATUS_ATTRIBUTE_VALUE(pc, opc, frame, gboxctrl, attibuteName)
+function STATUS_ATTRIBUTE_VALUE(pc, opc, frame, gboxctrl, attributeName)
 
-    local txtctrl = gboxctrl:GetChild(attibuteName);
+    local txtctrl = gboxctrl:GetChild(attributeName);
     if txtctrl == nil then
         return;
     end
 
     tolua.cast(txtctrl, 'ui::CRichText');
 
-    local grayStyle, value = SET_VALUE_ZERO(pc[attibuteName]);
-    if opc ~= nil and opc[attibuteName] ~= value then
+    local grayStyle, value = SET_VALUE_ZERO(pc[attributeName]);
+    if opc ~= nil and opc[attributeName] ~= value then
         local colBefore = frame:GetUserConfig("BEFORE_STAT_COLOR");
         local colStr = frame:GetUserConfig("ADD_STAT_COLOR")
 
-        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attibuteName]);
+        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attributeName]);
 
-        if attibuteName == 'DR' then
+        if attributeName == 'DR' then
             beforeValue = string.format("%.1f", beforeValue);
             value = string.format("%.1f", value);
         end
@@ -1761,11 +1920,11 @@ function STATUS_ATTRIBUTE_VALUE(pc, opc, frame, gboxctrl, attibuteName)
             value = value + pc.DEF_COMMON_BM;
         end
 
-        if attibuteName == "DEF" and item.IsUseJungtanDefRank() > 0 then
+        if attributeName == "DEF" and item.IsUseJungtanDefRank() > 0 then
             local value2 = string.format("(+%d)", item.GetJungtanDefence());
             txtctrl:SetText(value .. value2);
         else
-            if attibuteName == 'DR' then
+            if attributeName == 'DR' then
                 value = string.format("%.1f", value);
             end
             txtctrl:SetText(value);

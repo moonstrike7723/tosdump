@@ -49,31 +49,27 @@
 		<slot name="slot_1" parent="slot_1_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
 		<slot name="slot_2" parent="slot_2_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
 		<!-- unique -->
-		<picture name="slot_3_pic" parent="protection_gb" rect="0 0 130 146" margin="-210 200 0 0" image="protection_unique" layout_gravity="center top"/>
-		<picture name="slot_4_pic" parent="protection_gb" rect="0 0 130 146" margin=" -70 200 0 0" image="protection_unique" layout_gravity="center top"/>
-		<picture name="slot_5_pic" parent="protection_gb" rect="0 0 130 146" margin="  70 200 0 0" image="protection_unique" layout_gravity="center top"/>
-		<picture name="slot_6_pic" parent="protection_gb" rect="0 0 130 146" margin=" 210 200 0 0" image="protection_unique" layout_gravity="center top"/>
+		<picture name="slot_3_pic" parent="protection_gb" rect="0 0 130 146" margin="-190 200 0 0" image="protection_unique" layout_gravity="center top"/>
+		<picture name="slot_4_pic" parent="protection_gb" rect="0 0 130 146" margin="0 200 0 0" image="protection_unique" layout_gravity="center top"/>
+		<picture name="slot_5_pic" parent="protection_gb" rect="0 0 130 146" margin="190 200 0 0" image="protection_unique" layout_gravity="center top"/>		
 		<slot name="slot_3" parent="slot_3_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
 		<slot name="slot_4" parent="slot_4_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
-		<slot name="slot_5" parent="slot_5_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
-		<slot name="slot_6" parent="slot_6_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
+		<slot name="slot_5" parent="slot_5_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>		
 		<!-- magic -->
-		<picture name="slot_7_pic" parent="protection_gb" rect="0 0 130 142" margin="-210 380 0 0" image="protection_magic" layout_gravity="center top"/>
-		<picture name="slot_8_pic" parent="protection_gb" rect="0 0 130 142" margin=" -70 380 0 0" image="protection_magic" layout_gravity="center top"/>
-		<picture name="slot_9_pic" parent="protection_gb" rect="0 0 130 142" margin="  70 380 0 0" image="protection_magic" layout_gravity="center top"/>
-		<picture name="slot_10_pic" parent="protection_gb" rect="0 0 130 142" margin=" 210 380 0 0" image="protection_magic" layout_gravity="center top"/>
+		<picture name="slot_6_pic" parent="protection_gb" rect="0 0 130 142" margin="-190 380 0 0" image="protection_magic" layout_gravity="center top"/>
+		<picture name="slot_7_pic" parent="protection_gb" rect="0 0 130 142" margin="0 380 0 0" image="protection_magic" layout_gravity="center top"/>
+		<picture name="slot_8_pic" parent="protection_gb" rect="0 0 130 142" margin="190 380 0 0" image="protection_magic" layout_gravity="center top"/>		
+		<slot name="slot_6" parent="slot_6_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
 		<slot name="slot_7" parent="slot_7_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
-		<slot name="slot_8" parent="slot_8_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
+		<slot name="slot_8" parent="slot_8_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>		
+		<!-- normal -->
+		<picture name="slot_9_pic" parent="protection_gb" rect="0 0 130 142" margin="-210 555 0 0" image="protection_normal" layout_gravity="center top"/>
+		<picture name="slot_10_pic" parent="protection_gb" rect="0 0 130 142" margin=" -70 555 0 0" image="protection_normal" layout_gravity="center top"/>
+		<picture name="slot_11_pic" parent="protection_gb" rect="0 0 130 142" margin="  70 555 0 0" image="protection_normal" layout_gravity="center top"/>
+		<picture name="slot_12_pic" parent="protection_gb" rect="0 0 130 142" margin=" 210 555 0 0" image="protection_normal" layout_gravity="center top"/>
 		<slot name="slot_9" parent="slot_9_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
 		<slot name="slot_10" parent="slot_10_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
-		<!-- normal -->
-		<picture name="slot_11_pic" parent="protection_gb" rect="0 0 130 142" margin="-210 555 0 0" image="protection_normal" layout_gravity="center top"/>
-		<picture name="slot_12_pic" parent="protection_gb" rect="0 0 130 142" margin=" -70 555 0 0" image="protection_normal" layout_gravity="center top"/>
-		<picture name="slot_13_pic" parent="protection_gb" rect="0 0 130 142" margin="  70 555 0 0" image="protection_normal" layout_gravity="center top"/>
-		<picture name="slot_14_pic" parent="protection_gb" rect="0 0 130 142" margin=" 210 555 0 0" image="protection_normal" layout_gravity="center top"/>
 		<slot name="slot_11" parent="slot_11_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
 		<slot name="slot_12" parent="slot_12_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
-		<slot name="slot_13" parent="slot_13_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
-		<slot name="slot_14" parent="slot_14_pic" rect="0 0 111 111" margin="0 8 0 0" layout_gravity="center top" enabledrop="false" enablepop="false" enabledrag="false"/>
 	</controls>
 </uiframe>

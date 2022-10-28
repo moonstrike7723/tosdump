@@ -70,6 +70,55 @@ function DRAW_GEM_COMMON_TOOLTIP(tooltipframe, invitem, mainframename)
 	return CSet:GetHeight();
 end
 
+
+
+function GET_GEM_PROPERTY_TEXT(itemObj, optionIdx, socketIdx)
+	local realtext = nil
+	local propName = "RandomOption_"..optionIdx;
+	local stringArg = TryGetProp(itemObj, "StringArg", "None")
+	local propGroupName, propValue
+	local clientMessage = 'None'
+	if stringArg == "SkillGem" and TryGetProp(itemObj, propName, "None") ~= "None" then
+		propGroupName = itemObj["RandomOptionGroup_"..optionIdx];
+		propName = itemObj["RandomOption_"..optionIdx];
+		propValue = itemObj["RandomOptionValue_"..optionIdx];
+	elseif TryGetProp(itemObj, "GroupName", "None") == "Armor" then
+		local invitem = GET_INV_ITEM_BY_ITEM_OBJ(itemObj);		
+		local optionInfo = item.GetSkillGemRandomOptionInfo(invitem, socketIdx, optionIdx - 1)
+		propGroupName = optionInfo.group
+		propName = optionInfo.name
+		propValue = optionInfo.value	
+
+		if propGroupName == "None" then
+			return realtext
+		end
+	else
+		return realtext
+	end
+
+	if propGroupName == 'ATK' then
+		clientMessage = 'ItemRandomOptionGroupATK'
+	elseif propGroupName == 'DEF' then
+		clientMessage = 'ItemRandomOptionGroupDEF'
+	elseif propGroupName == 'UTIL_WEAPON' then
+		clientMessage = 'ItemRandomOptionGroupUTIL'
+	elseif propGroupName == 'UTIL_ARMOR' then
+		clientMessage = 'ItemRandomOptionGroupUTIL'
+	elseif propGroupName == 'UTIL_SHILED' then
+		clientMessage = 'ItemRandomOptionGroupUTIL'
+	elseif propGroupName == 'STAT' then
+		clientMessage = 'ItemRandomOptionGroupSTAT'
+	end
+
+	if propValue > 0 then
+		realtext = ClMsg(clientMessage)..' '.. ScpArgMsg(propName) .."{img green_up_arrow 16 16}"..  propValue;
+	else
+		realtext = ClMsg(clientMessage)..' '..ScpArgMsg(propName) .."{img red_down_arrow 16 16}"..  propValue;
+	end
+
+	return realtext
+end
+
 -- 젬의 부위별 속성들
 function DRAW_GEM_PROPERTYS_TOOLTIP(tooltipframe, invitem, yPos, mainframename)
 	local gBox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
@@ -142,6 +191,42 @@ function DRAW_GEM_PROPERTYS_TOOLTIP(tooltipframe, invitem, yPos, mainframename)
 			inner_yPos = innerCSet:GetY() + innerCSet:GetHeight()
 		end
 	end
+
+	if TryGetProp(invitem, "RandomOption_1", "None") ~= "None" then
+		innerCSet = property_gbox:CreateOrGetControlSet('tooltip_each_gem_property', "COM", 0, inner_yPos); 
+		local type_text = GET_CHILD(innerCSet,'type_text','ui::CRichText')
+		type_text:SetText( "" )
+		innerpropcount = 0
+		innerpropypos = type_text:GetHeight()+type_text:GetY()
+		for i = 1, 4 do
+			local realtext = GET_GEM_PROPERTY_TEXT(invitem, i)
+			if realtext ~= nil then
+				local type_text = GET_CHILD(innerCSet,'type_text','ui::CRichText')
+				innerInnerCSet = innerCSet:CreateOrGetControlSet('tooltip_each_gem_property_each_text', 'proptext'..innerpropcount, 0, innerpropypos);
+			
+				local marker = GET_CHILD(innerInnerCSet, 'marker')
+				marker:ShowWindow(0)
+			
+				local proptext = GET_CHILD(innerInnerCSet,'prop_text','ui::CRichText')
+				proptext:SetText( realtext )
+				proptext:SetMargin(50,0,0,0)
+				innerpropcount = innerpropcount + 1
+					
+				tolua.cast(innerCSet, "ui::CControlSet");
+				local BOTTOM_MARGIN = innerCSet:GetUserConfig("BOTTOM_MARGIN")
+	
+				if BOTTOM_MARGIN == 'None' then
+					BOTTOM_MARGIN = 10
+				end
+	
+				innerpropypos = innerInnerCSet:GetY() + innerInnerCSet:GetHeight() 
+				innerCSet:Resize(innerCSet:GetOriginalWidth(), innerInnerCSet:GetY() + innerInnerCSet:GetHeight() + BOTTOM_MARGIN )
+				inner_yPos = innerCSet:GetY() + innerCSet:GetHeight()
+			end
+		end
+	end
+
+	
 	property_gbox:Resize(property_gbox:GetOriginalWidth(),inner_yPos);
 	CSet:Resize(CSet:GetWidth(),CSet:GetHeight() + property_gbox:GetHeight() + property_gbox:GetY());
 	gBox:Resize(gBox:GetWidth(),gBox:GetHeight() + CSet:GetHeight())
@@ -163,6 +248,20 @@ function DRAW_GEM_TRADABILITY_TOOLTIP(tooltipframe, invitem, ypos, mainframename
     return ypos + CSet:GetHeight();
 end
 
+function DRAW_SEALED_SKILL_GEM_INFO(invitem, desc)
+	for i = 1, 4 do
+		local op = 'RandomOptionValue_' .. i
+		local value = TryGetProp(invitem, op, 0)
+		if value > 0 then
+			desc = desc .. '{nl}' .. ClMsg('CantUseCabinetCuzRandomOption')
+			desc = desc .. '{nl}' .. ClMsg('FreeUnEquipGem')
+			return desc
+		end
+	end
+
+	return desc
+end
+
 function DRAW_GEM_DESC_TOOLTIP(tooltipframe, invitem, yPos, mainframename)
 	local gBox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
 	gBox:RemoveChild('tooltip_gem_desc');
@@ -172,6 +271,7 @@ function DRAW_GEM_DESC_TOOLTIP(tooltipframe, invitem, yPos, mainframename)
 
 	local desc = invitem.Desc
 
+	desc = DRAW_SEALED_SKILL_GEM_INFO(invitem, desc)
 	desc = DRAW_COLLECTION_INFO(invitem, desc)
 
 	descRichtext:SetText(desc)
@@ -274,7 +374,8 @@ function GET_AETHER_GEM_TOOLTIP(obj, prop_name_list, guid)
 			local item_object = GetIES(equip_item:GetObject());
 			local item_grade = TryGetProp(item_object, "ItemGrade", 0);
 			if item_grade == 6 then
-				for i = item_object.MaxSocket_COUNT, item_object.MaxSocket_COUNT + 1 do
+				local start_index, end_index = GET_AETHER_GEM_INDEX_RANGE(TryGetProp(item_object, 'UseLv', 0))	
+				for i = start_index, end_index do
 					if equip_item:IsAvailableSocket(i) == true then
 						local gem_class_id = equip_item:GetEquipGemID(i);
 						if gem_class_id ~= 0 and gem_class_id == obj.ClassID then
@@ -730,7 +831,8 @@ function DRAW_AETHER_GEM_COMMON_TOOLTIP(tooltip_frame, inv_item, main_frame_name
 						local item_object = GetIES(equip_item:GetObject());
 						local item_grade = TryGetProp(item_object, "ItemGrade", 0);
 						if item_grade == 6 then
-							for i = item_object.MaxSocket_COUNT, item_object.MaxSocket_COUNT + 1 do
+							local start_index, end_index = GET_AETHER_GEM_INDEX_RANGE(TryGetProp(item_object, 'UseLv', 0))	
+							for i = start_index, end_index do
 								if equip_item:IsAvailableSocket(i) == true then
 									local gem_class_id = equip_item:GetEquipGemID(i);
 									if gem_class_id ~= 0 and gem_class_id == inv_item.ClassID then

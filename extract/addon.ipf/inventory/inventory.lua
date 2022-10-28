@@ -429,6 +429,8 @@ function INVENTORY_OPEN(frame)
 
 	local minimapFrame = ui.GetFrame('minimap');
 	minimapFrame:ShowWindow(0);
+	
+    pc.ReqExecuteTx('GUIDE_QUEST_OPEN_UI', frame:GetName())
 end
 
 function INVENTORY_CLOSE()
@@ -1819,7 +1821,7 @@ function IS_TEMP_LOCK(invFrame, invitem)
 end
 
 --아이템의 사용
-function INVENTORY_RBDC_ITEMUSE(frame, object, argStr, argNum)
+function INVENTORY_RBDC_ITEMUSE(frame, object, argStr, argNum)	
 	local pc = GetMyPCObject();
 	if IsBuffApplied(pc, 'Instrument_Use_Buff') == 'YES' then
 		return;
@@ -1837,7 +1839,7 @@ function INVENTORY_RBDC_ITEMUSE(frame, object, argStr, argNum)
 	end
 	
 	local itemobj = GetIES(invitem:GetObject());
-
+	
     -- custom
 	local customRBtnScp = frame:GetTopParentFrame():GetUserValue("CUSTOM_RBTN_SCP");	
 	if customRBtnScp == "None" then
@@ -1845,11 +1847,15 @@ function INVENTORY_RBDC_ITEMUSE(frame, object, argStr, argNum)
 	else
 		customRBtnScp = _G[customRBtnScp];
 	end
-
+	
 	if customRBtnScp ~= nil then
 		customRBtnScp(itemobj, object, invitem:GetIESID());
 		imcSound.PlaySoundEvent("icon_get_down");
 		return;
+	end
+
+	if IS_RANDOM_OPTION_SKILL_GEM(itemobj) then
+		return
 	end
 
 	if INVENTORY_RBTN_LEGENDPREFIX(invitem) == true then
@@ -2367,7 +2373,7 @@ function DRAW_SEASON_COIN(frame)
 	local Cls = GetClassByStrProp('accountprop_inventory_list', 'IsNowSeason', 'YES')
 	local PropName = TryGetProp(Cls, 'ClassName', 'None')
 	if PropName == 'None' then
-		PropName = 'GabijaCertificate'
+		PropName = SEASON_COIN_NAME
 	end
 
 	local InvIcon = TryGetProp(Cls, 'InvIcon', 'None')
@@ -2694,6 +2700,9 @@ function INV_ICON_SETINFO(frame, slot, invItem, customFunc, scriptArg, count)
 	else
 		SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, itemobj, count, slotFont);
 	end
+
+	SET_SLOT_STAR_TEXT(slot,itemobj)
+
 	
 	--아이템이 선택되었을 때의 스크립트를 선택한다
 	slot:SetEventScript(ui.RBUTTONDOWN, 'INVENTORY_RBDC_ITEMUSE');
@@ -3265,7 +3274,7 @@ function INVENTORY_DELETE(itemIESID, itemType)
 	local itemProp = geItemTable.IsDestroyable(itemType);	
 	local warningMsgCostumeItem = false
 
-	if DELETE_ITEM_OPEN_WARNINGBOX_MSG(cls) == 1 then
+	if DELETE_ITEM_OPEN_WARNINGBOX_MSG(cls) == 1 or IS_DESTROYABLE_COSTUME_ITEM(item_obj) == true then
 		warningMsgCostumeItem = true
 	end
 
@@ -3278,6 +3287,7 @@ function INVENTORY_DELETE(itemIESID, itemType)
 			end
 		end
 	else		
+		if IS_DESTROYABLE_COSTUME_ITEM(item_obj) == false then
 		if cls.Destroyable == 'NO' or geItemTable.IsDestroyable(itemType) == false then
 			local obj = GetIES(invItem:GetObject());
 			if obj.ItemLifeTimeOver == 0 then
@@ -3285,6 +3295,7 @@ function INVENTORY_DELETE(itemIESID, itemType)
 				return;
 			end
 		end
+	end
 	end
 
 	--if cls.UserTrade == 'YES' or cls.ShopTrade == 'YES' then
@@ -5764,4 +5775,54 @@ function BEFORE_APPLIED_YESSCP_ALL_OPEN_RELIC_CUBE_MSG(invItem)
 	local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg("YESSCP_ALL_OPEN_RELIC_CUBE_MSG", 'num', num));
 	ui.MsgBox_NonNested(textmsg, itemobj.Name, 'REQUEST_SUMMON_BOSS_TX', "None");	
 	return;
+end
+
+-- 다수의 SCR_USE_STRING_GIVE_ITEM_NUMBER_SPLIT 아이템 사용
+local multiple_string_give_item_number_split_id = '0'
+
+function CLIENT_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(item_obj)
+	multiple_string_give_item_number_split_id = '0'
+	local item = GetIES(item_obj:GetObject())	
+	
+	if GetCraftState() == 1 then
+		return;
+	end
+
+	if true == BEING_TRADING_STATE() then
+		return;
+	end
+	
+	local invItem = session.GetInvItemByGuid(item_obj:GetIESID())	
+	if nil == invItem then
+		return;
+	end
+	
+	if true == invItem.isLockState then
+		ui.SysMsg(ClMsg("MaterialItemIsLock"));
+		return;
+	end
+	
+	CHECK_CLIENT_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(invItem:GetIESID())
+end
+
+function CHECK_CLIENT_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(item_id)
+	local invItem = session.GetInvItemByGuid(tostring(item_id))
+	local itemObj = GetIES(invItem:GetObject());	
+	
+	if TryGetProp(itemObj, 'MaxStack', 0) == 1 or invItem.count == 1 then		
+		multiple_string_give_item_number_split_id = tostring(item_id)
+		RUN_CLIENT_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(1)
+	else
+		local titleText = ScpArgMsg("INPUT_CNT_D_D", "Auto_1", 1, "Auto_2", invItem.count);
+		INPUT_NUMBER_BOX(nil, titleText, "RUN_CLIENT_USE_STRING_GIVE_ITEM_NUMBER_SPLIT", 1, 1, invItem.count);	
+		multiple_string_give_item_number_split_id = tostring(item_id)
+	end
+end
+
+function RUN_CLIENT_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(count)	
+	session.ResetItemList();
+    local pc = GetMyPCObject();
+    session.AddItemID(multiple_string_give_item_number_split_id, count)    
+    local resultlist = session.GetItemIDList()
+    item.DialogTransaction("MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT", resultlist)
 end

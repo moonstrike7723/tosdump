@@ -55,12 +55,27 @@ function REROLL_ITEM_OPTION_LIST(frame)
 		reroll_index = tonumber(cur_index)
 	end
 
-	local candidate_option_list = shared_item_belt.get_option_list_by_index(item_obj, reroll_index)
+	local candidate_option_list = nil
+	local is_icor = false
+
+	is_icor = TryGetProp(item_obj, 'GroupName', 'None') == 'Icor'
+	if is_icor == false then
+		candidate_option_list = shared_item_belt.get_option_list_by_index(item_obj, reroll_index)
+	else		
+		candidate_option_list = shared_item_goddess_icor.get_random_option_list(item_obj, false)
+	end
+
 	if candidate_option_list == nil or #candidate_option_list == 0 then
 		return
 	end
 
-	local max_random_option_count = shared_item_belt.get_max_random_option_count(item_obj)
+	local max_random_option_count = 0
+
+	if is_icor == false then
+		max_random_option_count = shared_item_belt.get_max_random_option_count(item_obj)
+	else
+		max_random_option_count = shared_item_goddess_icor.get_max_option_count()
+	end
 	if max_random_option_count == nil then
 		return
 	end
@@ -70,24 +85,44 @@ function REROLL_ITEM_OPTION_LIST(frame)
 	local op_count = 0
 	for i = 1, #candidate_option_list do
 		local prop_name = candidate_option_list[i]
-		if shared_item_belt.is_valid_reroll_option(item_obj, reroll_index, prop_name, max_random_option_count) == true then
-			op_count = op_count + 1
-			local group_name = shared_item_belt.get_option_group_name(prop_name)
-			local clmsg = GET_CLMSG_BY_OPTION_GROUP(group_name)
-			local min, max = shared_item_belt.get_option_value_range_equip(item_obj, prop_name)
-			local op_name = string.format('%s %s', ClMsg(clmsg), ScpArgMsg(prop_name))
-			local info_str = _MAKE_PROPERTY_MIN_MAX_DESC(op_name, min, max)
-			local option_ctrlset = optionGbox:CreateOrGetControlSet('eachproperty_in_reroll_item', 'PROPERTY_CSET_' .. op_count, 0, 0)
-			option_ctrlset = AUTO_CAST(option_ctrlset)
-			local pos_y = option_ctrlset:GetUserConfig('POS_Y')
-			option_ctrlset:Move(0, (op_count - 1) * pos_y)
-			-- local bg = GET_CHILD_RECURSIVELY(option_ctrlset, 'bg')
-			-- bg:ShowWindow(0)
-			local property_name = GET_CHILD_RECURSIVELY(option_ctrlset, 'property_name', 'ui::CRichText')
-			property_name:SetEventScript(ui.LBUTTONUP, 'None')
-			property_name:SetText(info_str)
-			local help_pic = GET_CHILD_RECURSIVELY(option_ctrlset, 'help_pic')
-			help_pic:ShowWindow(0)
+		if is_icor == false then
+			if shared_item_belt.is_valid_reroll_option(item_obj, reroll_index, prop_name, max_random_option_count) == true then
+				op_count = op_count + 1
+				local group_name = shared_item_belt.get_option_group_name(prop_name)
+				local clmsg = GET_CLMSG_BY_OPTION_GROUP(group_name)
+				local min, max = shared_item_belt.get_option_value_range_equip(item_obj, prop_name)
+				local op_name = string.format('%s %s', ClMsg(clmsg), ScpArgMsg(prop_name))
+				local info_str = _MAKE_PROPERTY_MIN_MAX_DESC(op_name, min, max)
+				local option_ctrlset = optionGbox:CreateOrGetControlSet('eachproperty_in_reroll_item', 'PROPERTY_CSET_' .. op_count, 0, 0)
+				option_ctrlset = AUTO_CAST(option_ctrlset)
+				local pos_y = option_ctrlset:GetUserConfig('POS_Y')
+				option_ctrlset:Move(0, (op_count - 1) * pos_y)
+				-- local bg = GET_CHILD_RECURSIVELY(option_ctrlset, 'bg')
+				-- bg:ShowWindow(0)
+				local property_name = GET_CHILD_RECURSIVELY(option_ctrlset, 'property_name', 'ui::CRichText')
+				property_name:SetEventScript(ui.LBUTTONUP, 'None')
+				property_name:SetText(info_str)
+				local help_pic = GET_CHILD_RECURSIVELY(option_ctrlset, 'help_pic')
+				help_pic:ShowWindow(0)
+			end
+		else
+			if shared_item_goddess_icor.is_valid_reroll_option(item_obj, reroll_index, prop_name) == true then
+				op_count = op_count + 1
+				local group_name = shared_item_goddess_icor.get_option_group_name(prop_name)			
+				local clmsg = GET_CLMSG_BY_OPTION_GROUP(group_name)
+				local min, max = shared_item_goddess_icor.get_option_value_range_icor(item_obj, prop_name)
+				local op_name = string.format('%s %s', ClMsg(clmsg), ScpArgMsg(prop_name))
+				local info_str = _MAKE_PROPERTY_MIN_MAX_DESC(op_name, min, max)
+				local option_ctrlset = optionGbox:CreateOrGetControlSet('eachproperty_in_reroll_item', 'PROPERTY_CSET_' .. op_count, 0, 0)
+				option_ctrlset = AUTO_CAST(option_ctrlset)
+				local pos_y = option_ctrlset:GetUserConfig('POS_Y')
+				option_ctrlset:Move(0, (op_count - 1) * pos_y)			
+				local property_name = GET_CHILD_RECURSIVELY(option_ctrlset, 'property_name', 'ui::CRichText')
+				property_name:SetEventScript(ui.LBUTTONUP, 'None')
+				property_name:SetText(info_str)
+				local help_pic = GET_CHILD_RECURSIVELY(option_ctrlset, 'help_pic')
+				help_pic:ShowWindow(0)
+			end
 		end
 	end
 end

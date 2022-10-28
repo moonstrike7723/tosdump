@@ -125,6 +125,7 @@ function GACHA_START(gachaDetail)
 				countText:SetTextByKey('count', count)
 			end
 		else
+			local countText = GET_CHILD_RECURSIVELY(frame, 'count_text');
 			countText:SetVisible(0)
 		end
 	elseif gachaDetail.GachaType == "rbox" then

@@ -32,12 +32,15 @@ function SKINSHOP_GET_SHOP_ITEM_LIST()
 end
 
 function SKINSHOP_REGISTER_ITEM_LIST()
-	-- Beauty_Shop_Skin.xml.xml의 정보.
+	-- Beauty_Shop_Skin.xml의 정보.
 	
-	if SkinItemList == nil then
+	if true or SkinItemList == nil then
 		SkinItemList={}
-		
-		local clsList, cnt = GetClassList('Beauty_Shop_Skin');
+		local id_space = 'Beauty_Shop_Skin'
+		if IS_SEASON_SERVER() == 'YES' then
+			id_space = 'Beauty_Shop_Skin_Season'
+		end
+		local clsList, cnt = GetClassList(id_space);
 		for i = 0, cnt - 1 do
 			local cls = GetClassByIndexFromList(clsList, i);
 			local data = {
@@ -55,7 +58,7 @@ function SKINSHOP_REGISTER_ITEM_LIST()
 				IsPremium		= cls.IsPremium,
 				TAG				= cls.TAG,
 				ItemAddDate		= cls.ItemAddDate,
-                IDSpace = 'Beauty_Shop_Skin',
+                IDSpace = id_space,
                 ClassName = cls.ClassName,
 			}
 

@@ -85,6 +85,11 @@ function ENABLE_SKILLGEM_COMPOSITION_ITEM(invItem)
 	end
 
 	local itemObj = GetIES(invItem:GetObject());	
+	if IS_RANDOM_OPTION_SKILL_GEM(itemObj) == true then
+		ui.SysMsg(ClMsg('CantUseCabinetCuzRandomOption'))
+		return false
+	end
+
     if CAN_COMPOSITION_SKILL_GEM(itemObj) == false then
         return false;
 	end

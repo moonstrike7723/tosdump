@@ -84,6 +84,8 @@ function GUILDINFO_OPEN_UI(frame)
     end
 
     GUILDINFO_MEMBER_LIST_INIT();
+
+    pc.ReqExecuteTx('GUIDE_QUEST_OPEN_UI', frame:GetName())
 end
 
 function GUILDNOTICE_GET(code, ret_json)

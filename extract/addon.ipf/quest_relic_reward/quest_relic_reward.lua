@@ -85,6 +85,11 @@ function QUEST_RELIC_REWARD_MAKE_REWARD_ITEM_CTRL(gbBody, x, y, relicRewardIES)
         local propList = SCR_STRING_CUT(rewardList[i], '/')
         local rewardName = propList[1]
         local rewardCount = propList[2]
+
+        if IS_SEASON_SERVER() == 'YES' and rewardName == 'Relic_exp_token' then
+            rewardCount = tonumber(rewardCount) * 10
+        end
+
         if rewardName ~= "None" then
             height = height + QUESTDETAIL_MAKE_ITEM_TAG_TEXT_CTRL(gbBody, x, y + height, 'reward_item', rewardName, rewardCount, i)
         end

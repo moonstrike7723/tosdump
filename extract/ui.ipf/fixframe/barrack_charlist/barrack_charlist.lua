@@ -932,6 +932,13 @@ function SELECTTEAM_ON_MSG(frame, msg, argStr, argNum, ud)
 end
 
 function BARRACK_GO_CREATE()
+	if IS_SEASON_SERVER(GetMyPCObject()) == 'YES' then
+		local cnt = GET_TOTAL_CHARACTER_COUNT()		
+		if cnt >= 4 then
+			ui.SysMsg(ClMsg('MaxCharacterSlotForSeasonServer'))
+			return	
+		end	
+	end
 	BARRACK_STARTMAP_SELECT_INIT()
 end
 
@@ -939,7 +946,7 @@ function _BARRACK_GO_CREATE(select)
     if IS_FULL_SLOT_CURRENT_LAYER() == true then
         ui.SysMsg(ScpArgMsg("{layer}LayerFull", 'layer', current_layer))
         return
-    end
+	end
 	barrack.GoCreate()
 	ui.CloseFrame("inputstring")
 	ui.CloseFrame("barrackthema")
@@ -1491,4 +1498,10 @@ function UPDATE_BARRACK_HIDELOGIN_OPTION(parent, ctrl)
 	end
 	local isCheck = ctrl:IsChecked();
 	barrack.SetHideLogin(isCheck);
+end
+
+function GET_TOTAL_CHARACTER_COUNT()
+	local accountInfo = session.barrack.GetMyAccount();
+	local cnt = accountInfo:GetTotalSlotCount();
+	return cnt
 end

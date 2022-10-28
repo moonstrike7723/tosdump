@@ -588,7 +588,11 @@ function SKL_CHECK_RELIC_SPEND_RP_C(actor, skl, value)
     local pc = GetMyPCObject()
 	if IsBuffApplied(pc, "Relic_Release_Buff") == "YES" then
 		return 1	
-	end
+    end
+    
+    if GetExProp(pc, "BAN_RELIC_RELEASE") > 0 then
+        return 0
+    end
 
     local cur_rp, max_rp = shared_item_relic.get_rp(pc)
     if cur_rp < value then

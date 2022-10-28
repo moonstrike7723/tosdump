@@ -100,4 +100,12 @@
 			<Color RGBA="252;0;0;255" Time="1.5"/>
 		</Node>
 	</Pattern>
+	<Pattern PatternName="Elite_Boss_Buff">
+		<Node Factor="0.5" TimeTerm="1.5" DiffusionType="Stop" ColorBlendType="Linear" Attach="Self">
+			<Color RGBA="100;202;202;150" Time="0"/>
+			<Color RGBA="100;202;202;150" Time="0.5"/>
+			<Color RGBA="100;202;202;150" Time="1"/>
+			<Color RGBA="100;202;202;150" Time="1.5"/>
+		</Node>
+	</Pattern>
 </Aura>

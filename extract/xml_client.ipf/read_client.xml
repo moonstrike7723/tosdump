@@ -1,4 +1,4 @@
-<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
+﻿<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <Category>
 	<ReadXml Name="blowsound"/>
 	<ReadXml Name="camerasetup"/>
@@ -60,5 +60,6 @@
 	<ReadXml Name="acronyms_list"/>
 	<ReadXml Name="ExpandSkillTooltip"/>
 	<ReadXml Name="missile_effect"/>
+	<ReadXml Name="induninfo_category"/>
 </Category>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by dd (IMCGames Co., Ltd) -->

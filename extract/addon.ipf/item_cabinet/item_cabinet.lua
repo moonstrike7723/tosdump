@@ -48,6 +48,14 @@ function ITEM_CABINET_CLOSE(frame)
 	edit:SetText("");
 	INVENTORY_SET_CUSTOM_RBTNDOWN("None");
 	TUTORIAL_TEXT_CLOSE(frame)
+
+	local relicgem_scroll = ui.GetFrame("relicgem_lvup_scroll")
+	if relicgem_scroll:IsVisible() == 1 then
+		RELICGEM_LVUP_SCROLL_CANCEL()
+		RELICGEM_LVUP_SCROLL_UI_RESET()
+		ui.RemoveGuideMsg('NOT_A_RELIC_GEM')
+		ui.GuideMsg('DropItemPlz')
+	end
 end
 
 function ITEM_CABINET_VIBORA_TUTORIAL_OPEN(frame, open_flag)
@@ -542,7 +550,18 @@ function ITEM_CABINET_SKILLGEM_REGISTER_RBTN(item_obj, slot)
 	local tab_index   = cabinet_tab:GetSelectItemIndex()
 	if ui.IsFrameVisible("item_cabinet") ~= 1 or tab_index~=4 then return end
 	if TryGetProp(item_obj,"StringArg","None") ~= "SkillGem" then return end
-	if TryGetProp(item_obj,"CharacterBelonging",0) == 1 then return end
+	if TryGetProp(item_obj,"CharacterBelonging",-1)==1 then 
+		ui.SysMsg(ClMsg('CantUseCabinetCuzCopiedGem'))
+		return 		
+	end
+
+	if IS_RANDOM_OPTION_SKILL_GEM(item_obj) then 
+		ui.SysMsg(ClMsg('CantUseCabinetCuzRandomOption'))
+		return 
+	end
+
+
+
 	local clsName	 = TryGetProp(item_obj,"ClassName","None")
 	if clsName == "None" then return end
 	local cabinetCls = GetClassByStrProp("cabinet_skillgem", "ClassName", clsName)
@@ -780,6 +799,7 @@ function ITEM_CABINET_CREATE_LIST(frame)
 	end
 
 	ITEM_CABINET_UI_TUTORIAL_CHECK(frame)
+
 end
 
 function ITEM_CABINET_SHOW_UPGRADE_UI(frame, isShow)
@@ -1647,6 +1667,7 @@ function END_CABINET_RELIC_GEM_REINFORCE(frame,msg,arg_str,arg_num)
 	elseif arg_str == 'FAILED' then
 		ReserveScript('_RUN_CABINET_RELIC_GEM_REINFORCE_FAILED()', 0)
 	end
+	
 end
 
 function _RUN_CABINET_RELIC_GEM_REINFORCE_SUCCESS()
@@ -1683,7 +1704,7 @@ function _RUN_CABINET_RELIC_GEM_REINFORCE_SUCCESS()
 	local type = frame:GetUserIValue('ITEM_TYPE')
 	local itemCls = GetClassByType("Item",type)
 	r_result_item_img:SetImage(TryGetProp(itemCls, 'Icon', 'None'))
-
+	
 	CABINET_RELIC_GEM_REINFORCE_SUCCESS_EFFECT(frame)
 end
 
@@ -1781,7 +1802,8 @@ function CONFIRM_ITEM_CABINET_REINFORCE()
 	local frame = ui.GetFrame('item_cabinet')
 	if frame == nil then return end
 	local result = frame:GetUserValue('END_RELIC_GEM_REINFORCE')
-	
+	frame:SetUserValue('END_RELIC_GEM_REINFORCE', "None")
+
 	local relic_top_gb = GET_CHILD_RECURSIVELY(frame, 'relic_top_gb')
 	if relic_top_gb == nil then return end
 	relic_top_gb:ShowWindow(1)
@@ -1789,10 +1811,10 @@ function CONFIRM_ITEM_CABINET_REINFORCE()
 	if result == "SUCCESS" then
 		CLEAR_ITEM_CABINET_REINFORCE()
 		ITEM_CABINET_CREATE_LIST(frame)
-		
 	elseif result == "FAILED" then
 		UPDATE_ITEM_CABINET_REINFORCE(frame)
 	end
+	
 end
 
 
@@ -1975,11 +1997,18 @@ function ITEM_CABINET_SELECT_ITEM(parent, self)
 	local category = ITEM_CABINET_GET_CATEGORY(parent);
 	local tab;
 	local index;
-
-	if category == 'Relicgem' then 
-		tab = GET_CHILD_RECURSIVELY(frame, "upgrade_relicgem_tab"); 
-		index = tab:GetSelectItemIndex();
-		tab:SelectTab(index)
+	if category == 'Relicgem' then
+		local lvup_scroll = ui.GetFrame('relicgem_lvup_scroll');
+		if lvup_scroll ~= nil and lvup_scroll:IsVisible() == 1 then
+			local aObj = GetMyAccountObj();
+			local itemType = parent:GetUserIValue("ITEM_TYPE");
+			RELICGEM_LVUP_SCROLL_SET_TARGET_ITEM_CABINET(cabinetframe, itemType);
+			return
+		else
+			tab = GET_CHILD_RECURSIVELY(frame, "upgrade_relicgem_tab"); 
+			index = tab:GetSelectItemIndex();
+			tab:SelectTab(index)
+		end
 	else
 		tab = GET_CHILD_RECURSIVELY(frame, "upgrade_tab"); 
 		index = tab:GetSelectItemIndex();	
@@ -2007,6 +2036,8 @@ function ITEM_CABINET_SELECT_ITEM(parent, self)
 		ITEM_CABINET_REINFORCE_SECTION(frame,self, itemCls);
 		local clsName= TryGetProp(itemCls,"ClassName","None")
 		frame:SetUserValue('PRE_NAME',clsName)
+		local checkVal = frame:GetUserValue('END_RELIC_GEM_REINFORCE')
+		if checkVal ~= "None" then CONFIRM_ITEM_CABINET_REINFORCE() end
 	end
 	ITEM_CABINET_SHOW_UPGRADE_UI(frame, 1);
 	ITEM_CABINET_ICOR_SECTION(frame, self, itemCls);
@@ -2028,10 +2059,11 @@ function ITEM_CABINET_SELECT_ITEM(parent, self)
 end
 
 function ITEM_CABINET_ICOR_SECTION(frame, self, entry_cls)
+	local topframe = frame:GetTopParentFrame()
 	local category = frame:GetUserValue("CATEGORY")
 	local itemslot = GET_CHILD_RECURSIVELY(self:GetParent(), "itemIcon");
 	local iconinfo = itemslot:GetIcon():GetInfo();
-	local topframe = frame:GetTopParentFrame()
+	
 	local itemCls = GetClassByType('Item', iconinfo.type); 
 	itemslot = GET_CHILD_RECURSIVELY(frame,"slot2");
 	local icon = CreateIcon(itemslot);
@@ -2067,7 +2099,14 @@ function ITEM_CABINET_ICOR_SECTION(frame, self, entry_cls)
 		cost = GET_ACC_CABINET_COST(entry_cls, GetMyAccountObj())
 	end
 
-	local price = GET_COMMA_SEPARATED_STRING_FOR_HIGH_VALUE(cost);	
+	if IS_SEASON_SERVER() == 'YES' then
+		cost = cost * 0.01
+	end
+	local price = cost
+	if cost > 100 then
+		price = GET_COMMA_SEPARATED_STRING_FOR_HIGH_VALUE(cost);	
+	end
+	
 	silverText:SetTextByKey("price", price);
 	
 	ITEM_CABINET_OPTION_INFO(optionGbox, itemCls)
@@ -2517,6 +2556,7 @@ function ITEM_CABINET_DRAW_MATERIAL(frame, materialTable, targetLV, maxLv)
 end
 
 function ITEM_CABINET_MATERIAL_INV_BTN(itemObj, slot)	
+	
 	if slot:IsSelected() == 1 then
 		ITEM_CABINET_SET_SLOT_ITEM(slot, 0);
 		ITEM_CABINET_RESET_SLOT_TOOLTIP(itemObj)
@@ -2573,6 +2613,15 @@ function ITEM_CABINET_REG_MATERIAL(frame, slot)
 	local targetItemCls = GetClassByType("cabinet_"..string.lower(category), itemType);
 	local itemName = targetItemCls.ClassName
 	if category=="Skillgem" or category=="Relicgem" then
+		if IS_RANDOM_OPTION_SKILL_GEM(itemObj) then 
+			ui.SysMsg(ClMsg('CantUseCabinetCuzRandomOption'))
+			return 
+		end
+		local belonging = TryGetProp(itemObj,"CharacterBelonging",-1)
+		if belonging==1 then 
+			ui.SysMsg(ClMsg('CantUseCabinetCuzCopiedGem'))
+			return 		
+		end
 		frame:SetUserValue("ITEM_REG_GUID",itemID)
 	end
 
@@ -2580,7 +2629,7 @@ function ITEM_CABINET_REG_MATERIAL(frame, slot)
 		local gemLv	 = TryGetProp(itemObj,"GemLevel",0)
 		targetLv = ITEM_CABINET_GET_RELICGEM_UPGRADE_ACC_PROP(frame,itemObj)
 		if TryGetProp(itemObj,"CharacterBelonging",0)==1 then
-			ui.SysMsg(ClMsg("InvalidGem"))
+			ui.SysMsg(ClMsg("CantUseCabinetCuzCopiedGem"))
 			return
 		end
 		if gemLv<=targetLv then
@@ -2973,6 +3022,7 @@ local function ITEM_CABINET_CREATE_ARK_OPTION(gBox, ypos, step, class_name)
 	return ypos;
 end
 
+
 function ITEM_CABINET_OPTION_INFO(gBox, targetItem)
 	local yPos = 0		
 	
@@ -3153,4 +3203,28 @@ function ITEM_CABINET_OPTION_INFO(gBox, targetItem)
 
 	tooltip_equip_property_CSet:Resize(tooltip_equip_property_CSet:GetWidth(),tooltip_equip_property_CSet:GetHeight() + property_gbox:GetHeight() + property_gbox:GetY() + 40)
 	gBox:Resize(gBox:GetWidth(), tooltip_equip_property_CSet:GetHeight()+10)
+end
+
+function START_OPEN_ALL_CABINET(frame)
+	ui.MsgBox(ScpArgMsg("StartOpenAllCabinet"));
+	ui.SetHoldUI(true);
+	ReserveScript('END_OPEN_ALL_CABINET', 3)
+end
+
+function END_OPEN_ALL_CABINET()
+	ui.SetHoldUI(false);
+	ui.MsgBox(ScpArgMsg("EndOpenAllCabinet"));
+	ui.OpenFrame('item_cabinet')
+end
+
+function OPEN_ITEM_CABINET_TO_RELICGEM_LVUP()
+	ui.OpenFrame('item_cabinet')
+
+	local cabinet_frame = ui.GetFrame('item_cabinet')
+	local cabinet_tab = GET_CHILD_RECURSIVELY(cabinet_frame, 'cabinet_tab')
+	cabinet_tab:SelectTab(5)
+	ITEM_CABINET_CHANGE_TAB(cabinet_frame)
+
+	ui.RemoveGuideMsg('DropItemPlz')
+	ui.GuideMsg('NOT_A_RELIC_GEM')
 end

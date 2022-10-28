@@ -8,7 +8,11 @@ end
 
 function GEAR_SCORE_RANKING_OPEN(frame)
 	curPage = 0
-	GetStatusRanking('callback_get_gear_score_ranking', 'pc_gear_score', curPage)
+	if IS_SEASON_SERVER() == 'YES' then
+		GetStatusRanking('callback_get_gear_score_ranking', 'account_gear_score', curPage)
+	else
+		GetStatusRanking('callback_get_gear_score_ranking', 'pc_gear_score', curPage)
+	end
 end
 
 function GEAR_SCORE_RANKING_PREV_BUTTON(parent, self)
@@ -17,7 +21,11 @@ function GEAR_SCORE_RANKING_PREV_BUTTON(parent, self)
 	end
 	prevPage = curPage 
 	curPage = curPage - 1
-	GetStatusRanking('callback_get_gear_score_ranking', 'pc_gear_score', curPage)
+	if IS_SEASON_SERVER() == 'YES' then
+		GetStatusRanking('callback_get_gear_score_ranking', 'account_gear_score', curPage)
+	else
+		GetStatusRanking('callback_get_gear_score_ranking', 'pc_gear_score', curPage)
+	end
 end
 
 function GEAR_SCORE_RANKING_NEXT_BUTTON(parent, self)
@@ -27,7 +35,11 @@ function GEAR_SCORE_RANKING_NEXT_BUTTON(parent, self)
 	end
 	prevPage = curPage 
 	curPage = curPage + 1
-	GetStatusRanking('callback_get_gear_score_ranking', 'pc_gear_score', curPage)
+	if IS_SEASON_SERVER() == 'YES' then
+		GetStatusRanking('callback_get_gear_score_ranking', 'account_gear_score', curPage)
+	else
+		GetStatusRanking('callback_get_gear_score_ranking', 'pc_gear_score', curPage)
+	end
 end
 
 function callback_get_gear_score_ranking(code, ret_json)

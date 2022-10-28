@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+    <BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+    <Sound frame="0.58" soundFile="mon_voice_helgasercle_7"/>
+    <Sound frame="30.00" soundFile="skl_eff_short_impact_whoosh_2"/>
+    <Sound frame="30.00" soundFile="boss_skl_eff_atk_move_l_4"/>
+    <Sound frame="31.95" soundFile="skl_eff_atk_move_m_7"/>
+    <Particle frame="33" attachNode="Bip001 L Finger2" particleName="I_smoke013_dark_glow2_red2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="33" attachNode="Bip001 R Finger2" particleName="I_smoke013_dark_glow2_red2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="36" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_explosion046_red2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="36" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_explosion141_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="36" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_wizard_MissileHole_explosion_violet_abil" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="36" attachNode="Dummy_effect_emitter2" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Shockwave frame="37" type="2" intensity="7" frequency="70" duration="0.3" range="1000"/>
+    <BlendOn frame="37" R="200" G="100" B="150" A="100"/>
+    <BlendOn frame="38" R="180" G="80" B="120" A="100"/>
+    <BlendOn frame="39" R="0" G="0" B="0" A="50"/>
+    <Sound frame="64.00" soundFile="boss_skl_eff_atk_move_l_4"/>
+    <Sound frame="69.14" soundFile="skl_eff_short_impact_whoosh_1"/>
+    <Shockwave frame="70" type="2" intensity="7" frequency="70" duration="0.3" range="1000"/>
+    <BlendOn frame="70" R="200" G="100" B="150" A="100"/>
+    <Particle frame="70" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_explosion046_red2" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="70" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_explosion141_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="70" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_wizard_MissileHole_explosion_violet_abil" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="70" attachNode="Dummy_effect_emitter2" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="70.30" soundFile="skl_eff_atk_move_m_7"/>
+    <BlendOn frame="71" R="180" G="80" B="120" A="100"/>
+    <BlendOn frame="72" R="0" G="0" B="0" A="50"/>
+    <Sound frame="90.05" soundFile="mon_voice_mushwort_6"/>
+    <Sound frame="95.00" soundFile="mon_voice_mushwort_5"/>
+    <Sound frame="110.00" soundFile="boss_skl_eff_atk_move_l_4"/>
+    <Sound frame="113.00" soundFile="skl_eff_oobe_shot_explosion"/>
+    <Sound frame="116.00" soundFile="skl_explosion01s"/>
+    <Sound frame="116.78" soundFile="skl_eff_dock"/>
+    <Shockwave frame="117" type="2" intensity="10" frequency="70" duration="0.5" range="1000"/>
+    <BlendOn frame="117" R="200" G="100" B="150" A="100"/>
+    <Particle frame="117" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_explosion046_red2" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="117" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_explosion141_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="117" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_wizard_MissileHole_explosion_violet_abil" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="117" attachNode="Dummy_effect_emitter2" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="6" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="118" R="180" G="80" B="120" A="100"/>
+    <BlendOn frame="119" R="150" G="60" B="100" A="100"/>
+    <BlendOn frame="120" R="130" G="40" B="80" A="100"/>
+    <BlendOn frame="121" R="100" G="20" B="50" A="100"/>
+    <BlendOn frame="122" R="50" G="10" B="30" A="100"/>
+    <BlendOff frame="123" R="0" G="0" B="0" A="0"/>
+</ActionDesc>

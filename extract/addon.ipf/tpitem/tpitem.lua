@@ -351,11 +351,13 @@ function TPSHOP_TAB_VIEW(frame, curtabIndex)
 		costume_exchange_toitemBtn:SetEnable(1);
 		COSTUME_EXCHANGE_SHOW_TO_ITEM()
 	elseif curtabIndex == TPSHOP_GET_INDEX_BY_TAB_NAME("Itembox3") then -- 리사이클 샵
-		rcycle_basketgbox:SetVisible(1);
-		previewStaticTitle:SetVisible(1);	
-		previewgbox:SetVisible(1);
-		rcycle_toitemBtn:SetEnable(1);
-		RECYCLE_SHOW_TO_ITEM()
+		if IS_SEASON_SERVER() ~= 'YES' then
+			rcycle_basketgbox:SetVisible(1);
+			previewStaticTitle:SetVisible(1);	
+			previewgbox:SetVisible(1);
+			rcycle_toitemBtn:SetEnable(1);
+			RECYCLE_SHOW_TO_ITEM()
+		end
 	elseif curtabIndex == TPSHOP_GET_INDEX_BY_TAB_NAME("Itembox6") then -- 신규 유저 상점
 		banner:SetVisible(0); -- 기존 배너 비활성화 후 이벤트 상점 배너 활성화.
 		eventUserBanner:SetVisible(1);
@@ -519,6 +521,10 @@ function TP_SHOP_DO_OPEN(frame, msg, shopName, argNum)
 	local rightgbox = rightFrame:GetChild('rightgbox');
 	local shopTab = leftgbox:GetChild('shopTab');
 	local itembox_tab = tolua.cast(shopTab, "ui::CTabControl");
+
+	if IS_SEASON_SERVER() == 'YES' then
+		itembox_tab:DeleteTab(itembox_tab:GetIndexByName("Itembox3"));	
+	end
 
 	if (1 == IsMyPcGM_FORNISMS()) and (config.GetServiceNation() == "KOR") then		
 		local banner = GET_CHILD_RECURSIVELY(frame,"banner");	
@@ -781,6 +787,11 @@ function MAKE_CATEGORY_TREE()
 	DESTROY_CHILD_BYNAME(tpitemtree, "TPSHOP_CT_");
 
 	local clsList, cnt = GetClassList('TPitem');	
+
+	if IS_SEASON_SERVER() == 'YES' then
+		clsList, cnt = GetClassList('TPitem_SEASON');
+	end
+
 	if cnt == 0 or clsList == nil then
 		return;
 	end
@@ -1148,6 +1159,11 @@ function TPITEM_DRAW_ITEM_TOTAL(frame)
 	frame:SetUserValue("CHILD_ITEM_INDEX", index);
 
 	local clsList, cnt = GetClassList('TPitem');
+
+	if IS_SEASON_SERVER() == 'YES' then
+		clsList, cnt = GetClassList('TPitem_SEASON');
+	end
+
 	if cnt == 0 or clsList == nil then
 		return;
 	end
@@ -1228,6 +1244,11 @@ function TPITEM_DRAW_ITEM_WITH_CATEGORY(frame, category, subcategory, initdraw, 
 	end
 	
 	local clsList, cnt = GetClassList('TPitem');	
+
+	if IS_SEASON_SERVER() == 'YES' then
+		clsList, cnt = GetClassList('TPitem_SEASON')
+	end
+
 	if cnt == 0 or clsList == nil then
 		return;
 	end
@@ -1586,6 +1607,10 @@ function IS_TIME_SALE_ITEM(classID)
 	local tpitemframe = ui.GetFrame("tpitem");
 	local itemObj = GetClassByType("TPitem", classID);
 
+	if IS_SEASON_SERVER() == 'YES' then
+		itemObj = GetClassByType("TPitem_SEASON", classID);
+	end
+
 	local startProp = TryGetProp(itemObj, "SellStartTime");
 	local endProp = TryGetProp(itemObj, "SellEndTime");
 
@@ -1876,6 +1901,11 @@ function TPITEM_DRAW_ITEM_DETAIL(obj, itemobj, itemcset)
 	buyBtn:EnableHitTest(1);
 	
 	local obj = GetClassByType("TPitem", tpitem_clsID)
+
+	if IS_SEASON_SERVER() == 'YES' then
+		obj = GetClassByType("TPitem_SEASON", tpitem_clsID)
+	end
+
 	if obj == nil then
 		return;
 	end
@@ -1909,6 +1939,11 @@ function TPSHOP_ISNEW_CHECK(clsID)
 		limitTime = TPSHOP_ISNEW_CHECK_TIME();
 	end
 	local tpobj = GetClassByType("TPitem", clsID);
+
+	if IS_SEASON_SERVER() == 'YES' then
+		tpobj = GetClassByType("TPitem_SEASON", clsID);
+	end
+
 	if tpobj ~= nil then		
 		if tpobj and limitTime <= tpobj.Itemdate then			
 			return true;
@@ -1969,6 +2004,12 @@ function TPSHOP_SORT_LIST(a, b)
 
 	local obj1 = GetClassByType("TPitem", clsId1);
 	local obj2 = GetClassByType("TPitem", clsId2);
+
+	if IS_SEASON_SERVER() == 'YES' then
+		obj1 = GetClassByType("TPitem_SEASON", clsId1);
+		obj2 = GetClassByType("TPitem_SEASON", clsId2);
+	end
+
 	if (obj1 == nil) or (obj2 == nil) then
 		return false;
 	end
@@ -2115,7 +2156,13 @@ function TPITEM_SET_SPECIALMARK(isNew_mark, isHot_mark, isEvent_mark, isLimit_ma
 	isLimit_mark:SetVisible(bisLimit);
 
 	local bisSale = 0
-	if TryGetProp(GetClassByType('TPitem', classID), 'SubCategory', 'None') == 'TP_Premium_Sale' then
+	
+	local id_space = 'TPitem'
+	if IS_SEASON_SERVER() == 'YES' then
+		id_space = 'TPitem_SEASON'
+	end
+
+	if TryGetProp(GetClassByType(id_space, classID), 'SubCategory', 'None') == 'TP_Premium_Sale' then
 		bisSale = 1
 end
 
@@ -2138,6 +2185,11 @@ function TPSHOP_CREATE_TOP5_CTRLSET()
 				break;
 			end
 			local obj = GetClassByType("TPitem", info.nclsID)
+
+			if IS_SEASON_SERVER() == 'YES' then
+				obj = GetClassByType("TPitem_SEASON", info.nclsID)
+			end
+
 			if obj == nil then
 				break;
 			end
@@ -2195,6 +2247,10 @@ end
 
 function TPSHOP_SELECTED_TOP5(parent, control, tpitemname, classid)
 	local obj = GetClassByType("TPitem", classid)
+
+	if IS_SEASON_SERVER() == 'YES' then
+		obj = GetClassByType("TPitem_SEASON", classid)
+	end
 	if obj == nil then
 		return;
 	end
@@ -2254,6 +2310,11 @@ function TPSHOP_ITEM_PREVIEW_PREPROCESSOR(parent, control, tpitemname, tpitem_cl
 	local slotset = nil;
 	
 	local obj = GetClassByType("TPitem", tpitem_clsID)
+
+	if IS_SEASON_SERVER() == 'YES' then
+		obj = GetClassByType("TPitem_SEASON", tpitem_clsID)
+	end
+
 	if obj == nil then
 		return;
 	end
@@ -2603,7 +2664,11 @@ function TPSHOP_ITEM_BASKET_BUY(parent, control)
             local tpItemName = slot:GetUserValue('TPITEMNAME');
             local itemClassName = slot:GetUserValue('CLASSNAME');
 			local item = GetClass("Item", itemClassName);			
-            local tpitem = GetClass('TPitem', tpItemName);
+			local tpitem = GetClass('TPitem', tpItemName);
+			
+			if IS_SEASON_SERVER() == 'YES' then
+				tpitem = GetClass('TPitem_SEASON', tpItemName);
+			end
 
             itemAndTPItemIDTable[item.ClassID] = tpitem.ClassID;
 
@@ -2771,6 +2836,10 @@ function TPSHOP_ITEM_TO_BASKET_PREPROCESSOR(parent, control, tpitemname, tpitem_
 	g_TpShopcontrol = control;
 	
 	local obj = GetClassByType("TPitem", tpitem_clsID)
+	if IS_SEASON_SERVER() == 'YES' then
+		obj = GetClassByType("TPitem_SEASON", tpitem_clsID)
+	end
+
 	if obj == nil then
 		return false;
 	end
@@ -2896,6 +2965,9 @@ function TPSHOP_ITEM_TO_BASKET(tpitemname, classid)
 	end
 
 	local tpitem = GetClass("TPitem", tpitemname);
+	if IS_SEASON_SERVER() == 'YES' then
+		tpitem = GetClass("TPitem_SEASON", tpitemname);
+	end
 	if tpitem == nil then
 		ui.MsgBox(ScpArgMsg("DataError"));
 		return;
@@ -2995,6 +3067,9 @@ function UPDATE_BASKET_MONEY(frame)
 			local classname = slot:GetUserValue("TPITEMNAME");
 			local alreadyItem = GetClass("TPitem",classname)
 
+			if IS_SEASON_SERVER() == 'YES' then
+				alreadyItem = GetClass("TPitem_SEASON",classname)
+			end
 			if alreadyItem ~= nil then
 
 				allprice = allprice + alreadyItem.Price
@@ -3049,6 +3124,10 @@ function EXEC_BUY_MARKET_ITEM()
 			local slot  = slotset:GetSlotByIndex(i);
 			local tpitemname = slot:GetUserValue("TPITEMNAME");
 			local tpitem = GetClass("TPitem",tpitemname)
+
+			if IS_SEASON_SERVER() == 'YES' then
+				tpitem = GetClass("TPitem_SEASON",tpitemname)
+			end
 				
 
 			if tpitem ~= nil then
@@ -3872,31 +3951,29 @@ function TPSHOP_CASHINVEN_ITEM_CLICKED(parent, ctrl)
 end
 
 function _TPSHOP_BANNER(parent, control, argStr, argNum)
--- right banner
+	-- right banner
 	local size = session.ui.GetSizeTPItemBannerCategory("Right");
-
 	local frame = ui.GetFrame("tpitem");
 	local banner = GET_CHILD_RECURSIVELY(frame,"banner");	
 	banner = tolua.cast(banner, "ui::CWebPicture");	
-	
-	if size <= 1 then
+	--[[ if size <= 1 then
 		banner:SetImage("market_event_test");	--market_default
-	else
-		local bannerInfo = session.ui.GetTPItemBannerCategoryByIndex("Right", 0);
-		if bannerInfo ~= nil then
-			local strImage = bannerInfo:GetimagePath();
-			if string.len(strImage) <= 0 then
-				banner:SetImage("market_event_test");	--market_default
-			else
-				banner:SetUrlInfo(GETBANNERURL(strImage));
-			end;
-			banner:SetUserValue("URL_BANNER", bannerInfo:GetclickUrl());
-			banner:SetUserValue("NUM_BANNER", 0);
-			
-			banner:StopUpdateScript("_PROCESS_ROLLING_BANNER");
-			banner:RunUpdateScript("_PROCESS_ROLLING_BANNER",  5, 0, 1, 1);
-		end
+	else ]]
+	local bannerInfo = session.ui.GetTPItemBannerCategoryByIndex("Right", 0);
+	if bannerInfo ~= nil then
+		local strImage = bannerInfo:GetimagePath();
+		if string.len(strImage) <= 0 then
+			banner:SetImage("market_event_test");	--market_default
+		else
+			banner:SetUrlInfo(GETBANNERURL(strImage));
+		end;
+		banner:SetUserValue("URL_BANNER", bannerInfo:GetclickUrl());
+		banner:SetUserValue("NUM_BANNER", 0);
+		
+		banner:StopUpdateScript("_PROCESS_ROLLING_BANNER");
+		banner:RunUpdateScript("_PROCESS_ROLLING_BANNER",  5, 0, 1, 1);
 	end
+	--end
 	banner:Invalidate();
 
 -- bottom banner
@@ -4085,6 +4162,9 @@ function TPITEM_IS_ALREADY_PUT_INTO_BASKET(frame, tpitem)
 			local classname = slot:GetUserValue("TPITEMNAME");
 			if tpitem.ClassName == classname then
 				local alreadyItem = GetClass("TPitem", classname);
+				if IS_SEASON_SERVER() == 'YES' then
+					alreadyItem = GetClass("TPitem_SEASON", classname);
+				end
 				if alreadyItem ~= nil then
 					local item = GetClass("Item", alreadyItem.ItemClassName);				
 					local allowDup = TryGetProp(item, 'AllowDuplicate');				
@@ -4110,6 +4190,9 @@ g_tpItemMap = {};
 function GET_TPITEMID_BY_ITEM_NAME(itemName)
 	if #g_tpItemMap < 1 then
 		local clslist, cnt = GetClassList('TPitem');
+		if IS_SEASON_SERVER() == 'YES' then
+			clslist, cnt = GetClassList('TPitem_SEASON');
+		end
 		for i = 0, cnt - 1 do
 			local cls = GetClassByIndexFromList(clslist, i);
 			g_tpItemMap[cls.ItemClassName] = cls.ClassID;

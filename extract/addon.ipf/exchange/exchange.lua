@@ -163,6 +163,16 @@ local function _EXCHANGE_ADD_FROM_INV(obj, item, tradeCnt)
 		return;
 	end
 
+	local check = GetClassByType('market_trade_restrict', TryGetProp(obj, 'ClassID', 0))
+	if check ~= nil then
+		if IS_SEASON_SERVER() == "YES" then
+			if TryGetProp(check, 'Type', 'None') == 'NoTrade2' then
+				ui.AlarmMsg("ItemIsNotTradable");	
+				return;
+			end
+		end
+	end
+
 	local invframe = ui.GetFrame("inventory");
 	if true == IS_TEMP_LOCK(invframe, item) then
 		return;
@@ -325,6 +335,14 @@ function EXCHANGE_INIT_SLOT(frame)
 		local tempSlot = oppslotset:GetSlotByIndex(i)
 		DESTROY_CHILD_BYNAME(tempSlot, "styleset_")		
 	end
+
+	local slotCnt = myslotset:GetSlotCount();
+	for i = 0, slotCnt - 1 do
+		local tempSlot1 = myslotset:GetSlotByIndex(i)
+		local tempSlot2 = oppslotset:GetSlotByIndex(i)
+		SET_SLOT_STAR_TEXT(tempSlot1,nil)
+		SET_SLOT_STAR_TEXT(tempSlot2,nil)
+	end
 end 
 
 function EXCHANGE_MSG_START(frame, msg, argStr, argNum)
@@ -389,6 +407,12 @@ function EXCHANGE_ITEM_REMOVE(slot, agrNum, agrString)
 end
 
 function EXCHANGE_UPDATE_SLOT(slotset,listindex)
+	local slotCnt = slotset:GetSlotCount();
+	for i = 0, slotCnt - 1 do
+		local tempSlot = slotset:GetSlotByIndex(i)
+		SET_SLOT_STAR_TEXT(tempSlot,nil)
+	end
+
 	slotset:ClearIconAll();
 	local frame = ui.GetFrame('exchange');
 	local itemCount = exchange.GetExchangeItemCount(listindex);	
@@ -413,6 +437,7 @@ function EXCHANGE_UPDATE_SLOT(slotset,listindex)
 				local icon = SET_SLOT_ITEM_INFO(slot, itemObj, itemData.count, font);
 				SET_ITEM_TOOLTIP_ALL_TYPE(icon, itemData, class.ClassName, 'exchange', itemData.type, i * 10 + listindex);
 				SET_SLOT_STYLESET(slot, itemObj)
+				SET_SLOT_STAR_TEXT(slot,itemObj)
 
 				if listindex == 0 then 
 					icon:SetDumpScp('EXCHANGE_DUMP_ICON');	
@@ -426,6 +451,7 @@ function EXCHANGE_UPDATE_SLOT(slotset,listindex)
 		else
 			local cls = GetClassByType("Wiki", itemData.itemID);
 			SET_SLOT_ICON(slot, cls.Illust);
+			SET_SLOT_STAR_TEXT(slot,itemObj)
 			local icon = slot:GetIcon();
 			icon:SetTextTooltip(string.format("%s{nl}%s", ClMsg("Recipe"), cls.Desc));
 			index = index + 1;

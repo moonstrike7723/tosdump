@@ -355,10 +355,27 @@ end
 
 function GET_ITEM_TOOLTIP_DESC(obj, desc)
 
-	local invDesc = GET_ITEM_DESC_BY_TOOLTIP_VALUE(obj);
+	local invDesc = GET_ITEM_DESC_BY_TOOLTIP_VALUE(obj);	
 	local byDescColumn = obj.Desc;
 	if byDescColumn == 'None' then
 		byDescColumn = "";
+	end
+	
+	if config.GetServiceNation() == "KOR" then
+		local name = TryGetProp(obj, 'ClassName', 'None')
+		local cls = GetClass('recycle_shop', name)
+		if cls ~= nil  then
+			local sell = TryGetProp(cls, 'SellPrice', 0)
+			if sell > 0 then				
+				byDescColumn = replace(byDescColumn, ClMsg('ExchangeRecycleMedal_1'), '')
+				byDescColumn = replace(byDescColumn, ClMsg('ExchangeRecycleMedal_2'), '')
+	
+				if TryGetProp(obj, 'TeamBelonging', 0) == 0 and TryGetProp(obj, 'CharacterBelonging', 0) == 0 then
+					local suffix = '{nl}' .. ScpArgMsg('ExchangeRecycleMedal', 'value', sell)
+					byDescColumn = byDescColumn .. suffix
+				end
+			end
+		end
 	end
 
 	if invDesc == "" then
@@ -713,7 +730,9 @@ function DRAW_EXTRACT_OPTION_RANDOM_OPTION(tooltipframe, invitem, mainframename,
 		elseif invitem[propGroupName] == 'UTIL_SHILED' then
 		    clientMessage = 'ItemRandomOptionGroupUTIL'
 		elseif invitem[propGroupName] == 'STAT' then
-		    clientMessage = 'ItemRandomOptionGroupSTAT'
+			clientMessage = 'ItemRandomOptionGroupSTAT'
+		elseif invitem[propGroupName] == 'SPECIAL' then
+			clientMessage = 'ItemRandomOptionGroupSPECIAL'		
 		elseif invitem[propGroupName] == 'SPECIAL' then
 			clientMessage = 'ItemRandomOptionGroupSPECIAL'		
 		end
@@ -809,11 +828,20 @@ function ITEM_TOOLTIP_ENCHANT_JEWELL(tooltipframe, invitem, mouseOverFrameName)
 	ypos = DRAW_SELL_PRICE(tooltipframe, invitem, ypos, mainframename);
 end
 
+-- 가디스 아이커
+function ITEM_TOOLTIP_GODDESS_ICOR(tooltipframe, invitem, mouseOverFrameName)
+	tolua.cast(tooltipframe, "ui::CTooltipFrame");
+	local mainframename = 'extract_option';
+	local ypos, commonCtrlSet = DRAW_EXTRACT_OPTION_COMMON_TOOLTIP(tooltipframe, invitem, invitem, mainframename);			
+	ypos = DRAW_GODDESS_ICOR_PROPERTY(tooltipframe, invitem, nil, ypos, mainframename, false);		
+	ypos = DRAW_EQUIP_DESC(tooltipframe, invitem, ypos, mainframename);
+	ypos = DRAW_EQUIP_TRADABILITY(tooltipframe, invitem, ypos, mainframename);
+end
 
 function DRAW_SPECIAL_RANDOM_OPTION(item, desc)		
 	for i = 1, 4 do
 		local op_name = 'RandomOption_' .. i
-		local name = TryGetProp(item, op_name, 'None')
+		local name = TryGetProp(item, op_name, 'None')		
 		local cls = GetClass('goddess_special_option', name)
 		if cls ~= nil then
 			local type = TryGetProp(cls, 'Type', 'None')
@@ -821,10 +849,19 @@ function DRAW_SPECIAL_RANDOM_OPTION(item, desc)
 				local prop = TryGetProp(cls, 'Prop', 1)				
 				desc = desc .. ScpArgMsg(name .. '_desc', 'prop', prop)
 			elseif type == 'Using' then
-				local using_count = TryGetProp(cls, 'UsingCount', 0)
+				local using_count = TryGetProp(cls, 'UsingCount', 0)				
 				desc = desc .. ScpArgMsg(name .. '_desc', 'using', using_count)
 			else
 				desc = desc .. ClMsg(name .. '_desc')
+			end
+		end
+		cls = GetClass('goddess_atk_def_option', name)
+		if cls ~= nil then
+			local value = TryGetProp(item, 'RandomOptionValue_' .. i, 0)
+			if name == 'revenge' then
+				desc = desc .. ScpArgMsg(name .. '_desc', 'value', value, 'value2', math.floor(value * 0.25))
+			else
+				desc = desc .. ScpArgMsg(name .. '_desc', 'value', value)
 			end
 		end
 	end

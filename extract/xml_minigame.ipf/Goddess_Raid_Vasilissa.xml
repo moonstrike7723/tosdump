@@ -552,7 +552,7 @@
                     </Event>
                     <Event execCount="1" eventName="timer_reset">
                         <condList>
-                            <ToolScp Scp="SCR_VASILISSA_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="SCR_RAID_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
                         </condList>
                         <execList>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
@@ -563,7 +563,7 @@
                     </Event>
                     <Event eventName="timer_end">
                         <condList>
-                            <ToolScp Scp="SCR_VASILISSA_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="SCR_RAID_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK_START" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
                             </ToolScp>

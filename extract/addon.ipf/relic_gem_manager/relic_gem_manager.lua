@@ -835,6 +835,10 @@ local function _REG_REINFORCE_MATERIAL(frame, ctrlset, inv_item, item_obj, itemt
 		local guid = GetIESID(item_obj)
 	    slot:SetUserValue('ITEM_GUID', guid)
 
+		--use only compose tab--
+		local btn = ctrlset:GetChild("btn");
+		if btn~=nil then btn:ShowWindow(0) end 
+		------------------------
 	elseif itemtype == 'gem' then
 
 		if ctrlset == nil then return end
@@ -1223,8 +1227,8 @@ local function _COMPOSE_MAT_CTRL_UPDATE(frame, index, mat_name, mat_cnt)
 		local mat_cls = GetClass('Item', mat_name)
 		if mat_cls ~= nil then
 			local mat_slot = GET_CHILD(ctrlset, 'mat_slot', 'ui::CSlot')
+			local needcount_text = GET_CHILD(ctrlset,'needcount') 
 			mat_slot:SetUserValue('NEED_COUNT', mat_cnt)
-
 			if mat_cnt > 0 then
 				ctrlset:ShowWindow(1)
 				
@@ -1242,9 +1246,10 @@ local function _COMPOSE_MAT_CTRL_UPDATE(frame, index, mat_name, mat_cnt)
 					icon:SetColorTone('FFFF0000')
 				end
 	
-				local cntText = string.format('{s16}{ol}{b} %d', mat_cnt)
-				mat_slot:SetText(cntText, 'count', ui.RIGHT, ui.BOTTOM, -5, -5)
-	
+				needcount_text:SetTextByKey('count',mat_cnt)
+				local btn = ctrlset:GetChild('btn')
+				if btn~=nil then btn:ShowWindow(1) end
+
 				local mat_name = GET_CHILD(ctrlset, 'mat_name', 'ui::CRichText')
 				mat_name:SetTextByKey('value', dic.getTranslatedStr(TryGetProp(mat_cls, 'Name', 'None')))
 			else
@@ -1285,6 +1290,24 @@ function UPDATE_RELIC_GEM_MANAGER_COMPOSE(frame)
 	if tab_index ~= 1 then return end
 
 	_COMPOSE_EXEC_BTN_UPDATE(frame)
+end
+
+function RELIC_GEM_MAT_CONTROLSET_BTN_EVENT(parent,self)
+	local frame = ui.GetFrame('relic_gem_manager')
+	if frame == nil then return end
+	local invItemList = session.GetInvItemList();
+	local item_name = nil;
+	local misc_name = shared_item_relic.get_gem_compose_mat_name()
+	
+	FOR_EACH_INVENTORY(invItemList, function(invItemList, invItem, type, slotset)
+		if invItem ~= nil then
+			local item_obj = GetIES(invItem:GetObject());
+			item_name = TryGetProp(item_obj, 'ClassName', 'None')
+			if misc_name == item_name then
+				RELIC_GEM_MANAGER_COMPOSE_REG_MAT(frame, invItem, item_obj)
+			end
+       	end
+	end, false, type, slotset);
 end
 
 function RELIC_GEM_MANAGER_COMPOSE_INV_RBTN(item_obj, cslot)
@@ -1329,6 +1352,9 @@ function REMOVE_RELIC_GEM_COMP_MATERIAL(frame, cslot, isGem)
 	local icon = cslot:GetIcon()
 	if icon ~= nil and isGem ~= 1 then
 		icon:SetColorTone('FFFF0000')
+		local ctrlset = cslot:GetParent();
+		local btn = ctrlset:GetChild("btn");
+		if btn ~= nil then btn:ShowWindow(1) end
 	elseif icon ~= nil and isGem == 1 then
 		cslot:ClearIcon()
 	end

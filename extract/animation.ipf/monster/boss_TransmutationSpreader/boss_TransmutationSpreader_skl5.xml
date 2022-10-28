@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+    <BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+    <Particle frame="0" attachNode="Dummy_effect_dead_emitter001" particleName="F_warrior_Dragontooth_levitation_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.6" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="0" attachNode="Bip002 Head" particleName="F_warrior_Dragontooth_levitation_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="0" attachNode="Bip001 Head" particleName="F_warrior_Dragontooth_levitation_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.6" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="0" attachNode="Bip003 Head" particleName="F_warrior_Dragontooth_levitation_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.6" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="0.00" soundFile="mon_voice_helgasercle_7"/>
+    <Sound frame="10.00" soundFile="skl_eff_atk_move_l_12"/>
+    <Sound frame="15.00" soundFile="skl_eff_lightningspear_ground"/>
+    <Sound frame="17.00" soundFile="skl_eff_lightningsphere_whoosh"/>
+    <Sound frame="21.46" soundFile="skl_eff_darksight_shot"/>
+    <Particle frame="24" attachNode="Dummy_effect_hand_L" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="24" attachNode="Dummy_effect_hand_L" particleName="F_smoke198_red_violet2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="24" attachNode="Dummy_effect_hand_L" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="25.00" soundFile="skl_eff_forcespinner_1"/>
+    <Sound frame="33.61" soundFile="skl_fgt_light_cast"/>
+    <Particle frame="34" attachNode="Dummy_effect_hand_L" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_weapon01" particleName="F_spread_in056_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_tail" particleName="F_smoke198_red_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_dead_emitter001" particleName="F_levitation005_dark_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_dead_emitter002" particleName="F_levitation005_dark_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_dead_emitter003" particleName="F_levitation005_dark_violet3" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_hand_L" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Bip003 L Finger11" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Bip001 L Finger02" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Bip001 L Finger12" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Bip001 L Finger42" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_hand_L" particleName="F_smoke198_red_violet2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Bip002 L Finger21" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_001" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_jewel001" particleName="F_light123_red3" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="35" attachNode="Dummy_effect_jewel002" particleName="F_light123_red3" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="37" attachNode="Dummy_effect_003" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="44" attachNode="Dummy_effect_hand_L" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="47.00" soundFile="skl_eff_spread_14"/>
+    <Sound frame="47.01" soundFile="skl_eff_weapon_spin_1"/>
+    <Sound frame="50.00" soundFile="skl_eff_stone_rolling_3"/>
+    <Particle frame="54" attachNode="Dummy_effect_hand_L" particleName="I_force111_trail_dark_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="54.00" soundFile="skl_eff_holeofdarkness_rod_takedown"/>
+    <Particle frame="55" attachNode="Dummy_effect_hand_L" particleName="F_smoke198_red_violet2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="60" R="150" G="50" B="120" A="100"/>
+    <Shockwave frame="60" type="2" intensity="7" frequency="70" duration="2" range="1000"/>
+    <BlendOn frame="61" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="63" R="120" G="50" B="150" A="100"/>
+    <BlendOn frame="64" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="65" R="150" G="50" B="120" A="100"/>
+    <BlendOn frame="66" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="68" R="120" G="50" B="150" A="100"/>
+    <BlendOn frame="69" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="71" R="150" G="50" B="120" A="100"/>
+    <BlendOn frame="72" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="74" R="120" G="50" B="150" A="100"/>
+    <BlendOn frame="75" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="77" R="150" G="50" B="120" A="100"/>
+    <BlendOn frame="78" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="80" R="120" G="50" B="150" A="100"/>
+    <BlendOn frame="81" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="83" R="150" G="50" B="120" A="100"/>
+    <BlendOn frame="84" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="85" R="120" G="50" B="150" A="100"/>
+    <BlendOn frame="87" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="89" R="150" G="50" B="120" A="100"/>
+    <BlendOn frame="90" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="92" R="120" G="50" B="150" A="100"/>
+    <BlendOn frame="93" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="95" R="150" G="50" B="120" A="100"/>
+    <BlendOn frame="96" R="0" G="0" B="0" A="50"/>
+    <BlendOn frame="97" R="100" G="40" B="120" A="50"/>
+    <BlendOn frame="98" R="80" G="30" B="90" A="50"/>
+    <BlendOn frame="99" R="50" G="20" B="70" A="50"/>
+    <BlendOn frame="100" R="30" G="10" B="30" A="50"/>
+    <BlendOn frame="101" R="15" G="5" B="20" A="50"/>
+    <BlendOn frame="102" R="5" G="3" B="8" A="100"/>
+    <BlendOff frame="103" R="0" G="0" B="0" A="0"/>
+</ActionDesc>

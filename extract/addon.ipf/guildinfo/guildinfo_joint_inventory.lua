@@ -160,6 +160,11 @@ end
 
 function ON_GUILD_JOINT_INV_ITEM_LIST_GET(frame, msg, strArg, numArg)
     local itemSlotSet = GET_CHILD_RECURSIVELY(frame, "guildItemSlotset")
+    local slotCnt = itemSlotSet:GetSlotCount();
+	for i = 0, slotCnt - 1 do
+		local tempSlot = itemSlotSet:GetSlotByIndex(i)
+		SET_SLOT_STAR_TEXT(tempSlot,nil)
+	end
     itemSlotSet:ClearIconAll()
     local itemList = session.GetEtcItemList(IT_GUILD_JOINT);
     FOR_EACH_INVENTORY(itemList, function(invItemList, invItem, itemSlotSet)
@@ -172,6 +177,7 @@ function ON_GUILD_JOINT_INV_ITEM_LIST_GET(frame, msg, strArg, numArg)
         
         SET_SLOT_IMG(slot, iconImg);
         SET_SLOT_COUNT(slot, invItem.count);
+	SET_SLOT_STAR_TEXT(slot, itemCls)
         SET_SLOT_COUNT_TEXT(slot, invItem.count);
         SET_SLOT_IESID(slot, invItem:GetIESID());
         SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, itemCls, nil);        

@@ -87,8 +87,10 @@ function ON_CABINET_ITEM_LIST(frame)
             typeText:SetTextByKey('type', ClMsg('SellCancel'));
         elseif whereFrom == 'SquadModeReward' then
             typeText:SetTextByKey('type', ClMsg('SquadModeReward'));
+        elseif whereFrom == 'fishing_statue' then
+            typeText:SetTextByKey('type', ClMsg('fishing_statue'));
         end
-
+        
         -- item picture and name
 		local pic = GET_CHILD(ctrlSet, "pic", "ui::CSlot");
         local itemImage = GET_ITEM_ICON_IMAGE(itemObj);

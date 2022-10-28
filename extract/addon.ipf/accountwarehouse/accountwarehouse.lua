@@ -99,6 +99,12 @@ function ACCOUNTWAREHOUSE_OPEN(frame)
 
     ACCOUNT_WAREHOUSE_MAKE_TAB(frame);
     ACCOUNT_WAREHOUSE_OPTIONCTRL_INIT(frame);
+
+    if IS_SEASON_SERVER() == 'YES' then
+        local extend = GET_CHILD_RECURSIVELY(frame, "extend");        
+        extend:SetEnable(0)
+
+    end
 end
    
 function ACCOUNTWAREHOUSE_CLOSE(frame)
@@ -418,6 +424,7 @@ function ON_ACCOUNT_WAREHOUSE_ITEM_LIST(frame, msg, argStr, argNum, tab_index)
 
             SET_SLOT_IMG(slot, iconImg)
             SET_SLOT_COUNT(slot, invItem.count)
+            SET_SLOT_STAR_TEXT(slot,obj)
 
             SET_SLOT_STYLESET(slot, itemCls)
             SET_SLOT_IESID(slot, invItem:GetIESID())
@@ -663,6 +670,10 @@ function ACCOUNT_WAREHOUSE_EXTEND(parent, slot)
     local aObj = GetMyAccountObj();
     if nil == aObj then
         return;
+    end
+
+    if IS_SEASON_SERVER() == 'YES' then
+        return
     end
 
     local price = GET_ACCOUNT_WAREHOUSE_EXTEND_PRICE(aObj, GET_COLONY_TAX_RATE_CURRENT_MAP())

@@ -323,8 +323,12 @@ function BEAUTYSHOP_SIMPLELIST_DRAW_ITEM_DETAIL(ctrlset, itemCls, info)
     ColorEngName = colorName,
   };
 
-  if priceInfo.IDSpace == "Hair_Dye_List" or priceInfo.IDSpace == "Beauty_Shop_Hair" then
-    priceInfo.IDSpace = 'Beauty_Shop_Hair';
+  if priceInfo.IDSpace == "Hair_Dye_List" or priceInfo.IDSpace == "Beauty_Shop_Hair" or priceInfo.IDSpace == 'Beauty_Shop_Hair_Season' then
+    local id_space = 'Beauty_Shop_Hair'
+	if IS_SEASON_SERVER() == 'YES' then
+		id_space = 'Beauty_Shop_Hair_Season'
+	end
+    priceInfo.IDSpace = id_space
     priceInfo.ClassName = itemCls.ClassName;
   end
 
@@ -335,7 +339,7 @@ function BEAUTYSHOP_SIMPLELIST_DRAW_ITEM_DETAIL(ctrlset, itemCls, info)
   local dyePrice = priceResult.colorDyePrice;
   local skinPrice = 0;
 
-  if priceInfo.IDSpace == "Beauty_Shop_Skin" then
+  if priceInfo.IDSpace == "Beauty_Shop_Skin" or priceInfo.IDSpace == "Beauty_Shop_Skin_Season" then
     skinPrice = price;
   end
   
@@ -384,7 +388,12 @@ function BEAUTYSHOP_SIMPLELIST_DRAW_ITEM_DETAIL(ctrlset, itemCls, info)
   -- 구매를 위한 정보 세팅
   local hairClassName = info['HairClassName'];
   if hairClassName ~= 'None' then
-      idSpace = 'Beauty_Shop_Hair';
+    local id_space = 'Beauty_Shop_Hair'
+    if IS_SEASON_SERVER() == 'YES' then
+      id_space = 'Beauty_Shop_Hair_Season'
+    end
+
+      idSpace = id_space;
       className = hairClassName;
   end
   ctrlset:SetUserValue('IDSPACE', idSpace);

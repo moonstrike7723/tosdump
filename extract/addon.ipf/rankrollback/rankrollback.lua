@@ -180,7 +180,7 @@ function RANKROLLBACK_ITEM_USE_BUTTON_CLICK(frame, ctrl)
         return;
 	end
 	
-	if CHECK_CURRENT_JOB_UNLOCK_STATE() == false then
+	if CHECK_CURRENT_JOB_UNLOCK_STATE() == false and IS_SEASON_SERVER() ~= 'YES' then
 		local opt = { CompareTextDesc = ClMsg('ReallyWantChangeJobPlzInputNextStr') }
 		WARNINGMSGBOX_EX_FRAME_OPEN(frame, 'None', 'TargetJobIsLocked;CantRollbackThisChangeJob/RANKROLLBACK_REQUEST_RANK_RESET', 0, opt)
 		return;

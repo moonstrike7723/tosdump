@@ -133,7 +133,7 @@ function GET_ITEM_EQUIP_HELPER_WARNING_TEXT(item, spot)
 		return tooltip
 	end
 
-	local awaken_flag = 0;
+	local awaken_flag = 0;	
 	if IS_ENABLE_GIVE_HIDDEN_PROP_ITEM(item) == false then
 		awaken_flag = 1;
 	end
@@ -176,7 +176,7 @@ function GET_ITEM_EQUIP_HELPER_WARNING_TEXT(item, spot)
 	end
 
 	if is_set_option_spot(spot) == true then
-		if TryGetProp(item, 'LegendPrefix', 'None') == 'None' then
+		if TryGetProp(item, 'LegendPrefix', 'None') == 'None' and ENABLE_EQUIP_SETOPTION(item) == true then
 			concat_string("Set_option")
 		end
 	end

@@ -87,6 +87,52 @@ local managed_slot_list = {
 	},
 }
 
+local managed_armor_slot_list = {	
+	{
+		SlotName = 'SHIRT',
+		SkinName = 'shirt',
+		ClMsg = 'Shirt',
+	},
+	{
+		SlotName = 'PANTS',
+		SkinName = 'pants',
+		ClMsg = 'Pants',
+	},
+	{
+		SlotName = 'GLOVES',
+		SkinName = 'gloves',
+		ClMsg = 'Gloves',
+	},
+	{
+		SlotName = 'BOOTS',
+		SkinName = 'boots',
+		ClMsg = 'Boots',
+	},	
+}
+
+local managed_weapon_slot_list = {	
+	{
+		SlotName = 'RH',
+		SkinName = 'rh',
+		ClMsg = 'RH',
+	},
+	{
+		SlotName = 'LH',
+		SkinName = 'lh',
+		ClMsg = 'LH',
+	},		
+	{
+		SlotName = 'RH_SUB',
+		SkinName = 'rh',
+		ClMsg = 'RH_SUB',
+	},
+	{
+		SlotName = 'LH_SUB',
+		SkinName = 'lh',
+		ClMsg = 'LH_SUB',
+	},
+}
+
 local function _GET_EFFECT_UI_MARGIN()
 	local frame = ui.GetFrame('goddess_equip_manager')
 	local effect_frame = ui.GetFrame('result_effect_ui')
@@ -313,13 +359,13 @@ function GODDESS_MGR_REFORGE_CLEAR(frame)
 end
 
 -- 재련 탭 아이템 등록
-function GODDESS_MGR_REFORGE_INV_RBTN(item_obj, slot, guid)			
+function GODDESS_MGR_REFORGE_INV_RBTN(item_obj, slot, guid)	
 	local frame = ui.GetFrame('goddess_equip_manager')
 
 	local inv_item = session.GetInvItemByGuid(guid)
 	if inv_item ~= nil then
 		local reforge_tab = GET_CHILD_RECURSIVELY(frame, 'reforge_tab')
-		local index = reforge_tab:GetSelectItemIndex()		
+		local index = reforge_tab:GetSelectItemIndex()				
 		
 		if index == 3 then
 			local obj = GetIES(inv_item:GetObject())
@@ -334,9 +380,9 @@ function GODDESS_MGR_REFORGE_INV_RBTN(item_obj, slot, guid)
 		end
 
 		local main_slot = GET_CHILD_RECURSIVELY(frame, 'ref_slot')
-		local main_guid = main_slot:GetUserValue('ITEM_GUID')		
-		if index == 1 then
-			if main_guid ~= 'None' then				
+		local main_guid = main_slot:GetUserValue('ITEM_GUID')
+		if index == 1 then			
+			if main_guid ~= 'None' then
 				GODDESS_MGR_REFORGE_ENCHANT_REG_MAT_ITEM(frame, inv_item, item_obj)
 				return
 			end
@@ -379,11 +425,15 @@ function GODDESS_MGR_REFORGE_REG_ITEM(frame, inv_item, item_obj)
 	local index = reforge_tab:GetSelectItemIndex()
 	
 	if index == 0 then  -- 강화
-		if IS_ABLE_TO_REINFORCE_GODDESS(item_obj) == false then		
+		local ret, msg = IS_ABLE_TO_REINFORCE_GODDESS(item_obj)
+		if ret == false then		
+			if msg ~= nil then
+				ui.SysMsg(ClMsg(msg))
+			end
 			return
 		end
 	elseif index == 1 then  -- 인챈트
-		local msg = item_goddess_transcend.is_able_to_enchant(item_obj)
+		local msg = item_goddess_transcend.is_able_to_enchant(item_obj)		
 		if msg ~= 'YES' then
 			ui.SysMsg(ClMsg(msg))
 			return
@@ -519,7 +569,7 @@ end
 
 function GODDESS_MGR_REFORGE_REINFORCE_REG_MAT(ctrlset, btn)		
 	local item_name = ctrlset:GetUserValue('ITEM_NAME')
-
+	
 	local cur_count = 0
 	if IS_ACCOUNT_COIN(item_name) == true then
 		local mat_cls = GetClass('accountprop_inventory_list', item_name)
@@ -903,19 +953,25 @@ function GODDESS_MGR_REINFORCE_RATE_UPDATE(frame)
 		local slotset = GET_CHILD_RECURSIVELY(frame, 'reinf_extra_mat_list')
 		local normal_cnt = slotset:GetUserIValue('NORMAL_MAT_COUNT')
 		local premium_cnt = slotset:GetUserIValue('PREMIUM_MAT_COUNT')
-		local total_rate = item_goddess_reinforce.get_final_reinforce_prop_percent(item_obj, normal_cnt, premium_cnt)
+		local def_rate = item_goddess_reinforce.get_final_reinforce_prop_percent(item_obj, normal_cnt, premium_cnt)
+		local total_rate = def_rate + adjust_rate
+		def_rate = string.format('%.2f', math.min(tonumber(def_rate), 100))
 		total_rate = string.format('%.2f', math.min(tonumber(total_rate), 100))
 
 		reinf_adjust_rate:SetTextByKey('rate', adjust_rate)
-		reinf_total_rate:SetTextByKey('rate', total_rate)
+		reinf_total_rate:SetTextByKey('rate', def_rate)
+		reinf_total_rate:SetTextByKey('add', adjust_rate)
+		reinf_total_rate:SetTextByKey('total', total_rate)
 	else
 		local _zero = string.format('%.2f', 0)
 		reinf_adjust_rate:SetTextByKey('rate', _zero)
 		reinf_total_rate:SetTextByKey('rate', _zero)
+		reinf_total_rate:SetTextByKey('add', _zero)
+		reinf_total_rate:SetTextByKey('total', _zero)
 	end
 end
 
-function GODDESS_MGR_REFORGE_REINFORCE_CLEAR(frame)
+function GODDESS_MGR_REFORGE_REINFORCE_CLEAR(frame, is_success)
 	local ref_ok_reinforce = GET_CHILD_RECURSIVELY(frame, 'ref_ok_reinforce')
 	ref_ok_reinforce:ShowWindow(0)
 
@@ -923,7 +979,10 @@ function GODDESS_MGR_REFORGE_REINFORCE_CLEAR(frame)
 	ref_do_reinforce:SetEnable(1)
 	ref_do_reinforce:ShowWindow(1)
 
-	GODDESS_MGR_REFORGE_REINFORCE_UPDATE(frame)
+	GODDESS_MGR_REFORGE_REINFORCE_UPDATE(frame);
+	if is_success == true then 
+		GODDESS_MGR_REFORGE_REINFORCE_AUTO_MAT_FILL(frame); 
+	end
 end
 
 function GODDESS_MGR_REFORGE_REINFORCE_OPEN(frame)
@@ -934,6 +993,22 @@ function GODDESS_MGR_REFORGE_REINFORCE_UPDATE(frame)
 	GODDESS_MGR_REINFORCE_MAT_UPDATE(frame)
 	GODDESS_MGR_REINFORCE_EXTRA_MAT_UPDATE(frame)
 	GODDESS_MGR_REINFORCE_RATE_UPDATE(frame)
+end
+
+function GODDESS_MGR_REFORGE_REINFORCE_AUTO_MAT_FILL(frame)
+	if frame == nil then return; end
+	local reinf_main_mat_bg = GET_CHILD_RECURSIVELY(frame, 'reinf_main_mat_bg');
+	if reinf_main_mat_bg == nil then return; end
+	local child_count = reinf_main_mat_bg:GetChildCount();
+	for i = 0, child_count - 1 do
+		local child = reinf_main_mat_bg:GetChildByIndex(i);
+		if child ~= nil and string.find(child:GetName(), "GODDESS_REINF_MAT_") ~= nil then
+			local btn = GET_CHILD_RECURSIVELY(child, "btn");
+			if btn ~= nil then
+				GODDESS_MGR_REFORGE_REINFORCE_REG_MAT(child, btn);
+			end
+		end
+	end
 end
 
 function GODDESS_MGR_REFORGE_REINFORCE_EXEC(parent, btn)
@@ -1044,10 +1119,10 @@ function GODDESS_MGR_REINFORCE_CLEAR_BTN(parent, btn)
 
 	local ref_item_reinf_text = GET_CHILD_RECURSIVELY(frame, 'ref_item_reinf_text')
 	ref_item_reinf_text:SetTextByKey('value', reinforce_value)
-
+	
 	local result_str = frame:GetUserValue('REINFORCE_RESULT')
 	if result_str == 'SUCCESS' then
-		GODDESS_MGR_REFORGE_REINFORCE_CLEAR(frame)
+		GODDESS_MGR_REFORGE_REINFORCE_CLEAR(frame, true)
 	else
 		local ref_ok_reinforce = GET_CHILD_RECURSIVELY(frame, 'ref_ok_reinforce')
 		ref_ok_reinforce:ShowWindow(0)
@@ -1124,7 +1199,14 @@ function GODDESS_MGR_REINFORCE_CLEAR_BTN(parent, btn)
 	end
 end
 
-function ON_SUCCESS_REFORGE_REINFORCE_EXEC(frame, msg, arg_str, arg_num)
+function ON_SUCCESS_REFORGE_REINFORCE_EXEC(frame, msg, arg_str, arg_num)	
+
+	if arg_str == nil or arg_str == 'None' then
+		arg_str = '0'
+	end
+
+	arg_str = tonumber(arg_str)
+
 	frame:SetUserValue('REINFORCE_RESULT', 'SUCCESS')
 
 	local ref_do_reinforce = GET_CHILD_RECURSIVELY(frame, 'ref_do_reinforce')
@@ -1138,7 +1220,12 @@ function ON_SUCCESS_REFORGE_REINFORCE_EXEC(frame, msg, arg_str, arg_num)
 
 	local left, top = _GET_EFFECT_UI_MARGIN()
 
-	local success_scp = string.format('RESULT_EFFECT_UI_RUN_SUCCESS(\'%s\', \'%s\', \'%d\', \'%d\')', '_END_REFORGE_REINFORCE_EXEC', icon, left, top)
+	local high_grade = 0
+	if arg_str >= 480 and arg_num >= 22 then
+		high_grade = 1
+	end
+	
+	local success_scp = string.format('RESULT_EFFECT_UI_RUN_SUCCESS(\'%s\', \'%s\', \'%d\', \'%d\', %d)', '_END_REFORGE_REINFORCE_EXEC', icon, left, top, high_grade)
 	ReserveScript(success_scp, 0)
 end
 
@@ -1211,7 +1298,7 @@ function GODDESS_MGR_REFORGE_ENCHANT_MAT_DROP(parent, slot)
 	end
 end
 
-function GODDESS_MGR_REFORGE_ENCHANT_REG_MAT_ITEM(frame, inv_item, item_obj)	
+function GODDESS_MGR_REFORGE_ENCHANT_REG_MAT_ITEM(frame, inv_item, item_obj)
 	local equip_slot = GET_CHILD_RECURSIVELY(frame, 'ref_slot')
 	local equip_guid = equip_slot:GetUserValue('ITEM_GUID')
 	local equip_item = session.GetInvItemByGuid(equip_guid)
@@ -2077,7 +2164,7 @@ function GODDESS_MGR_REFORGE_EVOLUTION_EXEC(parent, btn)
 	if inv_item == nil then return end
 
 	local itemObj = GetIES(inv_item:GetObject())
-	if TryGetProp(itemObj, "Transcend", 0) < 10 then
+	if TryGetProp(itemObj, "Transcend", 0) < 10 and TryGetProp(itemObj, 'UseLv', 0) <= 460 then
 		ui.SysMsg(ClMsg('TargetItemIsNot10Transcend'))
 		return
 	end
@@ -2153,6 +2240,28 @@ function GODDESS_MGR_RANDOMOPTION_CLEAR(frame)
 	GODDESS_MGR_RANDOMOPTION_PRESET_UPDATE(frame)
 end
 
+function CLEAR_GODDESS_ICOR_TEXT(frame)	
+	local text = GET_CHILD_RECURSIVELY(frame, 'goddess_icor_spot_text')
+	if text ~= nil then
+		text:ShowWindow(0)
+	end
+	local list = GET_CHILD_RECURSIVELY(frame, 'goddess_icor_spot_list')
+	if list ~= nil then
+		list:ShowWindow(0)
+	end
+end
+
+function SHOW_GODDESS_ICOR_TEXT(frame)
+	local text = GET_CHILD_RECURSIVELY(frame, 'goddess_icor_spot_text')
+	if text ~= nil then
+		text:ShowWindow(1)
+	end
+	local list = GET_CHILD_RECURSIVELY(frame, 'goddess_icor_spot_list')
+	if list ~= nil then
+		list:ShowWindow(1)
+	end
+end
+
 local function _GODDESS_MGR_RANDOMOPTION_GET_PAGE_NAME(index)
 	local pc_etc = GetMyEtcObject()
 	local acc = GetMyAccountObj()
@@ -2205,12 +2314,22 @@ function _GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(gBox, item_obj, option_list)
 			clmsg = 'ItemRandomOptionGroupUTIL'
 		elseif item_obj[group_name] == 'STAT' then
 			clmsg = 'ItemRandomOptionGroupSTAT'
+		elseif item_obj[group_name] == 'SPECIAL' then
+			clmsg = 'ItemRandomOptionGroupSPECIAL'			
 		end
 
 		local _value = item_obj[prop_value]
-		local _name = item_obj[prop_name]
+		local _name = item_obj[prop_name]		
 		if _value ~= nil and _value ~= 0 and _name ~= nil and _name ~= 'None' then
-			local op_name = string.format('%s %s', ClMsg(clmsg), ScpArgMsg(item_obj[prop_name]))
+			local font = ''
+			local font_end = ''
+			if option_list ~= nil then
+				if option_list['is_goddess_option'] == 1 then
+					font = '{@st47}{s15}{#00EEEE}'
+					font_end = '{/}{/}{/}'
+				end
+			end
+			local op_name = string.format('%s %s', ClMsg(clmsg), font..ScpArgMsg(item_obj[prop_name]) .. font_end )
 			local str_info = ABILITY_DESC_NO_PLUS(op_name, item_obj[prop_value], 0)
 			inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(property_gbox, str_info, 0, inner_yPos)
 		end
@@ -2297,6 +2416,7 @@ function GODDESS_MGR_RANDOMOPTION_TAB_CHANGE(parent, tab)
 	elseif index == 1 then
 		GODDESS_MGR_RANDOMOPTION_APPLY_OPEN(frame)
 	elseif index == 2 then
+		CLEAR_GODDESS_ICOR_TEXT(frame)
 		GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_OPEN(frame)
 	end
 end
@@ -2524,7 +2644,7 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_SET_SPOT(frame)
 		local inv_item = session.GetEquipItemBySpot(item.GetEquipSpotNum(slot_info.SlotName))
 		local item_obj = GetIES(inv_item:GetObject())
 
-		if IS_NO_EQUIPITEM(item_obj) == 0 then
+		if IS_NO_EQUIPITEM(item_obj) == 0 and IS_ENABLE_TO_ENGARVE(item_obj) == true then
 			rand_equip_list:AddItem(slot_info.SlotName, ClMsg(slot_info.ClMsg))
 		end
 	end
@@ -2535,7 +2655,7 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_UPDATE(frame)
 	GODDESS_MGR_RANDOMOPTION_ENGRAVE_SPOT_SELECT(frame, rand_equip_list)
 end
 
-function GODDESS_MGR_RANDOMOPTION_ENGRAVE_REG_ITEM(frame, inv_item, item_obj, spot)
+function GODDESS_MGR_RANDOMOPTION_ENGRAVE_REG_ITEM(frame, inv_item, item_obj, spot)	
 	if inv_item == nil then return end
 
 	local etc = GetMyEtcObject()
@@ -2713,7 +2833,7 @@ end
 -- 각인 - 저장 끝
 
 -- 각인 - 적용
-function GODDESS_MGR_RANDOMOPTION_APPLY_CLEAR(frame)
+function GODDESS_MGR_RANDOMOPTION_APPLY_CLEAR(frame)	
 	local etc = GetMyEtcObject()
 	if etc == nil then return end
 
@@ -2747,7 +2867,7 @@ function GODDESS_MGR_RANDOMOPTION_APPLY_CLEAR(frame)
 		local checkbox = GET_CHILD(ctrlset, 'checkbox')
 
 		slot:SetSkinName(slot_info.SkinName)
-		slot:SetUserValue('EQUIP_SPOT', slot_info.SlotName)
+		slot:SetUserValue('EQUIP_SPOT', slot_info.SlotName)		
 		slot_name:SetTextByKey('name', ClMsg(slot_info.ClMsg))
 		checkbox:SetCheck(0)
 
@@ -2762,7 +2882,15 @@ function GODDESS_MGR_RANDOMOPTION_APPLY_CLEAR(frame)
 			item_name:SetTextByKey('name', dic.getTranslatedStr(TryGetProp(item_obj, 'Name', 'NONE')))
 			local option_dic = GET_ENGRAVED_OPTION_BY_INDEX_SPOT(etc, index, slot_info.SlotName)
 			if option_dic ~= nil then
-				_GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(gBox, nil, option_dic)
+				local ret = IS_ENABLE_TO_ENGRAVE_APPLY(item_obj, index, slot_info.SlotName, GetMyEtcObject())
+				if ret == true then
+					_GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(gBox, nil, option_dic)
+				else
+					slot:ClearIcon()
+					slot:SetUserValue('ITEM_GUID', 'None')
+					slot:SetUserValue('IS_APPLY', 0)
+					item_name:SetTextByKey('name', ClMsg('NONE'))
+				end
 			end
 		end
 	end
@@ -3055,6 +3183,7 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_CLEAR(frame)
 
 	local before_preset_option_inner = GET_CHILD_RECURSIVELY(frame, 'before_preset_option_inner')
 	before_preset_option_inner:RemoveChild('tooltip_equip_property_narrow')
+	CLEAR_GODDESS_ICOR_TEXT(frame)
 
 	GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_COST_UPDATE(frame)
 end
@@ -3106,8 +3235,7 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_UPDATE(frame)
 	local inv_item = session.GetInvItemByGuid(guid)
 	local item_obj = GetIES(inv_item:GetObject())
 	local spot = slot:GetUserValue('EQUIP_SPOT')
-
-	local before_option = GET_ENGRAVED_OPTION_BY_INDEX_SPOT(etc, index, spot)
+	local before_option = GET_ENGRAVED_OPTION_BY_INDEX_SPOT(etc, index, spot)	
 	local before_preset_option_inner = GET_CHILD_RECURSIVELY(frame, 'before_preset_option_inner')
 	before_preset_option_inner:RemoveChild('tooltip_equip_property_narrow')
 	_GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(before_preset_option_inner, nil, before_option)
@@ -3163,19 +3291,33 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_REG_ITEM(frame, inv_item, item_ob
 	local etc = GetMyEtcObject()
 	if etc == nil then return end
 
-	local enable, def_rate = IS_ENABLE_TO_ENGARVE(item_obj)
+	local enable, def_rate = IS_ENABLE_TO_ENGARVE(item_obj)		
 	if enable == false then
 		ui.SysMsg(ClMsg('IMPOSSIBLE_ITEM'))
 		return
 	end
 
-	local inherit_item = GetClass('Item', TryGetProp(item_obj, 'InheritanceRandomItemName', 'None'))
-	if inherit_item == nil then
+	local is_goddess_icor = shared_item_goddess_icor.get_goddess_icor_grade(item_obj)
+	
+	local inherit_item = GetClass('Item', TryGetProp(item_obj, 'InheritanceRandomItemName', 'None'))	
+	if is_goddess_icor == 0 and inherit_item == nil then
 		ui.SysMsg(ClMsg('IMPOSSIBLE_ITEM'))
 		return
 	end
 
 	local spot = TryGetProp(inherit_item, 'DefaultEqpSlot', 'None')
+
+	if is_goddess_icor > 0 then
+		SHOW_GODDESS_ICOR_TEXT(frame)
+		init_goddess_icor_spot_list(frame, TryGetProp(item_obj, 'StringArg2', 'None'))
+		if TryGetProp(item_obj, 'StringArg2', 'None') == 'Armor' then
+		spot = 'SHIRT'
+	else		
+			spot = 'RH'
+		end
+	else		
+		CLEAR_GODDESS_ICOR_TEXT(frame)
+	end
 
 	local slot = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot')
 	SET_SLOT_ITEM(slot, inv_item)
@@ -3211,6 +3353,16 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_REG_ITEM(frame, inv_item, item_ob
 	GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_COST_UPDATE(frame)
 end
 
+function GODDESS_ICOR_SPOT_SELECT(parent, ctrl)
+	local frame = parent:GetTopParentFrame()
+	local index = ctrl:GetSelItemKey()
+	
+	local slot = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot')	
+	slot:SetUserValue('EQUIP_SPOT', index)
+
+	GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_UPDATE(frame)
+end
+
 function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_ITEM_REMOVE(parent, ctrl)
 	local frame = parent:GetTopParentFrame()
 	GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_CLEAR(frame)
@@ -3223,6 +3375,12 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC(parent, btn)
 	local coin_type = rand_icor_slot:GetUserValue('COIN_TYPE')
 	local acc = GetMyAccountObj()
 	if acc == nil then return end
+
+	local spot = rand_icor_slot:GetUserValue('EQUIP_SPOT')
+	if spot == 'None' then
+		ui.SysMsg(ClMsg('FirstSelectSpotForGoddessIcorEngrave'))
+		return
+	end
 
 	local cur_coin = TryGetProp(acc, coin_type, '0')
 	if cur_coin == 'None' then
@@ -3268,13 +3426,19 @@ function _GODDESS_MGR_RANDOMOPTION_ENGRAVE_ICOR_EXEC()
 		return
 	end
 
+	local obj = GetIES(tgt_item:GetObject())	
 	session.AddItemID(tgt_guid, 1)
 
 	local randomoption_bg = GET_CHILD_RECURSIVELY(frame, 'randomoption_bg')
 	local index = randomoption_bg:GetUserValue('PRESET_INDEX')
 
+	local spot = rand_icor_slot:GetUserValue('EQUIP_SPOT')
 	local arg_list = NewStringList()
 	arg_list:Add(index)
+
+	if shared_item_goddess_icor.get_goddess_icor_grade(obj) > 0 then		
+		arg_list:Add(spot)
+	end
 
 	local result_list = session.GetItemIDList()
 	item.DialogTransaction('ICOR_PRESET_ENGRAVE_ICOR', result_list, '', arg_list)
@@ -3295,7 +3459,6 @@ function ON_SUCCESS_RANDOMOPTION_ENGRAVE_ICOR(frame, msg, arg_str, arg_num)
 	local ref_slot = GET_CHILD_RECURSIVELY(frame, 'rand_icor_slot')
 	local left, top = _GET_EFFECT_UI_MARGIN()
 	local class_name = ref_slot:GetUserValue('ITEM_CLASSNAME')
-	print(class_name)
 	local cls = GetClass('Item', class_name)
 	local icon = nil
 	if cls ~= nil then
@@ -3342,14 +3505,14 @@ function GODDESS_MGR_SOCKET_CLEAR(frame)
 	GODDESS_MGR_SOCKET_AETHER_UPDATE(frame)
 end
 
-function GODDESS_MGR_SOCKET_INV_RBTN(item_obj, slot, guid)
+function GODDESS_MGR_SOCKET_INV_RBTN(item_obj, slot, guid)	
 	local frame = ui.GetFrame('goddess_equip_manager')
 
 	local inv_item = session.GetInvItemByGuid(guid)
 	if inv_item ~= nil then
 		local slot = GET_CHILD_RECURSIVELY(frame, 'socket_slot')
 		local guid = slot:GetUserValue('ITEM_GUID')
-		if guid == 'None' or TryGetProp(item_obj, 'ItemType', 'None') == 'Equip' then
+		if guid == 'None' or TryGetProp(item_obj, 'ItemType', 'None') == 'Equip' then			
 			GODDESS_MGR_SOCKET_REG_ITEM(frame, inv_item, item_obj)
 		else
 			local equip_item = session.GetInvItemByGuid(guid)
@@ -3358,8 +3521,8 @@ function GODDESS_MGR_SOCKET_INV_RBTN(item_obj, slot, guid)
 			local equip_obj = GetIES(equip_item:GetObject())
 			if item_goddess_socket.enable_aether_socket_add(equip_obj) == true then
 				local aether_cover_bg = GET_CHILD_RECURSIVELY(frame, 'aether_cover_bg')
-				local aether_open_mat_slot = GET_CHILD(aether_cover_bg, 'aether_open_mat_slot')
-				GODDESS_AETHER_SOCKET_OPEN_MAT_REG(aether_cover_bg, aether_open_mat_slot, inv_item, item_obj)
+				local aether_open_mat_slot = GET_CHILD(aether_cover_bg, 'aether_open_mat_slot')				
+				GODDESS_AETHER_SOCKET_OPEN_MAT_REG(aether_cover_bg, aether_open_mat_slot, inv_item, item_obj, equip_obj)
 				return
 			end
 
@@ -3374,7 +3537,7 @@ function GODDESS_MGR_SOCKET_INV_RBTN(item_obj, slot, guid)
 					local ctrlset = GET_CHILD(aether_inner_bg, 'AETHER_CSET_' .. i)
 					local gem_id = ctrlset:GetUserIValue('GEM_ID')
 					if gem_id == 0 then
-						local gem_slot = GET_CHILD(ctrlset, 'gem_slot')
+						local gem_slot = GET_CHILD(ctrlset, 'gem_slot')						
 						GODDESS_MGR_SOCKET_AETHER_GEM_EQUIP(ctrlset, gem_slot, inv_item, item_obj)
 						break
 					end
@@ -3386,7 +3549,7 @@ function GODDESS_MGR_SOCKET_INV_RBTN(item_obj, slot, guid)
 					local ctrlset = GET_CHILD(normal_inner_bg, 'NORMAL_CSET_' .. i)
 					local gem_id = ctrlset:GetUserIValue('GEM_ID')
 					if gem_id == 0 then
-						local gem_slot = GET_CHILD(ctrlset, 'gem_slot')
+						local gem_slot = GET_CHILD(ctrlset, 'gem_slot')						
 						GODDESS_MGR_SOCKET_NORMAL_GEM_EQUIP(ctrlset, gem_slot, inv_item, item_obj)
 						break
 					end
@@ -3418,9 +3581,10 @@ function GODDESS_MGR_SOCKET_ITEM_DROP(parent, slot, arg_str, arg_num)
 end
 
 function GODDESS_MGR_SOCKET_REG_ITEM(frame, inv_item, item_obj)
-	if inv_item == nil or item_obj == nil then return end
+	if inv_item == nil or item_obj == nil then return end	
 
-	if CHECK_JEWELL_COMMON_CONSTRAINT(item_obj) == false then
+	if item_goddess_transcend.is_able_to_socket(item_obj) == false then
+		ui.SysMsg(ClMsg('WebService_38'))
 		return
 	end
 
@@ -3796,7 +3960,16 @@ function GODDESS_MGR_SOCKET_REQ_GEM_REMOVE(parent, btn)
 		else
 			local pc = GetMyPCObject();
 			local isGemRemoveCare = IS_GEM_EXTRACT_FREE_CHECK(pc)
-		
+
+			local free_gem = nil
+			for optionIdx = 1, 4 do
+				free_gem = GET_GEM_PROPERTY_TEXT(item_obj, optionIdx, index)
+				 if free_gem ~= nil then
+					_GODDESS_MGR_SOCKET_REQ_GEM_REMOVE(index)
+					return
+				 end
+			end
+
 			if isGemRemoveCare == true then
 				msg_cls_name = "ReallyRemoveGem_Care"
 			else
@@ -3827,9 +4000,9 @@ function _GODDESS_MGR_SOCKET_REQ_GEM_REMOVE(index)
 
 		local item_obj = GetIES(inv_item:GetObject())
 		local use_lv = TryGetProp(item_obj, 'UseLv', 0)
-
+		
 		local tx_name = 'GODDESS_SOCKET_NORMAL_GEM_UNEQUIP'
-		if index >= GET_MAX_GODDESS_NORMAL_SOCKET_COUNT(lv) then
+		if tonumber(index) >= GET_MAX_GODDESS_NORMAL_SOCKET_COUNT(use_lv) then
 			tx_name = 'GODDESS_SOCKET_AETHER_GEM_UNEQUIP'
 		end
 	
@@ -3927,12 +4100,19 @@ function GODDESS_AETHER_SOCKET_OPEN_MAT_DROP(parent, slot, arg_str, arg_num)
 		local item_obj = GetIES(inv_item:GetObject())
 		if item_obj == nil then return end
 
-		GODDESS_AETHER_SOCKET_OPEN_MAT_REG(parent, slot, inv_item, item_obj)
+		local equip_slot = GET_CHILD_RECURSIVELY(frame, 'socket_slot')
+		local equip_guid = equip_slot:GetUserValue('ITEM_GUID')
+		if equip_guid == 'None' then
+			return
+		end
+		local equip_item = session.GetInvItemByGuid(equip_guid)
+		local equip_obj = GetIES(equip_item:GetObject())
+		GODDESS_AETHER_SOCKET_OPEN_MAT_REG(parent, slot, inv_item, item_obj, equip_obj)
 	end
 end
 
-function GODDESS_AETHER_SOCKET_OPEN_MAT_REG(parent, slot, inv_item, item_obj)
-	if item_goddess_socket.is_aether_socket_material(item_obj) == true then
+function GODDESS_AETHER_SOCKET_OPEN_MAT_REG(parent, slot, inv_item, item_obj, target_obj)
+	if item_goddess_socket.is_aether_socket_material(item_obj, target_obj) == true then
 		local lock_pic = GET_CHILD(parent, 'lock_pic')
 		lock_pic:ShowWindow(0)
 		local aether_open_btn = GET_CHILD(parent, 'aether_open_btn')
@@ -3940,7 +4120,7 @@ function GODDESS_AETHER_SOCKET_OPEN_MAT_REG(parent, slot, inv_item, item_obj)
 		SET_SLOT_ITEM(slot, inv_item)
 		slot:SetUserValue('ITEM_GUID', inv_item:GetIESID())
 	else
-
+		ui.SysMsg(ClMsg('CantMovablePharmacyMaterial'))
 	end
 end
 
@@ -3974,7 +4154,7 @@ function GODDESS_MGR_SOCKET_REQ_AETHER_ENABLE(parent, btn)
 
 	local mat_item = session.GetInvItemByGuid(mat_guid)
 	local mat_obj = GetIES(mat_item:GetObject())
-	if item_goddess_socket.is_aether_socket_material(mat_obj) == false then
+	if item_goddess_socket.is_aether_socket_material(mat_obj, equip_obj) == false then
 		return
 	end
 
@@ -4011,7 +4191,7 @@ function _GODDESS_MGR_SOCKET_REQ_AETHER_ENABLE(index)
 
 	local mat_item = session.GetInvItemByGuid(mat_guid)
 	local mat_obj = GetIES(mat_item:GetObject())
-	if item_goddess_socket.is_aether_socket_material(mat_obj) == false then
+	if item_goddess_socket.is_aether_socket_material(mat_obj, equip_obj) == false then
 		return
 	end
 
@@ -4400,6 +4580,9 @@ function PLAY_GODDESS_MAKE_SUCCESS_EFFECT(frame, msg, item_name, recipe_id)
 		recipe_cls = GetClassByStrProp('goddessrecipe', 'TargetItem', item_name)
 	end
 	local bgname = TryGetProp(recipe_cls, 'RecipeBgImg')
+	if bgname == nil then
+		bgname = 'goddess_Equip'
+	end
 
 	local recipebg = GET_CHILD_RECURSIVELY(bg_frame, 'image')
 	recipebg:SetImage(bgname)
@@ -5243,11 +5426,20 @@ function GODDESS_MGR_CONVERT_EXEC(parent, btn)
 	local selectedName = TryGetProp(selected_item_cls, "Name", "None");
 	local selected_item_group_name = TryGetProp(selected_item_cls, "GroupName", "None");
 	local selected_item_class_type = TryGetProp(selected_item_cls, "ClassType", "None");
-	if selected_item_group_name == "Armor" and selected_item_class_type ~= "Shield" then
-		clmsg = ScpArgMsg('ReallyDoCraftByConvertArmor{item1}{item2}', 'item1', item_name, 'item2', selectedName);
+		
+	if TryGetProp(item_obj, 'IsGoddessIcorOption', 0) == 0 then
+		if selected_item_group_name == "Armor" and selected_item_class_type ~= "Shield" then
+			clmsg = ScpArgMsg('ReallyDoCraftByConvertArmor{item1}{item2}', 'item1', item_name, 'item2', selectedName);
+		else
+			clmsg = ScpArgMsg('ReallyDoCraftByConvert{item1}{item2}', 'item1', item_name, 'item2', selectedName);
+		end
 	else
-		clmsg = ScpArgMsg('ReallyDoCraftByConvert{item1}{item2}', 'item1', item_name, 'item2', selectedName);
-    end
+		if selected_item_group_name == "Armor" and selected_item_class_type ~= "Shield" then
+			clmsg = ScpArgMsg('ReallyDoCraftByConvertArmor2{item1}{item2}', 'item1', item_name, 'item2', selectedName);
+		else
+			clmsg = ScpArgMsg('ReallyDoCraftByConvert2{item1}{item2}', 'item1', item_name, 'item2', selectedName);
+		end
+	end
 
 	local yesscp = string.format('_GODDESS_MGR_CONVERT_EXEC(%d)', selected_id)
 	local msgbox = ui.MsgBox(clmsg, yesscp, '')
@@ -5281,4 +5473,24 @@ function CLEAR_REFORGE_MAIN_SLOT(frame)
 	ref_item_text:ShowWindow(1)		
 	local ref_item_reinf_text = GET_CHILD_RECURSIVELY(frame, 'ref_item_reinf_text')
 	ref_item_reinf_text:SetTextByKey('value', 0)	
+end
+
+function init_goddess_icor_spot_list(frame, type)
+	local goddess_icor_spot_list = GET_CHILD_RECURSIVELY(frame, 'goddess_icor_spot_list')
+	goddess_icor_spot_list:ClearItems()
+	
+	local slot_list = nil
+
+	if type == 'Armor' then
+		slot_list = managed_armor_slot_list
+	else
+		slot_list = managed_weapon_slot_list
+	end
+	
+	for i = 1, #slot_list do
+		local slot_info = slot_list[i]		
+		goddess_icor_spot_list:AddItem(slot_info.SlotName, ClMsg(slot_info.ClMsg))
+	end
+	
+	goddess_icor_spot_list:SelectItemByKey(0)
 end

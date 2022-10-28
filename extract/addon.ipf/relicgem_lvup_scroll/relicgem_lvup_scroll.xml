@@ -23,13 +23,14 @@
 			<uieffect effect="I_TRANSCEND_light" scale="5" overlab="No" sound="None" offset="0 0" playtime="3" duration="2" conditon="active" event="TRANSCEND_RESULT_1"/>
 		</slot>
 		<richtext name="text_name" margin="0 421 0 0" rect="0 0 380 50" format="{@st41b}{s18}%s{/}" param1="value" param1_def="item name" textalign="center top" resizebytext="true" spacey="0" maxwidth="0" fontname="brown_18_b" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="center top"/>		
-		<groupbox name="transcend_gb" rect="0 0 400 240" margin="0 470 0 0" layout_gravity="center top" draw="false" scrollbar="false"/>			
+		<groupbox name="transcend_gb" rect="0 0 400 240" margin="0 470 0 0" layout_gravity="center top" draw="false" scrollbar="false"/>
 		<richtext name="text_desc" parent="transcend_gb" margin="0 122 0 0" rect="0 0 480 24" layout_gravity="center top" format="%s" param1="value" param1_def="10" textalign="center top" resizebytext="true" spacey="0" maxwidth="0" fontname="white_16_ol" fixwidth="false" updateparent="false" drawbackground="false" slideshow="false" hittest="false"/>
 		<groupbox name="main_gb" rect="0 0 400 250" margin="0 470 0 0" layout_gravity="center top" draw="false" scrollbar="false"/>
 		<richtext name="main_text" parent="main_gb" rect="0 0 300 24" margin="0 22 0 0" layout_gravity="center top" format="%s" param1="value" textalign="center center" fontname="brown_22" hittest="false" resizebytext="false"/>
 		<richtext name="main_name" parent="main_gb" rect="0 0 340 24" margin="0 60 0 0" layout_gravity="center top" format="%s" param1="value" textalign="center center" fontname="brown_22" hittest="false" resizebytext="true" fixwidth="true"/>
 		<richtext name="main_tiptext" parent="main_gb" rect="0 0 340 24" margin="0 122 0 0" layout_gravity="center top" format="{@st66}{#FF0000}* %s" param1="value" textalign="center center" fontname="brown_22" hittest="false" fixwidth="true"/>
+		<button name="button_cabinet" margin="0 0 0 200" rect="0 0 180 40" skin="test_red_button" layout_gravity="center bottom" caption="{@st41b}{s18}보관함에서 선택" LBtnUpScp="RELICGEM_LVUP_SCROLL_OPEN_CABINET"/>
 		<button name="button_transcend" margin="0 0 0 35" rect="0 0 180 50" skin="test_red_button" layout_gravity="center bottom" format="{@st41b}{s20}%s" param1="value" param1_def="강화" LBtnUpScp="RELICGEM_LVUP_SCROLL_EXEC_ASK_AGAIN"/>
-		<button name="button_close" margin="0 0 0 35" rect="0 0 180 50" skin="test_red_button" layout_gravity="center bottom" caption="{@st41b}{s20}확인" LBtnUpScp="RELICGEM_LVUP_SCROLL_CLOSE"/>		
+		<button name="button_close" margin="0 0 0 35" rect="0 0 180 50" skin="test_red_button" layout_gravity="center bottom" caption="{@st41b}{s20}확인" LBtnUpScp="RELICGEM_LVUP_SCROLL_CLOSE"/>
 	</controls>
 </uiframe>

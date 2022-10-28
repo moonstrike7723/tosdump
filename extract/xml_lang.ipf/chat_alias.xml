@@ -32,7 +32,7 @@
 		<Class ClassID="36" ClassName="/pot" Alias="/항아리" ConvertWhenSend="1"/>
 		<Class ClassID="37" ClassName="/expedition" Alias="/토벌대" ConvertWhenSend="1"/>
 		<Class ClassID="38" ClassName="/escape" Alias="/탈출" ConvertWhenSend="1"/>
-		<!-- <Class ClassID="39" ClassName="/coin" Alias="/코인" ConvertWhenSend="1"/> -->
+		<Class ClassID="39" ClassName="/coin" Alias="/코인" ConvertWhenSend="1"/>
 		<Class ClassID="40" ClassName="/fishing" Alias="/낚시" ConvertWhenSend="1"/>
 		<Class ClassID="41" ClassName="/candy_klaipeda" Alias="/화이트데이 클라페다" ConvertWhenSend="1"/>
 		<Class ClassID="42" ClassName="/candy_orsha" Alias="/화이트데이 오르샤" ConvertWhenSend="1"/>
@@ -89,6 +89,7 @@
 		<Class ClassID="101" ClassName="/festival" Alias="/전야제" ConvertWhenSend="1"/>
 		<Class ClassID="102" ClassName="/halloween" Alias="/할로윈" ConvertWhenSend="1"/>
 		<Class ClassID="103" ClassName="/winter" Alias="/고구마" ConvertWhenSend="1"/>
-		<Class ClassID="104" ClassName="/tiger" Alias="/어흥" ConvertWhenSend="1"/>
+		<Class ClassID="104" ClassName="/roulette" Alias="/룰렛" ConvertWhenSend="1"/>
+		<Class ClassID="105" ClassName="/harmony" Alias="/화합" ConvertWhenSend="1"/>
 	</Category>
 </idspace>

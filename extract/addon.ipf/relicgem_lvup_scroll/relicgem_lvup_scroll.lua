@@ -3,6 +3,9 @@ function RELICGEM_LVUP_SCROLL_ON_INIT(addon, frame)
 end
 
 function RELICGEM_LVUP_SCROLL_TARGET_ITEM_SLOT(slot, invItem, scrollClsID)
+	local frame = slot:GetTopParentFrame()
+	frame:SetUserValue('CABINET_ITEM_TYPE', 0)
+
 	local itemCls = GetClassByType("Item", invItem.type)
 
 	local type = itemCls.ClassID
@@ -30,15 +33,34 @@ function RELICGEM_LVUP_SCROLL_EXEC_ASK_AGAIN(frame, btn)
 		return
 	end
 
-	local slot = GET_CHILD(frame, "slot")
-	local invItem = GET_SLOT_ITEM(slot)
-	if invItem == nil then
-		ui.MsgBox(ScpArgMsg("DropItemPlz"))
-		imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_BTN_OVER_SOUND"))
-		return
-	end
+	local acc = GetMyAccountObj()
+	if acc == nil then return end
 
-	local itemObj = GetIES(invItem:GetObject())
+	local itemObj = nil
+	local gemLv = 0
+	local slot = GET_CHILD(frame, "slot")
+	local cabinetType = frame:GetUserIValue('CABINET_ITEM_TYPE')
+	if cabinetType > 0 then
+		local cabinetCls = GetClassByType('cabinet_relicgem', cabinetType)
+		if cabinetCls == nil then
+			ui.MsgBox(ScpArgMsg("DropItemPlz"))
+			imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_BTN_OVER_SOUND"))
+			return
+		end
+
+		itemObj = GetClass('Item', cabinetCls.ClassName)
+		gemLv = TryGetProp(acc, cabinetCls.UpgradeAccountProperty, 0)
+	else
+		local invItem = GET_SLOT_ITEM(slot)
+		if invItem == nil then
+			ui.MsgBox(ScpArgMsg("DropItemPlz"))
+			imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_BTN_OVER_SOUND"))
+			return
+		end
+
+		itemObj = GetIES(invItem:GetObject())
+		gemLv = TryGetProp(itemObj, "GemLevel", 1)
+	end
 
 	local scrollGuid = frame:GetUserValue("ScrollGuid")
 	local scrollInvItem = session.GetInvItemByGuid(scrollGuid)
@@ -48,7 +70,7 @@ function RELICGEM_LVUP_SCROLL_EXEC_ASK_AGAIN(frame, btn)
 	end
 
 	local scrollObj = GetIES(scrollInvItem:GetObject())
-	local clmsg = ScpArgMsg("ArkLvupScrollWarning{Before}{After}", "Before", TryGetProp(itemObj, "GemLevel", 1), "After", TryGetProp(scrollObj, "NumberArg1", 0))
+	local clmsg = ScpArgMsg("ArkLvupScrollWarning{Before}{After}", "Before", gemLv, "After", TryGetProp(scrollObj, "NumberArg1", 0))
 	imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_BTN_OK_SOUND"))
 	ui.MsgBox_NonNested(clmsg, frame:GetName(), "RELICGEM_LVUP_SCROLL_EXEC", "None")
 end
@@ -147,18 +169,30 @@ end
 
 function RELICGEM_LVUP_SCROLL_EXEC()
 	local frame = ui.GetFrame("relicgem_lvup_scroll")
+	local scrollGuid = frame:GetUserValue("ScrollGuid")
+	local scrollItem = session.GetInvItemByGuid(scrollGuid)
+	if scrollItem == nil then return end
+
 	imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_EVENT_EXEC"))
 	frame:SetUserValue("EnableTranscendButton", 0)
 	
-	local slot = GET_CHILD(frame, "slot")
-	local targetItem = GET_SLOT_ITEM(slot)
-	local scrollGuid = frame:GetUserValue("ScrollGuid")
-	
-	session.ResetItemList()
-	session.AddItemID(targetItem:GetIESID())
-	session.AddItemID(scrollGuid)
-	local resultlist = session.GetItemIDList()
-	item.DialogTransaction("RELIC_GEM_LVUP_SCROLL", resultlist)
+	local cabinetType = frame:GetUserIValue('CABINET_ITEM_TYPE')
+	if cabinetType > 0 then
+		session.ResetItemList()
+		session.AddItemID(scrollGuid)
+		local resultlist = session.GetItemIDList()
+		local arglist = NewStringList()
+		arglist:Add(tostring(cabinetType))
+		item.DialogTransaction("RELIC_GEM_LVUP_SCROLL", resultlist, '', arglist)
+	else
+		local slot = GET_CHILD(frame, "slot")
+		local targetItem = GET_SLOT_ITEM(slot)
+		session.ResetItemList()
+		session.AddItemID(targetItem:GetIESID())
+		session.AddItemID(scrollGuid)
+		local resultlist = session.GetItemIDList()
+		item.DialogTransaction("RELIC_GEM_LVUP_SCROLL", resultlist)
+	end
 	
 	imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_CAST"))
 end
@@ -174,6 +208,7 @@ function RELICGEM_LVUP_SCROLL_CLOSE()
 	frame:OpenFrame(0)
 	
 	ui.RemoveGuideMsg("DropItemPlz")
+	ui.RemoveGuideMsg("NOT_A_RELIC_GEM")
 	ui.SetEscapeScp("")
 
 	RELICGEM_LVUP_SCROLL_LOCK_ITEM("None")
@@ -257,6 +292,7 @@ end
 
 function RELICGEM_LVUP_SCROLL_UI_RESET()
 	local frame = ui.GetFrame("relicgem_lvup_scroll")
+	frame:SetUserValue("CABINET_ITEM_TYPE", 0)
 
 	local slot = GET_CHILD(frame, "slot")
 	slot:ClearIcon()
@@ -420,4 +456,81 @@ function RELICGEM_LVUP_SCROLL_SELECT_TARGET_ITEM(scrollItem)
 
 	SET_SLOT_APPLY_FUNC(invframe, "RELICGEM_LVUP_SCROLL_CHECK_TARGET_ITEM", nil, "Equip")
 	INVENTORY_SET_CUSTOM_RBTNDOWN("RELICGEM_LVUP_SCROLL_INV_RBTN")
+end
+
+function RELICGEM_LVUP_SCROLL_OPEN_CABINET(parent, ctrl)
+	OPEN_ITEM_CABINET_TO_RELICGEM_LVUP()
+end
+
+function RELICGEM_LVUP_SCROLL_SET_TARGET_ITEM_CABINET(cabinetframe, type)
+	local frame = ui.GetFrame("relicgem_lvup_scroll")
+
+	local cabinetCls = GetClassByType('cabinet_relicgem', type)
+	if cabinetCls == nil then return end
+
+	local itemName = cabinetCls.ClassName
+	local itemCls = GetClass('Item', itemName)
+	if itemCls == nil then return end
+
+	local scrollType = frame:GetUserValue("ScrollType")
+
+	local button_transcend = GET_CHILD(frame, "button_transcend")
+	local button_close = GET_CHILD(frame, "button_close")
+	button_close:ShowWindow(0)
+	button_transcend:ShowWindow(1)
+	
+	local slot_temp = GET_CHILD(frame, "slot_temp")
+	slot_temp:StopActiveUIEffect()
+	slot_temp:ShowWindow(0)
+
+	local scrollGuid = frame:GetUserValue("ScrollGuid")
+	local scrollInvItem = session.GetInvItemByGuid(scrollGuid)
+	if scrollInvItem == nil then
+		return
+	end
+
+	local invframe = ui.GetFrame("inventory")
+	if true == IS_TEMP_LOCK(invframe, scrollInvItem) then
+		ui.SysMsg(ClMsg("MaterialItemIsLock"))
+		return
+	end
+
+	local scrollObj = GetIES(scrollInvItem:GetObject())
+	local ret, msg = IS_VALID_RELICGEM_LVUP_BY_SCROLL_CABINET(GetMyPCObject(), itemName, scrollObj)
+	if ret == false then
+		ui.SysMsg(ClMsg(msg))
+		return
+	end
+
+	local slot = GET_CHILD(frame, "slot")
+	
+	local text_name = GET_CHILD_RECURSIVELY(frame, "text_name")
+	text_name:SetTextByKey("value", "")
+	text_name:SetTextByKey("value", itemCls.Name)
+	text_name:ShowWindow(1);
+	
+	RELICGEM_LVUP_SCROLL_CANCEL()
+	RELICGEM_LVUP_SCROLL_TARGET_ITEM_SLOT_CABINET(slot, type, scrollObj.ClassID)
+
+	frame:SetUserValue("EnableTranscendButton", 1)
+	frame:OpenFrame(1)
+end
+
+function RELICGEM_LVUP_SCROLL_TARGET_ITEM_SLOT_CABINET(slot, type, scrollClsID)
+	local cabinetCls = GetClassByType('cabinet_relicgem', type)
+	if cabinetCls == nil then return end
+
+	local itemName = cabinetCls.ClassName
+	local itemCls = GetClass('Item', itemName)
+	local img = GET_ITEM_ICON_IMAGE(itemCls)
+	
+	local frame = slot:GetTopParentFrame()
+	frame:SetUserValue('CABINET_ITEM_TYPE', type)
+
+	SET_SLOT_IMG(slot, img)
+	SET_SLOT_COUNT(slot, count)
+	
+	local icon = slot:GetIcon()
+	local iconInfo = icon:GetInfo()
+	iconInfo.type = type
 end

@@ -50,14 +50,21 @@ function BEAUTYSHOP_INIT_FUNCTIONMAP()
 end
 
 function BEAUTYSHOP_DO_OPEN(frame, msg, shopTypeName, genderNum)
+	local id_space = 'Beauty_Shop_Hair'
+	local id_space_skin = 'Beauty_Shop_Skin'
+	if IS_SEASON_SERVER() == 'YES' then
+		id_space = 'Beauty_Shop_Hair_Season'
+		id_space_skin = 'Beauty_Shop_Skin_Season'
+	end
+
 	local list ={
-		{Type="HAIR", OpenFunc = HAIRSHOP_OPEN, IDSpace = 'Beauty_Shop_Hair'},
+		{Type="HAIR", OpenFunc = HAIRSHOP_OPEN, IDSpace = id_space},
 		{Type="COSTUME", OpenFunc = COSTUMESHOP_OPEN, IDSpace = 'Beauty_Shop_Costume'},
 		{Type="WIG", OpenFunc = WIGSHOP_OPEN, IDSpace = 'Beauty_Shop_Wig'},
 		{Type="ETC", OpenFunc = ETCSHOP_OPEN, IDSpace = 'Beauty_Shop_Lens'},
 		{Type="PACKAGE", OpenFunc = PACKAGESHOP_OPEN, IDSpace = 'Beauty_Shop_Package_Cube'}, 
 		{Type="PREVIEW", OpenFunc = PREVIEWSHOP_OPEN, IDSpace = 'Beauty_Shop_Preview'}, 
-		{Type="SKIN", OpenFunc = SKINSHOP_OPEN, IDSpace = 'Beauty_Shop_Skin'},
+		{Type="SKIN", OpenFunc = SKINSHOP_OPEN, IDSpace = id_space_skin},
 		{Type="DESIGNCUT", OpenFunc = DESIGNCUTSHOP_OPEN, IDSpace = 'Beauty_Shop_Designcut'},
 		{Type="PREVIEW_SILVERGACHA", OpenFunc = PREVIEW_SILVERGACHA_SHOP_OPEN, IDSpace = 'Beauty_Shop_Preview_SilverGacha'},
 	};
@@ -595,7 +602,7 @@ function _BEAUTYSHOP_ITEM_TO_BASKET_PREPROCESSOR(itemClassName, parentName, idSp
 	local beautyShopCls = GetClass(idSpace, shopClassName);
 	local ret, reason, argStr = IS_ENABLE_EQUIP_AT_BEAUTYSHOP(item, beautyShopCls);    
 	if ret == false then
-		if idSpace == 'Beauty_Shop_Hair' or idSpace == 'Hair_Dye_List' then
+		if idSpace == 'Beauty_Shop_Hair' or idSpace == 'Hair_Dye_List' or idSpace == 'Beauty_Shop_Hair_Season' then
 			return;
 		end
 
@@ -705,7 +712,7 @@ function BEAUTYSHOP_ITEM_TO_BASKET(ItemClassName, ItemClassID, SubItemStrArg, ct
 
 	-- hair나 hair color일 경우 검사.
 	local idSpace = ctrlset:GetUserValue('IDSPACE');
-	if idSpace == 'Beauty_Shop_Hair' or idSpace == 'Hair_Dye_List' then
+	if idSpace == 'Beauty_Shop_Hair' or idSpace == 'Hair_Dye_List' or idSpace == 'Beauty_Shop_Hair_Season' then
 		-- 현재 하고 있는 헤어인지 검사한다.
 		local color = 'default'
 		if colorName ~= 'None' then
@@ -724,7 +731,7 @@ function BEAUTYSHOP_ITEM_TO_BASKET(ItemClassName, ItemClassID, SubItemStrArg, ct
 			ui.MsgBox(ClMsg('BEAUTY_SHOP_ONLY_ONE_HAIR'), yesscp, 'None');
 			return;
 		end
-	elseif  idSpace == 'Beauty_Shop_Skin' then -- skin의 경우 검사.
+	elseif  idSpace == 'Beauty_Shop_Skin' or idSpae == 'Beauty_Shop_Skin_Season' then -- skin의 경우 검사.
 		-- 현재 스킨톤과 같은지 검사.
 		if BEAUTYSHOP_IS_CURRENT_SKINTONE(ItemClassName) == true then
 			ui.MsgBox(ClMsg('BEAUTY_SHOP_SAME_SKIN_UNABLE_PURCHASE'));
@@ -769,8 +776,12 @@ function BEAUTYSHOP_ITEM_TO_BASKET(ItemClassName, ItemClassID, SubItemStrArg, ct
 		      ColorEngName = colorName,
 			};
 
-		    if priceInfo.IDSpace =="Hair_Dye_List" then
-			  priceInfo.IDSpace = 'Beauty_Shop_Hair';
+			if priceInfo.IDSpace =="Hair_Dye_List" then
+				local id_space = 'Beauty_Shop_Hair'
+				if IS_SEASON_SERVER() == 'YES' then
+					id_space = 'Beauty_Shop_Hair_Season'
+				end
+			  priceInfo.IDSpace = id_space
 			  priceInfo.ClassName = item.ClassName;
 			end
 			slot:SetUserValue('COLOR_NAME', colorName);
@@ -880,7 +891,7 @@ function BEAUTYSHOP_UPDATE_ITEM_LIST(itemList, itemCount)
 	-- 목록 채우기
 	for i = 1, itemCount  do
 		local itemInfo = itemList[i]
-		local itemObj = GetClass("Item", itemInfo.ItemClassName);
+		local itemObj = GetClass("Item", itemInfo.ItemClassName);		
 		if itemObj ~= nil and IS_NEED_TO_SHOW_BEAUTYSHOP_ITEM(topFrame, itemObj, itemInfo) == true then
 			if showEnalbeEquip == false then
 				--모두 보기
@@ -903,7 +914,7 @@ function BEAUTYSHOP_UPDATE_ITEM_LIST(itemList, itemCount)
 						end
 					end
 				end
-
+				
 				BEAUTYSHOP_DRAW_ITEM_DETAIL(itemInfo ,itemObj, ctrlSet);
 			else
 				--착용 가능한 것만 보이기
@@ -1548,7 +1559,7 @@ function BEAUTYSHOP_CANCEL_SELECT_ITEM(frame, control)
 	local savedClassName = control:GetUserValue('CLASSNAME')
 	
 	-- 헤어샵 일 때는 캔슬하지 않음.
-	if savedIDSpace == 'Beauty_Shop_Hair' then
+	if savedIDSpace == 'Beauty_Shop_Hair' or saveIDSpace == 'Beauty_Shop_Hair_Season' then
 		return
 	end
 
@@ -1859,7 +1870,7 @@ function IS_ALREAY_PUT_HAIR_IN_BASKET(frame, slotset)
 	for i = 0, slotCount - 1 do
 		local slot = slotset:GetSlotByIndex(i);		
 		local idSpace = slot:GetUserValue('IDSPACE');
-		if idSpace == 'Beauty_Shop_Hair' or idSpace == 'Hair_Dye_List' then
+		if idSpace == 'Beauty_Shop_Hair' or idSpace == 'Hair_Dye_List' or idSpace == 'Beauty_Shop_Hair_Season' then
 			return slot;
 		end
 	end
@@ -1871,7 +1882,7 @@ function IS_ALREAY_PUT_SKIN_IN_BASKET(frame, slotset)
 	for i = 0, slotCount - 1 do
 		local slot = slotset:GetSlotByIndex(i);		
 		local idSpace = slot:GetUserValue('IDSPACE');
-		if idSpace == 'Beauty_Shop_Skin' then
+		if idSpace == 'Beauty_Shop_Skin' or idSpace == 'Beauty_Shop_Skin_Season' then
 			return slot;
 		end
 	end
@@ -2128,7 +2139,6 @@ end
 
 function BEAUTYSHOP_DETAIL_SET_PRICE_TEXT(ctrlset, beautyShopCls)
 	local nxp = GET_CHILD(ctrlset, 'nxp');
-
 	if beautyShopCls.Price == -1 then
 		nxp:SetText("{@st43}{s18}-{/}");
 	else

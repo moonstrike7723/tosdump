@@ -10,7 +10,7 @@ function ITEM_TOOLTIP_ETC(tooltipframe, invitem, argStr, usesubframe)
 	elseif usesubframe == "usesubframe_recipe" then
 		mainframename = "etc_sub"
 	end
-
+	
 	local ypos = DRAW_ETC_COMMON_TOOLTIP(tooltipframe, invitem, mainframename, argStr); -- 기타 템이라면 공통적으로 그리는 툴팁들	
 	ypos = DRAW_ETC_DESC_TOOLTIP(tooltipframe, invitem, ypos, mainframename); -- 아이템 설명.
 	ypos = DRAW_ETC_RECIPE_NEEDITEM_TOOLTIP(tooltipframe, invitem, ypos, mainframename); -- 재료템이라면 필요한 재료랑 보여줌
@@ -243,6 +243,23 @@ function DRAW_ETC_DESC_TOOLTIP(tooltipframe, invitem, yPos, mainframename)
 
 	elseif false == customSet then
 		Desc = invitem.Desc		
+	end
+
+	if config.GetServiceNation() == "KOR" then
+		local name = TryGetProp(invitem, 'ClassName', 'None')
+		local cls = GetClass('recycle_shop', name)
+		if cls ~= nil  then
+			local sell = TryGetProp(cls, 'SellPrice', 0)
+			if sell > 0 then				
+				Desc = replace(Desc, ClMsg('ExchangeRecycleMedal_1'), '')
+				Desc = replace(Desc, ClMsg('ExchangeRecycleMedal_2'), '')
+	
+				if TryGetProp(invitem, 'TeamBelonging', 0) == 0 and TryGetProp(invitem, 'CharacterBelonging', 0) == 0 then
+					local suffix = '{nl}' .. ScpArgMsg('ExchangeRecycleMedal', 'value', sell)
+					Desc = Desc .. suffix
+				end
+			end
+		end
 	end
 
 	Desc = DRAW_COLLECTION_INFO(invitem, Desc)

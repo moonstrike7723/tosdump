@@ -166,11 +166,11 @@ local function ADD_APPRAISAL_OPTION(detailBox, ypos, parentCategory)
 end
 
 local function ADD_DETAIL_OPTION_SETTING(detailBox, ypos, parentCategory, forceOpen)
-	if parentCategory ~= 'Weapon' and parentCategory ~= 'Accessory' and parentCategory ~= 'Armor' and parentCategory ~= 'Recipe' and parentCategory ~= 'HairAcc' and parentCategory ~= 'OPTMisc'then
+	if parentCategory ~= 'Weapon' and parentCategory ~= 'Accessory' and parentCategory ~= 'Armor' and parentCategory ~= 'Recipe' and parentCategory ~= 'HairAcc' and parentCategory ~= 'OPTMisc'and parentCategory ~= 'Gem'then
 		return ypos;
 	end
 
-	if parentCategory ~= 'HairAcc' and parentCategory ~= 'Recipe' and parentCategory ~= 'OPTMisc' then
+	if parentCategory ~= 'HairAcc' and parentCategory ~= 'Recipe' and parentCategory ~= 'OPTMisc'and parentCategory ~= 'Gem' then
 		local market_detail_setting = detailBox:CreateOrGetControlSet('market_detail_setting', 'detailOptionSet', 0, ypos);
 		if forceOpen ~= true then
 			MARKET_ADD_SEARCH_DETAIL_SETTING(market_detail_setting, nil, true);

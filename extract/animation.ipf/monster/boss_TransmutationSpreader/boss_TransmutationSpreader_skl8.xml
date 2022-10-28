@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+    <BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+    <Particle frame="0" attachNode="Dummy_emitter" particleName="None" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="0" attachNode="Dummy_emitter" particleName="None" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="0" attachNode="Dummy_emitter" particleName="None" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="0" attachNode="Dummy_emitter" particleName="None" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="0.44" soundFile="skl_eff_atk_move_l_21"/>
+    <Sound frame="58.00" soundFile="skl_eff_atk_move_m_1"/>
+    <Sound frame="60.00" soundFile="skl_eff_poison_1"/>
+    <Sound frame="62.93" soundFile="skl_eff_short_impact_whoosh_2"/>
+    <Sound frame="62.93" soundFile="boss_skl_eff_force_whoosh_1"/>
+    <Sound frame="63.00" soundFile="skl_eff_atk_move_s_6"/>
+    <Sound frame="64.69" soundFile="skl_eff_atk_move_m_8"/>
+    <Shockwave frame="65" type="2" intensity="10" frequency="70" duration="0.3" range="1000"/>
+    <BlendOn frame="65" R="200" G="100" B="150" A="100"/>
+    <Particle frame="65" attachNode="Dummy_effect_skl7_1" particleName="F_spin044_dark_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="65" attachNode="Dummy_effect_skl7" particleName="None" useAttach="false" hiddenObj="false" changeEffect="None" scale="3.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="65" attachNode="Dummy_effect_skl1_smoke001" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="65" attachNode="Dummy_effect_skl1_smoke1_001" particleName="F_smoke198_red_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="65.13" soundFile="boss_skl_eff_atk_move_l_6"/>
+    <BlendOn frame="66" R="180" G="80" B="120" A="100"/>
+    <Particle frame="66" attachNode="Dummy_effect_skl7" particleName="I_swordtrail053_Dark2_1_faint" useAttach="false" hiddenObj="false" changeEffect="None" scale="3.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="66" attachNode="Dummy_effect_skl7" particleName="I_swordtrail053_Dark2_1_faint" useAttach="false" hiddenObj="false" changeEffect="None" scale="6.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="66" attachNode="Dummy_effect_skl1_smoke002" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="66" attachNode="Dummy_effect_skl1_smoke1_002" particleName="F_smoke198_red_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="67" R="150" G="60" B="100" A="100"/>
+    <Particle frame="67" attachNode="Dummy_effect_skl1_smoke003" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="67" attachNode="Dummy_effect_skl1_smoke1_003" particleName="F_smoke198_red_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="68" R="130" G="40" B="80" A="100"/>
+    <Particle frame="68" attachNode="Dummy_effect_skl1_smoke004" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="68" attachNode="Dummy_effect_skl1_smoke1_004" particleName="F_smoke198_red_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="69" R="100" G="20" B="50" A="100"/>
+    <Particle frame="69" attachNode="Dummy_effect_skl1_smoke005" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="69" attachNode="Dummy_effect_skl1_smoke1_005" particleName="F_smoke198_red_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="70" R="50" G="10" B="30" A="100"/>
+    <Particle frame="70" attachNode="Dummy_effect_skl1_smoke006" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="70" attachNode="Dummy_effect_skl1_smoke1_006" particleName="F_smoke198_red_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOff frame="71" R="0" G="0" B="0" A="0"/>
+    <Particle frame="71" attachNode="Dummy_effect_skl1_smoke007" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="71" attachNode="Dummy_effect_skl1_smoke1_007" particleName="F_smoke198_red_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="72" attachNode="Dummy_effect_skl1_smoke008" particleName="F_smoke199_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="72" attachNode="Dummy_effect_skl1_smoke1_008" particleName="F_smoke198_red_violet" useAttach="false" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+</ActionDesc>

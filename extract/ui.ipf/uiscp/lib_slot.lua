@@ -178,6 +178,18 @@ function SET_SLOT_ITEM(slot, invItem, count)
 	imcSlot:SetItemInfo(slot, invItem, count);
 end
 
+function SET_SLOT_STAR_TEXT(slot, invItem)
+	local controlset = slot:CreateOrGetControlSet('inv_itemstar', "starmark", 0, 0);
+	if TryGetProp(invItem, "StringArg", "None") == "SkillGem" and TryGetProp(invItem, "RandomOption_1", "None") ~= "None" then
+		local grade = GET_CHILD(controlset, "grade")
+		grade:SetText("{img star_mark 18 18}")
+		controlset:ShowWindow(1)
+		controlset:SetGravity(ui.RIGHT, ui.TOP)
+	else
+		controlset:ShowWindow(0)
+	end
+end
+
 function SET_SLOT_IMG(slot, img)
 	imcSlot:SetImage(slot, img);
 end

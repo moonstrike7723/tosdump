@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+	<BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="15" R="50" G="10" B="30" A="100"/>
+	<BlendOn frame="16" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="30" R="10" G="10" B="60" A="200"/>
+	<BlendOn frame="31" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="32" R="60" G="30" B="60" A="200"/>
+	<BlendOn frame="33" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="50" R="80" G="25" B="60" A="200"/>
+	<BlendOn frame="51" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="58" R="200" G="50" B="180" A="200"/>
+	<BlendOn frame="59" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="60" R="255" G="100" B="200" A="200"/>
+	<BlendOn frame="62" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="65" R="200" G="100" B="250" A="200"/>
+	<BlendOn frame="67" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="70" R="150" G="80" B="200" A="200"/>
+	<BlendOn frame="71" R="0" G="0" B="0" A="50"/>
+	<BlendOn frame="73" R="220" G="50" B="150" A="200"/>
+	<BlendOn frame="74" R="0" G="0" B="0" A="50"/>
+	<BlendOff frame="75" R="0" G="0" B="0" A="0"/>
+	<Shockwave frame="15" type="2" intensity="1" frequency="70" duration="0.2" range="1000"/>
+	<Shockwave frame="30" type="2" intensity="2" frequency="70" duration="0.2" range="1000"/>
+	<Shockwave frame="50" type="2" intensity="1" frequency="70" duration="0.7" range="1000"/>
+	<Shockwave frame="73" type="2" intensity="2" frequency="70" duration="0.3" range="1000"/>
+	<Particle frame="0" attachNode="Dummy_effect_absorption1_001" particleName="F_spread_in055_violet" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.5" pause="true" use2DEffect="false" soft2DValue="20"/>
+	<Particle frame="15" attachNode="Dummy_effect_absorption1_001" particleName="I_light020_blue" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="0"/>
+	<Particle frame="30" attachNode="Dummy_effect_absorption1_001" particleName="I_light020_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="0"/>
+	<Particle frame="32" attachNode="Dummy_effect_absorption1_001" particleName="I_light020_blue" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="0"/>
+	<Particle frame="50" attachNode="Dummy_effect_absorption1_001" particleName="I_light020_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="0"/>
+	<Particle frame="58" attachNode="Dummy_effect_absorption1_001" particleName="I_light020_blue" useAttach="true" hiddenObj="false" changeEffect="None" scale="5" pause="true" use2DEffect="false" soft2DValue="0"/>
+	<Particle frame="60" attachNode="Dummy_effect_absorption1_001" particleName="I_light020_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="0"/>
+	<Particle frame="73" attachNode="Dummy_effect_absorption1_001" particleName="I_light020_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="7" pause="true" use2DEffect="false" soft2DValue="0"/>
+	<Particle frame="75" attachNode="Dummy_emitter" particleName="None" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="0"/>
+</ActionDesc>

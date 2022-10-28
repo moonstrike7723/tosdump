@@ -74,7 +74,7 @@
 		<richtext name="cmat_title" parent="cmatBg" rect="0 0 50 24" margin="0 270 0 0" layout_gravity="center top" format="{@st202}{s16}%s{/}{/}" param1="value" param1_def="소모 아이템" resizebytext="true" textalign="left center"/>
 		<groupbox name="cmat_info" parent="cmatBg" rect="0 0 378 82" margin="0 300 0 0" layout_gravity="center top" skin="relic_frame_inner" stretch="false" scrollbar="false"/>
 		<groupbox name="cmat_inner" parent="cmat_info" rect="0 0 378 146" margin="0 0 0 0" layout_gravity="center top" draw="false" skin="relic_frame_inner" stretch="false" scrollbar="false"/>
-		<controlset name="cmat_1" parent="cmat_inner" rect="0 0 358 58" margin="0 10 0 0" type="relic_gem_lvup_material" layout_gravity="left top"/>
+		<controlset name="cmat_1" parent="cmat_inner" rect="0 0 358 58" margin="0 10 0 0" type="relic_gem_lvup_material_plus" layout_gravity="left top"/>
 		<groupbox name="cresult_gb" parent="composeBg" rect="0 0 424 270" margin="0 0 0 0" layout_gravity="center top" draw="false" hittestbox="true"/>
 		<picture name="c_success_effect_bg" parent="cresult_gb" rect="0 0 338 210" hittest="false" image="SUCCESS_gold_bg" oversound="button_cursor_over_3" margin="0 0 0 0" stretch="true" layout_gravity="center top"/>
 		<picture name="c_fail_effect_bg" parent="cresult_gb" rect="0 0 338 210" hittest="false" image="None" draw="false" oversound="button_cursor_over_3" margin="0 0 0 0" stretch="true" layout_gravity="center top"/>

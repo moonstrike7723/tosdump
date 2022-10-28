@@ -48,7 +48,7 @@ function IS_HAD_JOB(id)
 	return false;
 end
 
-function CHANGEJOB_CHECK_QUEST_SCP_CONDITION_IGNORE_SELECTEDJOB(questname)
+function CHANGEJOB_CHECK_QUEST_SCP_CONDITION_IGNORE_SELECTEDJOB(questname)	
 
 	local questIES = GetClass('QuestProgressCheck', questname);
 	local req_script_check = 0
@@ -87,7 +87,7 @@ function CHANGEJOB_CHECK_QUEST_SCP_CONDITION_IGNORE_SELECTEDJOB(questname)
     elseif questIES.Script_Condition == 'OR' then
         if questIES.Check_Script >= 1 then
             local i
-            for i = 1, questIES.Check_Script do
+			for i = 1, questIES.Check_Script do					
                 if questIES['Script'..i] ~= nil and questIES['Script'..i] ~= 'None' and questIES['Script'..i] ~= '' then
                     local scriptInfo = SCR_STRING_CUT(questIES['Script'..i])
                     local func = _G[scriptInfo[1]];
@@ -391,10 +391,18 @@ function CJ_UPDATE_RIGHT_INFOMATION(frame, jobid)
 
 	_UPDATE_JOB_STAT_RATIO(frame, jobinfo);
 
-    local pc = GetMyPCObject();
-    local preFuncName = TryGetProp(jobinfo, 'PreFunction')
+	local pc = GetMyPCObject();	
+	local preFuncName = TryGetProp(jobinfo, 'PreFunction')
+	
+	if IS_SEASON_SERVER() == 'YES' then
+		local is_hidden = TryGetProp(jobinfo, 'HiddenJob', 'None') == 'YES'				
+		if is_hidden == true and preFuncName ~= nil then
+			preFuncName = 'None'
+		end
+	end
+
 	if preFuncName ~= nil and preFuncName ~= 'None' then
-		local preFunc = _G[preFuncName]
+		local preFunc = _G[preFuncName]				
 		if preFunc ~= nil then
 			local jobCount = GetTotalJobCount(pc);
 			if isClassChangeMode == true then
@@ -406,9 +414,9 @@ function CJ_UPDATE_RIGHT_INFOMATION(frame, jobid)
             end
         end
 	end
-
-	if canChangeJob == true and CHANGEJOB_CHECK_QUEST_SCP_CONDITION_IGNORE_SELECTEDJOB(jobinfo[stringtest]) == 1 then
-		if CJ_JOB_PROPERTYQUESTCHECK() == 1 then
+	
+	if canChangeJob == true and CHANGEJOB_CHECK_QUEST_SCP_CONDITION_IGNORE_SELECTEDJOB(jobinfo[stringtest]) == 1 then		
+		if CJ_JOB_PROPERTYQUESTCHECK() == 1 then		
 			if CJ_JOB_GENDERCHECK(jobid) == 1 then
 				if isClassChangeMode or session.GetPcTotalJobGrade() < JOB_CHANGE_MAX_RANK then
 					jobchangebutton:SetEventScript(ui.LBUTTONDOWN, 'CJ_CLICK_CHANGEJOBBUTTON')

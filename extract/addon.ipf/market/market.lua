@@ -28,6 +28,7 @@ function MARKET_FIRST_OPEN(frame)
 	end
 
 	MARKET_RESET_LIST(frame);
+    pc.ReqExecuteTx('GUIDE_QUEST_OPEN_UI', frame:GetName())
 end
 
 function MARKET_RESET_LIST(frame)
@@ -689,7 +690,9 @@ function MARKET_DRAW_CTRLSET_EQUIP(frame, isShowSocket)
 			elseif propItem[propGroupName] == 'UTIL_SHILED' then
 			    clientMessage = 'ItemRandomOptionGroupUTIL'
 			elseif propItem[propGroupName] == 'STAT' then
-			    clientMessage = 'ItemRandomOptionGroupSTAT'
+				clientMessage = 'ItemRandomOptionGroupSTAT'
+			elseif propItem[propGroupName] == 'SPECIAL' then
+				clientMessage = 'ItemRandomOptionGroupSPECIAL'
 			elseif propItem[propGroupName] == 'SPECIAL' then
 				clientMessage = 'ItemRandomOptionGroupSPECIAL'
 			end
@@ -788,7 +791,7 @@ function SET_MARKET_EQUIP_CTRLSET_OPTION_TEXT(ctrlSet, str)
 	local index = ctrlSet:GetUserIValue("optionIndex")
 	local optionText = GET_CHILD_RECURSIVELY(ctrlSet, "randomoption_" .. index)
     
-    if optionText == nil then
+	if optionText == nil then
         return
     end
 	
@@ -1203,7 +1206,72 @@ function MARKET_DRAW_CTRLSET_GEM(frame)
 
 			MARKET_CTRLSET_SET_TOTAL_PRICE(ctrlSet, marketItem);
 		end		
+		
 
+
+
+
+		local propNameList = GET_ITEM_PROP_NAME_LIST(itemObj)
+		for j = 1 , #propNameList do
+			local title = propNameList[j]["Title"];
+			local propName = propNameList[j]["PropName"];
+			local propValue = propNameList[j]["PropValue"];
+			local useOperator = propNameList[j]["UseOperator"];
+			local propOptDesc = propNameList[j]["OptDesc"];
+
+			if title == nil and TryGetProp(itemObj, "StringArg", "None") ~= "SkillGem" then
+				local realtext = nil
+				if propName == "CoolDown" then
+					propValue = propValue / 1000;
+					realtext = ScpArgMsg("CoolDown : {Sec} Sec", "Sec", propValue);
+				elseif propName == "OptDesc" then
+					realtext = propOptDesc;
+				else
+					if useOperator ~= nil and propValue > 0 then
+						realtext = ScpArgMsg(propName) .. " : " .."{img green_up_arrow 16 16}".. propValue;
+					else
+						realtext = ScpArgMsg(propName) .. " : " .."{img red_down_arrow 16 16}".. propValue;
+					end
+				end
+
+				if propName == "OptDesc" then
+					realtext = propOptDesc;
+				end
+
+				if realtext ~= nil then
+					SET_MARKET_EQUIP_CTRLSET_OPTION_TEXT(ctrlSet, realtext);
+				end
+			end
+		end
+		for j = 1 , 4 do
+		    local propGroupName = "RandomOptionGroup_"..j;
+			local propName = "RandomOption_"..j;
+			local propValue = "RandomOptionValue_"..j;
+			local clientMessage = 'None'
+
+			local propItem = itemObj            
+
+			if propItem[propGroupName] == 'ATK' then
+			    clientMessage = 'ItemRandomOptionGroupATK'
+			elseif propItem[propGroupName] == 'DEF' then
+			    clientMessage = 'ItemRandomOptionGroupDEF'
+			elseif propItem[propGroupName] == 'UTIL_WEAPON' then
+			    clientMessage = 'ItemRandomOptionGroupUTIL'
+			elseif propItem[propGroupName] == 'UTIL_ARMOR' then
+			    clientMessage = 'ItemRandomOptionGroupUTIL'
+			elseif propItem[propGroupName] == 'UTIL_SHILED' then
+			    clientMessage = 'ItemRandomOptionGroupUTIL'
+			elseif propItem[propGroupName] == 'STAT' then
+				clientMessage = 'ItemRandomOptionGroupSTAT'
+			elseif propItem[propGroupName] == 'SPECIAL' then
+				clientMessage = 'ItemRandomOptionGroupSPECIAL'
+			end
+			if propItem[propValue] ~= 0 and propItem[propName] ~= "None" then                
+				local opName = string.format("%s %s", ClMsg(clientMessage), ScpArgMsg(propItem[propName]));
+				local strInfo = ABILITY_DESC_NO_PLUS(opName, propItem[propValue], 0);                
+				SET_MARKET_EQUIP_CTRLSET_OPTION_TEXT(ctrlSet, strInfo);
+			end 
+		end
 		ctrlSet:SetUserValue("sellPrice", marketItem:GetSellPrice());
 	end
 
@@ -1445,7 +1513,7 @@ function MARKET_DRAW_CTRLSET_OPTMISC(frame)
 			local maxRandomOptionCnt = MAX_OPTION_EXTRACT_COUNT;
 			local randomOptionProp = {};        
 			for i = 1, maxRandomOptionCnt do
-				if itemObj['RandomOption_'..i] ~= 'None' then                
+				if itemObj['RandomOption_'..i] ~= 'None' then   
 					randomOptionProp[itemObj['RandomOption_'..i]] = itemObj['RandomOptionValue_'..i];
 				end
 			end
@@ -1575,7 +1643,49 @@ function MARKET_DRAW_CTRLSET_OPTMISC(frame)
 			end
 	
 		end
-        		
+				
+		local goddessIcor = string.find(itemObj.StringArg, "GoddessIcor")
+		if goddessIcor ~= nil then
+			local maxRandomOptionCnt = MAX_OPTION_EXTRACT_COUNT;
+			local randomOptionProp = {};        
+			for i = 1, maxRandomOptionCnt do
+				if itemObj['RandomOption_'..i] ~= 'None' then   
+					randomOptionProp[itemObj['RandomOption_'..i]] = itemObj['RandomOptionValue_'..i];
+				end
+			end
+
+			for i = 1 , maxRandomOptionCnt do
+				local propGroupName = "RandomOptionGroup_"..i;
+				local propName = "RandomOption_"..i;
+				local propValue = "RandomOptionValue_"..i;
+				local clientMessage = 'None'
+	
+				local propItem = originalItemObj            
+	
+				if propItem[propGroupName] == 'ATK' then
+					clientMessage = 'ItemRandomOptionGroupATK'
+				elseif propItem[propGroupName] == 'DEF' then
+					clientMessage = 'ItemRandomOptionGroupDEF'
+				elseif propItem[propGroupName] == 'UTIL_WEAPON' then
+					clientMessage = 'ItemRandomOptionGroupUTIL'
+				elseif propItem[propGroupName] == 'UTIL_ARMOR' then
+					clientMessage = 'ItemRandomOptionGroupUTIL'
+				elseif propItem[propGroupName] == 'UTIL_SHILED' then
+					clientMessage = 'ItemRandomOptionGroupUTIL'
+				elseif propItem[propGroupName] == 'STAT' then
+					clientMessage = 'ItemRandomOptionGroupSTAT'
+				elseif propItem[propGroupName] == 'SPECIAL' then
+					clientMessage = 'ItemRandomOptionGroupSPECIAL'
+				end
+				
+				if propItem[propValue] ~= 0 and propItem[propName] ~= "None" then                
+					local opName = string.format("%s %s", ClMsg(clientMessage), ScpArgMsg(propItem[propName]));
+					local strInfo = ABILITY_DESC_NO_PLUS(opName, propItem[propValue], 0);                
+					SET_MARKET_EQUIP_CTRLSET_OPTION_TEXT(ctrlSet, strInfo);
+				end            
+			end
+		end
+
 		-- 내 판매리스트 처리
 		if cid == marketItem:GetSellerCID() then
 			local buyBtn = GET_CHILD_RECURSIVELY(ctrlSet, "buyBtn");

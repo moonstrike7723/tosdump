@@ -4,6 +4,7 @@
 <uiframe name="chaseinfo" x="0" y="0" width="400" height="55">
     <frame layout_gravity="right top" margin="0 445 0 0" scale_align="right top"/>
     <draw drawframe="false" drawtitlebar="false"/>
+	<input hittestframe="false"/>
     <animation frameOpenAnim="chat_balloon_start" frameCloseAnim="chat_balloon_end"/>
     <controls>
         <picture name="openMark_achieve" rect="0 0 20 20" margin="0 5 0 0" layout_gravity="right top" stretch="false" image="quest_arrow_r_btn" LBtnUpScp="CHASEINFO_TOGGLE_ACHIEVE_INFOSET_FOLDER"/>

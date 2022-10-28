@@ -34,6 +34,42 @@ function SHOP_UI_OPEN(frame)
 	return 1;
 end
 
+local function SHOW_COIN_COMPONENT(frame, state, icon)
+	local list = {'sell_itemtext', 'sell_price', 'sold_itemtext', 'sellitemslot', 'solditemslot', 'sell_Zeny_Img'}
+
+	for k, v in pairs(list) do
+		local com = GET_CHILD_RECURSIVELY(frame, v)
+		if com ~= nil then
+			com:ShowWindow(state)
+		end
+	end
+
+	local icon_list = {'buy_Zeny_Img', 'Zeny_Img', 'Zeny_Img2'}
+	for k, v in pairs(icon_list) do		
+		local com = GET_CHILD(frame, v, "ui::CPicture");		
+		if com ~= nil then
+			com:SetImage(icon)
+		end
+	end
+end
+
+function IS_COIN_SHOP()
+	local shopItemList = session.GetShopItemList();
+	
+	if shopItemList ~= nil then
+		for i = 0, shopItemList:Count() - 1 do
+			local shopItem = shopItemList:PtrAt(i);
+			local prop_name = shopItem:GetBuyAccountPropName()
+			local icon = shopItem:GetAccountPropIcon()
+			if prop_name ~= 'None' then			
+				return true, prop_name, icon
+			end
+		end	
+	end
+
+	return false, 'None', 'None'
+end
+
 function INVENTORY_DM_INVENFULL(frame, msg, argStr, argNum)
 	FINALPRICE = GET_TOTAL_MONEY_STR();
 	SHOP_UPDATE_BUY_PRICE(frame);
@@ -191,10 +227,6 @@ function SHOP_BUTTON_BUYSELL(frame, slot, argStr, argNum)
 	end
 	
 	local TotalPrice = GET_TOTAL_BUY_PRICE(frame);
-	if IsGreaterThanForBigNumber(-TotalPrice, GET_TOTAL_MONEY_STR()) == 1 then
-		ui.AddText("SystemMsgFrame", ClMsg('NotEnoughMoney'));
-		return;
-	end
 	
 	local isSellSound = SHOP_BUTTON_SELL(frame);
 	local isBuySound  = SHOP_BUTTON_BUY(frame);
@@ -208,6 +240,7 @@ function SHOP_BUTTON_BUYSELL(frame, slot, argStr, argNum)
 	end
 	FINALPRICE = SumForBigNumber(GET_TOTAL_MONEY_STR(), TotalPrice);
 	SHOP_UPDATE_BUY_PRICE(frame);
+	
 	SHOP_SELECT_ITEM_LIST = {}	
 end
 
@@ -400,6 +433,10 @@ function SHOP_SELL(invitem, sellCount, frame, setTotalCount)
 		return;
 	end
 
+	if IS_COIN_SHOP() == true then
+		return
+	end
+
 	local itemobj = GetIES(invitem:GetObject());
 	local itemProp = geItemTable.GetPropByName(itemobj.ClassName);
 	if itemProp:IsEnableShopTrade() == false then
@@ -576,9 +613,24 @@ function SHOP_BUY(clsID, buyCnt, frame)
 		itemPrice = GET_FIXEDPRICE(shopName)
 	end
 
+	local ret, name, icon = IS_COIN_SHOP()
+
+	if ret == false then
 	if IsGreaterThanForBigNumber(itemPrice + (-1 * TotalPrice), GET_TOTAL_MONEY_STR()) == 1 then
 		ui.AddText("SystemMsgFrame", ClMsg('NotEnoughMoney'));
 		return;
+	end
+	else
+		local acc = GetMyAccountObj()
+		local now = TryGetProp(acc, name, 'None')
+		if now == 'None' then
+			now = '0'
+		end
+
+		if IsGreaterThanForBigNumber(itemPrice + (-1 * TotalPrice), now) == 1 then		
+			ui.AddText("SystemMsgFrame", ClMsg('NotEnoughCoin'));		
+			return;
+		end
 	end
 
 	local fixedPrice = GET_FIXEDPRICE(shopName)
@@ -792,7 +844,19 @@ function SHOP_UPDATE_BUY_PRICE(frame)
 		txt:SetTextByKey("text", "{@st41}" ..COLOR_RED .. GET_COMMAED_STRING(price));
 	end
 
+	local ret, name, icon = IS_COIN_SHOP()	
 	local invenZeny = FINALPRICE;
+
+	if ret == true then
+		local acc = GetMyAccountObj()
+		local now = TryGetProp(acc, name, 'None')
+		if now == 'None' then
+			invenZeny = '0'
+		else
+			invenZeny = now
+		end
+	end
+
 	local totaltext = frame:GetChild("finalprice");	
 	local totalprice = SumForBigNumberInt64(invenZeny, price);	
 	totaltext:SetTextByKey("text", GET_COMMAED_STRING(totalprice));
@@ -820,6 +884,13 @@ function SHOP_ON_MSG(frame, msg, argStr, argNum)
 	end
 
 	if  msg == 'SHOP_ITEM_LIST_GET' or msg == 'COMMON_SHOP_ITEM_LIST_GET' then
+		local ret, name, icon = IS_COIN_SHOP()
+		if ret == true then
+			SHOW_COIN_COMPONENT(frame, 0, icon)
+		else
+			SHOW_COIN_COMPONENT(frame, 1, 'icon_item_silver')
+		end
+
 		SHOP_ITEM_LIST_GET(frame);
 		SHOP_ITEM_SLOT_INIT(frame);
 		UPDATE_SOLD_ITEM_LIST(frame);
@@ -1012,6 +1083,10 @@ end
 function GET_SHOPITEM_PRICE_TXT(shopItem, class)
     local unitPrice = shopItem.price
     
+	if shopItem:GetBuyAccountPropName() ~= 'None' then
+		return GET_COMMAED_STRING(shopItem.price * shopItem.count);
+	end
+
 	local shopName = session.GetCurrentShopName()
     if IS_COLONY_TAX_SHOP_NAME(GET_COLONY_TAX_CURRENT_CITY_NAME(), shopName) == true then
         unitPrice = GET_SHOP_PRICE_WITH_TAX(shopItem.price, GET_COLONY_TAX_RATE_CURRENT_MAP())
@@ -1112,6 +1187,10 @@ function SHOP_ITEM_LIST_UPDATE(frame, ShopItemData, ShopItemCount)
 	local printText	= '{@st66b}' .. GET_SHOPITEM_TXT(shopItem, class);
     local priceText	= string.format(" {img icon_item_silver 20 20} {@st66b}%s", GET_SHOPITEM_PRICE_TXT(shopItem));
 
+	if shopItem:GetBuyAccountPropName() ~= 'None' then		
+		priceText = string.format(" {img %s 20 20} {@st66b}%s", shopItem:GetAccountPropIcon(), GET_SHOPITEM_PRICE_TXT(shopItem));
+	end
+
 	ShopItemCountCtrl:SetEventScript(ui.RBUTTONDOWN, 'SHOP_SLOT_RBTNDOWN_2');
 	ShopItemCountCtrl:SetEventScriptArgString(ui.RBUTTONDOWN, imageName);
 	ShopItemCountCtrl:SetEventScriptArgNumber(ui.RBUTTONDOWN, ShopItemData);
@@ -1145,6 +1224,9 @@ function SHOP_ITEM_LIST_UPDATE(frame, ShopItemData, ShopItemCount)
 		icon:SetColorTone("FFFF0000");
 		local printText	= '{@st67b}' .. GET_SHOPITEM_TXT(shopItem, class);
 		local priceText = string.format(" {img icon_item_silver 20 20} {@st67b}%s", GET_SHOPITEM_PRICE_TXT(shopItem));
+		if shopItem:GetBuyAccountPropName() ~= 'None' then		
+			priceText = string.format(" {img %s 20 20} {@st66b}%s", shopItem:GetAccountPropIcon(), GET_SHOPITEM_PRICE_TXT(shopItem));
+		end
 		ShopItemCountCtrl:SetTextByKey('ItemName_Count', printText);
 		ShopItemCountCtrl:SetTextByKey('Item_Price', priceText);
 

@@ -7,7 +7,10 @@ end
 function RESULT_EFFECT_UI_CLOSE(frame)
 end
 
-function RESULT_EFFECT_UI_RUN_SUCCESS(run_scp, icon, left, top)
+function RESULT_EFFECT_UI_RUN_SUCCESS(run_scp, icon, left, top, high_grade)
+	if high_grade == nil then
+		high_grade = 0
+	end
 	ui.OpenFrame('result_effect_ui')
 	local frame = ui.GetFrame('result_effect_ui')
 	frame:SetMargin(left, top, 0, 0)
@@ -16,9 +19,22 @@ function RESULT_EFFECT_UI_RUN_SUCCESS(run_scp, icon, left, top)
 	local result_effect_bg = GET_CHILD_RECURSIVELY(frame, 'result_effect_bg')
 	result_effect_bg:ShowWindow(1)
 
+	local bg_name = 'SUCCESS_gold_bg'
+	local text_name = 'card_reinforce_SUCCESS'
+	local skin_name = 'BnYellow_skin'
 	local success_effect_bg = GET_CHILD_RECURSIVELY(frame, 'success_effect_bg')
-	local skin_success = GET_CHILD_RECURSIVELY(frame, 'skin_success')
-	local text_success = GET_CHILD_RECURSIVELY(frame, 'text_success')
+	local skin_success = GET_CHILD_RECURSIVELY(frame, 'skin_success')	
+	local text_success = GET_CHILD_RECURSIVELY(frame, 'text_success')	
+	if high_grade == 1 then
+		success_effect_bg:SetImage('SUCCESS_goddess_bg')
+		text_success:SetImage('goddess_reinforce_SUCCESS')
+		skin_success:SetImage('BnGreen_skin')
+	else
+		success_effect_bg:SetImage(bg_name)
+		text_success:SetImage(text_name)
+		skin_success:SetImage(skin_name)
+	end
+
 	success_effect_bg:ShowWindow(1)
 	skin_success:ShowWindow(1)
 	text_success:ShowWindow(1)
@@ -38,13 +54,16 @@ function RESULT_EFFECT_UI_RUN_SUCCESS(run_scp, icon, left, top)
 		result_item_img:ShowWindow(0)
 	end
 				
-	RESULT_EFFECT_UI_SUCCESS_EFFECT(frame)
+	RESULT_EFFECT_UI_SUCCESS_EFFECT(frame, high_grade)
 end
 
-function RESULT_EFFECT_UI_SUCCESS_EFFECT(frame)
+function RESULT_EFFECT_UI_SUCCESS_EFFECT(frame, high_grade)
 	local success_effect_bg = GET_CHILD_RECURSIVELY(frame, 'success_effect_bg')
 	if success_effect_bg ~= nil then
 		local SUCCESS_EFFECT_NAME = frame:GetUserConfig('DO_SUCCESS_EFFECT')
+		if high_grade == 1 then
+			SUCCESS_EFFECT_NAME = frame:GetUserConfig('DO_SUCCESS_EFFECT2')
+		end
 		local SUCCESS_EFFECT_SCALE = tonumber(frame:GetUserConfig('SUCCESS_EFFECT_SCALE'))
 		success_effect_bg:PlayUIEffect(SUCCESS_EFFECT_NAME, SUCCESS_EFFECT_SCALE, 'DO_SUCCESS_EFFECT')
 	end

@@ -2,6 +2,7 @@ function AETHER_GEM_REINFORCE_ON_INIT(addon, frame)
 	addon:RegisterMsg("AETHER_GEM_REINFORCE_MAX_COUNT", "ON_SET_AETHER_GEM_REINFORCE_MAX_COUNT");
 	addon:RegisterMsg("OPEN_DLG_ARTHER_GEM_REINFORCE", "ON_OPEN_DLG_AETHER_GEM_REINFORCE");
 	addon:RegisterMsg("AETHER_GEM_REINFORCE_RESULT", "ON_AETHER_GEM_REINFORCE_RESULT");
+	addon:RegisterMsg("AETHER_GEM_REINFORCE_TX_FAIL_THEN_RESET_UI","ON_AETHER_GEM_REINFORCE_TX_FAIL_THEN_RESET_UI")
 end
 
 function ON_OPEN_DLG_AETHER_GEM_REINFORCE(frame)
@@ -203,6 +204,8 @@ function AETHER_GEM_REINFORCE_CREATE_GEM_LIST_BY_EQUIPMENT(gem_slot_list)
 						slot:SetMaxSelectCount(1);
 						slot:SetText("{s14}{ol}{#FFFFFF}{b}Lv."..gem_info[2], "count", ui.LEFT, ui.TOP, 3, 2);
 						SET_SLOT_ITEM_CLS(slot, gem_info[1]);
+						SET_SLOT_BG_BY_ITEMGRADE(slot,gem_info[1]);
+		
 						local icon = slot:GetIcon();
 						if icon ~= nil then
 							icon:SetTooltipArg(gem_info[4], gem_info[1].ClassID, 0);
@@ -220,7 +223,8 @@ function GET_AETHER_GEM_REINFORCE_EQUIP_GEM_INFO(equip_item)
 	local item_object = GetIES(equip_item:GetObject());
 	local item_grade = TryGetProp(item_object, "ItemGrade", 0);
 	if item_grade == 6 then
-		for i = item_object.MaxSocket_COUNT, item_object.MaxSocket_COUNT + 1 do
+		local start_index, end_index = GET_AETHER_GEM_INDEX_RANGE(TryGetProp(item_object, 'UseLv', 0))	
+		for i = start_index, end_index do
 			if equip_item:IsAvailableSocket(i) == true then
 				local gem_class_id = equip_item:GetEquipGemID(i);
 				if gem_class_id ~= 0 then
@@ -286,6 +290,7 @@ function AETHER_GEM_REINFORCE_CREATE_GEM_LIST_BY_INVENTORY(gem_slot_list)
 						slot:SetUserValue("gem_guid", item:GetIESID());
 						slot:SetMaxSelectCount(item.count);
 						SET_SLOT_ITEM(slot, item);
+						SET_SLOT_BG_BY_ITEMGRADE(slot,object);
 						SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, item, object, item.count);
 					end
 				end
@@ -440,11 +445,19 @@ end
 function AETHER_GEM_REINFORCE_DO_REINFORCE_BTN_UPDATE(frame)
 	if frame == nil then return; end
 	local do_reinforce = GET_CHILD_RECURSIVELY(frame, "do_reinforce");
-	if do_reinforce ~= nil then
-		local cur_count = get_aether_gem_reinforce_count();
+	local reinforce_Cnt_Remain = GET_CHILD_RECURSIVELY(frame, "reinforce_Cnt_Remain");
+	if do_reinforce ~= nil and reinforce_Cnt_Remain ~= nil then
+		local cur_count = get_aether_gem_reinforce_count_total();
 		do_reinforce:SetTextByKey("enable_count", cur_count);
 		local max_count = frame:GetUserIValue("gem_reinforce_max_count");
 		do_reinforce:SetTextByKey("max_count", max_count);
+		-- reinforce_Cnt_Remain set -- 
+		local base_cnt = get_aether_gem_reinforce_count();
+		local reinforce_cnt_480 = get_aether_gem_reinforce_count_480();
+		local reinforce_cnt_460 = get_aether_gem_reinforce_count_460();
+		reinforce_Cnt_Remain:SetTextByKey("value1",base_cnt);
+		reinforce_Cnt_Remain:SetTextByKey("value2",reinforce_cnt_480);
+		reinforce_Cnt_Remain:SetTextByKey("value3",reinforce_cnt_460);
 	end
 end
 
@@ -546,24 +559,24 @@ function AETHER_GEM_REINFORCE_EXEC(frame)
 	local top_frame = frame:GetTopParentFrame();
 	if top_frame == nil then return; end
 
-	local cur_count = get_aether_gem_reinforce_count();
-	if cur_count <= 0 then 
+	local cur_count = get_aether_gem_reinforce_count_total(); 
+	if cur_count <= 0 then
 		ui.SysMsg(ClMsg("CanNotEnchantMore"));
 		return; 
 	end
 
 	local reinforce_slot = GET_CHILD_RECURSIVELY(top_frame, "gem_slot");
+
 	if reinforce_slot ~= nil then
 		local is_equip = reinforce_slot:GetUserIValue("select_gem_is_equip");
 		if is_equip == 0 then
 			local guid = reinforce_slot:GetUserValue("select_gem_guid");
+
 			if guid ~= nil and guid ~= "None" then
 				local gem_item = session.GetInvItemByGuid(guid);
 				if gem_item == nil then return; end
-
 				local gem_object = GetIES(gem_item:GetObject());
 				if gem_object == nil then return; end
-				
 				_AETHER_GEM_REINFORCE_EXEC(guid);
 			end
 		else
@@ -634,6 +647,20 @@ function ON_AETHER_GEM_REINFORCE_RESULT(frame, msg, arg_str, arg_num)
 		ReserveScript("AETHER_GEM_REINFORCE_SUCCESS()", 1.0);
 	elseif arg_str == "FAILED" then
 		ReserveScript("AETHER_GEM_REINFORCE_FAILED()", 1.0);
+	end
+end
+
+function AETHER_GEM_REINFORCE_RESET_UI()
+	local frame = ui.GetFrame("aether_gem_reinforce");
+	if frame == nil then return; end
+	AETHER_GEM_REINFORCE_SET_HITTEST_SELECT_GEM(frame, 1);
+	AETHER_GEM_REINFORCE_SET_VISIBLE_BY_REINFORCE_BUTTON(frame, 1);
+end
+
+function ON_AETHER_GEM_REINFORCE_TX_FAIL_THEN_RESET_UI(frame,msg,arg_str,arg_num)
+	if frame == nil then return; end
+	if arg_str == "MAXLEVEL" or arg_str == "INVALID" then
+		ReserveScript("AETHER_GEM_REINFORCE_RESET_UI()", 1.0);
 	end
 end
 
@@ -946,4 +973,6 @@ end
 function ON_SET_AETHER_GEM_REINFORCE_MAX_COUNT(frame, msg, arg_str, arg_num)
 	if frame == nil then return; end
 	frame:SetUserValue("gem_reinforce_max_count", arg_num);
+
+	AETHER_GEM_REINFORCE_DO_REINFORCE_BTN_UPDATE(frame);
 end

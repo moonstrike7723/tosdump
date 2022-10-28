@@ -1323,6 +1323,9 @@ end
 
 function QUICKSLOT_ADD(frame, ctrl, argStr, argNum)
 	local curCnt = quickslot.GetActiveSlotCnt();
+	if curCnt >= 30 then
+		pc.ReqExecuteTx('GUIDE_QUEST_CHECK_SLOT_ADD', "")
+	end
 	if curCnt < 40 then
 		curCnt = curCnt + 10;
 	end

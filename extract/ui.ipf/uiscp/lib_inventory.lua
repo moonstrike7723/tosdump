@@ -594,8 +594,8 @@ function UPDATE_ETC_ITEM_SLOTSET(slotset, etcType, tooltipType)
 	for i = 0, slotCnt - 1 do
 		local tempSlot = slotset:GetSlotByIndex(i)
 		DESTROY_CHILD_BYNAME(tempSlot, "styleset_")		
+		SET_SLOT_STAR_TEXT(tempSlot,nil)
 	end
-
 	slotset:ClearIconAll();
     slotset:SetSkinName("invenslot2")
 
@@ -615,7 +615,7 @@ function UPDATE_ETC_ITEM_SLOTSET(slotset, etcType, tooltipType)
 
 		SET_SLOT_IMG(slot, iconImg)
 		SET_SLOT_COUNT(slot, invItem.count)
-
+		SET_SLOT_STAR_TEXT(slot,itemCls)
         local icon = slot:GetIcon();
 
         if itemCls.ItemType == 'Equip' then
@@ -663,7 +663,8 @@ function SET_SLOT_INFO_FOR_WAREHOUSE(slot, invItem, tooltipType)
 	local iconImg = GET_ITEM_ICON_IMAGE(itemCls);
     SET_SLOT_IMG(slot, iconImg)
 	SET_SLOT_COUNT(slot, invItem.count)
-	
+	SET_SLOT_STAR_TEXT(slot, itemCls)
+
     local icon = slot:GetIcon();
     
     if itemCls.ItemType == 'Equip' then
@@ -818,7 +819,7 @@ function GET_INV_ITEM_BY_WHERE(itemIdx, where)
 	-- where로 넘어오는 값이 inven인데 inventory로 넘겨줘야 하는 경우가 있으므로 확인된 inven과 link만 반환한다.
 	-- 나머지는 넘어오는 값이 확인되면 수정 후에 주석을 풀어야한다.
 	if where == 'inven' then
-		invItem = GET_PC_ITEM_BY_GUID(itemIdx);	
+		invItem, isEquip = GET_PC_ITEM_BY_GUID(itemIdx);	
 		_where = 'inventory';
 	-- elseif where == 'warehouse' then
 	-- 	invItem =  session.GetEtcItemByGuid(IT_WAREHOUSE, itemIdx);
@@ -879,8 +880,9 @@ function GET_INV_ITEM_BY_ITEM_OBJ(item)
 	end
 
 	-- 위 검사에 걸리지 않는다면 다음을 순서대로 수행해서 아이템을 찾는다.
-	invitem = GET_PC_ITEM_BY_GUID(itemIdx);	
+	invitem, isEquip = GET_PC_ITEM_BY_GUID(itemIdx);	
 	where = 'inventory';
+
 	if invitem == nil then
 		invitem = session.GetEtcItemByGuid(IT_WAREHOUSE, itemIdx);
 		where = 'warehouse';
@@ -906,7 +908,7 @@ function GET_INV_ITEM_BY_ITEM_OBJ(item)
 		where = 'market';
 	end
 	if invitem == nil then		
-		invitem = session.market.GetCabinetItemByItemObjID(itemIdx);		
+		invitem = session.market.GetCabinetItemByItemObjID(itemIdx);
 		where = 'cabinet';
 	end
 	if invitem == nil then
@@ -921,6 +923,7 @@ function GET_INV_ITEM_BY_ITEM_OBJ(item)
 		invitem = session.link.GetGCLinkObject(itemIdx);
 		where = 'link';
 	end
+
 	return invitem, where;
 end
 

@@ -567,7 +567,7 @@
                             <ToolScp Scp="MGAME_EVT_COND_SCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_JELLYZELE_DIRECTION_PLAYING_CHECK"/>
                             </ToolScp>
-                            <ToolScp Scp="SCR_VASILISSA_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="SCR_RAID_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
                         </condList>
                         <execList>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
@@ -581,7 +581,7 @@
                             <ToolScp Scp="MGAME_EVT_COND_SCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_JELLYZELE_DIRECTION_PLAYING_CHECK"/>
                             </ToolScp>
-                            <ToolScp Scp="SCR_VASILISSA_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="SCR_RAID_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK_START" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
                             </ToolScp>

@@ -1,6 +1,6 @@
 ﻿function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_ON_INIT(addon, frame)
 	addon:RegisterMsg("GAME_START", "MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_INIT");
-	-- addon:RegisterMsg("ACCEPT_STAMPTOUR", "MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_INIT");
+	addon:RegisterMsg("EVENT_STAMP_TOUR_REWARD_GET", "MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_INIT");
 end
 
 function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_INIT(frame, msg)
@@ -25,15 +25,23 @@ function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON1(frame, gb)
 	local btn = GET_CHILD(gb, "openBtn");
 	local title = GET_CHILD(gb, "title");
 	-- SEASON_SERVER
-	-- if IS_SEASON_SERVER() == "YES" then
-	-- 	btn:SetImage("god_roulette_coin_entrance");
-	-- 	btn:SetEventScript(ui.LBUTTONUP, "MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_CLICK");
-	-- 	btn:SetEventScriptArgNumber(ui.LBUTTONUP, 2);
-		
-	-- 	title:SetTextByKey("value", ClMsg("GODDESS_ROULETTE"));
-	-- 	gb:ShowWindow(1);
-	-- 	return;
-	-- end
+	local curmapname = session.GetMapName();
+	local mapprop = geMapTable.GetMapProp(curmapname);
+	local mapname = mapprop:GetClassName();
+
+	if mapname == "c_klaipe_castle" then
+		return 
+	end
+
+	if IS_SEASON_SERVER() == "YES" then
+		btn:ShowWindow(1)
+		btn:SetImage("stamptour_btn");
+		btn:SetEventScript(ui.LBUTTONUP, "ON_EVENT_STAMP_TOUR_UI_OPEN_COMMAND");
+		-- title:SetTextByKey("value", ClMsg("STAMP_TOUR"));
+		MINIMIZED_EVENT_PROGRESS_CHECK_NOTICE_BUTTON(btn)
+		gb:ShowWindow(1);
+		return;
+	end
 
 	-- FLEX_BOX
 	-- if IS_SEASON_SERVER() == "NO"  then
@@ -93,4 +101,21 @@ function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_CLICK(parent, ctrl, argStr, type)
 	end
 
 	EVENT_PROGRESS_CHECK_OPEN_COMMAND("", "", "", type);
+end
+
+function MINIMIZED_EVENT_PROGRESS_CHECK_NOTICE_BUTTON(frame)
+	local point = EVENT_STAMP_GET_RECEIVABLE_REWARD_COUNT(GetMyAccountObj())
+
+	local notice = GET_CHILD_RECURSIVELY(frame, 'notice_bg')    
+	local noticeText = GET_CHILD(notice, 'notice_text')
+
+	if point > 0 then
+		notice:ShowWindow(1)
+		noticeText:ShowWindow(1)
+		noticeText:SetTextByKey('value',tostring(point))
+        SYSMENU_NOTICE_TEXT_RESIZE(notice, point)
+	elseif point == 0 then
+		notice:ShowWindow(0)
+		noticeText:ShowWindow(0)
+	end
 end

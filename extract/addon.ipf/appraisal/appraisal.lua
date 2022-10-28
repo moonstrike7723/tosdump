@@ -259,8 +259,8 @@ function APPRAISAL_CHECKBOX(frame)
     
     magicCheckbox:SetCheck(1);
     rareCheckbox:SetCheck(1);
-    uniqueCheckbox:SetCheck(0);
-    legendeCheckbox:SetCheck(0);
+    uniqueCheckbox:SetCheck(1);
+    legendeCheckbox:SetCheck(1);
 end
 
 function APPRAISAL_ITEM_GRADE_SET(frame, isOpen)

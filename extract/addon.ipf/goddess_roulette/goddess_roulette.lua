@@ -2,9 +2,12 @@ function GODDESS_ROULETTE_ON_INIT(addon, frame)
 	addon:RegisterMsg("GODDESS_ROULETTE_START", "GODDESS_ROULETTE_START");
 	addon:RegisterMsg("GODDESS_ROULETTE_STATE_UPDATE", "GODDESS_ROULETTE_STATE_UPDATE");
 	addon:RegisterMsg("GODDESS_ROULETTE_ITEM_UPDATE", "GODDESS_ROULETTE_ITEM_UPDATE");
+	addon:RegisterMsg("GODDESS_ROULETTE_OPEN", "GODDESS_ROULETTE_OPEN");
 end
 
-function GODDESS_ROULETTE_OPEN()
+local typeNum = 1
+
+function GODDESS_ROULETTE_OPEN(frame, msg, argStr,argNum)
 	frame = ui.GetFrame("goddess_roulette");
 	if frame:IsVisible() == 1 then
 		return;
@@ -15,6 +18,7 @@ function GODDESS_ROULETTE_OPEN()
 	local startbtn = GET_CHILD_RECURSIVELY(frame, "startbtn");
 	startbtn:SetEnable(0);
 
+	typeNum = argNum
 	GODDESS_ROULETTE_BTN_UNFREEZE();
 	GODDESS_ROULETTE_INIT();
 	GODDESS_ROULETTE_ITEM_INIT(frame);
@@ -40,7 +44,7 @@ function GODDESS_ROULETTE_INIT()
 	roulette_board:SetAngle(0);
 	roulette_board:ShowWindow(0);
 
-	goddess_roulette.RequestGoddessRouletteState(); -- REQUEST_GODDESS_ROULETTE_STATE()
+	goddess_roulette.RequestGoddessRouletteState(typeNum); -- REQUEST_GODDESS_ROULETTE_STATE()
 end
 
 function GODDESS_ROULETTE_ITEM_INIT(frame)
@@ -59,7 +63,7 @@ end
 function GODDESS_ROULETTE_REMAIN_UPDATE(frame)
 	local startbtn = GET_CHILD_RECURSIVELY(frame, "startbtn");
 	local accObj = GetMyAccountObj();
-	local type = GET_USE_ROULETTE_TYPE();
+	local type = GET_USE_ROULETTE_TYPE(typeNum);
 	local nowCnt = GET_USE_ROULETTE_COUNT(type, accObj);
 
 	if nowCnt ~= 0 then
@@ -71,7 +75,11 @@ function GODDESS_ROULETTE_REMAIN_UPDATE(frame)
 
 	local coinCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = GET_ROULETTE_COIN_CLASSNAME(type)}}, false);
 
-	startbtn:SetTextTooltip(ScpArgMsg("GoddessRouletteUseCointipText{count}", "count", coinCnt));
+	local useCnt = 10
+	if typeNum ~= 1 then
+		useCnt = 1
+	end
+	startbtn:SetTextTooltip(ScpArgMsg("GoddessRouletteUseCointipText{use}{count}", "use", useCnt, "count", coinCnt));
 end
 
 function GODDESS_ROULETTE_STATE_UPDATE(frame, msg, argStr)
@@ -110,7 +118,7 @@ function GODDESS_ROULETTE_ITEM_UPDATE(frame, msg, argStr)
 
 		local strlist3 = StringSplit(strlist2[2], "/");
 		for j = 1, #strlist3, 2 do
-			local itemCls = GetClass("Item", strlist3[j]);
+			local itemCls = GetClassByType("Item", tonumber(strlist3[j], 16));
 			if itemCls ~= nil then
 				local index = rewardCnt;	
 				local ctrl = itemlist:CreateOrGetControlSet("reward_item_list", index, 0, index * 85);
@@ -150,11 +158,16 @@ function GODDESS_ROULETTE_BTN_CLICK(parent, ctrl)
 	end
 
 	local accObj = GetMyAccountObj();
-	local type = GET_USE_ROULETTE_TYPE();
+	local type = GET_USE_ROULETTE_TYPE(typeNum);
 	
 	-- 코인 수량 확인
 	local curCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = GET_ROULETTE_COIN_CLASSNAME(type)}}, false);
-	if curCnt < 10 then
+	local useCnt = 10
+	if typeNum ~= 1 then
+		useCnt = 1
+	end
+	
+	if curCnt < useCnt then
 		ui.SysMsg(ClMsg("Goddess_Roulette_Coin_Fail"));
 		return;
 	end
@@ -168,7 +181,7 @@ function GODDESS_ROULETTE_BTN_CLICK(parent, ctrl)
 
 	local frame = ui.GetFrame("goddess_roulette");
     imcSound.PlaySoundEvent(frame:GetUserConfig("BUTTON_CLICK_SOUND"));
-	goddess_roulette.RequestGoddessRoulette();
+	goddess_roulette.RequestGoddessRoulette(typeNum);
 end
 
 function GODDESS_ROULETTE_START(frame, msg, argStr)

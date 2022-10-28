@@ -228,6 +228,13 @@ function MARKET_SELL_UPDATE_REG_SLOT_ITEM(frame, invItem, slot)
 			ui.AlarmMsg("ItemIsNotTradable");	
 			return false
 		end
+
+		if IS_SEASON_SERVER() == "YES" then
+			if TryGetProp(check, 'Type', 'None') == 'NoTrade2' then
+				ui.AlarmMsg("ItemIsNotTradable");	
+				return false;
+			end
+		end
 	end
 
     if TryGetProp(obj, 'TeamBelonging', 0) ~= 0 or TryGetProp(obj, 'CharacterBelonging', 0) ~= 0 then

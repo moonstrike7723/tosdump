@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+    <BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+    <Sound frame="4.00" soundFile="skl_eff_atk_move_s_12"/>
+    <Sound frame="5.00" soundFile="mon_voice13_shot3"/>
+    <Sound frame="8.00" soundFile="skl_eff_atk_move_s_9"/>
+    <BlendOn frame="10" R="80" G="70" B="10" A="100"/>
+    <Particle frame="10" attachNode="Dummy_eff_skl001" particleName="I_dash014_yellow" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="10.00" soundFile="skl_eff_atk_move_s_7"/>
+    <Particle frame="12" attachNode="Bip001 Spine" particleName="F_spread_out031_fether_black3" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="12" attachNode="Bip001 Spine" particleName="F_spread_out031_fether_black3" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="12" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="14" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="16" attachNode="Bip001 Spine" particleName="F_spread_out031_fether_black3" useAttach="false" hiddenObj="false" changeEffect="None" scale="0.9" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="16" attachNode="Bip001 Spine" particleName="F_spread_out031_fether_black3" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="16" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="17.00" soundFile="skl_eff_atk_move_s_7"/>
+    <Particle frame="18" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="20" attachNode="Bip001 Spine" particleName="F_spread_out031_fether_black3" useAttach="false" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="20" attachNode="Bip001 Spine" particleName="F_spread_out031_fether_black3" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="20" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="22" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="24" attachNode="Bip001 Spine" particleName="F_spread_out031_fether_black3" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="24" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="24.00" soundFile="skl_eff_atk_move_s_7"/>
+    <Particle frame="26" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="28" attachNode="Bip001 Spine" particleName="F_spread_out031_fether_black3" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="28" attachNode="Bip001 Spine" particleName="F_spread_out031_fether_black3" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="28" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOff frame="30" R="0" G="0" B="0" A="0"/>
+    <Particle frame="30" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="32" attachNode="Dummy_root" particleName="F_ground068_smoke4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+</ActionDesc>

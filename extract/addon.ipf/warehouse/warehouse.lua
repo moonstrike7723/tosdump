@@ -37,6 +37,7 @@ function PUT_ITEM_TO_WAREHOUSE(parent, slot)
             local dest_id = "0"
             startSlot:ClearIcon()
             startSlot:ClearText()
+			SET_SLOT_STAR_TEXT(startSlot,nil)
 
             DESTROY_CHILD_BYNAME(startSlot, "styleset_")
             startSlot:SetSkinName("invenslot2")
@@ -54,11 +55,11 @@ function PUT_ITEM_TO_WAREHOUSE(parent, slot)
 
                 local item = session.GetWarehouseItemByGuid(start_id)                
                 SET_SLOT_INFO_FOR_WAREHOUSE(dest_slot, item, 'warehouse')
-                session.SwapWarehouseItem(startIndex, destIndex)
+				session.SwapWarehouseItem(startIndex, destIndex)
             else  -- move                
                 local item = session.GetWarehouseItemByGuid(start_id)
                 SET_SLOT_INFO_FOR_WAREHOUSE(dest_slot, item, 'warehouse')
-                session.SetWarehouseItemIndex(startIndex, destIndex)
+				session.SetWarehouseItemIndex(startIndex, destIndex)
             end
             
             item.SwapItemInWarehouse(startIndex, destIndex, start_id, dest_id)
@@ -129,8 +130,8 @@ function ON_WAREHOUSE_ITEM_LIST(frame)
 	local slotset = gbox:GetChild("slotset");
 	if slotset == nil then
 		local gbox_warehouse = gbox:GetChild("gbox_warehouse");
-			slotset = gbox_warehouse:GetChild("slotset");
-		end
+		slotset = gbox_warehouse:GetChild("slotset");
+	end
 
 	AUTO_CAST(slotset);
 	local etc = GetMyEtcObject();

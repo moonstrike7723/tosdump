@@ -45,6 +45,7 @@
                         <Str Str="Clear"/>
                         <Num Num="5"/>
                     </ToolScp>
+                    <ToolScp Scp="RAID_CLEAR_TIME_RECORD" Client="NO" UseSleep="NO"/>
                 </StartScpList>
                 <ObjList>
                     <Obj Type="Monster" MonType="160065" Pos="1110.41#0.60#1613.40" genCount="1" genTime="20000" autoGen="0" objectKey="1"/>
@@ -501,7 +502,7 @@
                             <ToolScp Scp="MGAME_EVT_COND_SCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_JELLYZELE_DIRECTION_PLAYING_CHECK"/>
                             </ToolScp>
-                            <ToolScp Scp="SCR_VASILISSA_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="SCR_RAID_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
                         </condList>
                         <execList>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
@@ -515,7 +516,7 @@
                             <ToolScp Scp="MGAME_EVT_COND_SCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_JELLYZELE_DIRECTION_PLAYING_CHECK"/>
                             </ToolScp>
-                            <ToolScp Scp="SCR_VASILISSA_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="SCR_RAID_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK_START" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
                             </ToolScp>
@@ -729,6 +730,10 @@
             <ToolScp Scp="MGAME_ZONEENTER_SCRIPT" Client="NO" UseSleep="NO">
                 <Num Num="2"/>
                 <Str Str="SCR_JELLYZELE_BERSERK_START_REENTER"/>
+            </ToolScp>
+            <ToolScp Scp="MGAME_ZONEENTER_SCRIPT" Client="NO" UseSleep="NO">
+                <Num Num="2"/>
+                <Str Str="SCR_JELLYZELE_FLEXIBILITY_HP"/>
             </ToolScp>
         </EnterList>
         <WorldInitList>

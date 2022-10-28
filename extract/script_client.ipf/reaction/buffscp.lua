@@ -2117,3 +2117,12 @@ function Lamapose_Buff_LEAVE(actor, obj, buff)
     C_SHOW_PARTS_MODEL(actor, obj, "LH", 0, 1)
     C_SHOW_PARTS_MODEL(actor, obj, "RH", 0, 1)
 end
+
+-- 챌린지 모드 엘리트 보스
+function EliteBossBuff_ENTER(actor, obj, buff)
+    actor:SetAuraInfo("Elite_Boss_Buff");
+end
+
+function EliteBossBuff_LEAVE(actor, obj, buff)
+    actor:SetAuraInfo("");
+end

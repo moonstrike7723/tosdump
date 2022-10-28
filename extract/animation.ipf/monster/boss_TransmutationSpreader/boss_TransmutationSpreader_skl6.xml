@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+    <Sound frame="0.00" soundFile="mon_voice_helgasercle_6"/>
+    <Sound frame="1.06" soundFile="mon_voice_mushwort_4"/>
+    <Sound frame="25.00" soundFile="skl_eff_spread_4"/>
+    <Sound frame="50.70" soundFile="skl_eff_stone_blow_m"/>
+    <Sound frame="52.82" soundFile="skl_eff_dock"/>
+    <BlendOn frame="54" R="150" G="50" B="120" A="100"/>
+    <Shockwave frame="54" type="2" intensity="10" frequency="70" duration="0.3" range="1000"/>
+    <Particle frame="54" attachNode="Dummy_effect_skl6_center" particleName="F_spread_out055_3_breath5_red" useAttach="false" hiddenObj="false" changeEffect="None" scale="7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="54.93" soundFile="skl_explosion01"/>
+    <BlendOn frame="55" R="0" G="0" B="0" A="50"/>
+    <Sound frame="65.00" soundFile="skl_eff_spread_4"/>
+    <Sound frame="92.00" soundFile="skl_eff_stone_blow_m"/>
+    <Sound frame="93.00" soundFile="skl_eff_dock"/>
+    <Sound frame="93.00" soundFile="skl_eff_oobe_shot_explosion_far"/>
+    <Sound frame="94.01" soundFile="skl_explosion01"/>
+    <BlendOn frame="95" R="150" G="50" B="120" A="100"/>
+    <Shockwave frame="95" type="2" intensity="10" frequency="70" duration="0.5" range="1000"/>
+    <Particle frame="95" attachNode="Dummy_effect_skl6_L" particleName="F_spread_out055_3_breath5_red" useAttach="false" hiddenObj="false" changeEffect="None" scale="6" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="95" attachNode="Dummy_effect_skl6_R" particleName="F_spread_out055_3_breath5_red" useAttach="false" hiddenObj="false" changeEffect="None" scale="6" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="96" R="0" G="0" B="0" A="50"/>
+    <BlendOff frame="97" R="0" G="0" B="0" A="0"/>
+</ActionDesc>

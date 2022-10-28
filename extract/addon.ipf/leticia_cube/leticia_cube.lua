@@ -3,7 +3,7 @@
 end
 
 function LETICIA_CUBE_OPEN(frame)
-	if config.GetServiceNation() == "KOR" then
+    if config.GetServiceNation() == "KOR" then
 	    local button = ui.GetFrame('minimized_leticia_button')
 	    local lua_endTime = button:GetUserIValue('lua_endTime')
         local cls = TryGetProp(GetClassByType('leticia_date', 1), "EndTime", "None")    

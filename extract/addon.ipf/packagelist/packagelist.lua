@@ -58,6 +58,11 @@ function PACKAGELIST_EDIT_ON_TYPING(parent, ctrl)
 
 	local tpItemID = frame:GetUserIValue('TPITEM_ID');
 	local tpItemCls = GetClassByType('TPitem', tpItemID);	
+
+	if IS_SEASON_SERVER() == 'YES' then
+		tpItemCls = GetClassByType('TPitem_SEASON', tpItemID);			
+	end
+
 	if tpItemCls ~= nil then
 		local limit = GET_LIMITATION_TO_BUY(tpItemID);
 		if limit == 'ACCOUNT' and curCount + 1 > tpItemCls.AccountLimitCount then
@@ -93,6 +98,11 @@ function PACKAGELIST_UP_BTN_CLICK(parent, ctrl)
 
 	local tpItemID = frame:GetUserIValue('TPITEM_ID');
 	local tpItemCls = GetClassByType('TPitem', tpItemID);	
+
+	if IS_SEASON_SERVER() == 'YES' then
+		tpItemCls = GetClassByType('TPitem_SEASON', tpItemID);	
+	end
+
 	if tpItemCls ~= nil then
 		local limit = GET_LIMITATION_TO_BUY(tpItemID);
 		if limit == 'ACCOUNT' and curCount + 1 > tpItemCls.AccountLimitCount then
@@ -145,6 +155,9 @@ function PACKAGELIST_PUT_INTO_BASKET(parent, ctrl)
     local selectedCtrlSetName = frame:GetUserValue('SELECTED_CTRLSET_NAME');
 	local tpitemID = frame:GetUserIValue('TPITEM_ID');
 	local tpItemCls = GetClassByType('TPitem', tpitemID);
+	if IS_SEASON_SERVER() == 'YES' then
+		tpItemCls = GetClassByType('TPitem_SEASON', tpitemID);
+	end
 
 	local mainSubGbox = GET_CHILD_RECURSIVELY(tpitem, 'mainSubGbox');	
 	local itemCtrl = GET_CHILD_RECURSIVELY(mainSubGbox, selectedCtrlSetName);    	

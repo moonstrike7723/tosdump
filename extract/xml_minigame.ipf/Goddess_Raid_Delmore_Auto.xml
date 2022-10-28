@@ -491,7 +491,7 @@
                     </Event>
                     <Event execCount="1" eventName="timer_reset">
                         <condList>
-                            <ToolScp Scp="SCR_VASILISSA_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="SCR_RAID_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
                         </condList>
                         <execList>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
@@ -502,7 +502,7 @@
                     </Event>
                     <Event eventName="timer_end">
                         <condList>
-                            <ToolScp Scp="SCR_VASILISSA_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="SCR_RAID_TIMER_CHANGE_CHECK" Client="NO" UseSleep="NO"/>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK_START" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
                             </ToolScp>
@@ -722,6 +722,12 @@
                 </StageEvents>
             </Stage>
         </StageList>
+        <EnterList>
+            <ToolScp Scp="MGAME_ZONEENTER_SCRIPT" Client="NO" UseSleep="NO">
+                <Num Num="2"/>
+                <Str Str="SCR_DELMORE_CASTLE_GATE_FLEXIBILITY_HP"/>
+            </ToolScp>
+        </EnterList>
         <WorldInitList>
             <ToolScp Scp="MGAME_INIT_CHANGE_VIEW" Client="NO" UseSleep="NO">
                 <Num Num="1500"/>

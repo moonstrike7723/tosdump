@@ -79,7 +79,7 @@ function EVENT_STAMP_TOUR_SET_PAGE(frame)
 	local missionCls = EVENT_STAMP_GET_CURRENT_MISSION(groupName,currentpage)
 	
 	local typename_text = GET_CHILD_RECURSIVELY(frame, 'typename_text');
-	typename_text:SetTextByKey('value', missionCls.TypeName);
+	typename_text:SetTextByKey('value', missionCls.NoteName);
 
 	local accObj = GetMyAccountObj();
 
@@ -97,11 +97,15 @@ function EVENT_STAMP_TOUR_SET_PAGE(frame)
 		end
 		ctrlSet:ShowWindow(1)
 		-- 난이도
+		local missionName = TryGetProp(missionCls,"Name"..i,'None')
 		local levet_text = GET_CHILD_RECURSIVELY(ctrlSet, 'levet_text');
 		levet_text:SetTextByKey('value', ClMsg("EventStampTourLevel_"..i));
-		if groupName == "EVENT_STAMP_TOUR_SUMMER" then
+
+	
+
+		-- if groupName == "EVENT_STAMP_TOUR_SUMMER" then
 			levet_text:SetTextByKey('value', ScpArgMsg("EventStampTourSummerLevel","Level",i));
-		end
+		-- end
 		-- 미션 내용
 		local desc = GET_CHILD_RECURSIVELY(ctrlSet, 'desc');
 		local missiontext = dic.getTranslatedStr(TryGetProp(missionCls, "Desc"..i, ""));
@@ -121,6 +125,10 @@ function EVENT_STAMP_TOUR_SET_PAGE(frame)
 			desc:EnableHitTest(0);
 		end
 		
+		if missionName ~= "None" then
+			desc:SetTextByKey('value', missionName);
+		end
+
 		-- 진행상황		
 		local checkprop = TryGetProp(missionCls, "CheckProp"..i, 'None');
 		local proplist = StringSplit(checkprop, "/");
@@ -193,10 +201,17 @@ function EVENT_STAMP_TOUR_SET_PAGE(frame)
 		end
 		local helpBtn = GET_CHILD_RECURSIVELY(ctrlSet,'question')
 		local helpType = TryGetProp(missionCls,'HelpType'..i)
+		local helpDesc = TryGetProp(missionCls,'Desc'..i, "None")
+		local helpText = TryGetProp(missionCls,'HelpText'..i, "None")
 		helpBtn:SetEventScriptArgNumber(ui.LBUTTONUP, helpType);
 		helpBtn:SetEnable(1)
 		if helpType == nil or helpType == 0 then
-			helpBtn:SetEnable(0)
+			if helpType == 0 and helpText ~="None" then
+				helpBtn:SetEventScript(ui.LBUTTONUP, "None");
+				helpBtn:SetTextTooltip(helpDesc.."{nl} {nl}"..helpText)
+			else
+				helpBtn:SetEnable(0)
+			end
 		end
 		if clear == 'true' then
 			clear_bg:ShowWindow(1);
@@ -426,11 +441,60 @@ function SCR_EVENT_STAMP_OPEN_WEEKLY_BOSS_UI()
 	INDUNINFO_TAB_CHANGE(frame)
 end
 
+function SCR_EVENT_STAMP_OPEN_GODDESS_MANAGER_UI(index)
+	local frame = ui.GetFrame('goddess_equip_manager')
+	frame:ShowWindow(1)
+
+	local tab = GET_CHILD_RECURSIVELY(frame, "main_tab");
+	tab:SelectTab(index);
+	GODDESS_MGR_TAB_CHANGE(frame, tab)
+end
+
+function SCR_EVENT_STAMP_OPEN_GODDESS_REINFORCE_UI()
+	SCR_EVENT_STAMP_OPEN_GODDESS_MANAGER_UI(0)
+end
+
+function SCR_EVENT_STAMP_OPEN_GODDESS_SOCKET_UI()
+	SCR_EVENT_STAMP_OPEN_GODDESS_MANAGER_UI(2)
+end
+
+function SCR_EVENT_STAMP_OPEN_CABINET_UI(index)
+	local frame = ui.GetFrame('item_cabinet')
+	frame:ShowWindow(1)
+
+	local tab = GET_CHILD_RECURSIVELY(frame, "cabinet_tab");
+	tab:SelectTab(index);
+	ITEM_CABINET_CHANGE_TAB(frame)
+end
+
+function SCR_EVENT_STAMP_OPEN_WEAPON_CABINET_UI()
+	SCR_EVENT_STAMP_OPEN_CABINET_UI(0)
+end
+
+function SCR_EVENT_STAMP_OPEN_ARMOR_CABINET_UI()
+	SCR_EVENT_STAMP_OPEN_CABINET_UI(1)
+end
+
+function SCR_EVENT_STAMP_OPEN_ACC_CABINET_UI()
+	SCR_EVENT_STAMP_OPEN_CABINET_UI(3)
+end
+
+function SCR_EVENT_STAMP_OPEN_SKILL_GEM_CABINET_UI()
+	SCR_EVENT_STAMP_OPEN_CABINET_UI(4)
+end
+
 function SCR_EVENT_STAMP_OPEN_ADVENTURE_BOOK_MAP()
 	local frame = ui.GetFrame('adventure_book')
 	frame:ShowWindow(1)
 	local mainTab = GET_CHILD(frame, "mainTab")
-	mainTab:SelectTab(1)
+	mainTab:SelectTab(0)
+end
+
+function SCR_EVENT_STAMP_OPEN_ADVENTURE_BOOK_ACHIEVE()
+	local frame = ui.GetFrame('adventure_book')
+	frame:ShowWindow(1)
+	local mainTab = GET_CHILD(frame, "mainTab")
+	mainTab:SelectTab(0)
 	local gb_adventure = GET_CHILD(frame, "gb_adventure");
 	local tab = GET_CHILD(gb_adventure, "bookmark");
 	tab:SelectTab(7);
@@ -473,4 +537,10 @@ function SCR_EVENT_STAMP_PVP()
 	frame:ShowWindow(1)
 	INDUNINFO_UI_OPEN(frame, 6)
 	INDUNINFO_TAB_CHANGE(frame)
+end
+
+function SCR_EVENT_STAMP_OPEN_GEN_REINFORCE_UI()
+	control.RestSit()
+	local frame = ui.GetFrame("reinforce_by_mix")
+	frame:ShowWindow(1)
 end

@@ -1609,7 +1609,7 @@ function MAKE_ITEM_RESTRICT_INFO(frame, cls, ypos)
 		img = string.format("{img %s %d %d}", imgName, ICON_SIZE, ICON_SIZE);
 	end
     local name = TryGetProp(cls, "Spot_Name");
-
+    
     local indun_name = TryGetProp(cls, "Category", 'None')    
 
     local INNER_X = frame:GetUserConfig("INNER_X");
@@ -1618,19 +1618,25 @@ function MAKE_ITEM_RESTRICT_INFO(frame, cls, ypos)
     text:SetTextByKey("img", img);
 	text:SetTextByKey("name", name);
 
-    local desc = TryGetProp(cls,"Desc")
-    if TryGetProp(cls, 'MsgType', 'None') == 'GearScore' then
+    local desc = TryGetProp(cls, "Desc")
+    local msg_type = TryGetProp(cls, 'MsgType', 'None');
+    if msg_type == 'GearScore' then
         local map_cls = GetClass('Indun', indun_name)        
         if map_cls ~= nil and TryGetProp(map_cls, 'GearScore', 0) ~= 0 then
             desc = ScpArgMsg(desc, 'score', TryGetProp(map_cls, 'GearScore', 0))            
         end
-    elseif TryGetProp(cls, 'MsgType', 'None') == 'AbilityScore' then
+    elseif msg_type == 'AbilityScore' then
         local map_cls = GetClass('Indun', indun_name)             
         if map_cls ~= nil and TryGetProp(map_cls, 'AbilityScore', 0) ~= 0 then
-            desc = ScpArgMsg(desc, 'score', TryGetProp(map_cls, 'AbilityScore', 0))            
+            desc = ScpArgMsg(desc, 'score', TryGetProp(map_cls, 'AbilityScore', 0))
+        end
+    elseif msg_type == "DeathCount" then
+        local indun_cls = GetClass("Indun", indun_name);
+        if indun_cls ~= nil and TryGetProp(indun_cls, "PartyDeadCountLimit", 0) > 0 then
+            desc = ScpArgMsg(desc, "count", TryGetProp(indun_cls, "PartyDeadCountLimit", 0));
         end
     end    
-    
+        
     text:SetTextByKey("caption", desc);
     
     local textWidth = text:GetTextWidth();
@@ -1651,4 +1657,136 @@ function UPDATE_TRIBULATION_TOOLTIP(frame, mgame_name, index)
     if comment ~= nil then
         comment:SetText("{@st59}"..desc);
     end
+end
+
+-- induninfo category tooltip
+function UPDATE_RAID_TYPE_MERGE_RESTRICT_TOOLTIP(frame, indun_class_name)
+    if frame == nil or indun_class_name == nil then return; end
+    -- reset
+    local child_count = frame:GetChildCount();
+    for i = 0, child_count - 1 do
+        local child = frame:GetChildByIndex(i);
+        if child ~= nil and string.find(child:GetName(), "SKILL_RESTRICT_INFO_") ~= nil then
+            frame:RemoveChildByIndex(i);
+        end
+    end
+    -- ** skill ** --
+    local pos_x = 0;
+    local pos_y = 30
+    local inner_x = frame:GetUserConfig("INNER_X");
+    local inner_y = frame:GetUserConfig("INNER_Y");
+    local ctrlset_width = frame:GetUserConfig("CTRLSET_WIDTH");
+    -- map keywrod check
+    local skill_restrict_keyword = "None";
+    local indun_cls = GetClass("Indun", indun_class_name);
+    if indun_cls ~= nil then
+        local map_name = TryGetProp(indun_cls, "MapName");
+        local map_cls = GetClass("Map", map_name);
+        if map_cls ~= nil then
+            local map_keyword = TryGetProp(map_cls, "Keyword");
+            if map_keyword ~= nil and string.find(map_keyword, "IsRaidField") ~= nil then
+                skill_restrict_keyword = "IsRaidField";
+            end
+        end
+    end
+    -- restrict setting
+    local skill_list, skill_cnt = GetClassList("SkillRestrict");
+    if skill_list ~= nil and skill_cnt > 0 then
+        for i = 0, skill_cnt - 1 do
+            local skill_restrict = GetClassByIndexFromList(skill_list, i);
+            if skill_restrict ~= nil then
+                local keyword = TryGetProp(skill_restrict, "Keyword");
+                if keyword ~= nil and string.find(keyword, skill_restrict_keyword) ~= nil then
+                    local width, height = MAKE_RESTRICT_INFO(frame, skill_restrict, pos_y + inner_y, ctrlset_width);
+                    pos_x = math.max(pos_x, width);
+                    pos_y = height;
+                end
+            end
+        end
+    end
+    -- ** label_line ** --
+    local lable_line_first = GET_CHILD_RECURSIVELY(frame, "labelline_1");
+    if lable_line_first ~= nil then
+        local add_offset = 10;
+        lable_line_first:SetOffset(0, pos_y + add_offset);
+        pos_y = pos_y + add_offset;
+    end
+    -- ** item ** --
+    local text_item = GET_CHILD_RECURSIVELY(frame, "text_item");
+    if text_item ~= nil then
+        text_item:SetOffset(5, pos_y);
+        local add_offset = 20;
+        pos_y = pos_y + add_offset;
+    end
+    -- restrict setting
+    local is_exist_item_restrict = false;
+    local item_list, item_cnt = GetClassList("ItemRestrict");
+    if item_list ~= nil and item_cnt > 0 then
+        for i = 0, item_cnt - 1 do
+            local item_restrict = GetClassByIndexFromList(item_list, i);
+            if item_restrict ~= nil then
+                local category = TryGetProp(item_restrict, "Category", "None");
+                if category == indun_class_name then
+                    is_exist_item_restrict = true;
+                    local width, height = MAKE_ITEM_RESTRICT_INFO(frame, item_restrict, pos_y + inner_y);
+                    pos_x = math.max(pos_x, width);
+                    pos_y = height;
+                end
+            end
+        end
+    end
+    if is_exist_item_restrict == false then
+        text_item:ShowWindow(0);
+        lable_line_first:ShowWindow(0);
+        pos_y = pos_y - 30;
+    else
+        text_item:ShowWindow(1);
+        lable_line_first:ShowWindow(1);
+    end
+    -- ** label_line ** --
+    local lable_line_second = GET_CHILD_RECURSIVELY(frame, "labelline_2");
+    if lable_line_second ~= nil then
+        local add_offset = 10;
+        lable_line_second:SetOffset(0, pos_y + add_offset);
+        pos_y = pos_y + add_offset;
+    end
+    -- ** dungeon ** --
+    local text_dungeon = GET_CHILD_RECURSIVELY(frame, "text_dungeon");
+    if text_dungeon ~= nil then
+        text_dungeon:SetOffset(5, pos_y);
+        local add_offset = 20;
+        pos_y = pos_y + add_offset;
+    end
+    -- restrict setting
+    local is_exist_dungeon_restrict = false;
+    local dungeon_list, dungeon_cnt = GetClassList("dungeon_restrict");
+    if dungeon_list ~= nil and dungeon_cnt > 0 then
+        for i = 0, dungeon_cnt - 1 do
+            local dungeon_restrict = GetClassByIndexFromList(dungeon_list, i);
+            if dungeon_restrict ~= nil then
+                local category = TryGetProp(dungeon_restrict, "Category", "None");
+                if category == indun_class_name then
+                    is_exist_dungeon_restrict = true;
+                    local width, height = MAKE_ITEM_RESTRICT_INFO(frame, dungeon_restrict, pos_y + inner_y);
+                    pos_x = math.max(pos_x, width);
+                    pos_y = height;
+                end
+            end
+        end
+    end
+    if is_exist_dungeon_restrict == false then
+        lable_line_second:ShowWindow(0);
+        text_dungeon:ShowWindow(0);
+        pos_y = pos_y - 30;
+    else
+        lable_line_second:ShowWindow(1);
+        text_dungeon:ShowWindow(1);
+    end
+    -- gb resize
+    local gb = GET_CHILD_RECURSIVELY(frame, "gb");
+    if gb ~= nil then
+        gb:Resize(gb:GetWidth(), pos_y + inner_y);
+        gb:Invalidate();
+    end
+    frame:Resize(pos_x + inner_x, pos_y + inner_y);
 end

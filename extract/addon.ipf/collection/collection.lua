@@ -808,8 +808,7 @@ function GET_COLLECTION_SEARCH_TEXT(frame)
 	return nil;
 end
 
-function EXEC_PUT_COLLECTION(itemID, type)
-
+function EXEC_PUT_COLLECTION(itemID, type)	
 	session.ResetItemList();
 	session.AddItemID(itemID);
 	local resultlist = session.GetItemIDList();
@@ -830,6 +829,11 @@ function COLLECTION_ADD(collectionType, itemType, itemIesID)
 		local belonging = TryGetProp(item_obj,"CharacterBelonging",0)
 		if tonumber(belonging)==1 then
 			ui.SysMsg(ClMsg('AddDenied'));	
+			return
+		end
+
+		if IS_RANDOM_OPTION_SKILL_GEM(item_obj) == true then
+			ui.SysMsg(ClMsg('CantUseCabinetCuzRandomOption'));				
 			return
 		end
 	end

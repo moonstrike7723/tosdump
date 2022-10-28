@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
+<ActionDesc>
+    <BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+    <Sound frame="6.58" soundFile="mon_voice_bird_5"/>
+    <Particle frame="8" attachNode="Dummy_effect001" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="8" attachNode="Dummy_effect_eye_R" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="8" attachNode="Dummy_effect_eye_L" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="8" attachNode="Dummy_R_eye" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="8" attachNode="Dummy_L_eye" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="8" attachNode="Dummy_R_eye001" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="8" attachNode="Dummy_L_eye001" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="15.56" soundFile="skl_eff_big_whoosh_1"/>
+    <Sound frame="16.76" soundFile="skl_eff_atk_move_l_8"/>
+    <Sound frame="18.55" soundFile="skl_eff_atk_move_l_5"/>
+    <BlendOn frame="19" R="60" G="30" B="80" A="100"/>
+    <Shockwave frame="19" type="2" intensity="4" frequency="70" duration="0.2" range="1000"/>
+    <Particle frame="19" attachNode="Dummy_effect_skl2" particleName="E_Bleakferret_prey_skl3_rotate" useAttach="false" hiddenObj="false" changeEffect="None" scale="0.7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="ROOT_Dummy" particleName="F_ground071_smoke_dark" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.7" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Bip003 Spine" particleName="F_spread_out031_fether_black1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Bone_wing_R05" particleName="F_spread_out031_fether_black1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Bone_wing_L05" particleName="F_spread_out031_fether_black1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Dummy_effect001" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Dummy_effect_eye_R" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Dummy_effect_eye_L" particleName="F_hit009_rize_pink" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Dummy_R_eye" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Dummy_L_eye" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Dummy_R_eye001" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="19" attachNode="Dummy_L_eye001" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="19.15" soundFile="skl_eff_atk_move_l_10"/>
+    <BlendOn frame="20" R="0" G="0" B="0" A="50"/>
+    <Sound frame="28.73" soundFile="skl_eff_big_whoosh_1"/>
+    <BlendOn frame="31" R="40" G="25" B="60" A="100"/>
+    <Shockwave frame="31" type="2" intensity="4" frequency="70" duration="0.2" range="1000"/>
+    <Particle frame="31" attachNode="ROOT_Dummy" particleName="F_ground071_smoke_dark" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="31" attachNode="Bip003 Spine" particleName="F_spread_out031_fether_black1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="31" attachNode="Bone_wing_R05" particleName="F_spread_out031_fether_black1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="31" attachNode="Bone_wing_L05" particleName="F_spread_out031_fether_black1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="31" attachNode="Dummy_effect001" particleName="F_hit009_rize_red2_attach" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="31" attachNode="Dummy_effect_eye_R" particleName="F_hit009_rize_red2_attach" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="31" attachNode="Dummy_effect_eye_L" particleName="F_hit009_rize_red2_attach" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <BlendOn frame="32" R="0" G="0" B="0" A="50"/>
+    <Particle frame="40" attachNode="ROOT_Dummy" particleName="F_smoke198_red_violet4" useAttach="true" hiddenObj="false" changeEffect="None" scale="3" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bone_Tail_02" particleName="I_smoke066_red1" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bone_mouth01" particleName="I_smoke066_red1" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bone_wing_L033" particleName="F_smoke198_red_violet4" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bone_wing_R033" particleName="F_smoke198_red_violet4" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bip003 Spine1" particleName="F_smoke198_red_violet4" useAttach="false" hiddenObj="false" changeEffect="None" scale="4" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bip003 Pelvis" particleName="F_smoke198_red_violet4" useAttach="false" hiddenObj="false" changeEffect="None" scale="4" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bip002 Spine1" particleName="F_smoke198_red_violet4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="40" attachNode="Bip001 Spine1" particleName="F_smoke198_red_violet4" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="50.87" soundFile="skl_eff_big_whoosh_1"/>
+    <Sound frame="50.87" soundFile="boss_skl_eff_force_whoosh_1"/>
+    <BlendOn frame="52" R="100" G="60" B="120" A="100"/>
+    <Shockwave frame="52" type="2" intensity="7" frequency="70" duration="0.4" range="1000"/>
+    <Particle frame="52" attachNode="ROOT_Dummy" particleName="E_Bleakferret_prey_skl3_rotate" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="ROOT_Dummy" particleName="F_ground071_smoke_dark" useAttach="false" hiddenObj="false" changeEffect="None" scale="2.2" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Bip003 Spine" particleName="F_spread_out031_fether_black1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Bone_wing_R05" particleName="F_spread_out031_fether_black1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Bone_wing_L05" particleName="F_spread_out031_fether_black1" useAttach="false" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect001" particleName="F_hit009_rize_red2_attach" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect_eye_R" particleName="F_hit009_rize_red2_attach" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect_eye_L" particleName="F_hit009_rize_red2_attach" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect001" particleName="F_hit009_rize_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.4" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect_eye_R" particleName="F_hit009_rize_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.4" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_effect_eye_L" particleName="F_hit009_rize_blue3" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.4" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_R_eye" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_L_eye" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_R_eye001" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Particle frame="52" attachNode="Dummy_L_eye001" particleName="F_light028_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="false" soft2DValue="20" targetPos="false"/>
+    <Sound frame="52.07" soundFile="skl_eff_windshikigami_shot"/>
+    <BlendOn frame="53" R="80" G="50" B="100" A="50"/>
+    <BlendOn frame="54" R="70" G="40" B="90" A="50"/>
+    <BlendOn frame="55" R="60" G="30" B="80" A="50"/>
+    <BlendOn frame="56" R="40" G="25" B="50" A="50"/>
+    <BlendOn frame="57" R="25" G="15" B="30" A="50"/>
+    <BlendOn frame="58" R="15" G="8" B="20" A="50"/>
+    <BlendOn frame="59" R="8" G="4" B="10" A="50"/>
+    <BlendOff frame="60" R="0" G="0" B="0" A="0"/>
+</ActionDesc>

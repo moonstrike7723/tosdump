@@ -26,14 +26,22 @@ function ABILITY_POINT_EXTRACTOR_RESET(frame, msg, argStr, type)
     local enableCount = 0;
 
     if type == 1 then
-        local consumeMoney, eventDiscount = ABILITY_POINT_EXTRACTOR_GET_CONSUME_MONEY(frame)
-
-        feeValueText:SetTextByKey('value', GET_COMMAED_STRING(ABILITY_POINT_EXTRACTOR_FEE));
+        local consumeMoney, eventDiscount = ABILITY_POINT_EXTRACTOR_GET_CONSUME_MONEY(frame)        
+        if IS_SEASON_SERVER() == 'YES' then
+            feeValueText:SetTextByKey('value', GET_COMMAED_STRING(ABILITY_POINT_EXTRACTOR_FEE_SEASON));
+        else
+            feeValueText:SetTextByKey('value', GET_COMMAED_STRING(ABILITY_POINT_EXTRACTOR_FEE));
+        end
         feeValueText:SetTextByKey('value2', ClMsg("Auto_SilBeo"));
         
         local money = GET_TOTAL_MONEY_STR();
 
-        enableCountByMoney = math.floor(tonumber(money) / ABILITY_POINT_EXTRACTOR_FEE);
+        if IS_SEASON_SERVER() == 'YES' then
+            enableCountByMoney = math.floor(tonumber(money));
+        else
+            enableCountByMoney = math.floor(tonumber(money) / ABILITY_POINT_EXTRACTOR_FEE);
+        end
+        
         enableCountByPoint = math.floor(session.ability.GetAbilityPoint() / ABILITY_POINT_SCROLL_RATE);
 
         if eventDiscount == 0 then
@@ -213,7 +221,7 @@ function ABILITY_POINT_EXTRACTOR_GET_CONSUME_MONEY(frame)
     local type = frame:GetUserIValue('TYPE');
     local scrollCount = frame:GetUserIValue('SCROLL_COUNT');
     local exchangeFee = ABILITY_POINT_EXTRACTOR_FEE;
-
+    
     if type == 2 then
         local fee = GET_ABILITY_POINT_EXTRACTOR_FEE(type);
         exchangeFee = ABILITY_POINT_SCROLL_RATE / 100 * fee;
@@ -243,7 +251,11 @@ function ABILITY_POINT_EXTRACTOR_GET_CONSUME_MONEY(frame)
             eventDiscount = 1
         end
     end
-	
+    
+    if IS_SEASON_SERVER() == 'YES' then
+        return 0, 1
+    end 
+
     return consumeMoney, eventDiscount;
 end
 
@@ -353,7 +365,11 @@ function ABILITY_POINT_EXTRACTOR_TYPE_RADIO_BTN_CLICK(parent, ctrl, argStr, type
     local minRemainPoint = GET_ABILITY_POINT_EXTRACTOR_MIN_REMAIN_POINT(type)
     local remainPoint = GET_COMMAED_STRING(minRemainPoint)
     if type == 1 then
-        tooltipText = ScpArgMsg("AbilityPointExtractorTooltipText_1{MIN_REMAIN_POINT}", "MIN_REMAIN_POINT", remainPoint)
+        if IS_SEASON_SERVER() == 'YES' then
+            tooltipText = ScpArgMsg("AbilityPointExtractorTooltipText_1{MIN_REMAIN_POINT}", 'silver', GET_COMMAED_STRING(0), "MIN_REMAIN_POINT", remainPoint)
+        else
+            tooltipText = ScpArgMsg("AbilityPointExtractorTooltipText_1{MIN_REMAIN_POINT}", 'silver', GET_COMMAED_STRING(100000), "MIN_REMAIN_POINT", remainPoint)
+        end
     elseif type == 2 then
         local fee = GET_ABILITY_POINT_EXTRACTOR_FEE(type);
         tooltipText = ScpArgMsg("AbilityPointExtractorTooltipText_2{VALUE}{MIN_REMAIN_POINT}{MIN}", "VALUE", fee, "MIN_REMAIN_POINT", remainPoint, "MIN", GET_ABILITY_POINT_EXTRACTOR_MIN_VALUE(type));

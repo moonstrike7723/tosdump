@@ -19,10 +19,19 @@ local g_account_prop_shop_table =
         ['coinName'] = 'dummy_GabijaCertificate',
         ['propName'] = 'GabijaCertificate',
     },
+    ['VakarineCertificate'] = 
+    {
+        ['coinName'] = 'dummy_VakarineCertificate',
+        ['propName'] = 'VakarineCertificate',
+    },
     ['TeamBattleLeagueShop'] = 
     {
         ['coinName'] = 'dummy_TeamBattleCoin',
         ['propName'] = 'TeamBattleCoin',
+    },
+    ['EVENT_2207_UNITY_SHOP'] =
+    {
+        ['coinName'] = 'Event_2207_Unity'
     },
 }
 
@@ -210,8 +219,8 @@ function EARTHTOWERSHOP_BUY_ITEM_RESULT(frame, msg, argStr, argNum)
         end
 
         propertyRemain:SetTextByKey('itemCount', GET_COMMAED_STRING(count))
-    elseif shopType == "GabijaCertificate" then
-        ui.SysMsg(ScpArgMsg("Result_GabijaCertificate", "count1", GET_COMMAED_STRING(token[2]), "count2", GET_COMMAED_STRING(token[3])));
+    elseif shopType == "GabijaCertificate" or shopType == 'VakarineCertificate' then
+        ui.SysMsg(ScpArgMsg("Result_" .. shopType, "count1", GET_COMMAED_STRING(token[2]), "count2", GET_COMMAED_STRING(token[3])));
 
         local propertyRemain = GET_CHILD_RECURSIVELY(frame,"propertyRemain")
         local itemCls = GetClass('Item', coinName)
@@ -225,7 +234,7 @@ function EARTHTOWERSHOP_BUY_ITEM_RESULT(frame, msg, argStr, argNum)
         end
 
         propertyRemain:SetTextByKey('itemCount', GET_COMMAED_STRING(count))
-    elseif shopType == "EVENT_2204_CAMPING_SHOP" then
+    elseif shopType == "EVENT_2207_UNITY_SHOP" then
         local propertyRemain = GET_CHILD_RECURSIVELY(frame,"propertyRemain")
         local itemCls = GetClass('Item', coinName)
 
@@ -429,6 +438,12 @@ function REQ_GabijaCertificate_SHOP_OPEN()
     ui.OpenFrame('earthtowershop');
 end
 
+function REQ_VakarineCertificate_SHOP_OPEN()
+    local frame = ui.GetFrame("earthtowershop");
+    frame:SetUserValue("SHOP_TYPE", 'VakarineCertificate');
+    ui.OpenFrame('earthtowershop');
+end
+
 function REQ_MASSIVE_CONTENTS_SHOP1_OPEN()
     local frame = ui.GetFrame("earthtowershop");
     frame:SetUserValue("SHOP_TYPE", 'MCShop1');
@@ -443,7 +458,11 @@ end
 
 function REQ_DAILY_REWARD_SHOP_1_OPEN()
     local frame = ui.GetFrame("earthtowershop");
-    frame:SetUserValue("SHOP_TYPE", 'DailyRewardShop');
+    if IS_SEASON_SERVER() == 'YES' then
+        frame:SetUserValue("SHOP_TYPE", 'DailyRewardShop_Season');
+    else
+        frame:SetUserValue("SHOP_TYPE", 'DailyRewardShop');
+    end
     ui.OpenFrame('earthtowershop');
 end
 
@@ -579,7 +598,7 @@ function EARTH_TOWER_SHOP_OPTION(frame, ctrl)
     EARTH_TOWER_INIT(frame, shopType);
 end
 
-function EARTH_TOWER_INIT(frame, shopType)
+function EARTH_TOWER_INIT(frame, shopType)    
 
     EXCHANGE_INIT_TAB_INFO();
 
@@ -588,11 +607,14 @@ function EARTH_TOWER_INIT(frame, shopType)
    
     local propertyRemain = GET_CHILD_RECURSIVELY(frame,"propertyRemain")
     local pointbuyBtn = GET_CHILD_RECURSIVELY(frame,"pointbuyBtn")
+    local prevShopBtn = GET_CHILD_RECURSIVELY(frame,"prevShopBtn")
     local event_gb = GET_CHILD_RECURSIVELY(frame, "event_gb")
     local remain_time = GET_CHILD_RECURSIVELY(frame, "remain_time")
     
     propertyRemain:ShowWindow(0)
     pointbuyBtn:ShowWindow(0)
+    prevShopBtn:ShowWindow(0)
+    
     remain_time:ShowWindow(0)
 
     if shopType ~= "EVENT_2011_5TH_Normal_Shop" and string.find(shopType, "EVENT_2011_5TH_Special_Shop") == nil then
@@ -637,7 +659,7 @@ function EARTH_TOWER_INIT(frame, shopType)
         local taltPropCls = GetClassByType('Anchor_c_Klaipe', 5187);
         title:SetText('{@st43}'..taltPropCls.Name);
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', taltPropCls.Name));
-    elseif shopType == 'DailyRewardShop' then
+    elseif shopType == 'DailyRewardShop' or shopType == 'DailyRewardShop_Season' then
         title:SetText('{@st43}'..ScpArgMsg("DAILY_REWARD_SHOP_1"));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("DAILY_REWARD_SHOP_1")));
     elseif shopType == 'Bernice' then
@@ -749,8 +771,14 @@ function EARTH_TOWER_INIT(frame, shopType)
     elseif shopType == 'GabijaCertificate' then -- 여신의 증표(가비야) 상점
         title:SetText('{@st43}'..ScpArgMsg("GabijaCertificate_shop"));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("GabijaCertificate_shop")));        
-        EARTH_TOWER_SET_PROPERTY_COUNT(propertyRemain, 'dummy_GabijaCertificate', "GabijaCertificate")
+        EARTH_TOWER_SET_PROPERTY_COUNT(propertyRemain, 'dummy_GabijaCertificate', "GabijaCertificate")        
         pointbuyBtn:ShowWindow(1)
+    elseif shopType == 'VakarineCertificate' then -- 여신의 증표(바카리네) 상점
+        title:SetText('{@st43}'..ScpArgMsg("VakarineCertificate_shop"));
+        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("VakarineCertificate_shop")));        
+        EARTH_TOWER_SET_PROPERTY_COUNT(propertyRemain, 'dummy_VakarineCertificate', "VakarineCertificate")
+        pointbuyBtn:ShowWindow(1)
+        prevShopBtn:ShowWindow(1)
     elseif string.find(shopType, 'BOUNTY_NPC_TRADE_SHOP_') ~= nil then
         title:SetText('{@st43}'..ScpArgMsg('BountyNpcShop'));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("BountyNpcShop")));
@@ -773,7 +801,7 @@ function EARTH_TOWER_INIT(frame, shopType)
     AUTO_CAST(showExchangeEnable)
     local checkExchangeEnable = showExchangeEnable:IsChecked();
 
-    if string.find(shopType, "EarthTower") ~= nil or shopType == "DailyRewardShop" then
+    if string.find(shopType, "EarthTower") ~= nil or shopType == "DailyRewardShop" or ShopType == 'DailyRewardShop_Season' then
         showExchangeEnable:ShowWindow(0);
         checkExchangeEnable = 0;
     end
@@ -1123,7 +1151,9 @@ function EXCHANGE_CREATE_TREE_NODE_CTRL(ctrlset, cls, shopType)
     if recipecls.AccountNeedProperty ~= 'None' then
 		local sCount = TryGetProp(aObj, recipecls.AccountNeedProperty); 
 		local cntText
-		if recipecls.ShopType == "PVPMine" or recipecls.ShopType == "GabijaCertificate" then
+        if recipecls.ShopType == "PVPMine" 
+        or recipecls.ShopType == "GabijaCertificate"
+        or recipecls.ShopType == 'VakarineCertificate' then                        
 			if recipecls.ResetInterval == 'Week' then
 				cntText = ScpArgMsg("Excnaged_AccountCount_Remind_Week","COUNT",string.format("%d", sCount))
 			else
@@ -1299,6 +1329,16 @@ function CLICK_EXCHANGE_SHOP_CATEGORY(ctrlSet, ctrl, strArg, numArg)
     DRAW_EXCHANGE_SHOP_IETMS(strArg)
 end
 
+local function sort_by_sort_idex(a, b)
+    if TryGetProp(a, 'SortIndex', 0) > TryGetProp(b, 'SortIndex', 0) then
+        return true
+    elseif TryGetProp(a, 'SortIndex', 0) < TryGetProp(b, 'SortIndex', 0) then
+        return false
+    else
+        return TryGetProp(a, 'ClassID', 0) < TryGetProp(b, 'ClassID', 0)
+    end
+end
+
 function DRAW_EXCHANGE_SHOP_IETMS(categoryName)    
     if categoryName == nil then
         return;
@@ -1350,12 +1390,15 @@ function DRAW_EXCHANGE_SHOP_IETMS(categoryName)
     tree:SetTabWidth(5);
 
     local classList = _GET_INFO(categoryName);
+    
+    table.sort(classList, sort_by_sort_idex)
+
     local shopType = frame:GetUserValue("SHOP_TYPE");
     local slotHeight = ui.GetControlSetAttribute('earthTowerRecipe', 'height') + 5;
     for index , cls in pairs(classList) do
         if cls.ShopType == shopType then
             if EARTH_TOWER_IS_ITEM_SELL_TIME(cls) == true then
-                local haveM = CRAFT_HAVE_MATERIAL(cls);
+                local haveM = CRAFT_HAVE_MATERIAL(cls);                
                 INSERT_ITEM(cls, tree, slotHeight, haveM, shopType);
             end
         end    
@@ -1420,7 +1463,11 @@ function EARTH_TOWER_SHOP_EXEC(parent, ctrl)
         end
     end
     
-    if (shopType == 'PVPMine' or shopType == 'GabijaCertificate' or shopType == 'DailyRewardShop') and resultCount >= 10 then
+    if (shopType == 'PVPMine' 
+    or shopType == 'GabijaCertificate' 
+    or shopType == 'VakarineCertificate'
+    or shopType == 'DailyRewardShop' 
+    or shopType == 'DailyRewardShop_Season') and resultCount >= 10 then
         local coin_name = ""
         local recipeCnt = 0
         local before_count = 0
@@ -1648,7 +1695,7 @@ function EARTH_TOWER_SHOP_TRADE_ENTER()
         item.DialogTransaction("EVENT_ITEM_SHOP_TREAD8", resultlist, cntText);	
 	elseif shopType == 'MCShop1' then
 		item.DialogTransaction("MASSIVE_CONTENTS_SHOP_TREAD1", resultlist, cntText);
-	elseif shopType == 'DailyRewardShop' then
+	elseif shopType == 'DailyRewardShop' or shopType == 'DailyRewardShop_Season' then
 		item.DialogTransaction("DAILY_REWARD_SHOP_1_TREAD1", resultlist, cntText);
     elseif shopType == 'Bernice' then
         item.DialogTransaction("SoloDungeon_Bernice_SHOP", resultlist, cntText);
@@ -1738,6 +1785,8 @@ function ACCOUNT_PROPERTY_SHOP_TRADE_ENTER()
         item.DialogTransaction("SILVER_GACHA_SHOP", resultlist, cntText);
     elseif shopType == 'GabijaCertificate' then -- 여신의 증표(가비야)
         item.DialogTransaction("GabijaCertificate_SHOP", resultlist, cntText);
+    elseif shopType == 'VakarineCertificate' then -- 여신의 증표(바카리네)
+        item.DialogTransaction("VakarineCertificate_SHOP", resultlist, cntText);
     elseif shopType == 'TeamBattleLeagueShop' then --  팀배상점
         item.DialogTransaction("TEAM_BATTLE_LEAGUE_SHOP_1_THREAD", resultlist, cntText);
     end
@@ -2007,14 +2056,27 @@ end
 function EARTHTOWERSHOP_POINT_BUY_OPEN()
     local frame = ui.GetFrame('earthtowershop')
     local shopType = frame:GetUserValue("SHOP_TYPE")
-
+    
     if shopType == "SilverGachaShop" then
         REQ_ITEM_POINT_EXTRACTOR_OPEN("Mileage_SilverGacha")
         ui.GetFrame('item_point_extractor'):SetMargin(575, 5, 0, 0)
     elseif shopType == "GabijaCertificate" then
 		ui.CloseFrame('earthtowershop')
+		control.CustomCommand('REQ_PREV_SEASON_COIN_SHOP_OPEN',0);
+    elseif shopType == "VakarineCertificate" then
+		ui.CloseFrame('earthtowershop')
 		control.CustomCommand('REQ_SEASON_COIN_SHOP_OPEN',0);
     end
+end
+
+function EARTHTOWERSHOP_PREV_SHOP_OPEN()
+    local frame = ui.GetFrame('earthtowershop')
+	if frame:IsVisible() == 1 then
+		ui.CloseFrame('earthtowershop')
+	end
+
+	REQ_GabijaCertificate_SHOP_OPEN()
+    
 end
 
 ---------------------- EVENT_2011_5TH
@@ -2053,6 +2115,7 @@ function RELEASE_2011_5TH_SPECIAL_SHOP_UPDATE_HOLD()
 
     ui.SetHoldUI(false);
 end
+
 
 function REQ_BOSS_CO_OP_SHOP_OPEN()
     local frame = ui.GetFrame("earthtowershop")

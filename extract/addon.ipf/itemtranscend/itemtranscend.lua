@@ -106,7 +106,11 @@ function ITEM_TRANSCEND_REG_TARGETITEM(frame, itemID)
 
 	local grade = TryGetProp(obj, "ItemGrade", 0)
 	if grade == 6 then
-		ui.MsgBox(ScpArgMsg("OnlyGoddessEquipManagement"));
+		if TryGetProp(obj, 'UseLv', 0) >= 470 then
+			ui.MsgBox(ScpArgMsg("ThisItemIsNotAbleToTranscend"));
+		else
+			ui.MsgBox(ScpArgMsg("OnlyGoddessEquipManagement"));
+		end
 		return
 	end
 
@@ -714,7 +718,11 @@ function ITEMTRANSCEND_INV_RBTN(itemObj, slot)
 
 	local grade = TryGetProp(itemObj, "ItemGrade", 0)
 	if grade == 6 then
-		ui.MsgBox(ScpArgMsg("OnlyGoddessEquipManagement"));
+		if TryGetProp(itemObj, 'UseLv', 0) >= 470 then
+			ui.MsgBox(ScpArgMsg("ThisItemIsNotAbleToTranscend"));
+		else
+			ui.MsgBox(ScpArgMsg("OnlyGoddessEquipManagement"));
+		end
 		return
 	end
 

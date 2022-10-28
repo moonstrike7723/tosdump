@@ -114,6 +114,17 @@ function ON_EVENTBANNER_GEARSCORE(code, ret_json)
 	local y = tonumber(ranking_gear_score:GetUserConfig("OffsetY"));
 	local eachHeight = ui.GetControlSetAttribute("gearscore_ranking_each_rank", "height");
 	local list_bg = GET_CHILD_RECURSIVELY(ranking_gear_score, "list_bg");
+
+	if IS_SEASON_SERVER() == "YES" then
+		local detail_btn = GET_CHILD(ranking_gear_score, "detail_btn");
+		detail_btn:ShowWindow(0);
+		local listbg = GET_CHILD(ranking_gear_score, "list_bg");
+		listbg:RemoveAllChild();
+		local text = listbg:CreateControl('richtext', 'text', 0, 0, 0, 0);	
+		text:SetText("");
+		return
+	end
+
 	if code == 200 then
 		local dic = json.decode(ret_json)
 		local rankList = dic["list"]

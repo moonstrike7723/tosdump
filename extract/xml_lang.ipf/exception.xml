@@ -249,4 +249,5 @@
 	<Wdord Msg="thunder"/>
 	<Wdord Msg="snipe"/>
 	<Wdord Msg="spike"/>
-	</Exception>
+	<Word Msg="conqueror"/>
+</Exception>

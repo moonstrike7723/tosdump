@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionDesc>
+    <Sound frame="0.00" soundFile="mon_voice_bird_9"/>
+    <Sound frame="3.49" soundFile="mon_lecifer_wing"/>
+    <Sound frame="37.71" soundFile="mon_lecifer_wing"/>
+    <Sound frame="53.56" soundFile="mon_lecifer_wing"/>
+    <Sound frame="53.87" soundFile="m_medium_flap"/>
+    <Sound frame="54.82" soundFile="mon_lecifer_wing"/>
+    <Sound frame="60.00" soundFile="skl_eff_landing_m"/>
+    <Sound frame="81.76" soundFile="mon_lecifer_wing"/>
+</ActionDesc>

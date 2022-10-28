@@ -105,7 +105,7 @@ function REROLL_ITEM_REG_TARGETITEM(frame, itemID, reroll_index, reroll_str)
 	local pc = GetMyPCObject()
 	if pc == nil then return end
 
-	if TryGetProp(item_obj, 'StringArg', 'None') ~= 'piece_penetration_belt' then
+	if shared_item_goddess_icor.get_goddess_icor_grade(item_obj) <= 0 and TryGetProp(item_obj, 'StringArg', 'None') ~= 'piece_penetration_belt' then
 		-- 재설정 가능한 아이템인지의 조건 체크용 스크립트를 별도로 추가해야 할 듯
 		ui.SysMsg(ClMsg('CantRerollEquipment'))
 		return
@@ -117,7 +117,14 @@ function REROLL_ITEM_REG_TARGETITEM(frame, itemID, reroll_index, reroll_str)
 		return
 	end
 	
-	local reroll_mat_list, is_valid = shared_item_belt.get_reroll_cost_table(item_obj)
+	local is_icor = TryGetProp(item_obj, 'GroupName', 'None') == 'Icor'
+	local reroll_mat_list, is_valid
+
+	if is_icor == false then
+		reroll_mat_list, is_valid = shared_item_belt.get_reroll_cost_table(item_obj)	
+	else
+		reroll_mat_list, is_valid = shared_item_goddess_icor.get_reroll_cost_table(item_obj)	
+	end
 	if reroll_mat_list == nil or is_valid == false then return end
 
 	CLEAR_REROLL_ITEM_UI()
@@ -140,7 +147,7 @@ function REROLL_ITEM_REG_TARGETITEM(frame, itemID, reroll_index, reroll_str)
 	local text_itemname = GET_CHILD_RECURSIVELY(frame, 'text_itemname')
 	text_itemname:SetText(item_obj.Name)
 
-	REROLL_ITEM_MAKE_SELECT_LIST(frame, item_obj, reroll_index, reroll_str)
+	REROLL_ITEM_MAKE_SELECT_LIST(frame, item_obj, reroll_index, reroll_str)	
 
 	REROLL_ITEM_MAKE_MATERIAL_LIST(frame, item_obj, reroll_str)
 end
@@ -159,8 +166,8 @@ function REROLL_ITEM_MAKE_SELECT_LIST(frame, item_obj, reroll_index, reroll_str)
 	local function _MAKE_REROLL_OPTION_CTRL(gBox, item_obj, group, name, value, ctrl_count, ind, adj, list_flag)
 		value = tonumber(value)
 		local clmsg = GET_CLMSG_BY_OPTION_GROUP(group)
-		local name_str = string.format('%s %s', ClMsg(clmsg), ScpArgMsg(name))
-		local info_str = ABILITY_DESC_NO_PLUS(name_str, value, 0)
+		local name_str = string.format('%s %s', ClMsg(clmsg), ScpArgMsg(name))		
+		local info_str = ABILITY_DESC_NO_PLUS(name_str, value, 0)		
 		local option_ctrlset = gBox:CreateOrGetControlSet('eachproperty_in_reroll_item', 'PROPERTY_CSET_' .. ctrl_count, 0, 0)
 		option_ctrlset = AUTO_CAST(option_ctrlset)
 		local pos_y = option_ctrlset:GetUserConfig('POS_Y')
@@ -176,14 +183,14 @@ function REROLL_ITEM_MAKE_SELECT_LIST(frame, item_obj, reroll_index, reroll_str)
 	
 	local y_adj = 21
 	local currentGbox_inner = GET_CHILD_RECURSIVELY(frame, 'currentGbox_inner')
-	currentGbox_inner:RemoveAllChild()
+	currentGbox_inner:RemoveAllChild()		
 	if reroll_index == 0 then
 		-- 최초
 		for i = 1, MAX_RANDOM_OPTION_COUNT do
 			local group_name = 'RandomOptionGroup_' .. i
 			local prop_name = 'RandomOption_' .. i
 			local prop_value = 'RandomOptionValue_' .. i
-			if item_obj[prop_value] ~= 0 and item_obj[prop_name] ~= 'None' then
+			if item_obj[prop_value] ~= 0 and item_obj[prop_name] ~= 'None' then				
 				_MAKE_REROLL_OPTION_CTRL(currentGbox_inner, item_obj, item_obj[group_name], item_obj[prop_name], item_obj[prop_value], i, i, y_adj, 1)
 			end
 		end
@@ -193,13 +200,13 @@ function REROLL_ITEM_MAKE_SELECT_LIST(frame, item_obj, reroll_index, reroll_str)
 		local prop_name = 'RandomOption_' .. reroll_index
 		local prop_value = 'RandomOptionValue_' .. reroll_index
 		if item_obj[prop_value] ~= 0 and item_obj[prop_name] ~= 'None' then
-			local list_flag = BOOLEAN_TO_NUMBER(reroll_str == 'None')
+			local list_flag = BOOLEAN_TO_NUMBER(reroll_str == 'None')			
 			if reroll_str == 'None' then
 				local ctrlset = _MAKE_REROLL_OPTION_CTRL(currentGbox_inner, item_obj, item_obj[group_name], item_obj[prop_name], item_obj[prop_value], 1, reroll_index, y_adj, list_flag)
 				REROLL_ITEM_SELECT_OPTION(frame, ctrlset, reroll_index)
 			else
-				-- 재설정 도중
-				local ctrlset = _MAKE_REROLL_OPTION_CTRL(currentGbox_inner, item_obj, item_obj[group_name], item_obj[prop_name], item_obj[prop_value], 1, 1, y_adj, list_flag)
+				-- 재설정 도중				
+				local ctrlset = _MAKE_REROLL_OPTION_CTRL(currentGbox_inner, item_obj, item_obj[group_name], item_obj[prop_name], item_obj[prop_value], 1, 1, y_adj, list_flag)				
 
 				-- 현재 옵션과 후보 옵션 구분을 위하여 라인 추가
 				local pos_y = ctrlset:GetUserConfig('POS_Y')
@@ -213,7 +220,12 @@ function REROLL_ITEM_MAKE_SELECT_LIST(frame, item_obj, reroll_index, reroll_str)
 					local candidate_info = StringSplit(candidate_list[i], '/')
 					local candidate_name = candidate_info[1]
 					local candidate_value = candidate_info[2]
-					local candidate_group = shared_item_belt.get_option_group_name(candidate_name)
+					local candidate_group = 'None'
+					if TryGetProp(item_obj, 'GroupName', 'None') == 'Icor' then
+						candidate_group = shared_item_goddess_icor.get_option_group_name(candidate_name)
+					else
+						candidate_group = shared_item_belt.get_option_group_name(candidate_name)
+					end
 					_MAKE_REROLL_OPTION_CTRL(currentGbox_inner, item_obj, candidate_group, candidate_name, candidate_value, i + 1, i + 1, y_adj, list_flag)
 				end
 			end
@@ -233,11 +245,20 @@ function REROLL_ITEM_MAKE_SELECT_LIST(frame, item_obj, reroll_index, reroll_str)
 	send_select:ShowWindow(BOOLEAN_TO_NUMBER(reroll_str ~= 'None'))
 end
 
-function REROLL_ITEM_MAKE_MATERIAL_LIST(frame, item_obj, reroll_str)
+function REROLL_ITEM_MAKE_MATERIAL_LIST(frame, item_obj, reroll_str)	
 	local pc = GetMyPCObject()
 	if pc == nil then return end
 
-	local reroll_mat_list, is_valid = shared_item_belt.get_reroll_cost_table(item_obj)
+
+	local is_icor = TryGetProp(item_obj, 'GroupName', 'None') == 'Icor'
+	local reroll_mat_list, is_valid
+
+	if is_icor == false then
+		reroll_mat_list, is_valid = shared_item_belt.get_reroll_cost_table(item_obj)	
+	else
+		reroll_mat_list, is_valid = shared_item_goddess_icor.get_reroll_cost_table(item_obj)	
+	end
+
 	if reroll_mat_list == nil or is_valid == false then
 		return
 	end
@@ -260,9 +281,6 @@ function REROLL_ITEM_MAKE_MATERIAL_LIST(frame, item_obj, reroll_str)
 	end
 
 	local isAbleExchange = 1
-	if item_obj.MaxDur <= MAXDUR_DECREASE_POINT_PER_RANDOM_RESET or item_obj.Dur <= MAXDUR_DECREASE_POINT_PER_RANDOM_RESET then
-		isAbleExchange = -2
-	end
 
 	local mat_item_slot_count = 0
 	for mat_clsname, mat_count in pairs(reroll_mat_list) do
@@ -284,21 +302,39 @@ function REROLL_ITEM_MAKE_MATERIAL_LIST(frame, item_obj, reroll_str)
 		local mat_icon = 'question_mark'
 
 		if item_obj ~= nil then
-			local mat_cls = GetClass('Item', mat_clsname)
+			local mat_cls = nil			
+			if IS_STRING_COIN(mat_clsname) == true then
+				mat_cls = GetClass('Item', 'dummy_' .. mat_clsname)
+			else
+				mat_cls = GetClass('Item', mat_clsname)
+			end
+			
 			if mat_cls ~= nil then
 				mat_ctrl:ShowWindow(1)
 
 				mat_icon = mat_cls.Icon
 				mat_name = mat_cls.Name
 
-				local inv_mat_count = GetInvItemCount(pc, mat_clsname)
-				local inv_mat_item = session.GetInvItemByName(mat_clsname)
-				local type = item_obj.ClassID
+				local inv_mat_count = 0
+				local inv_mat_item = nil
 
-				if inv_mat_count < mat_count then
-					material_count:SetTextByKey('color', '{#EE0000}')
+				if IS_STRING_COIN(mat_clsname) == true then
+					local acc = GetMyAccountObj()
+					inv_mat_count = TryGetProp(acc, mat_clsname, 'None')
+					if inv_mat_count == 'None' then
+						inv_mat_count = '0'
+					end					
+				else
+					inv_mat_count = GetInvItemCount(pc, mat_clsname)
+					inv_mat_item = session.GetInvItemByName(mat_clsname)
+				end
+				
+				local type = item_obj.ClassID
+				
+				if math.is_larger_than(tostring(mat_count), tostring(inv_mat_count)) == 1 then
+					material_count:SetTextByKey('color', '{#EE0000}')					
 					isAbleExchange = 0
-				elseif inv_mat_item.isLockState == true then
+				elseif inv_mat_item ~= nil and inv_mat_item.isLockState == true then
 					isAbleExchange = -1
 				else 
 					material_count:SetTextByKey('color', nil)
@@ -314,8 +350,6 @@ function REROLL_ITEM_MAKE_MATERIAL_LIST(frame, item_obj, reroll_str)
     				material_count:SetTextByKey('needCount', mat_count)
     			end
 
-				session.AddItemID(mat_cls.ClassID, mat_count)
-	
 				material_count:ShowWindow(1)
 
 				mat_item_slot_count = mat_item_slot_count + 1
@@ -368,7 +402,7 @@ function _REROLL_ITEM_EXEC()
 	local inv_item = GET_SLOT_ITEM(slot)
 	if inv_item == nil then return end
 	
-	local isAbleExchange = frame:GetUserIValue('isAbleExchange')
+	local isAbleExchange = frame:GetUserIValue('isAbleExchange')	
 	if isAbleExchange == 0 then
 		ui.SysMsg(ClMsg('NotEnoughRecipe'))
 		return
@@ -389,7 +423,7 @@ function _REROLL_ITEM_EXEC()
 		ui.SysMsg(ClMsg('CannotCloseRandomReset'))
 		return
 	end
-
+	
 	pc.ReqExecuteTx_Item('REROLL_ITEM', inv_item:GetIESID(), tonumber(index))
 end
 

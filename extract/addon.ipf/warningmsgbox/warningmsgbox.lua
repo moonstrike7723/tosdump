@@ -483,6 +483,76 @@ function WARNINGMSGBOX_FRAME_OPEN_WITH_CHECK(clmsg, yesScp, noScp)
 	frame:Resize(frame:GetWidth(), totalHeight)
 end
 
+function WARNINGMSGBOX_FRAME_OPEN_TRANSFER_ITEM(clmsg, yesScp, noScp, itemGuid)
+	ui.OpenFrame("warningmsgbox")
+	local frame = ui.GetFrame('warningmsgbox')
+	frame:EnableHide(1);
+	local warningText = GET_CHILD_RECURSIVELY(frame, "warningtext")
+	warningText:SetText(clmsg)
+
+	local input_frame = GET_CHILD_RECURSIVELY(frame, "input")
+    input_frame:ShowWindow(1)
+	input_frame:SetText('')
+	input_frame:SetMaxLen(13)
+	input_frame:Focus()
+
+	GET_CHILD_RECURSIVELY(frame, "cbox_showTooltip"):ShowWindow(0)
+
+	local yesBtn = GET_CHILD_RECURSIVELY(frame, "yes")
+	tolua.cast(yesBtn, "ui::CButton");
+
+	yesBtn:SetEventScript(ui.LBUTTONUP, '_WARNINGMSGBOX_FRAME_OPEN_TRANSFER_ITEM_YES');
+	yesBtn:SetEventScriptArgString(ui.LBUTTONUP, yesScp);
+
+	local noBtn = GET_CHILD_RECURSIVELY(frame, "no")
+	tolua.cast(noBtn, "ui::CButton");
+
+	noBtn:SetEventScript(ui.LBUTTONUP, '_WARNINGMSGBOX_FRAME_OPEN_TRANSFER_ITEM_NO');
+	noBtn:SetEventScriptArgString(ui.LBUTTONUP, noScp)
+
+	local buttonMargin = noBtn:GetMargin()
+	local warningbox = GET_CHILD_RECURSIVELY(frame, 'warningbox')
+	local totalHeight = warningbox:GetY() + warningText:GetY() + warningText:GetHeight()  + noBtn:GetHeight() + 2 * buttonMargin.bottom + input_frame:GetHeight()
+
+	local okBtn = GET_CHILD_RECURSIVELY(frame, "ok")
+	tolua.cast(okBtn, "ui::CButton");
+
+	yesBtn:ShowWindow(1);
+	noBtn:ShowWindow(1);
+	okBtn:ShowWindow(0);
+
+	local bg = GET_CHILD_RECURSIVELY(frame, 'bg')
+	warningbox:Resize(warningbox:GetWidth(), totalHeight)
+	bg:Resize(bg:GetWidth(), totalHeight)
+	frame:Resize(frame:GetWidth(), totalHeight)
+end
+
+function _WARNINGMSGBOX_FRAME_OPEN_TRANSFER_ITEM_YES(parent,ctrl,argStr,argNum)
+	local input_frame = GET_CHILD_RECURSIVELY(parent, "input")   
+    if input_frame:GetText() ~= dic.getTranslatedStr(ClMsg('transfer_now')) then
+        -- 확인메시지 불일치
+		ui.SysMsg(ClMsg('miss_match_confirm_text'))
+        return
+    end
+
+	IMC_LOG("INFO_NORMAL", "_WARNINGMSGBOX_FRAME_OPEN_TRANSFER_ITEM_YES" .. argStr)
+	local scp = _G[argStr]
+	if scp ~= nil then
+		scp()
+	end
+	ui.CloseFrame("warningmsgbox")
+end
+
+function _WARNINGMSGBOX_FRAME_OPEN_TRANSFER_ITEM_NO(parent,ctrl,argStr,argNum)
+	IMC_LOG("INFO_NORMAL", "_WARNINGMSGBOX_FRAME_OPEN_TRANSFER_ITEM_NO" .. argStr)
+	local scp = _G[argStr]
+	if scp ~= nil then
+		scp()
+	end
+	--RunScript(argStr)
+	ui.CloseFrame("warningmsgbox")
+end
+
 -- 아이템 버리기, 아이템 파괴
 function WARNINGMSGBOX_FRAME_OPEN_DELETE_ITEM(clmsg, yesScp, noScp, itemGuid)
 	ui.OpenFrame("warningmsgbox")
@@ -526,7 +596,7 @@ function WARNINGMSGBOX_FRAME_OPEN_DELETE_ITEM(clmsg, yesScp, noScp, itemGuid)
 	local yesBtn = GET_CHILD_RECURSIVELY(frame, "yes")
 	tolua.cast(yesBtn, "ui::CButton");
 
-	if DELETE_ITEM_OPEN_WARNINGBOX_MSG(cls) == 1 then
+	if DELETE_ITEM_OPEN_WARNINGBOX_MSG(cls) == 1 or IS_DESTROYABLE_COSTUME_ITEM(cls) == true then
         local_item_grade = 3
 	end
 

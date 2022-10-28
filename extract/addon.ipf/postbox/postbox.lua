@@ -2,6 +2,7 @@
 
 POSTBOX_LAST_GBOX_SCROLL_POS = 0
 POSTBOX_LAST_GBOX_SCROLL_POS_NEW = 0
+local POSTBOX_MAX_CHECK = 20
 
 function POSTBOX_ON_INIT(addon, frame)
 
@@ -49,9 +50,17 @@ function UPDATE_POSTBOX_ITEM(ctrlSet, msgInfo)
 	local labelline_2 = GET_CHILD_RECURSIVELY(ctrlSet, "labelline_2")
 	labelline_2:ShowWindow(0)
 
-	DESTROY_CHILD_BYNAME(ctrlSet, "SLOT_");		
+	local check = GET_CHILD_RECURSIVELY(ctrlSet, "check")
+	local title = GET_CHILD_RECURSIVELY(ctrlSet, "title")
 
-					
+	if msgInfo:GetItemCount() ~= 1 then
+		check:ShowWindow(0)
+		title:SetMargin(7, 5, 0, 0)
+	else
+		check:ShowWindow(1)
+	end
+
+	DESTROY_CHILD_BYNAME(ctrlSet, "SLOT_");		
 
 	for j = 0 , itemcnt - 1 do
 
@@ -148,6 +157,7 @@ function UPDATE_POSTBOX_LETTERS_LIST(gbox_list, onlyNewMessage, startindex)
 			title:SetTextByKey("current", tostring(cnt));
 			title:SetTextByKey("max", tostring(session.postBox.GetTotalMessageCount()));
 		end
+		local checkAll = GET_CHILD(frame, "checkAll")
 	end
 
 
@@ -177,8 +187,8 @@ function UPDATE_POSTBOX_LETTERS_LIST(gbox_list, onlyNewMessage, startindex)
 			local ctrlSet = gbox_list:CreateOrGetControlSet("postbox_list2", "ITEM_" ..drawindex, x, y);
 			if ctrlSet ~= nil then
 			
-				ctrlSet:SetUserValue("LETTER_ID", msgInfo:GetID());
-				ctrlSet:SetUserValue("DB_TYPE", msgInfo:GetDBType());
+				ctrlSet:SetUserValue("LETTER_ID", msgInfo:GetID());				
+					ctrlSet:SetUserValue("DB_TYPE", msgInfo:GetDBType());
 				ctrlSet:ShowWindow(1);
 
 				local title = ctrlSet:GetChild("title");
@@ -269,6 +279,8 @@ function POSTBOX_SELECT_ALL_ITEM(ctrlset)
 end
 
 function POSTBOX_GET_SELECTED_ITEM(ctrlset)
+	local check = GET_CHILD(ctrlset, "check")
+	local isChecked = check:IsVisible() == 1 and check:IsChecked() == 1
 	local indexlist = ""
 
 	for i = 0 , 200 do
@@ -277,7 +289,7 @@ function POSTBOX_GET_SELECTED_ITEM(ctrlset)
 
 		if slot ~= nil then
 			if slot:GetIcon():IsGrayStyle() == 0 then
-				if slot:IsSelected() == 1 then
+				if slot:IsSelected() == 1 or isChecked == true then
 					local eachindex = slot:GetUserValue("ITEM_INDEX");
 					if eachindex ~= "None" then
 						if indexlist == "" then
@@ -303,9 +315,13 @@ function POSTBOX_GET_SELECTED_ITEM(ctrlset)
 	local postboxframe = ui.GetFrame("postbox");
 	postboxframe:SetUserValue("LETTER_ID", letterid);
 	postboxframe:SetUserValue("DB_TYPE", dbType);
-
+	
 	local selectFrame = OPEN_BARRACK_SELECT_PC_FRAME("EXEC_SELECT_POSTBOX_ITEM_PC", "SelectCharacterToGetItem", true);
 	selectFrame:SetUserValue("ITEM_INDEX_LIST",indexlist)
+end
+
+function POSTBOX_GET_SELECTED_ITEM_LIST()
+	OPEN_BARRACK_SELECT_PC_FRAME("EXEC_GET_ALL_SELECTED_ITEM", "SelectCharacterToGetItem", true);
 end
 
 function SCROLL_POSTBOX_GBOX(parent, ctrl, str, wheel)
@@ -323,6 +339,11 @@ function UPDATE_POSTBOX_LETTERS(frame, msg, argStr, argNum)
 	UPDATE_POSTBOX_LETTERS_LIST(gbox_list, false, argNum);
 	local gbox_new = frame:GetChild("gbox_new");
 	UPDATE_POSTBOX_LETTERS_LIST(gbox_new, true, argNum);
+
+
+	local checkAll = GET_CHILD(frame, "checkAll")
+	checkAll:SetCheck(0)
+	POST_BOX_SELECT_ALL_MESSAGE(frame, checkAll)
 
 	frame:Invalidate()
 	
@@ -410,6 +431,7 @@ function SELECT_POSTBOX_ITEM_PC(parent, ctrl)
 
 end
 
+
 function EXEC_SELECT_POSTBOX_ITEM_PC(pcName)
 
 	local selectFrame = ui.GetFrame("postbox_itemget");
@@ -452,10 +474,14 @@ function EXEC_SELECT_POSTBOX_ITEM_PC(pcName)
 		return;
 	end
 
-	barrack.ReqGetPostBoxItem(dbType, letterID, pcInfo:GetCID(), itemIndexs);
+	-- letterID : 우편 인덱스	
+	-- local list = '2744810519658508/2744810519658509/2744810519658499/2744810519658498/2744810519658497'
+	-- barrack.ReqGetPostBoxItemList(dbType, list, pcInfo:GetCID());
+
+	barrack.ReqGetPostBoxItem(dbType, letterID, pcInfo:GetCID(), itemIndexs);	
 end
 
-function EXEC_SELECT_POSTBOX_ITEM_PC_AFTER_TEAM_TRADE_CHECK(dbType, letterID, pcCID, itemIndexs)
+function EXEC_SELECT_POSTBOX_ITEM_PC_AFTER_TEAM_TRADE_CHECK(dbType, letterID, pcCID, itemIndexs)	
 	barrack.ReqGetPostBoxItem(dbType, letterID, pcCID, itemIndexs);
 end
 
@@ -482,7 +508,7 @@ function POSTBOX_DELETE(parent, ctrl)
 end
 
 function EXEC_DELETE_POSTBOX(id, state, dbType)
-	imcSound.PlaySoundEvent("system_latter_delete");
+	imcSound.PlaySoundEvent("system_latter_delete");	
 	barrack.ReqChangePostBoxState(dbType, id, state);	
 end
 
@@ -600,3 +626,145 @@ function POST_BOX_DETAIL_RESULT()
 	-- 우편 아이콘 상태 업데이트 예약.
 	RESERVE_POST_BOX_STATE_UPDATE();
 end
+
+
+function POST_BOX_SELECT_ALL_MESSAGE(frame, self)
+	local gboxList = GET_CHILD(frame, "gbox_list")
+	local drawindex = gboxList:GetChildCount() - 1
+	local isChecked = self:IsChecked()
+	local checkCnt = 0
+
+	for i = 0, drawindex do
+		local ctrlSet = GET_CHILD(gboxList, "ITEM_"..i)
+
+		if ctrlSet ~= nil then
+			local check = GET_CHILD(ctrlSet, "check")
+
+			if check:IsVisible() == 1 then
+				local letterid = ctrlSet:GetUserValue("LETTER_ID");
+				local msgInfo = session.postBox.GetMessageByID(letterid);
+				if msgInfo ~= nil then
+					if msgInfo:GetItemCount() == 1 then
+						if msgInfo:GetItemTakeCount() == 0 then
+							check:SetCheck(isChecked)
+							checkCnt = checkCnt + 1
+						end
+						if checkCnt == POSTBOX_MAX_CHECK then
+							return
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
+local selectList = {'',''}
+function EXEC_GET_ALL_SELECTED_ITEM(pcName)
+	local selectFrame = ui.GetFrame("postbox_itemget");
+	selectFrame:ShowWindow(0);
+
+	local frame = ui.GetFrame("postbox");
+	if frame == nil then
+		return;
+	end
+	local gboxList = GET_CHILD(frame, "gbox_list")
+	local drawindex = gboxList:GetChildCount() - 1
+	local accountInfo = session.barrack.GetMyAccount();
+	local pcInfo = accountInfo:GetByPCName(pcName);
+	local noTeamTradeItem = 0;
+	local type1 = 0
+	local type2 = 1
+	selectList = {'',''}
+
+	for i = 0, drawindex do
+		local ctrlSet = GET_CHILD(gboxList, "ITEM_"..i)
+
+		if ctrlSet ~= nil then
+			local check = GET_CHILD(ctrlSet, "check")
+			if check:IsVisible() == 1 and check:IsChecked() == 1 then
+				local letterid = ctrlSet:GetUserValue("LETTER_ID");
+				local dbType = ctrlSet:GetUserValue("DB_TYPE");
+				
+				local msgInfo = session.postBox.GetMessageByID(letterid);
+				if msgInfo ~= nil then
+					if msgInfo:GetItemCount() > 0 then
+						if msgInfo:GetItemTakeCount() == 0 then
+							if selectList[dbType+1] == '' then
+								selectList[dbType+1] = letterid
+							else
+								selectList[dbType+1] = selectList[dbType+1]..'/'..letterid
+							end
+
+							for j = 0, 200 do
+								local itemInfo = msgInfo:GetItemByIndex(j);
+								if itemInfo == nil then
+									break
+								end
+								local itemCls = GetClassByType("Item", itemInfo.itemType);
+								if itemCls == nil then
+									break
+								end
+								local teamTradeProp = TryGetProp(itemCls, 'TeamTrade');
+						if teamTradeProp ~= 'YES' then
+									noTeamTradeItem = noTeamTradeItem + 1;
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	
+	if #selectList[type1+1] == 0 and #selectList[type2+1] == 0 then
+		ui.SysMsg(ClMsg("ThereIsNoSelectedMessage"))
+	end
+	
+	if noTeamTradeItem > 0 then
+		local yesScp = string.format("EXEC_GET_ALL_SELECTED_ITEM_AFTER_TEAM_TRADE_CHECK(\"%s\")", pcInfo:GetCID());
+		ui.MsgBox(ScpArgMsg("ReallyGiveItemTo{PC}NoTeamTradeItem", "PC", pcName, "ItemCount", noTeamTradeItem), yesScp, "None");
+		return;
+	end
+
+	if #selectList[type1+1] > 0 then
+		barrack.ReqGetPostBoxItemList(type1, selectList[type1+1], pcInfo:GetCID());
+	end
+	if #selectList[type2+1] > 0 then
+		barrack.ReqGetPostBoxItemList(type2, selectList[type2+1], pcInfo:GetCID());
+	end
+end
+
+function EXEC_GET_ALL_SELECTED_ITEM_AFTER_TEAM_TRADE_CHECK(cid)
+	local type1 = 0
+	local type2 = 1
+	if #selectList[type1+1] > 0 then
+		barrack.ReqGetPostBoxItemList(type1, selectList[type1+1], cid);
+	end
+	if #selectList[type2+1] > 0 then
+		barrack.ReqGetPostBoxItemList(type2, selectList[type2+1], cid);
+	end
+end
+
+function POST_BOX_SELECT_MESSAGE(parent, self)
+	if self:IsChecked() == 0 then
+		local frame = parent:GetTopParentFrame()
+		local checkAll = GET_CHILD(frame, "checkAll")
+		checkAll:SetCheck(0)
+	else
+		local letterid = parent:GetUserValue("LETTER_ID");
+		local msgInfo = session.postBox.GetMessageByID(letterid);
+		if msgInfo ~= nil then
+			if msgInfo:GetItemCount() > 0 then
+                                if msgInfo:GetItemTakeCount() > 0 then
+					ui.SysMsg(ClMsg("CanNotSelectMessage"))
+					self:SetCheck(0)
+				end
+			else
+				ui.SysMsg(ClMsg("MessageNotHaveItem"))
+				self:SetCheck(0)
+			end
+		end
+	end
+end
+

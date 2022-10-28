@@ -114,7 +114,11 @@ function GODPROTECTION_ITME_LIST_INIT(frame)
 				local count = 1
 				if cls ~= nil then
 					local class_name = TryGetProp(cls, 'ClassName', 'None')
-					local cls_count = GetClass('fieldboss_worldevent_reward_count', class_name)					
+					local id_space = 'fieldboss_worldevent_reward_count'
+					if IS_SEASON_SERVER() == 'YES' then
+						id_space = 'fieldboss_worldevent_reward_count_season'
+					end
+					local cls_count = GetClass(id_space, class_name)					
 					if cls_count ~= nil then
 						count = TryGetProp(cls_count, 'Count', 1)		
 					end	

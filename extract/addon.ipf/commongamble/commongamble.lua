@@ -166,7 +166,7 @@ function COMMON_GAMBLE_INIT(frame, gamble_type)
 
 
 	-- 확률 데이터 가져온다
-	local RatioCls = TryGetProp(GetClassByType('gamble_prop_list', 1), 'RewardItemProp', 'None')
+	local RatioCls = TryGetProp(GetClassByType('gamble_prop_list', gamble_type), 'RewardItemProp', 'None')
 	if RatioCls == 'None' then
 		return
 	end
@@ -267,7 +267,7 @@ function COMMON_GAMBLE_OK_BTN_CLICK(parent, ctrl, argStr, gamble_type)
 	ui.SetHoldUI(true);
 
 	local multiple_count = COMMON_GAMBLE_GET_MULTIPLE_COUNT()
-	local coupon_guid = COMMON_GAMBLE_GET_COUPON_GUID()
+	local coupon_guid = COMMON_GAMBLE_GET_COUPON_GUID()	
     common_gamble.RequestCommonGamble(gamble_type, multiple_count, coupon_guid)
 	COMMON_GAMBLE_OK_BTN_EFFECT(frame);
 	

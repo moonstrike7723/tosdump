@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ActionDesc>
+    <Sound frame="10.00" soundFile="arw_blow_stone1"/>
+    <Sound frame="12.00" soundFile="mon_voice_mushwort_3"/>
+    <Sound frame="22.66" soundFile="hand_blow_stone"/>
+    <Sound frame="32.00" soundFile="mon_voice_mushwort_5"/>
+    <Sound frame="40.78" soundFile="blunt_blow_stone"/>
+    <Sound frame="54.88" soundFile="stone_soar"/>
+    <Sound frame="62.00" soundFile="mon_voice_helgasercle_2"/>
+    <Sound frame="65.00" soundFile="mon_voice_mushwort_2"/>
+</ActionDesc>

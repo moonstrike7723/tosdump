@@ -12,6 +12,7 @@ local MARKET_OPTION_GROUP_PROP_LIST = {
 		"ADD_HR",
 		"ADD_DR",
 		"CRTHR",
+		"CRTDR",
 		"MHP",
 		"MSP",
 		"MSTA",
@@ -38,7 +39,14 @@ local MARKET_OPTION_GROUP_PROP_LIST = {
 		"Leather_Def",
 		"Iron_Def",
 		"MiddleSize_Def",
-		"ResAdd_Damage"
+		"ResAdd_Damage",		
+		"stun_res",
+		"high_fire_res",
+		"high_freezing_res",
+		"high_lighting_res",
+		"high_poison_res",
+		"high_laceration_res",
+		"portion_expansion",
 	},
     MARKET_ATK = {
 		"PATK",
@@ -66,7 +74,11 @@ local MARKET_OPTION_GROUP_PROP_LIST = {
 		"ADD_HOLY",
 		"ADD_DARK",
 		"Add_Damage_Atk",
-		"ADD_BOSS_ATK"
+		"ADD_BOSS_ATK",
+		"AllMaterialType_Atk",		
+		"AllRace_Atk",
+		"perfection",
+		"revenge"
 	},
     ETC = {
 		"SR",
@@ -102,7 +114,7 @@ local MARKET_OPTION_GROUP_PROP_LIST = {
 		"ice_orb",
 		"gravitation_spear",
 		"carnage_scythe",
-		"ice_arrow"
+		"ice_arrow"		
 	}
 };
 
@@ -120,7 +132,8 @@ local MARKET_ITEM_COUNT_PER_PAGE = {
 	HairAcc = 7,
 	RecipeMaterial = 7,
 	Recipe_Detail = 3,    
-    OPTMisc = 7,    
+	OPTMisc = 7,    
+	Gem = 7,
 	Default = 11
 };
 
