@@ -174,6 +174,12 @@
 			<Class ClassID="10000490" ClassName="Event_Stone_500_34" CT_ExpireDateTime="2021-11-30 00:00"/>
 			<Class ClassID="10000491" ClassName="Multiple_Token_MythicAuto_Event_34" CT_ExpireDateTime="2021-11-30 00:00"/>
 			<Class ClassID="10000492" ClassName="Event_Ability_Point_Stone_10000_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000516" ClassName="Event_Ability_Point_Stone_10000_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10000517" ClassName="Event_Goddess_Statue_Team_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10000518" ClassName="Event_Adventure_Reward_Seed_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10000519" ClassName="Multiple_Token_MythicHARD_Event38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10000555" ClassName="Event_dungeoncount_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10000556" ClassName="Event_indunReset_Team_38" CT_ExpireDateTime="2022-01-18 00:00"/>
 		</Category>
 		<Category Name="Evnet_Item">
 			<Class ClassID="10003057" ClassName="Event_2004_Stamp_All_Clear_2" CT_ExpireDateTime="2020-11-17 00:00:00"/>
@@ -338,6 +344,9 @@
 			<Class ClassID="10010131" ClassName="misc_Engrave_460_NoTrade_Event_34" CT_ExpireDateTime="2021-11-30 00:00"/>
 			<Class ClassID="10010132" ClassName="Moru_Ruby_event_35" CT_ExpireDateTime="2021-11-30 00:00"/>
 			<Class ClassID="10010133" ClassName="Moru_Event_Gold_35" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10010141" ClassName="misc_reinforce_percentUp_460_Event_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10010142" ClassName="misc_Enchant_460_Event_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10010143" ClassName="misc_Engrave_460_NoTrade_Event_38" CT_ExpireDateTime="2022-01-18 00:00"/>
 		</Category>
 		<Category Name="Event_Item_item_premium">
 			<Class ClassID="10600010" ClassName="Event_Sandra_Glass_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
@@ -424,6 +433,9 @@
 			<Class ClassID="10600188" ClassName="Premium_Sandra_Glass_34" CT_ExpireDateTime="2021-11-30 00:00"/>
 			<Class ClassID="10600189" ClassName="Premium_Sandra_Glass_1line_34" CT_ExpireDateTime="2021-11-30 00:00"/>
 			<Class ClassID="10600190" ClassName="Ticket_Vasilissa_Party_Enter_NoTrade_Event35" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10600199" ClassName="Ticket_Vasilissa_Party_Enter_NoTrade_Event38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10600200" ClassName="Premium_Sandra_Glass_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10600201" ClassName="Premium_Sandra_Glass_1line_38" CT_ExpireDateTime="2022-01-18 00:00"/>
 		</Category>
 	</Category>
 </idspace>

@@ -6310,4 +6310,20 @@
 			<richtext name="disableText" rect="0 0 300 30" margin="0 0 50 0" layout_gravity="right center" caption="권한 없음" fontname="white_16_b_ol"/>
 		</controls>
 	</controlset>
+	<controlset name="event_stamp_tour_mission_block_christmas" hittest="true" width="541" height="260" stateskin="false">
+		<controls>
+			<picture name="bg" rect="0 0 541 250" margin="0 0 0 0" layout_gravity="center center" image="christmas_mission_list" stretch="true" draw="true" hittest="false"/>
+			<richtext name="levet_text" rect="0 0 150 20" margin="0 20 0 0" layout_gravity="center top" fontname="white_18_ol" format="%s" param1="value" param1_def="난이도" hittest="false"/>
+			<richtext name="desc" rect="0 0 450 40" margin="0 50 0 0" layout_gravity="center top" format="{@st66b}{s16}%s" param1="value" param1_def="미션 내용" resizebytext="true" textalign="center center" hittest="false" fixwidth="true"/>
+			<gauge name="gauge" rect="0 0 433 19" margin="0 90 0 0" layout_gravity="center top" skin="christmas_mission_gauge" text1="%v/%m" textoffset1="0 0" textfont1="white_14_ol" textalign1="center top" inverse="false" hittest="false"/>
+			<richtext name="reward" rect="0 0 0 0" margin="0 0 0 0" layout_gravity="left top" caption="" hittest="false"/>
+			<groupbox name="reward_bg" rect="0 0 440 85" margin="0 115 0 0" layout_gravity="center top" scrollbar="false" draw="false" hittest="false"/>
+			<button name="question" rect="0 0 34 34" margin="0 41 4 0" layout_gravity="right top" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" hittest="true" image="testquesten_button" oversound="button_over" LBtnUpScp="ON_EVENT_STAMP_TOUR_HELP_CLICK"/>
+			<button name="go_btn" rect="0 0 124 45" margin="0 200 0 0" layout_gravity="center top" LBtnUpScp="ON_EVENT_STAMP_TOUR_GO_BUTTON_CLICK" image="christmas_shortcut_btn" caption="바로가기" fontname="white_16_ol" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" oversound="button_cursor_over_2" clicksound="button_click_stats_OK"/>
+			<picture name="check_bg" rect="0 0 531 239" margin="0 0 0 0" layout_gravity="center center" image="christmas_mission_list_select" stretch="true" draw="false" hittest="false"/>
+			<picture name="clear_bg" rect="0 0 541 250" margin="0 0 0 0" layout_gravity="center center" image="christmas_mission_list_shadow" stretch="true" draw="false" hittest="false"/>
+			<picture name="clear_Pic" rect="0 0 161 161" margin="0 0 20 15" layout_gravity="left bottom" image="christmas_mission_list_stamp" stretch="true" hittest="false"/>
+			<picture name="comingsoon_Pic" rect="0 0 474 114" margin="0 0 0 0" layout_gravity="center center" image="coming_soon_notice" stretch="true" hittest="false"/>
+		</controls>
+	</controlset>
 </controlsetlist>

@@ -1,7 +1,7 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202112,70000,202112,120000,202201,40000,202112,310000,0,0,inGame_E1,[Special] 2021 Winter Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2428,,,,
-999902,202111,300000,202112,50000,202112,140000,202112,90000,0,0,inGame_E2,Leticia's Secret Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2425,,,,
-999903,202111,230000,202111,280000,202112,140000,202112,90000,0,0,inGame_E3,Gold Fishing,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2417,,,,
-999904,202111,170000,202111,220000,202112,140000,202112,90000,0,0,inGame_E4,Demon God's Temptation,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2410,,,,
+999901,202112,140000,202112,190000,202112,280000,202112,230000,0,0,inGame_E1,Goddess' Blessed Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2434,,,,
+999902,202112,70000,202112,120000,202201,40000,202112,310000,0,0,inGame_E2,[Special] 2021 Winter Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2428,,,,
+999903,202112,140000,202112,190000,202201,110000,202201,60000,0,0,inGame_E3,Christmas Stamp Tour Event,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2433,,,,
+999904,202112,150000,202112,200000,202201,110000,202201,60000,0,0,inGame_E4,Demon God's Temptation,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2435,,,,
 999905,202101,60000,202101,110000,203012,310000,203012,260000,0,0,inGame_E5,Item Restore Policy,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2151,time_del,,,Normal
 999906,202105,280000,202106,20000,203106,270000,203106,220000,0,0,inGame_E6,Weekend Burning,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2424,time_del,,,

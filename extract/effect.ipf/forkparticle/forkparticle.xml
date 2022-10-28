@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
 <ForkParticle>
+	<Particle name="F_pc_effectitem_muscle" file="F_pc_effectitem_muscle" time="0" scale="5" sound="None" fadeSound="FALSE" looptime="0.00" sounddelay="0.00" paused="NO" rotate="NO" attach="YES" render="NORMAL" color="255;255;255;255" is2D="FALSE" softParticleFactor="20" useReverse="FALSE" preScale="1.0" preScaleXYZ="" useAttach="FALSE" attachNodeName="None"/>
 	<Particle name="F_burstup059_blue" file="F_burstup059_blue" time="2" scale="5" sound="None" fadeSound="FALSE" looptime="1.8" sounddelay="0.0" paused="NO" rotate="NO" attach="NO" render="NORMAL" color="255;255;255;255" is2D="FALSE" softParticleFactor="30" useReverse="FALSE" preScale="1.0" preScaleXYZ="" useAttach="FALSE" attachNodeName="None"/>
 	<Particle name="F_smoke203_dark_loop" file="F_smoke203_dark_loop" time="0" scale="5" sound="None" fadeSound="FALSE" looptime="1.8" sounddelay="0.0" paused="NO" rotate="NO" attach="NO" render="NORMAL" color="255;255;255;255" is2D="FALSE" softParticleFactor="30" useReverse="FALSE" preScale="1.0" preScaleXYZ="" useAttach="FALSE" attachNodeName="None"/>
 	<Particle name="F_explosion138_red" file="F_explosion138_red" time="2" scale="5" sound="None" fadeSound="FALSE" looptime="1.8" sounddelay="0.0" paused="NO" rotate="NO" attach="NO" render="NORMAL" color="255;255;255;255" is2D="FALSE" softParticleFactor="30" useReverse="FALSE" preScale="1.0" preScaleXYZ="" useAttach="FALSE" attachNodeName="None"/>
