@@ -1,20 +1,18 @@
 function SCR_LETICIA_CUBE_DIALOG(self, pc)
 	local select = ShowSelDlg(pc, 0, CLMSG_DIALOG_CONVERT(self,ScpArgMsg("GLOBAL_LETICIA_GACHA1")),
-								ScpArgMsg("BuyCube"), ScpArgMsg("GetBonusReward"), ScpArgMsg("Cancel"))
+								ScpArgMsg("GetBonusReward"), ScpArgMsg("Cancel"))
+	-- if select == 1 then
+	-- 	SetExArgObject(pc, "CUBE_OBJET", self)
+	-- 	ExecClientScp(pc, 'LETICIA_CUBE_OPEN()');
 	if select == 1 then
-		SetExArgObject(pc, "CUBE_OBJET", self)
-		ExecClientScp(pc, 'LETICIA_CUBE_OPEN()');
-	elseif select == 2 then
 		SCR_GACHA_BOUNS_DIALOG(self, pc)
 	end
 end
 
 function SCR_LETICIA_CUBE_AI_BORN(self)
-	local nowtime = SCR_PRECHECK_LETICIA_Time()
+	--회차보상때문에 npc는 항상 띄워두도록 수정. 여큡/레티샤 모두 진행하지 않을때는 NO로 바꿔주어야함
+	local nowtime = "YES"
 	if nowtime == "YES" then
-		if IS_SEASON_SERVER() == "YES" then
-			return
-		end
 		local zoneInstID = GetZoneInstID(self);
 		local x, y, z = GetPos(self)
 		if IsValidPos(zoneInstID, x, y, z) == 'YES' then
@@ -30,20 +28,16 @@ function SCR_LETICIA_CUBE_AI_BORN(self)
  
  function SCR_LETICIA_CUBE_AI_UPDATE(self)
 	local creMon = GetTacticsArgObject(self)
-	local nowtime = SCR_PRECHECK_LETICIA_Time()
+	--회차보상때문에 npc는 항상 띄워두도록 수정. 여큡/레티샤 모두 진행하지 않을때는 NO로 바꿔주어야함
+	local nowtime = "YES"
 	if creMon ~= nil then
-		if IS_SEASON_SERVER() == "YES" then
-			Kill(creMon)
-		elseif nowtime == "YES" then
+		if nowtime == "YES" then
 			return
 		elseif nowtime == "NO" then
 			Kill(creMon)
 		end
 	else
 		if nowtime == "YES" then
-			if IS_SEASON_SERVER() == "YES" then
-				return
-			end
 			local zoneInstID = GetZoneInstID(self);
 			local x, y, z = GetPos(self)
 			if IsValidPos(zoneInstID, x, y, z) == 'YES' then

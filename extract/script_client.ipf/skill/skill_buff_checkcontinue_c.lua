@@ -34,3 +34,44 @@ function SCR_BUFF_C_CHECKCONTINUE_EP12TACTICAL_EFFECT02_PRE(handle, type)
 
     return 1;
 end
+-- 끼룩끼룩 갈매기
+function SCR_BUFF_C_CHECKCONTINUE_ITEM_EP12FLYINGSEAGULL_EFFECT_PRE(handle, type)
+    local actor = world.GetActor(handle);
+    if actor == nil then
+        return 0;
+    end
+
+    if session.colonywar.GetIsColonyWarMap() == true and config.GetShowGuildInColonyEffectCostume() == 0 then
+        return 0;
+    end
+
+    if type == "Stand" and actor:GetEquipItemFlagProp("EFFECTCOSTUME") == 0 then
+        effect.AddActorEffectByOffset(actor, "I_pc_effectitem_flyingseagull", 1.35, "BOT", true);
+        actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
+    elseif type == "Move" then
+        effect.DetachActorEffect(actor, "I_pc_effectitem_flyingseagull", 0);
+        actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
+    end
+
+    return 1;
+end-- 주변을 맴도는 상어
+function SCR_BUFF_C_CHECKCONTINUE_ITEM_EP12TWINSHARK_EFFECT_PRE(handle, type)
+    local actor = world.GetActor(handle);
+    if actor == nil then
+        return 0;
+    end
+
+    if session.colonywar.GetIsColonyWarMap() == true and config.GetShowGuildInColonyEffectCostume() == 0 then
+        return 0;
+    end
+
+    if type == "Stand" and actor:GetEquipItemFlagProp("EFFECTCOSTUME") == 0 then
+        effect.AddActorEffectByOffset(actor, "E_effect_twinshark", 1.35, "BOT", true);
+        actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
+    elseif type == "Move" then
+        effect.DetachActorEffect(actor, "E_effect_twinshark", 0);
+        actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
+    end
+
+    return 1;
+end

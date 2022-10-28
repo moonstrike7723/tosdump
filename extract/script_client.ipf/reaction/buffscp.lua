@@ -1386,4 +1386,26 @@ end
 function EP12TACTICAL_EFFECT02_PRE_LEAVE(actor, obj, buff)
     effect.DetachActorEffect(actor, "I_policeline001_mesh", 0);
     actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
+end-- 끼룩끼룩 갈매기 떼
+function ITEM_EP12FLYINGSEAGULL_EFFECT_PRE_ENTER(actor, obj, buff)
+    effect.AddActorEffectByOffset(actor, "I_pc_effectitem_flyingseagull", 1.35, "BOT", true);
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
 end
+
+function ITEM_EP12FLYINGSEAGULL_EFFECT_PRE_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "I_pc_effectitem_flyingseagull", 0);
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
+end
+
+-- 주변을 맴도는 상어 떼
+function ITEM_EP12TWINSHARK_EFFECT_PRE_ENTER(actor, obj, buff)
+    effect.AddActorEffectByOffset(actor, "E_effect_twinshark", 1.35, "BOT", true);
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
+end
+
+function ITEM_EP12TWINSHARK_EFFECT_PRE_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "E_effect_twinshark", 0);
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
+end
+
+    

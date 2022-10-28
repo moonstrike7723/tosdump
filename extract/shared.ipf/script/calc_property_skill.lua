@@ -541,11 +541,14 @@ function SCR_GET_SKL_COOLDOWN(skill)
         else
             jobHistory = GetMyJobHistoryString();
         end
-        
-        local jobList = {"Char4_7", "Char4_18", "Char4_8", "Char4_15", "Char4_10", "Char4_2", "Char4_14"} 
+
+        local curJobHistory = StringSplit(jobHistory, ";")
+        local jobList = {"Char4_7", "Char4_18", "Char4_8", "Char4_15", "Char4_10", "Char4_2", "Char4_14"}
         for i = 1, #jobList do
-            if jobHistory ~= nil and string.find(jobHistory, jobList[i]) ~= nil then
-                basicCoolDown = basicCoolDown - 3000
+            for j = 1, #curJobHistory do
+                if jobHistory ~= nil and jobList[i] == curJobHistory[j] then
+                    basicCoolDown = basicCoolDown - 3000
+                end
             end
         end
 
