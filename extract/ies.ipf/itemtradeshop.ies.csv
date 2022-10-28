@@ -542,7 +542,7 @@ ClassID,Arg1,Arg2,RecipeTime,SuccessRatio,LevelByFail,TargetItemCnt,Item_1_1_Cnt
 7218,5,0,8,0,0,1,50,0,0,0,0,0,0,0,0,0,0,EVENT_YOUR_MASTER_Shop2008_19,EVENT_YOUR_MASTER_Shop2008,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,EVENT_SECOND_CHALLENG_5,,EVENT_YOUR_MASTER_SHOP19,Event_2008_Master_Badge,,,,,
 7219,5,0,8,0,0,1,150,0,0,0,0,0,0,0,0,0,0,EVENT_YOUR_MASTER_Shop2008_20,EVENT_YOUR_MASTER_Shop2008,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,event_Unique_Enchant_Jewel_450,,EVENT_YOUR_MASTER_SHOP20,Event_2008_Master_Badge,,,,,
 7220,5,0,8,0,0,1,50,0,0,0,0,0,0,0,0,0,0,EVENT_YOUR_MASTER_Shop2008_21,EVENT_YOUR_MASTER_Shop2008,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,RestartCristal,,EVENT_YOUR_MASTER_SHOP21,Event_2008_Master_Badge,,,,,
-7401,5,0,8,0,0,1,2000,0,0,0,0,0,0,0,0,0,0,Halloween2010_1,Halloween2010,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,EVENT_2010_Halloween_Costume_Ticket,,EVENT_2010_HALLOWEEN01,misc_EVENT_2010_Halloween,,,,,
+7401,5,0,8,0,0,1,1000,0,0,0,0,0,0,0,0,0,0,Halloween2010_1,Halloween2010,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,EVENT_2010_Halloween_Costume_Ticket,,EVENT_2010_HALLOWEEN01,misc_EVENT_2010_Halloween,,,,,
 7402,5,0,8,0,0,1,100,0,0,0,0,0,0,0,0,0,0,Halloween2010_2,Halloween2010,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,Event_ChallengeModeReset_200,,EVENT_2010_HALLOWEEN02,misc_EVENT_2010_Halloween,,,,,
 7403,5,0,8,0,0,1,30,0,0,0,0,0,0,0,0,0,0,Halloween2010_3,Halloween2010,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,Event_Enchantchip_200,,EVENT_2010_HALLOWEEN03,misc_EVENT_2010_Halloween,,,,,
 7404,5,0,8,0,0,1,50,0,0,0,0,0,0,0,0,0,0,Halloween2010_4,Halloween2010,Recipe,,Drag,Action,Drag,Drag,,,,CRAFT,Event_Ability_Point_Stone_1000_200,,EVENT_2010_HALLOWEEN04,misc_EVENT_2010_Halloween,,,,,
