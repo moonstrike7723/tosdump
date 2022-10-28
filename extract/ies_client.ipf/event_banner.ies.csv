@@ -1,7 +1,7 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3
-999901,202007,140000,202007,190000,202010,130000,202010,80000,0,0,inGame_E1,SteamGuard Guide,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2042,,,
-999902,202007,140000,202007,190000,202007,280000,202007,230000,0,0,inGame_E2,Leticia's Secret Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2043,,,
-999903,202007,70000,202007,120000,202008,40000,202007,300000,0,0,inGame_E3,Summer Festa,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2039,,,
-999904,202006,230000,202006,280000,202007,210000,202007,160000,0,0,inGame_E4,Great Boost Pacakge,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2028,,,
+999901,202007,210000,202007,260000,202008,110000,202008,60000,0,0,inGame_E1,Flight Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2047,,,
+999902,202007,140000,202007,190000,202010,130000,202010,80000,0,0,inGame_E2,SteamGuard Guide,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2042,,,
+999903,202007,140000,202007,190000,202007,280000,202007,230000,0,0,inGame_E3,Leticia's Secret Cube,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2043,,,
+999904,202007,70000,202007,120000,202008,40000,202007,300000,0,0,inGame_E4,Summer Festa,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2039,,,
 999905,202006,160000,202006,210000,202007,70000,202007,20000,0,0,inGame_E5,Stamp Tour,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2020,,,
 999906,202003,310000,202004,50000,202011,120000,202011,70000,0,0,inGame_E6,WeekEnd Burning Event,inGame_E6,"https://treeofsavior.com/page/news/view.php?n=2015 ",,,
