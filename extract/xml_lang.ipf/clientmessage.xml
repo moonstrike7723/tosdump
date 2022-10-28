@@ -14793,6 +14793,17 @@
 		<Class ClassID="302298" ClassName="Event_Flex_box_Daily_Open_Max_Count_Over" Data="개봉 가능 횟수를 모두 이용하셨습니다."/>
 		<Class ClassID="302305" ClassName="EVENT_2101_NEW_YEAR_JPN_MSG1" Data="신년 소원을 빌고있습니다."/>
 		<Class ClassID="302306" ClassName="EVENT_2101_NEW_YEAR_JPN_MSG2" Data="좋은 기운이 가득합니다."/>
+		<Class ClassID="302327" ClassName="EVENT_2102_REPAIR_MSG1" Data="{#003399}[여신상]{/}이벤트 안내"/>
+		<Class ClassID="302328" ClassName="EVENT_2102_REPAIR_MSG2" Data="{#003399}[여신상]{/}이벤트 상점"/>
+		<Class ClassID="302329" ClassName="EVENT_2102_REPAIR_MSG3" Data="{#003399}[여신상]{/}여신상 수리"/>
+		<Class ClassID="302330" ClassName="EVENT_2102_REPAIR_MSG4" Data="{#003399}[여신상]{/}이벤트 상점 이용하기"/>
+		<Class ClassID="302331" ClassName="EVENT_2102_REPAIR_MSG5" Data="조심스레 여신상을 수리합니다."/>
+		<Class ClassID="302332" ClassName="EVENT_2102_REPAIR_MSG6" Data="여신상에서 신성한 기운이 흘러들어옵니다."/>
+		<Class ClassID="302333" ClassName="EVENT_2102_REPAIR_MSG7" Data="{#FF0000}[이벤트] 여신상 수리키트가 부족합니다.{/}"/>
+		<Class ClassID="302334" ClassName="EVENT_2102_REPAIR_SHOP" Data="{#003399}[여신상]{/} 이벤트 상점"/>
+		<Class ClassID="302335" ClassName="EVENT_2102_REPAIR_MSG8" Data="여신상을 수리한다."/>
+		<Class ClassID="302336" ClassName="EVENT_2102_REPAIR_MSG9" Data="{#FF0000}오늘은 이미 여신상을 수리하셨습니다.{nl}일일 제한은 매일 오전 6시에 초기화됩니다.{/}"/>
+		<Class ClassID="302337" ClassName="Event_2102_REPAIRKIT_CHECK_MESSAGE{DAY}" Data="{#003399}딥디르비와 여신상 이벤트{/}{nl}[이벤트] 여신상 수리키트 획득량 ({DAY}/500){nl}{#ff0000}※일일 제한은 매일 오전 06시 초기화 됩니다.{/}"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>

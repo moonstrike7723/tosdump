@@ -5777,8 +5777,8 @@
 		<controls>
 			<button name="button" layout_gravity="center center" skin="test_skin_01_btn" rect="0 0 460 55" margin="0 0 0 0"/>
 			<slot name="slot" layout_gravity="left center" skin="slot_empty" rect="0 0 42 42" margin="7 -1 0 0" hittest="true"/>
-			<richtext name="item_name" rect="0 0 400 42" margin="53 7 0 0" layout_gravity="left top" fixwidth="true" hittest="false" fontname="white_14_b_ds"/>
-			<richtext name="item_price" rect="0 0 400 42" margin="54 0 0 7" layout_gravity="left bottom" fixwidth="true" hittest="false" fontname="white_14_b_ds"/>
+			<richtext name="item_name" rect="0 0 250 42" margin="53 7 0 0" layout_gravity="left top" fixwidth="true" hittest="false" fontname="white_14_b_ds" omitbywidth="true"/>
+			<richtext name="item_price" rect="0 0 250 42" margin="54 0 0 7" layout_gravity="left bottom" fixwidth="true" hittest="false" fontname="white_14_b_ds"/>
 			<richtext name="item_limit" rect="0 0 100 42" margin="120 0 0 0" layout_gravity="center center" fixwidth="true" hittest="false" fontname="white_14_b_ds"/>
 			<picture name="reputation_img" rect="0 0 40 31" margin="0 0 8 0" layout_gravity="right center" stretch="true" hittest="false" image="reputation01"/>
 			<picture name="reputation_lock" rect="0 0 30 38" margin="0 0 0 0" layout_gravity="center center" stretch="true" hittest="true" image="relabeling_lock"/>

@@ -3159,7 +3159,7 @@
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="CallOfDemon/1/CallOfDemon/0"/>
-                                <Str Str="SCR_AUTO_GILTINE_CALL_OF_THE_DEMON_START"/>
+                                <Str Str="SCR_GILTINE_CALL_OF_THE_DEMON_START"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="call_of_the_demon_exec"/>
@@ -3207,7 +3207,7 @@
                         <execList>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Boss_Giltine/0"/>
-                                <Str Str="SCR_AUTO_GILTINE_CALL_OF_THE_DEMON_NOTICE_MSG"/>
+                                <Str Str="SCR_GILTINE_CALL_OF_THE_DEMON_NOTICE_MSG"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -3234,7 +3234,7 @@
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="CallOfDemon/0/CallOfDemon/1"/>
-                                <Str Str="SCR_AUTO_GILTINE_CALL_OF_THE_DEMON_START"/>
+                                <Str Str="SCR_GILTINE_CALL_OF_THE_DEMON_START"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="call_of_the_demon_exec"/>
@@ -3265,7 +3265,7 @@
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="CallOfDemon/1/CallOfDemon/0"/>
-                                <Str Str="SCR_AUTO_GILTINE_CALL_OF_THE_DEMON_START"/>
+                                <Str Str="SCR_GILTINE_CALL_OF_THE_DEMON_START"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="call_of_the_demon_exec"/>
@@ -3291,7 +3291,7 @@
                         <execList>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Boss_Giltine/1"/>
-                                <Str Str="SCR_AUTO_GILTINE_CALL_OF_THE_DEMON_NOTICE_MSG"/>
+                                <Str Str="SCR_GILTINE_CALL_OF_THE_DEMON_NOTICE_MSG"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -3313,7 +3313,7 @@
                         <execList>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Boss_Giltine/1"/>
-                                <Str Str="SCR_AUTO_GILTINE_CALL_OF_THE_DEMON_NOTICE_MSG"/>
+                                <Str Str="SCR_GILTINE_CALL_OF_THE_DEMON_NOTICE_MSG"/>
                             </ToolScp>
                         </execList>
                     </Event>

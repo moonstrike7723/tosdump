@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
 <EmitterList>
+	<battle name="E_pc_effectitem_RotateLeaf" filename="E_pc_effectitem_RotateLeaf" loop="true" nodecount="2" xml="E_pc_effectitem_RotateLeaf.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
 	<battle name="E_Mythic_Bleeding" filename="E_Mythic_Bleeding" loop="false" nodecount="27" xml="E_Mythic_Bleeding.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
 	<battle name="E_giltine_raidprank1" filename="E_arquebus001" loop="false" nodecount="13" xml="E_giltine_raidprank1.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
 	<battle name="E_raid_giltine_skl5" filename="E_raid_giltine_skl5" loop="false" nodecount="5" xml="E_raid_giltine_skl5.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>

@@ -80,4 +80,6 @@ ClassID,GenType,Lv,Range,GenRange,RespawnTime,MaxPop,Minimap,Hide,UseAIOufOfPC,A
 5258,10095,1,40,1,1,1,2,0,0,0,0,0,npc_huevill_female_1_Ev,[5주년] 특별한 케도라 상인,,,,,,,EVENT_2011_5TH_NPC,,,NO,YES,NO,Neutral,,,,
 5263,5263,1,40,1,1,1,2,0,0,0,0,0,Ev_Npc_baby_marnoks,[신년맞이 이벤트] 말순이,,,,,,,EVENT_2101_NEW_YEAR_NPC,,,NO,YES,NO,Neutral,,,,
 5265,10101,1,40,1,1,1,2,0,0,0,0,0,reputation_Board1,[왕국 재건단] 게시판,,,,,,,REPUTATION_QUEST_BOARD_01,,,NO,YES,NO,Neutral,,,,
+5267,10103,1,40,1,1,1,2,0,0,0,0,0,EVENT_dievdirbys_m,[이벤트]{nl}딥디르비 파견원,,,,,,,EVENT_2102_REPAIR_NPC,,,NO,YES,NO,Neutral,,,,
+5268,10104,1,40,1,1,1,2,0,0,0,0,0,EVENT_goddess_statue,[이벤트]{nl}오래된 여신상,,,,,,EVENT_STATUE_EFFECT,EVENT_2102_STATUE_NPC,,,NO,YES,NO,Neutral,,,,
 10001,50001,1,40,1,60000,1,2,0,0,0,0,0,Board3_Event,이벤트 알림판,,,,,,,STEAM_TREASURE_EVENT,,,NO,YES,NO,Neutral,,,,

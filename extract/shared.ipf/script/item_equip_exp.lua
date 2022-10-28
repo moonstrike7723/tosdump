@@ -154,6 +154,7 @@ function GET_MORE_EVENT_EXP(pc)
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'event_RiceCake_Buff_3'); -- 가레떡 3단계 이벤트 버프
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'event_RiceCake_Buff_4'); -- 가레떡 4단계 이벤트 버프
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'event_RiceCake_Buff_5'); -- 가레떡 5단계 이벤트 버프
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2102_STATUE_BUFF'); -- STM 딥디르비와 여신상 버프
 	if  TryGetProp(pc, 'Lv', 0) < 450 then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'ITEM_BUFF_2020ArborDay_ExpUP'); --2020 근본--
 	end
