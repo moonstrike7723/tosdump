@@ -26,7 +26,7 @@
 	
 	local npc = GetScpObjectList(self, "WEEKEND_REGULAR_EVENT")
 	if #npc == 0 then
-		if weekday == 1 or weekday == 6 or weekday == 7 or tonumber(year..month..day) == 20210422 then --일, 금, 토
+		if weekday == 1 or weekday == 6 or weekday == 7 or tonumber(year..month..day) == 20210516 then --일, 금, 토
 			if tonumber(hour..minute..second) > 0 then
 				local countResetNPC = CREATE_MONSTER_EX(self, 'NPC_GM2', x, y, z, GetDirectionByAngle(self), "Neutral", 1, WEEKEND_REGULAR_BURNING_EVENT_NPC_INFORMATION)
 				AddScpObjectList(self, "WEEKEND_REGULAR_EVENT", countResetNPC)
@@ -47,7 +47,7 @@ function REGULAR_BURNING_EVENT_SUPPORTER_AI(self)
         day = "0"..tostring(day)
     end
 
-     if weekday > 1 and weekday < 6 and tonumber(year..month..day) ~= 20210422 then --월~목
+     if weekday > 1 and weekday < 6 and tonumber(year..month..day) ~= 20210516 then --월~목
         Kill(self)
 		return;
     end
@@ -79,23 +79,26 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 ,{'물리 및 마법 공격력 +500, 물리 및 마법 방어력 +3,000','Event_ATK_and_DEF_UP_BUFF'}
 					 ,{'나무뿌리 수정 파괴 시, 이동 속도 5 증가','Event_RootCrystal_Check_Buff'}
 					 ,{'경험치 50% 증가','Event_Expup_50'}
-					 ,{'통합 포인트 획득량 2배 증가 ','EVENT_CONTENTS_TOTAL_POINT_BOOST'}			 
+					 ,{'통합 포인트 획득량 2배 증가 ','EVENT_CONTENTS_TOTAL_POINT_BOOST'}
+					 ,{'필드 드롭율 50% 증가','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}			 
 					 }
     
     local daycheckbuff = 
-	{{'4','2',{'Event_LootingChance_Add_1000','EVENT_CONTENTS_TOTAL_POINT_BOOST'}}
-	,{'4','3',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
-	,{'4','4',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-	,{'4','9',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
-	,{'4','10',{'Event_Expup_50','Event_healHSP_Speedup'}}
-	,{'4','11',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'4','16',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
-	,{'4','17',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-	,{'4','18',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-	,{'4','22',{'Event_Expup_50','Event_Challenge_Count_Reset'}}
-	,{'4','23',{'Event_Expup_50','Event_Legend_Uphill_Count_Reset'}}
-	,{'4','24',{'Event_Expup_50','Event_Reinforce_Discount_50'}}
-	,{'4','25',{'Event_Expup_50','Event_Reappraisal_Discount_50'}}
+	{{'4','30',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+	,{'5','1',{'Event_LootingChance_Add_1000','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}}
+	,{'5','2',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
+	,{'5','7',{'Event_Expup_50','Event_Reagent_Bottle_Expup_100'}}
+	,{'5','8',{'Event_Expup_50','Event_healHSP_Speedup'}}
+	,{'5','9',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'5','14',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
+	,{'5','15',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+	,{'5','16',{'Event_LootingChance_Add_1000','Event_Challenge_Count_Reset'}}
+	,{'5','21',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
+	,{'5','22',{'Event_Expup_50','Event_Reappraisal_Discount_50'}}
+	,{'5','23',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'5','28',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+	,{'5','29',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+	,{'5','30',{'Event_LootingChance_Add_1000','EVENT_CONTENTS_TOTAL_POINT_BOOST'}}
 		}
 	
 	-- 기본 적용 버프
