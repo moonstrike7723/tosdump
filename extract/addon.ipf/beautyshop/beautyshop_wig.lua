@@ -137,7 +137,7 @@ function WIGSHOP_POST_SELECT_ITEM(frame, ctrl)
 		return 
 	end
 	
-	local slot = BEAUTYSHOP_GET_PREIVEW_SLOT(equipType, itemClassName)
+	local slot = BEAUTYSHOP_GET_PREIVEW_SLOT(equipType)
 	if slot == nil then
 		return
 	end

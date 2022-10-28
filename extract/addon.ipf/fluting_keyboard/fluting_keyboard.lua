@@ -1,3 +1,5 @@
+MAX_FLUTING_KEYBORAD_CNT = 20;
+
 function FLUTING_KEYBOARD_ON_INIT(addon, frame)
 	FLUTING_KEYBOARD_UPDATE_HOTKEYNAME(frame);
 
@@ -5,29 +7,13 @@ function FLUTING_KEYBOARD_ON_INIT(addon, frame)
 	addon:RegisterMsg('FLUTING_KEYBOARD_CLOSE', 'ON_FLUTING_KEYBOARD_CLOSE');
 end
 
-function GET_MIN_FLUTING_KEYBOARD_CNT()
-	return 20;
-end
-
-function GET_MAX_FLUTING_KEYBOARD_CNT()
-	return 30;
-end
-function GET_FLUTING_KEYBOARD_CNT()
-	if IS_ENABLED_PIED_PIPER_FLUTING_OCTAVE_3(GetMyPCObject()) == 1 then
-		return GET_MAX_FLUTING_KEYBOARD_CNT();
-	else
-		return GET_MIN_FLUTING_KEYBOARD_CNT();
-	end
-end
-
 function FLUTING_KEYBOARD_UPDATE_HOTKEYNAME(frame)
-	local flutingKeyboardCnt = GET_MAX_FLUTING_KEYBOARD_CNT()
-	for i = 0, flutingKeyboardCnt-1 do
+	for i = 0, MAX_FLUTING_KEYBORAD_CNT-1 do
 		local slot 			= GET_CHILD(frame, "slot"..i+1);
 		if slot ~= nil then
 		local slotString 	= 'QuickSlotExecute'..(i+1);
 		local text 			= hotKeyTable.GetHotKeyString(slotString);
-		slot:SetText('{s14}{#f0dcaa}{b}{ol}'..text, 'default', ui.LEFT, ui.TOP, 2, 1);
+		slot:SetText('{s14}{#f0dcaa}{b}{ol}'..text, 'default', 'left', 'top', 2, 1);
 		end
 	end
 end
@@ -47,27 +33,11 @@ function GET_FLUTING_SCALE_LIST_BY_HOT_KEY_NAME(hotkeyName)
 end
 
 function ON_FLUTING_KEYBOARD_OPEN(frame, msg, argStr, argNum)
-	local cnt = GET_FLUTING_KEYBOARD_CNT()
-	for i = 0, cnt-1 do
+	for i = 0, MAX_FLUTING_KEYBORAD_CNT-1 do
 		local slot = GET_CHILD(frame, "slot"..i+1);
 		local slotString = 'QuickSlotExecute'..(i+1);
 		local clsList = GET_FLUTING_SCALE_LIST_BY_HOT_KEY_NAME(slotString);
 		SET_FLUTING_KEYBOARD_QUICK_SLOT(slot, clsList);
-	end
-	
-	local minCnt = GET_MIN_FLUTING_KEYBOARD_CNT()
-	local maxCnt = GET_MAX_FLUTING_KEYBOARD_CNT()
-
-	local isVisible = 0;
-	if cnt == maxCnt then
-		isVisible = 1;
-	end
-
-	local line2 = frame:GetChild("Line_2");
-	line2:SetVisible(isVisible)
-	for i = minCnt, maxCnt-1 do
-		local slot = GET_CHILD(frame, "slot"..i+1);
-		slot:SetVisible(isVisible);
 	end
 
 	local closeSlotNum = frame:GetUserConfig("CLOSE_INDEX");
@@ -88,7 +58,7 @@ function ON_FLUTING_KEYBOARD_OPEN(frame, msg, argStr, argNum)
 end
 
 function ON_FLUTING_KEYBOARD_CLOSE(frame, msg, argStr, argNum)
-	Piedpiper.ReqReadyFluting(0);
+		Piedpiper.ReqReadyFluting(0);
 	frame:ShowWindow(0);
 end
 

@@ -1,53 +1,68 @@
 ﻿function SOLODUNGEONRANKINGPAGE_ON_INIT(addon, frame)
     addon:RegisterMsg("DO_SOLODUNGEON_RANKINGPAGE_OPEN", "SOLODUNGEON_RANKINGPAGE_OPEN");
     addon:RegisterOpenOnlyMsg("SOLO_DUNGEON_RANKING_RESET", "ON_SOLO_DUNGEON_RANKING_RESET");
+    
+   
+
 end
 
-function ON_SOLODUNGEON_RANKINGPAGE_CHANGE_TAB(parent, groupbox)
-    local frame = parent:GetTopParentFrame();
-    SOLODUNGEON_RANKINGPAGE_SHOW_RANK_PAGE(frame)
-end
 
-function SOLODUNGEON_RANKINGPAGE_OPEN(frame)
-    SOLODUNGEON_RANKINGPAGE_SHOW_PERMANENT(frame)
+function SOLODUNGEON_RANKINGPAGE_OPEN()
+ --   local weekList = {"last", "this"}
+ --   local ctrlTypeList = {"All", "Warrior", "Wizard", "Archer", "Cleric"}
     ui.OpenFrame("solodungeonrankingpage")
-
-    -- 해외 UI 세팅
-    if (config.GetServiceNation() ~= "KOR") then
-        SOLODUNGEON_RANKINGPAGE_GLOBAL_UI_SETTING(frame)
+    for i = 0, 1 do
+        for j = 0, 4 do
+            SOLODUNGEON_RANKINGPAGE_CLEAR(j, i);
+            SOLODUNGEON_RANKINGPAGE_FILL_RANK_LISTS(j, i)
+        end
     end
+
+
+    SOLODUNGEON_RANKINGPAGE_SHOW_THIS_WEEK()
 end
 
 function SOLODUNGEON_RANKINGPAGE_CLOSE()
     ui.CloseFrame("solodungeonrankingpage")
 end
 
-function SOLODUNGEON_RANKINGPAGE_CLEAR(ctrlType)
+
+function SOLODUNGEON_RANKINGPAGE_CLEAR(ctrlType, week)
     local frame = ui.GetFrame("solodungeonrankingpage")
     if frame == nil then 
         return
     end
 
-    local rankGbox = GET_CHILD_RECURSIVELY(frame, "rankGbox_" .. ctrlType)
+    local rankGbox = GET_CHILD_RECURSIVELY(frame, "rankGbox_" .. ctrlType .. "_" .. week)
+
     if rankGbox == nil then
         return
     end
 
     rankGbox:RemoveAllChild()
+
 end
 
-function SOLODUNGEON_RANKINGPAGE_GLOBAL_UI_SETTING(frame)
-    local btn1 = GET_CHILD_RECURSIVELY(frame, 'permanentBtn')
-    local btn2 = GET_CHILD_RECURSIVELY(frame, 'lastWeekBtn')
-    local btn3 = GET_CHILD_RECURSIVELY(frame, 'thisWeekBtn')
 
-    -- btn1:AdjustFontSizeByWidth(80)
-    -- btn2:AdjustFontSizeByWidth(80)
-    -- btn3:AdjustFontSizeByWidth(80)
+function SOLODUNGEON_RANKINGPAGE_FILL_RANK_LISTS(ctrlType, week)
+    local frame = ui.GetFrame("solodungeonrankingpage")
+    if frame == nil then 
+        return
+    end
 
-    local tab = GET_CHILD_RECURSIVELY(frame, 'tab_joblist')
-    
-    tab:SetItemsFixWidth(140)
+    if ctrlType == nil then
+        return
+    end
+
+    if week == nil then
+        return
+    end
+
+    local rankGbox = GET_CHILD_RECURSIVELY(frame, "rankGbox_" .. ctrlType .. "_" .. week)
+    if rankGbox ~= nil then
+        SOLODUNGEON_RANKINGPAGE_FILL_RANK_LIST(rankGbox, ctrlType, week)
+    end
+
 end
 
 function SOLODUNGEON_UPDATE_GUILD_EMBLEM_IMAGE(code, return_json)
@@ -62,11 +77,12 @@ function SOLODUNGEON_UPDATE_GUILD_EMBLEM_IMAGE(code, return_json)
     
     local guildIdx = return_json;
     local frame = ui.GetFrame("solodungeonrankingpage")
-    local week = tonumber(frame:GetUserValue("Week"));
-    for ctrlType = 0, 4 do
-        local rankGbox = GET_CHILD_RECURSIVELY(frame, "rankGbox_" .. ctrlType)
-        if rankGbox ~= nil then
-            SOLODUNGEON_RANKINGPAGE_FILL_GUILD_EMBLEM(rankGbox, ctrlType, week, guildIdx)
+    for week = 0, 1 do
+        for ctrlType = 0, 4 do
+            local rankGbox = GET_CHILD_RECURSIVELY(frame, "rankGbox_" .. ctrlType .. "_" .. week)
+            if rankGbox ~= nil then
+                SOLODUNGEON_RANKINGPAGE_FILL_GUILD_EMBLEM(rankGbox, ctrlType, week, guildIdx)
+            end
         end
     end
     --update image 
@@ -79,9 +95,9 @@ function SOLODUNGEON_RANKINGPAGE_FILL_GUILD_EMBLEM(gbox, ctrlType, week, guildId
         local rankGbox = gbox:GetControlSet('solodungeon_page_rank', 'rankGbox_'..rank);
         local scoreInfo = nil;
         if week == 0 then 
-            scoreInfo = session.soloDungeon.GetRankingByIndex(soloDungeonShared.PrevWeek, ctrlType, rank)
+            scoreInfo = session.soloDungeon.GetPrevRankingByIndex(ctrlType, rank)
         elseif week == 1 then
-            scoreInfo = session.soloDungeon.GetRankingByIndex(soloDungeonShared.ThisWeek, ctrlType, rank)
+            scoreInfo = session.soloDungeon.GetCurrentRankingByIndex(ctrlType, rank)
         end
         if scoreInfo ~= nil then
             if guildIdx == scoreInfo:GetGuildIDStr() then
@@ -90,7 +106,12 @@ function SOLODUNGEON_RANKINGPAGE_FILL_GUILD_EMBLEM(gbox, ctrlType, week, guildId
         end
     end
     
-    local myScoreInfo = session.soloDungeon.GetMyScore(week, ctrlType)
+    local myScoreInfo = nil;
+    if week == 0 then 
+        myScoreInfo = session.soloDungeon.GetPrevMyScore(ctrlType)
+    elseif week == 1 then
+        myScoreInfo = session.soloDungeon.GetCurrentMyScore(ctrlType)
+    end
     local myrankGbox = gbox:GetControlSet('solodungeon_page_rank', 'myrankGbox')
     if myScoreInfo ~= nil then
         if guildIdx == myScoreInfo:GetGuildIDStr() then
@@ -112,116 +133,56 @@ function SOLODUNGEON_RANKINGPAGE_FILL_GUILD_EMBLEM_GBOX(rankGBox, scoreInfo)
     end
 end
 
-function GET_SOLODUNGEON_RANKINGPAGE_MAX_RANK(week)
-    if week == soloDungeonShared.Permanent then
-        return SOLO_DUNGEON_PERMANENT_MAX_RANK
-    end
-    return SOLO_DUNGEON_MAX_RANK
-end
+function SOLODUNGEON_RANKINGPAGE_FILL_RANK_LIST(gbox, ctrlType, week)
+    -- SOLODUNGEON_MAX_RANK = 10
+    -- col = 2 row = 5
+ --   local col = 2
+ --   local row = SOLODUNGEON_MAX_RANK / col
 
-function GET_SOLODUNGEON_RANKINGPAGE_CTRL_WIDTH_DIFF(week)
-    if week == soloDungeonShared.Permanent then
-        local frame = ui.GetFrame("solodungeonrankingpage")
-        return tonumber(frame:GetUserConfig("SCROLL_WIDTH"))
-    end
-    return 0
-end
+    -- loader 에서 ctrltype 으로 데이터 각각 가져오자
+    -- ctrlType == 'All' 일때 다른처리
 
-function ON_SCROLL_SOLODUNGEON_RANKINGPAGE(gbox, topGbox, str, wheel)
-    local frame = gbox:GetTopParentFrame();
-    local tab_joblist = GET_CHILD_RECURSIVELY(frame, "tab_joblist");
-    local ctrlType = tab_joblist:GetSelectItemIndex();
-    local week = tonumber(frame:GetUserValue("Week"));
-    local eachHeight = ui.GetControlSetAttribute("solodungeon_page_rank", "height");
-
-    local countPerPage = tonumber(frame:GetUserConfig("COUNT_PER_PAGE"));
-    local weekMaxRank = GET_SOLODUNGEON_RANKINGPAGE_MAX_RANK(week)
-    local wheelLoc = math.floor(wheel/eachHeight)+1
-    local minRank = math.min(wheelLoc, weekMaxRank-countPerPage)
-    local maxRank = minRank+countPerPage
-    
-    for i=1, weekMaxRank do
-        local child = GET_CHILD(topGbox, "rankGbox_"..i)
-        if child ~= nil then
-            if i < minRank or i > maxRank then
-                topGbox:RemoveChild("rankGbox_"..i)
-            end
+    local totalPosY = 0
+    for i = 0, SOLO_DUNGEON_MAX_RANK - 1 do
+        local rank = i + 1
+        local rankGbox = gbox:CreateOrGetControlSet('solodungeon_page_rank', 'rankGbox_'..rank, 0, 0);
+        if i % 2 == 1 then
+            rankGbox:SetSkinName("chat_window_2")
         end
-    end
-    SOLODUNGEON_RANKINGPAGE_FILL_RANKER_RANK(gbox, topGbox, ctrlType, week, minRank, maxRank)
-end
 
-function SOLODUNGEON_RANKINGPAGE_FILL_RANK_LIST(frame, ctrlType, week)
-    local gbox = GET_CHILD_RECURSIVELY(frame, "rankGbox_" .. ctrlType)
-    if gbox == nil then
-        return;
+        rankGbox:ShowWindow(1)
+        rankGbox:Move(0, rankGbox:GetHeight() * i)
+        totalPosY = totalPosY + rankGbox:GetHeight()
+        SOLODUNGEON_RANKINGPAGE_FILL_RANK_CTRL(rankGbox, ctrlType, i, week)
     end
 
-    local countPerPage = tonumber(frame:GetUserConfig("COUNT_PER_PAGE"));
-    local eachHeight = ui.GetControlSetAttribute("solodungeon_page_rank", "height");
-    local topGbox = gbox:CreateOrGetControl("groupbox", "top_rank_gbox", 0, 0, gbox:GetWidth(), eachHeight*countPerPage)
-    AUTO_CAST(topGbox);
-    topGbox:SetSkinName("none");
+    local skipGbox = gbox:CreateOrGetControlSet('solodungeon_page_rank', 'skipGbox', 0, 0)
+    skipGbox:Move(0, totalPosY)
+    totalPosY = totalPosY + skipGbox:GetHeight()
 
-    local innerGbox = topGbox:CreateOrGetControl("groupbox", "inner_gbox", 0, 0, topGbox:GetWidth(), eachHeight*GET_SOLODUNGEON_RANKINGPAGE_MAX_RANK(week))
-    AUTO_CAST(innerGbox);
-    innerGbox:SetSkinName("none");
-    innerGbox:EnableHitTest(0);
-	innerGbox:EnableHittestGroupBox(false);
 
-    if week == soloDungeonShared.Permanent then
-        topGbox:SetScrollBarBottomMargin(0)
-        topGbox:SetEventScript(ui.SCROLL, "ON_SCROLL_SOLODUNGEON_RANKINGPAGE");
+    local myScoreInfo = nil
+    local myRank = "-"
+    if week == 0 then 
+        myScoreInfo = session.soloDungeon.GetPrevMyScore(ctrlType)
+        myRank = session.soloDungeon.GetPrevMyRank(ctrlType)
+    elseif week == 1 then
+        myScoreInfo = session.soloDungeon.GetCurrentMyScore(ctrlType)
+        myRank = session.soloDungeon.GetCurrentMyRank(ctrlType)
     end
 
-    local minRank = 1
-    local countPerPage = tonumber(frame:GetUserConfig("COUNT_PER_PAGE"));
-    SOLODUNGEON_RANKINGPAGE_FILL_RANKER_RANK(gbox, topGbox, ctrlType, week, minRank, countPerPage)
-    SOLODUNGEON_RANKINGPAGE_FILL_SKIP_RANK(gbox, topGbox)
-    SOLODUNGEON_RANKINGPAGE_FILL_MY_RANK(gbox, ctrlType, week);
-end
-
-function SOLODUNGEON_RANKINGPAGE_FILL_RANKER_RANK(gbox, topGbox, ctrlType, week, minRank, maxRank)
-    local ctrlWidthDiff = GET_SOLODUNGEON_RANKINGPAGE_CTRL_WIDTH_DIFF(week);
-
-    for i = minRank, maxRank do
-        local rankGbox = topGbox:GetControlSet("solodungeon_page_rank", "rankGbox_"..i);
-        if rankGbox == nil then
-            rankGbox = topGbox:CreateControlSet("solodungeon_page_rank", "rankGbox_"..i, 0, 0);
-            if i % 2 == 1 then
-                rankGbox:SetSkinName("chat_window_2")
-            end
-
-            rankGbox:ShowWindow(1)
-            rankGbox:Move(0, rankGbox:GetHeight() * (i-1))
-            rankGbox:Resize(rankGbox:GetOriginalWidth()-ctrlWidthDiff, rankGbox:GetHeight())
-            SOLODUNGEON_RANKINGPAGE_FILL_RANK_CTRL(rankGbox, ctrlType, i-1, week)
-        end
-    end
-end
-
-function SOLODUNGEON_RANKINGPAGE_FILL_SKIP_RANK(gbox, topGbox)
-    local skipGbox = gbox:CreateOrGetControlSet("solodungeon_page_rank", "skipGbox", 0, 0)
-    skipGbox:Move(0, skipGbox:GetHeight()*11)
-end
-
-function SOLODUNGEON_RANKINGPAGE_FILL_MY_RANK(gbox, ctrlType, week)
-    local eachHeight = ui.GetControlSetAttribute("solodungeon_page_rank", "height");
-    local totalPosY = eachHeight*11
-    local myScoreInfo = session.soloDungeon.GetMyScore(week, ctrlType)
-    local myRank = session.soloDungeon.GetMyRank(week, ctrlType)
 
     local myTeamName = GETMYFAMILYNAME()
     local myCharLv = "-"
     local cnt = 0
     local myStage = "-"
-    local myClearTime = "-"
+    local myKillCount = "-"
     if myScoreInfo ~= nil and myRank ~= 0 then
         myTeamName = myScoreInfo.familyName
         myCharLv = myScoreInfo.level
         cnt = myScoreInfo:GetJobHistoryCount()
         myStage = myScoreInfo.stage
-        myClearTime = myScoreInfo.clear_time
+        myKillCount = myScoreInfo.killCount
     end
 
     local myrankGbox = gbox:CreateOrGetControlSet('solodungeon_page_rank', 'myrankGbox', 0, 0)
@@ -272,20 +233,26 @@ function SOLODUNGEON_RANKINGPAGE_FILL_MY_RANK(gbox, ctrlType, week)
     local maxStageText = GET_CHILD_RECURSIVELY(myrankGbox, "maxStageText")
     maxStageText:SetTextByKey("maxstage", myStage)
 
-    if myClearTime ~= "-" then
-        myClearTime = session.soloDungeon.GetClearTimeConvert(tonumber(myClearTime));
-    end
-
-    local result_time = myClearTime;
     local killMonsterText = GET_CHILD_RECURSIVELY(myrankGbox, "killMonsterText")
-    killMonsterText:SetTextByKey("killmonster", result_time)
+    killMonsterText:SetTextByKey("killmonster", myKillCount)
+
+
 end
 
 function SOLODUNGEON_RANKINGPAGE_FILL_RANK_CTRL(rankGbox, ctrlType, rank, week)
     AUTO_CAST(rankGbox)
     local emblemSlotImageName = rankGbox:GetUserConfig("GUILD_EMBLEM_SLOT");
-    local scoreInfo = session.soloDungeon.GetRankingByIndex(week, ctrlType, rank)
-    if scoreInfo == nil then return; end
+    local scoreInfo = nil
+
+    if week == 0 then 
+        scoreInfo = session.soloDungeon.GetPrevRankingByIndex(ctrlType, rank)
+    elseif week == 1 then
+        scoreInfo = session.soloDungeon.GetCurrentRankingByIndex(ctrlType, rank)
+    end
+
+    if scoreInfo == nil then
+        return
+    end
     
     local rankText = GET_CHILD_RECURSIVELY(rankGbox, "rankText")
     rankText:SetTextByKey("rank", rank + 1)
@@ -315,6 +282,7 @@ function SOLODUNGEON_RANKINGPAGE_FILL_RANK_CTRL(rankGbox, ctrlType, rank, week)
     end
 
     local cnt = scoreInfo:GetJobHistoryCount()
+
     local jobTreeList = {}
     local jobTreeGbox = GET_CHILD_RECURSIVELY(rankGbox, "jobTreeGbox")
     for i = 0, cnt - 1 do
@@ -338,55 +306,70 @@ function SOLODUNGEON_RANKINGPAGE_FILL_RANK_CTRL(rankGbox, ctrlType, rank, week)
         end
     end
 
-    local jobtext = "";
+    local startext = "";
     for jobid, grade in pairs(jobTreeList) do
         -- 클래스 이름{@st41}
         local jobCls = GetClassByType("Job", jobid)
 
         local jobName = TryGetProp(jobCls, "Name")
-        jobtext = jobtext .. ("{@st41}").. jobName
+        startext = startext .. ("{@st41}").. jobName
         
-        jobtext = jobtext ..('{nl}');
+        -- 클래스 레벨 (★로 표시)               
+        for i = 1 , 3 do
+            if i <= grade then
+                startext = startext ..('{img star_in_arrow 20 20}');
+            else
+                startext = startext ..('{img star_out_arrow 20 20}');
+            end
+        end
+        startext = startext ..('{nl}');
     end
-    jobTreeGbox:SetTextTooltip(jobtext);
+
+    jobTreeGbox:SetTextTooltip(startext);
+
 
     local maxStageText = GET_CHILD_RECURSIVELY(rankGbox, "maxStageText")
-    maxStageText:SetTextByKey("maxstage", scoreInfo.stage);
-
-    local clear_time = scoreInfo.clear_time;
-    if clear_time ~= 0 then
-        clear_time = session.soloDungeon.GetClearTimeConvert(tonumber(clear_time));
-    else
-        clear_time = "03:00";
-    end
+    maxStageText:SetTextByKey("maxstage", scoreInfo.stage)
 
     local killMonsterText = GET_CHILD_RECURSIVELY(rankGbox, "killMonsterText")
-    killMonsterText:SetTextByKey("killmonster", clear_time)
+    killMonsterText:SetTextByKey("killmonster", scoreInfo.killCount)
 end
+
+
 
 function SOLODUNGEON_RANKINGPAGE_SHOW_RANK_PAGE(frame)
-    local tab_joblist = GET_CHILD_RECURSIVELY(frame, "tab_joblist");
-    local tabIndex = tab_joblist:GetSelectItemIndex();
-    SOLODUNGEON_RANKINGPAGE_CLEAR(tabIndex);
-    SOLODUNGEON_RANKINGPAGE_FILL_RANK_LIST(frame, tabIndex, tonumber(frame:GetUserValue("Week")))
+       frame = ui.GetFrame("solodungeonrankingpage")
+ --   local weekList = {"last", "this"}
+  --  local ctrlTypeList = {"All", "Warrior", "Wizard", "Archer", "Cleric"}
+
+    for i = 0, 4 do
+        local rankGbox_lastWeek = GET_CHILD_RECURSIVELY(frame, "rankGbox_" .. i .. "_0")
+        local rankGbox_thisWeek = GET_CHILD_RECURSIVELY(frame, "rankGbox_" .. i .. "_1")
+        if rankGbox_lastWeek ~= nil then
+            rankGbox_lastWeek:ShowWindow(frame:GetUserIValue("SHOW_LAST_WEEK"))
+        end
+        if rankGbox_thisWeek ~= nil then
+            rankGbox_thisWeek:ShowWindow(frame:GetUserIValue("SHOW_THIS_WEEK"))
+        end
+    end
 end
 
-function SOLODUNGEON_RANKINGPAGE_SHOW_PERMANENT(parent, btn)
-    local frame = parent:GetTopParentFrame();
-    frame:SetUserValue("Week", soloDungeonShared.Permanent)
+function SOLODUNGEON_RANKINGPAGE_SHOW_LAST_WEEK()
+    local frame = ui.GetFrame("solodungeonrankingpage")
+
+    frame:SetUserValue("SHOW_LAST_WEEK", 1)
+    frame:SetUserValue("SHOW_THIS_WEEK", 0)
+
     SOLODUNGEON_RANKINGPAGE_SHOW_RANK_PAGE(frame)
 end
 
-function SOLODUNGEON_RANKINGPAGE_SHOW_PREV_WEEK(parent, btn)
-    local frame = parent:GetTopParentFrame();
-    frame:SetUserValue("Week", soloDungeonShared.PrevWeek)
-    SOLODUNGEON_RANKINGPAGE_SHOW_RANK_PAGE(frame)
-end
 
+function SOLODUNGEON_RANKINGPAGE_SHOW_THIS_WEEK()
+    local frame = ui.GetFrame("solodungeonrankingpage")
 
-function SOLODUNGEON_RANKINGPAGE_SHOW_THIS_WEEK(parent, btn)
-    local frame = parent:GetTopParentFrame();
-    frame:SetUserValue("Week", soloDungeonShared.ThisWeek)
+    frame:SetUserValue("SHOW_LAST_WEEK", 0)
+    frame:SetUserValue("SHOW_THIS_WEEK", 1)
+
     SOLODUNGEON_RANKINGPAGE_SHOW_RANK_PAGE(frame)
 end
 

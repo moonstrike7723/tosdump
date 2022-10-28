@@ -49,19 +49,15 @@ function BEAUTYSHOP_INIT_FUNCTIONMAP()
 	beautyShopInfo.functionMap["POST_BASKETSLOT_REMOVE"] =nil
 end
 
-function BEAUTYSHOP_DO_OPEN(frame, msg, shopTypeName, genderNum)
+function BEAUTYSHOP_DO_OPEN(frame, msg, shopTypeName, genderNum)	
 	local list ={
 		{Type="HAIR", OpenFunc = HAIRSHOP_OPEN, IDSpace = 'Beauty_Shop_Hair'},
 		{Type="COSTUME", OpenFunc = COSTUMESHOP_OPEN, IDSpace = 'Beauty_Shop_Costume'},
 		{Type="WIG", OpenFunc = WIGSHOP_OPEN, IDSpace = 'Beauty_Shop_Wig'},
 		{Type="ETC", OpenFunc = ETCSHOP_OPEN, IDSpace = 'Beauty_Shop_Lens'},
 		{Type="PACKAGE", OpenFunc = PACKAGESHOP_OPEN, IDSpace = 'Beauty_Shop_Package_Cube'}, 
-		{Type="PREVIEW", OpenFunc = PREVIEWSHOP_OPEN, IDSpace = 'Beauty_Shop_Preview'}, 
-		{Type="SKIN", OpenFunc = SKINSHOP_OPEN, IDSpace = 'Beauty_Shop_Skin'},
-		{Type="DESIGNCUT", OpenFunc = DESIGNCUTSHOP_OPEN, IDSpace = 'Beauty_Shop_Designcut'},
-		{Type="PREVIEW_SILVERGACHA", OpenFunc = PREVIEW_SILVERGACHA_SHOP_OPEN, IDSpace = 'Beauty_Shop_Preview_SilverGacha'},
 	};
-	
+
 	-- 상점 성별 설정.
 	BEAUTYSHOP_SET_GENDER(genderNum)
 	-- 상점에 해당하는 OPEN 함수 호출
@@ -93,32 +89,20 @@ function BEAUTYSHOP_CLOSE(frame)
 	if isEmpty == true then
 		session.beautyshop.SendCancelTryItOn();
 	else
-		local isAlreadySend = frame:GetUserIValue("ALREADY_TRY_IT_ON_SEND");
-		if  isAlreadySend ~= 1 then
-			-- 미리보기 목록이 있는데 끄는거면 간소화 목록 표시.
-			local list = GET_CURRENT_TRY_ON_ITEM_LIST(frame);
-			if #list < 1 then
-				return
-			end
-
-			-- 인벤토리에서 헤어 악세서리 보이기/안보이기 확인.
-			if BEAUTYSHOP_IS_HAIR_ACCESSORY_VISIBLE(frame) == false then
-					ui.MsgBox(ClMsg('Hair_Accessory_Visible'));
-			end
-
-			SHOW_BEAUTYSHOP_SIMPLELIST(true, list, frame:GetUserValue('CURRENT_SHOP'));
-			BEAUTYSHOP_SEND_TRY_IT_ON_LIST(list)
-			ui.CloseFrame('packagelist'); 
+		-- 미리보기 목록이 있는데 끄는거면 간소화 목록 표시.
+		local list = GET_CURRENT_TRY_ON_ITEM_LIST(frame);
+		if #list < 1 then
+			return
 		end
 
-		frame:SetUserValue("ALREADY_TRY_IT_ON_SEND", 0);
-	end
-	
-	-- 닫을 때 
-	local showOnlyEnableEquipCheck = GET_CHILD_RECURSIVELY(frame, "showOnlyEnableEquipCheck");
-	if showOnlyEnableEquipCheck ~= nil then
-		showOnlyEnableEquipCheck:ShowWindow(0)
-		showOnlyEnableEquipCheck:SetCheck(0)
+		-- 인벤토리에서 헤어 악세서리 보이기/안보이기 확인.
+		if BEAUTYSHOP_IS_HAIR_ACCESSORY_VISIBLE(frame) == false then
+				ui.MsgBox(ClMsg('Hair_Accessory_Visible'));
+		end
+
+		SHOW_BEAUTYSHOP_SIMPLELIST(true, list, frame:GetUserValue('CURRENT_SHOP'));
+		BEAUTYSHOP_SEND_TRY_IT_ON_LIST(list)
+		ui.CloseFrame('packagelist'); 
 	end
 end
 
@@ -311,42 +295,8 @@ function GET_BEAUTYSHOP_EQUIP_TYPE(frame, gender, itemClassName)
 		return 'lens';
 	elseif shopName == 'PACKAGE' then
 		return 'package';
-	elseif shopName == 'PREVIEW' then
-		return PREVIEWSHOP_GET_ITEM_EQUIPTYPE(itemClassName);
-	elseif shopName == 'SKIN' then
-		return SKINSHOP_GET_ITEM_EQUIPTYPE(itemClassName);
-	elseif shopName == 'DESIGNCUT' then
-		return DESIGNCUTSHOP_GET_ITEM_EQUIPTYPE(gender, itemClassName);
-	elseif shopName == 'PREVIEW_SILVERGACHA' then
-		return PREVIEW_SILVERGACHA_SHOP_GET_ITEM_EQUIPTYPE(itemClassName);
 	end
 	return nil;
-end
-
-function BEAUTYSHOP_GET_BUY_WARNING_CLIENT_MSG(itemClassName)
-	local frame = ui.GetFrame('beautyshop');
-	if frame == nil then
-		return 'None'
-	end
-	local idSpace = frame:GetUserValue('IDSPACE');
-	local beautyShopCls = GetClass(idSpace, itemClassName);
-	if beautyShopCls == nil then
-		return 'None'
-	end
-
-	local buyMessage = TryGetProp(beautyShopCls, 'BuyMessage')
-	if buyMessage == nil then
-		return 'None'
-	end
-
-	return buyMessage
-end
-
-function _BEAUTYSHOP_SELECT_ITEM_CHECK_BUY_MESSAGE(parentName, ctrlName)
-	local frame = ui.GetFrame('beautyshop');
-	local parent = GET_CHILD_RECURSIVELY(frame, parentName);
-	local ctrl = GET_CHILD_RECURSIVELY(parent, ctrlName);	
-	BEAUTYSHOP_SELECT_ITEM(parent, ctrl, 'NoCheckBuyMsg');
 end
 
 function _BEAUTYSHOP_SELECT_ITEM(parentName, ctrlName)
@@ -372,41 +322,31 @@ function BEAUTYSHOP_SELECT_ITEM(parent, control, argStr, argNum)
 
 	-- package 일 때는 장착 미리보기 슬롯 처리 안함.
 	if equipType ~= "package"  then
-		-- BuyMessage 확인.
-		local buyMessage = BEAUTYSHOP_GET_BUY_WARNING_CLIENT_MSG(itemClassName)
-		if argStr ~= 'NoCheckDup' and argStr ~= 'NoCheckBuyMsg'  and buyMessage ~= 'None' then
-			local yesscp = string.format('_BEAUTYSHOP_SELECT_ITEM_CHECK_BUY_MESSAGE("%s", "%s")', parent:GetName(), control:GetName());
-			ui.MsgBox(ClMsg(buyMessage), yesscp, 'None');
-			return false;
-		end
-		
 		local buyCaseClMsg, previewCaseClMsg = GET_ALLOW_DUPLICATE_ITEM_CLIENT_MSG(itemClassName);
-		if argStr ~= 'NoCheckDup' and argStr ~= 'NoCheckBuyMsg' and previewCaseClMsg ~= '' then
-			local yesscp = string.format('_BEAUTYSHOP_SELECT_ITEM("%s", "%s")', parent:GetName(), control:GetName());
+		if argStr ~= 'NoCheckDup' and previewCaseClMsg ~= '' then
+		local yesscp = string.format('_BEAUTYSHOP_SELECT_ITEM("%s", "%s")', parent:GetName(), control:GetName());
 			ui.MsgBox(ClMsg(previewCaseClMsg), yesscp, 'None');
 			return false;
 		end
-		
-		local slot = BEAUTYSHOP_GET_PREIVEW_SLOT(equipType, itemClassName)		
-		if slot == nil then
-			return false;
-		end
-		
-		local itemCls = GetClass('Item', itemClassName);		
-		local beautyShopCls = GetClass(ctrlSet:GetUserValue('IDSPACE'), ctrlSet:GetUserValue('SHOP_CLASSNAME'));
-		local ret, reason = IS_ENABLE_EQUIP_AT_BEAUTYSHOP(itemCls, beautyShopCls);
-		if ret == false then
-			if reason == 'Gender' then
-				ui.SysMsg(ClMsg('InvalidGender'));
-			elseif reason == 'JOB' then
-				ui.SysMsg(ClMsg('BEAUTY_SHOP_CLASS_CHECK'));
+
+		local slot = BEAUTYSHOP_GET_PREIVEW_SLOT(equipType)		
+		if slot ~= nil then
+			local itemCls = GetClass('Item', itemClassName);		
+			local beautyShopCls = GetClass(ctrlSet:GetUserValue('IDSPACE'), ctrlSet:GetUserValue('SHOP_CLASSNAME'));
+			local ret, reason = IS_ENABLE_EQUIP_AT_BEAUTYSHOP(itemCls, beautyShopCls);
+			if ret == false then
+				if reason == 'Gender' then
+					ui.SysMsg(ClMsg('InvalidGender'));
+				elseif reason == 'JOB' then
+					ui.SysMsg(ClMsg('BEAUTY_SHOP_CLASS_CHECK'));
+				end
+				return false;
 			end
-			return false;
+
+			BEAUTYSHOP_CLEAR_SLOT(slot);
 		end
-		
-		BEAUTYSHOP_CLEAR_SLOT(slot);
 	end
-	
+
 	-- 선택 처리
 	local select = frame:GetUserValue("SELECT");
 	frame:SetUserValue('CLICKED_ITEM_CTRLSET_NAME', ctrlSet:GetName());    
@@ -428,7 +368,7 @@ function BEAUTYSHOP_SELECT_ITEM(parent, control, argStr, argNum)
 	picCheck_new:SetVisible(1)
 	frame:Invalidate()
 	
-	-- 처리   
+	-- 처리
 	if beautyShopInfo.functionMap["POST_SELECT_ITEM"]  ~= nil then
 		beautyShopInfo.functionMap.POST_SELECT_ITEM(frame, control)
 	end
@@ -515,7 +455,7 @@ function BEAUTYSHOP_TRY_IT_ON(parent, ctrl)
 		ui.SysMsg(ClMsg('EmptyPreviewSlot'));
 		return;
 	end
-	
+
 	-- 인벤토리에서 헤어 악세서리 보이기/안보이기 확인.
 	if BEAUTYSHOP_IS_HAIR_ACCESSORY_VISIBLE(frame) == false then
 		ui.MsgBox(ClMsg('Hair_Accessory_Visible'));
@@ -523,7 +463,6 @@ function BEAUTYSHOP_TRY_IT_ON(parent, ctrl)
 
 	SHOW_BEAUTYSHOP_SIMPLELIST(true, list, frame:GetUserValue('CURRENT_SHOP'));
 	BEAUTYSHOP_SEND_TRY_IT_ON_LIST(list)
-	frame:SetUserValue("ALREADY_TRY_IT_ON_SEND", 1); 
 	ui.CloseFrame('beautyshop');
 	ui.CloseFrame('packagelist'); 
 end
@@ -538,15 +477,12 @@ function BEAUTYSHOP_SEND_TRY_IT_ON_LIST(list)
 		local equipType = v['equipType']
 		
 		local visible = 1 -- wig 일 경우 검사해서 0/1 설정해야함.
-		local slotName = BEAUTYSHOP_GET_PREIVEW_SLOT_NAME(equipType, itemClassName)
-
-		if slotName ~= nil then
-			if BEAUTYSHOP_GET_PREVIEW_VISIBLE(slotName) == false then
-				visible = 0
-			end
-		
-			session.beautyshop.AddTryItOnItem(itemClassName, hairColorName, equipType, visible );
+		local slotName = BEAUTYSHOP_GET_PREIVEW_SLOT_NAME(equipType)
+		if BEAUTYSHOP_GET_PREVIEW_VISIBLE(slotName) == false then
+			visible = 0
 		end
+		
+		session.beautyshop.AddTryItOnItem(itemClassName, hairColorName, equipType, visible );
 	end
 	session.beautyshop.SendTryItOnItemList();
 end
@@ -577,7 +513,9 @@ function BEAUTYSHOP_ITEM_PREVIEW(parent, control, strArg, numArg)
 	BEAUTYSHOP_SELECT_ITEM(parent, control, strArg, numArg)
 end
 
-function _BEAUTYSHOP_ITEM_TO_BASKET_PREPROCESSOR(itemClassName, parentName, idSpace, shopClassName)
+-- 메인아이템에서 담기 버튼 누를때
+function BEAUTYSHOP_ITEM_TO_BASKET_PREPROCESSOR(parent, control, strArg, numArg)
+	local itemClassName = strArg
 	local itemobj = GetClass("Item", itemClassName)
 	if itemobj == nil then
 		return;
@@ -589,9 +527,11 @@ function _BEAUTYSHOP_ITEM_TO_BASKET_PREPROCESSOR(itemClassName, parentName, idSp
 		return;
 	end
 
-	local yesscp = string.format('_BEAUTYSHOP_ITEM_TO_BASKET("%s", %d, "None", "%s", -1)', itemClassName, classid, parentName);
+	local yesscp = string.format('_BEAUTYSHOP_ITEM_TO_BASKET("%s", %d, "None", "%s", -1)', itemClassName, classid, parent:GetName());
 	local clmsg = GET_ALLOW_DUPLICATE_ITEM_CLIENT_MSG(itemClassName);
 
+	local idSpace = parent:GetUserValue('IDSPACE');
+	local shopClassName = parent:GetUserValue('SHOP_CLASSNAME');
 	local beautyShopCls = GetClass(idSpace, shopClassName);
 	local ret, reason, argStr = IS_ENABLE_EQUIP_AT_BEAUTYSHOP(item, beautyShopCls);    
 	if ret == false then
@@ -615,25 +555,7 @@ function _BEAUTYSHOP_ITEM_TO_BASKET_PREPROCESSOR(itemClassName, parentName, idSp
 		return;
 	end
 
-	local frame = ui.GetFrame('beautyshop');
-	local parent = GET_CHILD_RECURSIVELY(frame, parentName);	
 	BEAUTYSHOP_ITEM_TO_BASKET(itemClassName, classid, nil, parent);
-
-end
-
--- 메인아이템에서 담기 버튼 누를때
-function BEAUTYSHOP_ITEM_TO_BASKET_PREPROCESSOR(parent, control, strArg, numArg)
-	local itemClassName = strArg
-
-	local buyMessge = BEAUTYSHOP_GET_BUY_WARNING_CLIENT_MSG(itemClassName)
-	local yesscp = string.format('_BEAUTYSHOP_ITEM_TO_BASKET_PREPROCESSOR("%s", "%s", "%s", "%s")', itemClassName, parent:GetName(), parent:GetUserValue('IDSPACE'),  parent:GetUserValue('SHOP_CLASSNAME'));
-	if buyMessge ~= 'None' then
-		ui.MsgBox(ClMsg(buyMessge), yesscp, 'None');
-		return;
-	end
-
-	_BEAUTYSHOP_ITEM_TO_BASKET_PREPROCESSOR(itemClassName, parent:GetName(), parent:GetUserValue('IDSPACE'),  parent:GetUserValue('SHOP_CLASSNAME'));
-	
 end
 
 -- 서브아이템에서 담기 버튼 누를 때
@@ -683,11 +605,6 @@ function BEAUTYSHOP_IS_CURRENT_HAIR(hairItemClassName, colorName)
 	return false
 end
 
-function BEAUTYSHOP_IS_CURRENT_SKINTONE(skinItemClassName)
-	local pc = GetMyPCObject()
-	return IS_SAME_PC_ETC_PROPERTY(pc, "SkintoneName", skinItemClassName);
-end
-
 function BEAUTYSHOP_ITEM_TO_BASKET(ItemClassName, ItemClassID, SubItemStrArg, ctrlset, force)
 	local item = GetClassByType("Item", ItemClassID)
 	if item == nil then    
@@ -724,20 +641,6 @@ function BEAUTYSHOP_ITEM_TO_BASKET(ItemClassName, ItemClassID, SubItemStrArg, ct
 			ui.MsgBox(ClMsg('BEAUTY_SHOP_ONLY_ONE_HAIR'), yesscp, 'None');
 			return;
 		end
-	elseif  idSpace == 'Beauty_Shop_Skin' then -- skin의 경우 검사.
-		-- 현재 스킨톤과 같은지 검사.
-		if BEAUTYSHOP_IS_CURRENT_SKINTONE(ItemClassName) == true then
-			ui.MsgBox(ClMsg('BEAUTY_SHOP_SAME_SKIN_UNABLE_PURCHASE'));
-			return;
-		end
-
-		-- 이미 스킨이 장바구니에 있는지 검사
-		local alreadySlot = IS_ALREAY_PUT_SKIN_IN_BASKET(topFrame, slotset);
-		if force ~= true and alreadySlot ~= nil then
-			local yesscp = string.format('_BEAUTYSHOP_ITEM_TO_BASKET("%s", %d, "%s", "%s", %d)', ItemClassName, ItemClassID, colorName, ctrlset:GetName(), alreadySlot:GetSlotIndex());
-			ui.MsgBox(ClMsg('BEAUTY_SHOP_ONLY_ONE_SKIN'), yesscp, 'None');
-			return;
-		end
 	end
 	
 	-- slotset을 순회하면서 비어있는 곳에 넣기.
@@ -767,18 +670,13 @@ function BEAUTYSHOP_ITEM_TO_BASKET(ItemClassName, ItemClassID, SubItemStrArg, ct
 		      ClassName = beautyShopClsName,
 		      ColorClassName = ctrlset:GetUserValue('COLOR_CLASS_NAME'),
 		      ColorEngName = colorName,
-			};
-
-		    if priceInfo.IDSpace =="Hair_Dye_List" then
-			  priceInfo.IDSpace = 'Beauty_Shop_Hair';
-			  priceInfo.ClassName = item.ClassName;
-			end
-			slot:SetUserValue('COLOR_NAME', colorName);
-			
-			local priceResult = GET_BEAUTYSHOP_ITEM_PRICE(pc, priceInfo, nil, nil, nil);	
-			local price = priceResult.totalPrice;
-			local hairPrice = priceResult.hairPrice;
-			local dyePrice = priceResult.colorDyePrice;
+		    };
+		    if priceInfo.ColorClassName ~= 'None' then
+		      priceInfo.IDSpace = 'Beauty_Shop_Hair';
+		      priceInfo.ClassName = item.ClassName;
+		    end
+            slot:SetUserValue('COLOR_NAME', colorName);
+		    local price, hairPrice, dyePrice = GET_BEAUTYSHOP_ITEM_PRICE(pc, priceInfo, nil, nil);		    
             slot:SetUserValue('TOTAL_PRICE', price);
 
 			SET_SLOT_IMG(slot, GET_ITEM_ICON_IMAGE(item));
@@ -1000,7 +898,7 @@ local function BEAUTYSHOP_GET_EQUIP_LIST()
 	equip_list[ES_SHIRT] = "SHIRT"
 	equip_list[ES_GLOVES] = "GLOVES"
 	equip_list[ES_BOOTS] = "BOOTS"
-	equip_list[ES_HELMET] = "HELMET"
+	equip_list[ES_HELMET] = "HAIR"
 	equip_list[ES_ARMBAND] = "ARMBAND"
 	equip_list[ES_RH] = "RH"
 	equip_list[ES_LH] = "LH"
@@ -1013,7 +911,6 @@ local function BEAUTYSHOP_GET_EQUIP_LIST()
 	equip_list[ES_WING] = "WING"
 	equip_list[ES_SPECIAL_COSTUME] = "SPECIAL_COSTUME"
 	equip_list[ES_EFFECT_COSTUME] = "EFFECTCOSTUME"
-	equip_list[ES_DOLL] = "DOLL"
 
 	return equip_list
 end 
@@ -1049,7 +946,7 @@ local function BEAUTYSHOP_SET_PREVIEW_BASE_CHARACTER(apc, equip_list)
 
 		if name ~= nil then
 			if BEAUTYSHOP_CHECK_EXCLUSION_ITEM(name) == false then
-				invSlot = GET_CHILD_RECURSIVELY(invframe, name)
+				invSlot = invframe:GetChild(name)
 			end
 		end
 
@@ -1080,26 +977,22 @@ local function BEAUTYSHOP_SET_PREVIEW_HAIR_COLOR(apc)
 	local pc = GetMyPCObject()
 	local nowheadindex = item.GetHeadIndex();
 
-	local PartClass = imcIES.GetClass("CreatePcInfo", "Hair");
-	local GenderList = PartClass:GetSubClassList();
-	local Selectclass   = GenderList:GetClass(pc.Gender);
+	local Rootclasslist = imcIES.GetClassList("HairType");
+	local Selectclass   = Rootclasslist:GetClass(pc.Gender);
 	local Selectclasslist = Selectclass:GetSubClassList();
 
-	local nowhaircls = Selectclasslist:GetClass(nowheadindex);
-	if nowhaircls == nil then
-		return;
-	end
+	local nowhaircls = Selectclasslist:GetByIndex(nowheadindex-1);
 	
 	local nowengname = imcIES.GetString(nowhaircls, "EngName") 
-	local nowcolor = imcIES.GetString(nowhaircls, "EngColor")
+	local nowcolor = imcIES.GetString(nowhaircls, "ColorE")
 	
 	local listCount = Selectclasslist:Count();
 	
 	for i=0, listCount do
 		local cls = Selectclasslist:GetByIndex(i);
 		if cls ~= nil then
-			if nowengname == imcIES.GetString(cls, "EngName") and nowcolor == imcIES.GetString(cls, "EngColor") then
-				apc:SetHeadType(cls:GetID());
+			if nowengname == imcIES.GetString(cls, "EngName") and nowcolor == imcIES.GetString(cls, "ColorE") then
+				apc:SetHeadType(i + 1);
 				break;
 			end
 		end
@@ -1120,141 +1013,12 @@ function BEAUTYSHOP_GET_PREVIEW_NAME_LIST()
 		"slotPreview_wing",
 		"slotPreview_effect_costume",
 		"slotPreview_armband",
-		"slotPreview_lh", 
-		"slotPreview_rh",
-		"slotPreview_doll",
-		"slotPreview_skin",
+		"slotPreview_toy" 
 	}
 	return slotNamelist
 end
 
-
-function BEAUTYSHOP_CHECK_TWOHAND_WEAPON(itemObj)
-	local eqpType = TryGetProp(itemObj , "EqpType");
-	if eqpType == nil then
-		return nil
-	end 
-
-	if eqpType == "SH" then -- 한손무기일 경우
-		-- 한손무기인데 창인경우엔 예외가 있다.
-		local DBLHand = TryGetProp(itemObj , "DBLHand");
-		if DBLHand ~= nil and DBLHand == 'YES' then
-			-- DBLHand가 YES일경우 양손무기임.
-			return true
-		end
-		return false
-	elseif eqpType == "DH" then -- 양손 무기일 경우
-		return true
-	end
-	return nil
-end
-
-function BEAUTYSHOP_GET_ITEM_WEAPON_EQUIPTYPE_BY_ITEMCLASSNAME(itemClassName)
-	local retType = "None"
-
-	-- itemClassName에 해당하는 item의 Eqp_Type을 가져와서 확인.
-	local itemCls = GetClass("Item", itemClassName);
-	if itemCls == nil then
-		return retType
-	end
-
-	local checkTwoHandWeapon = BEAUTYSHOP_CHECK_TWOHAND_WEAPON(itemCls)
-	if checkTwoHandWeapon == nil then
-		return retType;
-	end 
-
-	if checkTwoHandWeapon == true then
-		-- 양손 무기의 경우는 다른거 검사할 필요없음 그냥 LH, RH 둘다 변경.
-		retType = "lh" -- lh를 주고 이큅할때 lh면 다시 검사한다.
-	else
-		-- 오른손 왼손 확인
-		local defaultEqpSlot = TryGetProp(itemCls , "DefaultEqpSlot"); -- 장비슬롯 검사
-		if defaultEqpSlot == nil then
-			return retType
-		end
-
-		-- 왼손에 장착해야하는 경우 검사
-		if defaultEqpSlot == "LH" then
-			retType = "rh"  -- 데이터에 왼손은 코드의 오른손이다.
-		else
-			retType = "lh"
-		end
-	end
-
-	return retType;
-end
-
--- 무기 슬롯을 결정할 때 미리 왼손 오른손을 결정해주자. 
-function BEAUTYSHOP_GET_EQUIPTYPE_BY_WEAPON_ABIL(equipType, itemClassName)
-	
-	if itemClassName == nil then
-		return equipType
-	end
-
-	local itemCls = GetClass("Item", itemClassName);
-	if itemCls == nil then
-		return equipType
-	end
-
-	local propGroupName = TryGetProp(itemCls, "GroupName");
-	local classType = TryGetProp(itemCls,"ClassType")
-
-	local result = BEAUTYSHOP_CHECK_WEAPON_EQUIPABLE(itemCls.ClassID);
-	if result == 'OK' then
-		-- 착용이 가능하다면 왼손/오른손 어느쪽인지 확인.
-		
-		-- 한손검 보조장비 슬롯에 장착을 위한 검사.
-		local propGroupName = TryGetProp(itemCls, "GroupName");
-		local classType = TryGetProp(itemCls,"ClassType")
-		local subSwordAbil = session.GetAbilityByName("SubSword");
-		if subSwordAbil ~= nil and propGroupName == "Weapon" and classType == "Sword" then
-			return "rh" -- 한손검을 보조장비에 장착.
-		end
-	else
-		ui.SysMsg(ClMsg('BEAUTY_SHOP_EQUIPABLE_CHECK')); -- 경고문구.
-		return "None"
-	end
-
-	return equipType
-end
-
-
-function BEAUTYSHOP_GET_ITEM_EQUIPTYPE_BY_ITEMCLASSNAME(equipType, itemClassName)
-	if equipType == "None" then
-		return equipType
-	end
-
-	if equipType == "weapon" then
-		return BEAUTYSHOP_GET_ITEM_WEAPON_EQUIPTYPE_BY_ITEMCLASSNAME(itemClassName)
-	end
-
-	if equipType == "hair_costume" then
-		-- itemClassName에 해당하는 item의 Eqp_Type을 가져와서 확인.
-		local itemCls = GetClass("Item", itemClassName);
-		if itemCls == nil then
-			return equipType
-		end
-
-		local eqpType = TryGetProp(itemCls , "EqpType");
-		if eqpType == nil then
-			return equipType
-		end
-		local retType = "None"
-		if eqpType == "HAT" then
-			retType = "hair_costume_1"
-		elseif eqpType == "HAT_T" then
-			retType = "hair_costume_2"
-		elseif eqpType == "HAT_L" then
-			retType = "hair_costume_3"
-		end
-
-		return retType
-	end
-	
-	return equipType
-end 
-
-function BEAUTYSHOP_GET_PREIVEW_SLOT_NAME(equipType, itemClassName)
+function BEAUTYSHOP_GET_PREIVEW_SLOT_NAME(equipType)
 	local matchList = {
 			{previewEquipName = "hair" , 	slotName = "slotPreview_hair"},
 			{previewEquipName = "wig" , 	slotName = "slotPreview_wig"},
@@ -1267,23 +1031,12 @@ function BEAUTYSHOP_GET_PREIVEW_SLOT_NAME(equipType, itemClassName)
 			{previewEquipName = "wing",		slotName = "slotPreview_wing"},
 			{previewEquipName = "effect_costume", slotName = "slotPreview_effect_costume"},
 			{previewEquipName = "armband" , slotName = "slotPreview_armband"},
-			{previewEquipName = "lh" , slotName = "slotPreview_lh"},
-			{previewEquipName = "rh" , slotName = "slotPreview_rh"},
-			{previewEquipName = "doll" , slotName = "slotPreview_doll"},
-			{previewEquipName = "skin" , slotName = "slotPreview_skin"},
-			{previewEquipName = "designcut" , slotName = "slotPreview_wig"}
+			{previewEquipName = "toy" , slotName = "slotPreview_toy"},
 	}
 
-	local _equipType = BEAUTYSHOP_GET_ITEM_EQUIPTYPE_BY_ITEMCLASSNAME(equipType,itemClassName )
-	
-	-- 무기일 경우 여기서 착용 가능 유무를 검사하고 rh/lh도 결정한다.
-	if _equipType == "lh" or _equipType == "rh" then
-		_equipType = BEAUTYSHOP_GET_EQUIPTYPE_BY_WEAPON_ABIL(_equipType, itemClassName)
-	end
-	
 	for index = 1, #matchList do
 		local data = matchList[index]
-		if data.previewEquipName == _equipType then
+		if data.previewEquipName == equipType then
 			return data.slotName
 		end
 	end
@@ -1311,178 +1064,7 @@ function BEAUTYSHOP_GET_HEADINDEX(gender, itemClassName, colorName)
 	return hairIndex
 end
 
-function BEAUTYSHOP_SET_PREVIEW_HAIR_EQUIP_SLOT(apc, slot, existItem, classname)
-
-	if apc == nil or slot == nil or existItem == nil or classname == nil then
-		return
-	end
-
-	local defaultEqpSlot = TryGetProp(existItem,"DefaultEqpSlot")
-	if defaultEqpSlot == nil then
-		return
-	end
-
-	local colorName = slot:GetUserValue("COLOR_NAME")
-	if colorName == nil or colorName == "None" then  -- 컬러 설정이 안될 경우 None이다. 디폴트로 바꿔줘야함.
-		colorName = 'default'
-	end
-	apc:SetEquipItem(item.GetEquipSpotNum(defaultEqpSlot), 0);
-
-	-- headindex 구해서 적용.
-	local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), classname, colorName )
-	apc:SetHeadType(headIndex);
-end
-
-function BEAUTYSHOP_SET_PREVIEW_WIG_EQUIP_SLOT(apc, existItem, classname)
-
-	if apc == nil or existItem == nil or classname == nil then
-		return
-	end
-	
-	local defaultEqpSlot = TryGetProp(existItem,"DefaultEqpSlot")
-	if defaultEqpSlot == nil then
-		return
-	end
-
-	apc:SetHairWigVisible(true); -- 가발 보이기를 ON 해야 보인다.
-	-- 헤드 타입을 바꾼다. (컬러 기본색으로 변경해야함.)
-	local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), classname, 'default' )
-	apc:SetHeadType(headIndex);
-	-- 장착
-	apc:SetEquipItem(item.GetEquipSpotNum(defaultEqpSlot), existItem.ClassID);	
-	gereinforceeffect.SetBeautyShopPreviewEquipItem(apc:GetName(), item.GetEquipSpotNum(defaultEqpSlot), existItem.ClassID);
-end
-
-function BEAUTYSHOP_SET_PREVIEW_DESIGNCUT_EQUIP_SLOT(apc, slot, existItem, classname)
-	if apc == nil or slot == nil or existItem == nil or classname == nil then
-		return
-	end
-
-	local defaultEqpSlot = TryGetProp(existItem,"DefaultEqpSlot")
-	if defaultEqpSlot == nil then
-		return
-	end
-
-	local colorName = slot:GetUserValue("COLOR_NAME")
-	if colorName == nil or colorName == "None" then
-		colorName = "default"
-	end
-
-	local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), classname, colorName)
-	apc:SetHeadType(headIndex);
-	apc:SetEquipItem(item.GetEquipSpotNum(defaultEqpSlot), 0);
-	apc:SetHairWigVisible(true);
-end
-
-function BEAUTYSHOP_SET_PREVIEW_WIG_DYE_EQUIP_SLOT(apc, topFrame, wigVisible, existItem)
-
-	if apc == nil or topFrame == nil or wigVisible == nil or existItem == nil then
-		return
-	end
-
-	local gbPreview = GET_CHILD_RECURSIVELY(topFrame,"gbPreview");	
-	if gbPreview == nil then 
-		return
-	end
-
-	if wigVisible ~= true then -- 가발보이기가 true일 때만 염색 적용
-		return
-	end
-
-	-- 먼저 뷰티샵에서 변경할 헤어가 세팅 됬다면 염색을 적용하지 않음.
-	local hairSlot = GET_CHILD_RECURSIVELY(gbPreview, 'slotPreview_hair');
-	if hairSlot ~= nil then
-		local hairClassName = hairSlot:GetUserValue("CLASSNAME");
-		if hairClassName ~= nil and hairClassName ~= 'None' then
-			return
-		end
-	end
-
-	-- 조건에 충족하면 현재 가발슬롯에 장착된 가발을 가져온다.
-	local wigSlot = GET_CHILD_RECURSIVELY(gbPreview, 'slotPreview_wig');
-	if wigSlot ~= nil then
-		local wigClassName = wigSlot:GetUserValue("CLASSNAME");
-		local wigCls = GetClass("Item", wigClassName)
-		local colorName = existItem.StringArg
-		
-		-- 기본.
-		local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), wigClassName, colorName )
-
-		--headIndex가 0이고 가발 슬롯이 비어 있으면 현재 머리를 가져온다.
-		if headIndex == 0 and (wigClassName == nil or wigClassName =='None') then
-			local curHeadIndex = apc:GetHeadType();
-			local name, color = BEAUTYSHOP_TRANS_HEAD_INDEX_TO_NAME(apc:GetGender(),curHeadIndex)
-			headIndex = ui.GetHeadIndexByXML(apc:GetGender(), name, colorName);
-		
-		end
-		apc:SetHeadType(headIndex);
-	end
-
-end
-
-function BEAUTYSHOP_SET_PREVIEW_WEAPON_EQUIP_SLOT(apc, slot, existItem, classname)
-	
-	if apc == nil or slot == nil  or classname == nil then
-		return
-	end
-	-- 선행 조건들 처리 (선행 조건에 해당하면 설정하고 리턴시켜야함)
-
-	-- 장착 가능한 장비인지?
-	local result = BEAUTYSHOP_CHECK_WEAPON_EQUIPABLE(existItem.ClassID);
-	if result ~= 'OK' then
-		return
-	end
-	
-	local eqpType = TryGetProp(existItem , "EqpType");
-	if eqpType ~= nil then
-		-- slot의 이름을 확인한다. 좌/우 구분
-		local slotName = slot:GetName();
-		if slotName ~= nil then
-			if slotName == "slotPreview_lh" then
-				-- 왼손/오른손 상관없이 장비한다.
-				apc:SetEquipItem(ES_RH, existItem.ClassID);
-				gereinforceeffect.SetBeautyShopPreviewEquipItem(apc:GetName(), ES_LH, existItem.ClassID);
-			elseif slotName == "slotPreview_rh" then
-				-- 양손이라면 왼손과 똑같은 무기가 들어 있어야 한다.
-				if eqpType == "SH" then -- 한손무기일 경우
-					apc:SetEquipItem(ES_LH, existItem.ClassID);
-					gereinforceeffect.SetBeautyShopPreviewEquipItem(apc:GetName(), ES_LH, existItem.ClassID);
-				end
-				gereinforceeffect.SetBeautyShopPreviewEquipItem(apc:GetName(), ES_RH, existItem.ClassID);
-				-- 양손무기라면 그냥 리턴된다.
-			end
-			return
-		end
-	end
-
-	-- 모든 선행조건을 통과하면 디폴트 슬롯의 정보를 이용해 설정한다.
-	local defaultEqpSlot = TryGetProp(existItem,"DefaultEqpSlot")
-	if defaultEqpSlot ~= nil then
-		apc:SetEquipItem(item.GetEquipSpotNum(defaultEqpSlot), existItem.ClassID);
-	end
-end
-
--- 스킨 슬롯 미리보기 처리
-function BEAUTYSHOP_SET_PREVIEW_SKIN_EQUIP_SLOT(apc, existItem)
-	local skintoneName = TryGetProp(existItem, "StringArg"); 
-	if skintoneName ~= nil then
-		local skintone = GetClass("SkinTone",skintoneName);
-		if skintone ~= nil then
-			local r = TryGetProp(skintone, "Red");
-			local g = TryGetProp(skintone, "Green");
-			local b = TryGetProp(skintone, "Blue");
-			if r ~= nil and g ~= nil and b ~= nil then
-				apc:SetSkinColorRGB(r,g,b);
-			end
-		end
-	end 
-end
-
 function BEAUTYSHOP_SET_PREVIEW_SLOT_LIST(apc)
-
--- 리팩토링용 테스트 슬롯세팅. (리팩토링 전과 후가 같으면 통과.)
-	--TEST_BEAUTYSHOP_SET_FORCE_PREVIEW_SLOT()
-
 	local topFrame = ui.GetFrame("beautyshop");
     local gbPreview = GET_CHILD_RECURSIVELY(topFrame,"gbPreview");	
 	if gbPreview == nil then
@@ -1490,8 +1072,7 @@ function BEAUTYSHOP_SET_PREVIEW_SLOT_LIST(apc)
 	end
 
 	-- 미리보기 장착 : 미리보기 슬롯들을 이용해 덮어쓴다.
-	local wigVisible = true
-
+	local wigVisible = false -- 가발이 visible 상태인지 (염색약을 적용하려면 이게 visible 상태여야 한다.)
 	local slotNameList = BEAUTYSHOP_GET_PREVIEW_NAME_LIST()
 	for index = 1, #slotNameList do
 		local name = slotNameList[index]
@@ -1500,31 +1081,50 @@ function BEAUTYSHOP_SET_PREVIEW_SLOT_LIST(apc)
 		if visible == true then
 			local classname = slot:GetUserValue("CLASSNAME");
 			local type = slot:GetUserValue("TYPE")	-- 슬롯의 타입. hair, wig..
-			local existItem = GetClass("Item",classname);
-			if existItem ~= nil then
-				-- type에 따른 처리 (hair, wig, wig_dye, weapon)
-				if type == "hair" then -- hair
-					BEAUTYSHOP_SET_PREVIEW_HAIR_EQUIP_SLOT(apc, slot, existItem, classname);
-				elseif type == "wig" then -- wig 
-					wigVisible = visible -- 가발 상태를 설정. 
-					BEAUTYSHOP_SET_PREVIEW_WIG_EQUIP_SLOT(apc, existItem, classname);
-				elseif type == "wig_dye" then -- wig_dye
-					BEAUTYSHOP_SET_PREVIEW_WIG_DYE_EQUIP_SLOT(apc, topFrame, wigVisible, existItem);
-				elseif type == "weapon" or type == "rh" or type == "lh" then -- weapon (rh, lh)
-					BEAUTYSHOP_SET_PREVIEW_WEAPON_EQUIP_SLOT(apc, slot, existItem, classname);
-				elseif type == "skin" then
-					BEAUTYSHOP_SET_PREVIEW_SKIN_EQUIP_SLOT(apc, existItem);
-				elseif type == "designcut" then
-					wigVisible = visible;
-					BEAUTYSHOP_SET_PREVIEW_DESIGNCUT_EQUIP_SLOT(apc, slot, existItem, classname);
-				else -- 그외
-					local defaultEqpSlot = TryGetProp(existItem,"DefaultEqpSlot")
-					if defaultEqpSlot ~= nil  then -- DefaultEqpSlot이 있는것만.
-						apc:SetEquipItem(item.GetEquipSpotNum(defaultEqpSlot), existItem.ClassID);
-						gereinforceeffect.SetBeautyShopPreviewEquipItem(apc:GetName(), item.GetEquipSpotNum(defaultEqpSlot), existItem.ClassID);
+
+			local alreadyItem = GetClass("Item",classname);
+			if alreadyItem ~= nil then
+				local defaultEqpSlot = TryGetProp(alreadyItem,"DefaultEqpSlot")
+				if defaultEqpSlot ~= nil  then
+					-- hair의 경우 장비에 장착 아이템을 0으로 만들고 HeadType을 설정해야 한다.
+					if type == "hair" then
+						local colorName = slot:GetUserValue("COLOR_NAME")
+						if colorName == nil or colorName == "None" then  -- 컬러 설정이 안될 경우 None이다. 디폴트로 바꿔줘야함.
+							colorName = 'default'
+						end
+						apc:SetEquipItem(item.GetEquipSpotNum(defaultEqpSlot), 0);
+						-- headindex 구해서 적용.
+						local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), classname, colorName )
+						apc:SetHeadType(headIndex);
+					else	-- 그외에 아이템 슬롯에 장착.
+						if type == "wig" then
+							wigVisible = visible -- 가발 상태를 설정.
+							apc:SetHairWigVisible(true); -- 가발 보이기를 ON 해야 보인다.
+							-- 헤드 타입을 바꾼다. (컬러 기본색으로 변경해야함.)
+							local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), classname, 'default' )
+							apc:SetHeadType(headIndex);
+						end
+
+						apc:SetEquipItem(item.GetEquipSpotNum(defaultEqpSlot), alreadyItem.ClassID);
+					end
+				else 
+					-- defaultEqpSlot이 nil인데 type이 wig_dye인 경우 염색약이다.
+					if type == "wig_dye" and wigVisible == true then
+						-- 가발이 visible 상태여야 한다.
+
+						-- 조건에 충족하면 현재 가발슬롯에 장착된 가발을 가져온다.
+						local wigSlot = GET_CHILD_RECURSIVELY(gbPreview, 'slotPreview_wig');
+						if wigSlot ~= nil then
+							local wigClassName = wigSlot:GetUserValue("CLASSNAME");
+							local wigCls = GetClass("Item", wigClassName)
+							local colorName = alreadyItem.StringArg
+							
+							local headIndex = BEAUTYSHOP_GET_HEADINDEX(apc:GetGender(), wigClassName, colorName )
+							apc:SetHeadType(headIndex);
+						end
 					end
 				end
-			end			
+			end
 		end
 	end
 end
@@ -1568,17 +1168,6 @@ end
 -- 미리보기에서 해당 슬롯만 제거(우클릭 제거)
 function BEAUTYSHOP_PREVIEWSLOT_REMOVE(parent, control, strArg, numArg)
 	BEAUTYSHOP_CANCEL_SELECT_ITEM(parent, control)
-	
-	-- 넘어온 장비가 양손무기면, 반대쪽 무기 슬롯도 해제.
-	local itemClassName = control:GetUserValue("CLASSNAME");
-	local itemCls = GetClass("Item", itemClassName);
-	if itemCls ~= nil then
-		local checkTwoHandWeapon = BEAUTYSHOP_CHECK_TWOHAND_WEAPON(itemCls)
-		if checkTwoHandWeapon == true then
-			BEAUTYSHOP_RESET_TWOHAND_WEAPON_SLOT(control)
-		end
-	end
-
 	BEAUTYSHOP_CLEAR_SLOT(control);
 	BEAUTYSHOP_SET_PREVIEW_APC_IMAGE(parent:GetTopParentFrame(), 99);
 end
@@ -1586,11 +1175,11 @@ end
 -- 미리보기에서 해당 슬롯에 장착
 function BEAUTYSHOP_PREVIEWSLOT_EQUIP(frame, slot, itemObj)
     local clickedCtrlsetName = frame:GetUserValue('CLICKED_ITEM_CTRLSET_NAME');
-	local ctrlset = GET_CHILD_RECURSIVELY(frame, clickedCtrlsetName);
+    local ctrlset = GET_CHILD_RECURSIVELY(frame, clickedCtrlsetName);
 
 	slot:SetEventScript(ui.RBUTTONDOWN, 'BEAUTYSHOP_PREVIEWSLOT_REMOVE');
 	slot:SetUserValue("CLASSNAME", itemObj.ClassName);
-	slot:SetUserValue('IDSPACE', ctrlset:GetUserValue('IDSPACE'));
+    slot:SetUserValue('IDSPACE', ctrlset:GetUserValue('IDSPACE'));
 	slot:SetUserValue('SHOP_CLASSNAME', ctrlset:GetUserValue('SHOP_CLASSNAME'));
 	slot:SetUserValue('GENDER', beautyShopInfo.gender);
 
@@ -1607,92 +1196,9 @@ function BEAUTYSHOP_PREVIEWSLOT_EQUIP(frame, slot, itemObj)
 			-- 팔레트 설정
 			BEAUTYSHOP_ADD_PALLETE_IMAGE(slot);
 		end
-		
-	elseif type =="weapon" or type == "rh" or type =="lh" then --무기일 경우 장착 가능한지 검사
-		-- 양손 무기일 경우 lh슬롯이라면 rh도 세팅해준다. rh 덮어버림
-		if BEAUTYSHOP_CHECK_TWOHAND_WEAPON(itemObj) == true then
-			local idSpace = ctrlset:GetUserValue('IDSPACE')
-			local shopClassName = ctrlset:GetUserValue('SHOP_CLASSNAME')
-			BEAUTYSHOP_SET_TWOHAND_WEAPON_SLOT(itemObj, idSpace, shopClassName );
-		else
-			-- 기존에 양손무기를 끼고있었는데 한손무기로 바뀌면 반대쪽을 해제한다.
-			BEAUTYSHOP_RESET_TWOHAND_WEAPON_SLOT(slot)
-		end
 	end
 
-	
 	BEAUTYSHOP_SET_PREVIEW_APC_IMAGE(frame, 99);
-end
-
-function BEAUTYSHOP_RESET_TWOHAND_WEAPON_SLOT(slot)
-	if slot == nil then
-		return 
-	end
-
-	local topFrame = ui.GetFrame("beautyshop");
-    local gbPreview = GET_CHILD_RECURSIVELY(topFrame,"gbPreview");	
-	if gbPreview == nil then
-		return 
-	end
-
-	local slotName = slot:GetName()
-	local otherSlotName = "slotPreview_lh";
-	if slotName == "slotPreview_lh" then
-		otherSlotName = "slotPreview_rh";
-	end
-
-	local otherSlot = GET_CHILD(gbPreview, otherSlotName)
-	if otherSlot == nil then
-		return
-	end
-
-	local className = otherSlot:GetUserValue("CLASSNAME");
-	local itemCls = GetClass("Item", className);
-	if itemCls == nil then
-		return
-	end
-
-	-- 양손 무기라면 해제한다.
-	if BEAUTYSHOP_CHECK_TWOHAND_WEAPON(itemCls) == true then
-		BEAUTYSHOP_CLEAR_SLOT(otherSlot);
-	end
-end
-
-function BEAUTYSHOP_SET_TWOHAND_WEAPON_SLOT(itemObj, idSpace, shopClassName)
-	local topFrame = ui.GetFrame("beautyshop");
-    local gbPreview = GET_CHILD_RECURSIVELY(topFrame,"gbPreview");	
-	if gbPreview == nil then
-		return 
-	end
-
-	local slot = GET_CHILD(gbPreview, "slotPreview_rh")
-	if slot == nil then
-		return
-	end
-
-	if itemObj == nil then
-		return
-	end
-
-	-- 슬롯에 있는 정보를 날린다.
-	slot:ClearText();
-	slot:ClearIcon();
-	slot:SetUserValue("CLASSNAME", "None");
-	slot:RemoveChild('HAIR_DYE_PALETTE')	
-
-	-- slot에 정보 넣기	
-	slot:SetUserValue("TYPE", equipType)	
-	slot:SetEventScript(ui.RBUTTONDOWN, 'BEAUTYSHOP_PREVIEWSLOT_REMOVE');
-	slot:SetUserValue("CLASSNAME", itemObj.ClassName);
-    slot:SetUserValue('IDSPACE',idSpace);
-	slot:SetUserValue('SHOP_CLASSNAME', shopClassName);
-	slot:SetUserValue('GENDER', beautyShopInfo.gender);
-
-	SET_SLOT_IMG(slot, GET_ITEM_ICON_IMAGE(itemObj));
-	local icon = slot:GetIcon();
-	icon:SetTooltipType('wholeitem');
-	icon:SetTooltipArg('', itemObj.ClassID, 0);
-
 end
 
 function BEAUTYSHOP_ADD_PALLETE_IMAGE(slot)
@@ -1760,7 +1266,7 @@ function BEAUTYSHOP_CHECK_MY_GENDER(checkGender)
 end
 
 -- 뷰티샵 프리뷰의 슬롯 가져오기
-function BEAUTYSHOP_GET_PREIVEW_SLOT(equipType, itemClassName)
+function BEAUTYSHOP_GET_PREIVEW_SLOT(equipType)
 
 	local topFrame = ui.GetFrame("beautyshop");
     local gbPreview = GET_CHILD_RECURSIVELY(topFrame,"gbPreview");	
@@ -1769,11 +1275,7 @@ function BEAUTYSHOP_GET_PREIVEW_SLOT(equipType, itemClassName)
 	end
 
 	-- equiptype을 통해 슬롯 가져오기.
-	local slotName = BEAUTYSHOP_GET_PREIVEW_SLOT_NAME(equipType, itemClassName) 
-	if slotName == nil then
-		return nil
-	end
-
+	local slotName = BEAUTYSHOP_GET_PREIVEW_SLOT_NAME(equipType) 
 	local slot = GET_CHILD(gbPreview, slotName)
 	if slot == nil then
 		return nil
@@ -1783,21 +1285,17 @@ function BEAUTYSHOP_GET_PREIVEW_SLOT(equipType, itemClassName)
 end
 
 function BEAUTYSHOP_BUY_BASKET_BTN_CLICK(parent, ctrl)
-	if IS_ENABLE_BUY_TP_ITEM() == false then
-		return;
-	end
-
-	local frame = parent:GetTopParentFrame();
-	local list = GET_CURRENT_BASKET_ITEM_LIST(frame);
+    local frame = parent:GetTopParentFrame();
+    local list = GET_CURRENT_BASKET_ITEM_LIST(frame);
     if #list < 1 then
     	ui.SysMsg(ClMsg('EmptyBasket'));
     	return;
-	end
+    end
 	SHOW_BEAUTYSHOP_SIMPLELIST(false, list);
 end
 
 function GET_CURRENT_TRY_ON_ITEM_LIST(frame)
-	local equipTypeList = {'hair', 'wig', 'wig_dye', 'hair_costume_1', 'hair_costume_2', 'hair_costume_3', 'lens', 'costume', 'wing', 'effect_costume', 'armband', 'lh', 'rh', 'doll', 'skin'};
+	local equipTypeList = {'hair', 'wig', 'wig_dye', 'hair_costume_1', 'hair_costume_2', 'hair_costume_3', 'lens', 'costume', 'wing', 'effect_costume', 'armband', 'toy'};
 	local list = {};
 	for i = 1, #equipTypeList do
 		local slot = GET_CHILD_RECURSIVELY(frame, 'slotPreview_'..equipTypeList[i]);
@@ -1805,7 +1303,7 @@ function GET_CURRENT_TRY_ON_ITEM_LIST(frame)
 		if clsName ~= 'None' then
 			list[#list + 1] = {};
             local listItem = list[#list];
-			listItem['IDSpace'] = slot:GetUserValue('IDSPACE');
+            listItem['IDSpace'] = slot:GetUserValue('IDSPACE');
             listItem['ClassName'] = slot:GetUserValue('SHOP_CLASSNAME');
             listItem['ItemClassName'] = clsName;
             listItem['equipType'] = equipTypeList[i];
@@ -1862,18 +1360,6 @@ function IS_ALREAY_PUT_HAIR_IN_BASKET(frame, slotset)
 	return nil;
 end
 
-function IS_ALREAY_PUT_SKIN_IN_BASKET(frame, slotset)
-	local slotCount = slotset:GetSlotCount();
-	for i = 0, slotCount - 1 do
-		local slot = slotset:GetSlotByIndex(i);		
-		local idSpace = slot:GetUserValue('IDSPACE');
-		if idSpace == 'Beauty_Shop_Skin' then
-			return slot;
-		end
-	end
-	return nil;
-end
-
 function BEAUTYSHOP_SELECT_DROPLIST(parent, ctrl)
 	local frame = parent:GetTopParentFrame();
 	frame:SetUserValue('SELECTED_CATEGORY', ctrl:GetSelItemKey());
@@ -1909,7 +1395,7 @@ end
 function BEAUTYSHOP_INIT_DROPLIST(frame)
 	local cateDrop = GET_CHILD_RECURSIVELY(frame, 'cateDrop');
 	local shopTypeName = frame:GetUserValue('CURRENT_SHOP');
-	if shopTypeName == 'HAIR' or shopTypeName == "DESIGNCUT" then
+	if shopTypeName == 'HAIR' then
 		cateDrop:ShowWindow(0);
 		return;
 	end
@@ -1942,23 +1428,11 @@ function BEAUTYSHOP_UPDATE_ITEM_LIST_BY_SHOP(frame)
 	elseif shopName == 'PACKAGE' then
 		PACKAGESHOP_INIT_FUNCTIONMAP();
 		PACKAGESHOP_GET_SHOP_ITEM_LIST(BEAUTYSHOP_GET_GENDER());
-	elseif shopName == 'PREVIEW' then
-		PREVIEWSHOP_INIT_FUNCTIONMAP();
-		PREVIEWSHOP_GET_SHOP_ITEM_LIST();
-	elseif shopName == 'SKIN' then
-		SKINSHOP_INIT_FUNCTIONMAP();
-		SKINSHOP_GET_SHOP_ITEM_LIST();
-	elseif shopName == 'DESIGNCUT' then
-		DESIGNCUTSHOP_INIT_FUNCTIONMAP();
-		DESIGNCUTSHOP_GET_SHOP_ITEM_LIST(BEAUTYSHOP_GET_GENDER());
-	elseif shopName == 'PREVIEW_SILVERGACHA' then
-		PREVIEW_SILVERGACHA_SHOP_INIT_FUNCTIONMAP();
-		PREVIEW_SILVERGACHA_SHOP_GET_SHOP_ITEM_LIST();
 	end
 end
 
 ----------- 구매
-function  BEAUTYSHOP_EXEC_BUY_PURCHASE_ITEM(idSpaceList, classNameList, colorList, hairCouponGuid, dyeCouponGuid, skinCouponGuid)
+function  BEAUTYSHOP_EXEC_BUY_PURCHASE_ITEM(idSpaceList, classNameList, colorList, hairCouponGuid, dyeCouponGuid)
     if #idSpaceList ~= #classNameList or #idSpaceList ~= #colorList then
         IMC_LOG('ERROR_LOGIC', 'BEAUTYSHOP_EXEC_BUY_PURCHASE_ITEM: list count must be equal- idspace['..#idSpaceList..'], className['..#classNameList..'], color['..#colorList..']');
         return;
@@ -1969,7 +1443,7 @@ function  BEAUTYSHOP_EXEC_BUY_PURCHASE_ITEM(idSpaceList, classNameList, colorLis
     for i = 1, #idSpaceList do
     	session.beautyshop.AddPurchaseItem(idSpaceList[i], classNameList[i], colorList[i]);
     end
-	session.beautyshop.SendPurchaseItemList(hairCouponGuid, dyeCouponGuid, skinCouponGuid);
+	session.beautyshop.SendPurchaseItemList(hairCouponGuid, dyeCouponGuid);
 	
 	local frame = ui.GetFrame('beautyshop');
 	BEAUTYSHOP_RESET_SLOT(frame);
@@ -1999,7 +1473,7 @@ function BEAUTYSHOP_INIT_RIGHTTOP_BOX(frame)
 	local infoText = GET_CHILD_RECURSIVELY(frame, 'infoText');
 
 	local shopName = frame:GetUserValue('CURRENT_SHOP');
-	if shopName == 'HAIR' or shopName == "DESIGNCUT" then
+	if shopName == 'HAIR' then
 		rtSubItemTitle:ShowWindow(1);
 		gbSubItem:ShowWindow(1);
 		infoText:ShowWindow(1);
@@ -2124,45 +1598,26 @@ end
 
 function BEAUTYSHOP_DETAIL_SET_PRICE_TEXT(ctrlset, beautyShopCls)
 	local nxp = GET_CHILD(ctrlset, 'nxp');
-
-	if beautyShopCls.Price == -1 then
-		nxp:SetText("{@st43}{s18}-{/}");
+	local discountRatio = beautyShopCls.PriceRatio;	
+	if discountRatio > 0 then
+		local frame = ctrlset:GetTopParentFrame();
+		local DISCOUNT_COLOR = frame:GetUserConfig('DISCOUNT_COLOR');
+		nxp:SetText(DISCOUNT_COLOR..'{cl}'..beautyShopCls.Price..'{/}{/}{/} {@st43}{s18}'..math.floor(beautyShopCls.Price / 100 * (100 -discountRatio)));
 	else
-		local discountRatio = beautyShopCls.PriceRatio;	
-		if discountRatio > 0 then
-			local frame = ctrlset:GetTopParentFrame();
-			local DISCOUNT_COLOR = frame:GetUserConfig('DISCOUNT_COLOR');
-			nxp:SetText(DISCOUNT_COLOR..'{cl}'..beautyShopCls.Price..'{/}{/}{/} {@st43}{s18}'..math.floor(beautyShopCls.Price / 100 * (100 -discountRatio)));
-		else
-			nxp:SetText("{@st43}{s18}"..beautyShopCls.Price.."{/}");
-		end
+		nxp:SetText("{@st43}{s18}"..beautyShopCls.Price.."{/}");
 	end
 end
 
 function GET_ALLOW_DUPLICATE_ITEM_CLIENT_MSG(itemClassName) -- return 'buy case client msg', 'preview case client msg'
 	local itemCls = GetClass('Item', itemClassName);
 	if itemCls.Script == 'SCR_USE_ITEM_HAIRCOLOR' then -- 염색약 처리
-		local color = itemCls.StringArg;
-		if IS_ACHIEVE_HAIR_COLOR(color) == true then 
-			local acc = GetMyAccountObj();
-			if acc ~= nil then
-				if TryGetProp(acc, "HairColor_"..itemCls.StringArg, 0) == 1 then
-					return 'AlreadyHaveWigDye', 'AlreadyHaveWigDyePreview';
-				end
-			end
-		else
-			local etc = GetMyEtcObject();
-			if etc ~= nil then
-				if TryGetProp(etc, 'HairColor_'..itemCls.StringArg, 0) == 1 then
-					return 'AlreadyHaveWigDye', 'AlreadyHaveWigDyePreview';
-				end
-			end
+		local etc = GetMyEtcObject();		
+		if TryGetProp(etc, 'HairColor_'..itemCls.StringArg, 0) == 1 then
+			return 'AlreadyHaveWigDye', 'AlreadyHaveWigDyePreview';
 		end
-
 		if session.GetInvItemByType(itemCls.ClassID) ~= nil then
 			return 'AlreadyHaveWigDye', 'AlreadyHaveWigDyePreview';
 		end
-
 		if session.GetWarehouseItemByType(itemCls.ClassID) ~= nil then
 			return 'AlreadyHaveWigDye', 'AlreadyHaveWigDyePreview';
 		end
@@ -2180,35 +1635,6 @@ function GET_ALLOW_DUPLICATE_ITEM_CLIENT_MSG(itemClassName) -- return 'buy case 
 	end
 	if session.GetWarehouseItemByType(itemCls.ClassID) ~= nil then
 		return 'AlearyHaveItemReallyBuy?', 'AlreadyHaveWannaRebuyFromPreview';
-	end	
-	return '', '';
-end
-
-
--- 기본 직업, 레벨,  성별 확인 후 어빌이 있는 경우에만 낄 수 있음.
-function BEAUTYSHOP_CHECK_WEAPON_EQUIPABLE(itemClassID)
-	local pc = GetMyPCObject();
-	local lv = GETMYPCLEVEL();
-	local job = GETMYPCJOB();
-	local gender = GETMYPCGENDER();
-	local prop = geItemTable.GetProp(itemClassID);
-	
-	local ret = prop:CheckEquip(lv, job, gender);
-	local haveAbil =  session.IsEquipWeaponAbil(itemClassID);
-	
-	if ret == 'OK' then
-		if 0 ~= haveAbil then
-			return ret;
-		else
-			return 'ABIL'
-		end
-	else
-		if ret == 'LV' or ret == 'GENDER' then
-			return ret;
-		elseif 2 == haveAbil then
-			return 'OK'
-		end
 	end
-
-	return ret;
+	return '', '';
 end

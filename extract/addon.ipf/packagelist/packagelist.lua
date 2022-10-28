@@ -1,12 +1,12 @@
 -- packagelist.lua
 
-function PACKAGELIST_SHOW(itemID, argStr, selectedCtrlSetName)
+function PACKAGELIST_SHOW(itemID, argStr)
 	local packageName = GET_PACKAGE_ITEM_NAME(itemID);	
 	if packageName == 'None' then	
 		return;
 	end
-	local frame = ui.GetFrame('packagelist');    
-	PACKAGELIST_INIT(frame, itemID, argStr, packageName, selectedCtrlSetName);
+	local frame = ui.GetFrame('packagelist');
+	PACKAGELIST_INIT(frame, itemID, argStr, packageName);
 	frame:ShowWindow(1);	
 end
 
@@ -47,7 +47,7 @@ function GET_PACKAGE_ITEM_NAME(itemID)
 	return 'None';
 end
 
-function PACKAGELIST_EDIT_ON_TYPING(parent, ctrl)	
+function PACKAGELIST_EDIT_ON_TYPING(parent, ctrl)
 	local frame = parent:GetTopParentFrame();
 	local textEdit = GET_CHILD_RECURSIVELY(frame, 'textEdit');
 	local curCount = 0;
@@ -67,14 +67,6 @@ function PACKAGELIST_EDIT_ON_TYPING(parent, ctrl)
 		elseif limit == 'MONTH' and curCount + 1 > tpItemCls.MonthLimitCount then
 			textEdit:SetText(tpItemCls.MonthLimitCount);
 			ui.SysMsg(ScpArgMsg("PurchaseItemExceeded", "Value", tpItemCls.MonthLimitCount));
-			return;
-		elseif limit == 'WEEKLY' and curCount + 1 > tpItemCls.AccountLimitWeeklyCount then
-			textEdit:SetText(tpItemCls.AccountLimitWeeklyCount);
-			ui.SysMsg(ScpArgMsg("PurchaseItemExceeded", "Value", tpItemCls.AccountLimitWeeklyCount));
-			return;
-		elseif limit == 'CUSTOM' and curCount + 1 > tpItemCls.AccountLimitWeeklyCount then
-			textEdit:SetText(tpItemCls.AccountLimitCustomCount);
-			ui.SysMsg(ScpArgMsg("PurchaseItemExceeded", "Value", tpItemCls.AccountLimitCustomCount));
 			return;
 		end
 	end
@@ -103,10 +95,6 @@ function PACKAGELIST_UP_BTN_CLICK(parent, ctrl)
 			textEdit:SetText(tpItemCls.MonthLimitCount);
 			ui.SysMsg(ScpArgMsg("PurchaseItemExceeded", "Value", tpItemCls.MonthLimitCount));
 			return;
-		elseif limit == 'WEEKLY' and curCount + 1 > tpItemCls.AccountLimitWeeklyCount then
-			textEdit:SetText(tpItemCls.AccountLimitWeeklyCount);
-			ui.SysMsg(ScpArgMsg("PurchaseItemExceeded", "Value", tpItemCls.AccountLimitWeeklyCount));
-			return;
 		end
 	end
 
@@ -129,7 +117,7 @@ function PACKAGELIST_DOWN_BTN_CLICK(parent, ctrl)
 	textEdit:SetText(nextCount);
 end
 
-function PACKAGELIST_PUT_INTO_BASKET(parent, ctrl)	
+function PACKAGELIST_PUT_INTO_BASKET(parent, ctrl)
 
 	-- TPShop하고 같이 쓸 수 없다. 여기서 분기.
 	local beautyshopFrame = ui.GetFrame('beautyshop');
@@ -141,21 +129,19 @@ function PACKAGELIST_PUT_INTO_BASKET(parent, ctrl)
 	end
 
 	local tpitem = ui.GetFrame('tpitem');
-	local frame = parent:GetTopParentFrame();	
-    local selectedCtrlSetName = frame:GetUserValue('SELECTED_CTRLSET_NAME');
+	local frame = parent:GetTopParentFrame();
 	local tpitemID = frame:GetUserIValue('TPITEM_ID');
 	local tpItemCls = GetClassByType('TPitem', tpitemID);
 
 	local mainSubGbox = GET_CHILD_RECURSIVELY(tpitem, 'mainSubGbox');	
-	local itemCtrl = GET_CHILD_RECURSIVELY(mainSubGbox, selectedCtrlSetName);    	
+	local itemCtrl = GET_CHILD_RECURSIVELY(mainSubGbox, 'eachitem_'..tpitemID);
 	if itemCtrl == nil then
 		IMC_LOG('ERROR_LOGIC', 'itemCtrl is nil'); -- UI 컨트롤을 눌러서 이 창을 띄운거라면 이게 없어서는 안됨
 		return;
-	end
-
+	end	
 	local textEdit = GET_CHILD_RECURSIVELY(frame, 'textEdit');
 	local curCnt = tonumber(textEdit:GetText());	
-	for i = 1, curCnt do		
+	for i = 1, curCnt do
 		if TPSHOP_ITEM_TO_BASKET_PREPROCESSOR(itemCtrl, itemCtrl:GetChild('buyBtn'), tpItemCls.ClassName, tpitemID) == false then
             break;
         end
@@ -193,11 +179,11 @@ function PACKAGELIST_PUT_INTO_BEAUTYSHOP_BASKET(beautyshopFrame, parent, ctrl)
 end
 
 -- 아이템 메인
-function PACKAGELIST_INIT(frame, itemID, argStr, packageName, selectedCtrlSetName)	
+function PACKAGELIST_INIT(frame, itemID, argStr, packageName)
+	
 	local argList = StringSplit(argStr, ';');
 	frame:SetUserValue('TPITEM_ID', argList[1]); 
-	frame:SetUserValue('ITEM_ID', itemID);	
-    frame:SetUserValue('SELECTED_CTRLSET_NAME', selectedCtrlSetName);
+	frame:SetUserValue('ITEM_ID', itemID);
 
 	local itemCls = GetClassByType('Item', itemID);
 	local itemIconPic = GET_CHILD_RECURSIVELY(frame, 'itemIconPic');
@@ -240,25 +226,14 @@ function PACKAGELIST_INIT_ITEMLIST(frame, itemCls, packageName)
 		local ctrlset = itemListBox:CreateOrGetControlSet('packagelist_item', 'ITEM_'..packageItemCls.ClassName, 0, 0);
 		local itemSlot = GET_CHILD(ctrlset, 'itemSlot');
 		local icon = CreateIcon(itemSlot);
-		
-		local iconName = GET_ITEM_ICON_IMAGE(packageItemCls);
-		icon:SetImage(iconName);
+		icon:SetImage(packageItemCls.Icon);
 		SET_ITEM_TOOLTIP_BY_NAME(icon, packageItemCls.ClassName);
 
 		local nameText = GET_CHILD(ctrlset, 'nameText');
-		local name = packageItemCls.Name
-		if string.len(name) >= 63 then
-			name = string.sub(name,1,60)
-			name = name.."..."
-		end
-		nameText:SetText(name);
+		nameText:SetText(packageItemCls.Name);
 
 		local typeText = GET_CHILD(ctrlset, 'typeText');
-		if packageList[i].EquipType == "None" then
-			typeText:SetText("");
-		else
-			typeText:SetText(GET_REQ_TOOLTIP(packageItemCls));
-		end
+		typeText:SetText(GET_REQ_TOOLTIP(packageItemCls));
 
 		if tpitem:IsVisible() == 1 then
 			local previewBtn = GET_CHILD(ctrlset, 'previewBtn');
@@ -268,11 +243,6 @@ function PACKAGELIST_INIT_ITEMLIST(frame, itemCls, packageName)
 			ctrlset:SetUserValue("ITEM_NAME", packageList[i].ItemName)
 			ctrlset:SetUserValue("EQUIP_TYPE", packageList[i].EquipType)
 			ctrlset:SetUserValue("PACKAGE_NAME", itemCls.ClassName)
-			
-			if packageList[i].EquipType == "None" then
-				local previewBtn = GET_CHILD(ctrlset, 'previewBtn');
-				previewBtn:ShowWindow(0);
-			end
 		end
 	end
 	GBOX_AUTO_ALIGN(itemListBox, 0, -5, 0, true, false, false);
@@ -293,55 +263,13 @@ function PACKAGELIST_ITEM_PREVIEW_CLICK(parent, ctrl)
 	local itemName = parent:GetUserValue("ITEM_NAME")
 	local packageName = parent:GetUserValue("PACKAGE_NAME")
 	local equipType = parent:GetUserValue("EQUIP_TYPE")
-	local slotName = BEAUTYSHOP_GET_PREIVEW_SLOT_NAME(equipType, itemName)
+	local slotName = BEAUTYSHOP_GET_PREIVEW_SLOT_NAME(equipType)
 	local itemobj = GetClass("Item", itemName)
-	if slotName ~= nil and itemobj ~= nil then
+	if itemobj ~= nil then
 		local slot = GET_CHILD(gbPreview, slotName);
 		slot:SetUserValue("TYPE", equipType)
 		slot:SetUserValue("PACKAGE_NAME", packageName)
-
-		-- 장비 장착 가능 확인.
-		local ret, reason = IS_ENABLE_EQUIP_AT_BEAUTYSHOP(itemobj, nil);
-		if ret == false then
-			if reason == 'Gender' then
-				ui.SysMsg(ClMsg('InvalidGender'));
-			elseif reason == 'JOB' then
-				ui.SysMsg(ClMsg('BEAUTY_SHOP_CLASS_CHECK'));
-			end
-			return 
-		end
-		
 		BEAUTYSHOP_PREVIEWSLOT_EQUIP(topFrame, slot, itemobj )
 	end
 end
 
-
-function GET_PACKAGE_ITEM_LIST(packageName)
-    local infoMap = GET_PACKAGE_CACHE_MAP();
-    local packageList = infoMap[packageName];
-	if packageList == nil then
-		return nil;
-	end
-
-	local list = {};
-	for i = 1, #packageList do
-		list[#list+1] = packageList[i].ItemName;
-	end
-    return list;
-end
-
-function GET_FIRST_COSTUME_NAME_FROM_PACKAGE(packageItemClsName)
-	local packageItemList = GET_PACKAGE_ITEM_LIST(packageItemClsName);
-	if packageItemList == nil then
-		return nil;
-	end
-    local firstCostumeName = nil;
-    for i=1, #packageItemList do
-        local unpackItem =  GetClass("Item", packageItemList[i]);
-        if TryGetProp(unpackItem, "ClassType") == "Outer" then
-            firstCostumeName = unpackItem.ClassName;
-            break;
-        end
-    end
-    return firstCostumeName;
-end
