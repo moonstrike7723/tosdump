@@ -1,4 +1,12 @@
 ClassID,Price,JobGrade,Itemdate,AccountLimitCount,BonusItemCnt,ClassName,Category,SubCategory,ItemClassName,Job,SellStartTime,SellEndTime,WarningMsg,BonusItemName,BonusOnlySeasonServer,ItemSocial,buyOptionFunc
+1,298,0,2110051,3,0,ClassName1,TP_Premium,TP_Package,202108package_Growth,,2021-08-12 09:00:00,2021-12-02 08:00:00,NO,,NO,,
+2,297,0,2110052,1,0,ClassName2,TP_Premium,TP_Package,2021_ARBORDAY_ACC_PACKAGE,,2021-08-12 09:00:00,2021-12-02 08:00:00,NO,,NO,,
+3,49,0,2110053,1,0,ClassName3,TP_Premium,TP_Package,2021_ARBORDAY_PACKAGE_ACC_UPGRADE4,,2021-08-12 09:00:00,2021-12-02 08:00:00,NO,,NO,,
+4,117,0,2110054,3,0,ClassName4,TP_Premium,TP_Package,202108package_ContentsA,,2021-08-12 09:00:00,2021-12-02 08:00:00,NO,,NO,,
+5,417,0,2110055,3,0,ClassName5,TP_Premium,TP_Package,202108package_ContentsB,,2021-08-12 09:00:00,2021-12-02 08:00:00,NO,,NO,,
+6,247,0,2110056,3,0,ClassName6,TP_Premium,TP_Package,202108package_BattleA,,2021-08-12 09:00:00,2021-12-02 08:00:00,NO,,NO,,
+7,79,0,2110057,3,0,ClassName7,TP_Premium,TP_Package,202108package_BattleB,,2021-08-12 09:00:00,2021-12-02 08:00:00,NO,,NO,,
+8,999,0,2110058,1,0,ClassName8,TP_Premium,TP_Package,GLOBAL_202108package_All,,2021-08-12 09:00:00,2021-12-02 08:00:00,NO,,NO,,
 9,39,0,210122,0,0,ClassName9,TP_Premium,TP_Package,emoticonItem_24_46,,,,NO,,NO,,
 101,99,0,210125,0,0,ClassName101,TP_Premium,TP_Useable,PremiumToken,,,,NO,,NO,,
 102,9,0,210124,0,0,ClassName102,TP_Premium,TP_Useable,Premium_boostToken,,,,NO,,NO,,
@@ -72,4 +80,10 @@ ClassID,Price,JobGrade,Itemdate,AccountLimitCount,BonusItemCnt,ClassName,Categor
 518,30,0,210723,0,0,ClassName518,TP_Premium,TP_Social,balloon_skin_icecream_02_30d,,,,,,,ChatBalloon,
 519,30,0,210723,0,0,ClassName519,TP_Premium,TP_Social,Chat_Balloon_RollingDoor_Pink_30d,,,,,,,ChatBalloon,
 520,30,0,210723,0,0,ClassName520,TP_Premium,TP_Social,Chat_Balloon_RollingDoor_BlueSky_30d,,,,,,,ChatBalloon,
-601,29,0,0,1,0,ClassName601,TP_Premium,TP_FirstBuy,PremiumToken,,,,NO,,,,IS_USED_MEDAL_CHECK
+601,29,0,181213,1,0,ClassName601,TP_Premium,TP_FirstBuy,PremiumToken,,,,NO,,,,IS_USED_MEDAL_CHECK
+602,208,0,2110052,1,0,ClassName602,TP_Premium,TP_FirstBuy,202108package_Growth_Newbie,,,,NO,,,,IS_USED_MEDAL_CHECK
+603,81,0,2110053,1,0,ClassName603,TP_Premium,TP_FirstBuy,202108package_ContentsA_Newbie,,,,NO,,,,IS_USED_MEDAL_CHECK
+604,291,0,2110054,1,0,ClassName604,TP_Premium,TP_FirstBuy,202108package_ContentsB_Newbie,,,,NO,,,,IS_USED_MEDAL_CHECK
+605,172,0,2110055,1,0,ClassName605,TP_Premium,TP_FirstBuy,202108package_BattleA_Newbie,,,,NO,,,,IS_USED_MEDAL_CHECK
+606,55,0,2110056,1,0,ClassName606,TP_Premium,TP_FirstBuy,202108package_BattleB_Newbie,,,,NO,,,,IS_USED_MEDAL_CHECK
+607,699,0,2110057,1,0,ClassName607,TP_Premium,TP_FirstBuy,202108package_All_Newbie,,,,NO,,,,IS_USED_MEDAL_CHECK

@@ -116,12 +116,12 @@
 		<Item Script="None" Name="Guild_RESET_GUILD_ABILITY" Count="1" Price="2000" DailyBuyLimit="0"/>
 	</Shop>
 	<Shop Name="CONTENTS_TOTAL_SHOP" PointScript="GET_CONTENTS_TOTAL_POINT">
-		<Item Script="None" Name="Gesture_SHOOTDANCE" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_1"/>
-		<Item Script="None" Name="Gesture_CHEER" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_2"/>
-		<Item Script="None" Name="artefact_chick_umbrella" Count="1" Price="30000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_3"/>
-		<Item Script="None" Name="motion_popocon1" Count="1" Price="2100" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_4"/>
-		<Item Script="None" Name="motion_popocon2" Count="1" Price="2100" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_5"/>
-		<Item Script="None" Name="motion_popocon3" Count="1" Price="2100" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_6"/>
+		<Item Script="None" Name="Gesture_CLOCK" Count="1" Price="5000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2109_1"/>
+		<Item Script="None" Name="motion_malsuns_emotion82" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2109_2"/>
+		<Item Script="None" Name="motion_malsuns_emotion100" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2109_3"/>
+		<Item Script="None" Name="motion_malsuns_emotion77" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2109_4"/>
+		<Item Script="None" Name="Chat_Balloon_Cat_30d" Count="1" Price="2500" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2109_5"/>
+		<Item Script="None" Name="Chat_Balloon_Dog_30d" Count="1" Price="2500" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2109_6"/>
 		<Item Script="None" Name="PersonalHousing_Item_hp_h_barrack_12_clock" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2105_1"/>
 		<Item Script="None" Name="PersonalHousing_Item_hp_h_barrack_12_bird" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2105_2"/>
 	</Shop>

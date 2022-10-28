@@ -129,6 +129,10 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 2161,1,EVENT_2106_Title_2,AchievePoint,이벤트,{img Collar_Silver_Watermelon 24 24} Silver Watermelon,Silver Watermelon(이벤트),icon_item_Misc_00021,YES,Silver Watermelon,,False,EVENT_2106_Title_2,NO,,,,,NO,YES,
 2162,1,EVENT_2106_Title_3,AchievePoint,이벤트,{img Collar_Bronze_Watermelon 24 24} Bronze Watermelon,Bronze Watermelon(이벤트),icon_item_Misc_00021,YES,Bronze Watermelon,,False,EVENT_2106_Title_3,NO,,,,,NO,YES,
 2163,1,EVENT_Best_Painter_3rd,AchievePoint,이벤트,3rd Best Painter,3rd 최고의 화가입니다.,icon_item_Misc_00021,YES,Best Painter,,False,EVENT_Best_Painter_3rd,NO,,,,,NO,YES,plate_achieve_contest_Event_3rd
+2164,1,TITLE_Event_2108_Relic_A,AchievePoint,이벤트,{img Collar_give_me_gold 24 24} 금 나와라 뚝딱,황금 유물을 종류별로 모았습니다.(이벤트),icon_item_Misc_00021,YES,이벤트 - 금 나와라 뚝딱,,False,TITLE_Event_2108_Relic_A,NO,,,,,NO,YES,
+2165,1,TITLE_Event_2108_Relic_B,AchievePoint,이벤트,{img Collar_give_me_silver 24 24} 은 나와라 뚝딱,순은 유물을 종류별로 모았습니다.(이벤트),icon_item_Misc_00021,YES,이벤트 - 은 나와라 뚝딱,,False,TITLE_Event_2108_Relic_B,NO,,,,,NO,YES,
+2166,1,TITLE_Event_2108_Relic_C,AchievePoint,이벤트,{img Collar_give_me_bronze 24 24} 동 나와라 뚝딱,청동 유물을 종류별로 모았습니다.(이벤트),icon_item_Misc_00021,YES,이벤트 - 동 나와라 뚝딱,,False,TITLE_Event_2108_Relic_C,NO,,,,,NO,YES,
+2167,1,TITLE_Event_2108_Relic_D,AchievePoint,이벤트,{img Collar_golden_shovel 24 24} 명예 고고학 협회 회원,유물을 찾기 위해 삽질을 200회 달성하였습니다.(이벤트),icon_item_Misc_00021,YES,이벤트 - 명예 고고학 협회 회원,,False,TITLE_Event_2108_Relic_D,NO,,,,,NO,YES,
 2168,1,EVENT_Prank_Title,AchievePoint,이벤트,Apolonija's Prank,성별이 바뀐 NPC 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Apolonija's Prank,,False,EVENT_Prank_Title,NO,,,,,NO,YES,plate_achieve_Prank_of_Apolonija
 2030,1,Passionate_Artist_Ev,AchievePoint,이벤트,{img Collar_Brush 20 20}Passionate Artist,발렌타인 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Passionate Artist,,False,Passionate_Artist_Ev,NO,,,,,,NO,
 2046,1,FinestMoment,AchievePoint,이벤트,{img Collar_FinestMoment 30 30}Finest Moment,봄맞이 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Finest Moment,,False,FinestMoment,NO,,,,,,NO,

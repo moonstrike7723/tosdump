@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <skinset name="Base">
 	<skinlist category="frames">
@@ -4659,6 +4659,28 @@
 			<img name="bottomcore" imgrect="1631 1221 10 32"/>
 			<img name="bottomright" imgrect="1642 1221 45 32"/>
 		</skin>
+		<skin name="Chat_Balloon_Cat" texture="\skin\say_balloon.tga">
+			<img name="topleft" imgrect="86 927 15 30"/>
+			<img name="topcore" imgrect="102 927 12 30"/>
+			<img name="topright" imgrect="115 927 37 30"/>
+			<img name="bodyleft" imgrect="86 958 15 10"/>
+			<img name="bodycore" imgrect="102 958 12 10"/>
+			<img name="bodyright" imgrect="115 958 37 10"/>
+			<img name="bottomleft" imgrect="86 969 15 30"/>
+			<img name="bottomcore" imgrect="102 969 12 30"/>
+			<img name="bottomright" imgrect="115 969 37 30"/>
+		</skin>
+		<skin name="Chat_Balloon_Dog" texture="\skin\say_balloon.tga">
+			<img name="topleft" imgrect="86 1000 27 30"/>
+			<img name="topcore" imgrect="114 1000 10 30"/>
+			<img name="topright" imgrect="125 1000 50 30"/>
+			<img name="bodyleft" imgrect="86 1031 27 10"/>
+			<img name="bodycore" imgrect="114 1031 10 10"/>
+			<img name="bodyright" imgrect="125 1031 50 10"/>
+			<img name="bottomleft" imgrect="86 1042 27 30"/>
+			<img name="bottomcore" imgrect="114 1042 10 30"/>
+			<img name="bottomright" imgrect="125 1042 50 30"/>
+		</skin>
 	<skin name="alchemist_ui_slotframe_9patch" texture="\skin\glimoire_skin.tga">
 			<img name="topleft" imgrect="594 416 20 20"/>
 			<img name="topcore" imgrect="615 416 20 20"/>
@@ -4680,6 +4702,17 @@
 			<img name="bottomleft" imgrect="657 458 20 20"/>
 			<img name="bottomcore" imgrect="678 458 20 20"/>
 			<img name="bottomright" imgrect="699 458 20 20"/>
+		</skin>
+		<skin name="Chat_Balloon_chuseok" texture="\skin\say_balloon.tga">
+			<img name="topleft" imgrect="86 1073 30 65"/>
+			<img name="topcore" imgrect="117 1073 30 65"/>
+			<img name="topright" imgrect="148 1073 30 65"/>
+			<img name="bodyleft" imgrect="86 1139 30 5"/>
+			<img name="bodycore" imgrect="117 1139 30 5"/>
+			<img name="bodyright" imgrect="148 1139 30 5"/>
+			<img name="bottomleft" imgrect="86 1145 30 15"/>
+			<img name="bottomcore" imgrect="117 1145 30 15"/>
+			<img name="bottomright" imgrect="148 1145 30 15"/>
 		</skin>
 	</skinlist>
 	<skinlist category="testje2_buttons">
@@ -8158,6 +8191,10 @@
 		<image name="Collar_TOSHero_4" file="\skin\Collar_skin.tga" imgrect="186 62 30 30"/>
 		<image name="Collar_TOSHero_5" file="\skin\Collar_skin.tga" imgrect="217 62 30 30"/>
 		<image name="Collar_TOSHero_6" file="\skin\Collar_skin.tga" imgrect="0 93 30 30"/>
+		<image name="Collar_golden_shovel" file="\skin\Collar_skin.tga" imgrect="31 93 30 30" CMM_Caption="고고학 이벤트_황금 삽"/>
+		<image name="Collar_give_me_gold" file="\skin\Collar_skin.tga" imgrect="62 93 30 30" CMM_Caption="고고학 이벤트_모자 3종"/>
+		<image name="Collar_give_me_silver" file="\skin\Collar_skin.tga" imgrect="93 93 30 30"/>
+		<image name="Collar_give_me_bronze" file="\skin\Collar_skin.tga" imgrect="124 93 30 30"/>
 	</imagelist>
 	<imagelist category="testse_image">
 		<image name="indun_soulcrystal_bg" file="\skin\indun_skin.tga" imgrect="614 552 84 86" CMM_Caption="소울크리스탈 횟수제한 UI"/>
@@ -8842,6 +8879,15 @@
 		<image name="highcolorgem_CON" file="\skin\pip_test_item.tga" imgrect="964 1372 240 240"/>
 		<image name="600percent_image2" file="\skin\paid_skin.tga" imgrect="837 664 100 45" CMM_Caption="경험의 서 600"/>
 		<image name="1200percent_image2" file="\skin\paid_skin.tga" imgrect="938 664 100 45" CMM_Caption="경험의 서 1200"/>
+		<image name="Chat_Balloon_Cat_direction" file="\skin\say_balloon.tga" imgrect="1 685 82 75" CMM_Caption="고양이 말꼬리"/>
+		<image name="Chat_Balloon_Cat_deco1" file="\skin\say_balloon.tga" imgrect="153 927 38 27" CMM_Caption="고양이 데코01"/>
+		<image name="Chat_Balloon_Cat_deco2" file="\skin\say_balloon.tga" imgrect="153 955 37 35" CMM_Caption="고양이 데코02"/>
+		<image name="Chat_Balloon_Dog_direction" file="\skin\say_balloon.tga" imgrect="1 761 82 75" CMM_Caption="강아지 말꼬리"/>
+		<image name="Chat_Balloon_Dog_deco1" file="\skin\say_balloon.tga" imgrect="176 1000 55 38" CMM_Caption="강아지 데코01"/>
+		<image name="Chat_Balloon_Dog_deco2" file="\skin\say_balloon.tga" imgrect="232 1000 37 49" CMM_Caption="강아지 데코02"/>
+		<image name="Chat_Balloon_chuseok_direction" file="\skin\say_balloon.tga" imgrect="1 837 82 75" CMM_Caption="추석 옥토끼 말풍선 꼬리"/>
+		<image name="Chat_Balloon_chuseok_deco1" file="\skin\say_balloon.tga" imgrect="179 1073 93 75" CMM_Caption="추석 옥토끼 데코01"/>
+		<image name="Chat_Balloon_chuseok_deco2" file="\skin\say_balloon.tga" imgrect="273 1073 20 19" CMM_Caption="추석 옥토끼 데코02"/>
 	</imagelist>
 	<imagelist category="yiseul_image">
 		<image name="AbillityReset_skin" file="\skin\paid_skin_title.tga" imgrect="0 330 316 165" CMM_Caption="특성 초기화"/>
@@ -11401,6 +11447,8 @@
 		<image name="icon_gesture_wiggle" file="\icon\social.tga" imgrect="406 649 80 80"/>
 		<image name="icon_item_shootdance" file="\icon\social.tga" imgrect="1 730 80 80"/>
 		<image name="icon_item_cheer" file="\icon\social.tga" imgrect="82 730 80 80"/>
+		<image name="icon_gesture_ClockworkDance" file="\icon\social.tga" imgrect="163 730 80 80"/>
+		<image name="icon_gesture_RustleDance" file="\icon\social.tga" imgrect="244 730 80 80"/>
 	</imagelist>
 	<imagelist>
 		<image name="chat_page_arrow_left" file="\skin\mainframe_A.tga" imgrect="766 943 40 40"/>
@@ -12706,6 +12754,7 @@
 		<image name="icon_Vasilissa_ThunderStroke" file="\icon\buff_icon5.tga" imgrect="0 1024 128 128" CMM_Caption="낙뢰"/>
 		<image name="icon_Vasilissa_BreakWater" file="\icon\buff_icon5.tga" imgrect="128 1024 128 128" CMM_Caption="방파제"/>
 		<image name="icon_TOSHero_Buff_Random_1" file="\icon\buff_icon5.tga" imgrect="256 1024 128 128" CMM_Caption="랜덤 버프"/>
+		<image name="icon_Event_2108_Archeology" file="\icon\buff_icon5.tga" imgrect="384 1024 128 128" CMM_Caption="고고학 버프"/>
 		<image name="icon_ridepet_ep13raincoat_buff" file="\icon\buff_icon5.tga" imgrect="512 1024 128 128" CMM_Caption="금붕어 버프"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">

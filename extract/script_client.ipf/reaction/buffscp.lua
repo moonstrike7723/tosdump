@@ -1,6 +1,6 @@
 ﻿-- buffscp.lua
 function ShadowUmbrella_ENTER(actor, obj, buff)
-    actor:PlayEquipAni(1, "b-master_umbrella_ani.xsm");
+    actor:GetAnimation():PlayEquipAni(1, "b-master_umbrella_ani.xsm");
 end
 
 function ShadowUmbrella_LEAVE(actor, obj, buff)

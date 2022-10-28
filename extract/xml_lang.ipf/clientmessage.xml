@@ -1091,7 +1091,8 @@
 		<Class ClassID="4468" ClassName="piktis_2" Data="루시페리 피크티스 세트"/>
 		<Class ClassID="4469" ClassName="SelectCabinetItem{ITEM}" Data="{@st66d_y}{s20}{ITEM}{/}{/} {nl}해당 아이템을 정말 생성하시겠습니까?{nl} {nl}생성 시 캐릭터에 귀속됩니다."/>
 		<Class ClassID="4470" ClassName="CabinetAllOpen" Data="더 이상 개방할 수 없습니다."/>
-		</Category>
+		<Class ClassID="4474" ClassName="CantEquipToyInSubSlot" Data="서브 슬롯에는 장난감 아이템을 착용할 수 없습니다."/>
+	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
 		<Class ClassID="5002" ClassName="WhenEquipToMainOrSubWeapon" Data="무기, 보조 장비 장착 시 효과"/>
@@ -15472,6 +15473,21 @@
 		<Class ClassID="302581" ClassName="EVENT_2107_FISHING_CHECK_MESSAGE1{BAIT}{TRADE}" Data="{#0033FF}[돌아온 수박 낚시]{/}{nl}[이벤트] 문어발 미끼 일일 수령 횟수 {#0033FF}({BAIT}/1회){/}{nl}이벤트 기간 중 [수박 낚시] 시원한 수박 교환 횟수 {#0033FF}({TRADE}/150회){/}{nl}{#FF3333}※일일 수령 횟수는 매일 오전 6시 초기화 됩니다.{nl}※이벤트 기간 중 [수박 낚시] 시원한 수박의 최대 교환 교환 횟수는 150개 이며, 이후 교환 시 버프만 획득 가능합니다.{/}"/>
 		<Class ClassID="302582" ClassName="EVENT_2107_FISHING_CHECK_MESSAGE2{TIME}{CHECK}" Data="{#0033FF}[돌아온 수박 낚시 출석 이벤트]{/}{nl}토요일, 일요일 1시간 접속 시 마다 '시원한 수박' 지급!{nl}일일 수령 횟수 {#0033FF}({CHECK}/2){/}{nl}접속 시간 {#0033FF}({TIME}/120분){/}{nl}{#FF3333}※일일 제한은 매일 오전 06시에 초기화 됩니다.{/}"/>
 		<Class ClassID="302583" ClassName="NEWUSER_BUFF_MSG" Data="{#FF0000}※신규/복귀 유저 지원 버프가 종료되었습니다. 스크롤을 다시 사용해주세요.{/}"/>
+		<Class ClassID="302584" ClassName="EVENT_2108_ARCHEOLOGY_SEARCH_1" Data="{#0033FF}유물 발굴중{/}"/>
+		<Class ClassID="302585" ClassName="EVENT_2108_ARCHEOLOGY_SEARCH_2" Data="{#FF3333}※수상한 흙더미를 발견했습니다.{/}{nl}흙더미는 30초 후 사라집니다. 흙더미에 다가가 상호작용 하세요"/>
+		<Class ClassID="302586" ClassName="EVENT_2108_ARCHEOLOGY_SEARCH_3" Data="{#FF3333}이 주변은 이미 찾아봤습니다.{/}"/>
+		<Class ClassID="302587" ClassName="EVENT_2108_ARCHEOLOGY_NPC_NAME" Data="{#0033FF}흙더미{/}"/>
+		<Class ClassID="302588" ClassName="EVENT_2108_ARCHEOLOGY_SEARCH_4" Data="{#FF0000}※참여 횟수가 초과하였습니다.{/}"/>
+		<Class ClassID="302589" ClassName="EVENT_2108_ARCHEOLOGY_SEARCH_5" Data="{#FF3333}※고고학자의 총명함이 반응합니다.{nl}계속 찾다 보면 유물을 발견할 수 있을 것 같습니다.{/}"/>
+		<Class ClassID="302590" ClassName="EVENT_2108_ARCHEOLOGY_SEL1" Data="{#003399}[유물 이벤트]{/}이벤트 안내"/>
+		<Class ClassID="302591" ClassName="EVENT_2108_ARCHEOLOGY_SEL2" Data="{#003399}[유물 이벤트]{/}숨겨진 유물 찾기"/>
+		<Class ClassID="302592" ClassName="EVENT_2108_ARCHEOLOGY_SEL3" Data="{#003399}[유물 이벤트]{/}유물 감정하기"/>
+		<Class ClassID="302593" ClassName="EVENT_2108_ARCHEOLOGY_SHOP" Data="{#003399}[유물 이벤트]{/}이벤트 상점"/>
+		<Class ClassID="302594" ClassName="EVENT_2108_ARCHEOLOGY_EP12_SHOP" Data="{#003399}[EP-12] 아이템 스크롤 상점{/}"/>
+		<Class ClassID="302595" ClassName="EVENT_2108_ARCHEOLOGY_CHECK_SEL1" Data="{#003399}[이벤트] 미감정 유물 상자 S{/} 감정하기"/>
+		<Class ClassID="302596" ClassName="EVENT_2108_ARCHEOLOGY_CHECK_SEL2" Data="{#003399}[이벤트] 미감정 유물 상자 A{/} 감정하기"/>
+		<Class ClassID="302597" ClassName="EVENT_2108_ARCHEOLOGY_MSG1" Data="{#003399}{CNT}개의 유물을 감정하였습니다.{/}"/>
+		<Class ClassID="302598" ClassName="EVENT_2108_ARCHEOLOGY_CHECK_SEL3" Data="감정을 원하는 아이템 개수를 입력해주세요.{nl}미감정 유물 상자에서 획득 가능한 등급은 아래와 같습니다.{nl}- [이벤트] 미감정 유물 상자 S = {#003399}S ~ B{/}{nl}- [이벤트] 미감정 유물 상자 A = {#003399}A ~ C{/}{nl}교환 가능 개수 {#003399}[0~{MAX}]{/}{nl}{#FF3333}※ 한번에 최대 10개 까지 교환 가능합니다.{/}"/>
 		<Class ClassID="302599" ClassName="EP13CARE_TRADE4" Data="온전한 신력의 조각 / 검붉은 영혼석 교환"/>
 		<Class ClassID="302600" ClassName="GoddessCare_UniqueMaterial" Data="여신 / 마신 방어구 재료 교환"/>
 		<Class ClassID="302601" ClassName="REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET_SUCCESS" Data="성공적으로 입장횟수를 초기화했습니다!"/>
@@ -15488,6 +15504,20 @@
 		<Class ClassID="302612" ClassName="EVENT_2107_FISHING_KR_WORLD_MSG" Data='축하합니다!{nl}"{TIMENAME}"님이 황금 낚시 이벤트에서 "{ITEM}"을(를) 획득하였습니다!'/>
 		<Class ClassID="302613" ClassName="EP13CARE_TRADE6" Data="[2021] 바이보라 스크롤"/>
 		<Class ClassID="302614" ClassName="GoddessCare_Vibora" Data="[2021] 바이보라 스크롤"/>
+		<Class ClassID="302615" ClassName="EVENT_2108_ARCHEOLOGY_CHECK_MSG_TITLE_A" Data="{#0066FF}[이벤트 칭호 현황]{/}{nl}황금 여신상 유물 S 등급 획득하기 ({#0066FF}{T1}{/}/1){nl}{nl}황금 여신상 유물 A 등급 획득하기 ({#0066FF}{T2}{/}/1){nl}황금 여신상 유물 B 등급 획득하기 ({#0066FF}{T3}{/}/1){nl}황금 여신상 유물 C 등급 획득하기 ({#0066FF}{T4}{/}/1){nl}"/>
+		<Class ClassID="302616" ClassName="EVENT_2108_ARCHEOLOGY_CHECK_MSG_TITLE_B" Data="{#0066FF}[이벤트 칭호 현황]{/}{nl}순은 여신상 유물 S 등급 획득하기 ({#0066FF}{T1}{/}/1){nl}{nl}순은 여신상 유물 A 등급 획득하기 ({#0066FF}{T2}{/}/1){nl}순은 여신상 유물 B 등급 획득하기 ({#0066FF}{T3}{/}/1){nl}순은 여신상 유물 C 등급 획득하기 ({#0066FF}{T4}{/}/1){nl}"/>
+		<Class ClassID="302617" ClassName="EVENT_2108_ARCHEOLOGY_CHECK_MSG_TITLE_C" Data="{#0066FF}[이벤트 칭호 현황]{/}{nl}청동 여신상 유물 S 등급 획득하기 ({#0066FF}{T1}{/}/1){nl}{nl}청동 여신상 유물 A 등급 획득하기 ({#0066FF}{T2}{/}/1){nl}청동 여신상 유물 B 등급 획득하기 ({#0066FF}{T3}{/}/1){nl}청동 여신상 유물 C 등급 획득하기 ({#0066FF}{T4}{/}/1){nl}"/>
+		<Class ClassID="302618" ClassName="EVENT_2108_ARCHEOLOGY_CHECK_MSG_TITLE_D" Data="{#0066FF}[이벤트 칭호 현황]{/}{nl}유물 발굴 150회 달성 ({#0066FF}{T5}{/}/150)"/>
+		<Class ClassID="302619" ClassName="EVENT_2108_ARCHEOLOGY_TITLE_CHECK_SEL1" Data="{#0033FF}[이벤트 칭호 - 금나와라 뚝딱]{/}"/>
+		<Class ClassID="302620" ClassName="EVENT_2108_ARCHEOLOGY_TITLE_CHECK_SEL2" Data="{#0033FF}[이벤트 칭호 - 은나와라 뚝딱]{/}"/>
+		<Class ClassID="302621" ClassName="EVENT_2108_ARCHEOLOGY_TITLE_CHECK_SEL3" Data="{#0033FF}[이벤트 칭호 - 청동나와라 뚝딱]{/}"/>
+		<Class ClassID="302622" ClassName="EVENT_2108_ARCHEOLOGY_TITLE_CHECK_SEL4" Data="{#0033FF}[이벤트 칭호 - 명예 고고학 협회 회원]{/}"/>
+		<Class ClassID="302623" ClassName="EVENT_2108_ARCHEOLOGY_SEL4" Data="{#003399}[유물 이벤트]{/}칭호 획득하기"/>
+		<Class ClassID="302624" ClassName="EVENT_2108_ARCHEOLOGY_SEARCH_6" Data="{#FF0000}※탐사 횟수가 초과하였습니다.{/}"/>
+		<Class ClassID="302625" ClassName="EVENT_2108_ARCHEOLOGY_CHECK_MSG" Data="{#0066FF}[유물 찾기 이벤트 현황]{/}{nl}일일 고고학 협회 교환권 획득량 ({#0066FF}{COIN}{/}/100){nl}일일 유물찾기 횟수 제한 ({#0066FF}{COUNT}{/}/10){nl}전체 유물찾기 횟수 ({#0066FF}{TOTAL}{/}){nl}{#FF3333}※ 사냥을 통한 유물 상자는 이벤트 버프 적용 중에만 획득 가능합니다.{/}{nl}{#FF3333}※ 일일 제한은 매일 06시 초기화 됩니다.{/}{nl}{#FF3333}※ 전체 유물찾기 횟수는 사냥을 통한 유물 획득 숫자가 포함되지 않습니다.{/}"/>
+		<Class ClassID="302626" ClassName="EVENT_2108_ARCHEOLOGY_SHOP2" Data="{#003399}[유물 이벤트]{/}유물 교환 상점"/>
+		<Class ClassID="302627" ClassName="EVENT_2108_ARCHEOLOGY_SEARCH_7" Data="{#FF0000}※이 지역에서는 더이상 유물을 찾을 수 없을 것 같다.{/}"/>
+		<Class ClassID="302628" ClassName="EVENT_2108_ARCHEOLOGY_SEARCH_8" Data="{#FF0000}※주위를 찾아보면 유물을 발견할 수 있을 것 같다.{nl}더 이동해보자.{/}"/>
 		<Class ClassID="302629" ClassName="EVENT_2108_JP_EVE_FESTIVAL_MSG1" Data="{#0066FF}이벤트 아이템이 지급되었습니다.{/}"/>
 		<Class ClassID="302630" ClassName="EVENT_2108_JP_EVE_FESTIVAL_MSG2" Data="{#0066FF}[전야제 이벤트 현황]{/}{nl}일일 1시간 접속 시 보상 지급 ({#0066FF}{TIME}{/}/60분){nl}{#FF3333}※이벤트 기간 : 8월 25일 ~ 9월 1일 오전 05시 59분{nl}※ 하루는 당일 오전 06시 부터 익일 오전 05시 59분 까지 입니다.{/}"/>
 		<Class ClassID="302631" ClassName="EVENT_2107_NEXT_SEL6" Data="HotWeek 보상 수령하기"/>
@@ -16815,6 +16845,9 @@
 		<Class ClassID="560049" ClassName="motion_popo_emotion01" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560050" ClassName="motion_popo_emotion02" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560051" ClassName="motion_popo_emotion03" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560052" ClassName="motion_malsuns_emotion82" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560053" ClassName="motion_malsuns_emotion100" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560054" ClassName="motion_malsuns_emotion77" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 	</Category>
 	<Category Name="Gesture">
 		<Class ClassID="570000" ClassName="Already_Gesture" Data="이미 보유한 제스처입니다."/>
@@ -16833,6 +16866,7 @@
 		<Class ClassID="570013" ClassName="Gesture_WIGGLE" Data="{nl} {nl}모든 캐릭터가 제스처를 흭득합니다.{nl} {nl}{@st66d_y}제스처를 습득하시겠습니까?"/>
 		<Class ClassID="570014" ClassName="Gesture_SHOOTDANCE" Data="{nl} {nl}모든 캐릭터가 제스처를 흭득합니다.{nl} {nl}{@st66d_y}제스처를 습득하시겠습니까?"/>
 		<Class ClassID="570015" ClassName="Gesture_CHEER" Data="{nl} {nl}모든 캐릭터가 제스처를 흭득합니다.{nl} {nl}{@st66d_y}제스처를 습득하시겠습니까?"/>
+		<Class ClassID="570017" ClassName="Gesture_CLOCKWORKDANCE" Data="{nl} {nl}모든 캐릭터가 제스처를 흭득합니다.{nl} {nl}{@st66d_y}제스처를 습득하시겠습니까?"/>
 	</Category>
 	<Category Name="ChatBalloon">
 		<Class ClassID="580000" ClassName="ChatBalloon_YESSCP_message1" Data="{nl} {nl}모든 캐릭터가 말풍선 스킨을 획득하며, 캐릭터 설정에서 말풍선 스킨을 변경할 수 있습니다.{nl}"/>
@@ -16845,7 +16879,7 @@
 		<Class ClassID="590000" ClassName="Weekly_Total_Point_Get_Fail_Msg" Data="이번주 통합 포인트를 더이상 획득할 수 없습니다."/>
 		<Class ClassID="590001" ClassName="Weekly_Total_Point_Get_Success_Msg{Point}{NowPoint}{MaxPoint}{TotalPoint}" Data="포인트를 획득했습니다: [{#33FF33}콘텐츠 통합 포인트{/}]x{#33FF33}{Point}{/}{nl}주간 획득 가능 통합 포인트: {#33FF33}{NowPoint}/{MaxPoint}{/}"/>
 		<Class ClassID="590002" ClassName="CONTENTS_TOTAL_SHOP" Data="콘텐츠 통합 상점"/>
-		<Class ClassID="590003" ClassName="CONTENTS_TOTAL_SHOP_Tooltip" Data="다양한 콘텐츠를 클리어해 통합 포인트를 획득할 수 있습니다.{nl}- 레벨 던전 : 10{nl}- 유니크 레이드 : 20{nl}- 유니크 레이드(1인) : 20{nl}- 레전드 레이드 : 85{nl} *벨코퍼의 둥지, 대지의 탑 콘텐츠 : 250{nl}- 레전드 레이드(1인) : 30{nl}- 업힐 디펜스 미션(보통 10단계 이상) : 5{nl}- 업힐 디펜스 미션(어려움 5단계 이상) : 20{nl}- 업힐 디펜스 미션(매우 어려움 5단계 이상) : 50{nl}- 챌린지 모드(5단계 이상) : 5{nl}- 챌린지 모드(6단계 이상) : 20{nl}- 챌린지 모드(7단계 이상) : 30{nl}- 챌린지 모드 : 분열 특이점 : 20{nl}- 자원 쟁탈전 : 200{nl}- 팀 배틀리그 : 100{nl}* 통합 포인트는 주간 최대 5000 포인트까지 팀 단위로 누적됩니다.{nl}* 주간 누적량은 매주 월요일 오전 6시에 초기화됩니다."/>
+		<Class ClassID="590003" ClassName="CONTENTS_TOTAL_SHOP_Tooltip" Data="다양한 콘텐츠를 클리어해 통합 포인트를 획득할 수 있습니다.{nl}- 레벨 던전 : 10{nl}- 레전드 레이드 : 85{nl} *벨코퍼의 둥지, 대지의 탑 콘텐츠 : 250{nl}- 레전드 레이드(1인) : 30{nl}- 업힐 디펜스 미션(보통 10단계 이상) : 5{nl}- 업힐 디펜스 미션(어려움 5단계 이상) : 20{nl}- 업힐 디펜스 미션(매우 어려움 5단계 이상) : 50{nl}- 챌린지 모드(5단계 이상) : 5{nl}- 챌린지 모드 : 분열 특이점 : 20{nl}- 팀 배틀리그 : 100{nl}* 통합 포인트는 주간 최대 5000 포인트까지 팀 단위로 누적됩니다.{nl}* 주간 누적량은 매주 월요일 오전 6시에 초기화됩니다."/>
 		<Class ClassID="590004" ClassName="Weekly_Total_Point_Get_Success_Msg_command" Data="{#33FF33}현재 누적된 통합 포인트 : {TotalPoint}{nl}(주간 획득 가능한 통합 포인트 : {NowPoint}/{MaxPoint}){/}"/>
 		<Class ClassID="590005" ClassName="CONTENTS_TOTAL_POINT_extract" Data="통합 포인트 교환"/>
 		<Class ClassID="590006" ClassName="SEASONOFF_CONTENTS_TOTAL_SHOP" Data="시즌오프 콘텐츠 통합 상점"/>

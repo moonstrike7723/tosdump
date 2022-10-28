@@ -1808,7 +1808,7 @@ function GODDESS_MGR_REFORGE_TRANSCEND_EXEC(parent, btn)
 	end
 
 	local need_count = mat_slot:GetUserIValue('MAT_NEED_COUNT')
-	if need_count < 0 then
+	if need_count <= 0 then
 		ui.SysMsg(ClMsg('NotEnoughRecipe'))
 		return
 	end
