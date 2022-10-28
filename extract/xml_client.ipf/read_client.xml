@@ -31,30 +31,6 @@
 	<ReadXml Name="change_gaurd_ani"/>
 	<ReadXml Name="ItemCategory"/>
   <ReadXml Name="hotkeyscp"/>
-	<ReadXml Name="costumeAnimOverride"/>
 	<ReadXml Name="natural_Effect"/>
-  <ReadXml Name="loading_img"/>
-  <ReadXml Name="UVAnim"/>
-	<ReadXml Name="CommonTexture"/>
-  <ReadXml Name="chatcolorstyle"/>
-  <ReadXml Name="event_banner"/>
-	<ReadXml Name="worldPVP_padSkill_config"/>
-	<ReadXml Name="worldPVP_simplify_buff_effects"/>
-	<ReadXml Name="dialogexceptiontext"/>
-	<ReadXml Name="ClassSelectGuide"/>
-	<ReadXml Name="ClassSelectGuide_Question"/>
-	<ReadXml Name="costume_buff_effects"/>
-	<ReadXml Name="ImitatingAnimation"/>
-	<ReadXml Name="water"/>
-	<ReadXml Name="pc_shared_anim"/>
-	<ReadXml Name="camerasetuplimits"/>
-	<ReadXml Name="indunInfo_button"/>
-	<ReadXml Name="item_restrict"/>
-	<ReadXml Name="skill_range_color"/>
-	<ReadXml Name="item_top_render"/>
-        <ReadXml Name="toshero_induninfo"/>
-	<ReadXml Name="leticia_date"/>
-	<ReadXml Name="toshero_monsterinfo"/>
-	<ReadXml Name="acronyms_list"/>
 </Category>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by dd (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Jung (IMCGames Co., Ltd) -->
