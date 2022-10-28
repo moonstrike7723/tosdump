@@ -26,7 +26,6 @@ ClassID,Price,JobGrade,Itemdate,AccountLimitCount,ClassName,Category,SubCategory
 46,399,0,2008183,1,ClassName46,TP_Premium,TP_Useable,GLOBAL_2020_S2_ARBORDAY_PACKAGE_Growth,,2020-08-01 00:00:00,2020-10-16 00:00:00,,
 47,699,0,2008182,3,ClassName47,TP_Premium,TP_Useable,GLOBAL_2020_S2_ARBORDAY_PACKAGE_BattleA,,2020-08-01 00:00:00,2020-10-16 00:00:00,,
 48,199,0,2008181,5,ClassName48,TP_Premium,TP_Useable,GLOBAL_2020_S2_ARBORDAY_PACKAGE_BattleB,,2020-08-01 00:00:00,2020-10-16 00:00:00,,
-49,998,0,2008184,1,ClassName49,TP_Premium,TP_Useable,GLOBAL_2020_S2_ARBORDAY_PACKAGE_All,,2020-08-01 00:00:00,2020-10-16 00:00:00,,
 101,8,0,151229,0,ClassName101,TP_Premium,TP_Consume,Mic_bundle10,,,,,
 102,1,0,151229,0,ClassName102,TP_Premium,TP_Consume,Mic,,,,,
 103,32,0,151229,0,ClassName103,TP_Premium,TP_Consume,RestartCristal_bundle10,,,,,
