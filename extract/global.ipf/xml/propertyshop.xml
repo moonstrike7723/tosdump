@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<PropertyShop>
+	<Shop Name="GUILD_CONTRIBUTION_SHOP" PointScript="GET_GUILD_CONTRIBUTION_POINT">
+		<Item OverrideType="REMOVE" Script="None" Name="Ghaca_Guild_Contribution_Shop_MISC" Count="1" Price="20" DailyBuyLimit="0"/>
+	</Shop>
+</PropertyShop>
