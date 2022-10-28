@@ -94,18 +94,21 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 }
     
 	local daycheckbuff = 					 
-					 {{'9','2',{'Event_Expup_100','EVENT_CHALLENGE_REWARD_BOOST'}}
-					 ,{'9','3',{'Event_Expup_100','EVENT_DELMORE_REWARD_BOOST'}}
-					 ,{'9','4',{'Event_Expup_100','EVENT_MYTHIC_REWARD_BOOST'}}
-					 ,{'9','9',{'Event_Expup_50','Event_healHSP_Speedup'}}
-					 ,{'9','10',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
-					 ,{'9','11',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
-					 ,{'9','16',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
-					 ,{'9','17',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-					 ,{'9','18',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
-					 ,{'9','23',{'Event_Expup_100','EVENT_JELLYZELE_REWARD_BOOST'}}
-					 ,{'9','24',{'Event_Expup_100','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}}
-					 ,{'9','25',{'Event_Expup_100','EVENT_SOLO_DUNGEON_REWARD_BOOST'}}
+					 {{'9','30',{'Event_Expup_100','EVENT_EARRING_REWARD_BOOST'}}
+					 ,{'10','1',{'Event_Expup_100','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}}
+					 ,{'10','2',{'Event_Expup_100','EVENT_JELLYZELE_REWARD_BOOST'}}
+					 ,{'10','7',{'Event_Expup_50','Event_healHSP_Speedup'}}
+					 ,{'10','8',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
+					 ,{'10','9',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'10','14',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
+					 ,{'10','15',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+					 ,{'10','16',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'10','21',{'Event_Expup_50','Event_Challenge_Count_Reset'}}
+					 ,{'10','22',{'Event_LootingChance_Add_1000','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}}
+					 ,{'10','23',{'Event_Expup_50','Event_healHSP_Speedup'}}
+					 ,{'10','28',{'Event_Expup_100','EVENT_DELMORE_REWARD_BOOST'}}
+					 ,{'10','29',{'Event_Expup_100','EVENT_MYTHIC_REWARD_BOOST'}}
+					 ,{'10','30',{'Event_Expup_100','EVENT_SOLO_DUNGEON_REWARD_BOOST'}}
 
 						 }
 	
