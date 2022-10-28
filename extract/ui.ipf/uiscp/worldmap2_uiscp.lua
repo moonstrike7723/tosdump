@@ -265,10 +265,11 @@ end
 
 -- 월드맵 종료 함수
 function WORLDMAP2_CLOSE()
+	ui.CloseFrame("worldmap2_archeology")
 	ui.CloseFrame("worldmap2_colonymap")
 	ui.CloseFrame("worldmap2_minimap")
 	ui.CloseFrame("worldmap2_mainmap")
-	ui.CloseFrame("worldmap2_submap")
+    ui.CloseFrame("worldmap2_submap")
 end
 
 -- 퀘스트 서치 함수
@@ -349,6 +350,11 @@ function WORLDMAP2_TOKEN_WARP(mapName)
 	if ENABLE_WARP_CHECK(GetMyPCObject()) == false then
 		 ui.SysMsg(ScpArgMsg("WarpBanBountyHunt"))
         return
+    end
+    
+    if TUTORIAL_CLEAR_CHECK(GetMyPCObject()) == false then
+		ui.SysMsg(ClMsg("CanUseAfterTutorialClear"))
+		return
 	end
 
     if session.loginInfo.IsPremiumState(ITEM_TOKEN) == false and IsBuffApplied(GetMyPCObject(), 'Premium_Nexon') ~= 'YES' then

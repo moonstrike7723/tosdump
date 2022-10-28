@@ -1378,6 +1378,8 @@ function CREATE_VIBORA_SELECT_CTRL(box, y, index, ItemName, itemCnt, callFunc, t
 	ctrlSet:Resize(box:GetHeight() + 70,ctrlSet:GetHeight())
 	end
 
+	ctrlSet:SetUserValue("ITEM_NAME", ItemName)
+
 	local itemCls = GetClass("Item", ItemName);
 	local slot = ctrlSet:GetChild("slot");
 	tolua.cast(slot, "ui::CSlot");
@@ -1392,7 +1394,14 @@ function CREATE_VIBORA_SELECT_CTRL(box, y, index, ItemName, itemCnt, callFunc, t
 		local jobCls = GetClassByStrProp("Job", "JobName", JobName);
 		local name = TryGetProp(jobCls, "Name")
 		if name ~= nil then
-			JobText = " {#FF0000}("..name.."){/}"
+			local isPcJob = IS_PC_JOB(JobName)
+			if isPcJob == true then
+				JobText = " {#FFFFFF}("..name.."){/}"
+			else
+				JobText = " {#FF0000}("..name.."){/}"
+			end
+		else
+			JobText = " {#FFFFFF}("..ClMsg("EveryClassCommon").."){/}"
 		end
 	end
 	

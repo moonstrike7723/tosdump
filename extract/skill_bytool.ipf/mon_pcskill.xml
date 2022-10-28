@@ -498,14 +498,45 @@
 	<Skill Name="Mon_pcskill_boss_werewolf_Skill_4">
 		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
-				<Frame Angle="3.1318564" AniTime="1100" Dist="7.8764648" ForceATK="0" HitCount="1" Length="180" PosType="1" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.34906587" TermMax="0" TermMin="0" Time="900" Type="FAN" Width="75"/>
-				<Frame Angle="3.1318564" AniTime="1250" Dist="7.8764648" ForceATK="0" HitCount="1" Length="180" PosType="1" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.34906587" TermMax="0" TermMin="0" Time="1050" Type="FAN" Width="75"/>
-				<Frame Angle="3.1318564" AniTime="1400" Dist="7.8764648" ForceATK="0" HitCount="1" Length="180" PosType="1" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.0087266471" TermMax="0" TermMin="0" Time="1200" Type="FAN" Width="75"/>
-				<Frame Angle="3.1318564" AniTime="1550" Dist="7.8764648" ForceATK="0" HitCount="1" Length="180" PosType="1" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.34906587" TermMax="0" TermMin="0" Time="1350" Type="FAN" Width="75"/>
-				<Frame Angle="3.1318564" AniTime="1700" Dist="7.8764648" ForceATK="0" HitCount="1" Length="180" PosType="1" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.34906587" TermMax="0" TermMin="0" Time="1500" Type="FAN" Width="75"/>
+                <Frame Angle="3.1318564" AniTime="1100" Dist="7.8764648" ForceATK="0" HitCount="1" Length="180" PosType="1" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.34906587" TermMax="0" TermMin="0" Time="99999" Type="FAN" Width="75"/>
 			</HitList>
 			<EtcList>
-				<Anim Anim="skl2" Speed="1" Time="0"/>
+                <Anim Time="0" Anim="skl2" Speed="1"/>
+                <Scp Scp="SKL_SET_TARGET_SQUARE_SR" Client="NO" UseSleep="NO" Time="0">
+                    <Pos Angle="0" Dist="0"/>
+                    <Num Num="0"/>
+                    <Num Num="180"/>
+                    <Num Num="40"/>
+                    <Num Num="2"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_DMG" Client="NO" UseSleep="NO" Time="1100">
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_DMG" Client="NO" UseSleep="NO" Time="1250">
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_DMG" Client="NO" UseSleep="NO" Time="1400">
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_DMG" Client="NO" UseSleep="NO" Time="1550">
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_DMG" Client="NO" UseSleep="NO" Time="1700">
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
 			</EtcList>
 			<ResultList>
 				<ToolScp Client="NO" Scp="S_R_TGTBUFF" UseSleep="NO">
@@ -552,11 +583,30 @@
 	<Skill Name="Mon_pcskill_boss_werewolf_Skill_1">
 		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<HitList>
-				<Frame Angle="0" AniTime="400" Dist="0" ForceATK="0" HitCount="1" Length="70" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.52359879" TermMax="0" TermMin="0" Time="200" Type="SQUARE" Width="50"/>
-				<Frame Angle="0" AniTime="700" Dist="0" ForceATK="0" HitCount="1" Length="70" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.52359879" TermMax="0" TermMin="0" Time="500" Type="SQUARE" Width="50"/>
+                <Frame Angle="0" AniTime="400" Dist="0" ForceATK="0" HitCount="1" Length="70" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.52359879" TermMax="0" TermMin="0" Time="99999" Type="SQUARE" Width="50"/>
 			</HitList>
 			<EtcList>
-				<Anim Anim="atk" Speed="1" Time="0"/>
+                <Anim Time="0" Anim="atk" Speed="1"/>
+                <Scp Scp="SKL_SET_TARGET_SQUARE_SR" Client="NO" UseSleep="NO" Time="0">
+                    <Pos Angle="0" Dist="0"/>
+                    <Num Num="0"/>
+                    <Num Num="70"/>
+                    <Num Num="50"/>
+                    <Num Num="2"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_DMG" Client="NO" UseSleep="NO" Time="400">
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_DMG" Client="NO" UseSleep="NO" Time="700">
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
 			</EtcList>
 		</MainSkl>
 	</Skill>

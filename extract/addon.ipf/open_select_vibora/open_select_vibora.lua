@@ -195,9 +195,7 @@ function OPEN_CABINET_VIBORA(frame, ctrl, argStr, argNum)
 		local prop = TryGetProp(cls, 'AccountProperty', 'None')
 
 		if TryGetProp(GetMyAccountObj(), prop, 0) ~= 0 then
-			local yesScp = string.format("RUN_OPEN_VIBORA(%s, %s)", itemGuid, arg_str)
-			local msg = ScpArgMsg('{set}ReallyOpenCabinetVibora_2', 'set', item_name)
-			ui.MsgBox_NonNested(msg, "RUN_OPEN_VIBORA", yesScp, "None");
+			ui.SysMsg(ClMsg("CantOpenCabinetArmor"))
 		else
 			local yesScp = string.format("RUN_OPEN_VIBORA(%s, %s)", itemGuid, arg_str)
 			local msg = ScpArgMsg('{set}ReallyOpenCabinetVibora', 'set', item_name)
@@ -442,9 +440,7 @@ function OPEN_CABINET_GODDESS(frame, ctrl, argStr, argNum)
 		local prop = TryGetProp(cls, 'AccountProperty', 'None')
 
 		if TryGetProp(GetMyAccountObj(), prop, 0) ~= 0 then
-			local yesScp = string.format("RUN_OPEN_GODDESS(%s, %s)", itemGuid, arg_str)
-			local msg = ScpArgMsg('{set}ReallyOpenCabinetVibora_2', 'set', item_name)
-			ui.MsgBox_NonNested(msg, "RUN_OPEN_GODDESS", yesScp, "None");
+			ui.SysMsg(ClMsg("CantOpenCabinetArmor"))
 		else
 			local yesScp = string.format("RUN_OPEN_GODDESS(%s, %s)", itemGuid, arg_str)
 			local msg = ScpArgMsg('{set}ReallyOpenCabinetVibora', 'set', item_name)

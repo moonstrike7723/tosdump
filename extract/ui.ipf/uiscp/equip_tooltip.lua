@@ -207,8 +207,8 @@ function ITEM_TOOLTIP_EQUIP(tooltipframe, invitem, strarg, usesubframe, isForger
 	end
 
 	if IS_USE_SET_TOOLTIP(invitem) == 1 then
-    	ypos = DRAW_CANNOT_REINFORCE(tooltipframe, invitem, ypos, mainframename) -- 초월 및 강화불가
-    end
+			ypos = DRAW_CANNOT_REINFORCE(tooltipframe, invitem, ypos, mainframename) -- 초월 및 강화불가
+		end
 
 	ypos = DRAW_EQUIP_PR_N_DUR(tooltipframe, invitem, ypos, mainframename) -- 포텐셜 및 내구도
 	ypos = DRAW_EQUIP_ONLY_PR(tooltipframe, invitem, ypos, mainframename) -- 포텐셜 만 있는 애들은 여기서 그림 (그릴 아이템인지 검사는 내부에서)
@@ -544,6 +544,12 @@ function DRAW_EQUIP_COMMON_TOOLTIP_SMALL_IMG(tooltipframe, invitem, mainframenam
 		fullname = fullname .. '(' .. ClMsg('Unique1') .. ')'	
 	end
 	local nameChild = GET_CHILD(equipCommonCSet, "name", "ui::CRichText");
+	
+	local rune_grade = shared_item_earring.get_earring_grade(invitem)
+	if rune_grade > 0 then
+		fullname = fullname .. '(' .. ScpArgMsg('{count}grade', 'count', rune_grade) .. ')'
+	end
+
 	nameChild:SetText(fullname);
 	nameChild:AdjustFontSizeByWidth(nameChild:GetWidth());		-- 폰트 사이즈를 조정
 	nameChild:SetTextAlign("center","center");				-- 중앙 정렬
@@ -2185,7 +2191,6 @@ end
 
 -- 초월 및 강화불가
 function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
-
 	local decomposeAble_flag = 0;
 	local reinforce_flag = 0
 	local transcend_flag = 0
@@ -2223,7 +2228,7 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 		extract_flag = 1
 	end
 
-    if TryGetProp(itemClass, "BriquetingAble", "No") == "No" or TryGetProp(itemClass, "StringArg", "None") == "WoodCarving" then
+    if TryGetProp(itemClass, "BriquetingAble", "None") == "None" or TryGetProp(itemClass, "BriquetingAble", "No") == "No" or TryGetProp(itemClass, "StringArg", "None") == "WoodCarving" then
         briquet_Valid_flag = 1
     end
 
@@ -2247,10 +2252,16 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 	    arklvup_flag = 1
 	end
 	
-	if TryGetProp(invitem, 'ItemGrade', 0) >= 6 and (GET_EQUIP_GROUP_NAME(invitem) == 'Weapon' or GET_EQUIP_GROUP_NAME(invitem) == 'Armor') then
+	local group_name = GET_EQUIP_GROUP_NAME(invitem)
+
+	if TryGetProp(invitem, 'ItemGrade', 0) >= 6 and (group_name== 'Weapon' or group_name == 'Armor' or group_name == 'Acc')  then
 		awaken_flag = 0
 		reinforce_flag = 0
-		enchant_flag = 0
+		enchant_flag = 0		
+	end
+
+	if TryGetProp(invitem, 'ItemGrade', 0) >= 6 and (group_name == 'Acc')  then
+		awaken_flag = 1
 	end
 
 	local character_belonging = TryGetProp(invitem, 'CharacterBelonging', 0)
@@ -2294,6 +2305,149 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 	text = _APPEND_LIMITATION_TEXT(awaken_flag, text, CSet:GetUserConfig("AWAKEN_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(enchant_flag, text, CSet:GetUserConfig("ENCHANT_TEXT"))
 	text = _APPEND_LIMITATION_TEXT(arklvup_flag, text, CSet:GetUserConfig("ARKLVUP_VALID_TEXT"))		
+
+	if TryGetProp(invitem, 'StringArg', 'None') == 'TOSHeroEquip' or TryGetProp(invitem, 'StringArg', 'None') == 'TOSHeroEquipNeck' then
+		text = '{@st42_gray}{s14}'..ClMsg(TryGetProp(GetClass('ClientMessage', 'TOSHeroEquipTooltip_OnlyUse'), 'ClassName', 'None'))
+	end
+
+	if text:sub(-#', ') == ', ' then
+		text = text:sub(0, text:len() - 2);
+	end
+
+	socket_text:SetText(text);
+
+	local bottomMargin = CSet:GetUserConfig("BOTTOM_MARGIN");
+
+	local DEFAULT_HEIGHT = 50
+	local height = math.max(DEFAULT_HEIGHT,socket_text:GetHeight()+12)
+	CSet:Resize(CSet:GetWidth(),height)
+	return yPos + CSet:GetHeight();
+end
+
+function DRAW_ENABLE_TREATMENT(tooltipframe, invitem, yPos, mainframename)
+	local decomposeAble_flag = 0;
+	local reinforce_flag = 0
+	local transcend_flag = 0
+	local extract_flag = 0
+	local socket_flag = 0
+	local briquet_flag = 0;
+	local briquet_Valid_flag = 0
+	local exchange_flag = TryGetProp(invitem, 'Rebuildchangeitem', 0);
+	local text = ""
+
+	if TryGetProp(invitem, 'DecomposeAble', 0) == "NO" then
+		decomposeAble_flag = 1;
+	end
+	
+	if TryGetProp(invitem, 'Reinforce_Type', 'None') == 'goddess' then
+		reinforce_flag = 0
+	end
+	
+	if IS_SEAL_ITEM(invitem) == true then		
+		if invitem.MaxReinforceCount > GET_CURRENT_SEAL_LEVEL(invitem) then
+			reinforce_flag = 0;
+		end
+	end
+
+	if IS_TRANSCEND_ABLE_ITEM(invitem) == 0 then
+		transcend_flag = 1
+	end    
+	
+	if IS_VALID_LOOK_ITEM(invitem) == false then
+	    briquet_flag = 1;
+	end
+    
+	local itemClass = GetClassByType("Item", invitem.ClassID);
+	if (itemClass ~= nil and itemClass.Extractable == 'No') or IS_ENABLE_EXTRACT_OPTION(invitem) ~= true then
+		extract_flag = 1
+	end
+
+    if TryGetProp(itemClass, "BriquetingAble", "None") == "None" or TryGetProp(itemClass, "BriquetingAble", "No") == "No" or TryGetProp(itemClass, "StringArg", "None") == "WoodCarving" then
+		briquet_Valid_flag = 1		
+    end
+
+    if invitem.MaxSocket > 100 then invitem.MaxSocket = 0 end
+	if invitem.MaxSocket == 0 then
+		socket_flag = 1
+	end
+
+	local awaken_flag = 0;
+	if IS_ENABLE_GIVE_HIDDEN_PROP_ITEM(invitem) == false then
+		awaken_flag = 1;
+	end
+	
+	local enchant_flag = 0
+	if IS_ENABLE_APPLY_JEWELL_TOOLTIPTEXT(invitem) == false then
+	    enchant_flag = 1
+	end
+
+	local group_name = GET_EQUIP_GROUP_NAME(invitem)
+
+	if TryGetProp(invitem, 'ItemGrade', 0) >= 6 and (group_name== 'Weapon' or group_name == 'Armor')  then
+		awaken_flag = 0
+		reinforce_flag = 0
+		enchant_flag = 0		
+	end
+	
+
+	-- 가디스급 장비 각성 체크
+	if TryGetProp(invitem, 'ItemGrade', 0) >= 6 then
+		if group_name == 'Acc' then
+			awaken_flag = 1	
+			enchant_flag = 1
+		elseif group_name == 'Armor' then -- 방어구 각성 불가
+			if TryGetProp(invitem, 'UseLv', 0) >= 470 then
+				awaken_flag = 1	
+				enchant_flag = 1
+			end
+		end
+	end
+
+	local character_belonging = TryGetProp(invitem, 'CharacterBelonging', 0)
+
+	if character_belonging == 1 and (TryGetProp(invitem, 'StringArg', 'None') == 'Legenda') then
+		decomposeAble_flag = 1
+	end
+
+	local gBox = GET_CHILD_RECURSIVELY(tooltipframe, mainframename)
+	gBox:RemoveChild('tooltip_equip_cannot_reinforce');
+
+	local CSet = gBox:CreateControlSet('tooltip_equip_cannot_reinforce', 'tooltip_equip_cannot_reinforce', 0, yPos);
+	tolua.cast(CSet, "ui::CControlSet");
+
+	local socket_text = GET_CHILD_RECURSIVELY(CSet, 'socket_text');
+
+	local function _APPEND_LIMITATION_TEXT(flag, text, targetText, appendComma)
+		if flag == 1 or flag == false then
+			return text;
+		end
+
+		local _text = text..targetText;
+		if appendComma ~= false then
+			_text = _text..', ';
+		end
+		return _text;
+	end
+		
+	local enable_frag = false
+	if TryGetProp(invitem, 'GroupName', 'None') == 'Earring' then		
+		reinforce_flag = false
+		if TryGetProp(invitem, 'StringArg', 'None') == "piece_GabijaEarring" then
+			enable_frag = true
+		end
+	end
+
+	text = _APPEND_LIMITATION_TEXT(0, text, CSet:GetUserConfig("TEXT_FONT2"), false);	
+	text = _APPEND_LIMITATION_TEXT(enable_frag, text, ClMsg('enable_fragmentation'));
+	text = _APPEND_LIMITATION_TEXT(decomposeAble_flag, text, ClMsg('enable_decomposition'));
+	text = _APPEND_LIMITATION_TEXT(reinforce_flag, text, ClMsg('enable_reinforce'));
+	text = _APPEND_LIMITATION_TEXT(transcend_flag, text, ClMsg('enable_transcend'));
+	text = _APPEND_LIMITATION_TEXT(extract_flag, text, ClMsg('enable_extract'));
+	text = _APPEND_LIMITATION_TEXT(socket_flag, text, ClMsg('enable_socket'));	
+	text = _APPEND_LIMITATION_TEXT(briquet_flag, text, ClMsg('enable_extract_briquet'));
+	text = _APPEND_LIMITATION_TEXT(briquet_Valid_flag, text, ClMsg('enable_briquet'));	
+	text = _APPEND_LIMITATION_TEXT(awaken_flag, text, ClMsg('enable_awaken'));
+	text = _APPEND_LIMITATION_TEXT(enchant_flag, text, ClMsg('enable_enchant'))	
 
 	if TryGetProp(invitem, 'StringArg', 'None') == 'TOSHeroEquip' or TryGetProp(invitem, 'StringArg', 'None') == 'TOSHeroEquipNeck' then
 		text = '{@st42_gray}{s14}'..ClMsg(TryGetProp(GetClass('ClientMessage', 'TOSHeroEquipTooltip_OnlyUse'), 'ClassName', 'None'))
@@ -3165,4 +3319,167 @@ function DRAW_EQUIP_BELONGING(tooltipframe, invitem, yPos, mainframename, type)
 	_text:SetText(text)	
 	_text:SetTextAlign('right', 'center')
 	return yPos + CSet:GetHeight();
+end
+
+
+
+-- 랜덤 귀걸이 옵션 , item_earring
+function DRAW_EQUIP_RANDOM_EARRING_OPTION(invitem, property_gbox, inner_yPos)		
+	local init_yPos = inner_yPos;
+	
+	local growth_rate = 1
+	if IS_GROWTH_ITEM(invitem) == true then
+		growth_rate = GET_ITEM_GROWTH_RATE(invitem)
+	end
+
+	for i = 1, item_earring_max_stats_option_count do
+		local propGroupName = 'RandomOptionGroup_' .. i
+        local propName = "RandomOption_"..i;
+        local propValue = "RandomOptionValue_"..i;
+        local clientMessage = 'None'
+
+        local propItem = invitem
+
+		if propItem[propGroupName] == 'ATK' then
+            clientMessage = 'ItemRandomOptionGroupATK'
+        elseif propItem[propGroupName] == 'DEF' then
+            clientMessage = 'ItemRandomOptionGroupDEF'
+        elseif propItem[propGroupName] == 'UTIL_WEAPON' then
+            clientMessage = 'ItemRandomOptionGroupUTIL'
+        elseif propItem[propGroupName] == 'UTIL_ARMOR' then
+            clientMessage = 'ItemRandomOptionGroupUTIL'
+        elseif propItem[propGroupName] == 'UTIL_SHILED' then
+            clientMessage = 'ItemRandomOptionGroupUTIL'
+        elseif propItem[propGroupName] == 'STAT' then
+            clientMessage = 'ItemRandomOptionGroupSTAT'
+		end
+        
+        if propItem[propValue] ~= 0 and propItem[propName] ~= "None" then
+			local opName = string.format("%s %s", ClMsg(clientMessage), ScpArgMsg(propItem[propName]));	
+			local _, max = shared_item_earring.get_normal_option_value_range(TryGetProp(invitem, 'ItemLv', 0), propItem[propName])				
+			local strInfo = nil
+			if max ~= nil then
+				local current_value = propItem[propValue]
+				if growth_rate > 0 and growth_rate < 1 then
+					current_value = math.floor(current_value * growth_rate)
+					if current_value <= 0 then
+						current_value = 1
+					end
+				end
+				if max == current_value then
+					strInfo = ABILITY_DESC_NO_PLUS(opName, propItem[propValue], 1);
+				else
+					strInfo = ABILITY_DESC_NO_PLUS(opName, propItem[propValue], 0);
+				end
+				
+				if max ~= nil and max ~= current_value and (keyboard.IsKeyPressed('LALT') == 1 or keyboard.IsKeyDown('LALT') == 1) then
+					strInfo = strInfo .. ' {@st66b}{#e28500}{ol}(' .. max .. ')'
+				end
+			else
+				local current_value = propItem[propValue]
+				if growth_rate > 0 and growth_rate < 1 then
+					current_value = math.floor(current_value * growth_rate)
+					if current_value <= 0 then
+						current_value = 1
+					end
+				end
+				strInfo = ABILITY_DESC_NO_PLUS(opName, current_value, 0);
+			end
+
+            inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, strInfo, 0, inner_yPos);
+            margin = true;
+        end
+    end
+
+    if init_yPos < inner_yPos then
+        inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, " ", 0, inner_yPos);
+    end
+
+    return inner_yPos
+end
+
+function DRAW_EQUIP_SPECIAL_EARRING_OPTION(invitem, property_gbox, inner_yPos)
+	local init_yPos = inner_yPos;	
+	for i = 1, shared_item_earring.get_max_special_option_count(TryGetProp(invitem, 'ItemLv', 0)) + 1 do
+		local ctrl = TryGetProp(invitem, 'EarringSpecialOption_' .. i, 'None')
+		if ctrl ~= 'None' then
+			local cls = GetClass('Job', ctrl)
+			local ctrl = TryGetProp(cls, 'Name', 'None')
+
+			local _, max = shared_item_earring.get_special_option_value_range(TryGetProp(invitem, 'ItemLv', 0))				
+			
+			local rank = TryGetProp(invitem, 'EarringSpecialOptionRankValue_' .. i, 0)			
+			local lv = TryGetProp(invitem, 'EarringSpecialOptionLevelValue_' .. i, 0)
+			local text = ScpArgMsg('EarringSpecialOption{ctrl}{rank}{lv}', 'ctrl', ctrl, 'rank', rank, 'lv', lv)
+			if max ~= nil and lv < max and (keyboard.IsKeyPressed('LALT') == 1 or keyboard.IsKeyDown('LALT') == 1) then
+				text = text .. ' {@st66b}{#e28500}{ol}(' .. max .. ')'
+			end
+			inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, text, 0, inner_yPos);			
+		end
+	end
+
+	if init_yPos < inner_yPos then
+		inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, " ", 0, inner_yPos);
+	end
+end
+
+
+function DRAW_EARRING_OPTION(tooltipframe, invitem, yPos, mainframename, drawLableline)
+	local gBox = GET_CHILD(tooltipframe, mainframename, 'ui::CGroupBox')
+	gBox:RemoveChild('tooltip_equip_property');
+
+    -- 컨트롤셋 생성
+    local tooltip_equip_property_CSet = gBox:CreateOrGetControlSet('tooltip_equip_property', 'tooltip_equip_property', 0, yPos);
+    
+    -- 라벨라인 처리 (아이커 아이템 툴팁)
+    local labelline = GET_CHILD(tooltip_equip_property_CSet, 'labelline');
+    if drawLableline == false then
+        tooltip_equip_property_CSet:SetOffset(tooltip_equip_property_CSet:GetX(), tooltip_equip_property_CSet:GetY() - 10);
+        labelline:ShowWindow(0);
+    else
+        labelline:ShowWindow(1);
+    end
+
+    local inner_yPos = 0;
+	local property_gbox = GET_CHILD(tooltip_equip_property_CSet, 'property_gbox', 'ui::CGroupBox');
+	
+    inner_yPos = DRAW_EQUIP_RANDOM_EARRING_OPTION(invitem, property_gbox, inner_yPos) -- 랜덤 옵션
+	inner_yPos = DRAW_EQUIP_SPECIAL_EARRING_OPTION(invitem, property_gbox, inner_yPos) -- 특수 옵션
+
+	tooltip_equip_property_CSet:Resize(tooltip_equip_property_CSet:GetWidth(),tooltip_equip_property_CSet:GetHeight() + property_gbox:GetHeight() + property_gbox:GetY());
+
+	gBox:Resize(gBox:GetWidth(),gBox:GetHeight() + tooltip_equip_property_CSet:GetHeight())
+	return tooltip_equip_property_CSet:GetHeight() + tooltip_equip_property_CSet:GetY();
+end
+
+function ITEM_TOOLTIP_EARRING(tooltipframe, invitem, strarg, usesubframe)
+	if invitem.ClassType ~= 'Earring' then return end
+
+	tolua.cast(tooltipframe, "ui::CTooltipFrame");
+	local mainframename = 'equip_main'
+	local ypos = 0
+
+	ypos = DRAW_EQUIP_COMMON_TOOLTIP_SMALL_IMG(tooltipframe, invitem, mainframename); -- 장비라면 공통적으로 그리는 툴팁들
+	ypos = DRAW_EARRING_OPTION(tooltipframe, invitem, ypos, mainframename, false)	
+	ypos = DRAW_EQUIP_DESC(tooltipframe, invitem, ypos, mainframename) -- 각종 설명문
+	ypos = DRAW_EQUIP_TRADABILITY(tooltipframe, invitem, ypos, mainframename); 	-- 거래 제한
+	if TryGetProp(invitem, 'EquipActionType', 'None') == 'EquipCharacterBelonging' and TryGetProp(invitem, 'CharacterBelonging', 0) == 0 then
+		ypos = DRAW_EQUIP_BELONGING(tooltipframe, invitem, ypos, mainframename, 'char_belonging') -- 착용시 캐릭터 귀속
+	elseif TryGetProp(invitem, 'EquipActionType', 'None') == 'EquipTeamBelonging' and TryGetProp(invitem, 'TeamBelonging', 0) == 0 then
+		ypos = DRAW_EQUIP_BELONGING(tooltipframe, invitem, ypos, mainframename, 'team_belonging') -- 착용시 팀 귀속
+	end
+	ypos = DRAW_ENABLE_TREATMENT(tooltipframe, invitem, ypos, mainframename); 	-- 초월 및 강화불가
+
+	local isHaveLifeTime = TryGetProp(invitem, "LifeTime", 0);					-- 기간제
+	if 0 == tonumber(isHaveLifeTime) then
+		ypos = DRAW_SELL_PRICE(tooltipframe, invitem, ypos, mainframename);
+	else
+		ypos = DRAW_REMAIN_LIFE_TIME(tooltipframe, invitem, ypos, mainframename);
+	end
+	
+	ypos = ypos + 3;
+    ypos = DRAW_TOGGLE_EQUIP_DESC(tooltipframe, invitem, ypos, mainframename); -- 설명문 토글 여부
+
+    local gBox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
+    gBox:Resize(gBox:GetWidth(), ypos)
 end

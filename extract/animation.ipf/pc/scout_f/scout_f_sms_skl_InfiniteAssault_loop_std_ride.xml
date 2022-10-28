@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="EUC-KR"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+	<Particle frame="1" attachNode="Dummy_effect_wildshot_R003" particleName="I_pistol001_orange" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="1" attachNode="Dummy_effect_wildshot_R003" particleName="F_hit009_rize_red3_4" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="2" attachNode="Dummy_effect_pistol001_ride" particleName="I_archer_pistol_atk_smoke3_dark" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="4" attachNode="Dummy_effect_wildshot_R003" particleName="F_hit009_rize_red3_4" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="4" attachNode="Dummy_effect_wildshot_R003" particleName="F_pc_item_ep13cybersoldier01_pistol_light_red2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="7" attachNode="Dummy_effect_wildshot_R003" particleName="I_light020_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="8" attachNode="Dummy_effect_pistol001_ride" particleName="I_archer_pistol_atk_smoke" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="8" attachNode="Dummy_effect_wildshot_R003" particleName="I_pistol001_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="11" attachNode="Dummy_effect_wildshot_R003" particleName="F_hit009_rize_red3_4" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="11" attachNode="Dummy_effect_wildshot_R003" particleName="F_pc_item_ep13cybersoldier01_pistol_light_red2" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="15" attachNode="Dummy_effect_wildshot_R003" particleName="I_pistol001_orange" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="16" attachNode="Dummy_effect_pistol001_ride" particleName="I_archer_pistol_atk_smoke" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="16" attachNode="Dummy_effect_wildshot_R003" particleName="I_pistol001_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="18" attachNode="Dummy_effect_pistol001_ride" particleName="I_archer_pistol_atk_smoke2" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="18" attachNode="Dummy_effect_wildshot_R003" particleName="F_hit009_rize_red3_4" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="22" attachNode="Dummy_effect_wildshot_R003" particleName="I_light020_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="1.2" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="23" attachNode="Dummy_effect_pistol001_ride" particleName="I_archer_pistol_atk_smoke" useAttach="true" hiddenObj="false" changeEffect="None" scale="1" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="23" attachNode="Dummy_effect_wildshot_R003" particleName="I_pistol001_red" useAttach="true" hiddenObj="false" changeEffect="None" scale="0.8" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<Particle frame="24" attachNode="Dummy_effect_wildshot_R003" particleName="F_pc_item_ep13cybersoldier01_pistol_light_red2" useAttach="true" hiddenObj="false" changeEffect="None" scale="0" pause="true" use2DEffect="true" soft2DValue="0" targetPos="false"/>
+	<BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+	<Sound frame="0.00" soundFile="skl_eff_infiniteassault"/>
+	<Shockwave frame="1" type="2" intensity="3" frequency="70" duration="0.2" range="1000"/>
+	<BlendOn frame="1" R="150" G="70" B="100" A="100"/>
+	<BlendOn frame="2" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="3" R="0" G="0" B="0" A="0"/>
+	<Shockwave frame="8" type="2" intensity="2" frequency="70" duration="0.2" range="1000"/>
+	<BlendOn frame="8" R="150" G="100" B="70" A="100"/>
+	<BlendOn frame="9" R="0" G="0" B="0" A="0"/>
+	<Sound frame="9.00" soundFile="skl_eff_infiniteassault"/>
+	<BlendOn frame="10" R="0" G="0" B="0" A="0"/>
+	<Shockwave frame="16" type="2" intensity="2" frequency="70" duration="0.2" range="1000"/>
+	<BlendOn frame="16" R="150" G="70" B="100" A="100"/>
+	<Sound frame="16.00" soundFile="skl_eff_infiniteassault"/>
+	<BlendOn frame="17" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="18" R="0" G="0" B="0" A="0"/>
+	<Sound frame="22.00" soundFile="skl_eff_infiniteassault"/>
+	<Shockwave frame="23" type="2" intensity="3" frequency="70" duration="0.2" range="1000"/>
+	<BlendOn frame="23" R="150" G="100" B="70" A="100"/>
+	<BlendOn frame="24" R="0" G="0" B="0" A="0"/>
+	<BlendOn frame="25" R="0" G="0" B="0" A="0"/>
+	<BlendOff frame="26" R="0" G="0" B="0" A="0"/>
+</ActionDesc>

@@ -18,8 +18,7 @@
 					<Str Str="" UseFunc="1" FuncTxt="return self.Name"/>
 					<Str Str="PC_Summon"/>
 					<Num Num="0"/>
-					<Num Num="30" UseFunc="1" FuncTxt="local time = 10 + obj.Level * 1
-                    return math.floor(time)"/>
+					<Num Num="20"/>
 					<Str Str="None"/>
 					<MonProp/>
 				</Scp>

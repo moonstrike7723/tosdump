@@ -848,8 +848,8 @@ return value"/>
                 <Num Num="0"/>
             </ToolScp>
             <ToolScp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO">
-                <Str Str="voice_war_atk_long_cast"/>
-                <Str Str="voice_atk_long_cast_f"/>
+                <Str Str="voice_onmyoji_m_watershikigami_cast"/>
+                <Str Str="voice_onmyoji_f_watershikigami_cast"/>
             </ToolScp>
             <ToolScp Scp="C_SOUND" Client="YES" UseSleep="NO">
                 <Str Str="skl_eff_wiz_skl_cast_4"/>
@@ -863,6 +863,10 @@ return value"/>
             <ToolScp Scp="C_EFFECT_DETACH" Client="YES" UseSleep="NO">
                 <Str_Arg Str="F_water005" Arg="4.5"/>
                 <Num Num="0.5"/>
+            </ToolScp>
+            <ToolScp Client="NO" Scp="SKL_STOP_SOUND" UseSleep="NO">
+                <Str Str="voice_onmyoji_f_watershikigami_cast"/>
+                <Str Str="voice_onmyoji_m_watershikigami_cast"/>
             </ToolScp>
         </KeyInputEnd>
         <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
@@ -897,8 +901,8 @@ return value"/>
                     <Num Num="1"/>
                 </Scp>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="0">
-                    <Str Str="voice_war_atk_long_shot"/>
-                    <Str Str="voice_atk_long_war_f"/>
+                    <Str Str="voice_onmyoji_m_watershikigami_shot"/>
+                    <Str Str="voice_onmyoji_f_watershikigami_shot"/>
                 </Scp>
                 <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
                     <Str Str="skl_eff_windshikigami_shot"/>

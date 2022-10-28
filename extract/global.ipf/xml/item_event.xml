@@ -71,8 +71,23 @@
 			<Class ClassID="10000517" ClassName="Event_Goddess_Statue_Team_38" CT_ExpireDateTime="2022-01-18 00:00"/>
 			<Class ClassID="10000518" ClassName="Event_Adventure_Reward_Seed_38" CT_ExpireDateTime="2022-01-18 00:00"/>
 			<Class ClassID="10000519" ClassName="Multiple_Token_MythicHARD_Event38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10000520" ClassName="Multiple_Token_MythicHARD_Event39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000521" ClassName="Ticket_Mythic_Auto_Event39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000522" ClassName="Multiple_Token_MythicAuto_Event_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000523" ClassName="Event_ChallengeModeReset_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000524" ClassName="Event_dungeoncount_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000525" ClassName="Event_indunReset_Team_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000526" ClassName="Event_Goddess_Statue_Team_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000527" ClassName="Event_Adventure_Reward_Seed_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000528" ClassName="Event_Ability_Point_Stone_5_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000529" ClassName="EVENT_2112_6th_Coin" CT_ExpireDateTime="2022-04-12 00:00"/>
+			<Class ClassID="10000530" ClassName="Event_Ability_Point_Stone_1000_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000531" ClassName="Event_Ability_Point_Stone_10000_39" CT_ExpireDateTime="2022-04-19 00:00"/>
 			<Class ClassID="10000555" ClassName="Event_dungeoncount_38" CT_ExpireDateTime="2022-01-18 00:00"/>
 			<Class ClassID="10000556" ClassName="Event_indunReset_Team_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10000557" ClassName="Ticket_RevivalPaulius_Party_Enter_Event_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000558" ClassName="Ticket_RevivalPaulius_Auto_Enter_Event_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10000559" ClassName="Ticket_earring_raid_Event_39" CT_ExpireDateTime="2022-04-19 00:00"/>
 		</Category>
 		<Category Name="Evnet_Item">
 			<Class ClassID="10003461" ClassName="Event_Coin_Ticket_1000_25" CT_ExpireDateTime="2021-10-12 06:00"/>
@@ -92,6 +107,7 @@
 			<Class ClassID="10003510" ClassName="Event_2109_Wish_Box" CT_ExpireDateTime="2022-03-21 00:00"/>
 			<Class ClassID="10003511" ClassName="Event_Coin_Ticket_1000_33" CT_ExpireDateTime="2022-03-21 00:00"/>
 			<Class ClassID="10003541" ClassName="Event_Random_Bountyhunt_Box" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10003551" ClassName="EVENT_2112_Blessed_Fruit" CT_ExpireDateTime="2022-04-19 00:00"/>
 		</Category>
 		<Category Name="Event_item_Upgrade">
 			<Class ClassID="10010112" ClassName="Moru_Ruby_event_28" CT_ExpireDateTime="2021-12-21 00:00:00"/>
@@ -119,6 +135,11 @@
 			<Class ClassID="10010141" ClassName="misc_reinforce_percentUp_460_Event_38" CT_ExpireDateTime="2022-01-18 00:00"/>
 			<Class ClassID="10010142" ClassName="misc_Enchant_460_Event_38" CT_ExpireDateTime="2022-01-18 00:00"/>
 			<Class ClassID="10010143" ClassName="misc_Engrave_460_NoTrade_Event_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10010144" ClassName="Moru_Ruby_event_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10010145" ClassName="Moru_Event_Gold_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10010146" ClassName="misc_reinforce_percentUp_460_Event_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10010147" ClassName="misc_Enchant_460_Event_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10010148" ClassName="misc_Engrave_460_NoTrade_Event_39" CT_ExpireDateTime="2022-04-19 00:00"/>
 		</Category>
 		<Category Name="Event_Item_item_premium">
 			<Class ClassID="10600161" ClassName="Event_Enchantchip_25" CT_ExpireDateTime="2021-10-12 06:00"/>
@@ -156,6 +177,13 @@
 			<Class ClassID="10600199" ClassName="Ticket_Vasilissa_Party_Enter_NoTrade_Event38" CT_ExpireDateTime="2022-01-18 00:00"/>
 			<Class ClassID="10600200" ClassName="Premium_Sandra_Glass_38" CT_ExpireDateTime="2022-01-18 00:00"/>
 			<Class ClassID="10600201" ClassName="Premium_Sandra_Glass_1line_38" CT_ExpireDateTime="2022-01-18 00:00"/>
+			<Class ClassID="10600202" ClassName="Premium_Sandra_Glass_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10600203" ClassName="Premium_Sandra_Glass_1line_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10600204" ClassName="Premium_Master_Glass_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10600205" ClassName="Premium_Mystic_Glass_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10600206" ClassName="Ticket_Vasilissa_Party_Enter_NoTrade_Event39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10600207" ClassName="Event_awakeningStone_39" CT_ExpireDateTime="2022-04-19 00:00"/>
+			<Class ClassID="10600208" ClassName="Event_Enchantchip_39" CT_ExpireDateTime="2022-04-19 00:00"/>
 		</Category>
 	</Category>
 </idspace>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+    <HeadRotBip frame="0" BipName="Dummy_head"/>
+    <Sound frame="0.00" soundFile="skl_eff_spaning_shot"/>
+    <Sound frame="3.00" soundFile="skl_eff_action_cast_1"/>
+    <Particle frame="7" attachNode="eff_dummy_he" particleName="F_hakkapel_spaning_light002" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" targetPos="false"/>
+    <Particle frame="7" attachNode="Dummy_efffect_rush" particleName="F_hakkapel_spaning_light001" useAttach="false" hiddenObj="false" changeEffect="None" scale="1.5" pause="true" targetPos="false"/>
+</ActionDesc>

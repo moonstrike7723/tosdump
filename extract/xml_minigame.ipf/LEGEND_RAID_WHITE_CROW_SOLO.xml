@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <GameList>
 	<Game Name="LEGEND_RAID_WHITE_CROW_SOLO" minLv="0" maxLv="0" mapName="shadow_raid_main" playerCountCheckDestroy="1" startWaitSec="-1">
 		<StageList>
@@ -305,8 +304,8 @@
 					<Event execCount="1" eventName="soulcrystal_set">
 						<execList>
 							<ToolScp Scp="GAME_ST_EVT_EXEC_SOUL_CRISTAL_LIMIT" Client="NO" UseSleep="NO">
-								<Num Num="1"/>
-								<Num Num="5"/>
+                                <Num Num="0"/>
+                                <Num Num="0"/>
 							</ToolScp>
 						</execList>
 					</Event>

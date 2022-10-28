@@ -390,7 +390,15 @@ function INIT_GRAPHIC_CONFIG(frame)
 	if bgmaxfps_slide ~= nil then
 		bgmaxfps_slide:SetLevel(config.GetBackgroundMaxFPS());
 	end
-
+	local max_particles = GET_CHILD_RECURSIVELY(frame, "max_particles");
+	if max_particles ~= nil then
+		max_particles:SetTextByKey("opValue", config.GetMaxParticles());
+	end
+	local max_particles_value = GET_CHILD_RECURSIVELY(frame, "max_particles_value");
+	if max_particles_value ~= nil then
+		max_particles_value:SetLevel(imc.bit_width(config.GetMaxParticles() * 1.5) - 1);
+	end
+ 
 	local IsEnableSummonAlpha = GET_CHILD_RECURSIVELY(frame, "Check_IsEnableSummonAlpha", "ui::CCheckBox");
 	if IsEnableSummonAlpha ~= nil then
 		IsEnableSummonAlpha:SetCheck(config.GetIsEnableSummonAlpha());
@@ -1009,6 +1017,14 @@ function CONFIG_BOSSMON_EFECT_TRANSPARENCY(frame, ctrl, str, num)
 	tolua.cast(ctrl, "ui::CSlideBar");
 	config.SetBossMonsterEffectTransparency(ctrl:GetLevel());
 	SET_SLIDE_VAL(frame, "effect_transparency_boss_monster_value", "effect_transparency_boss_monster", config.GetBossMonsterEffectTransparency());
+end
+
+function CONFIG_MAX_PARTICLES(frame, ctrl, str, num)
+	local num = math.pow(2, ctrl:GetLevel())
+	config.SetMaxParticles(num);
+
+	local txt = GET_CHILD_RECURSIVELY(frame, "max_particles");
+	txt:SetTextByKey("opValue", num);
 end
 
 function CONFIG_OTHER_PC_EFFECT(frame, ctrl, str, num)

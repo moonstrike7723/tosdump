@@ -32,7 +32,8 @@
 		<richtext name="restrictSkillText" rect="0 0 200 30" parent="restrictSkillBox" margin="5 0 0 0" layout_gravity="left center" caption="{img NOTICE_Dm_! 30 30}{@st43}{s16}스킬 제한{/}" hittest="false"/>
 		<groupbox name="restrictItemBox" rect="0 0 196 40" parent="restrictBox" margin="0 40 0 0" layout_gravity="left top" draw="false" image="text_bg_black"/>
 		<richtext name="restrictItemText" rect="0 0 200 30" parent="restrictItemBox" margin="5 0 0 0" layout_gravity="left center" caption="{img NOTICE_Dm_! 30 30}{@st43}{s16}입장 제한{/}" hittest="false"/>
-
+		<groupbox name="restrictDungeonBox" rect="0 0 196 40" parent="restrictBox" margin="0 40 0 0" layout_gravity="left top" draw="false" image="text_bg_black"/>
+		<richtext name="restrictDungeonText" rect="0 0 200 30" parent="restrictDungeonBox" margin="5 0 0 0" layout_gravity="left center" caption="{img NOTICE_Dm_! 30 30}{@st43}{s16}던전 적용 사항{/}" hittest="false"/>
 		<groupbox name="countBox" parent="indunbox" rect="0 0 412 60" margin="0 44 0 0" layout_gravity="right top" draw="false" hittestbox="false"/>
 		<picture name="countPic" parent="countBox" rect="0 0 27 27" margin="0 0 0 0" layout_gravity="left center" image="indun_entrance"/>
 		<picture name="cyclePic" parent="countBox" rect="0 0 60 27" margin="110 2 0 0" layout_gravity="left center" image="indun_icon_week_l"/>
@@ -111,6 +112,7 @@
 		<button name="Button2" rect="0 0 160 45" parent="buttonBox" margin="0 0 0 0" layout_gravity="right top" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" skin="test_pvp_btn" oversound="button_over"/>
 		<button name="Button3" rect="0 0 160 45" parent="buttonBox" margin="0 43 160 0" layout_gravity="right top" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" skin="test_pvp_btn" oversound="button_over"/>
 		<button name="tinyButton" rect="0 0 90 40" parent="buttonBox" margin="0 45 325 0" layout_gravity="right top" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" skin="test_pvp_btn" oversound="button_over" format="{s17}{#050505}%s" param1="btnText" param1_def="조합식" LBtnUpScp="ui.OpenFrame('toshero_info_combine')"/>
+		<button name="recordButton" rect="0 0 220 45" parent="buttonBox" margin="0 43 160 0" layout_gravity="right top" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" skin="test_pvp_btn" oversound="button_over" format="{s17}{#050505}%s" param1="btnText" param1_def="클리어 기록"/>		
 		<button name="RedButton" rect="0 0 160 45" parent="buttonBox" margin="0 43 0 0" layout_gravity="right top" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" skin="test_red_button" oversound="button_over"/>
 		<richtext name="Button1Text" rect="0 0 160 45" parent="Button1" margin="0 0 0 0" layout_gravity="center center" textalign="left center" hittest="false" format="{s17}{#050505}%s" param1="btnText" param1_def="이동" autofontsizebywidth="160"/>
 		<richtext name="Button2Text" rect="0 0 160 45" parent="Button2" margin="0 0 0 0" layout_gravity="center center" textalign="left center" hittest="false" format="{s17}{#050505}%s" param1="btnText" param1_def="이동" autofontsizebywidth="160"/>
@@ -228,7 +230,7 @@
 		<controlset name="boss_attr6" parent="boruta_info_gb" rect="0 0 350 23" margin="0 167 15 0" type="adventure_book_monster_attribute" layout_gravity="right top" hittestbox="false" scrollbar="false"/>
 		<picture name="guild_info" parent="boruta_info_gb" rect="0 0 469 41" margin="0 227 0 0" layout_gravity="center top" draw="true" image="adventure_info_title" stretch="true"/>
 		<richtext name="guild_info_text" parent="guild_info" rect="0 0 120 40" margin="0 0 0 0" layout_gravity="center center" caption="봉쇄전 정보" fontname="white_20_ol_ds"/>
-		<picture name="boruta_help" parent="guild_info" rect="0 0 36 36" margin="0 0 5 0" layout_gravity="right center" image="testquesten_button" texttooltip="{nl}{s18}봉쇄전 도움말{/}{nl} {nl}[봉쇄전 참여 권한]{nl}봉쇄전은 길드 콜로니전 스팟 점령 길드만 참여가능합니다.{nl}*길드 퀘스트 : 고대의 존재(보루타)/마신의 성소(길티네)를 진행할 경우 자동으로 참여{nl} {nl}[봉쇄전 순위 정산]{nl} 봉쇄전 순위는 소숫점까지 계산되어 가장 빨리 콘텐츠를{nl}클리어한 길드가 높은 순위에 랭크되는 방식으로 진행됩니다.{nl} {nl}[봉쇄전 보상 수령]{nl} 봉쇄전 보상 수령은 일요일 오후 7시 이후, 길드 마스터 권한이 있는{nl}플레이어가 '보상 수령'탭을 통해 획득할 수 있습니다."/>
+		<picture name="boruta_help" parent="guild_info" rect="0 0 36 36" margin="0 0 5 0" layout_gravity="right center" image="testquesten_button" texttooltip="{nl}{s18}봉쇄전 도움말{/}{nl} {nl}[봉쇄전 순위 정산]{nl} 봉쇄전 순위는 소숫점까지 계산되어 가장 빨리 콘텐츠를{nl}클리어한 길드가 높은 순위에 랭크되는 방식으로 진행됩니다.{nl} {nl}[봉쇄전 보상 수령]{nl} 봉쇄전 보상 수령은 일요일 오후 7시 이후, 길드 마스터 권한이 있는{nl}플레이어가 '보상 수령'탭을 통해 획득할 수 있습니다."/>
 		<controlset name="guild_info_attr" parent="boruta_info_gb" rect="0 0 350 130" margin="0 272 0 0" type="boruta_guild_attribute" layout_gravity="center top" hittestbox="false" scrollbar="false"/>
 		<gauge name="time_gauge" parent="boruta_info_gb" rect="0 0 470 21" margin="0 371 0 0" layout_gravity="center top" skin="test_gauge_barrack_defence" inverse="false"/>
 		<richtext name="guild_info_time_text" parent="boruta_info_gb" rect="0 0 200 40" margin="0 393 10 0" layout_gravity="right top" format="{@st47}{s14}%s{/}" param1="value" param1_def="0"/>

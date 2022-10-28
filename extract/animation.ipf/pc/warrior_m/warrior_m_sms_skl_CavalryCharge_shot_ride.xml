@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+    <Particle frame="3" attachNode="Dummy_emitter_pet2" particleName="E_cavalrycharge001" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" use2DEffect="false" targetPos="false"/>
+    <Sound frame="3.08" soundFile="skl_eff_cavalrycharge_shot"/>
+</ActionDesc>

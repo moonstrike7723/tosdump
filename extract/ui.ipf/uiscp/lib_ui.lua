@@ -491,16 +491,19 @@ function GET_CONFIG_HUD_OFFSET(frame, defaultX, defaultY)
     if config.IsExistHUDConfig(name) ~= 1 then
         return defaultX, defaultY;
     end
-    local x = math.floor(config.GetHUDConfigXRatio(name) * ui.GetClientInitialWidth());
-    local y = math.floor(config.GetHUDConfigYRatio(name) * ui.GetClientInitialHeight());
+    local x = math.floor(config.GetHUDConfigXRatio(name) * option.GetClientWidth());
+	local y = math.floor(config.GetHUDConfigYRatio(name) * option.GetClientHeight());
+	local pos = frame:ScreenPosToFramePos(x, y)
+	x = pos.x
+	y = pos.y
 
-    -- clamping
-    local width = option.GetClientWidth() - frame:GetWidth();
-    local height = option.GetClientHeight() - frame:GetHeight();
-    x = math.max(0, x);
-    x = math.min(x, width);
-    y = math.max(0, y);
-    y = math.min(y, height);
+    -- -- clamping
+    -- local width = option.GetClientWidth() - frame:GetWidth();
+    -- local height = option.GetClientHeight() - frame:GetHeight();
+    -- x = math.max(0, x);
+    -- x = math.min(x, width);
+    -- y = math.max(0, y);
+    -- y = math.min(y, height);
     return x, y;
 end
 

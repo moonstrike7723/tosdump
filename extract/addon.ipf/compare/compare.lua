@@ -225,7 +225,10 @@ function SHOW_PC_COMPARE(cid)
 	DESTROY_CHILD_BYNAME(achieveGbox_sub, "achieve_");
 	local achiclslist, ahicnt  = GetClassList("Achieve");
 	
-	for i = 0, otherpcinfo.achieveCount-1 do 
+	local achievelist = otherpcinfo:GetAchieveList()
+	local achieveListCnt = otherpcinfo:GetAchieveListCnt()
+
+	for i = 0, achieveListCnt-1 do 
 		local achieve = otherpcinfo:GetAchieve(i)
 		local nowachicls = GetClassByTypeFromList(achiclslist, achieve);
 		local y = i * 30

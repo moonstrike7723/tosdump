@@ -434,7 +434,9 @@ function SCR_EVENT_STAMP_OPEN_ADVENTURE_BOOK_MAP()
 	local gb_adventure = GET_CHILD(frame, "gb_adventure");
 	local tab = GET_CHILD(gb_adventure, "bookmark");
 	tab:SelectTab(7);
-endfunction SCR_EVENT_STAMP_OPEN_INDUNINFO_DIVISION()
+end
+
+function SCR_EVENT_STAMP_OPEN_INDUNINFO_DIVISION()
 	local frame = ui.GetFrame("induninfo")
 	frame:ShowWindow(1)
 	INDUNINFO_UI_OPEN(frame, 1, "Challenge_Division_Auto_1")

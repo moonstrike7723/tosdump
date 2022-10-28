@@ -23,9 +23,9 @@
                     <Num Num="0"/>
                 </Scp>
                 <Scp Scp="C_FORCE_EFT" Client="YES_Time" UseSleep="NO" Time="450">
-                    <Str_Arg Str="None" Arg="0.60000002"/>
+                    <Str_Arg Str="I_force080_green_blue5#Dummy_effect_link_magic" Arg="0.60000002"/>
                     <Str Str="arrow_cast"/>
-                    <Str_Arg Str="F_wizard_compulsionlink_shot_explosion_blue" Arg="0.5"/>
+                    <Str_Arg Str="F_wizard_compulsionlink_shot_explosion_blue" Arg="0.80000001"/>
                     <Str Str="arrow_blow"/>
                     <Str Str="SLOW"/>
                     <Num Num="250"/>
@@ -46,11 +46,11 @@
                     <Num Num="150"/>
                     <Str Str="ENEMY"/>
                     <Str Str="ElectricShock_Debuff"/>
-                    <Num Num="0" UseFunc="1" FuncTxt="return 3 + (obj.Level * 0.5)"/>
+                    <Num Num="10"/>
                     <Num Num="100"/>
                     <Num Num="1"/>
                     <Num Num="1"/>
-                    <Str Str="Linker_blue"/>
+                    <Str Str="Linker_cable_blue"/>
                     <Num Num="0"/>
                     <Num Num="0.30000001"/>
                     <Str_Arg Str="F_archer_bodkinpoint_finish" Arg="1"/>
@@ -104,7 +104,7 @@
                             <Num Num="100"/>
                             <Num Num="1"/>
                             <Num Num="1"/>
-                            <Str Str="Linker_blue"/>
+                            <Str Str="Linker_cable_blue"/>
                             <Num Num="0"/>
                             <Num Num="0.30000001"/>
                             <Str_Arg Str="F_archer_bodkinpoint_finish" Arg="1"/>
@@ -277,6 +277,9 @@
                 <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="60" Length="200" SklAngle="0.17453299" AniTime="300" RotAngle="0" ForceATK="0"/>
             </HitList>
             <EtcList>
+                <Scp Scp="SKL_RESET_COOLTIME" Client="NO" UseSleep="NO" Time="0">
+                    <Str Str="Linker_Physicallink"/>
+                </Scp>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="0">
                     <Str Str="voice_wiz_m_physicallink_shot"/>
                     <Str Str="voice_wiz_physicallink_shot"/>
@@ -287,11 +290,11 @@
                     <Num Num="150"/>
                     <Str Str="FRIEND"/>
                     <Str Str="Link_Physical"/>
-                    <Num Num="120" UseFunc="1" FuncTxt="return 60 + obj.Level * 10"/>
+                    <Num Num="0"/>
                     <Num Num="80"/>
                     <Num Num="1"/>
-                    <Num Num="60" UseFunc="1" FuncTxt="return 2 + obj.Level;"/>
-                    <Str Str="Linker3"/>
+                    <Num Num="5"/>
+                    <Str Str="Linker_cable_buff2"/>
                     <Num Num="0"/>
                     <Num Num="0.25"/>
                     <Str_Arg Str="None" Arg="0.5"/>
@@ -335,11 +338,12 @@
                 <ToolScp Scp="S_R_MAKE_LINK" Client="NO" UseSleep="NO">
                     <Str Str="ENEMY"/>
                     <Str Str="Link_Enemy"/>
-                    <Num Num="7"/>
+                    <Num Num="15"/>
                     <Num Num="120"/>
                     <Num Num="0"/>
-                    <Num Num="5" UseFunc="1" FuncTxt="return 2.5 + skill.Level * 0.5"/>
-                    <Str Str="Linker"/>
+                    <Num Num="5" UseFunc="1" FuncTxt="local value = 3 + math.floor(skill.Level/2)
+                    return value;"/>
+                    <Str Str="Linker_cable_basic"/>
                     <Num Num="0"/>
                     <Num Num="0.2"/>
                     <Str_Arg Str="F_scout_JointPenalty_hit" Arg="0.40000001"/>
@@ -394,7 +398,7 @@
                             <Num Num="120"/>
                             <Num Num="1"/>
                             <Num Num="1"/>
-                            <Str Str="Linker"/>
+                            <Str Str="Linker_cable_basic"/>
                             <Num Num="0"/>
                             <Num Num="0.2"/>
                             <Str_Arg Str="F_scout_JointPenalty_hit" Arg="0.40000001"/>
@@ -471,7 +475,7 @@
                     <Str Str="None"/>
                 </Scp>
                 <Scp Scp="SKL_LINK_DESTRUCT" Client="NO" UseSleep="NO" Time="600">
-                    <Str Str="Link_Party"/>
+                    <Str Str="Linker_Sacrifice"/>
                     <Num Num="0"/>
                     <Str Str="None"/>
                     <Num Num="0"/>
@@ -547,11 +551,14 @@
                 <Frame Angle="0" AniTime="300" Dist="0" ForceATK="0" HitCount="1" Length="150" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453299" TermMax="0" TermMin="0" Time="9999" Type="FAN" Width="30"/>
             </HitList>
             <EtcList>
+                <Scp Scp="SKL_RESET_COOLTIME" Client="NO" UseSleep="NO" Time="0">
+                    <Str Str="Linker_UmbilicalCord"/>
+                </Scp>
                 <Scp Client="NO" Scp="SKL_MAKE_PARTY_LINK" Time="0" UseSleep="NO">
                     <Num Num="200"/>
                     <Str Str="Linker_Sacrifice"/>
-                    <Num FuncTxt="return 11 * obj.Level" Num="10" UseFunc="1"/>
-                    <Str Str="Linker2"/>
+                    <Num Num="0"/>
+                    <Str Str="Linker_cable_buff1"/>
                     <Num Num="0"/>
                     <Num Num="0.30000001"/>
                     <Str_Arg Arg="1" Str="None"/>

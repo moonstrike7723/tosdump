@@ -891,8 +891,13 @@ function ON_ADD_ABILITY_COUNT(parent, btn, abilClsName, count)
 
     local abilClass = GetClass("Ability", abilClsName);
     local jobClsName = gb:GetUserValue("JobClsName");
+
     if jobClsName == "Common" then
-        return;
+        return; 
+    end
+
+    if 1 == keyboard.IsKeyPressed("LCTRL") then
+        count = 100
     end
 
     local jobCls = GetClass("Job", jobClsName);
@@ -1502,6 +1507,8 @@ function SKILLABILITY_FILL_ACCOUNT_ABILITY_CTRLSET(ability_gb, classCtrl, abilCl
     end
 
     -- condition
+    abilConditionText:SetTextByKey("value", "캐릭터 레벨 460 이상");
+    abilConditionText:SetTextTooltip("캐릭터 레벨 460 이상");
 
     -- master.
     abilMasterPic:SetVisible(isMax);
@@ -1539,14 +1546,21 @@ function SKILLABILITY_FILL_ACCOUNT_ABILITY_CTRLSET(ability_gb, classCtrl, abilCl
     addBtn:SetEventScript(ui.RBUTTONUP, "ON_ADD_ACCOUNT_ABILITY_COUNT");
     addBtn:SetEventScriptArgString(ui.RBUTTONUP, abilClsName);
     addBtn:SetEventScriptArgNumber(ui.RBUTTONUP, 10);
-    addBtn:SetEnable(1);
 
     local revBtn = GET_CHILD_RECURSIVELY(classCtrl, "abilRevert");
     revBtn:SetEventScript(ui.LBUTTONUP, "ON_REVERT_ACCOUNT_ABILITY_COUNT");
     revBtn:SetEventScriptArgString(ui.LBUTTONUP, abilClsName);
     revBtn:SetOverSound('button_over');
     revBtn:SetClickSound('button_click_big');
-    revBtn:SetEnable(1);
+
+    local pc = GetMyPCObject();
+    if TryGetProp(pc, "Lv") >= 460 then
+        addBtn:SetEnable(1);
+        revBtn:SetEnable(1);
+    else
+        addBtn:SetEnable(0);
+        revBtn:SetEnable(0);
+    end
 end
 
 function ON_ADD_ACCOUNT_ABILITY_COUNT(parent, btn, abilClsName, count)
@@ -1561,6 +1575,10 @@ function ON_ADD_ACCOUNT_ABILITY_COUNT(parent, btn, abilClsName, count)
     local abilCls = GetClass("account_ability", abilClsName);
     if abilCls == nil then
         return;
+    end
+
+    if 1 == keyboard.IsKeyPressed("LCTRL") then
+        count = 100
     end
 
     local expprop = TryGetProp(abilCls, "ExpAccountPropertyName", "None");

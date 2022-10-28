@@ -129,7 +129,13 @@ function ON_MARKET_SELL_LIST(frame, msg, argStr, argNum)
 		end
 
 		local nameCtrl = ctrlSet:GetChild("name");
-		nameCtrl:SetTextByKey("value", GET_FULL_NAME(itemObj));
+		local name_text = GET_FULL_NAME(itemObj)
+		local grade = shared_item_earring.get_earring_grade(itemObj)		
+		if grade > 0 then
+			name_text = name_text .. '(' .. grade .. ClMsg('Grade') .. ')'
+		end
+
+		nameCtrl:SetTextByKey("value", name_text);
 
 		local totalPriceCtrl = ctrlSet:GetChild("totalPrice");
 		local totalPriceValue, b, c = math.mul_int_for_lua(marketItem:GetSellPrice(), marketItem.count);
@@ -506,8 +512,8 @@ function MARKET_SELL_REGISTER(parent, ctrl)
 
 	local count = tonumber(edit_count:GetText());
     local price = GET_NOT_COMMAED_NUMBER(edit_price:GetText());
-	if price < 100 then
-		ui.SysMsg(ClMsg("SellPriceMustOverThen100Silver"));		
+	if price < 10 then
+		ui.SysMsg(ClMsg("SellPriceMustOverThen10Silver"));		
 		return;
 	end
 
@@ -525,12 +531,17 @@ function MARKET_SELL_REGISTER(parent, ctrl)
 	end
 
 	local strprice = tostring(price);
-	if string.len(strprice) < 3 then
+	local start_idx = 1	
+	if string.len(strprice) < 2 then
 		return
 	end
+	
+	if price > 99 then		
+		start_idx = 2
+	end
 
-	local floorprice = strprice.sub(strprice, 0, 2);
-	for i = 0 , string.len(strprice) - 3 do
+	local floorprice = strprice.sub(strprice, 0, start_idx);	
+	for i = 0 , string.len(strprice) - (start_idx + 1) do
 		floorprice = floorprice .. "0"
 	end
 	

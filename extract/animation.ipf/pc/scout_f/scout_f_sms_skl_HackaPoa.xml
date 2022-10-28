@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+    <BlendOn frame="0" R="0" G="0" B="0" A="50"/>
+    <Sound frame="0.00" soundFile="skl_eff_action_cast_1"/>
+    <Sound frame="0.00" soundFile="skl_eff_hackapoa_shot"/>
+    <BlendOn frame="7" R="150" G="100" B="100" A="100"/>
+    <Particle frame="7" attachNode="Dummy_helmet" particleName="F_hakkapel_hackapoa001" useAttach="false" hiddenObj="false" changeEffect="None" scale="2" pause="true" targetPos="false"/>
+    <Sound frame="8.00" soundFile="skl_eff_action_shot_1"/>
+    <BlendOff frame="9" R="0" G="0" B="0" A="0"/>
+</ActionDesc>

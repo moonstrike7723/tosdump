@@ -601,11 +601,6 @@ function SKL_CHECK_RELIC_SPEND_RP_C(actor, skl, value)
 		return 0
     end
     
-    if IsPVPField() == 1 then
-        spend_rp_cyan = spend_rp_cyan * 1.5
-        spend_rp_magenta = spend_rp_magenta * 1.5
-    end
-    
 	local cur_rp, max_rp = shared_item_relic.get_rp(pc)
 	if cur_rp < spend_rp_cyan or cur_rp < spend_rp_magenta then
 		return 0	

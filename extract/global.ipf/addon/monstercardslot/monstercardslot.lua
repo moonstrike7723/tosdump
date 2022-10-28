@@ -45,12 +45,22 @@
 	end
 
 	for j = 0, i - 1 do
-		local cardID_temp, cardLv_temp = GETMYCARD_INFO(j)
+		local cardID_temp, cardLv_temp
+		if frame:GetName() == "monstercardslot" then
+			cardID_temp, cardLv_temp = GETMYCARD_INFO(j);
+		else
+			cardID_temp, cardLv_temp = _GETMYCARD_INFO(j);
+		end
 		if cardID == cardID_temp then
 			if duplicateOptionIndex == -1 then
 				duplicateOptionIndex = j
 				local preIndex = frame:GetUserIValue("PREINDEX")
-				local cardID_flag = GETMYCARD_INFO(preIndex)
+				local cardID_flag
+				if frame:GetName() == "monstercardslot" then
+					cardID_flag = GETMYCARD_INFO(preIndex);
+				else
+					cardID_flag = _GETMYCARD_INFO(preIndex);
+				end
 				if i - j == 2 and preIndex ~= j and cardID_flag ~= cardID_temp then
 					duplicateCount = duplicateCount + 1
 				end
@@ -84,7 +94,7 @@
 
 			local optionText = cardcls.OptionText
 			local temp = dictionary.ReplaceDicIDInCompStr(optionText);
-			optionText = string.format(temp, optionValue[1], optionValue[2], optionValue[3])
+			optionText = string.format(temp, optionValue_temp[1], optionValue_temp[2], optionValue_temp[3])
 
 			strInfo = strInfo ..optionText
 			frame : SetUserValue("DUPLICATE_OPTION_VALUE1", optionValue[1])
@@ -103,6 +113,6 @@
 
 	frame : SetUserValue("IS_EQUIP_TYPE", i)
 	frame : SetUserValue("CARD_OPTION_INDEX", optionIndex);
-	frame:SetUserValue("DUPLICATE_COUNT", duplicateCount)
+	frame : SetUserValue("DUPLICATE_COUNT", duplicateCount)
 	frame : SetUserValue("PREINDEX", i)
 end

@@ -87,6 +87,13 @@ function SELECT_ZONE_MOVE_CHANNEL(index, channelID)
         ui.SysMsg(ClMsg("ChannelIsClosed"));
         return;
     end
+
+    local pc = GetMyPCObject();
+    if IS_BOUNTY_BATTLE_BUFF_APPLIED(pc) == 1 then
+        ui.SysMsg(ClMsg("DoingBountyBattle"));
+        return;
+
+    end
     
     local msg = ScpArgMsg("ReallyMoveToChannel_{Channel}", "Channel", channelID + 1);
     local scpString = string.format("RUN_GAMEEXIT_TIMER(\"Channel\", %d)", channelID);

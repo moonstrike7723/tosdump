@@ -73,8 +73,8 @@
         <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
             <EtcList>
                 <Scp Client="YES" Scp="C_VOICE_SOUND" Time="300" UseSleep="NO">
-                    <Str Str="voice_war_atk_long_cast"/>
-                    <Str Str="voice_f_pubilc_cast_3"/>
+                    <Str Str="voice_dievdirbys_m_carvezemina_shot"/>
+                    <Str Str="voice_dievdirbys_f_carvezemina_shot"/>
                 </Scp>
                 <Scp Client="YES" Scp="C_EFFECT_POS" Time="1700" UseSleep="NO">
                     <Str_Arg Arg="3" Str="F_cleric_zemina_shot_light"/>
@@ -115,8 +115,8 @@
         <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
             <EtcList>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="300">
-                    <Str Str="voice_m_pubilc_cast_1"/>
-                    <Str Str="voice_f_pubilc_cast_2"/>
+                    <Str Str="voice_dievdirbys_m_carvevakarine_shot"/>
+                    <Str Str="voice_dievdirbys_f_carvevakarine_shot"/>
                 </Scp>
                 <Scp Scp="C_EFFECT_POS" Client="YES" UseSleep="NO" Time="1700">
                     <Str_Arg Str="F_cleric_bakarine_shot_light" Arg="1"/>
@@ -155,8 +155,8 @@
         <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
             <EtcList>
                 <Scp Client="YES" Scp="C_VOICE_SOUND" Time="300" UseSleep="NO">
-                    <Str Str="voice_war_atk_long_cast"/>
-                    <Str Str="voice_atk_long_cast_f"/>
+                    <Str Str="voice_dievdirbys_m_carvelaima_shot"/>
+                    <Str Str="voice_dievdirbys_f_carvelaima_shot"/>
                 </Scp>
                 <Scp Client="YES" Scp="C_EFFECT_POS" Time="1700" UseSleep="NO">
                     <Str_Arg Arg="1" Str="F_cleric_laima_shot_light"/>
@@ -190,8 +190,8 @@
         <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
             <EtcList>
                 <Scp Client="YES" Scp="C_VOICE_SOUND" Time="300" UseSleep="NO">
-                    <Str Str="voice_war_atk_long_cast"/>
-                    <Str Str="voice_atk_long_cast_f"/>
+                    <Str Str="voice_dievdirbys_m_carveausirine_shot"/>
+                    <Str Str="voice_dievdirbys_f_carveausirine_shot"/>
                 </Scp>
                 <Scp Client="YES" Scp="C_EFFECT_POS" Time="1700" UseSleep="NO">
                     <Str_Arg Arg="1" Str="F_cleric_ausirine_shot_light"/>
@@ -226,8 +226,8 @@
             <EtcList>
                 <Anim Anim="SKL_STATUE_OWL" Speed="1" Time="0"/>
                 <Scp Client="YES" Scp="C_VOICE_SOUND" Time="300" UseSleep="NO">
-                    <Str Str="voice_war_atk_long_cast"/>
-                    <Str Str="voice_atk_long_cast_f"/>
+                    <Str Str="voice_dievdirbys_m_carveowl_shot"/>
+                    <Str Str="voice_dievdirbys_f_carveowl_shot"/>
                 </Scp>
                 <Scp Client="YES" Scp="C_EFFECT_POS" Time="1700" UseSleep="NO">
                     <Str_Arg Arg="3" Str="F_cleric_laima_shot_light"/>
@@ -297,8 +297,8 @@
         <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
             <EtcList>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="300">
-                    <Str Str="voice_war_atk_long_cast"/>
-                    <Str Str="voice_atk_long_cast_f"/>
+                    <Str Str="voice_dievdirbys_m_carveaustraskoks_shot"/>
+                    <Str Str="voice_dievdirbys_f_carveaustraskoks_shot"/>
                 </Scp>
                 <Scp Scp="MONSKL_CRE_MON_SCR" Client="NO" UseSleep="NO" Time="1750">
                     <Str Str="pcskill_wood_AustrasKoks2"/>

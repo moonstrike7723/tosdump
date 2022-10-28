@@ -742,6 +742,9 @@ function EARTH_TOWER_INIT(frame, shopType)
     elseif string.find(shopType, 'BOUNTY_NPC_TRADE_SHOP_') ~= nil then
         title:SetText('{@st43}'..ScpArgMsg('BountyNpcShop'));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("BountyNpcShop")));
+    elseif string.find(shopType, 'Archeology_') ~= nil then
+        title:SetText('{@st43}'..ScpArgMsg(shopType));
+        close:SetTextTooltip(ScpArgMsg('ui_close'));
     else
         title:SetText('{@st43}'..ScpArgMsg(shopType));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
@@ -1400,34 +1403,40 @@ function EARTH_TOWER_SHOP_EXEC(parent, ctrl)
     
     if (shopType == 'PVPMine' or shopType == 'GabijaCertificate' or shopType == 'DailyRewardShop') and resultCount >= 10 then
         local coin_name = ""
+        local recipeCnt = 0
         local before_count = 0
         local after_count = 0
         local recipecls = GetClass('ItemTradeShop', parent:GetName());
+        local aObj = GetMyAccountObj()
         if g_account_prop_shop_table[shopType] == nil then -- 아이템
             local itemName = TryGetProp(recipecls, "Item_1_1", "None");
-            local recipeCnt = TryGetProp(recipecls, "Item_1_1_Cnt", 0);
+            recipeCnt = TryGetProp(recipecls, "Item_1_1_Cnt", 0);
             local itemCls = GetClass('Item', itemName)
             before_count = GET_TOTAL_ITEM_CNT(itemCls.ClassID)
-            after_count = before_count - GET_TOTAL_AMOUNT_OVERBUY(shopType, recipeCnt, recipecls, GetMyAccountObj(), resultCount)
             coin_name = TryGetProp(itemCls, "Name", "None")
         else -- 주화
             local coinCls = GetClassByStrProp('accountprop_inventory_list', 'ClassName', g_account_prop_shop_table[shopType]['propName'])
-            local recipeCnt = TryGetProp(recipecls, "Item_1_1_Cnt", 0);
-            local aObj = GetMyAccountObj()
+            recipeCnt = TryGetProp(recipecls, "Item_1_1_Cnt", 0);
             local count = TryGetProp(aObj, g_account_prop_shop_table[shopType]['propName'], '0')
             if count == 'None' then
                 count = '0'
             end
             before_count = tonumber(count) -- 현재 갯수
-            after_count = before_count - GET_TOTAL_AMOUNT_OVERBUY(shopType, recipeCnt, recipecls, GetMyAccountObj(), resultCount)
             coin_name = ClMsg(TryGetProp(coinCls, "ClassName", "None"))
         end
+
+        if IS_OVERBUY_ITEM(shopType, recipecls, aObj) == false then
+            after_count = before_count - (recipeCnt * resultCount)
+        else
+            after_count = before_count - GET_TOTAL_AMOUNT_OVERBUY(shopType, recipeCnt, recipecls, aObj, resultCount)
+        end
+
         before_count = GET_COMMAED_STRING(before_count)
         after_count = GET_COMMAED_STRING(after_count)
 
         local target_item = GetClass('Item', TryGetProp(recipecls, 'TargetItem', 'None'))
         local name = TryGetProp(target_item, 'Name', 'None')
-        if recipecls==nil or recipecls["Item_2_1"] ~='None' then
+        if recipecls==nil or recipecls["Item_2_1"] ~='None' then            
             local msg = ScpArgMsg("TooManyItemBuy{name}{count}{coinname}{beforecount}{aftercount}", "name", name, "count", resultCount, "coinname", coin_name, "beforecount", before_count, "aftercount", after_count);
             local yesscp = string.format('YES_SCP_BUY_SHOP_EXEC_1(%d, "%s")', resultCount, shopType);
             ui.MsgBox_NonNested(msg, frame:GetName(), yesscp, 'None');

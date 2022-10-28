@@ -127,13 +127,13 @@ function UPDATE_SHOW_COIN_GET_GAUGE(value)
 end
 
 function UPDATE_SHOW_TUTORIALNOTE(value)
-	if tonumber(value) == 1 then
-		local frame = ui.GetFrame("minimized_tutorialnote_button");
-		MINIMIZED_TUTORIALNOTE_BUTTON_INIT(frame);
-		ui.OpenFrame("minimized_tutorialnote_button");
-	else
-		ui.CloseFrame("minimized_tutorialnote_button");
-	end
+-- 	if tonumber(value) == 1 then
+-- 		local frame = ui.GetFrame("minimized_tutorialnote_button");
+-- 		MINIMIZED_TUTORIALNOTE_BUTTON_INIT(frame);
+-- 		ui.OpenFrame("minimized_tutorialnote_button");
+-- 	else
+-- 		ui.CloseFrame("minimized_tutorialnote_button");
+-- 	end
 end
 
 function GET_PVP_MINE_COIN_MSG_STATE(pc, msg_type)

@@ -14,13 +14,20 @@ function DAMAGE_METER_UI_OPEN(frame,msg,strArg,numArg)
     WEEKLYBOSS_DPS_INIT(frame,strArg,numArg)
 end
 
+function GET_WEEKLYBOSS_DPS_TABLE()
+    return damage_meter_info_total
+end
+
 function WEEKLYBOSS_DPS_INIT(frame,strArg,appTime)
     local stringList = StringSplit(strArg,'/');
     local handle = stringList[1]
     local is_practice = stringList[2]
 
     local stageGiveUp = GET_CHILD_RECURSIVELY(frame,'stageGiveUp')
-    stageGiveUp:SetEnable(BoolToNumber(is_practice == "PRACTICE"))
+
+    if is_practice ~= "PRACTICE" then
+        stageGiveUp:SetEventScript(ui.LBUTTONUP, "DAMAGE_METER_REQ_GIVEUP");
+    end
 
     DAMAGE_METER_SET_WEEKLY_BOSS(frame,handle);
 
@@ -35,6 +42,14 @@ function WEEKLYBOSS_DPS_INIT(frame,strArg,appTime)
     frame:RunUpdateScript("WEEKLY_BOSS_UPDATE_DPS", 0.1);
     
     DAMAGE_METER_RESET_GAUGE(frame)
+
+    local etc = GetMyEtcObject()
+    local MyJobNum = TryGetProp(etc, 'RepresentationClassID', 'None')
+    if MyJobNum == 'None' or tonumber(MyJobNum) == 0 then
+        MyJobNum = info.GetJob(MySession);
+    end
+    local week_num = WEEKLY_BOSS_RANK_WEEKNUM_NUMBER();
+    weekly_boss.RequestWeeklyBossRankingInfoList(week_num, MyJobNum);
 end
 
 function DAMAGE_METER_RESET_GAUGE(frame)
@@ -216,6 +231,9 @@ function WEEKLY_BOSS_DPS_END(frame,msg,argStr,argNum)
 
     local button = GET_CHILD_RECURSIVELY(frame,"stageGiveUp")
     button:SetEnable(0)
+
+    local resultFrame = ui.GetFrame("weeklyboss_result")
+    WEEKLYBOSS_RESULT_OPEN(resultFrame, frame)
 end
 
 function DAMAGE_METER_REQ_RETURN()
@@ -225,4 +243,16 @@ end
 
 function DAMAGE_METER_REQ_RETURN_YSE()
     RUN_GAMEEXIT_TIMER("RaidReturn")
+end
+
+function DAMAGE_METER_REQ_GIVEUP()
+    local yesscp = 'DAMAGE_METER_REQ_GIVEUP_YES()';
+	ui.MsgBox(ClMsg('WeeklyBoss_GiveUp_MSG2'), yesscp, 'None');
+end
+
+function DAMAGE_METER_REQ_GIVEUP_YES()
+    -- RUN_GAMEEXIT_TIMER("RaidReturn")
+    local frame = ui.GetFrame('damage_meter')
+    WEEKLY_BOSS_DPS_END(frame)
+    pc.ReqExecuteTx("SCR_REQ_WEEEKLY_BOSSRAID_GIVEUP","None")
 end

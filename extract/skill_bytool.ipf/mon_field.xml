@@ -1,6 +1,947 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by IMC (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <ToolSkill>
+    <Skill Name="Mon_field_boss_solcomm_Skill_7">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="event1" Speed="1"/>
+                <Scp Scp="SKL_RUN_SCRIPT_SLEEP" Client="NO" UseSleep="YES" Time="0">
+                    <Str Str="SCR_SOLCOMM_SKL_7"/>
+                </Scp>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="1300">
+                    <Str_Arg Str="F_hit009_rize_green#Bip001 R Finger1" Arg="6"/>
+                    <Str Str="Bip001 R Finger1"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Anim Time="2000" Anim="skl5" Speed="1" StartTime="1.5"/>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="3100">
+                    <Str_Arg Str="F_hit009_rize_green#Bip001 R Finger1" Arg="4"/>
+                    <Str Str="Bip001 R Finger1"/>
+                    <Num Num="0"/>
+                </Scp>
+            </EtcList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_solcomm_Skill_6">
+        <MainSkl ScrLock="None" JumpFlee="YES" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="3" TermMin="200" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="120" SklAngle="0.78539819" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="skl1" Speed="1"/>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="2700">
+                    <Pos Angle="0" Dist="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="150"/>
+                    <Num Num="100"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="30"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="2800">
+                    <Pos Angle="0" Dist="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="150"/>
+                    <Num Num="100"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="30"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="2900">
+                    <Pos Angle="0" Dist="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="150"/>
+                    <Num Num="100"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="30"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3000">
+                    <Pos Angle="0" Dist="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="150"/>
+                    <Num Num="100"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="30"/>
+                </Scp>
+            </EtcList>
+            <ResultList>
+                <ToolScp Scp="S_R_TGTBUFF" Client="NO" UseSleep="NO">
+                    <Str Str="Weekly_Solcomm_Electric_Debuff"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="30000"/>
+                    <Num Num="1"/>
+                    <Num Num="100"/>
+                    <Num Num="-1"/>
+                </ToolScp>
+            </ResultList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_solcomm_Skill_5">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <MoveList>
+                <Frame Time="2800" Dist="0" Angle="-1.192093e-07" Accel="1" Height="0" MoveType="0" Gravity="600" JumpPower="300"/>
+                <Frame Time="3000" Dist="67.048355" Angle="-3.1394296" Accel="1" Height="0" MoveType="0" Gravity="600" JumpPower="300"/>
+            </MoveList>
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="skl4" Speed="1" StartTime="0.60000002"/>
+                <Scp Scp="SKL_SET_TARGET_CIRCLE" Client="NO" UseSleep="NO" Time="0">
+                    <Pos Angle="0" Dist="0"/>
+                    <Num Num="200"/>
+                    <Num Num="5"/>
+                    <Num Num="2"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                </Scp>
+                <Anim Time="1700" Anim="atk" Speed="1.2" StartTime="1.1"/>
+                <Scp Scp="MSL_THROW" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_MSL_THROW" Time="1800">
+                    <Str_Arg Str="I_force018_trail_rize_green_800#Bip001 R Finger1" Arg="1"/>
+                    <Str_Arg Str="F_rize016_hit_green" Arg="1"/>
+                    <Str_Arg Str="I_force003_green" Arg="1"/>
+                    <Pos Angle="0" Dist="-0" PosType="9"/>
+                    <Num Num="40"/>
+                    <Num Num="0.30000001"/>
+                    <Num Num="0"/>
+                    <Num Num="300"/>
+                    <Num Num="2"/>
+                    <Num Num="1000"/>
+                    <Num Num="1"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="10"/>
+                    <Num Num="3"/>
+                    <Num Num="60"/>
+                </Scp>
+                <Scp Scp="MSL_THROW" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_MSL_THROW" Time="2200">
+                    <Str_Arg Str="I_force018_trail_rize_green_800#Bip001 R Finger1" Arg="1"/>
+                    <Str_Arg Str="F_rize016_hit_green" Arg="1"/>
+                    <Str_Arg Str="I_force003_green" Arg="1"/>
+                    <Pos Angle="0" Dist="-0" PosType="9"/>
+                    <Num Num="40"/>
+                    <Num Num="0.30000001"/>
+                    <Num Num="0"/>
+                    <Num Num="300"/>
+                    <Num Num="2"/>
+                    <Num Num="1000"/>
+                    <Num Num="1"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="10"/>
+                    <Num Num="3"/>
+                    <Num Num="60"/>
+                </Scp>
+                <Anim Time="2600" Anim="skl5" Speed="1" StartTime="2.2"/>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3000">
+                    <Pos Angle="0" Dist="50"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green2" Arg="1.5"/>
+                    <Num Num="80"/>
+                    <Num Num="100"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="MSL_BUCK" Client="NO" UseSleep="YES" Time="3100">
+                    <Pos Angle="0" Dist="50"/>
+                    <Angle Angle="0"/>
+                    <Num Num="3"/>
+                    <Num Num="30"/>
+                    <Num Num="120"/>
+                    <Num Num="0"/>
+                    <Num Num="270"/>
+                    <Num Num="8"/>
+                    <Num Num="0"/>
+                    <Num Num="250"/>
+                    <Num Num="50"/>
+                    <Num Num="5"/>
+                    <Str_Arg Str="I_rize004_green_force2" Arg="2"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="3"/>
+                    <Num Num="200"/>
+                    <Num Num="30"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
+            </EtcList>
+            <ResultList>
+                <ToolScp Scp="S_R_TGTBUFF" Client="NO" UseSleep="NO">
+                    <Str Str="Weekly_Solcomm_Electric_Debuff"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="30000"/>
+                    <Num Num="1"/>
+                    <Num Num="100"/>
+                    <Num Num="-1"/>
+                </ToolScp>
+            </ResultList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_solcomm_Skill_4">
+        <MainSkl ScrLock="None" JumpFlee="YES" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="skl5" Speed="1"/>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="1000">
+                    <Str_Arg Str="F_hit009_rize_green2" Arg="2"/>
+                    <Str Str="Bip001 R Hand"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT_ARROW" Client="NO" UseSleep="YES" Time="1500">
+                    <Pos Angle="0" Dist="20"/>
+                    <Pos Angle="0" Dist="250"/>
+                    <Str_Arg Str="F_sys_arrow_monster" Arg="1"/>
+                    <Num Num="30"/>
+                    <Num Num="0.0099999998"/>
+                    <Num Num="0.5"/>
+                    <Num Num="2000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="100"/>
+                    <Num Num="0"/>
+                    <Num Num="25"/>
+                    <Num Num="0.5"/>
+                    <Num Num="0"/>
+                    <Num Num="1000"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="100"/>
+                </Scp>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="1500">
+                    <Str_Arg Str="F_hit009_rize_green2" Arg="3"/>
+                    <Str Str="Bip001 R Hand"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="2000">
+                    <Str_Arg Str="F_hit009_rize_green" Arg="3"/>
+                    <Str Str="Bip001 R Hand"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="2900">
+                    <Pos Angle="0" Dist="50"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1.5"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3000">
+                    <Pos Angle="0" Dist="100"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1.5"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3100">
+                    <Pos Angle="0" Dist="150"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1.5"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3200">
+                    <Pos Angle="0" Dist="200"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1.5"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3300">
+                    <Pos Angle="0" Dist="250"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1.5"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3400">
+                    <Pos Angle="-0.69813168" Dist="150" Rand="110"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3500">
+                    <Pos Angle="0.69813168" Dist="150" Rand="110"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3600">
+                    <Pos Angle="-0.69813168" Dist="150" Rand="110"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3700">
+                    <Pos Angle="0.69813168" Dist="150" Rand="110"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+            </EtcList>
+            <ResultList>
+                <ToolScp Scp="S_R_TGTBUFF" Client="NO" UseSleep="NO">
+                    <Str Str="Weekly_Solcomm_Electric_Debuff"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="30000"/>
+                    <Num Num="1"/>
+                    <Num Num="100"/>
+                    <Num Num="-1"/>
+                </ToolScp>
+            </ResultList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_solcomm_Skill_3">
+        <MainSkl ScrLock="None" JumpFlee="YES" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="skl3" Speed="1"/>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="2300">
+                    <Pos Angle="0" Dist="50"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1.5"/>
+                    <Num Num="70"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="3"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Anim Time="2700" Anim="skl3" Speed="1" StartTime="2.2"/>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="2800">
+                    <Pos Angle="0.78539819" Dist="100"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1.5"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Anim Time="3100" Anim="skl3" Speed="1" StartTime="2.2"/>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="3100">
+                    <Pos Angle="-0.78539819" Dist="100"/>
+                    <Str_Arg Str="F_rize006_green" Arg="1"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="F_explosion026_rize_green" Arg="1.5"/>
+                    <Num Num="50"/>
+                    <Num Num="100"/>
+                    <Num Num="200"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="1"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+            </EtcList>
+            <ResultList>
+                <ToolScp Scp="S_R_TGTBUFF" Client="NO" UseSleep="NO">
+                    <Str Str="Weekly_Solcomm_Electric_Debuff"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="30000"/>
+                    <Num Num="1"/>
+                    <Num Num="100"/>
+                    <Num Num="-1"/>
+                </ToolScp>
+            </ResultList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_solcomm_Skill_2">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="skl2" Speed="1"/>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="0">
+                    <Pos Angle="0" Dist="50"/>
+                    <Str_Arg Str="F_sys_target_boss##1.5" Arg="4"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="1950">
+                    <Pos Angle="0" Dist="73"/>
+                    <Str_Arg Str="F_hit009_rize_green" Arg="1.5"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="20"/>
+                    <Num Num="160"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="1950">
+                    <Pos Angle="0.34906584" Dist="58"/>
+                    <Str_Arg Str="F_hit009_rize_green" Arg="1.5"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="20"/>
+                    <Num Num="160"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="1950">
+                    <Pos Angle="-0.34906584" Dist="58"/>
+                    <Str_Arg Str="F_hit009_rize_green" Arg="1.5"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="20"/>
+                    <Num Num="160"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="1950">
+                    <Pos Angle="-0.87266463" Dist="36"/>
+                    <Str_Arg Str="F_hit009_rize_green" Arg="1.5"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="20"/>
+                    <Num Num="160"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="1950">
+                    <Pos Angle="0.87266463" Dist="36"/>
+                    <Str_Arg Str="F_hit009_rize_green" Arg="1.5"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="20"/>
+                    <Num Num="160"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="1950">
+                    <Pos Angle="0" Dist="50"/>
+                    <Str_Arg Str="I_rize009_7_green" Arg="6"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="60"/>
+                    <Num Num="160"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="1955">
+                    <Pos Angle="0" Dist="50"/>
+                    <Str_Arg Str="F_warrior_chargingattack_cast_ground" Arg="1.5"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="60"/>
+                    <Num Num="160"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="2000">
+                    <Pos Angle="0" Dist="50"/>
+                    <Str_Arg Str="I_rize009_4" Arg="5"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="60"/>
+                    <Num Num="160"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="EFT_AND_HIT" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_EFT_AND_HIT" Time="2000">
+                    <Pos Angle="0" Dist="50"/>
+                    <Str_Arg Str="F_ground170_dark" Arg="1.5"/>
+                    <Num Num="0"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="60"/>
+                    <Num Num="160"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1000"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Str Str="None"/>
+                    <Num Num="4"/>
+                    <Num Num="60"/>
+                    <Num Num="0"/>
+                </Scp>
+            </EtcList>
+            <ResultList>
+                <ToolScp Scp="S_R_TGTBUFF" Client="NO" UseSleep="NO">
+                    <Str Str="Weekly_Solcomm_Electric_Debuff"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="30000"/>
+                    <Num Num="1"/>
+                    <Num Num="100"/>
+                    <Num Num="-1"/>
+                </ToolScp>
+            </ResultList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_solcomm_Skill_1">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="SQUARE" Time="9999" HitCount="2" TermMin="1100" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="10" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="1" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="atk" Speed="1"/>
+                <Scp Scp="SKL_SET_TARGET_CIRCLE" Client="NO" UseSleep="NO" Time="0">
+                    <Pos Angle="0" Dist="0"/>
+                    <Num Num="200"/>
+                    <Num Num="5"/>
+                    <Num Num="2"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                </Scp>
+                <Scp Scp="MSL_THROW" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_MSL_THROW" Time="1200">
+                    <Str_Arg Str="I_force018_trail_rize_green_800#Bip001 R Finger1" Arg="1"/>
+                    <Str_Arg Str="F_rize016_hit_green" Arg="1"/>
+                    <Str_Arg Str="I_force003_green" Arg="1"/>
+                    <Pos Angle="0" Dist="-0" PosType="9"/>
+                    <Num Num="35"/>
+                    <Num Num="0.30000001"/>
+                    <Num Num="0"/>
+                    <Num Num="300"/>
+                    <Num Num="2"/>
+                    <Num Num="1000"/>
+                    <Num Num="1"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="MSL_THROW" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_MSL_THROW" Time="1800">
+                    <Str_Arg Str="I_force018_trail_rize_green_800#Bip001 R Finger1" Arg="1"/>
+                    <Str_Arg Str="F_rize016_hit_green" Arg="1"/>
+                    <Str_Arg Str="I_force003_green" Arg="1"/>
+                    <Pos Angle="0" Dist="-0" PosType="9"/>
+                    <Num Num="35"/>
+                    <Num Num="0.30000001"/>
+                    <Num Num="0"/>
+                    <Num Num="300"/>
+                    <Num Num="2"/>
+                    <Num Num="1000"/>
+                    <Num Num="1"/>
+                    <Str_Arg Str="None" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
+            </EtcList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_diena_Skill_1">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="atk1" Speed="1"/>
+                <Scp Scp="SKL_SET_TARGET_CIRCLE" Client="NO" UseSleep="NO" Time="0">
+                    <Pos Angle="0" Dist="0"/>
+                    <Num Num="150"/>
+                    <Num Num="5"/>
+                    <Num Num="2"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                </Scp>
+                <Scp Scp="MSL_THROW_SYNC" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_MSL_THROW" Time="500">
+                    <Str_Arg Str="I_force015_violet#Bip01 L Finger2" Arg="2"/>
+                    <Str_Arg Str="I_explosion004_yellow_mage01_3" Arg="1.5"/>
+                    <Str_Arg Str="I_force003_green" Arg="1"/>
+                    <Pos Angle="0" Dist="0" PosType="1"/>
+                    <Num Num="30"/>
+                    <Num Num="0.30000001"/>
+                    <Num Num="0"/>
+                    <Num Num="400"/>
+                    <Num Num="2"/>
+                    <Num Num="1000"/>
+                    <Num Num="1"/>
+                    <Num Num="0.2"/>
+                    <Str_Arg Str="F_sys_target_monster" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Str Str="None"/>
+                    <Num Num="1000"/>
+                    <Str Str="ENEMY"/>
+                    <Str Str="MSL_APPLIED_BUFF_CallBack"/>
+                </Scp>
+            </EtcList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_diena_Skill_2">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="skl1" Speed="1"/>
+                <Scp Scp="SKL_SET_TARGET_CIRCLE" Client="NO" UseSleep="NO" Time="0">
+                    <Pos Angle="0" Dist="8.1852582e-29"/>
+                    <Num Num="300"/>
+                    <Num Num="5"/>
+                    <Num Num="2"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                </Scp>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="0">
+                    <Str_Arg Str="F_buff_basic034_pink" Arg="4"/>
+                    <Str Str="None"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="C_EFFECT_POS" Client="YES" UseSleep="NO" Time="200">
+                    <Str_Arg Str="F_spread_in002_red1" Arg="0.5"/>
+                    <Pos Angle="0" Dist="0" Height="80"/>
+                    <Num Num="1"/>
+                    <Str Str="None"/>
+                </Scp>
+                <Scp Scp="MSL_THROW_SYNC" Client="NO" UseSleep="YES" TooltipScp="TOOLTIP_MSL_THROW" Time="800">
+                    <Str_Arg Str="I_wizard_necromancer_force" Arg="2.5"/>
+                    <Str_Arg Str="F_explosion024_rize" Arg="2"/>
+                    <Str_Arg Str="I_force003_green" Arg="1"/>
+                    <Pos Angle="0" Dist="2.3862146e-17" PosType="1"/>
+                    <Num Num="80"/>
+                    <Num Num="0.30000001"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="2"/>
+                    <Num Num="1000"/>
+                    <Num Num="1"/>
+                    <Num Num="0.30000001"/>
+                    <Str_Arg Str="F_sys_target_monster" Arg="1"/>
+                    <Num Num="0"/>
+                    <Num Num="1.1"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Str Str=""/>
+                    <Num Num="5000"/>
+                    <Str Str="ENEMY"/>
+                    <Str Str="MSL_APPLIED_BUFF_CallBack"/>
+                </Scp>
+            </EtcList>
+            <ResultList>
+                <ToolScp Scp="S_R_COND_SCRIPT" Client="NO" UseSleep="NO">
+                    <Str Str="MON_POLYMORPH_TARGET_PC"/>
+                </ToolScp>
+            </ResultList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_diena_Skill_3">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="skl2" Speed="1"/>
+                <Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="1500">
+                    <Str Str="MON_POLYMORPH_FAIRY"/>
+                </Scp>
+            </EtcList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_diena_Skill_4">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="0">
+                    <Str_Arg Str="I_force038_ice2" Arg="3"/>
+                    <Str Str="Point005"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="1000">
+                    <Str Str="MON_WEEKLY_BOSS_SUMMON_FAIRY"/>
+                </Scp>
+                <Anim Time="1700" Anim="atk1" Speed="1"/>
+            </EtcList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_diena_Skill_5">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="0">
+                    <Str_Arg Str="I_smoke013_dark_glow2_red" Arg="4"/>
+                    <Str Str="diena"/>
+                    <Num Num="1"/>
+                </Scp>
+                <Anim Time="0" Anim="skl2" Speed="1"/>
+                <Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="1000">
+                    <Str Str="MON_WEEKLY_BOSS_SUMMON_FAIRY_VELCOFFER"/>
+                </Scp>
+                <Anim Time="1700" Anim="atk1" Speed="0.5"/>
+                <Anim Time="2500" Anim="atk1" Speed="1.5" StartTime="0.5"/>
+            </EtcList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_diena_Skill_6">
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="skl3" Speed="1.5" StartTime="0.5"/>
+                <Scp Scp="SKL_SET_TARGET_CIRCLE" Client="NO" UseSleep="NO" Time="1200">
+                    <Pos Angle="0" Dist="0"/>
+                    <Num Num="250"/>
+                    <Num Num="5"/>
+                    <Num Num="2"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                </Scp>
+                <Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="1700">
+                    <Str Str="MON_WEEKLY_BOSS_SUMMON_FAIRY_IGNAS"/>
+                </Scp>
+            </EtcList>
+        </MainSkl>
+    </Skill>
+    <Skill Name="Mon_field_boss_diena_Skill_7">
+        <EndScripts>
+            <ToolScp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO">
+                <Str Str="MON_WEEKLY_BOSS_SUMMON_FAIRY_TEMPLESHOOTER"/>
+            </ToolScp>
+        </EndScripts>
+        <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
+            <HitList>
+                <Frame Type="FAN" Time="9999" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="10199" RotAngle="0" ForceATK="0" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
+            <EtcList>
+                <Anim Time="0" Anim="skl1" Speed="1"/>
+                <Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="0">
+                    <Str Str="MON_WEEKLY_SET_FRONT_POS_FOR_SUMMON"/>
+                </Scp>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="700">
+                    <Str_Arg Str="F_wizard_increasespeed_cast" Arg="3.5"/>
+                    <Str Str="diena"/>
+                    <Num Num="0"/>
+                </Scp>
+            </EtcList>
+        </MainSkl>
+    </Skill>
     <Skill Name="Mon_field_boss_hauberk_Skill_1">
         <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
             <HitList>
@@ -12956,7 +13897,7 @@ return anlgeList[IMCRandom(1,3)]"/>
     <Skill Name="Mon_field_pattern_Skill_3">
         <MainSkl ScrLock="None" JumpFlee="YES" MSPDToUsePos="0">
             <HitList>
-                <Frame Type="FAN" Time="99799" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="99999" RotAngle="0" ForceATK="0" />
+                <Frame Type="FAN" Time="99799" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="99999" RotAngle="0" ForceATK="0"/>
             </HitList>
             <EtcList>
                 <Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="0">

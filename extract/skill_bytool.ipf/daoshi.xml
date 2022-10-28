@@ -221,8 +221,8 @@ return obj.Level;"/>
                     <Num Num="0"/>
                 </Scp>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="250">
-                    <Str Str="voice_war_atk_long_shot"/>
-                    <Str Str="voice_atk_long_war_f"/>
+                    <Str Str="voice_daoshi_m_firecharm_shot"/>
+                    <Str Str="voice_daoshi_f_firecharm_shot"/>
                 </Scp>
                 <Scp Scp="MSL_PAD_THROW" Client="NO" UseSleep="YES" Time="300">
                     <Str_Arg Str="skl_eff_firecharm_force#Dummy_effect_darksight" Arg="1"/>
@@ -270,8 +270,8 @@ return obj.Level;"/>
                     <Str Str="skl_eff_daoshi_flameradiation_shot"/>
                 </Scp>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="250">
-                    <Str Str="voice_war_atk_medium"/>
-                    <Str Str="voice_atk_medium_war_f"/>
+                    <Str Str="voice_daoshi_m_flameradiation_shot"/>
+                    <Str Str="voice_daoshi_f_flameradiation_shot"/>
                 </Scp>
                 <Scp Scp="SKL_TGT_DMG" Client="NO" UseSleep="NO" Time="250">
                     <Num Num="1"/>
@@ -385,8 +385,8 @@ return obj.Level;"/>
                     <Str Str="Daoshi_StormCalling"/>
                 </Scp>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="250">
-                    <Str Str="voice_war_atk_long_shot"/>
-                    <Str Str="voice_atk_long_war_f"/>
+                    <Str Str="voice_daoshi_m_stormcalling_shot"/>
+                    <Str Str="voice_daoshi_f_stormcalling_shot"/>
                 </Scp>
             </EtcList>
         </MainSkl>

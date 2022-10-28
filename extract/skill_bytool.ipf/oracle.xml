@@ -55,6 +55,10 @@
                     <Num Num="1"/>
                     <Num Num="0"/>
                 </Scp>
+                <Scp Client="YES" Scp="C_VOICE_SOUND" Time="200" UseSleep="NO">
+                    <Str Str="voice_oracle_m_foretell_shot"/>
+                    <Str Str="voice_oracle_f_foretell_shot"/>
+                </Scp>                
                 <Scp Scp="MONSKL_CRE_PAD" Client="NO" UseSleep="NO" Time="790">
                     <Pos Angle="0" Dist="0" PosType="3"/>
                     <Angle Angle="0"/>

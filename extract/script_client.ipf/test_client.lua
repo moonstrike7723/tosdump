@@ -1,5 +1,28 @@
 -- test_client.lua
 
+testent = testent or ecs.null
+
+function TEST_ECS() -- 줄넘기 예제
+    local world = ecs.GetWorld()
+    if not world:IsValid(testent) then
+        testent = world:Create("줄넘기")
+    end
+
+    local trsf = ecs.TransformComponent.GetOrCreate(world, testent)
+    local cable = ecs.CableComponent.GetOrCreate(world, testent)
+
+    local ref = OBJHANDLE.new(GetMyActor():GetHandleVal())
+    trsf.parent.ref = ref
+    trsf.parent.node = "Bip01 L Hand"
+    cable.attachEndTo.ref = ref
+    cable.attachEndTo.node = "Bip01 R Hand"
+
+    cable.endLocation.z = 0
+    cable.width = 1
+    cable.color = imc.Color.new(0.9, 0.8, 0.7)
+    cable.texture = imc.LoadTexture("char_texture/npc/npc_gacha_cube/gacha_cube.dds")
+end
+
 function SCR_CLIENTTESTSCP(handle)
     session.friends.TestAddManyFriend(FRIEND_LIST_COMPLETE, 200);
     session.friends.TestAddManyFriend(FRIEND_LIST_BLOCKED, 100);

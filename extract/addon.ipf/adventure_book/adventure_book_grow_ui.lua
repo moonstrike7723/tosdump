@@ -106,11 +106,27 @@ function ADVENTURE_BOOK_GROW.TOOLTIP_JOB(frame, strArg)
 	local job_info_func = ADVENTURE_BOOK_GROW_CONTENT['JOB_INFO']
 	local job_info_table = job_info_func(strArg);
 
-	SET_TEXT(frame, "jobname_text", "value", job_info_table["name"])
-	SET_TEXT(frame, "jobrank_text", "value", job_info_table["ctrltype_and_rank"])
-	SET_TEXT(frame, "jobtype_text", "value", job_info_table["type"])
-	SET_TEXT(frame, "jobdifficulty_text", "value", job_info_table["difficulty"])
-	SET_TEXT(frame, "desc_text", "value", job_info_table["desc"])
+	local jobname_text = GET_CHILD_RECURSIVELY(frame, "jobname_text")
+	local jobrank_text = GET_CHILD_RECURSIVELY(frame, "jobrank_text")
+	local jobtype_text = GET_CHILD_RECURSIVELY(frame, "jobtype_text")
+	local jobdifficulty_text = GET_CHILD_RECURSIVELY(frame, "jobdifficulty_text")
+	local desc_text = GET_CHILD_RECURSIVELY(frame, "desc_text")
+
+	jobname_text:SetTextByKey("value", job_info_table["name"])
+	jobrank_text:SetTextByKey("value", job_info_table["ctrltype_and_rank"])
+	jobtype_text:SetTextByKey("value", job_info_table["type"])
+	jobdifficulty_text:SetTextByKey("value", job_info_table["difficulty"])
+	desc_text:SetTextByKey("value", job_info_table["desc"])
+
+	local desc_margin = desc_text:GetMargin()
+	local desc_height = desc_text:GetHeight()
+	local bottom_margin = 25
+	local check_value = desc_margin.top + desc_height + bottom_margin
+	if check_value > 300 then
+		frame:Resize(frame:GetWidth(), check_value)
+	else
+		frame:Resize(frame:GetWidth(), 300)
+	end
 end
 
 function ADVENTURE_BOOK_GROW_SET_POINT()

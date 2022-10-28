@@ -151,8 +151,8 @@
                     <Num Num="0"/>
                 </Scp>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="0">
-                    <Str Str="voice_cleric_m_melstis_shot"/>
-                    <Str Str="voice_cleric_melstis_shot"/>
+                    <Str Str="voice_kriwi_m_melstis_shot"/>
+                    <Str Str="voice_kriwi_f_melstis_shot"/>
                 </Scp>
                 <Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="400">
                     <Str Str="SKL_RUN_PIETY"/>

@@ -630,7 +630,7 @@ function OPEN_TRADE_SELECT_JOB(invItem)
 
 	local lv = TryGetProp(GetMyPCObject(), 'Lv', 1)
 	-- 440 ?�벨 ?�상 ?�용 가??--
-    if lv < PC_MAX_LEVEL - 20 then
+    if lv < 440 then
 		ui.SysMsg(ScpArgMsg('CannotBecauseBaseLevel'));        
         return;
     end
@@ -796,9 +796,60 @@ end
 
 
 
+local function SORT_BY_JOBNAME(a, b)
+	local data1 = TryGetProp(a, "JobName");
+	local data2 = TryGetProp(b, "JobName");
+	
+	local mySession = session.GetMySession();
+	local jobhistory = mySession:GetPCJobInfo();
+	local priorityA = 0
+	local priorityB = 0
+	
 
+	for i = 0, jobhistory:GetJobCount()-1 do
+		local tempjobinfo = jobhistory:GetJobInfoByIndex(i);
+		local jobName = GetClassByType("Job", tempjobinfo.jobID).JobName
 
+		if data1 == jobName then
+			priorityA = priorityA + 3
+		end
 
+		if data2 == jobName then
+			priorityB = priorityB + 3
+		end
+	end
+	
+	if data1 == "All" or data1 == "NOJOB" then
+		priorityA = priorityA + 2
+	end
+
+	if data2 == "All" or data2 == "NOJOB" then
+		priorityB = priorityB + 2
+	end
+
+	if priorityA == priorityB then
+		local clsIdA = TryGetProp(a, "ClassID");
+		local clsIdB = TryGetProp(b, "ClassID");
+		return clsIdA < clsIdB;
+	else
+		return priorityA > priorityB
+	end
+end
+
+function IS_PC_JOB(JobName)
+	local mySession = session.GetMySession();
+	local jobhistory = mySession:GetPCJobInfo();
+	local isPcJob = false
+	for i = 0, jobhistory:GetJobCount()-1 do
+		local tempjobinfo = jobhistory:GetJobInfoByIndex(i);
+		local pcJob = GetClassByType("Job", tempjobinfo.jobID).JobName
+		if pcJob == JobName or "All" == JobName or "NOJOB" == JobName then
+			isPcJob = true
+			break
+		end
+	end
+	return isPcJob
+end
 
 function OPEN_TRADE_SELECT_VIBORA(invItem)
     local itemobj = GetIES(invItem:GetObject());
@@ -819,10 +870,14 @@ function OPEN_TRADE_SELECT_VIBORA(invItem)
 	frame:SetUserValue("UseItemGuid", itemGuid);
 
 	local xmlList, xmlCount = GetClassList("EliteEquipDrop")
-
+	local equipDropList = {}
 	for i = 0, xmlCount -1 do
-		local itemName = TryGetProp(GetClassByIndexFromList(xmlList, i), "ClassName", 'None')
-		local dropable = TryGetProp(GetClassByIndexFromList(xmlList, i), "Dropable", 'NO')
+		table.insert(equipDropList, GetClassByIndexFromList(xmlList, i))
+	end
+	table.sort(equipDropList, SORT_BY_JOBNAME)
+	for i = 0, #equipDropList do
+		local itemName = TryGetProp(equipDropList[i], "ClassName", 'None')
+		local dropable = TryGetProp(equipDropList[i], "Dropable", 'NO')
 		if dropable == 'YES' and itemName ~= 'None' and itemName ~= nil then
 			y = CREATE_VIBORA_SELECT_CTRL(box, y, i, itemName, 1, nil, itemobj.ClassName)
 			y = y + 5
@@ -903,7 +958,9 @@ function REQUEST_TRADE_VIBORA(frame, ctrl, argStr, argNum)
 		if string.find(name, "REWARD_") ~= nil then
 			tolua.cast(ctrlSet, "ui::CControlSet");
 			if ctrlSet:IsSelected() == 1 then
-				selected = ctrlSet:GetValue() + 1;
+				local itemName = ctrlSet:GetUserValue("ITEM_NAME")
+				local viboraCls = GetClass("EliteEquipDrop", itemName)
+				selected = TryGetProp(viboraCls,"ClassID")
 			end
 			selectExist = 1;
 		end
@@ -927,6 +984,13 @@ function REQUEST_TRADE_VIBORA(frame, ctrl, argStr, argNum)
         local tradeSelectItem = frame:GetUserValue("TradeSelectItem");
 
 		local msg = ScpArgMsg("SelectItemTrade{ITEM}", "ITEM", viboraName);
+		local JobName = TryGetProp(viboraCls, "JobName")
+		local isPcJob = IS_PC_JOB(JobName)
+
+		if isPcJob == false then
+			msg = ClMsg("CantUseVibora").."{nl} {nl}"..msg
+		end
+
 		local yesscp = string.format('CONFIRM_TRADE_VIBORA("%s")', argStr);
 		ui.MsgBox_NonNested(msg, frame:GetName(), yesscp, 'None');
 	end

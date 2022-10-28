@@ -472,7 +472,7 @@ function IS_COMPANIONSKILL_JOB(jobinfo)
 
 	if jobinfo.ClassName == 'Char1_7' or jobinfo.ClassName == 'Char1_17' or jobinfo.ClassName == 'Char1_21' or 
 	jobinfo.ClassName == 'Char3_2' or jobinfo.ClassName == 'Char3_14' or 
-	jobinfo.ClassName == 'Char5_11' then
+	jobinfo.ClassName == 'Char5_11' or jobinfo.ClassName == 'Char5_17' then
 		return true;
 	end
 

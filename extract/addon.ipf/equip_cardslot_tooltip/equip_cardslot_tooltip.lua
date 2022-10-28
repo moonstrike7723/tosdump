@@ -25,7 +25,8 @@ function EQUIP_CARDSLOT_INFO_TOOLTIP_OPEN(frame, slot, argStr, groupSlotIndex)
 	elseif parentSlotSet : GetName() == 'LEGcard_slotset' then
 		slotIndex = slotIndex + 12
 	end
-	EQUIP_CARDSLOT_TOOLTIP_BOSSCARD(slotIndex);
+	frame = frame:GetTopParentFrame()
+	EQUIP_CARDSLOT_TOOLTIP_BOSSCARD(slotIndex, frame:GetName());
 end;
 
 function EQUIP_CARDSLOT_INFO_TOOLTIP_CLOSE(frame, slot, argStr, argNum)		
@@ -60,14 +61,14 @@ function set_sclae_value(value)
 	return math.floor(value)
 end
 
-function EQUIP_CARDSLOT_TOOLTIP_BOSSCARD(slotIndex)
+function EQUIP_CARDSLOT_TOOLTIP_BOSSCARD(slotIndex, topFrame)
 	local frame = ui.GetFrame("equip_cardslot_tooltip");		
 	tolua.cast(frame, "ui::CTooltipFrame");
 	if frame:IsVisible() == 1 then
 		return;
 	end	
 
-	local infoFrame = ui.GetFrame('monstercardslot');
+	local infoFrame = ui.GetFrame(topFrame);
 	if infoFrame:IsVisible() == 0 then
 		return
 	end
@@ -110,7 +111,13 @@ function EQUIP_CARDSLOT_TOOLTIP_BOSSCARD(slotIndex)
 		end
 	end
 	
-	local cardID, cardLv, cardExp = GETMYCARD_INFO(slotIndex);
+	local cardID, cardLv, cardExp
+
+	if topFrame == "monstercardslot" then
+		cardID, cardLv, cardExp = GETMYCARD_INFO(slotIndex);
+	else
+		cardID, cardLv, cardExp = _GETMYCARD_INFO(slotIndex);
+	end
 	local cls = GetClassByType("Item", cardID);
 	if cardID == 0 then
 		return;

@@ -9,6 +9,12 @@ function ITEM_CABINET_ON_INIT(addon, frame)
 end
 
 function ITEM_CABINET_OPEN(frame)
+	if TUTORIAL_CLEAR_CHECK(GetMyPCObject()) == false then
+		ui.SysMsg(ClMsg('CanUseAfterTutorialClear'))
+		frame:ShowWindow(0)
+		return
+	end
+
 	ui.CloseFrame('goddess_equip_manager')
 	for i = 1, #revertrandomitemlist do
 		local revert_name = revertrandomitemlist[i]
@@ -415,7 +421,7 @@ function ITEM_CABINET_ITEM_TAB_INIT(listCls, itemTabCtrl)
 		add_str = '(' ..  ClMsg('Unique1') .. ')'
 	end
 
-	SET_SLOT_BG_BY_ITEMGRADE(itemSlot, TryGetProp(itemCls, 'ItemGrade'));
+	SET_SLOT_BG_BY_ITEMGRADE(itemSlot, itemCls);
 	itemText:SetTextByKey('name', TryGetProp(itemCls, 'Name') .. add_str);
 	
 	local icon = CreateIcon(itemSlot);

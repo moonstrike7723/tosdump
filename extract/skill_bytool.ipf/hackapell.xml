@@ -27,15 +27,18 @@
 					<Num Num="100"/>
 				</Scp>
 				<Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
-					<Str Str="skl_eff_hackapell_infiniteassault"/>
+					<Str Str="skl_eff_infiniteslash_shot"/>
 				</Scp>
 				<Scp Scp="MONSKL_C_PLAY_ANIM" Client="YES" UseSleep="NO" Time="0">
 					<Str Str="SKL_INFINITEASSAULT_SHOT_RIDE"/>
-					<Num Num="4"/>
+					<Num Num="2.5"/>
 					<Num Num="0"/>
 					<Num Num="0"/>
 				</Scp>
-				<Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="200">
+				<Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="100">
+                    <Str Str="skl_eff_thsword_whoosh"/>
+                </Scp>
+                <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="200">
 					<Str Str="voice_archer_m_infiniteassault_shot"/>
 					<Str Str="voice_archer_f_infiniteassault_shot"/>
 				</Scp>
@@ -432,8 +435,8 @@
             </HitList>
             <EtcList>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="0">
-                    <Str Str="voice_war_atk_long_shot"/>
-                    <Str Str="voice_atk_long_war_f"/>
+                    <Str Str="voice_hackapell_m_hakkapalle_shot"/>
+                    <Str Str="voice_hackapell_f_hakkapalle_shot"/>
                 </Scp>
                 <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="0">
                     <Str Str="skl_fgt_ultimatedash_shot"/>
@@ -465,19 +468,19 @@
                     <Num Num="1"/>
                     <Num Num="1"/>
                 </Scp>
-                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="50">
-                    <Str_Arg Str="I_warrior_dash_run_line2" Arg="1.5"/>
-                    <Str Str="Dummy_emitter_pet2"/>
-                    <Num Num="0"/>
-                </Scp>
                 <Scp Scp="C_COLORBLEND_ACTOR" Client="YES" UseSleep="NO" Time="50">
                     <Num Num="1"/>
                     <Num Num="1"/>
+                    <Num Num="0.40000001"/>
+                    <Num Num="0.34999999"/>
                     <Num Num="0.2"/>
-                    <Num Num="0.2"/>
-                    <Num Num="0.5"/>
                     <Num Num="0"/>
                     <Num Num="1"/>
+                </Scp>
+                <Scp Scp="C_EFFECT" Client="YES" UseSleep="NO" Time="50">
+                    <Str_Arg Str="I_warrior_dash_run_line2_2_nosound" Arg="1.5"/>
+                    <Str Str="Dummy_emitter_pet2"/>
+                    <Num Num="0"/>
                 </Scp>
                 <Scp Scp="C_SHOCKWAVE" Client="YES" UseSleep="NO" Time="140">
                     <Num Num="5"/>

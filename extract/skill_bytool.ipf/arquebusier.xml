@@ -42,8 +42,8 @@
 					<Num Num="0"/>
 				</Scp>
 				<Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="100">
-					<Str Str="voice_archer_m_atk"/>
-					<Str Str="voice_archer_f_atk"/>
+					<Str Str="voice_arquebusier_m_prediction_shot"/>
+					<Str Str="voice_arquebusier_f_prediction_shot"/>
 				</Scp>
 				<Scp Scp="SKL_RUN_SCRIPT" Client="NO" UseSleep="NO" Time="0">
 					<Str Str="SCR_PREDICTION_Arquebusier23"/>
@@ -407,8 +407,8 @@
 					<Str Str="skl_eff_arquebusier_desperatedefense"/>
 				</Scp>
 				<Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="100">
-					<Str Str="voice_war_atk_long_shot"/>
-					<Str Str="voice_atk_long_war_f"/>
+					<Str Str="voice_arquebusier_m_desperatedefense_shot"/>
+					<Str Str="voice_arquebusier_f_desperatedefense_shot"/>
 				</Scp>
 				<Scp Scp="MONSKL_CRE_PAD" Client="NO" UseSleep="NO" Time="300">
 					<Pos Angle="0" Dist="0"/>

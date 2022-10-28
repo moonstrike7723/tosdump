@@ -1,4 +1,8 @@
 -- monstercardslot.lua
+
+local needApply = false
+local curPreset = 0
+
 function MONSTERCARDSLOT_ON_INIT(addon, frame)
 	addon:RegisterMsg("DO_OPEN_MONSTERCARDSLOT_UI", "MONSTERCARDSLOT_FRAME_OPEN");
 	addon:RegisterMsg("MSG_PLAY_LEGENDCARD_OPEN_EFFECT", "PLAY_LEGENDCARD_OPEN_EFFECT");
@@ -8,8 +12,15 @@ function MONSTERCARDSLOT_ON_INIT(addon, frame)
 end
 
 function MONSTERCARDSLOT_FRAME_OPEN()
-	ui.OpenFrame("monstercardslot")
 	local frame = ui.GetFrame('monstercardslot')
+	local etcObj = GetMyEtcObject()
+	MONSTERCARDSLOT_FRAME_INIT()
+end
+
+function MONSTERCARDSLOT_FRAME_INIT()
+	local frame = ui.GetFrame('monstercardslot')
+	CARD_PRESET_CLEAR_SLOT(frame)
+	ui.OpenFrame("monstercardslot")
 
 	CARD_SLOTS_CREATE(frame)
 
@@ -31,9 +42,14 @@ function MONSTERCARDSLOT_FRAME_OPEN()
 	end
 end
 
-function MONSTERCARDSLOT_FRAME_CLOSE(frame)
+function MONSTERCARDSLOT_CLOSE()
 	ui.CloseFrame('monstercardslot')
 	ui.CloseFrame('goddesscardslot')
+	ui.CloseFrame('monstercardpreset')
+end
+
+function MONSTERCARDSLOT_FRAME_CLOSE()
+	MONSTERCARDSLOT_CLOSE()
 end
 
 -- 인벤토리의 카드 슬롯 생성 부분
@@ -82,9 +98,8 @@ function CARD_SLOT_CREATE(monsterCardSlotFrame, cardGroupName, slotIndex)
 			elseif cardGroupName == 'LEG' then
 				icon_label : SetImage('legendopen_cardslot')
 			end
-			local cardID, cardLv, cardExp = GETMYCARD_INFO(slotIndex + i);			
+			local cardID, cardLv, cardExp = GETMYCARD_INFO(slotIndex + i);
 			CARD_SLOT_SET(card_slotset, card_labelset, i, cardID, cardLv, cardExp);
-			
 		end;
 	end;
 end
@@ -209,7 +224,13 @@ function CARD_OPTION_CREATE(monsterCardSlotFrame)
 		for j = 0, cardSlotCount_type - 1 do
 			optionIndex = frame : GetUserIValue("CARD_OPTION_INDEX");
 			labelHeight = frame : GetUserIValue("LABEL_HEIGHT");
-			cardID, cardLv, cardExp = GETMYCARD_INFO(i * cardSlotCount_type + j)
+
+			if frame:GetName() == "monstercardslot" then
+				cardID, cardLv, cardExp = GETMYCARD_INFO(i * cardSlotCount_type + j);
+			else
+				cardID, cardLv, cardExp = _GETMYCARD_INFO(i * cardSlotCount_type + j);
+			end
+
 			if cardID ~= 0 then
 				CARD_OPTION_CREATE_BY_GROUP(frame, i * cardSlotCount_type + j, clientMessage, cardID, cardLv, cardExp, optionIndex, labelIndex)
 			end
@@ -247,7 +268,7 @@ function CARD_OPTION_CREATE_BY_GROUP(monsterCardSlotFrame, i, clientMessage, car
 	if frame == nil then
 		frame = ui.GetFrame('monstercardslot')
 	end
-
+	
 	local itemcls = GetClassByType("Item", cardID)
 	if itemcls == nil then
 		return
@@ -287,12 +308,22 @@ function CARD_OPTION_CREATE_BY_GROUP(monsterCardSlotFrame, i, clientMessage, car
 	end
 
 	for j = 0, i - 1 do
-		local cardID_temp, cardLv_temp = GETMYCARD_INFO(j)
+		local cardID_temp, cardLv_temp
+		if frame:GetName() == "monstercardslot" then
+			cardID_temp, cardLv_temp = GETMYCARD_INFO(j);
+		else
+			cardID_temp, cardLv_temp = _GETMYCARD_INFO(j);
+		end
 		if cardID == cardID_temp then
 			if duplicateOptionIndex == -1 then
 				duplicateOptionIndex = j
 				local preIndex = frame:GetUserIValue("PREINDEX")
-				local cardID_flag = GETMYCARD_INFO(preIndex)
+				local cardID_flag
+				if frame:GetName() == "monstercardslot" then
+					cardID_flag = GETMYCARD_INFO(preIndex);
+				else
+					cardID_flag = _GETMYCARD_INFO(preIndex);
+				end
 				if i - j == 2 and preIndex ~= j and cardID_flag ~= cardID_temp then
 					duplicateCount = duplicateCount + 1
 				end
@@ -325,7 +356,7 @@ function CARD_OPTION_CREATE_BY_GROUP(monsterCardSlotFrame, i, clientMessage, car
 			end
 
 			local optionText = cardcls.OptionText
-	
+
 			optionText = string.format(optionText, optionValue[1], optionValue[2], optionValue[3])
 
 			strInfo = strInfo ..optionText
@@ -392,7 +423,8 @@ function CARD_SLOT_SET(ctrlSet, slot_label_set, slotIndex, itemClsId, itemLv, it
 		-- icon이 없다는 건 아직 장착되지 않았다는 말.
 		icon = CreateIcon(slot);
 		icon_label = CreateIcon(slot_label)
-	end;	
+	end;
+	
 	if cls ~= nil then		
 		local imageName = cls.TooltipImage;
 		if imageName ~= nil then			
@@ -414,6 +446,11 @@ function CARD_SLOT_SET(ctrlSet, slot_label_set, slotIndex, itemClsId, itemLv, it
 		end;
 	end;
 	
+	-- 카드 프리셋 임시 등록용 데이터
+	icon:SetUserValue("CARD_TEMP_CLASSID", itemClsId)
+	icon:SetUserValue("CARD_TEMP_LEVEL", itemLv)
+	icon:SetUserValue("CARD_TEMP_EXP", itemExp)
+
 	-- 툴팁 생성 (카드 아이템은 IES가 사라지기 때문에 똑같이 생긴 툴팁을 따로 만들어서 적용)
 	slot:SetEventScript(ui.MOUSEMOVE, "EQUIP_CARDSLOT_INFO_TOOLTIP_OPEN");
 	slot:SetEventScriptArgNumber(ui.MOUSEMOVE, slotIndex);
@@ -431,22 +468,16 @@ function CARD_SLOT_RBTNUP_ITEM_INFO(frame, slot, argStr, argNum)
 	if parentSlotSet == nil then
 		return
 	end
-
-	local slotIndex = slot:GetSlotIndex()
-
-	if parentSlotSet:GetName() == 'ATKcard_slotset' then
-		slotIndex = slotIndex + (0 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif parentSlotSet : GetName() == 'DEFcard_slotset' then
-		slotIndex = slotIndex + (1 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif parentSlotSet : GetName() == 'UTILcard_slotset' then
-		slotIndex = slotIndex + (2 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif parentSlotSet : GetName() == 'STATcard_slotset' then
-		slotIndex = slotIndex + (3 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif parentSlotSet : GetName() == 'LEGcard_slotset' then
-		slotIndex = slotIndex + (4 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	end
 		
+	local groupName = string.gsub(parentSlotSet:GetName(), 'card_slotset', '');
+	local slotIndex = CARD_SLOT_GET_SLOT_INDEX(groupName, slot:GetSlotIndex()) 
+
+	if groupName == 'LEG' then
 	EQUIP_CARDSLOT_INFO_OPEN(slotIndex);
+	else
+		argStr = slotIndex .. " 1" -- 1을 arg list로 넘기면 5tp 소모후 카드 레벨 하락 안함
+		pc.ReqExecuteTx_NumArgs("SCR_TX_UNEQUIP_CARD_SLOT", argStr);
+	end
 end
 
 -- 카드 슬롯 정보창 열기
@@ -589,52 +620,42 @@ function CARD_SLOT_DROP(frame, slot, argStr, argNum)
 	end
 end;
 
--- 몬스터 카드를 인벤토리의 카드 슬롯에 장착 요청하기 전에 메세지 박스로 한번 더 확인
+-- 레전드 카드를 인벤토리의 카드 슬롯에 장착 요청하기 전에 메세지 박스로 한번 더 확인
 function CARD_SLOT_EQUIP(slot, item, groupNameStr)
 	local obj = GetIES(item:GetObject());
 	if obj.GroupName == "Card" then			
-		local slotIndex = slot:GetSlotIndex();
-		if groupNameStr == 'ATK' then
-			slotIndex = slotIndex + (0 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-		elseif groupNameStr == 'DEF' then
-			slotIndex = slotIndex + (1 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-		elseif groupNameStr == 'UTIL' then
-			slotIndex = slotIndex + (2 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-		elseif groupNameStr == 'STAT' then
-			slotIndex = slotIndex + (3 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-		elseif groupNameStr == 'LEG' then
-			slotIndex = 4 * MONSTER_CARD_SLOT_COUNT_PER_TYPE
-			-- leg 카드는 slotindex = 12, 13번째 슬롯
-		end
-
+		local slotIndex = CARD_SLOT_GET_SLOT_INDEX(groupNameStr, slot:GetSlotIndex());
 		local cardInfo = equipcard.GetCardInfo(slotIndex + 1);
+
+
 		if cardInfo ~= nil then
 			ui.SysMsg(ClMsg("AlreadyEquippedThatCardSlot"));
 			return;
 		end
+			
+		if item.isLockState == true then
+			ui.SysMsg(ClMsg("MaterialItemIsLock"));
+			return
+		end
+
+		local itemGuid = item:GetIESID();
+		local invFrame = ui.GetFrame("inventory");	
+		invFrame:SetUserValue("EQUIP_CARD_GUID", itemGuid);
+		invFrame:SetUserValue("EQUIP_CARD_SLOTINDEX", slotIndex);	
 
 		if groupNameStr == 'LEG' then
 			local pcEtc = GetMyEtcObject();
 			if pcEtc.IS_LEGEND_CARD_OPEN ~= 1 then
 				ui.SysMsg(ClMsg("LegendCard_Slot_NotOpen"))
 				return
-			end
-		end
+			end	
 
-		if item.isLockState == true then
-			ui.SysMsg(ClMsg("MaterialItemIsLock"));
-			return
+			local textmsg = string.format("[ %s ]{nl}%s", obj.Name, ScpArgMsg("AreYouSureEquipCard"));	
+			ui.MsgBox_NonNested(textmsg, invFrame:GetName(), "REQUEST_EQUIP_CARD_TX", "REQUEST_EQUIP_CARD_CANCLE");		
+		else
+			REQUEST_EQUIP_CARD_TX();
 		end
-				
-		local itemGuid = item:GetIESID();
-		local invFrame = ui.GetFrame("inventory");	
-		invFrame:SetUserValue("EQUIP_CARD_GUID", itemGuid);
-		invFrame:SetUserValue("EQUIP_CARD_SLOTINDEX", slotIndex);	
-		local textmsg = string.format("[ %s ]{nl}%s", obj.Name, ScpArgMsg("AreYouSureEquipCard"));	
-		ui.MsgBox_NonNested(textmsg, invFrame:GetName(), "REQUEST_EQUIP_CARD_TX", "REQUEST_EQUIP_CARD_CANCLE");		
-		return 1;
-	end;
-	return 0;
+	end
 end
 
 -- 몬스터 카드 장착 요청
@@ -653,6 +674,57 @@ function REQUEST_EQUIP_CARD_CANCLE()
 	local invFrame = ui.GetFrame("inventory");	
 	invFrame:SetUserValue("EQUIP_CARD_GUID", "");
 	invFrame:SetUserValue("EQUIP_CARD_SLOTINDEX", "");	
+end
+
+function CARD_SLOT_GET_GROUP_SLOT_INDEX(groupNameStr, slotIndex)
+	local groupSlotIndex = slotIndex
+	if groupNameStr == 'ATK' then
+		groupSlotIndex = groupSlotIndex - (0 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
+	elseif groupNameStr == 'DEF' then
+		groupSlotIndex = groupSlotIndex - (1 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
+	elseif groupNameStr == 'UTIL' then
+		groupSlotIndex = groupSlotIndex - (2 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
+	elseif groupNameStr == 'STAT' then
+		groupSlotIndex = groupSlotIndex - (3 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
+	elseif groupNameStr == 'LEG' then
+		groupSlotIndex = groupSlotIndex - (4 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
+	-- leg 카드는 slotindex = 12, 13번째 슬롯
+	end
+	return groupSlotIndex
+end
+
+function CARD_SLOT_GET_SLOT_INDEX(groupNameStr, groupSlotIndex)
+	local slotIndex = groupSlotIndex;
+	if groupNameStr == 'ATK' then
+		slotIndex = slotIndex + (0 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
+	elseif groupNameStr == 'DEF' then
+		slotIndex = slotIndex + (1 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
+	elseif groupNameStr == 'UTIL' then
+		slotIndex = slotIndex + (2 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
+	elseif groupNameStr == 'STAT' then
+		slotIndex = slotIndex + (3 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
+	elseif groupNameStr == 'LEG' then
+		slotIndex = 4 * MONSTER_CARD_SLOT_COUNT_PER_TYPE
+		-- leg 카드는 slotindex = 12, 13번째 슬롯
+	end
+	return slotIndex;
+end
+
+function CARD_SLOT_GET_GROUP_NAME(slotIndex)
+	local groupNameStr = "None"
+
+	if slotIndex < (1 * MONSTER_CARD_SLOT_COUNT_PER_TYPE) then
+		groupNameStr = 'ATK'
+	elseif slotIndex < (2 * MONSTER_CARD_SLOT_COUNT_PER_TYPE) then
+		groupNameStr = 'DEF'
+	elseif slotIndex < (3 * MONSTER_CARD_SLOT_COUNT_PER_TYPE) then
+		groupNameStr = 'UTIL'
+	elseif slotIndex < (4 * MONSTER_CARD_SLOT_COUNT_PER_TYPE) then
+		groupNameStr = 'STAT'
+	else
+		groupNameStr = 'LEG'
+	end
+	return groupNameStr
 end
 
 -- 몬스터 카드를 인벤토리의 카드 슬롯에 장착 동작
@@ -674,19 +746,7 @@ function _CARD_SLOT_EQUIP(slotIndex, itemClsId, itemLv, itemExp)
 	end
 
 	local groupNameStr = cardObj.CardGroupName
-	local groupSlotIndex = slotIndex
-	if groupNameStr == 'ATK' then
-		groupSlotIndex = groupSlotIndex - (0 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif groupNameStr == 'DEF' then
-		groupSlotIndex = groupSlotIndex - (1 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif groupNameStr == 'UTIL' then
-		groupSlotIndex = groupSlotIndex - (2 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif groupNameStr == 'STAT' then
-		groupSlotIndex = groupSlotIndex - (3 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif groupNameStr == 'LEG' then
-		groupSlotIndex = groupSlotIndex - (4 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	-- leg 카드는 slotindex = 12, 13번째 슬롯
-	end
+	local groupSlotIndex = CARD_SLOT_GET_GROUP_SLOT_INDEX(groupNameStr, slotIndex)
 
 	local moncardGbox = GET_CHILD_RECURSIVELY(moncardFrame, groupNameStr .. 'cardGbox');
 	local card_slotset = GET_CHILD(moncardGbox, groupNameStr .. "card_slotset");
@@ -720,32 +780,20 @@ function _EQUIP_CARDSLOT_BTN_REMOVE()
 	local argStr = string.format("%d", frame:GetUserIValue("REMOVE_CARD_SLOTINDEX"))
 
 	argStr = argStr .. " 0"
-
+	
 	pc.ReqExecuteTx_NumArgs("SCR_TX_UNEQUIP_CARD_SLOT", argStr)
 end
 
 -- 인벤토리의 카드 슬롯 제거 동작
 function _CARD_SLOT_REMOVE(slotIndex, cardGroupName)
 	local frame = ui.GetFrame('monstercardslot');
-
 	local groupNameStr = cardGroupName
-	
-	local groupSlotIndex = slotIndex
-	if cardGroupName == 'ATK' then
-		groupSlotIndex = slotIndex - (0 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif cardGroupName == 'DEF' then
-		groupSlotIndex = slotIndex - (1 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif cardGroupName == 'UTIL' then
-		groupSlotIndex = slotIndex - (2 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif cardGroupName == 'STAT' then
-		groupSlotIndex = slotIndex - (3 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	elseif cardGroupName == 'LEG' then
-		groupSlotIndex = slotIndex - (4 * MONSTER_CARD_SLOT_COUNT_PER_TYPE)
-	end
+	local groupSlotIndex = CARD_SLOT_GET_GROUP_SLOT_INDEX(cardGroupName, slotIndex)
 
 	local gBox = GET_CHILD_RECURSIVELY(frame, groupNameStr .. 'cardGbox');
 	local card_slotset = GET_CHILD(gBox, groupNameStr .. "card_slotset");
 	local card_labelset = GET_CHILD(gBox, groupNameStr .. "card_labelset");
+
 	if card_slotset ~= nil and card_labelset ~= nil then
 		local slot = card_slotset:GetSlotByIndex(groupSlotIndex - 1);
 		if slot ~= nil then
@@ -768,7 +816,7 @@ function _CARD_SLOT_REMOVE(slotIndex, cardGroupName)
 			end
 		end;
 	end;
-	
+
 	local cardFrame = ui.GetFrame('equip_cardslot_info');
 	cardFrame:ShowWindow(0);
 	local goddess_cardFrame = ui.GetFrame('equip_cardslot_info_goddess');
@@ -779,13 +827,16 @@ end;
 
 -- 카드 정보 얻는 함수
 function GETMYCARD_INFO(slotIndex)
+	local frame = ui.GetFrame("monstercardslot")
 	local info = equipcard.GetCardInfo(slotIndex + 1);
-	
-	if info == nil then
+
+	if info ~= nil then
+		return info:GetCardID(), info.cardLv, info.exp;
+	else
 		return 0, 0, 0;
 	end
-	return info:GetCardID(), info.cardLv, info.exp;
 end
+
 
 -- 단계 보호하고, 카드 슬롯의 카드 제거
 function EQUIP_CARDSLOT_BTN_REMOVE_WITHOUT_EFFECT(frame, ctrl)
@@ -795,3 +846,8 @@ function EQUIP_CARDSLOT_BTN_REMOVE_WITHOUT_EFFECT(frame, ctrl)
 	argStr = argStr .. " 1" -- 1을 arg list로 넘기면 5tp 소모후 카드 레벨 하락 안함
 	pc.ReqExecuteTx_NumArgs("SCR_TX_UNEQUIP_CARD_SLOT", argStr);
 end;
+
+function CARD_SLOT_APPLY_COMPLETE()
+	MONSTERCARDSLOT_FRAME_INIT()
+	_CHECK_CARD_PRESET_APPLY_SAVE_BTN()
+end

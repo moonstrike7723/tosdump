@@ -55,22 +55,14 @@
                     <Str Str="voice_wiz_m_quicken_shot"/>
                     <Str Str="voice_wiz_quicken_shot"/>
                 </Scp>
-                <Scp Scp="SKL_SET_TARGET_CIRCLE" Client="NO" UseSleep="NO" Time="200">
-                    <Pos Angle="0" Dist="0"/>
-                    <Num Num="250"/>
-                    <Num Num="50"/>
-                    <Num Num="1"/>
-                    <Num Num="0"/>
-                    <Num Num="1"/>
-                </Scp>
-                <Scp Scp="SKL_SET_TGT_EMPTY_TO_ME" Client="NO" UseSleep="NO" Time="200"/>
-                <Scp Scp="SKL_TGT_BUFF" Client="NO" UseSleep="NO" Time="200">
+                <Scp Scp="SKL_BUFF" Client="NO" UseSleep="NO" Time="200">
                     <Str Str="Quicken_Buff"/>
                     <Num Num="1" UseFunc="1" FuncTxt="return obj.Level;"/>
                     <Num Num="0"/>
-                    <Num Num="0" UseFunc="1" FuncTxt="return 30000 + obj.Level * 6000;"/>
+                    <Num Num="0" UseFunc="1" FuncTxt="return 4000 + obj.Level * 400;"/>
                     <Num Num="1"/>
                     <Num Num="100"/>
+                    <Num Num="0"/>
                 </Scp>
             </EtcList>
         </MainSkl>
@@ -333,9 +325,18 @@ return 3 + obj.Level * 0.5"/>
             </EtcList>
         </MainSkl>
     </Skill>
-    <Skill Name="Thaumaturge_Transpose">
+    <Skill Name="Thaumaturge_Transmute">
         <MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
+            <HitList>
+                <Frame Type="CIRCLE" Time="9799" HitCount="1" TermMin="0" TermMax="0" PosType="0" Dist="0" RandDist="0" RandomPerHit="0" Angle="0" Width="30" Length="30" SklAngle="0.17453292" AniTime="9999" RotAngle="0" ForceATK="1" ScriptIndex="0" ScriptName="" SkillType="0"/>
+            </HitList>
             <EtcList>
+                <Scp Scp="MONSKL_C_PLAY_ANIM" Client="YES" UseSleep="NO" Time="0">
+                    <Str Str="skl_Resizing"/>
+                    <Num Num="2"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                </Scp>
                 <Scp Client="YES" Scp="C_VOICE_SOUND" Time="100" UseSleep="NO">
                     <Str Str="voice_wiz_m_transpose_shot"/>
                     <Str Str="voice_wiz_transpose_shot"/>
@@ -343,6 +344,27 @@ return 3 + obj.Level * 0.5"/>
                 <Scp Client="YES" Scp="C_EFFECT" Time="300" UseSleep="NO">
                     <Str_Arg Arg="2.5" Str="F_buff_basic020_white"/>
                     <Str Str="None"/>
+                    <Num Num="0"/>
+                </Scp>
+                <Scp Scp="SKL_SET_TARGET_CIRCLE" Client="NO" UseSleep="NO" Time="600">
+                    <Pos Angle="0" Dist="0" PosType="3"/>
+                    <Num Num="50"/>
+                    <Num Num="1"/>
+                    <Num Num="2"/>
+                    <Num Num="0"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="1"/>
+                </Scp>
+                <Scp Scp="SKL_TGT_BUFF" Client="NO" UseSleep="NO" Time="600">
+                    <Str Str="Transmute_Debuff"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="5000"/>
+                    <Num Num="1"/>
+                    <Num Num="100"/>
+                    <Num Num="0"/>
                     <Num Num="0"/>
                 </Scp>
             </EtcList>

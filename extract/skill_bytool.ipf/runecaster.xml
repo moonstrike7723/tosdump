@@ -265,16 +265,16 @@ return value"/>
 				<Str Str="ASTD"/>
 			</ToolScp>
 			<ToolScp Scp="SKL_PLAY_SOUND" Client="NO" UseSleep="NO">
-				<Str Str="voice_atk_long_cast_f"/>
+				<Str Str="voice_runecaster_f_ehwaz_cast"/>
 				<Num Num="0"/>
-				<Str Str="voice_war_atk_long_cast"/>
+				<Str Str="voice_runecaster_m_ehwaz_cast"/>
 			</ToolScp>
 		</KeyInputStart>
 		<KeyInputEnd>
 			<ToolScp Scp="MONSKL_C_RESET_CASTING_ANIM" Client="YES" UseSleep="NO"/>
 			<ToolScp Scp="SKL_STOP_SOUND" Client="NO" UseSleep="NO">
-				<Str Str="voice_atk_long_cast_f"/>
-				<Str Str="voice_war_atk_long_cast"/>
+				<Str Str="voice_runecaster_f_ehwaz_cast"/>
+				<Str Str="voice_runecaster_m_ehwaz_cast"/>
 			</ToolScp>
 		</KeyInputEnd>
 		<MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
@@ -293,8 +293,8 @@ return value"/>
 					<Num Num="0"/>
 				</Scp>
 				<Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="0">
-					<Str Str="voice_war_atk_long_shot"/>
-					<Str Str="voice_atk_long_war_f"/>
+					<Str Str="voice_runecaster_m_ehwaz_shot"/>
+					<Str Str="voice_runecaster_f_ehwaz_shot"/>
 				</Scp>
 				<Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="100">
 					<Str Str="skl_eff_ehwaz_shot"/>
@@ -477,16 +477,16 @@ return value"/>
                 <Num Num="0"/>
             </ToolScp>
             <ToolScp Scp="SKL_PLAY_SOUND" Client="NO" UseSleep="NO">
-				<Str Str="voice_atk_long_cast_f"/>
+				<Str Str="voice_runecaster_f_isa_cast"/>
                 <Num Num="0"/>
-				<Str Str="voice_war_atk_long_cast"/>
+				<Str Str="voice_runecaster_m_isa_cast"/>
             </ToolScp>
         </KeyInputStart>
         <KeyInputEnd>
             <ToolScp Scp="MONSKL_C_RESET_CASTING_ANIM" Client="YES" UseSleep="NO"/>
             <ToolScp Scp="SKL_STOP_SOUND" Client="NO" UseSleep="NO">
-				<Str Str="voice_atk_long_cast_f"/>
-				<Str Str="voice_war_atk_long_cast"/>
+				<Str Str="voice_runecaster_f_isa_cast"/>
+				<Str Str="voice_runecaster_m_isa_cast"/>
             </ToolScp>
         </KeyInputEnd>
         <MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
@@ -508,8 +508,8 @@ return value"/>
                     <Num Num="0"/>
                 </Scp>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="100">
-					<Str Str="voice_war_atk_long_shot"/>
-					<Str Str="voice_atk_long_war_f"/>
+					<Str Str="voice_runecaster_m_isa_shot"/>
+					<Str Str="voice_runecaster_f_isa_shot"/>
                 </Scp>
                 <Scp Scp="C_EFFECT_POS" Client="YES" UseSleep="NO" Time="100">
                     <Str_Arg Str="I_stone001_mesh" Arg="0.9"/>

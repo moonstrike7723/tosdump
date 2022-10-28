@@ -69,6 +69,10 @@
                 <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="200">
                     <Str Str="skl_eff_clown_replica_knife_up"/>
                 </Scp>
+                <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="500">
+                    <Str Str="voice_clown_m_replica_shot"/>
+                    <Str Str="voice_clown_f_replica_shot"/>
+                </Scp>
                 <Scp Scp="MSL_PAD_THROW" Client="NO" UseSleep="YES" Time="500">
                     <Str_Arg Str="I_knife002_rotate#Dummy_Force" Arg="0.30000001"/>
                     <Str_Arg Str="None" Arg="0.30000001"/>
@@ -140,10 +144,6 @@
                     <Num Num="0"/>
                     <Angle Angle="0"/>
                     <Str Str="Clown_Knife"/>
-                </Scp>
-                <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="600">
-                    <Str Str="voice_war_atk_medium"/>
-                    <Str Str="voice_atk_medium_war_f"/>
                 </Scp>
             </EtcList>
         </MainSkl>
@@ -378,9 +378,9 @@
                     <Num Num="1"/>
                     <Num Num="0"/>
                 </Scp>
-                <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="0">
-                    <Str Str="voice_war_atk_long_shot"/>
-                    <Str Str="voice_atk_long_war_f"/>
+                <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="200">
+                    <Str Str="voice_clown_m_climax_shot"/>
+                    <Str Str="voice_clown_f_climax_shot"/>
                 </Scp>
                 <Scp Scp="C_FORCE_EFT" Client="YES_Time" UseSleep="NO" Time="228">
                     <Str_Arg Str="I_knife002_rotate#Dummy_Force" Arg="0.30000001"/>
@@ -429,10 +429,6 @@
                     <Num Num="0"/>
                     <Num Num="2"/>
                     <Num Num="0"/>
-                </Scp>
-                <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="850">
-                    <Str Str="voice_war_atk_medium"/>
-                    <Str Str="voice_atk_medium_war_f"/>
                 </Scp>
                 <Scp Scp="C_FORCE_EFT" Client="YES_Time" UseSleep="NO" Time="898">
                     <Str_Arg Str="I_knife002_rotate#Dummy_Force" Arg="0.30000001"/>
@@ -495,8 +491,8 @@
                     <Str Str="SCR_CREATE_TRICKORTREAT_KNIFE"/>
                 </Scp>
                 <Scp Scp="C_VOICE_SOUND" Client="YES" UseSleep="NO" Time="200">
-                    <Str Str="voice_war_atk_medium"/>
-                    <Str Str="voice_atk_medium_war_f"/>
+                    <Str Str="voice_clown_m_trickortreat_shot"/>
+                    <Str Str="voice_clown_f_trickortreat_shot"/>
                 </Scp>
                 <Scp Scp="C_SOUND" Client="YES" UseSleep="NO" Time="250">
                     <Str Str="skl_eff_treeofsephiroth_buff"/>
