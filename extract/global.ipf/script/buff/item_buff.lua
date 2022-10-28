@@ -107,3 +107,24 @@ function SCR_BUFF_LEAVE_Event_STEAM_Secret_EventBuff(self, buff, arg1, arg2, ove
     self.DEF_BM = self.DEF_BM - 3000
 	self.MDEF_BM = self.MDEF_BM - 3000
 end
+
+
+function SCR_BUFF_ENTER_Event_Cb_Buff_Potion(self, buff, arg1, arg2, over)
+    PlayEffect(self, 'F_sys_expcard_normal', 2.5, 1, "BOT", 1);
+    self.PATK_BM = self.PATK_BM + 500
+	self.MATK_BM = self.MATK_BM + 500
+end
+
+function SCR_BUFF_UPDATE_Event_Cb_Buff_Potion(self, buff, arg1, arg2, RemainTime, ret, over)
+
+    if RemainTime > 3600000 then
+        SetBuffRemainTime(self, buff.ClassName, 3600000)
+    end
+    return 1
+
+end
+
+function SCR_BUFF_LEAVE_Event_Cb_Buff_Potion(self, buff, arg1, arg2, over)
+    self.PATK_BM = self.PATK_BM - 500
+	self.MATK_BM = self.MATK_BM - 500
+end

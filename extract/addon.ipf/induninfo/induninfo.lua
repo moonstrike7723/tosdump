@@ -8,7 +8,7 @@ end
 g_indunCategoryList = nil;
 function PUSH_BACK_UNIQUE_INTO_INDUN_CATEGORY_LIST(cateType)
     if g_indunCategoryList == nil then        
-        g_indunCategoryList ={100, 10000, 400, 800, 801, 200, 300, 500};
+        g_indunCategoryList ={100, 10000, 10002, 400, 800, 801, 200, 300, 500};
     end
     for i = 1, #g_indunCategoryList do
         if g_indunCategoryList[i] == cateType then

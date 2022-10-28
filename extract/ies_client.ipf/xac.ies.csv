@@ -1702,7 +1702,7 @@ ClassID,ClassName,BoneTrans,BoneAni,BoneAniPath,Mesh,Path,MtlName,ArmbandInfo,St
 9140,warrior_m_head13_eye01,,,,char_hi\pc\faces\warrior_m\puppeteer_Warrior_m_head_std.xac,char_texture\pc\face\face_m_eye01\,bg_hi\ErrorBox.mtl,,,NO
 9141,warrior_m_head14_eye01,,,,char_hi\pc\faces\warrior_m\falconer_Warrior_m_head_std.xac,char_texture\pc\face\face_m_eye01\,bg_hi\ErrorBox.mtl,,,NO
 9142,warrior_m_head15_eye01,,,,char_hi\pc\faces\warrior_m\shepherd_Warrior_m_head_std.xac,char_texture\pc\face\face_m_eye01\,bg_hi\ErrorBox.mtl,,,NO
-9143,warrior_m_Highlander01_3,,,,char_hi\pc\warrior_m\Warrior_m_highlander01_3.xac,char_texture\pc\body\Warrior_m_highlander01_3\,bg_hi\ErrorBox.mtl,S;Dummy_LF_armband,,NO
+9143,warrior_m_Highlander01_3,,,,char_hi\pc\warrior_m\Warrior_m_highlander01_3.xac,char_texture\pc\body\Warrior_m_highlander01_3\,bg_hi\ErrorBox.mtl,S;Dummy_LU_armband,,NO
 9144,warrior_m_hair_blond,,,,char_hi\pc\faces\warrior_m\messy_m_hair_std.xac,char_texture\pc\face\hair_m_blond\,bg_hi\ErrorBox.mtl,,,NO
 9145,warrior_m_hair2_blond,,,,char_hi\pc\faces\warrior_m\thaumaturge2_Warrior_m_hair_std.xac,char_texture\pc\face\hair_m_blond\,bg_hi\ErrorBox.mtl,,,NO
 9146,warrior_m_hair3_blond,,,,char_hi\pc\faces\warrior_m\dratail\draTail_Warrior_m_hair_std.xac,char_texture\pc\face\hair_m_blond\,bg_hi\ErrorBox.mtl,,,NO
@@ -3989,7 +3989,7 @@ ClassID,ClassName,BoneTrans,BoneAni,BoneAniPath,Mesh,Path,MtlName,ArmbandInfo,St
 60005,warrior_f_costume05,,,,char_hi\pc\warrior_f\Warrior_f_costume05.xac,char_texture\pc\body\Warrior_f_costume05\,bg_hi\ErrorBox.mtl,S;Dummy_LU_armband,,NO
 60006,warrior_f_costume06,,,,char_hi\pc\warrior_f\Warrior_f_costume06.xac,char_texture\pc\body\Warrior_f_costume06\,bg_hi\ErrorBox.mtl,S;Dummy_LU_armband,,NO
 60008,warrior_f_Peltasta01,,,,char_hi\pc\warrior_f\Warrior_f_Peltasta01.xac,char_texture\pc\body\Warrior_f_Peltasta01\,bg_hi\ErrorBox.mtl,S;Dummy_LU_armband,,NO
-60009,warrior_f_Highlander01,,,,char_hi\pc\warrior_f\Warrior_f_highlander01.xac,char_texture\pc\body\Warrior_f_highlander01\,bg_hi\ErrorBox.mtl,S;Dummy_LF_armband,,NO
+60009,warrior_f_Highlander01,,,,char_hi\pc\warrior_f\Warrior_f_highlander01.xac,char_texture\pc\body\Warrior_f_highlander01\,bg_hi\ErrorBox.mtl,S;Dummy_LU_armband,,NO
 60010,warrior_f_Barbarian01,,,,char_hi\pc\warrior_f\Warrior_f_barbarian01.xac,char_texture\pc\body\Warrior_f_barbarian01\,bg_hi\ErrorBox.mtl,S;Dummy_LU_armband,,NO
 60011,warrior_f_Hoplites01,,,,char_hi\pc\warrior_f\Warrior_f_hoplites01.xac,char_texture\pc\body\Warrior_f_hoplites01\,bg_hi\ErrorBox.mtl,M;Dummy_LU_armband,,NO
 60013,warrior_f_Centurion01,,,,char_hi\pc\warrior_f\Warrior_f_centurion01.xac,char_texture\pc\body\Warrior_f_centurion01\,bg_hi\ErrorBox.mtl,L;Dummy_LU_armband,,NO
