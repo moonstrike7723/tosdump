@@ -710,6 +710,7 @@
 				<Node2 ClassID="717" ClassName="Hair60_orange" Face="head60" Hair="hair60_orange" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="오렌지" EngColor="orange" UseableBarrack="NO"/>
 				<Node2 ClassID="718" ClassName="Hair60_brown" Face="head60" Hair="hair60_brown" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="브라운" EngColor="brown" UseableBarrack="NO"/>
 				<Node2 ClassID="719" ClassName="Hair60_midnightblue" Face="head60" Hair="hair60_midnightblue" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="미드나이트 블루" EngColor="midnightblue" UseableBarrack="NO"/>
+				<Node2 ClassID="735" ClassName="Hair75" Face="head75" Hair="Hair75" Name="빛나는 트리 헤드 코스튬" EngName="helmet_xmastreecos" Color="기본" EngColor="default" UseableBarrack="NO"/>
 			</Node1>
 			<Node1 ClassID="2" ClassName="FEMALE">
 				<Node2 ClassID="1" ClassName="Hair01" Face="head" Hair="hair"/>
@@ -1467,6 +1468,7 @@
 				<Node2 ClassID="767" ClassName="Hair60_orange" Face="head60" Hair="hair60_orange" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="오렌지" EngColor="orange" UseableBarrack="NO"/>
 				<Node2 ClassID="768" ClassName="Hair60_brown" Face="head60" Hair="hair60_brown" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="브라운" EngColor="brown" UseableBarrack="NO"/>
 				<Node2 ClassID="769" ClassName="Hair60_midnightblue" Face="head60" Hair="hair60_midnightblue" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="미드나이트 블루" EngColor="midnightblue" UseableBarrack="NO"/>
+				<Node2 ClassID="795" ClassName="Hair75" Face="head75" Hair="Hair75" Name="빛나는 트리 헤드 코스튬" EngName="helmet_xmastreecos" Color="기본" EngColor="default" UseableBarrack="NO"/>
 			</Node1>
 		</Class>
 	</Category>

@@ -2916,6 +2916,20 @@
 		<image name="icon_item_2019halloween_spear" file="\icon\weapon\icon_item_2019halloween_spear.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_2019halloween_sword" file="\icon\weapon\icon_item_2019halloween_sword.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_2019halloween_thspear" file="\icon\weapon\icon_item_2019halloween_thspear.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_mace" file="\icon\weapon\icon_item_2019xmas_mace.png" imgrect="0 0 256 256" CMM_Caption="2019 크리스마스 무기 14종"/>
+		<image name="icon_item_2019xmas_thmace" file="\icon\weapon\icon_item_2019xmas_thmace.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_spear" file="\icon\weapon\icon_item_2019xmas_spear.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_thspear" file="\icon\weapon\icon_item_2019xmas_thspear.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_cannon" file="\icon\weapon\icon_item_2019xmas_cannon.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_crossbow" file="\icon\weapon\icon_item_2019xmas_crossbow.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_dagger" file="\icon\weapon\icon_item_2019xmas_dagger.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_rod" file="\icon\weapon\icon_item_2019xmas_rod.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_shield" file="\icon\weapon\icon_item_2019xmas_shield.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_bow" file="\icon\weapon\icon_item_2019xmas_bow.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_rapier" file="\icon\weapon\icon_item_2019xmas_rapier.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_staff" file="\icon\weapon\icon_item_2019xmas_staff.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_musket" file="\icon\weapon\icon_item_2019xmas_musket.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_thsword" file="\icon\weapon\icon_item_2019xmas_thsword.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="acc_item">
 		<image name="item_necklace_01" file="\icon\acc\item_necklace_1.png" imgrect="0 0 256 256" CMM_Caption="목걸이"/>
@@ -3483,6 +3497,13 @@
 		<image name="icon_item_accessory_2019halloween01" file="\icon\hairacc\icon_item_accessory_2019halloween01.png" imgrect="0 0 256 256" CMM_Caption="2019_할로윈 헤어악세"/>
 		<image name="icon_item_accessory_2019halloween02" file="\icon\hairacc\icon_item_accessory_2019halloween02.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_accessory_2019halloween03" file="\icon\hairacc\icon_item_accessory_2019halloween03.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_2019xmas01" file="\icon\hairacc\icon_item_accessory_2019xmas01.png" imgrect="0 0 256 256" CMM_Caption="2019 크리스마스 헤어악세"/>
+		<image name="icon_item_accessory_2019xmas02" file="\icon\hairacc\icon_item_accessory_2019xmas02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_2019xmas03" file="\icon\hairacc\icon_item_accessory_2019xmas03.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_2019xmas04" file="\icon\hairacc\icon_item_accessory_2019xmas04.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_2019xmas05" file="\icon\hairacc\icon_item_accessory_2019xmas05.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_2019xmas06" file="\icon\hairacc\icon_item_accessory_2019xmas06.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_2019xmas07" file="\icon\hairacc\icon_item_accessory_2019xmas07.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="collection_item">
 		<image name="icon_collitem_collection" file="\icon\colletion\icon_item_collection.tga" imgrect="0 0 673 419" CMM_Caption="월계수"/>
@@ -6558,6 +6579,23 @@
 		<image name="icon_item_awakstone_s" file="\icon\payment\icon_item_awakstone_s.png" imgrect="0 0 256 256" CMM_Caption="빛나는 각성석 상자_30개"/>
 		<image name="item_icon_enchantjewel_s" file="\icon\payment\item_icon_enchantjewel_s.png" imgrect="0 0 256 256" CMM_Caption="인챈트 쥬얼"/>
 		<image name="icon_item_select_transcendSet_s" file="\icon\payment\icon_item_select_transcendSet_s.png" imgrect="0 0 256 256" CMM_Caption="초월 선택 상자"/>
+		<image name="icon_item_2019xmas01_f" file="\icon\payment\icon_item_2019xmas01_f.png" imgrect="0 0 256 256" CMM_Caption="2019 크리스마스"/>
+		<image name="icon_item_2019xmas01_m" file="\icon\payment\icon_item_2019xmas01_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas01_selectbox" file="\icon\payment\icon_item_2019xmas01_selectbox.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas02_f" file="\icon\payment\icon_item_2019xmas02_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas02_m" file="\icon\payment\icon_item_2019xmas02_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas02_selectbox" file="\icon\payment\icon_item_2019xmas02_selectbox.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas03_f" file="\icon\payment\icon_item_2019xmas03_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas03_m" file="\icon\payment\icon_item_2019xmas03_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas03_selectbox" file="\icon\payment\icon_item_2019xmas03_selectbox.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_helmet_xmastreecos" file="\icon\payment\icon_item_helmet_xmastreecos.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_xmastreecos_f" file="\icon\payment\icon_item_xmastreecos.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_xmastreecos_m" file="\icon\payment\icon_item_xmastreecos.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_xmastreecos_txbox" file="\icon\payment\icon_item_xmastreecos_txbox.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_wing_2019xmas01" file="\icon\payment\icon_item_wing_2019xmas01.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_wing_2019xmas02" file="\icon\payment\icon_item_wing_2019xmas02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_effectitem_whitebirds" file="\icon\payment\icon_item_effectitem_whitebirds.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2019xmas_weaponbox" file="\icon\payment\icon_item_2019xmas_weaponbox.png" imgrect="0 0 256 256" CMM_Caption="2019 크리스마스 무기선택 상자"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>

@@ -124,6 +124,7 @@
 		<Class ClassID="501199" OverrideType="ADD" ClassName="EVENT_STEAM_1903_CHOCO_REWARD_SEL1" Data="달콤한 초콜릿 받기"/>
 		<Class ClassID="501200" OverrideType="ADD" ClassName="EVENT_STEAM_1903_CHOCO_REWARD_SEL2" Data="이벤트 기간이 아닙니다."/>
 		<Class ClassID="501242" OverrideType="ADD" ClassName="EVENT_STEAM_1912_FORTUNE" Data="주말에만 대화하실 수 있습니다."/>
+		<Class ClassID="501243" OverrideType="ADD" ClassName="GACHA_BOUNS_SEL3" Data=" {nl}원하는 보상을 선택해주세요."/>
 	</Category>
 	<Category Name="Premium">
 		<Class ClassID="660001" OverrideType="ADD" ClassName="steam_PremiumToken_30day" Data="토큰:30일"/>
