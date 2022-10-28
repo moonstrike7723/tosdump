@@ -36,6 +36,5 @@ ClassID,Price,JobGrade,AccountLimitCount,Itemdate,BonusItemCnt,ClassName,Categor
 505,3,0,0,160728,0,ClassName505,TP_Premium,TP_Petitem,food_cereal,,,,,,,
 506,10,0,0,160818,0,ClassName506,TP_Premium,TP_Petitem,Premium_parrotbill_Food,,,,,,,
 601,29,0,1,0,0,ClassName601,TP_Premium,TP_FirstBuy,PremiumToken,,,,,,IS_USED_MEDAL_CHECK,NO
-602,120,0,1,0,0,ClassName602,TP_Premium,TP_FirstBuy,GLOBAL_BUNNY_HOP_PACKAGE,,,,,,IS_USED_MEDAL_CHECK,NO
 4501,134,0,0,190115,0,ClassName4501,TP_Premium_Sale,TP_Sale_New2,Premium_Mystic_Glass_Box,,,,,,,
 4502,215,0,0,190115,0,ClassName4502,TP_Premium_Sale,TP_Sale_New2,Premium_Master_Glass_Box,,,,,,,
