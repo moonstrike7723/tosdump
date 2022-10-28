@@ -124,29 +124,29 @@ function BEFORE_APPLIED_TOKEN_OPEN(invItem)
 	ADD_2PLUS_IMAGE(gBox)
 
 	GBOX_AUTO_ALIGN(gBox, 0, 2, 0, true, false);
-  -- 혹시나 저처럼 고생하시는 분이 생길가 적습니다. 해당 부분은 토큰의 실제 적용 시간에 여유분을 두기 때문에 UI 상 출력시간을 보정하는 곳입니다.
-  -- 여기 작성 안하면 계속 시간이 이상하게 나올거에요
+  -- ?�시???�처럼 고생?�시??분이 ?�길가 ?�습?�다. ?�당 부분�? ?�큰???�제 ?�용 ?�간???�유분을 ?�기 ?�문??UI ??출력?�간??보정?�는 곳입?�다.
+  -- ?�기 ?�성 ?�하�?계속 ?�간???�상?�게 ?�올거에??
 	local arg1 = itemobj.NumberArg1;
 	if itemobj.ClassName == "PremiumToken" or itemobj.ClassName == "PremiumToken_event" or itemobj.ClassName == "PremiumToken_New_Return" then
-		arg1 = 2592000 --30일
+		arg1 = 2592000 --30??
 	elseif itemobj.ClassName == "PremiumToken_5d" or itemobj.ClassName == "PremiumToken_5d_Steam" or itemobj.ClassName == "PremiumToken_5d_event" then
-		arg1 = 432000 -- 5일
+		arg1 = 432000 -- 5??
 	elseif itemobj.ClassName == "PremiumToken_1d" or itemobj.ClassName == "PremiumToken_7d_Steam" then
-		arg1 = 604800 -- 7일
+		arg1 = 604800 -- 7??
 	elseif itemobj.ClassName == "PremiumToken_24h" then
-		arg1 = 86400 -- 1일
+		arg1 = 86400 -- 1??
 	elseif itemobj.ClassName == "PremiumToken_3d" or itemobj.ClassName == "PremiumToken_3d_Steam" or itemobj.ClassName == "PremiumToken_3d_event" then
-		arg1 = 259200 -- 3일
+		arg1 = 259200 -- 3??
 	elseif itemobj.ClassName == "PremiumToken_12h" then
-		arg1 = 43200 -- 12시간
+		arg1 = 43200 -- 12?�간
 	elseif itemobj.ClassName == "PremiumToken_6h" then
-		arg1 = 21600 -- 6시간
+		arg1 = 21600 -- 6?�간
 	elseif itemobj.ClassName == "PremiumToken_3h" or itemobj.ClassName == "PremiumToken_3h_event" then
-		arg1 = 10800 -- 3시간
+		arg1 = 10800 -- 3?�간
 	elseif itemobj.ClassName == "PremiumToken_15d" or itemobj.ClassName == "PremiumToken_15d_Steam" or itemobj.ClassName == "PremiumToken_15d_vk" then
-		arg1 = 1296000 -- 15일
+		arg1 = 1296000 -- 15??
 	elseif itemobj.ClassName == "PremiumToken_14d_event" then
-		arg1 = 1209600 -- 14일
+		arg1 = 1209600 -- 14??
 	end
 	local endTime = GET_TIME_TXT(arg1, 1)
 	local endTxt = frame:GetChild("endTime");
@@ -215,7 +215,7 @@ function BEFORE_APPLIED_BOOST_TOKEN_OPEN(invItem)
 	local gBox = frame:GetChild("gBox");
 	gBox:RemoveAllChild();
     
-    -- 1번 컨트롤셋
+    -- 1�?컨트롤셋
     local ctrlSet = gBox:CreateControlSet("tokenDetail", "CTRLSET_0",  ui.CENTER_HORZ, ui.TOP, 10, 0, 0, 0);
     
 	local prop = ctrlSet:GetChild("prop");
@@ -242,7 +242,7 @@ function BEFORE_APPLIED_BOOST_TOKEN_OPEN(invItem)
     	value:SetTextByKey("value", string.format("{img 30percent_image2 %d %d}", 100, 45) );
     end
 
-    -- 2번 컨트롤셋
+    -- 2�?컨트롤셋
     local ctrlSet = gBox:CreateControlSet("tokenDetail", "CTRLSET_1",  ui.CENTER_HORZ, ui.TOP, 10, 0, 0, 0);
     
 	local prop = ctrlSet:GetChild("prop");
@@ -401,7 +401,7 @@ function BEFORE_APPLIED_INDUNFREE_OPEN(invItem)
 
 	GBOX_AUTO_ALIGN(gBox, 0, 3, 0, true, false);
 	local itemobj = GetIES(invItem:GetObject());
-	local arg1 = 259200 -- 3일
+	local arg1 = 259200 -- 3??
 	local endTime = GET_TIME_TXT(arg1, 1)
 	local endTxt = frame:GetChild("endTime");
 	endTxt:SetTextByKey("value", endTime); 
@@ -451,10 +451,10 @@ function REQ_TOKEN_ITEM(parent, ctrl)
 								'indunReset_1add_14d_NoStack_Team','Event_indunReset_Team_14d',
 								'Event_indunReset_Team_1','Event_indunReset_Team_2','Event_indunReset_Team_3','Event_indunReset_Team_4',
 								'Event_indunReset_Team_5','Event_indunReset_Team_6','Event_indunReset_Team_7','Event_indunReset_Team_8','Event_indunReset_Team_9','Event_indunReset_Team_10',
-							    'Event_indunReset_Team_11'}
+							    'Event_indunReset_Team_11', 'Event_indunReset_Team_13'}
 	if table.find(indunResetItemList,argList) ~= 0 then
 		local etcObj = GetMyEtcObject();
-		-- 2개뿐이여서 고정으로 넣어둠
+		-- 2개뿐?�여??고정?�로 ?�어??
 		local countType1 = "InDunCountType_100";
 		local countType2 = "InDunCountType_200";
 		if etcObj[countType1] == 0 and etcObj[countType2] == 0 then

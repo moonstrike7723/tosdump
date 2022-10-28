@@ -1,8 +1,7 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202012,220000,202012,270000,202101,50000,202012,310000,0,0,inGame_E1,Sunny Bunny Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2167,,,,
-999902,202012,150000,202012,200000,202012,290000,202012,240000,0,0,inGame_E2,Yak Mambo Winter Festival,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2160,,,,
-999903,202012,150000,202012,200000,202012,290000,202012,240000,0,0,inGame_E3,Leticia Secret Cube,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2161,,,,
-999904,202012,150000,202012,200000,202101,120000,202101,70000,0,0,inGame_E4,Demon God Temptation,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2159,,,,
-999905,202011,170000,202011,220000,202112,310000,202112,300000,0,0,inGame_E5,Costume Collection Event,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2142,,,,
-999906,202007,140000,202007,190000,202112,310000,202112,300000,0,0,inGame_E6,SteamGuard Guide,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
-999907,202003,310000,202004,50000,202112,310000,202112,300000,0,0,inGame_E7,Weekend Burning Event,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2126,time_del,,,Normal
+999901,202012,290000,202101,10000,202101,50000,202101,30000,0,0,inGame_E1,New Years Attendance,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2170,,,,
+999902,202012,220000,202012,270000,202101,50000,202012,310000,0,0,inGame_E2,Sunny Bunny Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2167,,,,
+999903,202012,150000,202012,200000,202101,120000,202101,70000,0,0,inGame_E3,Demon God Temptation,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2159,,,,
+999904,202011,170000,202011,220000,202112,310000,202112,300000,0,0,inGame_E4,Costume Collection Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2142,,,,
+999905,202007,140000,202007,190000,202112,310000,202112,300000,0,0,inGame_E5,SteamGuard Guide,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
+999906,202003,310000,202004,50000,202112,310000,202112,300000,0,0,inGame_E6,Weekend Burning Event,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2126,time_del,,,Normal

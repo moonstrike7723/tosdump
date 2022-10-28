@@ -13,7 +13,8 @@
             'Event_dungeoncount_9',
             'Event_dungeoncount_10',
             'Event_dungeoncount_11',
-            'Event_dungeoncount_12'};
+            'Event_dungeoncount_12',
+            'Event_dungeoncount_14'};   
 end
 
 function IS_INDUN_MULTIPLE_ITEM(itemClassName)

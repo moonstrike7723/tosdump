@@ -81,18 +81,21 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 }
     
     local daycheckbuff = 
-	{{'12','4',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'12','5',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'12','6',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
-	,{'12','11',{'Event_LootingChance_Add_1000','Event_Reappraisal_Discount_50'}}
-	,{'12','12',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
-	,{'12','13',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
-	,{'12','18',{'Event_ATK_and_DEF_UP_BUFF','Event_healHSP_Speedup'}}
-	,{'12','19',{'Event_ATK_and_DEF_UP_BUFF','Event_Reagent_Bottle_Expup_100'}}
-	,{'12','20',{'Event_ATK_and_DEF_UP_BUFF','Event_Cooldown_SPamount_Decrease'}}
-	,{'12','25',{'Event_LootingChance_Add_1000','Event_Legend_Uphill_Count_Reset'}}
-	,{'12','26',{'Event_LootingChance_Add_1000','Event_Even_Transcend_Discount_50'}}
-	,{'12','27',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
+	{{'1','1',{'Event_healHSP_Speedup','Event_Reinforce_Discount_50'}}
+	,{'1','2',{'Event_healHSP_Speedup','Event_Legend_Uphill_Count_Reset'}}
+	,{'1','3',{'Event_healHSP_Speedup','Event_Reagent_Bottle_Expup_100'}}
+	,{'1','8',{'Event_ATK_and_DEF_UP_BUFF','Event_Class_Change_Pointup_500'}}
+	,{'1','9',{'Event_ATK_and_DEF_UP_BUFF','Event_Cooldown_SPamount_Decrease'}}
+	,{'1','10',{'Event_ATK_and_DEF_UP_BUFF','Event_Worship_Affect_10fold'}}
+	,{'1','15',{'Event_LootingChance_Add_1000','Event_Reappraisal_Discount_50'}}
+	,{'1','16',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
+	,{'1','17',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
+	,{'1','22',{'Event_healHSP_Speedup','Event_Reagent_Bottle_Expup_100'}}
+	,{'1','23',{'Event_healHSP_Speedup','Event_Worship_Affect_10fold'}}
+	,{'1','24',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
+	,{'1','29',{'Event_ATK_and_DEF_UP_BUFF','Event_LootingChance_Add_1000'}}
+	,{'1','30',{'Event_ATK_and_DEF_UP_BUFF','Event_Cooldown_SPamount_Decrease'}}
+	,{'1','31',{'Event_ATK_and_DEF_UP_BUFF','Event_LootingChance_Add_1000'}}
 		}
 	
 	-- 기본 적용 버프

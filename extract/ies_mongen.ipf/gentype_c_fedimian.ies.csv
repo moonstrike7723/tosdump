@@ -59,5 +59,4 @@ ClassID,GenType,Lv,Range,GenRange,RespawnTime,MaxPop,Minimap,Hide,UseAIOufOfPC,A
 5216,5216,1,40,1,1,1,2,0,0,0,0,0,npc_fedimian_merchant_5,[테리아베리스의 수제자]{nl}나우요베스,,,,,,,FEDIMIAN_NAUJOVES,,,NO,YES,NO,Neutral,,,,
 5221,5221,1,40,-1,60000,1,2,0,0,0,0,0,Board3_Event,이벤트 게시판,,,,MON_DUMMY,,,EVENT_YOUR_MASTER_NPC,,,NO,YES,NO,Neutral,,,,
 5231,5231,1,40,1,1,1,2,0,0,1,0,0,npc_Ragana_shop,[마신의 유혹]{nl}마신 라가나의 환영,,,,,,SHOP_NPC_RAGANA_CITY_AI,SHOP_NPC_RAGANA_CITY_1,,,NO,YES,NO,Neutral,,,,
-5239,5239,1,40,1,1,1,2,0,0,0,0,0,Ev_Npc_barrack_snowman,[겨울축제] 야크맘보 눈사람,,,,,,EVENT_2012_YAK_EFFECT,EVENT_2012_YAK_NPC,,,NO,YES,NO,Neutral,,,,
 10001,50001,1,40,1,60000,1,2,0,0,0,0,0,Board3_Event,이벤트 알림판,,,,,,,STEAM_TREASURE_EVENT,,,NO,YES,NO,Neutral,,,,

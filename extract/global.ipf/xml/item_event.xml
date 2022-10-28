@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by IMC (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <idspace id="Item">
 	<Category Name="event">
 		<Category Name="Item">
@@ -82,6 +82,13 @@
 			<Class ClassID="10003282" ClassName="EVENT_2012_X_MAS_Box_1" CT_ExpireDateTime="2021-01-05 14:00"/>
 			<Class ClassID="10003283" ClassName="EVENT_2012_New_Year_Box_1" CT_ExpireDateTime="2021-01-05 14:00"/>
 			<Class ClassID="10003285" ClassName="Event_2012_MORU_BOX_1" CT_ExpireDateTime="2021-01-05 14:00"/>
+			<Class ClassID="10003318" ClassName="Event_New_Year_box_1_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
+			<Class ClassID="10003319" ClassName="Event_New_Year_box_2_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
+			<Class ClassID="10003320" ClassName="Event_New_Year_box_3_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
+			<Class ClassID="10003321" ClassName="Event_New_Year_box_4_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
+			<Class ClassID="10003322" ClassName="Event_New_Year_box_5_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
+			<Class ClassID="10003323" ClassName="Event_New_Year_box_6_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
+			<Class ClassID="10003324" ClassName="Event_New_Year_box_7_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
 		</Category>
 		<Category Name="Event_item_Upgrade">
 			<Class ClassID="10010001" ClassName="Extract_kit_Gold_Team_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
