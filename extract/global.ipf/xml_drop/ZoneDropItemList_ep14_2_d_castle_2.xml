@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <idspace id="ZoneDropItemList_ep14_2_d_castle_2">
-	<Class ClassID="1" Type="Item" GroupName="Item" ItemClassName="misc_reinforce_percentUp_480" DropGroup="None" BaseRatio="1000000" DropRatio="30000" ItemProperty="None"/>
-	<Class ClassID="2" Type="Item" GroupName="Item" ItemClassName="misc_Evolve_misc_480" DropGroup="None" BaseRatio="1000000" DropRatio="3" ItemProperty="None"/>
-	<Class ClassID="3" Type="Item" GroupName="Item" ItemClassName="piece_random_skill_gem_480" DropGroup="None" BaseRatio="1000000" DropRatio="5600" ItemProperty="None"/>	
-	<Class ClassID="5" Type="Item" GroupName="Item" ItemClassName="VakarineCertificateCoin_1000p" DropGroup="None" BaseRatio="1000000" DropRatio="32000" ItemProperty="None"/>
-	<Class ClassID="6" Type="Item" GroupName="Item" ItemClassName="VakarineCertificateCoin_10000p" DropGroup="None" BaseRatio="1000000" DropRatio="10400" ItemProperty="None"/>
-	<Class ClassID="7" Type="Item" GroupName="Item" ItemClassName="VakarineCertificateCoin_50000p" DropGroup="None" BaseRatio="1000000" DropRatio="1200" ItemProperty="None"/>
-	<Class ClassID="8" Type="Item" GroupName="Item" ItemClassName="piece_EP14_GoddessIcor_Weapon" DropGroup="None" BaseRatio="1000000" DropRatio="4800" ItemProperty="None"/>
-	<Class ClassID="9" Type="Item" GroupName="Item" ItemClassName="ticket_bountyhunt_klapeda_ep14_hard" DropGroup="None" BaseRatio="1000000" DropRatio="75" ItemProperty="None"/>
-	<Class ClassID="10" Type="Item" GroupName="Item" ItemClassName="ticket_bountyhunt_pedimian_ep14_hard" DropGroup="None" BaseRatio="1000000" DropRatio="75" ItemProperty="None"/>
-	<Class ClassID="11" Type="Item" GroupName="Item" ItemClassName="ticket_bountyhunt_orsha_ep14_hard" DropGroup="None" BaseRatio="1000000" DropRatio="75" ItemProperty="None"/>
-	<Class ClassID="12" Type="Money_Mid" GroupName="Money" ItemClassName="Moneybag1" DropGroup="None" BaseRatio="1000000" DropRatio="708000" ItemProperty="None" Money_Min="652" Money_Max="783" />
+	<Class ClassID="1" Zone="None" Type="Item" GroupName="Item" ItemClassName="misc_reinforce_percentUp_480" DropGroup="None" BaseRatio="1000000" DropRatio="30000" ItemProperty="None"/>
+	<Class ClassID="2" Zone="None" Type="Item" GroupName="Item" ItemClassName="misc_Evolve_misc_480" DropGroup="None" BaseRatio="1000000" DropRatio="3" ItemProperty="None"/>
+	<Class ClassID="3" Zone="None" Type="Item" GroupName="Item" ItemClassName="piece_random_skill_gem_480" DropGroup="None" BaseRatio="1000000" DropRatio="5600" ItemProperty="None"/>
+	<Class ClassID="5" Zone="None" Type="Item" GroupName="Item" ItemClassName="VakarineCertificateCoin_1000p" DropGroup="None" BaseRatio="1000000" DropRatio="32000" ItemProperty="None"/>
+	<Class ClassID="6" Zone="None" Type="Item" GroupName="Item" ItemClassName="VakarineCertificateCoin_10000p" DropGroup="None" BaseRatio="1000000" DropRatio="10400" ItemProperty="None"/>
+	<Class ClassID="7" Zone="None" Type="Item" GroupName="Item" ItemClassName="VakarineCertificateCoin_50000p" DropGroup="None" BaseRatio="1000000" DropRatio="1200" ItemProperty="None"/>
+	<Class ClassID="8" Zone="None" Type="Item" GroupName="Item" ItemClassName="piece_EP14_GoddessIcor_Weapon" DropGroup="None" BaseRatio="1000000" DropRatio="4800" ItemProperty="None"/>
+	<Class ClassID="9" Zone="None" Type="Item" GroupName="Item" ItemClassName="ticket_bountyhunt_klapeda_ep14_hard" DropGroup="None" BaseRatio="1000000" DropRatio="75" ItemProperty="None"/>
+	<Class ClassID="10" Zone="None" Type="Item" GroupName="Item" ItemClassName="ticket_bountyhunt_pedimian_ep14_hard" DropGroup="None" BaseRatio="1000000" DropRatio="75" ItemProperty="None"/>
+	<Class ClassID="11" Zone="None" Type="Item" GroupName="Item" ItemClassName="ticket_bountyhunt_orsha_ep14_hard" DropGroup="None" BaseRatio="1000000" DropRatio="75" ItemProperty="None"/>
+	<Class ClassID="12" Zone="None" Type="Money_Mid" GroupName="Money" ItemClassName="Moneybag1" DropGroup="None" BaseRatio="1000000" DropRatio="708000" ItemProperty="None" Money_Min="652" Money_Max="783"/>
 </idspace>
