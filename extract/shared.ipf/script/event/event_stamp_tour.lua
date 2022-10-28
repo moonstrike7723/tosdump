@@ -15,7 +15,7 @@ function EVENT_STAMP_IS_VALID_WEEK(week)
 end
 
 function EVENT_STAMP_IS_VALID_WEEK_SUMMER(week, time)
-	local startTime = imcTime.GetSysTime(2020,7,9,6)
+	local startTime = imcTime.GetSysTime(2020,8,4,0)
 	local week_startTime = imcTime.AddSec(startTime,(week-1)*7*24*60*60)
 
 	local currentDate = nil

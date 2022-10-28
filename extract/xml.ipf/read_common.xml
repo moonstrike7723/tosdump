@@ -267,7 +267,6 @@
 	<ReadXml Name="housing_featured_category"/>
 	<ReadXml Name="weekly_time_table"/>
 	<ReadXml Name="skill_multiplehit"/>
-	<ReadXml Name="goddess_roulette_contents"/>
 	<ReadXml Name="ancient_dungeon_reward"/>
 	<ReadXml Name="skill_ancient"/>
 	<ReadXml Name="event_coin"/>

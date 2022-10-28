@@ -6,12 +6,14 @@ function SCR_STEAM_TREASURE_EVENT_DIALOG(self,pc)
         RemoveBuff(pc, 'Event_Steam_Secret_Market')
     end
 
-	local select = ShowSelDlg(pc, 0, 'EV_DAILYBOX_SEL'
-	, ScpArgMsg("EVENT_2006_SUMMER_SEL_MSG1_GLOBAL")
-	, ScpArgMsg("Cancel"))
-	if select == 1 then
-		SCR_EVENT_2006_SUMMER_BOARD_DIALOG(self, pc)
-    end
+	local name = self.Name.."*@*"
+	ShowOkDlg(pc, name..ScpArgMsg('EventNotExist'), 1);
+	-- local select = ShowSelDlg(pc, 0, 'EV_DAILYBOX_SEL'
+	-- , ScpArgMsg("EVENT_2006_SUMMER_SEL_MSG1_GLOBAL")
+	-- , ScpArgMsg("Cancel"))
+	-- if select == 1 then
+	-- 	SCR_EVENT_2006_SUMMER_BOARD_DIALOG(self, pc)
+    -- end
 end
 
 function SCR_STEAM_2018_TREASURE_EVENT_DIALOG(self,pc) -- 국내 수확 이벤트 함수명 바꿔서 사용 --

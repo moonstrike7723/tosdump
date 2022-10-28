@@ -7,6 +7,7 @@ ClassID,ClassName,LoadingType,FileName,FAQ_Hide,Tooltip_Hide
 18,img18,LoadingFirst,46.jpg,NO,NO
 20,img20,LoadingFirst,48.jpg,NO,NO
 21,img21,LoadingFirst,Goddess's_Cube.jpg,NO,NO
+22,img22,LoadingFirst,47.jpg,NO,NO
 108,img108,LoadingCity,22.jpg,NO,NO
 109,img109,LoadingCity,23.jpg,NO,NO
 110,img110,LoadingCity,24.jpg,NO,NO
@@ -25,6 +26,7 @@ ClassID,ClassName,LoadingType,FileName,FAQ_Hide,Tooltip_Hide
 127,img127,LoadingCity,46.jpg,NO,NO
 129,img129,LoadingCity,48.jpg,NO,NO
 130,img130,LoadingCity,Goddess's_Cube.jpg,NO,NO
+131,img131,LoadingCity,47.jpg,NO,NO
 201,img201,LoadingDefault,1.jpg,YES,YES
 202,img202,LoadingDefault,2.jpg,YES,YES
 203,img203,LoadingDefault,3.jpg,YES,YES
@@ -54,3 +56,4 @@ ClassID,ClassName,LoadingType,FileName,FAQ_Hide,Tooltip_Hide
 238,img238,LoadingDefault,46.jpg,NO,NO
 240,img240,LoadingDefault,48.jpg,NO,NO
 241,img241,LoadingDefault,Goddess's_Cube.jpg,NO,NO
+242,img242,LoadingDefault,47.jpg,NO,NO

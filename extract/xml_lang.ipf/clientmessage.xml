@@ -741,6 +741,7 @@
 		<Class ClassID="4273" ClassName="GET_MISC_PVP_MINE2{count}" Data="+{count} 용병단 증표"/>
 		<Class ClassID="4274" ClassName="RESULT_MISC_PVP_MINE2" Data="용병단 증표 : {count1} -> {count2}"/>
 		<Class ClassID="4275" ClassName="ITEM_COUNT_SYS_MSG" Data="{#33FF33}[{itemName}]보유량: {count}{/}"/>
+		<Class ClassID="4276" ClassName="DeleteItem{ItemName}{count}" Data="[아이템 삭제] {ItemName} {count}개가 기간 만료로 삭제 됩니다."/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -1758,11 +1759,13 @@
 		<Class ClassID="21389" ClassName="TargetBuffButtonToolTipMin" Data="디버프 표시를 최소화 합니다."/>
 		<Class ClassID="21390" ClassName="TargetBuffButtonToolTipMax" Data="디버프 표시를 최대화 합니다."/>
 		<Class ClassID="21391" ClassName="EndEventMessage" Data="이벤트가 종료되었습니다."/>
-                <Class ClassID="21392" ClassName="ForeverBlockMessage" Data="{Reason} 사유로 인하여{nl}이용자님의 계정은 영구적으로{nl}서버 접속이 불가능하게 되었습니다.{nl}사유 및 기간에 대하여 문의가 있을 시에는{nl}공식홈페이지를 통하여 문의 부탁드립니다."/>
+        <Class ClassID="21392" ClassName="ForeverBlockMessage" Data="{Reason} 사유로 인하여{nl}이용자님의 계정은 영구적으로{nl}서버 접속이 불가능하게 되었습니다.{nl}사유 및 기간에 대하여 문의가 있을 시에는{nl}공식홈페이지를 통하여 문의 부탁드립니다."/>
 		<Class ClassID="21393" ClassName="PeriodBlockMessage" Data="{Reason} 사유로 인하여{nl}{StartTime}부터{nl}{EndTime}까지{nl}접속이 제한되었습니다.{nl}사유 및 기간에 대하여 문의가 있을 시에는{nl}공식홈페이지를 통하여 문의 부탁드립니다."/>
 		<Class ClassID="21394" ClassName="PossibleChangeName_2{Name}" Data="{@st66d_y}{s20}{Name}{/}{/}{nl}사용 가능한 이름입니다.{nl} "/>
 		<Class ClassID="21395" ClassName="ReallCreate?" Data="생성하시겠습니까?"/>
-			</Category>
+		<Class ClassID="21400" ClassName="MaterialOfBoostToken1" Data="[x4 경험의 서] 제작 재료입니다."/>
+		<Class ClassID="21401" ClassName="MaterialOfBoostToken2" Data="[x8 경험의 서] 제작 재료입니다."/>
+	</Category>
 	<Category Name="ChatText">
 		<Class ClassID="22001" ClassName="Guard" Data="방어"/>
 		<Class ClassID="22002" ClassName="FrontShot!" Data="전방 사격!"/>
@@ -9960,6 +9963,7 @@
 		<Class ClassID="109002" ClassName="Klapeda" Data="클라페다"/>
 		<Class ClassID="109003" ClassName="f_siauliai" Data="샤울레이"/>
 		<Class ClassID="109004" ClassName="c_orsha" Data="오르샤"/>
+		<Class ClassID="109005" ClassName="c_fedimian" Data="페디미안"/>
 	</Category>
 	<Category Name="ItemCraft">
 		<Class ClassID="110001" ClassName="list_rsc_arrow_01" Data="출혈 화살"/>
@@ -10585,8 +10589,9 @@
 		<Class ClassID="124057" ClassName="DoNotMarketTarde" Data="마켓 거래가 가능한 거래 등급이 아닙니다."/>
 		<Class ClassID="124058" ClassName="MaxSlotCountMsg" Data="슬롯이 가득 차, 더 이상 아이템과 실버를 획득하실 수 없습니다.{nl}본 메시지 출력 이후 획득하지 못한 아이템과 실버는 복구의 대상이 되지 않습니다."/>
 		<Class ClassID="124059" ClassName="MaxSlotCountMsgCompare" Data="아이템과 실버를 획득할 수 없습니다"/>
-	<Class ClassID="124060" ClassName="TeamDeleteWarning" Data="팀 삭제 시, 프리미엄 TP를 제외한 모든 캐릭터/캐릭터가 보유한 유,무료 아이템/게임 데이터/컴패니언이 삭제됩니다. 그래도 진행하시겠습니까?"/>
-		<Class ClassID="124061" ClassName="TeamDeleteWarningCompare" Data="프리미엄 TP를 제외한 모든 데이터 삭제"/>
+	<Class ClassID="124060" ClassName="TeamDeleteWarning" Data="{s20}팀 삭제 시 모든 캐릭터와 컴패니언, 유/무료 아이템,{nl}TP를 포함한 {#ffa200}모든 게임 데이터가 삭제{/}되며{nl}{#ffa200}복구가 불가능{/}합니다.(프리미엄 TP는 보존){nl} {nl}정말로 팀을 삭제하시려면, 아래 문구를 입력해 주세요.{nl}{/}"/>
+		<Class ClassID="124061" ClassName="TeamDeleteWarningCompare" Data="모든 데이터가 삭제되며 복구할 수 없음에 동의합니다"/>
+                <Class ClassID="124063" ClassName="TeamDeleteWarningTitle" Data="{S30}{#ffa200}게임 데이터 삭제 주의!!{/}{/}"/>
 		</Category>
 	<Category Name="Quest">
 		<Class ClassID="125001" ClassName="QuestAlignFilter_All" Data="모든 퀘스트"/>
@@ -13971,6 +13976,32 @@
 		<Class ClassID="302115" ClassName="EVENT_2006_SUMMER_CAT_MSG1" Data="교환 가능 개수 1~{MAX}"/>
 		<Class ClassID="302116" ClassName="EVENT_2006_SUMMER_CHECK_MESSAGE1{COIN}{TIME1}{TIME2}" Data="[Summer Festa] 특별한 얼음 획득 현황{nl}콘텐츠 이용 {#3366FF}({COIN}/400개){/}{nl}1시간 접속 시 음식 교환권 10개 지급 {#3366FF}({TIME1}/50개){/}{nl}1시간 접속 시 특별한 얼음 20개 획득 {#3366FF}({TIME2}/100개){/}{nl}{#FF0000}※일일 획득량은 매일 오전 6시 초기화 됩니다.{/}"/>
 		<Class ClassID="302117" ClassName="EVENT_2006_SUMMER_CHECK_MESSAGE2{BAIT}{TICKET}{TRADE}" Data="[Summer Festa] 수박 낚시!{nl}[이벤트] 문어발 미끼 일일 수령 횟수 {#3366FF}({BAIT}/1회){/}{nl}[Summer Festa] 음식 교환권 일일 획득 개수 {#3366FF}({TICKET}/10개){/}{nl}이벤트 기간 중 [이벤트] 시원한 수박 교환 횟수 {#3366FF}({TRADE}/150회){/}{nl}{#FF0000}※일일 수령 횟수는 매일 오전 6시 초기화 됩니다.{nl}※이벤트 기간 중 [이벤트] 시원한 수박의 최대 교환 교환 횟수는 150개 이며,{nl}이후 교환 시 버프만 획득 가능합니다.{/}"/>
+		<Class ClassID="302118" ClassName="EVENT_2007_TOS_VACANCE_SEL1" Data="트캉스 이벤트에 참가한다"/>
+		<Class ClassID="302119" ClassName="EventStampTourSummerLevel" Data="미션{Level}"/>
+		<Class ClassID="302120" ClassName="EVENT_2007_TOS_VACANCE_SEL2" Data="트캉스 이벤트 안내"/>
+		<Class ClassID="302121" ClassName="EVENT_2007_FLEX_BOX_SEL1" Data="[이벤트] FLEX 박스 개봉 하기"/>
+		<Class ClassID="302122" ClassName="EVENT_2007_FLEX_BOX_SEL2" Data="[이벤트] FLEX 박스 안내"/>
+		<Class ClassID="302123" ClassName="EVENT_2007_FLEX_BOX_TITLE" Data="FLEX BOX"/>
+		<Class ClassID="302124" ClassName="EVENT_2007_FLEX_BOX_DESC" Data="메데이나 FLEX BOX"/>
+		<Class ClassID="302125" ClassName="EVENT_2007_FLEX_BOX_CHECK_STATE_1" Data="[이벤트] FLEX 골드 주머니 누적 획득 량"/>
+		<Class ClassID="302126" ClassName="EVENT_2007_FLEX_BOX_CHECK_STATE_2" Data="1시간 접속 시 [이벤트] FLEX 골드 주머니 획득"/>
+		<Class ClassID="302127" ClassName="EVENT_2007_FLEX_BOX_CHECK_STATE_3" Data="트캉스 미션 클리어"/>
+		<Class ClassID="302128" ClassName="EVENT_2007_FLEX_BOX_CHECK_STATE_4" Data="일일 콘텐츠 목표 진행률"/>
+		<Class ClassID="302129" ClassName="EVENT_2007_FLEX_BOX_CHECK_STATE_5" Data="메데이나 FLEX 상자 누적 이용 횟수"/>
+		<Class ClassID="302130" ClassName="EVENT_2007_FLEX_BOX_CHECK_TIP_TEXT_1" Data="* 트캉스 미션 진행률은 해당 미션 보상을 받아야 적용됩니다."/>
+		<Class ClassID="302131" ClassName="EVENT_2007_FLEX_BOX_CHECK_TIP_TEXT_2" Data="NPC를 찾아가 이벤트에 참여하세요"/>
+		<Class ClassID="302132" ClassName="EVENT_2007_FLEX_BOX_CHECK_TOOLTIP_1" Data="트캉스, 누적 접속 시간, 일일 콘텐츠 목표 진행을 통해 {nl}[이벤트] FLEX 골드 주머니를 획득할 수 있습니다."/>
+		<Class ClassID="302133" ClassName="EVENT_2007_FLEX_BOX_CHECK_TOOLTIP_2" Data="1시간 누적 접속 시 마다 'FLEX 10만 골드 주머니'를 10개씩 3회 획득할 수 있으며, {nl}이후 3회동안 1시간에 2개씩 'FLEX 10만 골드 주머니'를 획득할 수 있습니다."/>
+		<Class ClassID="302134" ClassName="EVENT_2007_FLEX_BOX_CHECK_TOOLTIP_3" Data="트캉스 미션을 통해 [이벤트] FLEX 골드 주머니를 획득할 수 있습니다."/>
+		<Class ClassID="302135" ClassName="EVENT_2007_FLEX_BOX_CHECK_TOOLTIP_4" Data="콘텐츠 플레이를 통해 [이벤트] FLEX 골드 주머니를 획득할 수 있습니다."/>
+		<Class ClassID="302136" ClassName="EVENT_2007_FLEX_BOX_CHECK_TOOLTIP_5" Data="메데이나 FLEX BOX는 최대 200회 개봉할 수 있습니다."/>
+		<Class ClassID="302137" ClassName="EVENT_2007_FLEX_BOX_CHECK_TOOLTIP_6" Data="방문하지 않은 지역일 경우 NPC 아이콘이 표기되지 않을 수 있습니다."/>
+		<Class ClassID="302138" ClassName="event_flex_box_open_btn_tip_text{ITEM}{COUNT}" Data="{ITEM}을(를) {COUNT}개 소모합니다"/>
+		<Class ClassID="302139" ClassName="SSSGradeItemGetMessage{EVENT}{TEAMNAME}{ITEM}{COUNT}" Data="{TEAMNAME}님이 {EVENT}에서 {ITEM}을/를 {COUNT}개 획득하였습니다."/>
+		<Class ClassID="302140" ClassName="EVENT_FLEX_BOX_LIMIT_BY_CONTENTS{ITEM}" Data="오늘 콘텐츠 플레이로 획득 가능한 {ITEM}을(를) 전부 획득하셨습니다."/>
+		<Class ClassID="302141" ClassName="Event_Flex_box_Open_Max_Count" Data="개봉 가능 횟 수를 모두 이용하셨습니다."/>
+		<Class ClassID="302142" ClassName="EVENT_FLEX_BOX_StackOverItemExist" Data="인벤토리에 메데이나 FLEX BOX의 상품 중 최대 수량을 가진 아이템이 존재합니다."/>
+		<Class ClassID="302163" ClassName="STAMP_TOUR_WEEK_HIDDEN_MSG" Data="{week}주차 미션 클리어 후 공개됩니다."/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -14112,6 +14143,7 @@
 		<Class ClassID="501268" ClassName="NotInGuildMission" Data="길드 퀘스트에 입장하지 않은 상태에서는 사용하실 수 없습니다."/>
 		<Class ClassID="501269" ClassName="NewWorldCheckScrollMsg{COUNT}" Data="현재 {COUNT}명의 신규 월드 출신 유저가 입장했습니다."/>
 		<Class ClassID="501278" ClassName="NotRewardTarget" Data="보상 지급 대상이 아닙니다."/>
+		<Class ClassID="501279" ClassName="EventNotExist" Data="현재 진행 중인 이벤트가 없습니다."/>
 	</Category>
 	<Category Name="GEM_GACHA">
 		<Class ClassID="510001" ClassName="GEM_GACHA_SEL1" Data="젬 1회 뽑기"/>
@@ -15132,6 +15164,9 @@
 		<Class ClassID="560024" ClassName="motion_bakarine_emotion55" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560025" ClassName="motion_bakarine_emotion58" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560026" ClassName="motion_bakarine_emotion56" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560027" ClassName="medeina_emotion04" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560028" ClassName="medeina_emotion05" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560029" ClassName="medeina_emotion06" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 	</Category>
 	<Category Name="Gesture">
 		<Class ClassID="570000" ClassName="Already_Gesture" Data="이미 보유한 제스처입니다."/>
@@ -15200,5 +15235,17 @@
 	</Category>
 	<Category Name="GlobalEventDialog">
 		<Class ClassID="597000" ClassName="EVENT_2004_NEWUSER_SEL_MSG1_GLOBAL" Data="{#003399}[트린이날]{/} 이벤트"/>
+	</Category>
+	<Category Name="NPCName">
+		<Class ClassID="595000" ClassName="EVENT_FLEX_BOX_NPC_NAME" Data="[이벤트] 큐폴"/>
+	</Category>
+	<Category Name="EventProgressCheck">
+		<Class ClassID="596000" ClassName="FLEX!" Data="FLEX!"/>
+		<Class ClassID="596001" ClassName="GODDESS_ROULETTE" Data="여신의 룰렛"/>
+		<Class ClassID="596002" ClassName="TOS_VACANCE_EVNET" Data="트캉스 이벤트"/>
+		<Class ClassID="596003" ClassName="TOS_VACANCE" Data="트캉스"/>
+		<Class ClassID="596004" ClassName="Note" Data="수첩"/>
+		<Class ClassID="596005" ClassName="Acquire_State" Data="획득 현황"/>
+		<Class ClassID="596006" ClassName="STAMP_TOUR" Data="스탬프 투어"/>
 	</Category>
 </idspace>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <skinset name="Base">
 	<skinlist category="frames">
@@ -7009,6 +7009,7 @@
 		<image name="Collar_PoPo_Vacation" file="\skin\Collar_skin.tga" imgrect="62 31 30 30" CMM_Caption="스팀 2019여름 팬아트 "/>
 		<image name="Collar_One_of_A_Kind" file="\skin\Collar_skin.tga" imgrect="93 31 30 30" CMM_Caption="2019 스팀 겨울 팬아트"/>
 		<image name="Collar_Event_Stamp_skin" file="\skin\Collar_skin.tga" imgrect="124 31 30 30" CMM_Caption="2020 달려라 스탬프 투어 칭호"/>
+		<image name="Collar_Event_Tecance" file="\skin\Collar_skin.tga" imgrect="155 31 30 30" CMM_Caption="2020 트캉스 수박물고기 칭호"/>
 	</imagelist>
 	<imagelist category="testse_image">
 		<image name="indun_soulcrystal_bg" file="\skin\indun_skin.tga" imgrect="614 552 84 86" CMM_Caption="소울크리스탈 횟수제한 UI"/>
@@ -7631,6 +7632,11 @@
 		<image name="cherry_icecream_balloon_deco2" file="\skin\say_balloon.tga" imgrect="316 650 39 34"/>
 		<image name="blueberry_icecream_balloon_deco1" file="\skin\say_balloon.tga" imgrect="263 694 52 44" CMM_Caption="블루베리아이스크림_데코"/>
 		<image name="blueberry_icecream_balloon_deco2" file="\skin\say_balloon.tga" imgrect="316 685 35 32"/>
+		<image name="vacation_note_bg" file="\skin\summer_stamp_tour.tga" imgrect="0 0 648 896" CMM_Caption="트캉스_bg"/>
+		<image name="vacation_note_memo" file="\skin\summer_stamp_tour.tga" imgrect="649 0 541 250" CMM_Caption="트캉스_미션내용bg"/>
+		<image name="vacation_note_memo_shadow" file="\skin\summer_stamp_tour.tga" imgrect="649 251 541 250" CMM_Caption="트캉스_미션달성"/>
+		<image name="vacation_note_memo_select" file="\skin\summer_stamp_tour.tga" imgrect="649 502 531 239" CMM_Caption="트캉스_미션활성화"/>
+		<image name="vacation_watermelon_stamp" file="\skin\summer_stamp_tour.tga" imgrect="1191 0 161 161" CMM_Caption="트캉스_수박도장"/>
 	</imagelist>
 	<imagelist category="yiseul_image">
 		<image name="AbillityReset_skin" file="\skin\paid_skin_title.tga" imgrect="0 330 316 165" CMM_Caption="특성 초기화"/>
@@ -7644,6 +7650,9 @@
 		<image name="guildmark_slot_enemy" file="\skin\PVP_skin.tga" imgrect="1829 274 39 39" CMM_Caption="적대 길드 엠블럼"/>
 		<image name="gauge_Glacier_fascination_T" file="\skin\indun_skin.tga" imgrect="895 667 55 10" CMM_Caption="글레이시어게이지_위"/>
 		<image name="gauge_Glacier_fascination_B" file="\skin\indun_skin.tga" imgrect="895 712 55 10" CMM_Caption="글레이시어게이지_아래"/>
+		<image name="stamp_flex_box_mark" file="\skin\flex_box.tga" imgrect="446 0 97 74" CMM_Caption="FLEX BOX 스탬프"/>
+		<image name="flex_box_bg" file="\skin\flex_box.tga" imgrect="0 0 445 704" CMM_Caption="FLEX BOX 스킨 bg"/>
+		<image name="range_item_rank" file="\skin\flex_box.tga" imgrect="446 294 47 18" CMM_Caption="랭크 ~ 표시"/>
 	</imagelist>
 	<imagelist category="je_button">
 		<image name="menu_guild_info" file="\skin\guild_skin.tga" imgrect="165 298 45 45" CMM_Caption="길드 정보"/>
@@ -8110,6 +8119,30 @@
 		<image name="targetbuff_mimimize" file="\skin\chat_skin.tga" imgrect="252 81 26 26" CMM_Caption="타겟버프표시_최대화"/>
 		<image name="targetbuff_mimimize_cursoron" file="\skin\chat_skin.tga" imgrect="279 81 26 26"/>
 		<image name="targetbuff_mimimize_clicked" file="\skin\chat_skin.tga" imgrect="306 81 26 26"/>
+		<image name="vacation_01week" file="\skin\summer_stamp_tour.tga" imgrect="0 897 147 62" CMM_Caption="트캉스_탭_일반_01부터04"/>
+		<image name="vacation_01week_cursoron" file="\skin\summer_stamp_tour.tga" imgrect="148 897 147 62"/>
+		<image name="vacation_01week_clicked" file="\skin\summer_stamp_tour.tga" imgrect="296 897 147 62"/>
+		<image name="vacation_02week" file="\skin\summer_stamp_tour.tga" imgrect="0 960 147 62"/>
+		<image name="vacation_02week_cursoron" file="\skin\summer_stamp_tour.tga" imgrect="148 960 147 62"/>
+		<image name="vacation_02week_clicked" file="\skin\summer_stamp_tour.tga" imgrect="296 960 147 62"/>
+		<image name="vacation_03week" file="\skin\summer_stamp_tour.tga" imgrect="0 1023 147 62"/>
+		<image name="vacation_03week_cursoron" file="\skin\summer_stamp_tour.tga" imgrect="148 1023 147 62"/>
+		<image name="vacation_03week_clicked" file="\skin\summer_stamp_tour.tga" imgrect="296 1023 147 62"/>
+		<image name="vacation_04week" file="\skin\summer_stamp_tour.tga" imgrect="0 1086 147 62"/>
+		<image name="vacation_04week_cursoron" file="\skin\summer_stamp_tour.tga" imgrect="148 1086 147 62"/>
+		<image name="vacation_04week_clicked" file="\skin\summer_stamp_tour.tga" imgrect="296 1086 147 62"/>
+		<image name="vacation_01week_hidden" file="\skin\summer_stamp_tour.tga" imgrect="444 897 147 62" CMM_Caption="트캉스_히든탭_01부터04"/>
+		<image name="vacation_01week_hidden_cursoron" file="\skin\summer_stamp_tour.tga" imgrect="592 897 147 62"/>
+		<image name="vacation_01week_hidden_clicked" file="\skin\summer_stamp_tour.tga" imgrect="740 897 147 62"/>
+		<image name="vacation_02week_hidden" file="\skin\summer_stamp_tour.tga" imgrect="444 960 147 62"/>
+		<image name="vacation_02week_hidden_cursoron" file="\skin\summer_stamp_tour.tga" imgrect="592 960 147 62"/>
+		<image name="vacation_02week_hidden_clicked" file="\skin\summer_stamp_tour.tga" imgrect="740 960 147 62"/>
+		<image name="vacation_03week_hidden" file="\skin\summer_stamp_tour.tga" imgrect="444 1023 147 62"/>
+		<image name="vacation_03week_hidden_cursoron" file="\skin\summer_stamp_tour.tga" imgrect="592 1023 147 62"/>
+		<image name="vacation_03week_hidden_clicked" file="\skin\summer_stamp_tour.tga" imgrect="740 1023 147 62"/>
+		<image name="vacation_04week_hidden" file="\skin\summer_stamp_tour.tga" imgrect="444 1086 147 62"/>
+		<image name="vacation_04week_hidden_cursoron" file="\skin\summer_stamp_tour.tga" imgrect="592 1086 147 62"/>
+		<image name="vacation_04week_hidden_clicked" file="\skin\summer_stamp_tour.tga" imgrect="740 1086 147 62"/>
 	</imagelist>
 	<imagelist category="yiseul_button">
 		<image name="pvpmine_shop_btn" file="\skin\pip_test.tga" imgrect="2049 61 66 59" CMM_Caption="용병단 증표 ui 버튼"/>
@@ -8118,6 +8151,9 @@
 		<image name="stamp_weekmission" file="\skin\stamp_tour.tga" imgrect="727 837 102 52" CMM_Caption="스탬프 투어_주간미션"/>
 		<image name="stamp_weekmission_cursoron" file="\skin\stamp_tour.tga" imgrect="830 837 102 52"/>
 		<image name="stamp_weekmission_clicked" file="\skin\stamp_tour.tga" imgrect="933 837 102 52"/>
+		<image name="flex_box_btn" file="\skin\flex_box.tga" imgrect="446 75 75 72" CMM_Caption="FLEX BOX ui 버튼"/>
+		<image name="flex_box_btn_cursoron" file="\skin\flex_box.tga" imgrect="446 148 75 72"/>
+		<image name="flex_box_btn_clicked" file="\skin\flex_box.tga" imgrect="446 221 75 72"/>
 	</imagelist>
 	<imagelist category="testmin_image">
 		<image name="clock_inven" file="\skin\pip_test.tga" imgrect="403 698 50 50" CMM_Caption="기간제 시계 아이콘 및 날짜 뒷배경"/>
@@ -8983,6 +9019,9 @@
 		<image name="malsuns_emotion100" file="\icon\emoticon\malsuns_emotion24.png" imgrect="0 0 128 128"/>
 		<image name="Rozaliia_emotion01" file="\icon\emoticon\Rozaliia_emotion01.png" imgrect="0 0 128 128"/>
 		<image name="Boruble_emotion01" file="\icon\emoticon\Boruble_emotion01.png" imgrect="0 0 128 128"/>
+		<image name="medeina_emotion04" file="\icon\emoticon\medeina_emotion04.png" imgrect="0 0 128 128"/>
+		<image name="medeina_emotion05" file="\icon\emoticon\medeina_emotion05.png" imgrect="0 0 128 128"/>
+		<image name="medeina_emotion06" file="\icon\emoticon\medeina_emotion06.png" imgrect="0 0 128 128"/>
 	</imagelist>
 	<imagelist category="itemtooltip_image">
 		<image name="circle_gem" file="\skin\tooltip_skin_3.tga" imgrect="805 228 30 30"/>
