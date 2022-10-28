@@ -1,8 +1,8 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3
-999901,202001,210000,202001,260000,202002,40000,202001,300000,0,0,inGame_E1,2020 New Year Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1893,,,
-999902,202001,140000,202001,190000,202001,280000,202001,230000,0,0,inGame_E2,Leticia Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1888,,,
-999903,202001,140000,202001,190000,202001,280000,202001,230000,0,0,inGame_E3,Road To Spring Event,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1890,,,
-999904,201912,310000,202001,50000,202001,280000,202001,230000,0,0,inGame_E4,New Year Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=1877,,,
+999901,202001,280000,202002,20000,202002,110000,202002,60000,0,0,inGame_E1,HairAcc Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1901,,,
+999902,202001,280000,202002,20000,202002,110000,202002,60000,0,0,inGame_E2,Sweet Potato Event,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1899,,,
+999903,202001,280000,202002,20000,202002,110000,202002,60000,0,0,inGame_E3,Winter Fishing Event,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1898,,,
+999904,202001,210000,202001,260000,202002,40000,202001,300000,0,0,inGame_E4,2020 New Year Package,inGame_E4,https://treeofsavior.com/page/news/view.php?n=1893,,,
 999905,201912,30000,201912,80000,201912,310000,201912,260000,0,0,inGame_E5,Christmas Event,inGame_E5,https://treeofsavior.com/page/news/view.php?n=1858,,,
 999906,201912,30000,201912,80000,201912,310000,201912,260000,0,0,inGame_E6,Fortune Cookie,inGame_E6,https://treeofsavior.com/page/news/view.php?n=1860,,,
 999907,201910,290000,201911,30000,201911,120000,201911,70000,0,0,inGame_E7,Goddess' Grace Event,inGame_E7,https://treeofsavior.com/page/news/view.php?n=1841,,,
