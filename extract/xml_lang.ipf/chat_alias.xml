@@ -69,7 +69,7 @@
 		<Class ClassID="75" ClassName="/YAK" Alias="/야크맘보" ConvertWhenSend="1"/>
 		<!-- <Class ClassID="77" ClassName="/newyear" Alias="/신년" ConvertWhenSend="1"/> -->
 		<Class ClassID="78" ClassName="/supply" Alias="/보급" ConvertWhenSend="1"/>
-		<Class ClassID="79" ClassName="/seollal" Alias="/설날" ConvertWhenSend="1"/>
+		<Class ClassID="79" ClassName="/berk" Alias="/설날" ConvertWhenSend="1"/>
 		<Class ClassID="80" ClassName="/choco" Alias="/발렌타인" ConvertWhenSend="1"/>
 		<Class ClassID="83" ClassName="/lucky" Alias="/럭키" ConvertWhenSend="1"/>
 		<Class ClassID="82" ClassName="/gift" Alias="/선물" ConvertWhenSend="1"/>

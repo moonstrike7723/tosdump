@@ -15936,7 +15936,7 @@
 		<Class ClassID="302735" ClassName="EVENT_2201_SEOLLAL_NPC_CHAT1" Data="설날 버프가 적용됐어!"/>
 		<Class ClassID="302736" ClassName="EVENT_2201_SEOLLAL_NPC_CHAT2" Data="안녕! 버프를 받으러왔어?"/>
 		<Class ClassID="302737" ClassName="EVENT_2201_SEOLLAL_CHECK_MSG" Data="{#0066FF}[설날]{/} 이벤트 현황{nl}접속 시간({#0066FF}{TIME}{/}분){nl}일일 [이벤트] 2022 주화 현황 ({#0066FF}{COIN}{/}/{MAX}){nl}일일 22년 설날 버프 받기({#0066FF}{BUFF}{/}/3){nl}{#FF3333}※일일 제한은 매일 오전 06시 초기화 됩니다.{/}"/>
-		<Class ClassID="302738" ClassName="EVENT_2201_SEOLLAL_DAY_CHECK_MSG" Data="{#0066FF}[설날]{/} 출석체크 이벤트 현황{nl}2시간 접속 시 보상 획득 ({#0066FF}{TIME}{/}분){nl}{#FF3333}※보상 획득 기간{nl}1월 29일 오전 06시 ~ 2월 3일 오전 06시 까지 총 5회{/}"/>
+		<Class ClassID="302738" ClassName="EVENT_2201_SEOLLAL_DAY_CHECK_MSG" Data="{#0066FF}[설날]{/} 출석체크 이벤트 현황{nl}2시간 접속 시 보상 획득 ({#0066FF}{TIME}{/}분){nl}{#FF3333}※보상 획득 기간{nl}4월 20일 오전 06시 ~ 4월 24일 23시 59분까지 총 5회{/}"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
