@@ -32,9 +32,13 @@ function SOCKET_TICKET_OPEN(frame, targetItem)
         return;
     end
     
-    local nextSlotIdx = GET_NEXT_SOCKET_SLOT_INDEX(targetItemObj);
+    local socketCnt = GET_SOCKET_CNT(targetItemObj);
+    if socketCnt == nil then
+        return;
+    end
+
     local hitCountDesc = GET_CHILD_RECURSIVELY(frame, 'hitCountDesc');
-    hitCountDesc:SetTextByKey('cur', nextSlotIdx);
+    hitCountDesc:SetTextByKey('cur', socketCnt);
     hitCountDesc:SetTextByKey('max', maxSocket);
 
     local hitPriceDesc = GET_CHILD_RECURSIVELY(frame, 'hitPriceDesc');
@@ -104,7 +108,7 @@ function _CHECK_SOCKET_TICKET_TARGET_ITEM(slot)
         return;
     end
 
-    if SCR_CHECK_ADD_SOCKET(obj, item) == true then
+    if SCR_CHECK_ADD_SOCKET(obj) == true then
         slot:GetIcon():SetGrayStyle(0);
         slot:SetBlink(60000, 2.0, "FFFFFF00", 1);
     else
@@ -124,7 +128,7 @@ function SOCKET_TICKET_EXECUTE(frame, invItem)
         return;
     end
 
-    if SCR_CHECK_ADD_SOCKET(obj, invItem) == false then
+    if SCR_CHECK_ADD_SOCKET(obj) == false then
         ui.SysMsg(ClMsg("ThisItemCannotPlusSocket"));
         return;
     end
@@ -147,7 +151,7 @@ function CURSOR_CHECK_SOCKET_PLUS(slot)
         return 0;
     end
 
-    if SCR_CHECK_ADD_SOCKET(obj, item) == false then
+    if SCR_CHECK_ADD_SOCKET(obj) == false then
         return 0;
     end
 
@@ -183,7 +187,7 @@ function SOCKET_TICKET_CLICK_EXEC_BTN(parent, ctrl)
     -- check price
     local hitPriceDesc = GET_CHILD_RECURSIVELY(frame, 'hitPriceDesc');
     local price = GET_NOT_COMMAED_NUMBER(hitPriceDesc:GetTextByKey('price'));
-    if IsGreaterThanForBigNumber(price, GET_TOTAL_MONEY_STR()) == 1 then
+    if price > GET_TOTAL_MONEY() then
         ui.SysMsg(ClMsg('Auto_SilBeoKa_BuJogHapNiDa.'));
         return;
     end
@@ -192,19 +196,7 @@ function SOCKET_TICKET_CLICK_EXEC_BTN(parent, ctrl)
     ui.MsgBox(ScpArgMsg('AddSocketByTicketInfoMsg{ITEM_NAME}', 'ITEM_NAME', targetItem.Name), yesScp, 'None');
 end
 
-function REQUEST_ADD_SOCKET_BY_TICKET(targetItemID, ticketItemID, checkRebuildFlag)
-    local targetItem = GET_PC_ITEM_BY_GUID(targetItemID);
-    if targetItem == nil or targetItem:GetObject() == nil then
-        return;
-    end
-
-    if checkRebuildFlag ~= false then
-        if TryGetProp(GetIES(targetItem:GetObject()), 'Rebuildchangeitem', 0) > 0 then            
-            local yesScp = string.format('REQUEST_ADD_SOCKET_BY_TICKET("%s", "%s", false)', targetItemID, ticketItemID);
-            ui.MsgBox(ScpArgMsg('IfUDoCannotExchangeWeaponType'), yesScp, 'None');
-        end
-    end
-
+function REQUEST_ADD_SOCKET_BY_TICKET(targetItemID, ticketItemID)
     local resultlist = session.GetItemIDList();
     session.ResetItemList();
 	if nil~= targetItemID then
