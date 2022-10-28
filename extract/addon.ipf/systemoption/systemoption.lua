@@ -43,17 +43,7 @@ function INIT_LANGUAGE_CONFIG(frame)
 	for i = 0 , cnt - 1 do
 
 		local lanUIString = option.GetPossibleCountryUIName(i);
-		local NationGroup = GetServerNation();
-		
-		if (lanUIString ~= "kr") then 
-			if NationGroup == "GLOBAL" then
-				if (lanUIString ~= "Japanese")then
-					catelist:AddItem(i, lanUIString);
-				end
-			else
-				catelist:AddItem(i, lanUIString);
-			end
-		end
+		catelist:AddItem(i, lanUIString);
 
 		local lanString = option.GetPossibleCountry(i);
 
