@@ -388,6 +388,15 @@ date_time.is_later_than = function(a_str, b_str)
     end
 end
 
+-- 문자열로 남은 시간을 계산한다
+date_time.get_diff_sec = function(str_end, str_start)
+    local end_time = date_time.get_lua_datetime_from_str(str_end)
+    local start_time = date_time.get_lua_datetime_from_str(str_start)
+
+    return end_time - start_time
+end
+
+
 -- 추가 팀창고 개수
 account_warehouse.get_max_tab = function()
     return 4

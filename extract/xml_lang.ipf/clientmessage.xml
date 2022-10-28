@@ -1684,6 +1684,7 @@
 		<Class ClassID="10581" ClassName="InventoryIsFull_quest_complete_fail_1" Data="인벤토리에 빈자리가 없습니다.{nl}퀘스트 완료를 위해 인벤토리 공간을 확보해주세요."/>
 		<Class ClassID="10582" ClassName="LuciferiTypeExchange_Help" Data="장신구 계열 변경을 통해 보유 중인 장신구를 같은 레벨 같은 등급 장신구로 변경할 수 있습니다.{nl}포텐셜이 0 인 장신구만 가능하며, 변경 가능한 그룹 내에 속한 장신구끼리만 변경할 수 있습니다.{nl} {nl}변경 가능한 장비 종류{nl} - 루시페리 {nl} {nl}장신구 계열 변경에는 각 레벨에 맞는 '장신구 계열 변경의 서' 아이템이 필요합니다.{nl}변경하는 장신구 부위에 따라 '장신구 계열 변경의 서' 아이템의 필요 수량이 상이합니다.{nl} - 목걸이 : 2개{nl} - 팔찌 : 1개{nl} {nl}레벨 별로 변경 가능한 장신구 그룹은 '장신구 계열 변경의 서' 아이템 툴팁을 참고해 주세요."/>
 		<Class ClassID="10585" ClassName="CannotUseCostumeEvent" Data="해당 연출 중에는 사용할 수 없습니다."/>
+		<Class ClassID="10587" ClassName="CanNotUseItemLv" Data="장비의 레벨이 알맞지 않습니다."/>
 	</Category>
 	<Category Name="FoodTable">
 		<Class ClassID="20001" ClassName="IncreaseHP{Value}For{Time}Minute" Data="{Time}분 동안 HP가 {Value}% 증가합니다."/>
@@ -15069,6 +15070,28 @@
 		<Class ClassID="302486" ClassName="2105_CAMPING_CAMPFIRE_MSG5" Data="모든 참여자가 보상을 획득하여 캠프파이어가 종료됩니다."/>
 		<Class ClassID="302487" ClassName="EVENT_2105_CAMPING_CHECK_MESSAGE{COIN1}{COIN2}{COIN3}{FIRE}{BAG}{AXQ}{AXG}" Data="{#0066FF}[TOS 봄 캠핑 이벤트 현황]{/}{nl}[이벤트] 잔가지 일일 획득 {#0066FF}({COIN1}/100){/}{nl}[이벤트] 모닥불 일일 획득 {#0066FF}({COIN2}/3){/}{nl}캠프파이어 일일 참여 {#0066FF}({FIRE}/5){/}{nl}[이벤트] 여행자의 수첩(3일) 일일 획득 {#0066FF}({COIN3}/1){/}{nl}[이벤트] 여행자의 짐꾸러미 일일 개봉 횟수 {#0066FF}({BAG}/4){/}{nl}나무꾼의 부탁 일일 참여 {#0066FF}({AXQ}/1){/}{nl}나무꾼의 내기 제안 {#0066FF}({AXG}/5){/}{nl}{#FF3333}※ 일일 획득량 및 참여 제한은 매일 오전 06시 초기화 됩니다.{/}{nl}'[이벤트] 모닥불'은 60분 접속 시 마다 1개 획득 가능합니다."/>
 		<Class ClassID="302488" ClassName="2105_CAMPING_AX_MSG_3" Data="'나무꾼의 부탁'을 완료 후 진행할 수 있습니다."/>
+		<Class ClassID="302507" ClassName="2106_SUMMER_FESTA_SEL1" Data="{#003399}[21Summer]{/} 이벤트 안내"/>
+		<Class ClassID="302508" ClassName="EVENT_2106_SUMMER_FESTA_SHOP" Data="{#003399}[21Summer]{/} 이벤트 상점"/>
+		<Class ClassID="302509" ClassName="2106_SUMMER_FESTA_SEL3" Data="{#003399}[21Summer]{/} 수박깨기"/>
+		<Class ClassID="302510" ClassName="2106_SUMMER_FESTA_SEL4" Data="{#003399}[21Summer]{/} 누적 보상 받기"/>
+		<Class ClassID="302511" ClassName="EVENT_2106_SUMMER_FESTA_POINT_CHECK_MSG1" Data="10분마다 확인가능합니다.{nl}다음 확인까지 {TIME} 분 남았습니다."/>
+		<Class ClassID="302512" ClassName="EVENT_2106_SUMMER_FESTA_EP12_SHOP" Data="{#003399}[EP12-1]{/} 스크롤 상점"/>
+		<Class ClassID="302513" ClassName="EVENT_2106_SUMMER_FESTA_POINT_CHECK_MSG2" Data="현재 월드 누적 참여율은 {#0066FF}{POINT} %{/} 입니다.{nl}다시 확인하기 위해서는 10분의 대기시간이 있습니다."/>
+		<Class ClassID="302514" ClassName="2106_SUMMER_FESTA_WORLD_SEL1" Data="{#003399}[21Summer]{/} 월드 누적 참여율 2.5% 보상 받기"/>
+		<Class ClassID="302515" ClassName="2106_SUMMER_FESTA_WORLD_SEL2" Data="{#003399}[21Summer]{/} 월드 누적 참여율 12% 보상 받기"/>
+		<Class ClassID="302516" ClassName="2106_SUMMER_FESTA_WORLD_SEL3" Data="{#003399}[21Summer]{/} 월드 누적 참여율 25% 보상 받기"/>
+		<Class ClassID="302517" ClassName="2106_SUMMER_FESTA_WORLD_SEL4" Data="{#003399}[21Summer]{/} 월드 누적 참여율 50% 보상 받기"/>
+		<Class ClassID="302518" ClassName="2106_SUMMER_FESTA_WORLD_SEL5" Data="{#003399}[21Summer]{/} 월드 누적 참여율 70% 보상 받기"/>
+		<Class ClassID="302519" ClassName="2106_SUMMER_FESTA_WORLD_SEL6" Data="{#003399}[21Summer]{/} 월드 누적 참여율 100% 보상 받기"/>
+		<Class ClassID="302520" ClassName="2106_SUMMER_FESTA_WORLD_SEL7" Data="수령 가능한 아이템이 없습니다."/>
+		<Class ClassID="302521" ClassName="2106_SUMMER_FESTA_WORLD_SEL8" Data="{#003399}[21Summer]{/} 월드 누적 참여율 확인하기"/>
+		<Class ClassID="302522" ClassName="2106_SUMMER_FESTA_WORLD_SEL9" Data="{#003399}[21Summer]{/} 월드 누적 참여 보상 받기"/>
+		<Class ClassID="302523" ClassName="EVENT_2106_SUMMER_FESTA_CHECK_MESSAGE{COIN}{DAY}{TOTAL}" Data="{#0066FF}여름 수박깨기 이벤트 현황{/}{nl}일일 [이벤트] 수박 코인 획득량 {#0066FF}({COIN}/500){/}{nl}일일 수박깨기 참여 횟수 {#0066FF}({DAY}/5){/}{nl}누적 수박깨기 참여 횟수 {#0066FF}({TOTAL}회){/}{nl}{#FF3333}※일일 제한은 매일 오전 06시 초기화 됩니다.{/}"/>
+		<Class ClassID="302524" ClassName="EVENT_2106_SUMMER_FESTA_CHECK_MESSAGE{TIME}" Data="{#0066FF}[주말 출석 버닝 이벤트 현황]{/}{nl}2시간 접속 시 보상 획득 {#0066FF}({TIME}/120분){/}{nl}{#FF3333}※일일 출석 기준 시간은 오전 06시 00분 ~ 익일 오전 05시 59분 까지 입니다.{nl}※이벤트 기간 6월 12일 ~ 7월 4일 중 토요일, 일요일{/}"/>
+		<Class ClassID="302525" ClassName="EVENT_2106_SUMMER_FESTA_POINT_CHECK_MSG3" Data="{#FF3333}※일일 참여 횟수를 초과하였습니다.{nl}매일 오전 06시 초기화 됩니다.{/}"/>
+		<Class ClassID="302526" ClassName="EVENT_2106_SUMMER_FESTA_DOUBLE_MSG" Data="{#FF3333}※수박 깨기에 성공하여 보상 아이템 수량이 2배로 지급되었습니다!{/}"/>
+		<Class ClassID="302527" ClassName="EVENT_2106_SUMMER_FESTA_WORLD_REWARD_MSG" Data="{#FF3333}※수박깨기를 50회 이상 참여하여야 수령하실 수 있습니다.{/}"/>
+		<Class ClassID="302534" ClassName="EVENT_2106_SUMMER_FESTA_MSG1" Data="{#003399}주말 출석 보상이 지급되었습니다!{/}"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>

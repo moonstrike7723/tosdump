@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 http://www.altova.com by MintPC Mi -->
 <skinset name="Base">
 	<imagelist category="item_tooltip_icon">
@@ -6422,6 +6422,9 @@
 		<image name="icon_item_Event_scissors" file="\icon\item\icon_item_Event_scissors.png" imgrect="0 0 80 80" CMM_Caption="[이벤트] 가위"/>
 		<image name="icon_item_Event_rock" file="\icon\item\icon_item_Event_rock.png" imgrect="0 0 80 80" CMM_Caption="[이벤트] 바위"/>
 		<image name="icon_item_Event_paper" file="\icon\item\icon_item_Event_paper.png" imgrect="0 0 80 80" CMM_Caption="[이벤트] 보자기"/>
+		<image name="icon_item_ruby_moru_440" file="\icon\item\icon_item_ruby_moru_440.png" imgrect="0 0 256 256" CMM_Caption="440 루비 모루"/>
+		<image name="icon_item_anvil_gold_440" file="\icon\item\icon_item_anvil_gold_440.png" imgrect="0 0 256 256" CMM_Caption="440 황금 모루"/>
+		<image name="icon_item_Event_2106_coin" file="\icon\item\icon_item_Event_2106_coin.png" imgrect="0 0 128 128" CMM_Caption="수박주화"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_h_bigplant_set_01_green" file="\icon\housing\icon_item_h_bigplant_set_01_green.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 화단_01(초록색)"/>
@@ -8287,6 +8290,7 @@
 		<image name="icon_item_selectbox_ep13toswinter02_1" file="\icon\payment\icon_item_selectbox_ep13toswinter02_1.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_selectbox_ep13toswinter03_1" file="\icon\payment\icon_item_selectbox_ep13toswinter03_1.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_MultipleToken_Mythic" file="\icon\payment\icon_item_MultipleToken_Mythic.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_MultipleToken_Mythic_Hard" file="\icon\payment\icon_item_MultipleToken_Mythic_Hard.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_relic_exp_token_box_50" file="\icon\payment\icon_item_relic_exp_token_box_50.png" imgrect="0 0 128 128"/>
 		<image name="item_icon_twnpanda_box" file="\icon\payment\item_icon_twnpanda_box.png" imgrect="0 0 256 256" CMM_Caption="2월 대만 판다 상자"/>
 		<image name="icon_item_2021_NewYear_Package_Growth" file="\icon\payment\icon_item_2021_NewYear_Package_Growth.png" imgrect="0 0 256 256" CMM_Caption="2021_설날 패키지 4종"/>

@@ -21963,6 +21963,47 @@
         <Key Name="REPUTATION_REST_POINT" Value="108344"/>
         <Key Name="REST_POINT_LAST_PLAY_TIME" Value="108345"/>
         <Key Name="USE_RELIC_IN_COLONY_LAST_DATE" Value="108388"/>
+        <Key Name="EVENT_2106_SUMMER_BREAK_DAY_COUNT" Value="108502"/>
+        <Key Name="EVENT_2106_SUMMER_BREAK_TOTAL_COUNT" Value="108481"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_COIN_COUNT" Value="108491"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_COOL_TIME1" Value="108478"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_COOL_TIME2" Value="108490"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_PLAY_TIME" Value="108480"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_1" Value="108503"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_10" Value="108488"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_11" Value="108473"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_12" Value="108479"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_13" Value="108495"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_14" Value="108474"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_15" Value="108510"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_16" Value="108512"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_17" Value="108504"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_18" Value="108486"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_19" Value="108492"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_2" Value="108499"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_20" Value="108476"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_21" Value="108497"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_22" Value="108489"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_23" Value="108509"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_24" Value="108501"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_25" Value="108500"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_26" Value="108483"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_27" Value="108513"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_28" Value="108507"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_3" Value="108475"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_4" Value="108498"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_5" Value="108485"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_6" Value="108508"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_7" Value="108505"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_8" Value="108484"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_SHOP_9" Value="108477"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_WORLD_REWARD_1" Value="108482"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_WORLD_REWARD_2" Value="108493"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_WORLD_REWARD_3" Value="108511"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_WORLD_REWARD_4" Value="108487"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_WORLD_REWARD_5" Value="108506"/>
+        <Key Name="EVENT_2106_SUMMER_FESTA_WORLD_REWARD_6" Value="108494"/>
+        <Key Name="PVP_MINE_MISC_BOOST_END_DATETIME" Value="108496"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PartyMember">
         <Key Name="Auth_Survey" Value="7222"/>

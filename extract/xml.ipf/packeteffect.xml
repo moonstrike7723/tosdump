@@ -7993,6 +7993,11 @@
         <Effect Name="F_light116_pink_bubble_spin"/>
         <Effect Name="SKL_MAGICAL"/>
         <Effect Name="SITGROPE2_LOOP"/>
+        <Effect Name="EVENT_2106_Summer_Dice"/>
+        <Effect Name="Gaddess_Raid_Medusa"/>
+        <Effect Name="Gaddess_Raid_Medusa_Auto"/>
+        <Effect Name="Goddess_Raid_Vasilissa"/>
+        <Effect Name="Goddess_Raid_Vasilissa_Auto"/>
     </Category>
     <Category ID="23">
         <Effect Name="I_force004_pink#Bip01 R Finger0"/>

@@ -117,13 +117,6 @@
 		<Item Script="None" Name="motion_popocon1" Count="1" Price="2100" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_4"/>
 		<Item Script="None" Name="motion_popocon2" Count="1" Price="2100" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_5"/>
 		<Item Script="None" Name="motion_popocon3" Count="1" Price="2100" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_6"/>
-		<Item Script="None" Name="DRESS_ROOM_COLLECT_5" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_1"/>
-		<Item Script="None" Name="give_ticket_ep13cybersoldier03_m" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_2"/>
-		<Item Script="None" Name="give_ticket_ep13cybersoldier03_f" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_3"/>
-		<Item Script="None" Name="give_ticket_ep13cybersoldier02_2_m" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_4"/>
-		<Item Script="None" Name="give_ticket_ep13cybersoldier02_2_f" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_5"/>
-		<Item Script="None" Name="give_ticket_ep13cybersoldier03_2_m" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_6"/>
-		<Item Script="None" Name="give_ticket_ep13cybersoldier03_2_f" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_7"/>
 		<Item Script="None" Name="DRESS_ROOM_COLLECT_7" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_7"/>
 		<Item Script="None" Name="give_ticket_ep13cherryblossom03_m" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_8"/>
 		<Item Script="None" Name="give_ticket_ep13cherryblossom03_f" Count="1" Price="10000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_9"/>
@@ -168,5 +161,12 @@
 		<Item Script="None" Name="give_ticket_ep13toswinter02_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_5"/>
 		<Item Script="None" Name="give_ticket_ep13toswinter03_2_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_6"/>
 		<Item Script="None" Name="give_ticket_ep13toswinter03_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_7"/>
+		<Item Script="None" Name="DRESS_ROOM_COLLECT_5" Count="1" Price="3600" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_1"/>
+		<Item Script="None" Name="give_ticket_ep13cybersoldier03_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_2"/>
+		<Item Script="None" Name="give_ticket_ep13cybersoldier03_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_3"/>
+		<Item Script="None" Name="give_ticket_ep13cybersoldier02_2_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_4"/>
+		<Item Script="None" Name="give_ticket_ep13cybersoldier02_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_5"/>
+		<Item Script="None" Name="give_ticket_ep13cybersoldier03_2_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_6"/>
+		<Item Script="None" Name="give_ticket_ep13cybersoldier03_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_7"/>
 	</Shop>
 </PropertyShop>
