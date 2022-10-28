@@ -807,6 +807,7 @@
 		<Class ClassID="4306" ClassName="curtain_call_thema" Data="커튼 콜 테마"/>
 		<Class ClassID="4307" ClassName="GetPointByConsumingItem" Data="아이템을 소모하여 {@st66d_y}{COUNT}{/}포인트를 획득하시겠습니까?"/>
 		<Class ClassID="4308" ClassName="GetByPoint{Point}" Data="+{Point}점 획득"/>
+		<Class ClassID="4314" ClassName="Entrance_Ticket" Data="입장권"/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -14237,6 +14238,17 @@
 		<Class ClassID="302238" ClassName="EVENT_2011_Harvest_STM_SEL_MSG4" Data="다음 씨앗 수령까지 {TIME}분 남았습니다."/>
 		<Class ClassID="302239" ClassName="EVENT_2011_Harvest_STM_CHECK_MESSAGE1{SEED}" Data="[이벤트] 수확제{nl}[이벤트] 축복받은 씨앗 일일 수령 횟수 {#3366FF}({SEED}/1회){/}{nl}{#ff0000}일일 획득 제한은 매일 오전 6시에 초기화 됩니다.{/}"/>
 		<Class ClassID="302240" ClassName="EVENT_2011_Harvest_STM_SEL_MSG5" Data="{#0033FF}[수확제]{/} 여신의 기운 버프 안내"/>
+		<Class ClassID="302245" ClassName="EVENT_2012_YAK_SEL_MSG1" Data="{#0033FF}[겨울 축제]{/} 이벤트 안내"/>
+		<Class ClassID="302246" ClassName="EVENT_2012_YAK_SEL_MSG2" Data="{#0033FF}[겨울축제]{/} 교환상점"/>
+		<Class ClassID="302247" ClassName="EVENT_2012_YAK_SEL_MSG3" Data="{#0033FF}[겨울축제]{/} 특성 포인트 무료 추출권"/>
+		<Class ClassID="302248" ClassName="EVENT_2012_YAK_SEL_MSG4" Data="{#0033FF}[겨울축제]{/} 교환상점 열기"/>
+		<Class ClassID="302249" ClassName="EVENT_2012_YAK_SEL_MSG5" Data="{#0033FF}특성 포인트 무료 추출권{/} 수령"/>
+		<Class ClassID="302250" ClassName="EVENT_EVENT_2012_YAK_CHECK_MESSAGE1{REWARD1}{REWARD2}{REWARD3}{REWARD4}{REWARDCNT1}{REWARDCNT2}{REWARDCNT3}" Data="{#0033FF}야크맘보의 겨울 축제{/}{nl}[야크맘보] 눈꽃 열쇠 일일 획득량 {#3366FF}({REWARD1}/500){/}{nl}[야크맘보] 겨울 축제 상자 일일 획득량 {#3366FF}({REWARD2}/30){/}{nl}[야크맘보] 황금 겨울 축제 상자 일일 획득량 {#3366FF}({REWARD3}/5){/}{nl}[야크맘보] 황금 겨울 축제 상자 일일 접속 보상 {#3366FF}({REWARD4}){/}{nl}[야크맘보] 황금 눈꽃 열쇠 주말,공휴일 접속 보상 총 획득량 {#3366FF}({REWARDCNT1}/36){/}{nl}[야크맘보] 크리스마스 겨울 축제 상자 일일 획득량 {#3366FF}({REWARDCNT2}/3){/}{nl}[야크맘보] 특성 포인트 무료 추출권 수령 횟수 {#3366FF}({REWARDCNT3}/3){/}{nl}{#FF282C}※일일 획득 제한은 매일 오전 06시 초기화 됩니다.{nl}[야크맘보] 황금 겨울 축제 상자 일일 접속 보상은 평일 최대 2개 공휴일 3개까지 획득할 수 있습니다.{/}"/>
+		<Class ClassID="302251" ClassName="EVENT_EVENT_2012_NEW_YEAR_CHECK_MESSAGE1{REWARDCNT1}{REWARDCNT2}{REWARDCNT3}" Data="{#3366FF}2021 신년 출석 상자{/}{nl}1일차 -20년 12월 25일 오전 06시 ~ 12월 26일 오전 05시 59분- {#3366FF}({REWARDCNT1}){/}{nl}2일차 - 20년 12월 26일 오전 06시 ~ 12월 27일 오전 05시 59분- {#3366FF}({REWARDCNT2}){/}{nl}3일차 - 20년 12월 27일 오전 06시 ~ 12월 28일 오전 05시 59분- {#3366FF}({REWARDCNT3}){/}"/>
+		<Class ClassID="302252" ClassName="EVENT_2012_YAK_Shop" Data="겨울 축제 교환 상점"/>
+		<Class ClassID="302262" ClassName="EVENT_2012_YAK_SEL_MSG6" Data="{#FF282C}특성 포인트 무료 추출권을 모두 획득하셨습니다.(팀당 3회){/}"/>
+		<Class ClassID="302263" ClassName="EVENT_2012_YAK_SEL_MSG7" Data="{#FF282C}[야크맘보] 황금 눈꽃 열쇠가 없습니다.{/}"/>
+		<Class ClassID="302264" ClassName="EVENT_2012_YAK_SEL_MSG8" Data="{#FF282C}[야크맘보] 눈꽃 열쇠가 없습니다.{/}"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>

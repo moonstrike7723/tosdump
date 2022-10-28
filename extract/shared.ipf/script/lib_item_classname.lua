@@ -1,4 +1,4 @@
-function GET_INDUN_MULTIPLE_ITEM_LIST()
+﻿function GET_INDUN_MULTIPLE_ITEM_LIST()
     return {'Premium_dungeoncount_01', 
             'Premium_dungeoncount_Event',
             'Adventure_dungeoncount_01',
@@ -9,7 +9,11 @@ function GET_INDUN_MULTIPLE_ITEM_LIST()
             'Event_dungeoncount_5',
             'Event_dungeoncount_6',
             'Event_dungeoncount_7',
-            'Event_dungeoncount_8'};
+            'Event_dungeoncount_8',
+            'Event_dungeoncount_9',
+            'Event_dungeoncount_10',
+            'Event_dungeoncount_11',
+            'Event_dungeoncount_12'};
 end
 
 function IS_INDUN_MULTIPLE_ITEM(itemClassName)

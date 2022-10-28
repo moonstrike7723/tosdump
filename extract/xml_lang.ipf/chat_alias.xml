@@ -61,6 +61,6 @@
 		<Class ClassID="65" ClassName="/moonlight" Alias="/달빛" ConvertWhenSend="1"/>
 		<Class ClassID="67" ClassName="/fullmoon" Alias="/달맞이" ConvertWhenSend="1"/>
 		<Class ClassID="73" ClassName="/harvest" Alias="/수확제" ConvertWhenSend="1"/>
-		<Class ClassID="68" ClassName="/ragana" Alias="/라가나" ConvertWhenSend="1"/>
+		<Class ClassID="75" ClassName="/YAK" Alias="/야크맘보" ConvertWhenSend="1"/>
 	</Category>
 </idspace>

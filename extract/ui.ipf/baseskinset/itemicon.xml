@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 http://www.altova.com by MintPC Mi -->
 <skinset name="Base">
 	<imagelist category="item_tooltip_icon">
@@ -3310,6 +3310,9 @@
 		<image name="icon_item_ep12demonlord_cannon" file="\icon\weapon\icon_item_ep12demonlord_cannon.png" imgrect="0 0 256 256" CMM_Caption="11월_마신의 유혹"/>
 		<image name="icon_item_ep12demonlord_shield" file="\icon\weapon\icon_item_ep12demonlord_shield.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep12demonlord_staff" file="\icon\weapon\icon_item_ep12demonlord_staff.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine_crossbow" file="\icon\weapon\icon_item_ep13vakarine_crossbow.png" imgrect="0 0 256 256" CMM_Caption="2020_12월 테마"/>
+		<image name="icon_item_ep13vakarine_thsword" file="\icon\weapon\icon_item_ep13vakarine_thsword.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine_thmace" file="\icon\weapon\icon_item_ep13vakarine_thmace.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="acc_item">
 		<image name="item_necklace_01" file="\icon\acc\item_necklace_1.png" imgrect="0 0 256 256" CMM_Caption="목걸이"/>
@@ -4038,6 +4041,7 @@
 		<image name="icon_item_accessory_ep12demonlord02" file="\icon\hairacc\icon_item_accessory_ep12demonlord02.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_helmet_f_ep12demonlord" file="\icon\hairacc\icon_item_helmet_f_ep12demonlord.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_helmet_m_ep12demonlord" file="\icon\hairacc\icon_item_helmet_m_ep12demonlord.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_ep13vakarine" file="\icon\hairacc\icon_item_accessory_ep13vakarine.png" imgrect="0 0 256 256" CMM_Caption="2020_12월 테마"/>
 	</imagelist>
 	<imagelist category="collection_item">
 		<image name="icon_collitem_collection" file="\icon\colletion\icon_item_collection.tga" imgrect="0 0 673 419" CMM_Caption="월계수"/>
@@ -6151,6 +6155,12 @@
 		<image name="icon_item_special_box_02" file="\icon\item\icon_item_special_box_02.png" imgrect="0 0 128 128"/>
 		<image name="icon_item_special_box_03" file="\icon\item\icon_item_special_box_03.png" imgrect="0 0 128 128"/>
 		<image name="icon_item_special_box_all" file="\icon\item\icon_item_special_box_all.png" imgrect="0 0 128 128"/>
+		<image name="icon_item_EVENT_2012_Box_1" file="\icon\item\icon_item_EVENT_2012_Box_1.png" imgrect="0 0 256 256" CMM_Caption="야크맘보 겨울 축제 상자"/>
+		<image name="icon_item_EVENT_2012_gold_Box_1" file="\icon\item\icon_item_EVENT_2012_gold_Box_1.png" imgrect="0 0 256 256" CMM_Caption="야크맘보 황금 겨울 축제 상자"/>
+		<image name="icon_item_EVENT_2012_X_MAS_Box_1" file="\icon\item\icon_item_EVENT_2012_X_MAS_Box_1.png" imgrect="0 0 256 256" CMM_Caption="야크맘보 크리스마스 겨울 축제 상자"/>
+		<image name="icon_item_EVENT_2012_New_Year_Box_1" file="\icon\item\icon_item_EVENT_2012_New_Year_Box_1.png" imgrect="0 0 256 256" CMM_Caption="야크맘보 2021 신년 상자"/>
+		<image name="icon_item_Yak_Key" file="\icon\item\icon_item_Yak_Key.png" imgrect="0 0 128 128" CMM_Caption="눈꽃 열쇠"/>
+		<image name="icon_item_Yak_Key2" file="\icon\item\icon_item_Yak_Key2.png" imgrect="0 0 128 128" CMM_Caption="야크맘보 황금열쇠"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_h_bigplant_set_01_green" file="\icon\housing\icon_item_h_bigplant_set_01_green.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 화단_01(초록색)"/>
@@ -6431,6 +6441,14 @@
 		<image name="icon_item_p_h_barrack_03_mirror_05_1_1" file="\icon\housing\icon_item_p_h_barrack_03_mirror_05_1_1.png" imgrect="0 0 256 256" CMM_Caption="[개인 하우징]임시"/>
 		<image name="icon_item_p_h_barrack_03_mirror_03_1_1" file="\icon\housing\icon_item_p_h_barrack_03_mirror_03_1_1.png" imgrect="0 0 256 256" CMM_Caption="[개인 하우징]임시"/>
 		<image name="icon_item_p_h_barrack_02_candlestick_1" file="\icon\housing\icon_item_p_h_barrack_02_candlestick_1.png" imgrect="0 0 256 256" CMM_Caption="[개인 하우징]임시"/>
+		<image name="icon_item_p_h_barrack_pond_01" file="\icon\housing\icon_item_p_h_barrack_pond_01.png" imgrect="0 0 256 256" CMM_Caption="[공용 하우징]개인 연못"/>
+		<image name="icon_item_p_h_barrack_icecrystal_01" file="\icon\housing\icon_item_p_h_barrack_icecrystal_01.png" imgrect="0 0 256 256" CMM_Caption="[공용 하우징]얼음 나무뿌리수정"/>
+		<image name="icon_item_p_h_barrak_popofountain" file="\icon\housing\icon_item_p_h_barrak_popofountain.png" imgrect="0 0 256 256" CMM_Caption="[공용 하우징]포포리온 분수대"/>
+		<image name="icon_item_h_dragon_tiger_tower_01" file="\icon\housing\icon_item_h_dragon_tiger_tower_01.png" imgrect="0 0 256 256" CMM_Caption="[공용 하우징]용호탑"/>
+		<image name="icon_item_p_h_barrack_igloo_01" file="\icon\housing\icon_item_p_h_barrack_igloo_01.png" imgrect="0 0 256 256" CMM_Caption="[공용 하우징]이글루"/>
+		<image name="icon_item_p_h_barrack_snowman_01" file="\icon\housing\icon_item_p_h_barrack_snowman_01.png" imgrect="0 0 256 256" CMM_Caption="[공용 하우징]야크맘보 눈사람"/>
+		<image name="icon_item_h_torii_01" file="\icon\housing\icon_item_h_torii_01.png" imgrect="0 0 256 256" CMM_Caption="[공용 하우징]토리이"/>
+		<image name="icon_item_h_torii_snow_01" file="\icon\housing\icon_item_h_torii_snow_01.png" imgrect="0 0 256 256" CMM_Caption="[공용 하우징]눈 덮인 토리이"/>
 		<image name="icon_item_h_wild_grass_01" file="\icon\housing\icon_item_h_wild_grass_01.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 야생풀_1"/>
 		<image name="icon_item_h_tree_basic_03" file="\icon\housing\icon_item_h_tree_basic_03.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 장식용 나무_3"/>
 		<image name="icon_item_h_tree_basic_02" file="\icon\housing\icon_item_h_tree_basic_02.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 장식용 나무_2"/>
@@ -7852,6 +7870,29 @@
 		<image name="icon_item_wing_ep12demonlord" file="\icon\payment\icon_item_wing_ep12demonlord.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_dalmatian" file="\icon\payment\icon_item_dalmatian.png" imgrect="0 0 256 256" CMM_Caption="달마시안 알"/>
 		<image name="icon_item_allbox_ep12demonlord" file="\icon\payment\icon_item_allbox_ep12demonlord.png" imgrect="0 0 256 256" CMM_Caption="11월 테마 올패키지"/>
+		<image name="icon_item_box_doll_vakarine" file="\icon\payment\icon_item_box_doll_vakarine.png" imgrect="0 0 256 256" CMM_Caption="2020_12월 테마"/>
+		<image name="icon_item_box_wing_goddessLaIma" file="\icon\payment\icon_item_box_wing_goddessLaIma.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_doll_vakarine" file="\icon\payment\icon_item_doll_vakarine.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine01_1_f" file="\icon\payment\icon_item_ep13vakarine01_1_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine01_1_m" file="\icon\payment\icon_item_ep13vakarine01_1_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine01_2_f" file="\icon\payment\icon_item_ep13vakarine01_2_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine01_2_m" file="\icon\payment\icon_item_ep13vakarine01_2_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine01_f" file="\icon\payment\icon_item_ep13vakarine01_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine01_m" file="\icon\payment\icon_item_ep13vakarine01_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine02_1_f" file="\icon\payment\icon_item_ep13vakarine02_1_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine02_1_m" file="\icon\payment\icon_item_ep13vakarine02_1_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine02_f" file="\icon\payment\icon_item_ep13vakarine02_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine02_m" file="\icon\payment\icon_item_ep13vakarine02_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine03_1_f" file="\icon\payment\icon_item_ep13vakarine03_1_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_ep13vakarine03_1_m" file="\icon\payment\icon_item_ep13vakarine03_1_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13vakarine01" file="\icon\payment\icon_item_selectbox_ep13vakarine01.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13vakarine01_1" file="\icon\payment\icon_item_selectbox_ep13vakarine01_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13vakarine01_2" file="\icon\payment\icon_item_selectbox_ep13vakarine01_2.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13vakarine02" file="\icon\payment\icon_item_selectbox_ep13vakarine02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13vakarine02_1" file="\icon\payment\icon_item_selectbox_ep13vakarine02_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_ep13vakarine03_1" file="\icon\payment\icon_item_selectbox_ep13vakarine03_1.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_wing_goddessLaIma" file="\icon\payment\icon_item_wing_goddessLaIma.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_winter_rabbit" file="\icon\payment\icon_item_winter_rabbit.png" imgrect="0 0 256 256" CMM_Caption="겨울 토끼 알"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>

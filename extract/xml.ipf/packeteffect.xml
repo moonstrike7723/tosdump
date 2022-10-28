@@ -2502,7 +2502,8 @@
 		<Effect Name="F_ground204_rotate_fire"/>
 		<Effect Name="F_ground059_fire2"/>
 		<Effect Name="F_ground204_rotate_fire2"/>
-	</Category>
+	<Effect Name="I_explosion002_violet4"/>
+    </Category>
 	<Category ID="197">
 		<Effect Name="F_burstup030_fire1"/>
 		<Effect Name="F_burstup030_fire_1"/>

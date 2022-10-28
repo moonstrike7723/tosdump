@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <skinset name="Base">
 	<skinlist category="frames">
@@ -8958,6 +8958,7 @@
 		<image name="companion_sparrow_thanksgiving" file="\icon\companion_Velhider.tga" imgrect="400 320 80 80"/>
 		<image name="companion_new_penguin" file="\icon\companion_Velhider.tga" imgrect="480 320 80 80"/>
 		<image name="companion_dalmatian" file="\icon\companion_Velhider.tga" imgrect="0 400 80 80"/>
+		<image name="companion_pet_winter_rabbit" file="\icon\companion_Velhider.tga" imgrect="80 400 80 80"/>
 		<image name="bg_w" file="\skin\button.tga" imgrect="252 974 50 50"/>
 		<image name="barrack_signboard" file="\skin\barrack.tga" imgrect="356 0 257 192"/>
 		<image name="barrack_attack_icon" file="\skin\barrack.tga" imgrect="59 720 55 61"/>
@@ -11312,6 +11313,7 @@
 		<image name="icon_Weekly_BLK_UP" file="\icon\buff_icon3.tga" imgrect="640 1920 128 128" CMM_Caption="블록 특화"/>
 		<image name="icon_Weekly_DR_UP" file="\icon\buff_icon3.tga" imgrect="768 1920 128 128" CMM_Caption="회피 특화"/>
 		<image name="icon_pet_dalmatian_buff" file="\icon\buff_icon4.tga" imgrect="128 256 128 128" CMM_Caption="달마시안 버프"/>
+		<image name="icon_pet_winter_rabbit" file="\icon\buff_icon4.tga" imgrect="0 768 128 128" CMM_Caption="겨울 토끼"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>
@@ -11547,6 +11549,7 @@
 		<image name="025_npc_Feliksia" file="\skin\npccard\025_npc_Feliksia.tga" imgrect="0 0 330 440"/>
 		<image name="026_npc_MistesGoldmund" file="\skin\npccard\026_npc_MistesGoldmund.tga" imgrect="0 0 330 440"/>
 		<image name="027_npc_FeliksiaAleisterCrowley" file="\skin\npccard\027_npc_FeliksiaAleisterCrowley.tga" imgrect="0 0 330 440"/>
+		<image name="028_npc_Leticia" file="\skin\npccard\028_npc_Leticia.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>

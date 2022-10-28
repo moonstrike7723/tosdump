@@ -27103,4 +27103,11 @@ return GET_RATE_MHP(self, damage) * 100"/>
 			</ToolScp>
 		</HitList>
 	</AI>
+	<AI Name="EVENT_2012_YAK_EFFECT" UpdateMS="1000" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+				<Str Str="SCR_EVENT_2012_YAK_EFFECT_AI"/>
+			</ToolScp>
+		</List>
+	</AI>
 </AIList>

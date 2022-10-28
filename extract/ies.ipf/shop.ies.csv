@@ -783,4 +783,8 @@ ClassID,SellRate,Count,Price,ShopName,IDSpace,ItemName,Description,NeedProperty
 20138,1,1,1,Personal_Housing,Item,PersonalHousing_Item_hp_f_warpulis_bronze,피규어,Hide
 20139,1,1,1,Personal_Housing,Item,PersonalHousing_Item_hp_f_warpulis_silver,피규어,Hide
 20140,1,1,1,Personal_Housing,Item,PersonalHousing_Item_hp_f_warpulis_gold,피규어,Hide
+20210,1,1,1,Personal_Housing,Item,PersonalHousing_Item_hp_p_h_barrack_snowman_02,지면,Hide
+20211,1,1,1,Personal_Housing,Item,PersonalHousing_Item_hp_p_h_barrack_snowman_03,지면,Hide
+20212,1,1,1,Personal_Housing,Item,PersonalHousing_Item_hp_p_h_barrack_snowman_04,지면,Hide
+20213,1,1,1,Personal_Housing,Item,PersonalHousing_Item_hp_p_h_barrack_igloo_01,지면,Hide
 21001,1,1,1,Event2002_Fish_Shop,Item,Event_2002_mudfish,,
