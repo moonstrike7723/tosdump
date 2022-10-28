@@ -4538,3 +4538,22 @@ function RUN_CLIENT_USE_MULTIPLE_ABILITY_POINT(count)
     local resultlist = session.GetItemIDList()
     item.DialogTransaction("MULTIPLE_USE_ABILITY", resultlist)
 end
+
+function BEFORE_APPLIED_SILVER_GACHA_OPEN(invItem)	
+	if invItem == nil then
+		return;
+	end
+
+	local invFrame = ui.GetFrame("inventory");	
+	local itemobj = GetIES(invItem:GetObject());
+	if itemobj == nil then
+		return;
+	end
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
+	
+	if itemobj.Script == 'SCR_USE_STRING_GIVE_ITEM_NUMBER_SPLIT' then
+		local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg("SilverGacha_check_Use"));
+		ui.MsgBox_NonNested(textmsg, itemobj.Name, "REQUEST_SUMMON_BOSS_TX", "None");
+		return;
+	end
+end

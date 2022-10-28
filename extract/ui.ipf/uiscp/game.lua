@@ -3717,7 +3717,7 @@ function IS_EXIST_BRIQUETTING_OR_BEAUTYSHOP_ITEM(actor, spot, skillType, skillCl
 	if actor == nil then return false; end
 	if skillClassId == nil then return false; end
 	if itemClassId == nil then return false; end
-
+	
 	-- inv item check
 	local apc = actor:GetPCApc();
 	if actor:IsMyPC() == 1 then
@@ -3743,6 +3743,12 @@ function IS_EXIST_BRIQUETTING_OR_BEAUTYSHOP_ITEM(actor, spot, skillType, skillCl
 								return true;
 							end
 						end
+					end				
+				elseif skillType == "Musket" then
+					if skillClassId == 55 then
+						if obj.ClassID == itemClassId or obj.BriquettingIndex == itemClassId then
+							return true;
+						end
 					end
 				end
 			end
@@ -3766,6 +3772,12 @@ function IS_EXIST_BRIQUETTING_OR_BEAUTYSHOP_ITEM(actor, spot, skillType, skillCl
 						end
 					end
 				end
+			elseif skillType == "Musket" then
+				if skillClassId == 55 then
+					if classId == itemClassId then
+						return true;
+					end
+				end
 			end
 		end
 	end
@@ -3775,6 +3787,12 @@ function IS_EXIST_BRIQUETTING_OR_BEAUTYSHOP_ITEM(actor, spot, skillType, skillCl
 		local classId = apc:GetDummyEquipItem(item.GetEquipSpotNum(spot));
 		if skillType == "Pistol" then
 			if skillClassId == 53 or skillClassId == 57 then
+				if classId == itemClassId then
+					return true;
+				end
+			end
+		elseif skillType == "Musket" then
+			if skillClassId == 55 then
 				if classId == itemClassId then
 					return true;
 				end

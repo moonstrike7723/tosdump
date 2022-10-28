@@ -809,6 +809,7 @@
 		<Class ClassID="4308" ClassName="GetByPoint{Point}" Data="+{Point}점 획득"/>
 		<Class ClassID="4314" ClassName="Entrance_Ticket" Data="입장권"/>
 		<Class ClassID="4348" ClassName="DoNotAllowUseLevel" Data="사용할 수 없는 레벨입니다."/>
+		<Class ClassID="4360" ClassName="SilverGacha_check_Use" Data="개봉 시 팀 창고 이동을 제외한 거래가 불가능해집니다.{nl}정말 사용하시겠습니까?"/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
