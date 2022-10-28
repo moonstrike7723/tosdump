@@ -232,10 +232,6 @@ function QUESTINFOSET_2_REMOVE_QUEST(frame, questID)
 end
 
 function UPDATE_QUESTINFOSET_2(frame, msg, check, updateQuestID)
---	local warpFrame = ui.GetFrame('questwarp');
---	for i=0, QUESTWARP_MAX_BTN-1 do
---		warpFrame:SetUserValue("QUEST_WARP_CLASSNAME_"..i, "None");
---	end
     if UI_CHECK_NOT_PVP_MAP() == 0 then
         frame:ShowWindow(0);
         return;
@@ -243,6 +239,7 @@ function UPDATE_QUESTINFOSET_2(frame, msg, check, updateQuestID)
 
 	local cnt = quest.GetCheckQuestCount();
 	local customCnt = geQuest.GetCustomQuestCount();
+
 	if cnt + customCnt > 0 then
 		frame:ShowWindow(1);
 	else

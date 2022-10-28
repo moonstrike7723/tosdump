@@ -1,6 +1,7 @@
-function SCR_GACHA_BOUNS_VALUE(self, pc, cubetype)
+function SCR_GACHA_BOUNS_VALUE(self, pc)
     local aObj = GetAccountObj(pc);
-	--local cubetype = 2; -- 레티샤는 1/ 여큐는 2 / 반드시 지켜주세요 --
+    --201912 STEAM GABIA CUBE 특수 케이스로 3
+    local cubetype = 3; -- 레티샤는 1/ 여큐는 2 / 반드시 지켜주세요 --
 	local count_reward;
     local next_count, next_bouns = 0, 0;
     local rewardlist = {}
@@ -86,14 +87,9 @@ function SCR_GACHA_BOUNS_DIALOG(self, pc)
         RideVehicle(pc, ridingCompanion, 0)
     end
     
-    local select = ShowSelDlg(pc,0, ScpArgMsg('GACHA_BOUNS_SEL3'), 'Goddess Blessed Cube', 'Gabia Cube')
-    if select ~= 1 and select ~= 2 then
-        return;
-    end
-
     local aObj = GetAccountObj(pc);
 
-    local count, bouns, cubetype, next_count, next_bouns, rewardlist, rewardtext = SCR_GACHA_BOUNS_VALUE(self, pc, select + 1)
+    local count, bouns, cubetype, next_count, next_bouns, rewardlist, rewardtext = SCR_GACHA_BOUNS_VALUE(self, pc)
 
     local cube_name = 'Leticia Secret Cube'
 
@@ -102,7 +98,7 @@ function SCR_GACHA_BOUNS_DIALOG(self, pc)
     end
 
     -- 201912 STEAM GABIA CUBE
-    if cubeType == 3 then
+    if cubetype == 3 then
         cube_name = 'Gabia Cube'
     end
 
