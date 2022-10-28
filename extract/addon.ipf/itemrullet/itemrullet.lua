@@ -148,6 +148,10 @@ local function _INIT_APPLY_OPTION_BOX(frame, itemObj)
 		return;
 	end
 
+	if itemObj.StringArg == "Seal_Material" then
+		return;
+	end
+
 	if itemObj.SealType == 'random' then
 		local targetSeal = s_reinforceSeal.TargetSeal:GetItemInfo();
 		_REQUEST_SEAL_MINMAX_INFO(targetSeal);
@@ -310,6 +314,10 @@ function REINFORCE_SEAL_DROP_ADDITIONAL_ITEM(parent, slot)
 end
 
 function REINFORCE_SEAL_CHECK_TARGET(parent, ctrl, itemObj)
+	if IS_SEAL_MATERIAL_ITEM(itemObj) == true then
+		return true;
+	end
+
 	if IS_SEAL_ITEM(itemObj) == false then
 		ui.SysMsg(ClMsg('CantUseSeal'));
 		return false;
@@ -330,8 +338,13 @@ function REINFORCE_SEAL_CHECK_MATERIAL(parent, ctrl, itemObj)
 	end
 
 	local targetSeal, targetSealObj = s_reinforceSeal.TargetSeal:GetItemInfo();	
-	if IS_VALID_SEAL_MATERIAL_ITEM(targetSealObj, itemObj) == false then
-		ui.SysMsg(ClMsg('CantUseSeal'));
+	local ret, reson = IS_VALID_SEAL_MATERIAL_ITEM(targetSealObj, itemObj);
+	if ret == false then
+		if reson == "SealMaterialTargetItemWarning" then
+			ui.SysMsg(ClMsg("SealMaterialTargetItemWarning"));
+		else
+			ui.SysMsg(ClMsg('CantUseSeal'));
+		end
 		return false;
 	end
 
@@ -515,13 +528,16 @@ function ON_SUCCESS_REINFORCE_SEAL(frame, msg, result, argNum)
 	if materialItemObj == nil then
 		s_reinforceSeal.MaterialSeal:Clear();
 	end
-
+	
 	if result ~= 'Success' then
 		return;
 	end
-
-	local nextOptionBox = _GET_NEXT_OPTION_BOX(frame);
-	imcGroupBox:StartAlphaEffect(nextOptionBox, 2, 0.1);
+	
+	if targetItemObj.StringArg ~= "Seal_Material" then
+		local nextOptionBox = _GET_NEXT_OPTION_BOX(frame);
+		imcGroupBox:StartAlphaEffect(nextOptionBox, 2, 0.1);
+	end
+	
 	ReserveScript("SUCESS_REINFORCE_SEAL_EFFECT()", 2);
 end
 
