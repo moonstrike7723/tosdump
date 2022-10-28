@@ -29,9 +29,9 @@ local g_account_prop_shop_table =
         ['coinName'] = 'dummy_TeamBattleCoin',
         ['propName'] = 'TeamBattleCoin',
     },
-    ['EVENT_2207_UNITY_SHOP'] =
+    ['EVENT_2210_KLAPEDA_GHOST_SHOP'] =
     {
-        ['coinName'] = 'Event_2207_Unity'
+        ['coinName'] = 'Event_2210_Halloween_candy'
     },
 }
 
@@ -187,7 +187,7 @@ function EARTHTOWERSHOP_BUY_ITEM_RESULT(frame, msg, argStr, argNum)
 
     local coinName = g_account_prop_shop_table[shopType]["coinName"]
     local propName = g_account_prop_shop_table[shopType]["propName"]
-
+    
     if shopType == "PVPMine" then
         ui.SysMsg(ScpArgMsg("RESULT_MISC_PVP_MINE2", "count1", GET_COMMAED_STRING(token[2]), "count2", GET_COMMAED_STRING(token[3])));
 
@@ -234,7 +234,7 @@ function EARTHTOWERSHOP_BUY_ITEM_RESULT(frame, msg, argStr, argNum)
         end
 
         propertyRemain:SetTextByKey('itemCount', GET_COMMAED_STRING(count))
-    elseif shopType == "EVENT_2207_UNITY_SHOP" then
+    elseif shopType == "EVENT_2210_KLAPEDA_GHOST_SHOP" then
         local propertyRemain = GET_CHILD_RECURSIVELY(frame,"propertyRemain")
         local itemCls = GetClass('Item', coinName)
 

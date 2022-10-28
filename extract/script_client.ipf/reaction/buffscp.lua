@@ -1609,6 +1609,15 @@ function EP12DEMONLORD_EFFECT_PRE_LEAVE(actor, obj, buff)
     actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
 end
 
+function EP12DEMONLORD_VIOLET_EFFECT_PRE_ENTER(actor, obj, buff)
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
+end
+
+function EP12DEMONLORD_VIOLET_EFFECT_PRE_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "I_spread_out015_light_blue_violet", 0.7);
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
+end
+
 function DesperateDefenseClientScp_ENTER(actor, obj, buff)
     if pc.IsBuffApplied(actor, "SnipersSerenity_Buff") == 1 then
         actor:GetAnimation():ResetWLKAnim();

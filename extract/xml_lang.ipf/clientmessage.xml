@@ -16192,7 +16192,7 @@
 		<Class ClassID="302684" ClassName="EVENT_2110_KLAPEDA_GHOST_POT_POINTEVENT_2110_KLAPEDA_GHOST_POT_SP1" Data="아이템을 {#003399}{TAKECOUNT} 개{/} 사용하였습니다.{nl}{#FF3333}완성된 호박 스튜의 개수가 2배 증가하였습니다!{/}"/>
 		<Class ClassID="302685" ClassName="EVENT_2110_KLAPEDA_GHOST_POT_POINTEVENT_2110_KLAPEDA_GHOST_POT_SP2" Data="아이템을 {#003399}{TAKECOUNT} 개{/} 사용하였습니다.{nl}{#FF3333}완성된 모든 '[이벤트] 엉성한 호박 스튜 ★'가 '[이벤트] 호박 스튜 ★★' 로 등급이 상승되었습니다!{/}"/>
 		<Class ClassID="302686" ClassName="EVENT_2110_KLAPEDA_GHOST_POT_FINISH" Data="최종 완성도 점수 {#003399}{POINT} 점{/} 획득! 요리가 종료됩니다. {/}"/>
-		<Class ClassID="302687" ClassName="EVENT_2110_KLAPEDA_GHOST_POT_CHAT1" Data="{#FF0000}}'[이벤트] 요리 재료 상자'가 부족합니다.{/}"/>
+		<Class ClassID="302687" ClassName="EVENT_2110_KLAPEDA_GHOST_POT_CHAT1" Data="{#FF0000}}호박 스튜를 만들기 위해서는 '[할로윈] 음식 재료 상자'가 필요합니다.{/}"/>
 		<Class ClassID="302688" ClassName="EVENT_2110_KLAPEDA_GHOST_POT_CHAT2" Data="{#FF0000}}※ 보유하신 호박 스튜 아이템이 없습니다.{/}"/>
 		<Class ClassID="302689" ClassName="EVENT_2110_KLAPEDA_GHOST_POT_TRADE2" Data="}- [이벤트] 엉성한 호박 스튜 ★ {#003399}1개{/} =  [이벤트] 할로윈 사탕 바구니 {#003399}10개{/}{nl}- [이벤트] 호박 스튜 ★★ {#003399}1개{/} =  [이벤트] 할로윈 사탕 바구니 {#003399}30개{/}{nl}- [이벤트] 완벽한 호박 스튜 ★★★ {#003399}1개{/} =  [이벤트] 할로윈 사탕 바구니 {#003399}90개{/}{nl}최대 교환 개수 {#003399}0~{MAX}{/}"/>
 		<Class ClassID="302690" ClassName="EVENT_2110_KLAPEDA_GHOST_STEW_TRADE1" Data="{#003399}[이벤트] 엉성한 호박 스튜 ★{/} 주기"/>
@@ -16269,6 +16269,12 @@
 		<Class ClassID="302761" ClassName="EVENT_2207_UNITY_INFO_MSG{COIN}{MIC}" Data="[화합의 트오세 이벤트 현황]{nl}[이벤트] 화합의 끈 일일 획득 {#3366FF}({COIN}/1500){/}{nl}확성기 일일 무료 획득 {#3366FF}({MIC}/1){/}{nl} {nl}{#FF3333}※ 일일 획득량은 매일 오전 6시 초기화 됩니다.{nl}※ 이벤트 업적을 통한 획득은 일일 획득 제한에 포함되지 않습니다.{/}"/>
 		<Class ClassID="302762" ClassName="EVENT_2207_UNITY_SHOP" Data="화합의 끈 상점"/>
 		<Class ClassID="302764" ClassName="ThisItemNeedToRegister" Data="해당 아이템은 장비 보관함에 등록 후 사용하실 수 있습니다."/>
+		<Class ClassID="302765" ClassName="EVENT_2210_KLAPEDA_GHOST_CHECK_MSG" Data="{#0066FF}[할로윈 - 유령 소녀의 부탁]{/} 이벤트 현황{nl}접속 시간 ({#0066FF}{TIME}{/}분){nl}[이벤트] 할로윈 사탕 일일 획득 ({#0066FF}{COIN}{/}/1800){nl}클라페다 피난민 일일 스튜 제공 수 ({#0066FF}{KLAIPE}{/}/10){nl}페디미안 피난민 일일 스튜 제공 수 ({#0066FF}{FEDIMIAN}{/}/10){nl}오르샤 피난민 일일 스튜 제공 수 ({#0066FF}{ORSHA}{/}/10){nl}{#FF3333}※일일 제한은 매일 오전 06시 초기화 됩니다.{/}{nl}{#FF3333}※이벤트 업적을 통한 획득은 일일 획득 제한에 포함되지 않습니다.{/}"/>
+		<Class ClassID="302766" ClassName="EVENT_2210_KLAPEDA_GHOST_POT_CHAT1" Data="{#FF0000}} 호박 스튜를 만들기 위해서는 '[이벤트] 음식 재료 상자'가 필요합니다.{/}"/>
+		<Class ClassID="302767" ClassName="EVENT_2210_KLAPEDA_GHOST_POT_SEL1" Data="매운 향신료"/>
+		<Class ClassID="302768" ClassName="EVENT_2210_KLAPEDA_GHOST_POT_SEL2" Data="합성 조미료"/>
+		<Class ClassID="302769" ClassName="EVENT_2210_KLAPEDA_GHOST_POT_SEL3" Data="싱싱한 채소"/>
+		<Class ClassID="302770" ClassName="EVENT_2210_KLAPEDA_GHOST_SHOP" Data="{#003399}[할로윈]{/}이벤트 상점"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -17963,6 +17969,14 @@
 		<Class ClassID="599108" ClassName="EVENT_2010_HALLOWEEN_SEL_7" Data="{ITEMNAME}을 영구제로 교환 하시겠습니까?"/>
 		<Class ClassID="599109" ClassName="EVENT_2010_HALLOWEEN_UI_HELP" Data="{s16}{#ffbf00}[할로윈] 행운 뽑기{/}{/}{nl}- 보유한 {#ffbf00}[이벤트] 특제 캔디{/} 10개를 사용하여 뽑기를 이용할 수 있습니다.{nl}- 주차보상은 매 주 목요일마다 갱신됩니다.{nl}- 코스튬 영구제 교환권은 팀당 1회만 획득할 수 있습니다.{nl}- 보상 '[할로윈] 용병단 증표 쿠폰'사용 시 '용병단 증표' 500개가 지급됩니다.{nl}[주차 보상 갱신]{nl}-2차: 2020-10-29 06:00 ~ 2020-11-05 05:59{nl}-3차: 2020-11-05 06:00 ~ 2020-11-12 05:59{nl}-4차: 2020-11-12 06:00 ~ 2020-11-19 06:00{nl}-5차: 2020-11-19 06:00 ~ 2020-11-26 점검 전{nl}※자세한 이벤트 보상 목록은 이벤트 페이지에서 확인할 수 있습니다."/>
 		<Class ClassID="599110" ClassName="EVENT_2010_HALLOWEEN_MSG_2" Data="{#ff0000}영구제 교환 대상 코스튬과 '코스튬 영구제 교환권' 아이템이 필요합니다.{/}"/>
+	
+		<Class ClassID="599111" ClassName="EVENT_2210_HALLOWEEN_SEL_1" Data="제공한다"/>
+		<Class ClassID="599112" ClassName="EVENT_2210_HALLOWEEN_SEL_2" Data="복원한다"/>
+		<Class ClassID="599113" ClassName="EVENT_2210_HALLOWEEN_SEL_3" Data="다음에"/>
+		<Class ClassID="599114" ClassName="EVENT_2210_HALLOWEEN_SEL_4" Data="코스튬 교환하기"/>
+		<Class ClassID="599115" ClassName="EVENT_2210_HALLOWEEN_MSG_1" Data="복원할 코스튬 효과가 없습니다"/>
+		<Class ClassID="599116" ClassName="EVENT_2210_HALLOWEEN_BUFF_TOOLTIP" Data="무작위 코스튬으로 변신중입니다!{nl} {nl}[{NAME}]"/>
+		<Class ClassID="599117" ClassName="EVENT_2210_HALLOWEEN_MSG_2" Data="이벤트 주화를 획득하는 콘텐츠를 {NEED}회 클리어하고 다시 오세요({LEFT}회 남음){nl}※ 배수권 / 추가 보상권 사용 시 횟수가 추가 적용됩니다."/>
 	</Category>
 	<Category Name="SilverGacha">
 		<Class ClassID="599201" ClassName="SilverGacha_AddMileage" Data="마신의 유혹 포인트가 증가하였습니다.{nl} {nl}{@st66d_y}{s18}현재 포인트: {COUNT}"/>

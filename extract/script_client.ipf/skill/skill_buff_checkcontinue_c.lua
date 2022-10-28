@@ -104,6 +104,27 @@ function SCR_BUFF_C_CHECKCONTINUE_EP12DEMONLORD_EFFECT_PRE(handle, type)
     return 1;
 end
 
+function SCR_BUFF_C_CHECKCONTINUE_EP12DEMONLORD_VIOLET_EFFECT_PRE(handle, type)
+    local actor = world.GetActor(handle);
+    if actor == nil then
+        return 0;
+    end
+
+    if session.colonywar.GetIsColonyWarMap() == true and config.GetShowGuildInColonyEffectCostume() == 0 then
+        return 0;
+    end
+
+    if type == "Move" and actor:GetEquipItemFlagProp("EFFECTCOSTUME") == 0 then
+        effect.AddActorEffectByOffset(actor, "I_spread_out015_light_blue_violet", 2, "MID", true, true);
+        actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
+    elseif type == "Stand" or type == "None" then
+        effect.DetachActorEffect(actor, "I_spread_out015_light_blue_violet", 0.7);
+        actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
+    end
+
+    return 1;
+end
+
 function SCR_BUFF_C_CHECKCONTINUE_SwellHands_Buff(handle, type)
     local actor = world.GetActor(handle);
     if actor == nil then

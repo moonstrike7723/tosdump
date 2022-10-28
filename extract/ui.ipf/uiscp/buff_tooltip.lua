@@ -337,3 +337,12 @@ function UPDATE_PREMIUM_BOOST_TOOLTIP(tooltipframe, handle, buff_id, numarg2)
 	gbox:Resize(gbox:GetWidth(), y + 10);
 	tooltipframe:Resize(tooltipframe:GetWidth(), gbox:GetHeight() + 20);
 end
+
+
+function BUFF_TOOLTIP_EVENT_2210_KLAPEDA_GHOST_COSTUME_BUFF(buff, cls)
+	local aObj = GetMyAccountObj();
+	local costumeName = TryGetProp(aObj, "EVENT_2210_KLAPEDA_GHOST_COSTUME_NAME", "None")
+	local costumeCls = GetClass("Item", costumeName)
+	
+	return ScpArgMsg("EVENT_2210_HALLOWEEN_BUFF_TOOLTIP", "NAME", costumeCls.Name), cls.Name
+end

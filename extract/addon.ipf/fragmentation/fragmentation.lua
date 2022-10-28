@@ -362,7 +362,7 @@ function DROPBOX_FRAGMENTATION_SELECT_JOB(index,keyword)
 	
 	local name;
 	if keyword=="None" then
-		name = ClMsg("USEJOB_END").." ▼"
+		name = ClMsg("USEJOB_END")
 	else
 		local cls =GetClassByStrProp("Job","EngName",keyword)
 		if cls==nil then return end
@@ -399,7 +399,7 @@ function DROPBOX_FRAGMENTATION_SELECT_OPTION(index,keyword)
 	
 	local name = ClMsg("RandomOption");
 	if keyword =="None" then
-		filter_btn:SetTextByKey("value",name.." ▼")
+		filter_btn:SetTextByKey("value",name)
 	else
 		name = dic.getTranslatedStr(keyword)
 		filter_btn:SetTextByKey("value",ClMsg(name))
@@ -440,9 +440,11 @@ function FRAGMENTATION_EXECUTE(parent,ctrl)
 				return;
 			end
 			local guid = slot:GetUserValue("FRAGMENTATION_GUID")
+			local targetinvitem = session.GetInvItemByGuid(guid)
+
 			if guid  =="None" then return end
 			if iesId =="None" then return end
-			if guid==iesId then 
+			if guid==iesId and targetinvitem.isLockState == false then 
 				session.AddItemID(iesId, 1)
 			end	
 		end

@@ -1955,7 +1955,7 @@ function CRAFT_PVP_MINE_ITEM_ALL(itemSet, btn)
 		propName = 'VakarineCertificate' -- 여신의 증표(바카리네) 상점
 	elseif itemName == 'dummy_TeamBattleCoin' then
 		propName = 'TeamBattleCoin' -- 팀배코인
-	elseif itemName == 'EVENT_2006_POOL_ICE' or itemName == 'EVENT_2006_ticket' or itemName == 'Event_2207_Unity' then --이벤트 코인임
+	elseif itemName == 'Event_2210_Halloween_candy' then --이벤트 코인임
 		CRAFT_ITEM_ALL(itemSet, btn)
 		return;
     end
