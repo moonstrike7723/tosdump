@@ -6,7 +6,6 @@ ClassID,ClassName,LoadingType,FileName,FAQ_Hide,Tooltip_Hide
 14,img14,LoadingFirst,42.jpg,NO,NO
 15,img15,LoadingFirst,43.jpg,NO,NO
 18,img18,LoadingFirst,46.jpg,NO,NO
-20,img20,LoadingFirst,48.jpg,NO,NO
 22,img22,LoadingFirst,47.jpg,NO,NO
 24,img24,LoadingFirst,49.jpg,NO,NO
 30,img30,LoadingFirst,22.jpg,NO,NO
@@ -36,7 +35,6 @@ ClassID,ClassName,LoadingType,FileName,FAQ_Hide,Tooltip_Hide
 123,img123,LoadingCity,42.jpg,NO,NO
 124,img124,LoadingCity,43.jpg,NO,NO
 127,img127,LoadingCity,46.jpg,NO,NO
-129,img129,LoadingCity,48.jpg,NO,NO
 131,img131,LoadingCity,47.jpg,NO,NO
 133,img133,LoadingCity,49.jpg,NO,NO
 140,img140,LoadingCity,22.jpg,NO,NO
@@ -77,7 +75,6 @@ ClassID,ClassName,LoadingType,FileName,FAQ_Hide,Tooltip_Hide
 234,img234,LoadingDefault,42.jpg,NO,NO
 235,img235,LoadingDefault,43.jpg,NO,NO
 238,img238,LoadingDefault,46.jpg,NO,NO
-240,img240,LoadingDefault,48.jpg,NO,NO
 242,img242,LoadingDefault,47.jpg,NO,NO
 244,img244,LoadingDefault,49.jpg,NO,NO
 250,img250,LoadingDefault,22.jpg,NO,NO
