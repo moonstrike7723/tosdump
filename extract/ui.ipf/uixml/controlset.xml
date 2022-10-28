@@ -4483,7 +4483,7 @@
 			<picture name="stampPic" rect="0 0 45 45" margin="10 0 0 0" layout_gravity="left center" image="barbershop_couponbook_stamp" stretch="true"/>
 			<richtext name="countText" rect="0 0 100 50" margin="60 0 0 0" layout_gravity="left center" format="{@st43b}{S18}x %s =" textalign="center center" param1="count" param1_def="0" fontname="white_24_ol"/>
 			<picture name="couponPic" rect="0 0 45 45" margin="120 0 0 0" layout_gravity="left center" image="testclose_button" stretch="true"/>
-			<richtext name="couponText" rect="0 0 300 30" margin="170 0 0 0" layout_gravity="left center" format="{@st41b}{S16}%s% 할인 쿠폰" param1="percentage" param1_def="0" fontname="white_16_b_ol"/>
+			<richtext name="couponText" rect="0 0 120 30" margin="170 0 0 0" layout_gravity="left center" format="{@st41b}{S16}%s% 할인 쿠폰" param1="percentage" param1_def="0" fontname="white_16_b_ol" fixwidth="true" autofontsizebywidth="120"/>
 			<button name="exchangeBtn" rect="0 0 90 33" margin="0 0 10 0" layout_gravity="right center" skin="test_red_button" caption="{@st41b}{s16}{nl}교환" LBtnUpScp="BEAUTY_COUPON_EXCHANGE_BTN_CLICK"/>
 			<labelline name="line" rect="0 0 360 2" margin="-4 0 0 0" layout_gravity="center bottom" skin="labelline_def_2"/>
 		</controls>
@@ -5631,8 +5631,8 @@
 			<groupbox name="optionGbox" rect="0 0 319 176" margin="0 0 15 0" layout_gravity="right center" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false" skin="test_bgreentitle_skin"/>
 			<richtext name="text_beforeadd" margin="5 5 0 0" rect="0 0 300 36" parent="optionGbox" format="{@st43b}{s16}적용 옵션" hittestbox="false" textalign="left center" resizebytext="true" spacey="0" maxwidth="0" fontname="white_16_ol" fixwidth="true" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="left top"/>
 			<richtext name="text_afteradd" margin="5 5 0 0" rect="0 0 300 36" parent="optionGbox" format="{@st43b}{s16}장착 옵션" hittestbox="false" textalign="left center" resizebytext="true" spacey="0" maxwidth="0" fontname="white_16_ol" fixwidth="true" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="left top"/>
-			<groupbox name="optionGbox_0" rect="0 0 319 176" margin="0 30 0 0" parent="optionGbox" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="true" skin="None"/>
-			<groupbox name="optionGbox_1" rect="0 0 319 176" margin="0 0 0 0" parent="optionGbox_0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+			<groupbox name="optionGbox_0" rect="0 0 319 154" margin="0 31 0 0" parent="optionGbox" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="true" skin="None"/>
+			<groupbox name="optionGbox_1" rect="0 0 319 154" margin="0 0 0 0" parent="optionGbox_0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
 			<groupbox name="resultGbox" rect="0 0 318 200" margin="5 0 0 0" layout_gravity="left center" draw="false" hittestbox="false" resizebyparent="false" changecursor="false" scrollbar="false" hittest="true" skin="test_socket_topskin"/>
 			<picture name="result_effect_bg" parent="resultGbox" rect="0 0 308 190" hittest="false" image="SUCCESS_gold_bg" oversound="button_cursor_over_3" margin="0 0 0 0" layout_gravity="center center" stretch="true"/>
 			<picture name="yellow_skin_success" parent="resultGbox" rect="0 0 318 65" hittest="false" image="BnYellow_skin" margin="0 0 0 0" stretch="true" layout_gravity="center bottom"/>
@@ -5649,8 +5649,8 @@
 			<slot name="slot_result" parent="slotGbox" margin="0 0 10 0" rect="0 0 100 100" movepop="false" hittest="false" dropsound="icon_get_down" picksound="icon_pick_up" skin="invenslot2" layout_gravity="right center"/>
 			<groupbox name="optionGbox" rect="0 0 319 176" margin="0 0 15 0" layout_gravity="right center" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false" skin="test_bgreentitle_skin"/>
 			<richtext name="text_beforereset" margin="5 5 0 0" rect="0 0 300 36" parent="optionGbox" format="{@st43b}{s16}아이커 옵션" hittestbox="false" textalign="left center" resizebytext="true" spacey="0" maxwidth="0" fontname="white_16_ol" fixwidth="true" updateparent="false" drawbackground="false" slideshow="false" layout_gravity="left top"/>
-			<groupbox name="optionGbox_0" rect="0 0 319 176" margin="0 30 0 0" parent="optionGbox" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="true" skin="None"/>
-			<groupbox name="optionGbox_1" rect="0 0 319 176" margin="0 0 0 0" parent="optionGbox_0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
+			<groupbox name="optionGbox_0" rect="0 0 319 154" margin="0 31 0 0" parent="optionGbox" layout_gravity="center top" draw="true" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="true" skin="None"/>
+			<groupbox name="optionGbox_1" rect="0 0 319 154" margin="0 0 0 0" parent="optionGbox_0" layout_gravity="center top" draw="false" hittestbox="false" resizebyparent="false" resizebyresolution="false" scrollbar="false"/>
 			<groupbox name="resultGbox" rect="0 0 318 200" margin="5 0 0 0" layout_gravity="left center" draw="false" hittestbox="false" resizebyparent="false" changecursor="false" scrollbar="false" hittest="true" skin="test_socket_topskin"/>
 			<picture name="result_effect_bg" parent="resultGbox" rect="0 0 308 190" hittest="false" image="SUCCESS_gold_bg" oversound="button_cursor_over_3" margin="0 0 0 0" stretch="true" layout_gravity="center center"/>
 			<picture name="yellow_skin_success" parent="resultGbox" rect="0 0 318 65" hittest="false" image="BnYellow_skin" margin="0 0 0 0" stretch="true" layout_gravity="center bottom"/>
