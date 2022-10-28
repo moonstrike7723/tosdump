@@ -741,6 +741,13 @@
 	<Trail name="dash001_pink" texture="dash001_pink" height="5.00" texel_x="0" texel_y="0" texel_width="32" texel_height="16"/>
 	<Trail name="dash001" texture="dash001" height="5.00" texel_x="0" texel_y="0" texel_width="32" texel_height="16"/>
 	<Trail name="smoke002" texture="smoke002" height="10.00" texel_x="512" texel_y="512" texel_width="64" texel_height="64"/>
+	<Model name="tornado_mesh005" model="tornado_mesh005.xac" motion="None" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
+	<Model name="tornado_mesh004_1" model="tornado_mesh004_1.xac" motion="tornado_mesh004_1_ani.xsm" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="TEST"/>
+	<Model name="tornado_mesh003_0" model="tornado_mesh003_0.xac" motion="tornado_mesh003_0_ani.xsm" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
+	<Model name="tornado_mesh003_3" model="tornado_mesh003_3.xac" motion="tornado_mesh003_3_ani.xsm" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
+	<Model name="tornado_mesh003_2" model="tornado_mesh003_2.xac" motion="tornado_mesh003_2_ani.xsm" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
+	<Model name="tornado_mesh003_1" model="tornado_mesh003_1.xac" motion="tornado_mesh003_1_ani.xsm" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
+	<Model name="tornado_mesh003" model="tornado_mesh003.xac" motion="tornado_mesh003_ani.xsm" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
 	<Model name="kruvina_ball_dead" model="kruvina_ball_dead.xac" motion="kruvina_ball_dead_ani.xsm" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
 	<Model name="kruvina_ball" model="kruvina_ball.xac" motion="None" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
 	<Model name="DelmoreCastleGate" model="DelmoreCastleGate.xac" motion="None" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
@@ -1174,7 +1181,9 @@
 	<Model name="werewolf_run_event" model="werewolf_run_event.xac" motion="werewolf_run_event_ani.xsm" texturepath="char_texture\monster\werewolf\" overlap="true" AlphaType="TEST"/>
 	<Model name="npc_door_dead" model="npc_door_dead.xac" motion="npc_door_dead_ani.xsm" texturepath="bg_texture\groundtower\" overlap="true" AlphaType="TEST"/>
 	<Model name="warp_arrow3" model="warp_arrow3.xac" motion="None" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="TEST"/>
+	<Model name="warp_arrow2_red" model="warp_arrow2.xac" motion="None" texturepath="effect\high\modeltexture\red\" overlap="true" AlphaType="TEST"/>
 	<Model name="warp_arrow2" model="warp_arrow2.xac" motion="None" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="TEST"/>
+	<Model name="warp_arrow_red" model="warp_arrow.xac" motion="warp_arrow_ani.xsm" texturepath="effect\high\modeltexture\red\" overlap="true" AlphaType="TEST"/>
 	<Model name="warp_arrow" model="warp_arrow.xac" motion="warp_arrow_ani.xsm" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="TEST"/>
 	<Model name="kerberos_skl2" model="kerberos_skl2.xac" motion="kerberos_skl2_ani.xsm" texturepath="char_texture\monster\Kerberos\" overlap="true" AlphaType="TEST"/>
 	<Model name="malletwyvern_dead" model="malletwyvern_dead.xac" motion="malletwyvern_dead_ani.xsm" texturepath="char_texture\monster\Malletwyvern\" overlap="false" AlphaType="TEST"/>

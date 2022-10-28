@@ -43,7 +43,7 @@ function LETICIA_CUBE_LIST_UPDATE(frame)
         if info ~= nil then
             local is_create = true;
     
-                if TryGetProp(info, "RewardGroup", "None") == "Gacha_TP2_Season_001" then
+            if TryGetProp(info, "RewardGroup", "None") == "Gacha_TP2_Season_001" or TryGetProp(info, "RewardGroup", "None") =="Gacha_Blessed_CUBE_001" then
                     is_create = false;
                 end
     

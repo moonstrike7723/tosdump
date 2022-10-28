@@ -2,6 +2,23 @@
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
 <!-- edited with XMLSpy v2006 U (http://www.altova.com) by Administrator (EMBRACE) -->
 <TextureInfo>
+	<Texture Name="sprite112_fire" File="sprite112_fire.dds" Size="512 512"/>
+	<Texture Name="crack005" File="crack005.tga" Size="1024 1024"/>
+	<Texture Name="crack004_2" File="crack004_2.tga" Size="512 512"/>
+	<Texture Name="crack004" File="crack004.tga" Size="512 512"/>
+	<Texture Name="crack003" File="crack003.tga" Size="512 512"/>
+	<Texture Name="crack002" File="crack002.tga" Size="512 512"/>
+	<Texture Name="crack001" File="crack001.tga" Size="512 512"/>
+	<Texture Name="light051_4" File="light051_4.dds" Size="512 512"/>
+	<Texture Name="light051_3" File="light051_3.dds" Size="512 512"/>
+	<Texture Name="light051_2" File="light051_2.dds" Size="512 512"/>
+	<Texture Name="light051_1" File="light051_1.dds" Size="512 512"/>
+	<Texture Name="light051" File="light051.dds" Size="512 512"/>
+	<Texture Name="light050_1" File="light050_1.dds" Size="256 256"/>
+	<Texture Name="light050" File="light050.dds" Size="256 256"/>
+	<Texture Name="hit024" File="hit024.tga" Size="383 128"/>
+	<Texture Name="sawblade001" File="sawblade001.tga" Size="512 512"/>
+	<Texture Name="sprite089" File="sprite089.tga" Size="512 256"/>
 	<Texture Name="sptire088_1536" File="sptire088_1536.tga" Size="1536 1536"/>
 	<Texture Name="success_text_green" File="success_text_green.tga" Size="512 128"/>
 	<Texture Name="success_text_blue" File="success_text_blue.tga" Size="512 128"/>

@@ -1214,6 +1214,7 @@
 		<Class ClassID="4505" ClassName="TitleArkToScroll" Data="{#FE7E00}{s30}해당 아이템를 추출합니다.{/}{/}"/>
 		<Class ClassID="4506" ClassName="ReallyArkToScroll2" Data="정말 아이템를 추출하여 레벨업 스크롤을 획득하시겠습니까?"/>
 		<Class ClassID="4513" ClassName="CantOpenCabinetArmor" Data="개방되어 있는 장비에는 개방권을 사용할 수 없습니다."/>
+		<Class ClassID="4535" ClassName="BlessedCubeGacha{CONSUME}" Data="캡슐 개봉시{nl}{CONSUME}  소모됩니다.{nl}정말 개봉하시겠습니까?"/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -10328,6 +10329,19 @@
 		<Class ClassID="92143" ClassName="ArkConvertScrollWarning{Before}{After}" Data="아이템 변경사항 안내{nl} {nl} - {Before}(변환 전) →{#62100c}{After}{/}(변환 후)"/>
 		<Class ClassID="92144" ClassName="ArkLvUpTo{Level}" Data="{@st66}사용 시 {Level}레벨로 변경됩니다.{/}"/>
 		<Class ClassID="92145" ClassName="ArkConvertTo" Data="{@st66}사용 시 선택한 아크로 변환됩니다.{/}"/>
+		<Class ClassID="92151" ClassName="GACHA_SITEM_GET_ALLMSG_BLESSED_CUBE" Data="{s24}축하드립니다!{nl}{PC} 님이 여신의 축복에서{nl}{ITEMNAME} 를(을) 획득하셨습니다!"/>
+		<Class ClassID="92152" ClassName="GACHA_SITEM_GET_ALLMSG_BLESSED_CUBE_COUNT" Data="{s24}축하드립니다!{nl}{PC} 님이 여신의 축복에서{nl}{ITEMNAME} 를(을) {COUNT}개 획득하셨습니다!"/>
+		<Class ClassID="92156" ClassName="Preview_Helmet_M" Data="헬멧 (남)"/>
+		<Class ClassID="92157" ClassName="Preview_Helmet_F" Data="헬멧 (여)"/>
+		<Class ClassID="92158" ClassName="Preview_Helmet_B" Data="헬멧 (공용)"/>
+		<Class ClassID="92159" ClassName="Preview_Costume_M" Data="코스튬 (남)"/>
+		<Class ClassID="92160" ClassName="Preview_Costume_F" Data="코스튬 (여)"/>
+		<Class ClassID="92161" ClassName="Preview_Costume_B" Data="코스튬 (공용)"/>
+		<Class ClassID="92162" ClassName="Preview_Doll" Data="인형"/>
+		<Class ClassID="92163" ClassName="Preview_Weapon" Data="무기 외형"/>
+		<Class ClassID="92164" ClassName="Preview_Wing" Data="등 코스튬"/>
+		<Class ClassID="92165" ClassName="Preview_Effect" Data="이펙트"/>
+		<Class ClassID="92166" ClassName="Preview_HairCostume" Data="헤어 코스튬"/>
 	</Category>
 	<Category Name="BattleText">
 		<Class ClassID="100001" ClassName="ADD_DAMAGE_{Auto_1}!" Data="추가 대미지 {Auto_1}!"/>
@@ -16825,8 +16839,8 @@
 		<Class ClassID="1002041" ClassName="NotVisibleWingCostume_Hair" Data="해당 헤어 구매 시 {nl}일부 {@st66d_y}등 코스튬과 렌즈가 {nl}보이지 않을 수 있습니다.{/}{nl}그래도 구매하시겠습니까?"/>
 		<Class ClassID="1002042" ClassName="NotVisibleWingCostume_Wig" Data="해당 아이템 착용 시 {nl}일부 {@st66d_y}등 코스튬이 보이지 않을 수 있습니다.{/}{nl}그래도 구매하시겠습니까?"/>
 		<Class ClassID="1002043" ClassName="ItemsThatCanNotBePurchased" Data="구매 불가능한 아이템"/>
-		<Class ClassID="1002044" ClassName="BEAUTY_SHOP_FASHION_4" Data="테마 상품 입어보기"/>
-		<Class ClassID="1002045" ClassName="NotBuy_Thema" Data="해당 상품은 개별 구매가 불가능하며,{nl}{@st66d_y}여신의 큐브에서 {nl}확률적으로 획득할 수 있는 아이템입니다.{/}"/>
+		<Class ClassID="1002044" ClassName="BEAUTY_SHOP_FASHION_4" Data="신규 상품 입어보기"/>
+		<Class ClassID="1002045" ClassName="NotBuy_Thema" Data="해당 상품은 개별 구매가 불가능하며,{nl}{@st66d_y}여신의 축복에서 {nl}확률적으로 획득할 수 있는 아이템입니다.{/}"/>
 		<Class ClassID="1002046" ClassName="NotBuy_Thema2" Data="해당 상품은 개별 구매가 불가능하며,{nl}{@st66d_y}마신의 큐브에서 {nl}확률적으로 획득할 수 있는 아이템입니다.{/}"/>
 		<Class ClassID="1002047" ClassName="SCT" Data="스카우트"/>
 		<Class ClassID="1002048" ClassName="BEAUTY_SHOP_SKIN" Data="스킨 변경"/>
@@ -16840,7 +16854,7 @@
 		<Class ClassID="1002056" ClassName="BEAUTY_SHOP_HAIR_F4" Data="여자 디자인 컷 구매"/>
 		<Class ClassID="1002057" ClassName="DesigncutDyeWarning" Data="디자인 컷 착용 후  {#FF0900}인벤토리 내 가발 슬롯 좌측 화살표를 클릭하면 지정된 색상 중 원하는 색으로 변경{/}하실 수 있습니다.{nl} {nl}* 지정된 색상 외의 염색약 적용이 불가능합니다."/>
 		<Class ClassID="1002058" ClassName="PREVIEW_LETICIA" Data="레티샤 상품 입어보기"/>
-		<Class ClassID="1002059" ClassName="PREVIEW_SILVERGACHA" Data="마신의 유혹 상품 입어보기"/>
+		<Class ClassID="1002059" ClassName="PREVIEW_SILVERGACHA" Data="이월 상품 입어보기"/>
 		<Class ClassID="1002060" ClassName="NotBuy_Thema3" Data="해당 상품은 개별 구매가 불가능하며,{nl}{@st66d_y}레티샤의 시크릿 큐브에서 {nl}확률적으로 획득할 수 있는 아이템입니다.{/}"/>
 		<Class ClassID="1002061" ClassName="NotBuy_Thema4" Data="해당 상품은 개별 구매가 불가능하며,{nl}{@st66d_y}마신의 유혹에서 {nl}확률적으로 획득할 수 있는 아이템입니다.{/}"/>
 	</Category>
@@ -17855,6 +17869,8 @@
 		<Class ClassID="1050028" ClassName="trade_select_item_set_growth_cloth_magic" Data="[성장] 천 방어구 세트(마법)"/>
 		<Class ClassID="1050029" ClassName="trade_select_item_set_growth_leather_magic" Data="[성장] 가죽 방어구 세트(마법)"/>
 		<Class ClassID="1050030" ClassName="trade_select_item_set_growth_iron_magic" Data="[성장] 판금 방어구 세트(마법)"/>
+		<Class ClassID="1050031" ClassName="trade_select_item_set_m_ep13animal01" Data="동물유치원 분홍 토끼 세트 (남)"/>
+		<Class ClassID="1050032" ClassName="trade_select_item_set_f_ep13animal01" Data="동물유치원 딸기 소 세트 (여)"/>
 	</Category>
 	<Category Name="UnlockQuest">
 		<Class ClassID="1060001" ClassName="UnlockQuest_SysMsg_1" Data="{#FFFF00}{s20}{QuestInfoName}{/}{/}{nl}퀘스트 목표를 갱신합니다"/>
