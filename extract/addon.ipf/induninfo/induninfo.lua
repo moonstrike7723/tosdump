@@ -1491,10 +1491,17 @@ function INDUNINFO_SET_ENTERANCE_TIME(frame,indunCls)
     local pvpbox = GET_CHILD_RECURSIVELY(frame, 'pvpbox');
     local timeData = GET_CHILD_RECURSIVELY(pvpbox,'timeData')
     if GetServerNation() == "GLOBAL" then
-        local start_time = string.format("%02d:%02d", TryGetProp(indunCls, "GlobalStartHour", 0), TryGetProp(indunCls, "GlobalStartMin", 0));
-        local end_time = string.format("%02d:%02d", TryGetProp(indunCls, "GlobalEndHour", 0), TryGetProp(indunCls, "GlobalEndMin", 0));
+        local appendStr = ""
+        local ruleCls = GetClass("pvp_teambattle_rule", "pvp_teambattle_rule_steam_"..GetServerGroupID())
+        if ruleCls ~= nil then
+            indunCls = ruleCls
+        else
+            appendStr = "Global"
+        end
+        local start_time = string.format("%02d:%02d", TryGetProp(indunCls, appendStr.."StartHour", 0), TryGetProp(indunCls, appendStr.."StartMin", 0));
+        local end_time = string.format("%02d:%02d", TryGetProp(indunCls, appendStr.."EndHour", 0), TryGetProp(indunCls, appendStr.."EndMin", 0));
         timeData:SetTextByKey("start", start_time);
-        timeData:SetTextByKey("end", end_time);
+        timeData:SetTextByKey("end", end_time);        
     else
         local startTime = string.format("%02d:%02d",TryGetProp(indunCls,"StartHour",0),TryGetProp(indunCls,"StartMin",0))
         local endTime = string.format("%02d:%02d",TryGetProp(indunCls,"EndHour",0),TryGetProp(indunCls,"EndMin",0))
@@ -2035,14 +2042,17 @@ function PVP_INDUNINFO_UI_OPEN(frame)
             do --time setting
                 local timeText = categoryCtrl:GetChild("timeText");
                 if GetServerNation() == "GLOBAL" then
-                    local start_time = string.format("%02d:%02d", TryGetProp(indunCls, "GlobalStartHour", 0), TryGetProp(indunCls, "GlobalStartMin", 0));
-                    if start_time < timeText:GetTextByKey("start") then
-                        timeText:SetTextByKey("start", start_time);
+                    local appendStr = ""
+                    local ruleCls = GetClass("pvp_teambattle_rule", "pvp_teambattle_rule_steam_"..GetServerGroupID())
+                    if ruleCls ~= nil then
+                        indunCls = ruleCls
+                    else
+                        appendStr = "Global"
                     end
-                    local end_time = string.format("%02d:%02d", TryGetProp(indunCls, "GlobalEndHour", 0), TryGetProp(indunCls, "GlobalEndMin", 0));
-                    if end_time > timeText:GetTextByKey("end") then
-                        timeText:SetTextByKey("end", end_time);                     
-                    end
+                    local start_time = string.format("%02d:%02d", TryGetProp(indunCls, appendStr.."StartHour", 0), TryGetProp(indunCls, appendStr.."StartMin", 0));
+                    local end_time = string.format("%02d:%02d", TryGetProp(indunCls, appendStr.."EndHour", 0), TryGetProp(indunCls, appendStr.."EndMin", 0));
+                    timeText:SetTextByKey("start", start_time);
+                    timeText:SetTextByKey("end", end_time);                     
                 else
                     local startTime = string.format("%02d:%02d",indunCls.StartHour,indunCls.StartMin)
                     if startTime < timeText:GetTextByKey("start") then
