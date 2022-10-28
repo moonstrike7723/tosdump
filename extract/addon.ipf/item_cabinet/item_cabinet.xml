@@ -67,7 +67,9 @@
 		<!--버튼 구현부-->
 		<button name="do_reinforce" parent="relic_upgradeBg" rect="0 0 90 65" margin="0 0 17 58" layout_gravity="right bottom" LBtnUpScp="ITEM_CABINET_REINFORCE_EXEC" skin="relic_btn_purple" format="{@st41b}{s18}%s" oversound="button_cursor_over_3" param1="value" param1_def="강화" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" clicksound="button_click_big"/>
 		<button name="send_ok_reinforce" parent="relic_upgradeBg" rect="0 0 90 65" margin="0 0 17 58" layout_gravity="right bottom" LBtnUpScp="CONFIRM_ITEM_CABINET_REINFORCE" skin="relic_btn_purple" format="{@st41b}{s18}%s" oversound="button_cursor_over_3" param1="value" param1_def="확인" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" clicksound="button_click_big"/>
-		<checkbox name="check_no_msgbox" parent="relic_upgradeBg" margin="0 0 15 25" rect="0 0 15 15" clicksound="button_click_big" oversound="button_over" layout_gravity="right bottom" caption="{@st202}{s16}확인 생략"/>
+		<groupbox name="check_box" parent="relic_upgradeBg" rect="0 0 120 25" margin="375 0 0 24" layout_gravity="left bottom" skin="relic_frame_inner" draw="false" stretch="false" scrollbar="false"/>
+		<checkbox name="check_no_msgbox" parent="check_box" margin="0 0 0 0" rect="0 0 15 15" clicksound="button_click_big" oversound="button_over" layout_gravity="left center"/>
+		<richtext name="check_msg" parent="check_box" rect="0 0 70 25" margin="27 2 0 0" layout_gravity="left top" caption="{@st202}{s16}확인 생략" autofontsizebywidth="95" textalign="left center"/>
 		
 		<!--강화 성공 및 실패 이미지 출력-->
 		<groupbox name="rresult_gb" parent="relic_upgradeBg" rect="0 0 490 270" margin="0 0 0 0" layout_gravity="center top" draw="false" hittestbox="true"/>

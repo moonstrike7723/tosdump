@@ -926,6 +926,13 @@ function ITEM_CABINET_MATCH_NAME(listCls, cap)
 		return true;
 	end
 
+	local noBarOrigin = string.gsub(itemname, '-', '')
+	local noBartemp = string.gsub(tempcap, '-', '')
+
+	if string.find(noBarOrigin, noBartemp) ~= nil then
+		return true;
+	end
+
 	local enable_name = GET_ENABLE_EQUIP_JOB(listCls)
 	if string.find(enable_name, tempcap) ~= nil then
 		return true;

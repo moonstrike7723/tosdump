@@ -550,6 +550,8 @@
 		<Class ClassID="2419" ClassName="InvalidGem" Data="유효하지 않은 젬 (사본)입니다."/>
 		<Class ClassID="2420" ClassName="InvalidGemNeedUpperLevel" Data="현재 등록된 성물젬 보다 상위 레벨의 성물젬만 등록 가능합니다."/>
 		
+		<Class ClassID="2427" ClassName="IsNotRegistered" Data="미등록"/>
+		<Class ClassID="2428" ClassName="LevelOfRegisterGem" Data="등록하려는 젬의 레벨"/>
 	</Category>
 	<Category Name="ClassContents">
 		<Class ClassID="2500" ClassName="FullWeeklyGainClassResetExp" Data="주간 획득 가능한 클래스 변경 포인트를 모두 달성하였습니다."/>
