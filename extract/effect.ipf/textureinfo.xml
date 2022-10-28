@@ -1,7 +1,10 @@
 <?xml version="1.0" standalone="yes"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
 <!-- edited with XMLSpy v2006 U (http://www.altova.com) by Administrator (EMBRACE) -->
 <TextureInfo>
+	<Texture Name="bubble001_blue" File="bubble001_blue.tga" Size="64 64"/>
+	<Texture Name="bubble001" File="bubble001.tga" Size="64 64"/>
+	<Texture Name="sprite002_orange2" File="sprite002_orange2.dds" Size="512 256"/>
 	<Texture Name="sprite112_fire" File="sprite112_fire.dds" Size="512 512"/>
 	<Texture Name="crack005" File="crack005.tga" Size="1024 1024"/>
 	<Texture Name="crack004_2" File="crack004_2.tga" Size="512 512"/>

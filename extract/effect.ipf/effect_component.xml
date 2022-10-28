@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <ComponentList>
+	<Particle name="bubble001_blue" texture="bubble001_blue" width="5" height="5" pivot_x="0.5" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="64" texel_height="64"/>
+	<Particle name="bubble001" texture="bubble001" width="5" height="5" pivot_x="0.5" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="64" texel_height="64"/>
 	<Particle name="crack004_2" texture="crack004_2" width="5" height="5" pivot_x="0.5" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="512" texel_height="512"/>
 	<Particle name="crack004" texture="crack004" width="5" height="5" pivot_x="0.5" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="512" texel_height="512"/>
 	<Particle name="crack003" texture="crack003" width="5" height="5" pivot_x="0.5" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="512" texel_height="512"/>
@@ -602,6 +604,7 @@
 	<Texture name="texture_fire001" texture="fire001" width="2.00" height="2.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="64" texel_height="64"/>
 	<Texture name="texture_test_1" texture="fire004" width="2.00" height="2.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="64" texel_height="64"/>
 	<Texture name="texture_test_2" texture="fire004" width="2.00" height="2.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="64" texel_height="64"/>
+	<Sprite name="sprite002_orange2" texture="sprite002_orange2" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="128" texel_height="128" loop="true" count="4" pitch="4" ticktime="0.03"/>
 	<Sprite name="sprite112_fire" texture="sprite112_fire" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="128" texel_height="128" loop="false" count="16" pitch="4" ticktime="0.08"/>
 	<Sprite name="crack005" texture="crack005" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="512" texel_height="512" loop="false" count="4" pitch="2" ticktime="0.08"/>
 	<Sprite name="sprite089" texture="sprite089" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="128" texel_height="128" loop="false" count="36" pitch="4" ticktime="0.05"/>
@@ -758,6 +761,8 @@
 	<Trail name="dash001_pink" texture="dash001_pink" height="5.00" texel_x="0" texel_y="0" texel_width="32" texel_height="16"/>
 	<Trail name="dash001" texture="dash001" height="5.00" texel_x="0" texel_y="0" texel_width="32" texel_height="16"/>
 	<Trail name="smoke002" texture="smoke002" height="10.00" texel_x="512" texel_y="512" texel_width="64" texel_height="64"/>
+	<Model name="alraune_fig001_mesh" model="alraune_fig001_mesh.xac" motion="None" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
+	<Model name="rama_avoid_mesh" model="rama_avoid_mesh.xac" motion="None" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
 	<Model name="tornado_mesh005" model="tornado_mesh005.xac" motion="None" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>
 	<Model name="tornado_mesh004_1" model="tornado_mesh004_1.xac" motion="tornado_mesh004_1_ani.xsm" texturepath="effect\high\modeltexture\" overlap="true" AlphaType="TEST"/>
 	<Model name="tornado_mesh003_0" model="tornado_mesh003_0.xac" motion="tornado_mesh003_0_ani.xsm" texturepath="effect\high\modeltexture\" overlap="false" AlphaType="BLEND"/>

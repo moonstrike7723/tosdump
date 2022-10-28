@@ -1254,6 +1254,8 @@
 		<Class ClassID="4540" ClassName="UnlockBelongingWhenUsage" Data="사용 시 귀속 상태가 해제됩니다."/>		
 		<Class ClassID="4541" ClassName="TeamBelongingWhenUsage" Data="사용 시 팀 귀속 상태가 됩니다."/>		
 		<Class ClassID="4542" ClassName="TeamBelonging" Data="팀 귀속"/>		
+		<Class ClassID="4544" ClassName="MYSTIC_SAVIOR_CHAGE_LUMEN" Data="찬란하게 빛나는 정의로운 빛,{nl}이터널 세이비어 루멘!"/>
+		<Class ClassID="4545" ClassName="MYSTIC_SAVIOR_CHAGE_NOX" Data="파멸을 향하는 칠흑 같은 어둠,{nl}이터널 세이비어 녹스!"/>	
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
