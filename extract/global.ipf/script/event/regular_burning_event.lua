@@ -87,21 +87,23 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 }
     
     local daycheckbuff = 
-	{{'8','28',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-	,{'8','29',{'Event_LootingChance_Add_1000','Event_Reinforce_Discount_50'}}
-	,{'8','30',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-	,{'9','4',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'9','5',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'9','6',{'Event_ATK_and_DEF_UP_BUFF','Event_Reappraisal_Discount_50'}}
-	,{'9','11',{'Event_RootCrystal_Check_Buff','Event_Cooldown_SPamount_Decrease'}}
-	,{'9','12',{'Event_RootCrystal_Check_Buff','Event_Worship_Affect_10fold'}}
-	,{'9','13',{'Event_RootCrystal_Check_Buff','Event_Reagent_Bottle_Expup_100'}}
-	,{'9','18',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
-	,{'9','19',{'Event_healHSP_Speedup','Event_Penalty_Clear_Gem_Reinforce'}}
-	,{'9','20',{'Event_healHSP_Speedup','Event_Even_Transcend_Discount_50'}}
-	,{'9','25',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
+	{{'9','25',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
 	,{'9','26',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
 	,{'9','27',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'10','2',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
+	,{'10','3',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'10','4',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'10','9',{'Event_RootCrystal_Check_Buff','Event_Reagent_Bottle_Expup_100'}}
+	,{'10','10',{'Event_RootCrystal_Check_Buff','Event_Cooldown_SPamount_Decrease'}}
+	,{'10','11',{'Event_RootCrystal_Check_Buff','Event_Unique_Raid_Bonus_Limit'}}
+	,{'10','16',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
+	,{'10','17',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'10','18',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'10','23',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
+	,{'10','24',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
+	,{'10','25',{'Event_LootingChance_Add_1000','Event_Reappraisal_Discount_50'}}
+	,{'10','30',{'Event_healHSP_Speedup','Event_Class_Change_Pointup_500'}}
+	,{'10','31',{'Event_healHSP_Speedup','Event_Legend_Uphill_Count_Reset'}}
 		}
 	
 	-- 기본 적용 버프
@@ -116,7 +118,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 	end
 		
 	local distractor;
-	if table.find(dayBuffList,'Event_Legend_Uphill_Count_Reset') ~= 0 then --레전드 레이드 날짜 수정 필요
+	if table.find(dayBuffList,'Event_Legend_Uphill_Count_Reset') ~= 0 then
 		distractor = ShowSelDlg(pc, 0, "REGULAR_BURNING_EVENT_COUNT_RESET_CHECK", ScpArgMsg("NPC_EVENT_MAGAZINE_NUM1_SEL2"), ScpArgMsg("Auto_SeonTaegChoKiHwa"), ScpArgMsg("Cancel"))
 	else
 		distractor = ShowSelDlg(pc, 0, 'FLASHMOB_EVENT_REWARD_SUCCESS', ScpArgMsg("NPC_EVENT_MAGAZINE_NUM1_SEL2"), ScpArgMsg("Cancel"))
@@ -168,6 +170,8 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_802", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_803", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_805", 0)
+                        TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_806", 0)
+                        TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_808", 0)
                         TxSetIESProp(tx, accountObject, "REGULAR_BURNING_EVENT_COUNT_RESET", 1)
                         local ret = TxCommit(tx)
         

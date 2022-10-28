@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <ForkParticle>
+	<Particle name="F_light015_violet_loop3" file="F_light015_violet_loop3" time="0" scale="8" sound="None" fadeSound="FALSE" looptime="0.0" sounddelay="0.0" paused="NO" rotate="NO" attach="YES" render="NORMAL" color="255;255;255;255" is2D="FALSE" softParticleFactor="20" useReverse="FALSE" preScale="1.0" preScaleXYZ="" useAttach="FALSE" attachNodeName="None"/>
 	<Particle name="F_ground059_fire2" file="F_ground059_fire2" time="2" scale="3" sound="skl_explosion01" fadeSound="FALSE" looptime="0.00" sounddelay="0.00" paused="NO" rotate="NO" attach="NO" render="NORMAL" color="255;255;255;255" is2D="FALSE" softParticleFactor="3" useReverse="FALSE" preScale="1.0" preScaleXYZ="" useAttach="FALSE" attachNodeName="None"/>
 	<Particle name="F_water006_loop2" file="F_water006_loop2" time="0" scale="5" sound="None" fadeSound="FALSE" looptime="0.00" sounddelay="0.00" paused="NO" rotate="YES" attach="YES" render="NORMAL" color="255;255;255;255" is2D="FALSE" softParticleFactor="1" useReverse="FALSE" preScale="1.0" preScaleXYZ="" useAttach="FALSE" attachNodeName="None"/>
 	<Particle name="F_spread_out010_red" file="F_spread_out010_red" time="2" scale="5" sound="None" fadeSound="FALSE" looptime="0.0" sounddelay="0.0" paused="NO" rotate="NO" attach="YES" render="TOP" color="255;255;255;255" is2D="FALSE" softParticleFactor="100" useReverse="FALSE" preScale="1.0" preScaleXYZ="" useAttach="FALSE" attachNodeName="None"/>

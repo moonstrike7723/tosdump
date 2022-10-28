@@ -1,8 +1,8 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202009,220000,202009,270000,202010,200000,202010,150000,0,0,inGame_E1,Support Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2104,,,,
-999902,202009,150000,202009,200000,202010,130000,202010,80000,0,0,inGame_E2,Your Master,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2098,,,,
-999903,202009,150000,202009,200000,202009,290000,202009,240000,0,0,inGame_E3,Leticia's Secret Cube,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2097,,,,
+999901,202009,290000,202010,40000,202010,130000,202010,80000,0,0,inGame_E1,Goddess' Blessed Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2108,,,,
+999902,202009,220000,202009,270000,202010,200000,202010,150000,0,0,inGame_E2,Support Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2104,,,,
+999903,202009,150000,202009,200000,202010,130000,202010,80000,0,0,inGame_E3,Your Master,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2098,,,,
 999904,202008,110000,202008,160000,202011,100000,202011,50000,0,0,inGame_E4,Season Server Stamp Tour,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2071,,,,Season
 999905,202008,110000,202008,160000,202011,100000,202011,50000,0,0,inGame_E5,Season Server Goddess' Roulette,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2069,,,,Season
-999906,202007,140000,202007,190000,202010,130000,202010,80000,0,0,inGame_E6,SteamGuard Guide,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2042,,,,
-999907,202003,310000,202004,50000,202011,120000,202011,70000,0,0,inGame_E7,Weekend Burning Event,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2083,,,,Normal
+999906,202007,140000,202007,190000,202112,310000,202112,300000,0,0,inGame_E6,SteamGuard Guide,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
+999907,202003,310000,202004,50000,202112,310000,202112,300000,0,0,inGame_E7,Weekend Burning Event,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2109,time_del,,,Normal
