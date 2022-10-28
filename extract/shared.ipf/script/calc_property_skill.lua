@@ -250,9 +250,16 @@ function SCR_Get_SpendSP_Magic(skill)
             jobHistory = GetMyJobHistoryString();
         end
         
-        if jobHistory ~= nil and string.find(jobHistory, "Char4_2") ~= nil then
-            value = value - 25
+        local jobList = GetJobHistoryList(pc)
+        for i = 1, #jobList do
+            if jobList[i] == 4002 then
+                value = value - 25
+            end
         end
+
+        -- if jobHistory ~= nil and string.find(jobHistory, "Char4_2") ~= nil then
+        --     value = value - 25
+        -- end
         
         if jobHistory ~= nil and string.find(jobHistory, "Char4_10") ~= nil then
             value = value - 50
@@ -9321,9 +9328,16 @@ function SCR_GET_Heal_Ratio2(skill)
         jobHistory = GetMyJobHistoryString();
     end
     
-    if jobHistory ~= nil and string.find(jobHistory, "Char4_2") ~= nil then
-        value = value * 1.05
+    local jobList = GetJobHistoryList(pc)
+    for i = 1, #jobList do
+        if jobList[i] == 4002 then
+            value = value * 1.05
+        end
     end
+
+    -- if jobHistory ~= nil and string.find(jobHistory, "Char4_2") ~= nil then
+    --     value = value * 1.05
+    -- end
     
     if jobHistory ~= nil and string.find(jobHistory, "Char4_15") ~= nil then
         value = value * 1.1

@@ -13575,6 +13575,8 @@
 		<Class ClassID="300189" ClassName="Event_Theme" Data="[이벤트] 가비야 테마"/>
 		<Class ClassID="300190" ClassName="remain_TP" Data="미수령 TP"/>
 		<Class ClassID="300191" ClassName="remain_TP_exists" Data="미수령 TP가 존재합니다. 수령하시겠습니까?"/>
+		<Class ClassID="300195" ClassName="cht_washhand_1" Data="손 씻는 중"/>
+		<Class ClassID="300196" ClassName="cht_washhand_2" Data="[캠페인] 청결한 습관 효과를 얻었습니다"/>
 	</Category>
 	<Category Name="TPHistory">
 		<Class ClassID="301001" ClassName="RemainLogoutPC" Data="로그아웃 PC 만들기"/>
@@ -14479,6 +14481,7 @@
 		<Class ClassID="2200003" ClassName="MarketWebService_3" Data="아이템 정보를 얻어오는데 실패했습니다."/>
 		<Class ClassID="2200004" ClassName="MarketWebService_902" Data="서버로 잘못된 Parameter 정보가 전달되었습니다."/>
 		<Class ClassID="2200005" ClassName="MarketWebService_904" Data="서버오류로 정상적인 처리가 되지 않았습니다."/>
+    <Class ClassID="2200006" ClassName="MarketWebService_903" Data="아직 사용할 수 없습니다. 잠시 후 다시 시도해주세요."/>
 	</Category>
 	<Category Name="Raid">
 		<Class ClassID="514001" ClassName="VelcofferSealStoneScrMsg" Data="봉인 해제중.."/>
@@ -14716,6 +14719,7 @@
 		<Class ClassID="560012" ClassName="motion_medeina_emotion02" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560013" ClassName="emoticon_Normal" Data="일반"/>
 		<Class ClassID="560014" ClassName="emoticon_Motion" Data="모션"/>
+		<Class ClassID="560018" ClassName="medeina_emotion03" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 	</Category>
 	<Category Name="Gesture">
 		<Class ClassID="570000" ClassName="Already_Gesture" Data="이미 보유한 제스쳐입니다."/>

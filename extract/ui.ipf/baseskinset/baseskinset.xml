@@ -7749,6 +7749,9 @@
 		<image name="god_roulette_coin_entrance" file="\skin\stamp_tour.tga" imgrect="1044 760 72 72" CMM_Caption="여신의 룰렛 코인"/>
 		<image name="god_roulette_coin_entrance_cursoron" file="\skin\stamp_tour.tga" imgrect="1117 760 72 72"/>
 		<image name="god_roulette_coin_entrance_clicked" file="\skin\stamp_tour.tga" imgrect="1190 760 72 72"/>
+		<image name="button_view_info_big" file="\skin\pip_test2.tga" imgrect="657 392 39 37" CMM_Caption="새로고침_버튼사이즈_업"/>
+		<image name="button_view_info_big_cursoron" file="\skin\pip_test2.tga" imgrect="697 392 39 37"/>
+		<image name="button_view_info_big_clicked" file="\skin\pip_test2.tga" imgrect="697 392 39 37"/>
 	</imagelist>
 	<imagelist category="testmin_image">
 		<image name="clock_inven" file="\skin\pip_test.tga" imgrect="403 698 50 50" CMM_Caption="기간제 시계 아이콘 및 날짜 뒷배경"/>
@@ -8572,6 +8575,7 @@
 		<image name="ragana_emotion71" file="\icon\emoticon\ragana_emotion02.png" imgrect="0 0 128 128"/>
 		<image name="ragana_emotion72" file="\icon\emoticon\ragana_emotion03.png" imgrect="0 0 128 128"/>
 		<image name="ragana_emotion73" file="\icon\emoticon\ragana_emotion04.png" imgrect="0 0 128 128"/>
+		<image name="medeina_emotion03" file="\icon\emoticon\medeina_emotion03.png" imgrect="0 0 128 128"/>
 	</imagelist>
 	<imagelist category="itemtooltip_image">
 		<image name="circle_gem" file="\skin\tooltip_skin_3.tga" imgrect="805 228 30 30"/>
