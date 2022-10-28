@@ -96,7 +96,9 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 2124,1,LV400_MISSION_ACHIEVE01,AchievePoint,이벤트,불굴의 투지 보유자 (Lv.400 던전),"2019년 12월 21일, 악명높은 난이도의 샤울레이 던전을 불굴의 투지로 도전하여 마침내 클리어한 유저에게 지급하는 칭호입니다.",icon_item_Misc_00021,YES,불굴의 투지 보유자 (Lv.400 던전),,False,LV400_MISSION_ACHIEVE01,NO,,,,,NO,
 2125,1,LV400_MISSION_ACHIEVE02,AchievePoint,이벤트,용기있는 자 (Lv.400 던전),"2019년 12월 21일, 누구나 두려워했던 샤울레이 던전에 도전해본 유저에게 지급하는 칭호입니다.",icon_item_Misc_00021,YES,용기있는 자 (Lv.400 던전),,False,LV400_MISSION_ACHIEVE02,NO,,,,,NO,
 2126,1,Weekly boss raid_Event_01,AchievePoint,이벤트,주간 보스 레이드 토벌대,주간 보스 레이드에 참여한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,주간 보스 레이드 토벌대,,False,Weekly boss raid_Event_01,NO,,,,,NO,
+2127,1,EVENT_2003_GUILD_01,AchievePoint,이벤트,뭉쳐야 재미있는 트오세 생활,길드 있어 트오세 있다 이벤트 참여자에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,뭉쳐야 재미있는 트오세 생활,,False,EVENT_2003_GUILD_01,NO,,,,,NO,
 2128,1,EVENT_2003_Arbor_Day,AchievePoint,이벤트,나무의 소중함을 알고 있는,식목일 이벤트 참여자에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,나무의 소중함을 알고 있는,,False,EVENT_2003_Arbor_Day,NO,,,,,NO,
+2129,1,EVENT_2004_Stamp,AchievePoint,이벤트,{img Collar_Event_Stamp_skin 24 24} 달려라 스탬프 투어!,스탬프 투어의 모든 미션을 클리어한 구원자에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,달려라 스탬프 투어!,,False,EVENT_2004_Stamp,NO,,,,,NO,
 2030,1,Passionate_Artist_Ev,AchievePoint,이벤트,{img Collar_Brush 20 20}Passionate Artist,발렌타인 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Passionate Artist,,False,Passionate_Artist_Ev,NO,,,,,,
 2046,1,FinestMoment,AchievePoint,이벤트,{img Collar_FinestMoment 30 30}Finest Moment,봄맞이 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Finest Moment,,False,FinestMoment,NO,,,,,,
 2050,1,Event_170823_Fanart_Steam,AchievePoint,이벤트,{img Collar_GivingShade 30 30}Giving Shade,2017년 여름 팬아트 공모전 수상자에게 주어지는 칭호.,icon_item_Misc_00021,YES,Giving Shade,,False,Event_170823_Fanart_Steam,NO,,,,,,
@@ -197,9 +199,9 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 7001,1,Journal_1,Journal,모험일지,초일류 모험가,모험일지 랭킹 1위를 달성한 유저,icon_item_Misc_00021,YES,초일류 모험가,,False,Journal_AP1,NO,,,,,YES,
 7002,1,Journal_2,Journal,모험일지,든든한 구원자,모험일지 성장점수 5600점을 달성한 유저에게 주어지는 칭호,icon_item_Misc_00021,NO,든든한 구원자,,True,Journal_AP2,NO,,,,,NO,
 7003,1,Journal_3,Journal,모험일지,거목같은 구원자,모험일지 성장점수 11300점을 달성한 유저에게 주어지는 칭호,icon_item_Misc_00021,NO,거목같은 구원자,,True,Journal_AP3,NO,,,,,NO,
-7004,1,Journal_4,Journal,모험일지,일지 기록자,모험일지 탐험점수 17960점을 달성한 유저에게 주어지는 칭호,icon_item_Misc_00021,NO,일지 기록자,,True,Journal_AP4,NO,,,,,NO,
-7005,1,Journal_5,Journal,모험일지,위대한 기록자,모험일지 탐험점수 28960점을 달성한 유저에게 주어지는 칭호,icon_item_Misc_00021,NO,위대한 기록자,,True,Journal_AP5,NO,,,,,NO,
-7006,1,Journal_6,Journal,모험일지,낭비벽이 심한 구원자,모험일지 아이템 소비 랭킹 1위를 달성한 유저,icon_item_Misc_00021,NO,낭비벽이 심한 구원자,,False,Journal_AP6,NO,,,,,YES,
+7004,1,Journal_4,Journal,모험일지,일지 기록자,모험일지 탐험점수 23180점을 달성한 유저에게 주어지는 칭호,icon_item_Misc_00021,NO,일지 기록자,,True,Journal_AP4,NO,,,,,NO,
+7005,1,Journal_5,Journal,모험일지,위대한 기록자,모험일지 탐험점수 32360점을 달성한 유저에게 주어지는 칭호,icon_item_Misc_00021,NO,위대한 기록자,,True,Journal_AP5,NO,,,,,NO,
+7006,1,Journal_6,Journal,모험일지,낭비벽이 심한 구원자,모험일지 아이템 소모품 사용 랭킹 1위를 달성한 유저,icon_item_Misc_00021,NO,낭비벽이 심한 구원자,,False,Journal_AP6,NO,,,,,YES,
 8001,1,VELCOFFER_KILL_1,AchievePoint,킬,벨코퍼 도전자,벨코퍼의 둥지 1회 클리어.,icon_item_Misc_00021,NO,벨코퍼 도전자,,True,VELCOFFER_KILL,YES,,,,,,
 8002,25,VELCOFFER_KILL_2,AchievePoint,킬,벨코퍼 토벌자,벨코퍼의 둥지 25회 클리어.,icon_item_Misc_00021,NO,벨코퍼 토벌자,,True,VELCOFFER_KILL,YES,,,,,,
 8003,50,VELCOFFER_KILL_3,AchievePoint,킬,벨코퍼 학살자,벨코퍼의 둥지 50회 클리어.,icon_item_Misc_00021,NO,벨코퍼 학살자,,True,VELCOFFER_KILL,YES,,,,,,
@@ -209,11 +211,16 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 8007,1,whitecrow_clear,AchievePoint,킬,First Conqueror,각 서버에서 [흰 까마귀의 영면지: 레전드]를 일정 기간 내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,First Conqueror,,True,whitecrow_clear,YES,,,,,,plate_achieve_whitecrow_clear
 8008,1,moringponia_first_kill,AchievePoint,킬,Parallel Existence,각 서버에서 최초로 [나비목 접선지: 레전드]를 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Parallel Existence,,True,moringponia_first_kill,YES,,,,,,plate_achieve_moringponia_first_kill
 8009,1,moringponia_clear,AchievePoint,킬,Time Walker,각 서버에서 [나비목 접선지: 레전드]를 일정 기간 내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Time Walker,,True,moringponia_clear,YES,,,,,,plate_achieve_moringponia_clear
+8010,1,moringponia_first_kill_hard,AchievePoint,킬,Outran The Past,각 서버에서 최초로 [나비목 접선지: 레전드(하드)]를 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Outran The Past,,True,moringponia_first_kill_hard,YES,,,,,,plate_achieve_moringponia_first_kill_hard
+8011,1,moringponia_clear_hard,AchievePoint,킬,Tempus Fugit,각 서버에서 [나비목 접선지: 레전드(하드)]를 일정 기간 내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Tempus Fugit,,True,moringponia_clear_hard,YES,,,,,,plate_achieve_moringponia_clear_hard
 9001,1,WEEKLY_BOSS_RANK_1,AchievePoint,랭킹,Iron Lord,"주간 보스 [자우라] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Iron Lord,,True,WeeklyRank_1,YES,,,,,,plate_achieve_weeklyrank_1
 9002,1,WEEKLY_BOSS_RANK_2,AchievePoint,랭킹,Demon Rose,"주간 보스 [헬가세르클] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Demon Rose,,True,WeeklyRank_2,YES,,,,,,plate_achieve_weeklyrank_2
 9003,1,WEEKLY_BOSS_RANK_3,AchievePoint,랭킹,Mist Bringer,"주간 보스 [누아엘레] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Mist Bringer,,True,WeeklyRank_3,YES,,,,,,plate_achieve_weeklyrank_3
 9004,1,WEEKLY_BOSS_RANK_4,AchievePoint,랭킹,Beyond The Death,"주간 보스 [미르티스] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Beyond The Death,,True,WeeklyRank_4,YES,,,,,,plate_achieve_weeklyrank_4
 9005,1,WEEKLY_BOSS_RANK_5,AchievePoint,랭킹,Cowardly Devil,"주간 보스 [블룻] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Evil Betrayer,,True,WeeklyRank_5,YES,,,,,,plate_achieve_weeklyrank_5
+9006,1,WEEKLY_BOSS_RANK_6,AchievePoint,랭킹,Malicious Delver,"주간 보스 [렉시퍼] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Malicious Delver,,True,WeeklyRank_6,YES,,,,,,plate_achieve_weeklyrank_6
+9007,1,WEEKLY_BOSS_RANK_7,AchievePoint,랭킹,Brutal Lord,"주간 보스 [하우벅] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Brutal Lord,,True,WeeklyRank_7,YES,,,,,,plate_achieve_weeklyrank_7
+9008,1,WEEKLY_BOSS_RANK_8,AchievePoint,랭킹,Implacably Claw,"주간 보스 [마르녹스] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Implacably Claw,,True,WeeklyRank_8,YES,,,,,,plate_achieve_weeklyrank_8
 100001,10000,Kill_1_50,AchievePoint,킬,사냥꾼,"몬스터를 10,000마리 처치",icon_item_Misc_00021,NO,사냥의 시작,,True,MonKill,YES,,,,,NO,
 100002,1000000,Kill_1_100,AchievePoint,킬,학살자,"몬스터를 1,000,000마리 처치",icon_item_Misc_00021,NO,익숙한 사냥,,True,MonKill,YES,,,,,NO,
 100005,10000,OverKill_1,AchievePoint,오버킬,승부사,"오버킬을 10,000회 달성",icon_item_Misc_00021,NO,전투의 기초,,True,OverKill,YES,,,,,NO,

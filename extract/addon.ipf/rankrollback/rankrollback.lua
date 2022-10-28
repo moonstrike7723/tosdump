@@ -98,8 +98,9 @@ end
 
 function RANKROLLBACK_PC_WITH_COMMPANION(frame)
 	local summonedPet = GET_SUMMONED_PET();
+	local hawk = GET_SUMMONED_PET_HAWK();
 	local com_check = GET_CHILD(frame, 'com_check', "ui::CCheckBox");
-	if summonedPet == nil then
+	if summonedPet == nil and hawk == nil then
 		com_check:SetCheck(1);
 	else
 		com_check:SetCheck(0);
@@ -217,6 +218,7 @@ function RANKROLLBACK_DELETE_RANK_CARD(className)
 end
 
 function OPEN_RANKROLLBACK_UI_BY_SYSMENU()
+	ui.CloseFrame('inventory')
     ui.OpenFrame('changejob');
     CHANGEJOB_SHOW_RANKROLLBACK();
 end

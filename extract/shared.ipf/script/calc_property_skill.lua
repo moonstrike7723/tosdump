@@ -1,4 +1,31 @@
 ﻿--- calc_property_skill.lua
+
+function HAS_DRAGON_POWER(pc)
+    if pc == nil  then
+        return false
+    end
+
+    if IsServerSection() == 1 then
+        if pc ~= nil then
+            local isDragonPower = GetExProp(pc, 'ITEM_DRAGON_POWER')
+            if tonumber(isDragonPower) >= 1 then
+                return true
+            end
+        end
+    else
+        local seal  = GetEquipItem(pc, 'SEAL');
+        if seal == nil then 
+            return false
+        end
+        local option = TryGetProp(seal, 'SealOption_3', 'None')
+        if option == 'ITEM_DRAGON_POWER' then
+            return true
+        end
+    end
+
+    return false
+end
+
 function GET_SKL_VALUE(skill, startValue, maxValue)
     local maxLv = 100;
     local curLv = skill.Level;
@@ -88,62 +115,26 @@ function SCR_Get_SpendSP_Dargoon(skill)
     return math.floor(value);
 end
 
-function SCR_Get_SpendSP_BUNSIN(skill)
-    local value = SCR_Get_SpendSP(skill)
---    local basicsp = skill.BasicSP;
---    local lv = skill.Level;
---    local addsp = skill.LvUpSpendSp;
---    local decsp = 0;
---    
---    if basicsp == 0 then
---        return 0;
---    end
---    
-    local pc = GetSkillOwner(skill);
---    local abilAddSP = GetAbilityAddSpendValue(pc, skill.ClassName, "SP");
---    abilAddSP = abilAddSP / 100;
---    
---  local value = basicsp + (lv - 1) * addsp + abilAddSP;
---  local value = basicsp + (lv - 1) * addsp
-    
---    local GHabil =  GetAbility(pc, 'Remain')
---    if GHabil ~= nil then 
---        value = value + (value * (GHabil.Level * 0.1))
---    end
---    
---    value = value + (value * abilAddSP);
---    local zeminaLv = GetExProp(pc, "ZEMINA_BUFF_LV");
---    if zeminaLv > 0 then
---        decsp = 4 + (zeminaLv * 4);
---    end
---    value = value - decsp;
-    
-    if value < 1 then
-        value = 0
-    end
-    
-    if IsBuffApplied(pc, "Bunshin_Debuff") == "YES" then
-        local Bunshin = GetSkill(pc, 'Shinobi_Bunshin_no_jutsu')
-        
-        value = value + (value * (Bunshin.Level * 0.1))
-    end
-    
-    return math.floor(value);
-end
-
-
 function SCR_Get_SpendSP(skill)
     local basicSP = skill.BasicSP;
 --    local lv = skill.Level;
 --    local lvUpSpendSp = skill.LvUpSpendSp;
     local decsp = 0;
     local bylvCorrect = 0
+
+    local pc = GetSkillOwner(skill);
+
+    if TryGetProp(skill, "ClassName", "None") == "Pardoner_Simony" then
+        local abilPardoner21 = GetAbility(pc, "Pardoner21")
+        if abilPardoner21 ~= nil and TryGetProp(abilPardoner21, "ActiveState", 0) == 1 then
+            basicSP = 90
+        end
+    end
     
     if basicSP == 0 then
         return 0;
     end
 
-    local pc = GetSkillOwner(skill);
     if pc == nil and ui.GetFrame("pub_createchar"):IsVisible() == 1 then
         return basicSP;
     end
@@ -180,14 +171,8 @@ function SCR_Get_SpendSP(skill)
     elseif IsBuffApplied(pc, "FIELD_SP_FULL_BUFF") == "YES" then
         decsp = SCR_FIELD_DUNGEON_CONSUME_DECREASE(pc, "SpendSP", value)
     else
-        if IsBuffApplied(pc, "Gymas_Buff") == "YES" then
-            local ratio = 0.25;
-            
-            local isDragonPower = GetExProp(pc, 'ITEM_DRAGON_POWER')
-            if tonumber(isDragonPower) >= 1 then
-                ratio = ratio + 0.25
-            end
-            
+        if IsBuffApplied(pc, "Gymas_Buff") == "YES" then -- 기마스
+            local ratio = 0.5;
             decsp = value * ratio
         end
     end
@@ -205,7 +190,6 @@ function SCR_Get_SpendSP(skill)
 	if IsBuffApplied(pc, "ManaAmplify_Buff") == "YES" then
         value = value * 1.5
     end
-
 
     return math.floor(value);
 end
@@ -288,7 +272,6 @@ function SCR_Get_SpendSP_Magic(skill)
         (GetZoneName(pc) == "guild_agit_1" or GetZoneName(pc) == "guild_agit_extension") then
         return 0
     end
-    
     return math.floor(value);
 end
 
@@ -371,7 +354,7 @@ function SCR_Get_SpendSP_FanaticIllusion(skill)
     if value < 1 then
         value = 0
     end
-    
+
     return math.floor(value);
 end
 
@@ -641,6 +624,19 @@ function SCR_GET_SKL_COOLDOWN_ADD_LEVEL_BYGEM(skill)
     return math.floor(ret);
 end
 
+function SCR_GET_SKL_COOLDOWN_Bunshin_no_jutsu(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown - (TryGetProp(skill, "Level", 0) * 2000);
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    return math.floor(ret);    
+end
+
 function SCR_GET_SKL_COOLDOWN_KaguraDance(skill)
     local pc = GetSkillOwner(skill);
     local basicCoolDown = skill.BasicCoolDown - ((TryGetProp(skill, "Level", 0) - 1) * 5000);
@@ -654,7 +650,6 @@ function SCR_GET_SKL_COOLDOWN_KaguraDance(skill)
     return math.floor(ret);    
 end
 
-
 function SCR_GET_SKL_COOLDOWN_BUNSIN(skill)
     
     local pc = GetSkillOwner(skill);
@@ -662,36 +657,16 @@ function SCR_GET_SKL_COOLDOWN_BUNSIN(skill)
     local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
     basicCoolDown = basicCoolDown + abilAddCoolDown;
     
-    if skill.ClassName == "Cleric_Heal" then
-        if IsPVPServer(pc) == 1 then
-            basicCoolDown = basicCoolDown + 28000
-        end
-    end
-    
     basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
-
-    if IsBuffApplied(pc, "Bunshin_Debuff") == "YES" then
---      local bunshinBuff = nil
---      local bunsinCount = nil
---      if IsServerObj(pc) == 1 then
---          bunshinBuff = GetBuffByName(pc, "Bunshin_Debuff")
---          bunsinCount = GetBuffArg(bunshinBuff)
---      else 
---          local handle = session.GetMyHandle();
---          bunshinBuff = info.GetBuff(handle, 3049)
---          bunsinCount = bunshinBuff.arg1
---      end
---        local Bunshin = GetSkill(pc, 'Shinobi_Bunshin_no_jutsu')
-        local bunsinCount = GET_BUNSIN_COUNT(pc);
-
-        basicCoolDown = basicCoolDown + (bunsinCount * 2000 + (basicCoolDown * (bunsinCount * 0.1)))
-    end
     
+    if IsServerSection() == 1 and GetExProp(pc, "BUNSIN_VIBORA_DAGGER") ~= 0 then
+        basicCoolDown = 0
+    end
+
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
     return math.floor(ret);
 end
-
 
 function SCR_GET_SKL_COOLDOWN_PrimeAndLoad(skill)
     
@@ -1114,6 +1089,17 @@ function SCR_Get_SkillFactor_Reinforce_Ability(skill)
     end
     
     return math.floor(value)
+end
+
+function SCR_Get_SkillFactor_Arbalester_Missile(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 468 
+    local GuidedShotSkill = GetSkill(pc, 'Arbalester_GuidedShot');
+    if GuidedShotSkill ~= nil then
+        value = TryGetProp(GuidedShotSkill, "SkillFactor", 468) * 0.3
+    end
+
+    return value
 end
 
 function SCR_Get_SkillFactor_Molich_4(skill)
@@ -2206,7 +2192,7 @@ function SCR_GET_Mijin_no_jutsu_Ratio2(skill)
 end
 
 function SCR_GET_Bunshin_no_jutsu_Ratio(skill)
-    local value = 20
+    local value = 10
     
     return value
 end
@@ -2218,9 +2204,9 @@ function SCR_GET_SummonGuildMember_Ratio(skill)
 end
 
 function SCR_GET_BattleOrders_Ratio(skill)
-    local value = skill.Level * 1.5
-    local addValue = skill.Level * 1.5
-    value = value + addValue
+    local value = SCR_GET_BattleOrders_Ratio2(skill)
+    local addvalue = skill.Level * 1.5
+    value = value + addvalue
     
     return value
 end
@@ -2336,7 +2322,7 @@ end
 
 function SCR_GET_Mokuton_no_jutsu_Ratio(skill)
 
-    local value = 15 + skill.Level * 5
+    local value = skill.Level * 6
 
   return value
 
@@ -5049,6 +5035,12 @@ function SCR_GET_Gevura_Ratio(skill)
     return value
 end
 
+function SCR_GET_Gevura_Ratio2(skill)
+    local value = skill.Level * 5
+    
+    return value
+end
+
 function SCR_GET_Maze_Ratio(skill)
 
     local pc = GetSkillOwner(skill);
@@ -5464,7 +5456,7 @@ function SCR_GET_IronMaiden_Time(skill)
 end
 
 function SCR_GET_Judgment_Bufftime(skill)
-    local value = 15 + skill.Level
+    local value = 30 + skill.Level * 6
     
     return value
 end
@@ -5513,6 +5505,12 @@ function SCR_GET_Binatio_Ratio(skill)
     return math.floor(value)
 end
 
+function SCR_GET_Binatio_Ratio2(skill)
+    local value = skill.Level * 800;
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+    return math.floor(value)
+end
+
 function SCR_GET_Binatio_Time(skill)
     local value = 30;
     return value
@@ -5520,6 +5518,11 @@ end
 
 function SCR_GET_ParaclitusTime_Time(skill)
     local value = 10 + skill.Level * 2
+    return value
+end
+
+function SCR_GET_ParaclitusTime_Ratio(skill)
+    local value = skill.Level * 5
     return value
 end
 
@@ -5642,14 +5645,9 @@ function SCR_GET_Nachash_Ratio(skill)
 end
 
 function SCR_GET_Merkabah_Ratio(skill)
+    local value = skill.Level * 3
 
-    local pc = GetSkillOwner(skill);
-    local abil = GetAbility(pc, "Kabbalist8") 
-    local value = 0
-    if abil ~= nil then 
-        return SCR_ABIL_ADD_SKILLFACTOR_TOOLTIP(abil);
-    end
-
+    return value
 end
 
 function SCR_GET_Merkabah_Ratio2(skill)
@@ -5670,14 +5668,9 @@ function SCR_GET_MagnusExorcismus_Ratio(skill)
 end
 
 function SCR_GET_PlagueVapours_Ratio(skill)
+    local value = skill.Level * 4
 
-    local pc = GetSkillOwner(skill);
-    local abil = GetAbility(pc, "PlagueDoctor9") 
-    local value = 0
-    if abil ~= nil then 
-        return SCR_ABIL_ADD_SKILLFACTOR_TOOLTIP(abil);
-    end
-
+    return value
 end
 
 function SCR_GET_PlagueVapours_Bufftime(skill)
@@ -6014,14 +6007,9 @@ function SCR_GET_Gohei_Ratio(skill)
 end
 
 function SCR_GET_Hamaya_Ratio(skill)
+    local value = skill.Level * 2
 
-    local pc = GetSkillOwner(skill);
-    local abil = GetAbility(pc, "Miko3")
-    local value = 0
-    if abil ~= nil then 
-        return SCR_ABIL_ADD_SKILLFACTOR_TOOLTIP(abil);
-    end
-
+    return value
 end
 
 function SCR_GET_Hamaya_Ratio2(skill)
@@ -6059,25 +6047,28 @@ function SCR_GET_KaguraDance_Ratio(skill)
 end
 
 function SCR_GET_Omikuji_Time(skill)
-    local value = 30
+    local value = 20
+
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+
     return math.floor(value)
 end
 
 function SCR_GET_Omikuji_Ratio(skill)
-    local value = 20 * skill.Level
-    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+    local value = 15 + (5 * skill.Level)
+
     return math.floor(value)
 end
 
 function SCR_GET_Omikuji_Ratio2(skill)
-    local value = 10 * skill.Level
-    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+    local value = 180 + (20 * skill.Level)
+
     return math.floor(value)
 end
 
 function SCR_GET_Omikuji_Ratio3(skill)
-    local value = 5 * skill.Level
-    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+    local value = 45 + (5 * skill.Level)
+    
     return math.floor(value)
 end
 
@@ -6094,7 +6085,7 @@ function SCR_GET_Immolation_Ratio2(skill)
 end
 
 function SCR_GET_Fanaticism_Ratio(skill)
-    local value = 10 + ((skill.Level - 1) * 5)
+    local value = 20 + skill.Level * 4
     
     return value
 end
@@ -6150,8 +6141,14 @@ function SCR_GET_SR_LV_Skarphuggning(skill)
 end
 
 function SCR_GET_Kasiwade_Ratio(skill)
-
     local value = skill.Level * 5
+
+    return value;
+end
+
+function SCR_GET_Kasiwade_Ratio2(skill)
+    local value = skill.Level * 2
+
     return value;
 end
 
@@ -6649,7 +6646,14 @@ end
 
 function SCR_GET_Sanctuary_Ratio(skill)
     local value = 3 * skill.Level
+    local pc = GetSkillOwner(skill)
+    local abil = GetAbility(pc, "Paladin40")
+    if abil ~= nil and abil.ActiveState == 1 then
+        value = 5 * skill.Level
+    end
+
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+    
     return value
 end
 
@@ -7742,7 +7746,7 @@ function SCR_Get_IronSkin_Ratio(skill)
 end
 
 function SCR_Get_Golden_Bell_Shield_Ratio(skill)
-    local value = 10 * skill.Level;
+    local value = 5 * skill.Level + 25;
     return value
 end
 
@@ -8003,7 +8007,7 @@ function SCR_GET_Forecast_Ratio(skill)
 end
 
 function SCR_GET_BeadyEyed_Time(skill)
-    local value = 100 + (skill.Level * 5);
+    local value = 140 + (skill.Level * 8);
     
     return value
 end
@@ -8180,7 +8184,7 @@ end
 
 function SCR_GET_Finestra_Bufftime(skill)
 
-    return 30 + (3 * skill.Level);
+    return 45 + (3 * skill.Level);
 
 end
 
@@ -8939,7 +8943,7 @@ function SHOOTMOVE_CYCLONE(skill)
 end
 
 function SCR_GET_AcrobaticMount_Ratio(skill)
-    local value = 5 + (skill.Level * 5)
+    local value = 20 + (skill.Level * 4)
     
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill);
     
@@ -9245,16 +9249,15 @@ end
 
 
 function SCR_GET_Finestra_Ratio(skill)
-    local pc = GetSkillOwner(skill);
-    local value = 3 * skill.Level
-    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill));
+    local value = 3 * skill.Level + 15
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill);
     
-    return math.floor(value)
+    return value
 end
 
 function SCR_GET_Finestra_Ratio2(skill)
     local pc = GetSkillOwner(skill);
-    local value = 5 * skill.Level
+    local value = 5 * skill.Level + 25
     
     return math.floor(value)
 end
@@ -9281,7 +9284,7 @@ end
 
 function SCR_GET_SharpSpear_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    local value = 5 + (skill.Level * 1)
+    local value = 10 + (skill.Level * 2)
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
     return value
 end
@@ -9451,14 +9454,13 @@ end
 
 function SCR_Get_Melstis_Ratio2(skill)
     local pc = GetSkillOwner(skill);
---  local value = 10 + skill.Level * 5
-    local value = skill.Level
+    local value = 45 + skill.Level * 9
 
     return value
 end
 
 function SCR_Get_Zalciai_Ratio(skill)
-    local value = TryGetProp(skill, 'Level', 1) * 2
+    local value = 15 + TryGetProp(skill, 'Level', 1) * 3
     value = value * SCR_REINFORCEABILITY_TOOLTIP(skill);    
     return value
 end
@@ -9596,7 +9598,7 @@ function SCR_GET_TransmitPrana_BuffTime(skill)
 end
 
 function SCR_GET_TransmitPrana_Ratio(skill)
-    local value = 5 + (skill.Level * 3)
+    local value = 20 + (skill.Level * 5)
     return math.floor(value)
 end
 
@@ -9606,7 +9608,7 @@ function SCR_GET_TransmitPrana_Ratio2(skill)
 end
 
 function SCR_GET_TransmitPrana_Ratio3(skill)
-    local value = TryGetProp(skill, 'Level', 1) * 3
+    local value = 15 + TryGetProp(skill, 'Level', 1) * 3
     return value
 end
 
@@ -10743,6 +10745,18 @@ function SCR_GET_SPENDITEM_COUNT(skill)
     return count + addCount;
 end
 
+function SCR_GET_SPENDITEM_COUNT_PALADIN40(skill)
+    local count = skill.SpendItemBaseCount
+    local pc = GetSkillOwner(skill);
+    local addCount = GetAbilityAddSpendValue(pc, skill.ClassName, "SpendItem");
+    local abil = GetAbility(pc, "Paladin40")
+    if abil ~= nil and abil.ActiveState == 1 then
+        addCount = addCount + 10
+    end
+
+    return count + addCount;
+end
+
 function SCR_GET_SPENDITEM_COUNT_BackMasking(skill)
     local count = skill.SpendItemBaseCount
     local pc = GetSkillOwner(skill);
@@ -11397,43 +11411,38 @@ function SCR_GET_Kraujas_Ratio(skill)
     return value;
 end
 
+-- 리쿠마
 function SCR_GET_Rykuma_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    local value = 20
-    if pc ~= nil then
-        local isDragonPower = GetExProp(pc, 'ITEM_DRAGON_POWER')
-        if tonumber(isDragonPower) >= 1 then
-            value = 30
+    local value = 25
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
+            value = 50
         end  
     end
     
     return value;
 end
 
+-- 앱사우가 - 지속시간
 function SCR_GET_Apsauga_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    local value = 25
-    if pc ~= nil then
-        local isDragonPower = GetExProp(pc, 'ITEM_DRAGON_POWER')
-        if tonumber(isDragonPower) >= 1 then
-            value = value + 25
+    local value = 30
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
+            value = value + 30
         end  
     end
     
     return value;
 end
 
-function SCR_GET_Bendrinti_Time(skill)
-    local value = 30
-    return value;
-end
-
-function SCR_GET_Bendrinti_Ratio(skill)
+-- 코르프
+function SCR_GET_Korup_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    local value = 25
-    if pc ~= nil then
-        local isDragonPower = GetExProp(pc, 'ITEM_DRAGON_POWER')
-        if tonumber(isDragonPower) >= 1 then
+    local value = 15
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
             value = value + 15
         end  
     end
@@ -11441,30 +11450,115 @@ function SCR_GET_Bendrinti_Ratio(skill)
     return value;
 end
 
+-- 밴드린티
+function SCR_GET_Bendrinti_Time(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 30
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
+            value = value + 20
+        end  
+    end
+    return value;
+end
+
+-- 밴드린티
+function SCR_GET_Bendrinti_Ratio(skill)    
+    local value = 35
+    return value;
+end
+
+-- 가드마
 function SCR_GET_Goduma_Ratio(skill)
     local pc = GetSkillOwner(skill)
     local casterMHP = TryGetProp(pc, "MHP", 0) - TryGetProp(pc, "MHP_BM", 0)
-    local value = math.floor(casterMHP / (2000 * PC_MAX_LEVEL) * 100)
+    local value = math.floor(casterMHP / (1000 * PC_MAX_LEVEL) * 100)
     
     return value
 end
 
-function SCR_GET_Gymas_Ratio(skill)
-    local pc = GetSkillOwner(skill);
-    local value = 25
-    if pc ~= nil then
-        local isDragonPower = GetExProp(pc, 'ITEM_DRAGON_POWER')
-        if tonumber(isDragonPower) >= 1 then
-            value = value + 25
+-- 가드마
+function SCR_GET_Goduma_Ratio2(skill)
+    local pc = GetSkillOwner(skill)
+    local value = 0.5
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
+            value = 1
         end  
     end
     
+    return value
+end
+
+-- 기마스
+function SCR_GET_Gymas_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 50
     return value;
 end
 
-function SCR_GET_Smugis_Ratio(skill)
+-- 기마스
+function SCR_GET_Gymas_Ratio2(skill)    
+    local pc = GetSkillOwner(skill)
     local value = 20
+
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
+            value = 40
+        end  
+    end
+
+    return value
+end
+
+-- 스무지
+function SCR_GET_Smugis_Ratio(skill)
+    local value = 25
+    local pc = GetSkillOwner(skill)
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
+            value = value * 2
+        end  
+    end
+
     return value;
+end
+
+-- 앱크로바
+function SCR_GET_apkrova_Ratio(skill)
+    local value = 10
+    local pc = GetSkillOwner(skill)
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
+            value = 20
+        end  
+    end
+
+    return value;
+end
+
+-- 아트갈
+function SCR_GET_Atagal_Ratio(skill)
+    local value = 100
+    local pc = GetSkillOwner(skill)
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
+            value = 200
+        end  
+    end
+    return value
+end
+
+-- 리리스
+function SCR_GET_Liris_Ratio(skill)
+    local value = 30
+    local pc = GetSkillOwner(skill)
+    if pc ~= nil then        
+        if HAS_DRAGON_POWER(pc) == true then
+            value = 60
+        end  
+    end
+    return value
 end
 
 function SCR_GET_LatentVenom_Ratio(skill)
@@ -11672,9 +11766,9 @@ function SCR_GET_Gregorate_Ratio(skill)
 end
 
 function SCR_GET_Gregorate_Ratio2(skill)
-    local value = 2;
+    local value = 3;
     local pc = GetSkillOwner(skill);
-    value = skill.Level * value;
+    value = 30 + skill.Level * value;
     return value;
 end
 
@@ -11967,7 +12061,7 @@ function SCR_GET_Immolation_Ratio(skill)
 end
 
 function SCR_GET_BeadyEyed_Ratio(skill)
-    local value = skill.Level * 3
+    local value = 15 + skill.Level * 2
     
     return value
 end
@@ -12157,7 +12251,7 @@ end
 
 -- Matross_Roar
 function SCR_GET_Roar_Time(skill)
-    local value = 45
+    local value = 30
     return value
 end
 
@@ -12194,7 +12288,7 @@ end
 -- TigerHunter_Tracking
 function SCR_GET_Tracking_Time(skill)
     local pc = GetSkillOwner(skill)
-    local value = 10 + skill.Level * 4
+    local value = 20 + skill.Level * 6
     
     local abil = GetAbility(pc, "TigerHunter2");
     if abil ~= nil and abil.ActiveState == 1 then
@@ -12217,7 +12311,7 @@ end
 
 -- TigerHunter_EyeofBeast
 function SCR_GET_EyeofBeast_Time(skill)
-    local value = 10
+    local value = 20 + skill.Level * 8
     return value
 end
 
@@ -12497,7 +12591,7 @@ function SCR_GET_Chants_Ratio(skill)
 end
 
 function SCR_GET_Chants_Ratio2(skill)
-    value = (30 + skill.Level * 2)
+    value = (30 + skill.Level * 6)
 	
     return math.floor(value)
 end
@@ -12937,7 +13031,13 @@ function SCR_GET_ShadowFatter_Ratio(skill)
     return value
 end
 
+function SCR_GET_Tracking_Ratio2(skill)
+    local value = 20 + skill.Level * 6
+    return value
+end
+
 function SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+
     -- Laima CoolTime Buff
     local laimaCoolTime = GetExProp(pc, "LAIMA_BUFF_COOLDOWN")
     if laimaCoolTime ~= 0 then
@@ -12978,4 +13078,94 @@ function SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
     -- end
 
     return basicCoolDown
+end
+
+function SCR_GET_Judgment_Ratio(skill)
+    local value = 10 + skill.Level * 2
+    
+    return value
+end
+
+function SCR_GET_Zealot_Invulnerable(skill)
+    local value = 15 + (skill.Level-1) * 2.5
+    
+    return value
+end
+
+function SCR_GET_FanwiseShots_Ratio(skill)
+    local value = 2 * skill.Level
+
+    return value
+end
+
+function SCR_GET_SnipersSerenitySPD_Ratio(skill)
+    local pc = GetSkillOwner(skill);
+    local value = 10
+        
+    if IsPVPServer(pc) ~= 1 or IsPVPField(pc) ~= 1 then
+        value = 10 + TryGetProp(skill, 'Level', '1')
+    end
+        
+    return value;
+end
+function SCR_GET_SKL_COOLDOWN_ShadowThorn(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+
+    local VTS = GetExProp(pc, 'ITEM_VIBORA_THSTAFF_SHADOWTHORN')
+    if VTS ~= 0 then
+        basicCoolDown = basicCoolDown - 5000 
+    end
+
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+function SCR_GET_BreakingWheel_Ratio(skill)
+    local value = 0
+    local pc = GetSkillOwner(skill)
+    local abil = GetAbility(pc, "Inquisitor8")
+    if abil ~= nil and abil.ActiveState == 1 then
+        value = 15
+        local abilInquisitor20 = GetAbility(pc, "Inquisitor20")
+        if abilInquisitor20 ~= nil and abilInquisitor20.ActiveState == 1 then
+            value = value + abilInquisitor20.Level
+        end
+    end
+
+    return value
 end

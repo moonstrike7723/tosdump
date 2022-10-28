@@ -178,6 +178,7 @@ function INVENTORY_ON_INIT(addon, frame)
     addon:RegisterOpenOnlyMsg('INV_ITEM_LIST_GET', 'INVENTORY_ON_MSG');
 	addon:RegisterMsg('INV_ITEM_ADD', 'INVENTORY_ON_MSG');
 	addon:RegisterMsg('INV_ITEM_REMOVE', 'INVENTORY_ON_MSG');
+	addon:RegisterMsg('INV_ITEM_POST_REMOVE', 'INVENTORY_ON_MSG');
 	addon:RegisterMsg('INV_DRAW_MONEY_TEXT', 'INVENTORY_ON_MSG');
 	addon:RegisterOpenOnlyMsg('INV_ITEM_CHANGE_COUNT', 'INVENTORY_ON_MSG', 1);
 	addon:RegisterOpenOnlyMsg('LEVEL_UPDATE', 'INVENTORY_ON_MSG');
@@ -187,9 +188,12 @@ function INVENTORY_ON_INIT(addon, frame)
 	addon:RegisterMsg('JUNGTAN_SLOT_UPDATE', 'JUNGTAN_SLOT_INVEN_ON_MSG');
 	addon:RegisterMsg('EXP_ORB_ITEM_ON', 'EXP_ORB_SLOT_INVEN_ON_MSG');
 	addon:RegisterMsg('EXP_ORB_ITEM_OFF', 'EXP_ORB_SLOT_INVEN_ON_MSG');
+	addon:RegisterMsg('EXP_SUB_ORB_ITEM_ON', 'EXP_SUB_ORB_SLOT_INVEN_ON_MSG');
+	addon:RegisterMsg('EXP_SUB_ORB_ITEM_OFF', 'EXP_SUB_ORB_SLOT_INVEN_ON_MSG');
 	addon:RegisterMsg('TOGGLE_ITEM_SLOT_ON', 'TOGGLE_ITEM_SLOT_INVEN_ON_MSG');
 	addon:RegisterMsg('TOGGLE_ITEM_SLOT_OFF', 'TOGGLE_ITEM_SLOT_INVEN_ON_MSG');
 	addon:RegisterOpenOnlyMsg('WEIGHT_UPDATE', 'INVENTORY_WEIGHT_UPDATE');
+	addon:RegisterOpenOnlyMsg('SLOTCOUNT_UPDATE', 'INVENTORY_SLOTCOUNT_UPDATE');
 	
 	addon:RegisterMsg('UPDATE_ITEM_REPAIR', 'INVENTORY_ON_MSG');
 	addon:RegisterMsg('UPDATE_ITEM_APPRAISAL', 'INVENTORY_ON_MSG');
@@ -289,7 +293,7 @@ function INSERT_ITEM_TO_TREE(frame, tree, invItem, itemCls, baseidcls)
 		local cnt = GET_SLOTSET_COUNT(tree, baseidcls);
 		-- 저장된 템의 최대 인덱스에 따라 자동으로 늘어나도록. 예를들어 해당 셋이 10000부터 시작하는데 10500 이 오면 500칸은 늘려야됨
 		while slotCount <= cnt  do 
-			slotset:ExpandRow()
+			slotset:ExpandRow(true)
 			slotCount = slotset:GetSlotCount();
 		end
 
@@ -337,7 +341,7 @@ function MAKE_INVEN_SLOTSET(tree, name)
 	newslotset:SetSpc(0,0)
 	newslotset:SetSkinName('invenslot')
 	newslotset:EnableSelection(0)
-	newslotset:CreateSlots()
+	newslotset:CreateSlots();
 	ui.inventory.AddInvenSlotSetName(name);
 	return newslotset;
 end
@@ -382,6 +386,8 @@ end
 
 
 function INVENTORY_OPEN(frame)
+	ui.CloseFrame('changejob')
+
 	frame:SetUserValue("MONCARDLIST_OPENED", 0);
 
 	ui.Chat("/requpdateequip"); -- 내구도 회복 유료템 때문에 정확한 값을 지금 알아야 함.
@@ -487,55 +493,53 @@ end
 
 function INVENTORY_WEIGHT_UPDATE(frame)
 	local bottomgroup = GET_CHILD_RECURSIVELY(frame, 'bottomGbox', 'ui::CGroupBox')
-	local weightPicture = GET_CHILD_RECURSIVELY(bottomgroup, 'inventory_weight','ui::CPicture')
-	local pc = GetMyPCObject();
-	local newwidth = 0;			
-	local rate = 0;				
+	local pc = GetMyPCObject()
+	local rate = 0
 	if pc.MaxWeight ~= 0 then
-		newwidth =  math.floor( pc.NowWeight * weightPicture:GetOriginalWidth() / pc.MaxWeight )
 		rate = math.floor(pc.NowWeight * 100 / pc.MaxWeight)
 	end
-	weightPicture:Resize(weightPicture:GetOriginalWidth(), weightPicture:GetOriginalHeight())
 		
 	local weightscptext = ScpArgMsg("Weight{All}{Max}", "All", string.format("%.1f", pc.NowWeight), "Max", string.format("%.1f", pc.MaxWeight))
 	local weightratetext = ScpArgMsg("Weight{Rate}", "Rate", tostring(rate))
-
-	if newwidth > weightPicture:GetOriginalWidth() then
-		newwidth = weightPicture:GetOriginalWidth();
-	end
 
 	local weightGbox = GET_CHILD_RECURSIVELY(bottomgroup, 'weightGbox','ui::CGroupBox')
 	weightGbox:SetTextTooltip(weightscptext)
 
 	local weighttext = GET_CHILD_RECURSIVELY(bottomgroup, 'invenweight','ui::CRichText')
-	weighttext:SetText(weightratetext)	
-
-	--Ruler Resize
-	local arrowPicture = GET_CHILD_RECURSIVELY(bottomgroup, 'inventory_arrow','ui::CPicture')
-	
-	local rulerTextureWidth = frame:GetUserConfig("WEIGHT_PIC_WIDTH");	--Texture Widht
-	local rulerWidth = arrowPicture:GetOriginalWidth();					--Origin Width
-	local rulerRate = rulerTextureWidth / rulerWidth;					--rate
-	local arrowPictureWidth = rulerTextureWidth - 124;		
-	local arrowPictureRate = arrowPictureWidth / rulerWidth;
-
-	arrowPicture:Resize(arrowPicture:GetOriginalWidth() * rulerRate, arrowPicture:GetOriginalHeight())
+	weighttext:SetText(weightratetext)
 
 	if rate >= 100 then
-		SYSMENU_INVENTORY_WEIGHT_NOTICE();
+		SYSMENU_INVENTORY_WEIGHT_NOTICE()
 	else
-		SYSMENU_INVENTORY_WEIGHT_NOTICE_CLOSE();
+		SYSMENU_INVENTORY_WEIGHT_NOTICE_CLOSE()
 	end
+end
 
-	if rate > 100 then	
-		arrowPicture:SetOffset(-489, arrowPicture:GetOriginalY())
-		return;
+function INVENTORY_SLOTCOUNT_UPDATE(frame)
+	local bottomgroup = GET_CHILD_RECURSIVELY(frame, 'bottomGbox', 'ui::CGroupBox')
+	local pc = GetMyPCObject()
+	local invItemList = GetInvItemList(pc)
+	local curCount = #invItemList
+	if tonumber(GET_TOTAL_MONEY_STR()) > 0 then
+		curCount = curCount - 1
 	end
+	local maxCount = 2000
+	local rate = math.floor(curCount * 100 / maxCount)
 
-	--SetOffset : rate에 맞춘 offset 움직임 값
-	local arrowPictureOffSetX = rate * arrowPicture:GetOriginalWidth() * 3.65 * 0.01;	
-	arrowPicture:SetOffset((arrowPictureOffSetX) * -1, arrowPicture:GetOriginalY())
+	local slotscptext = ScpArgMsg("slotcount{All}{Max}", "All", curCount, "Max", maxCount)
+	local slotratetext = ScpArgMsg("slotcount{Rate}", "Rate", tostring(rate))
 
+	local slotGbox = GET_CHILD_RECURSIVELY(bottomgroup, 'slotcountGbox','ui::CGroupBox')
+	slotGbox:SetTextTooltip(slotscptext)
+
+	local slotttext = GET_CHILD_RECURSIVELY(bottomgroup, 'invenslotcount','ui::CRichText')
+	slotttext:SetText(slotratetext)
+
+	if curCount >= maxCount then
+		SYSMENU_INVENTORY_SLOTCOUNT_NOTICE()
+	else
+		SYSMENU_INVENTORY_SLOTCOUNT_NOTICE_CLOSE()
+	end
 end
 
 function INVITEM_INVINDEX_CHANGE(itemGuid)
@@ -652,6 +656,7 @@ function INVENTORY_ON_MSG(frame, msg, argStr, argNum)
 	
 	if msg == 'INV_ITEM_ADD' then
 		TEMP_INV_ADD(frame, argNum);
+		INVENTORY_SLOTCOUNT_UPDATE(frame);
 	end
 	
 	if  msg == 'EQUIP_ITEM_LIST_GET' then
@@ -670,6 +675,7 @@ function INVENTORY_ON_MSG(frame, msg, argStr, argNum)
 		STATUS_EQUIP_SLOT_SET(frame);
 		DRAW_MEDAL_COUNT(frame)
 		INVENTORY_WEIGHT_UPDATE(frame);
+		INVENTORY_SLOTCOUNT_UPDATE(frame);
     end
 
 	if msg == 'INV_ITEM_CHANGE_COUNT' then
@@ -678,6 +684,10 @@ function INVENTORY_ON_MSG(frame, msg, argStr, argNum)
 
 	if msg == 'INV_ITEM_REMOVE' then
 		TEMP_INV_REMOVE(frame, argStr);
+	end
+
+	if msg == 'INV_ITEM_POST_REMOVE' then
+		INVENTORY_SLOTCOUNT_UPDATE(frame);
 	end
 
 	if msg == 'ACCOUNT_UPDATE' then
@@ -1296,6 +1306,12 @@ function INVENTORY_SORT_BY_NAME(a, b)
     return itemName_a < itemName_b;
 end
 
+function INVENTORY_SORT_BY_LIMIT_TIME(a, b)
+	local itemCls_a = GetIES(a:GetObject());
+	local itemCls_b = GetIES(b:GetObject());
+
+    return tonumber(GET_ITEM_LIFE_TIME(itemCls_a)) > tonumber(GET_ITEM_LIFE_TIME(itemCls_b));
+end
 
 function INVENTORY_SORT_BY_COUNT(a, b)
 	return a.count > b.count
@@ -1496,6 +1512,22 @@ function INVENTORY_TOTAL_LIST_GET(frame, setpos, isIgnorelifticon, invenTypeStr)
 										customFunc(slot, scriptArg, invItem, nil);
 									end
 								end
+
+								-- 인벤토리 옵션 적용 중이면 빈 tree 만들어 "필터링 옵션 적용 중"이라는 문구 표시해주기
+								local isOptionApplied = CHECK_INVENTORY_OPTION_APPLIED(baseidcls);
+								if isOptionApplied == 1 and cap =="" then -- 검색 중에는 조건에 맞는 아이템 없으면 tree 안 만듬
+									if invenTypeStr == nil or invenTypeStr == typeStr then
+										local tree_box = GET_CHILD_RECURSIVELY(group, 'treeGbox_'.. typeStr,'ui::CGroupBox');
+										local tree = GET_CHILD_RECURSIVELY(tree_box, 'inventree_'.. typeStr,'ui::CTreeControl');
+		
+										EMPTY_TREE_INVENTORY_OPTION_TEXT(baseidcls, tree);		-- 해당 아이템이 속한 탭
+									end
+	
+									local tree_box_all = GET_CHILD_RECURSIVELY(group, 'treeGbox_All','ui::CGroupBox');
+									local tree_all = GET_CHILD_RECURSIVELY(tree_box_all, 'inventree_All','ui::CTreeControl');
+	
+									EMPTY_TREE_INVENTORY_OPTION_TEXT(baseidcls, tree_all);	-- ALL 탭 
+								end
 							end
 						end
 					end
@@ -1538,6 +1570,24 @@ function INVENTORY_TOTAL_LIST_GET(frame, setpos, isIgnorelifticon, invenTypeStr)
 			end
 		end		
 	end
+end
+
+function EMPTY_TREE_INVENTORY_OPTION_TEXT(baseidcls, tree)
+	local treegroupname = baseidcls.TreeGroup
+		local treegroup = tree:FindByValue(treegroupname);
+		if tree:IsExist(treegroup) == 0 then
+			treegroup = tree:Add(baseidcls.TreeGroupCaption, baseidcls.TreeGroup);
+			
+			local treeNode = tree:GetNodeByTreeItem(treegroup);
+			treeNode:SetUserValue("BASE_CAPTION", baseidcls.TreeGroupCaption);
+			
+			ui.inventory.AddInvenGroupName(treegroupname);
+	
+			local hGroup = tree:FindByValue(baseidcls.TreeGroup);
+			if hGroup ~= nil then
+				tree:SetItemCaption(hGroup, treeNode:GetUserValue("BASE_CAPTION") ..' (0) '.. ClMsg("ApplyOption"));
+			end
+		end
 end
 
 function CHECK_INV_LBTN(frame, object, argStr, argNum)
@@ -1809,7 +1859,7 @@ function INVENTORY_RBDC_ITEMUSE(frame, object, argStr, argNum)
 		end
 		local groupName = itemobj.GroupName;
 		local itemType = itemobj.ItemType;
-		if itemType == 'Consume' or itemType == 'Quest' or itemType == 'Cube' or groupName == 'ExpOrb' then
+		if itemType == 'Consume' or itemType == 'Quest' or itemType == 'Cube' or groupName == 'ExpOrb' or groupName == 'SubExpOrb' then
 			if itemobj.Usable == 'ITEMTARGET' then
 				local invFrame = ui.GetFrame('inventory');
 				USE_ITEMTARGET_ICON(invFrame, itemobj, argNum);
@@ -2940,6 +2990,21 @@ function EXP_ORB_SLOT_INVEN_ON_MSG(frame, msg, str, itemType)
 	end
 end
 
+function EXP_SUB_ORB_SLOT_INVEN_ON_MSG(frame, msg, str, itemType)
+	local timer = GET_CHILD_RECURSIVELY(frame, "expsuborbtimer", "ui::CAddOnTimer");
+	if msg == "EXP_SUB_ORB_ITEM_OFF" then
+		frame:SetUserValue("EXP_SUB_ORB_EFFECT", 0);
+		timer:Stop();
+		imcSound.PlaySoundEvent('sys_booster_off');
+		STOP_INVENTORY_EXP_SUB_ORB(frame);
+	elseif msg == "EXP_SUB_ORB_ITEM_ON" then
+		frame:SetUserValue("EXP_SUB_ORB_EFFECT", str);
+		timer:SetUpdateScript("UPDATE_INVENTORY_EXP_SUB_ORB");
+		timer:Start(1);
+		imcSound.PlaySoundEvent('sys_atk_booster_on');
+	end
+end
+
 --토글.
 function TOGGLE_ITEM_SLOT_INVEN_ON_MSG(frame, msg, argstr, argnum)
 	if msg == "TOGGLE_ITEM_SLOT_ON" then
@@ -2968,6 +3033,7 @@ function UPDATE_INVENTORY_TOGGLE_ITEM(frame)
 	if frame:IsVisible() == 0 then
 		return;
 	end
+
 	local invenTab = GET_CHILD_RECURSIVELY(frame, "inventype_Tab")
 	if invenTab == nil then
 		return;
@@ -3118,6 +3184,47 @@ function UPDATE_INVENTORY_EXP_ORB(frame, ctrl, num, str, time)
 	end
 end
 
+function UPDATE_INVENTORY_EXP_SUB_ORB(frame, ctrl, num, str, time)
+	if frame:IsVisible() == 0 then
+		return;
+	end
+
+	local itemGuid = frame:GetUserValue("EXP_SUB_ORB_EFFECT");
+	if itemGuid == "None" then
+		return;
+	end
+	
+	local invenTab = GET_CHILD_RECURSIVELY(frame, "inventype_Tab")
+	if invenTab == nil then
+		return
+	end
+
+	local tabIndex = invenTab:GetSelectItemIndex()
+	local slot = INV_GET_SLOT_BY_ITEMGUID(itemGuid);
+	if tabIndex == 0 then
+		slot = INV_GET_SLOT_BY_ITEMGUID(itemGuid, nil, 1)
+	end	
+
+	if slot == nil then
+		return;
+	end
+
+	local slotset = slot:GetParent();
+	if slotset:GetHeight() == 0 then
+		return;
+	end
+
+	local inventoryGbox = GET_CHILD_RECURSIVELY(frame, "inventoryGbox");
+	local offset = frame:GetUserConfig("EFFECT_DRAW_OFFSET");
+	if slot:GetDrawY() <= invenTab:GetDrawY() or invenTab:GetDrawY() + inventoryGbox:GetHeight() - offset <= slot:GetDrawY() then
+		return;
+	end
+	
+	if slot:IsVisibleRecursively() == true then
+		slot:PlayUIEffect("I_sys_item_slot", 2.2, "Inventory_Exp_Sub_ORB", true);	
+	end
+end
+
 function STOP_INVENTORY_EXP_ORB(frame)
 	if frame:IsVisible() == 0 then
 		return;
@@ -3142,9 +3249,39 @@ function STOP_INVENTORY_EXP_ORB(frame)
 	if slot == nil then
 		return;
 	end
-		
+	
 	if slot:IsVisibleRecursively() == true then
 		slot:StopUIEffect("Inventory_Exp_ORB", true, 0.0);
+	end
+end
+
+function STOP_INVENTORY_EXP_SUB_ORB(frame)
+	if frame:IsVisible() == 0 then
+		return;
+	end 
+
+	local itemGuid = frame:GetUserValue("EXP_SUB_ORB_EFFECT");
+	if itemGuid == "None" then
+		return;
+	end
+
+	local invenTab = GET_CHILD_RECURSIVELY(frame, "inventype_Tab")
+	if invenTab == nil then
+		return
+	end
+
+	local tabIndex = invenTab:GetSelectItemIndex()
+	local slot = INV_GET_SLOT_BY_ITEMGUID(itemGuid);
+	if tabIndex == 0 then
+		slot = INV_GET_SLOT_BY_ITEMGUID(itemGuid, nil, 1)
+	end	
+
+	if slot == nil then
+		return;
+	end
+	
+	if slot:IsVisibleRecursively() == true then
+		slot:StopUIEffect("Inventory_Exp_Sub_ORB", true, 0.0);
 	end
 end
 

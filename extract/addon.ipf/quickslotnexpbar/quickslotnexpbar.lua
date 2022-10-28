@@ -31,6 +31,8 @@ function QUICKSLOTNEXPBAR_ON_INIT(addon, frame)
 	addon:RegisterMsg('JUNGTAN_SLOT_UPDATE', 'JUNGTAN_SLOT_ON_MSG');
 	addon:RegisterMsg('EXP_ORB_ITEM_ON', 'EXP_ORB_SLOT_ON_MSG');
 	addon:RegisterMsg('EXP_ORB_ITEM_OFF', 'EXP_ORB_SLOT_ON_MSG');
+	addon:RegisterMsg('EXP_SUB_ORB_ITEM_ON', 'EXP_SUB_ORB_SLOT_ON_MSG');
+	addon:RegisterMsg('EXP_SUB_ORB_ITEM_OFF', 'EXP_SUB_ORB_SLOT_ON_MSG');
 	
 	addon:RegisterMsg('TOGGLE_ITEM_SLOT_ON', 'TOGGLE_ITEM_SLOT_ON_MSG');
 	addon:RegisterMsg('TOGGLE_ITEM_SLOT_OFF', 'TOGGLE_ITEM_SLOT_ON_MSG');
@@ -117,6 +119,21 @@ function EXP_ORB_SLOT_ON_MSG(frame, msg, str, num)
 	elseif msg == "EXP_ORB_ITEM_ON" then
 		frame:SetUserValue("EXP_ORB_EFFECT", str);
 		timer:SetUpdateScript("UPDATE_QUICKSLOT_EXP_ORB");
+		timer:Start(1);
+		imcSound.PlaySoundEvent('sys_atk_booster_on');
+	end
+	DebounceScript("QUICKSLOTNEXTBAR_UPDATE_ALL_SLOT", 0.1);    
+end
+
+function EXP_SUB_ORB_SLOT_ON_MSG(frame, msg, str, num)
+	local timer  = GET_CHILD_RECURSIVELY(frame, "expsuborbtimer", "ui::CAddOnTimer");
+	if msg == "EXP_SUB_ORB_ITEM_OFF" then
+		frame:SetUserValue("EXP_SUB_ORB_EFFECT", 0);
+		timer:Stop();
+		imcSound.PlaySoundEvent('sys_booster_off');
+	elseif msg == "EXP_SUB_ORB_ITEM_ON" then
+		frame:SetUserValue("EXP_SUB_ORB_EFFECT", str);
+		timer:SetUpdateScript("UPDATE_QUICKSLOT_EXP_SUB_ORB");
 		timer:Start(1);
 		imcSound.PlaySoundEvent('sys_atk_booster_on');
 	end
@@ -257,6 +274,17 @@ function UPDATE_QUICKSLOT_EXP_ORB(frame, ctrl, num, str, time)
 	local expOrb = frame:GetUserValue("EXP_ORB_EFFECT");
 	if expOrb ~= "None" then
 		PLAY_QUICKSLOT_UIEFFECT_BY_GUID(frame, expOrb);
+	end
+end
+
+function UPDATE_QUICKSLOT_EXP_SUB_ORB(frame, ctrl, num, time)
+	if frame:IsVisible() == 0 then
+		return;
+	end
+
+	local expSubOrb = frame:GetUserValue("EXP_SUB_ORB_EFFECT");
+	if expSubOrb ~= nil and expSubOrb ~= "None" then
+		PLAY_QUICKSLOT_UIEFFECT_BY_GUID(frame, expSubOrb);
 	end
 end
 
@@ -543,6 +571,12 @@ function SET_QUICK_SLOT(frame, slot, category, type, iesID, makeLog, sendSavePac
 		icon:SetTooltipType("ability");
 		icon:ClearText();
 		SET_ABILITY_TOGGLE_COLOR(icon, type)
+	elseif category == 'Companion' then
+		local monClass = GetClassByType("Monster", type)
+		imageName = monClass.Icon;
+		icon:SetOnCoolTimeUpdateScp('ICON_UPDATE_COMPANION_COOLDOWN');
+		icon:SetColorTone("FFFFFFFF");
+		icon:ClearText();
 	elseif category == 'Item' then
 		QUICKSLOT_SET_GAUGE_VISIBLE(slot, 0);	-- 퀵슬롯에 놓는 것이 아이템이면 게이지를 무조건 안보이게 함
 		local itemIES = GetClassByType('Item', type);
@@ -775,9 +809,8 @@ function QUICKSLOTNEXPBAR_ON_MSG(frame, msg, argStr, argNum)
 		ON_PET_SELECT(frame);
 	end
 
-	if msg == 'QUICKSLOT_LIST_GET' or msg == 'GAME_START' or msg == 'EQUIP_ITEM_LIST_GET' or msg == 'PC_PROPERTY_UPDATE_TO_QUICKSLOT'
-    then
-		DebounceScript("QUICKSLOTNEXTBAR_UPDATE_ALL_SLOT", 0.1, 0);        
+	if msg == 'QUICKSLOT_LIST_GET' or msg == 'GAME_START' or msg == 'EQUIP_ITEM_LIST_GET' or msg == 'PC_PROPERTY_UPDATE_TO_QUICKSLOT' or msg == 'RESET_ABILITY_ACTIVE' then
+		DebounceScript("QUICKSLOTNEXTBAR_UPDATE_ALL_SLOT", 0.1, 0);
     elseif msg == 'INV_ITEM_CHANGE_COUNT' or msg == 'INV_ITEM_POST_REMOVE' then
         quickslot_item_amount_refresh(argStr)    
     elseif msg == 'INV_ITEM_ADD_FOR_QUICKSLOT' then
@@ -867,6 +900,11 @@ function QUICKSLOTNEXPBAR_SLOT_USE(frame, slot, argStr, argNum)
 	end
 
 	if iconInfo:GetCategory() == 'Ability' and joystickquickslotRestFrame:IsVisible() == 0 then
+		ICON_USE(icon);
+		return;
+	end
+
+	if iconInfo:GetCategory() == 'Companion' and joystickquickslotRestFrame:IsVisible() == 0 then
 		ICON_USE(icon);
 		return;
 	end
@@ -1000,6 +1038,9 @@ function QUICKSLOTNEXPBAR_ON_DROP(frame, control, argStr, argNum)
 	elseif iconParentFrame:GetName() == "skillability" then
 		local joystickFrame = ui.GetFrame("joystickquickslot");
 		QUICKSLOT_REGISTER(joystickFrame, iconType, slot:GetSlotIndex() + 1, iconCategory, true);        
+	elseif iconParentFrame:GetName() == "companionlist" then
+		local joystickFrame = ui.GetFrame("joystickquickslot");
+		QUICKSLOT_REGISTER(joystickFrame, iconType, slot:GetSlotIndex() + 1, iconCategory, true); 
     else
         local joystickFrame = ui.GetFrame("joystickquickslot");
 		QUICKSLOT_REGISTER(joystickFrame, iconType, slot:GetSlotIndex() + 1, iconCategory, true);        
@@ -1595,7 +1636,7 @@ end
 function IS_CLEAR_SLOT_ITEM(ItemInfo)
 	-- 퀵 슬롯 UI가 갱신될 때 해당 아이템을 인벤토리에서 가지고 있지 않을경우 slot을 초기화 해줄 아이템의 조건을 관리하는 함수
 
-	if ItemInfo.GroupName == "ExpOrb" and ItemInfo.MaxStack == 1 then
+	if (ItemInfo.GroupName == "ExpOrb" or ItemInfo.GroupName == "SubExpOrb") and ItemInfo.MaxStack == 1 then
 		return true;
 	end
 

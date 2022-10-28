@@ -34,8 +34,6 @@ end
 function ON_OPEN_COMPANIONLIST()
 	local frame = ui.GetFrame("companionlist");
 	frame:ShowWindow(1);
-	frame:SetGravity(ui.RIGHT, ui.BOTTOM);
-	frame:SetMargin(0, 0, 350, 70);
 	UPDATE_COMPANIONLIST(frame);
 end
 
@@ -59,7 +57,7 @@ function UPDATE_COMPANIONLIST(frame)
 		-- 0 공통 펫만 출력.
 		if info:GetNeedJobID() == 0 then
 			local setName = "_CTRLSET_" .. i;
-		local ctrlset = gb_petlist:CreateControlSet('companionlist_ctrl', setName, x, y);
+			local ctrlset = gb_petlist:CreateControlSet('companionlist_ctrl', setName, x, y);
 			y = y + ui.GetControlSetAttribute("companionlist_ctrl", "height");
 
 			local slot = GET_CHILD(ctrlset, "slot");
@@ -71,18 +69,7 @@ function UPDATE_COMPANIONLIST(frame)
 			icon:SetOnCoolTimeUpdateScp('ICON_UPDATE_COMPANION_COOLDOWN');
 			icon:SetColorTone("FFFFFFFF");
 			icon:ClearText();
-
-			local CompanionCls = GetClass("Companion", TryGetProp(obj, "ClassName", "None"))
-			local PetBuff = TryGetProp(CompanionCls, "PetBuff", "None")
-			local buffCls = GetClass("Buff", PetBuff);
-
-			if buffCls ~= nil then
-				local tool_tip = TryGetProp(buffCls, 'ToolTip', 'None')
-				if tool_tip ~= 'None' then
-					icon:SetTextTooltip(tool_tip)
-				end
-			end
-			
+		
 			local lv = GET_CHILD(ctrlset, "companion_level", "ui::CRichText");
 			local name = GET_CHILD(ctrlset, "companion_name", "ui::CRichText");
 			lv:SetTextByKey("value", obj.Lv);
@@ -105,7 +92,6 @@ local function  USE_COMPANION_ICON_AFTER_ACTION(parent, ctrl, argStr, argNum)
 
 	if canClose == true then
 		CLOSE_COMPANIONLIST();
-		CLOSE_PETLIST();
 	end
 end
 

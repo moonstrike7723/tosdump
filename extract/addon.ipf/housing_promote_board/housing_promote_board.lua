@@ -14,15 +14,10 @@ local postIndex = {};
 local postPropByID = {}; 
 
 function HOUSING_PROMOTE_BOARD_ON_INIT(addon, frame)
-    
+
 end
 
 function HOUSING_PROMOTE_BOARD_OPEN()
-    local option = IsEnabledOption("HousingPromoteLock");
-    if option == 1 then
-        return;
-    end    
-
     local frame = ui.GetFrame("housing_promote_board");
     local editDiff = GET_CHILD_RECURSIVELY(frame, "search_dif");
     editDiff:ShowWindow(1);
@@ -34,8 +29,6 @@ function HOUSING_PROMOTE_BOARD_OPEN()
     search_edit:SetText("");
 
     frame:ShowWindow(1);
-
-    session.housing.board.OpenBoard();
 end
 
 function HOUSING_PROMOTE_BOARD_CLOSE(frame)
@@ -86,7 +79,7 @@ function HOUSING_PROMOTE_BOARD_FEATURED_FILTER(parent, ctrl, argStr)
         HOUSING_PROMOTE_BOARD_RECOMMEND(frame);
     else
         ReserveScript("HOUSING_PROMOTE_BOARD_FILTER_UNFREEZE()", 3);
-        HOUSING_PROMOTE_BOARD_RECOMMEND_CREATE_FEATURED(argStr, ClMsg(argStr.."_house"), "desc", 0);
+        HOUSING_PROMOTE_BOARD_RECOMMEND_CREATE_FEATURED(argStr, ClMsg(argStr.."_house"), "asc", 0);
     end
 end
 
@@ -316,7 +309,7 @@ function HOUSING_PROMOTE_BOARD_FEATURED_UPDATE_POST(promote_gb, filter_type, pag
 
     local thumbnail = GET_CHILD_RECURSIVELY(ctrl, "thumbnail");
     thumbnail:SetImage("housingbanner");
-    if table["thumbnail_id"] ~= nil and table["channel_id"] ~= nil and table["page_id"] ~= nil then
+    if table["thumbnail_id"] ~= nil then
         GetHousingThumbnailImage("HOUSING_PROMOTE_BOARD_POST_THUMNAIL_UPDATE", table["channel_id"], table["page_id"], table["thumbnail_id"], filter_type);
     end
 
@@ -434,11 +427,8 @@ function HOUSING_PROMOTE_BOARD_POST_THUMNAIL_UPDATE(code, page_id, filePath, fil
         return;
     end
     
-    local folderPath = filefind.GetBinPath("Housing"):c_str()
-    local fullPath = folderPath .. "\\" .. filePath;
-
-    if filefind.FileExists(fullPath, true) == true then
-        ui.SetImageByPath(fullPath, thumbnail);
+    if filefind.FileExists(filePath, true) == true then
+        ui.SetImageByPath(filePath, thumbnail);
         thumbnail:Invalidate();
     end
 end

@@ -91,7 +91,17 @@
 					<Str Str="Levitation_Buff" />
 					<Num Num="1" />
 					<Num Num="0" />
-					<Num Num="30000" />
+					<Num Num="60000" UseFunc="1" FuncTxt="local abilLevel = GET_ABIL_LEVEL(self, 'Featherfoot33');
+
+if abilLevel ~= 0 then 
+
+return 60000;
+
+else 
+
+return 30000; 
+
+end"/>
 					<Num Num="1" />
 					<Num Num="100" />
 					<Num Num="0" />
@@ -108,25 +118,6 @@
                 </Scp>
             </EtcList>
 		</MainSkl>
-		<ByCondSkills>
-			<SubSkl>
-				<Cond>
-					<ToolScp Client="NO" Scp="SKL_SELECT_BUFF" UseSleep="NO">
-						<Str Str="Levitation_Buff" />
-					</ToolScp>
-				</Cond>
-				<Skill JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
-					<HitList>
-						<Frame Angle="0" AniTime="10999" Dist="0" ForceATK="0" HitCount="1" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" TermMax="0" TermMin="0" Time="10799" Type="FAN" />
-					</HitList>
-					<EtcList>
-						<Scp Client="NO" Scp="SKL_BUFF_REMOVE" Time="0" UseSleep="NO">
-							<Str Str="Levitation_Buff" />
-						</Scp>
-					</EtcList>
-				</Skill>
-			</SubSkl>
-		</ByCondSkills>
 	</Skill>
 	<Skill Name="Featherfoot_KundelaSlash">
 		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
@@ -395,8 +386,18 @@
                return func(skill.Level)" Str="0" UseFunc="1"/>
               </ToolScp>
                 <ToolScp Client="NO" Scp="S_R_TGTBUFF" UseSleep="NO">
-					<Str Str="Common_Rotten" />
-					<Num FuncTxt=" return skill.Level" Num="1" UseFunc="1" />
+					<Str Str="Common_Rotten" UseFunc="1" FuncTxt="local abilLevel = GET_ABIL_LEVEL(self, 'Featherfoot32');
+
+if abilLevel ~= 0 then 
+
+return 'Hexing_Debuff';
+
+else 
+
+return 'Common_Rotten'; 
+
+end"/>
+					<Num FuncTxt="1" Num="1" UseFunc="1" />
 					<Num Num="0" />
 					<Num FuncTxt=" return 10000 + skill.Level * 2000" Num="0" UseFunc="1" />
 					<Num Num="1" />
@@ -509,7 +510,7 @@
 					<Num Num="0" />
 					<Num Num="35" />
 					<Str Str="CorpseTower" />
-					<MonProp List="WlkMSPD#0#RunMSPD#0#Attribute#Poison" />
+                    <MonProp List="WlkMSPD#0#RunMSPD#0#Attribute#Dark" />
 					<Str Str="FEATHERFOOT_BONE_MON" />
 				</Scp>
 				<Scp Client="NO" Scp="SKL_SET_TGT_EXPROP_RECENT" Time="700" UseSleep="NO">

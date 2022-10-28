@@ -132,7 +132,7 @@ end
 
 function BGMPLAYER_NOT_PLAYED_AREA_CHECK(frame)
     if IsNotPlayArea() == true then
-        local bgmMusicTitle_text = GET_CHILD_RECURSIVELY(frame, "bgm_mugic_title");
+        local bgmMusicTitle_text = GET_CHILD_RECURSIVELY(frame, "bgm_music_title");
         if bgmMusicTitle_text ~= nil then
             local title = bgmMusicTitle_text:GetTextByKey("value");
             StopBgm(title);
@@ -145,7 +145,6 @@ end
 function BGMPLAYER_OPEN_UI(frame, btn)
     ReloadBgmPlayer();
     LoadFavoritesBgmList();
-    SaveFavoritesBgmList();
     if IsBgmPlayerReductionFrameVisible() == 1 then
         return;
     end
@@ -253,7 +252,7 @@ function BGMPLAYER_SET_MUSIC_TITLE(frame, parent, ctrlset)
         end
 
         frame:SetUserValue("MUSIC_TITLE", parent:GetName().."/"..musicTitle[2]);
-        local bgmMusicTitle_text = GET_CHILD_RECURSIVELY(frame, "bgm_mugic_title");
+        local bgmMusicTitle_text = GET_CHILD_RECURSIVELY(frame, "bgm_music_title");
         if bgmMusicTitle_text ~= nil then
             bgmMusicTitle_text:SetTextByKey("value", musicTitle[2]);
         end
@@ -264,7 +263,7 @@ function BGMPLAYER_SET_ZONE_BGM_TITLE(titleName)
     local frame = ui.GetFrame("bgmplayer");
     if frame == nil then return; end
 
-    local title = GET_CHILD_RECURSIVELY(frame, "bgm_mugic_title");
+    local title = GET_CHILD_RECURSIVELY(frame, "bgm_music_title");
     if title ~= nil then
         title:SetTextByKey("value", titleName);
     end
@@ -646,14 +645,14 @@ function BGMPLAYER_PLAYBTN_RESET(frame)
      local haltImageName = topFrame:GetUserConfig("PLAY_HALT_BTN_IMAGE_NAME");
      local startImageName = topFrame:GetUserConfig("PLAY_START_BTN_IMAGE_NAME");
      if title[2] == selectBgmClsName then
-        btn:SetImage(haltImageName);
-        btn:SetTooltipArg(ScpArgMsg('BgmPlayer_StartBtnToolTip'));
-        BGMPLAYER_REDUCTION_SET_PLAYBTN(true);
+        if IsBgmPause() ~= 1 then
+            btn:SetImage(haltImageName);
+            btn:SetTooltipArg(ScpArgMsg('BgmPlayer_StartBtnToolTip'));
+            BGMPLAYER_REDUCTION_SET_PLAYBTN(true);
+        end
      elseif title[2] ~= nil and title[2] ~= selectBgmClsName then
         btn:SetImage(startImageName);
         btn:SetTooltipArg(ScpArgMsg('BgmPlayer_StartBtnToolTip'));
-        SetPause(0);
-        SetPauseTime(0);
         BGMPLAYER_REDUCTION_SET_PLAYBTN(false);
      end
 end
@@ -669,7 +668,7 @@ function BGMPLAYER_PLAY(frame, btn)
     local delayTime = tonumber(topFrame:GetUserConfig("DELAY_TIME"));
     local playRandom = tonumber(topFrame:GetUserConfig("PLAY_RANDOM"));
 
-    local bgmMusicTitle_text = GET_CHILD_RECURSIVELY(topFrame, "bgm_mugic_title");
+    local bgmMusicTitle_text = GET_CHILD_RECURSIVELY(topFrame, "bgm_music_title");
     if bgmMusicTitle_text ~= nil then
         local title = bgmMusicTitle_text:GetTextByKey("value");
         if title ~= nil then 
@@ -690,8 +689,8 @@ function BGMPLAYER_PLAY(frame, btn)
                     end
                     titleText = GET_CHILD_RECURSIVELY(selectCtrlSet, "musictitle_text");
                 end
-                if titleText == nil then return; end
 
+                if titleText == nil then return; end
                 local musicTitle = titleText:GetTextByKey("value");
                 if musicTitle ~= nil then
                     musicTitle = StringSplit(musicTitle, '. ');
@@ -707,6 +706,7 @@ function BGMPLAYER_PLAY(frame, btn)
                 title = bgmMusicTitle_text:GetTextByKey("value");
                 PlayBgm(title, selectCtrlSetName);
                 BGMPLAYER_REDUCTION_SET_PLAYBTN(true);
+                BGMPLAYER_REDUCTION_SET_TITLE(title);
 
                 local totalTime = GetPlayBgmTotalTime();
                 totalTime = totalTime / 1000;
@@ -740,7 +740,7 @@ function BGMPLAYER_REPLAY(argStr, argNum, argValue)
     local gb = GET_CHILD_RECURSIVELY(frame, "musicinfo_gb"); 
     if gb == nil then return; end
 
-    local bgmMusicTitle_text = GET_CHILD_RECURSIVELY(frame, "bgm_mugic_title");
+    local bgmMusicTitle_text = GET_CHILD_RECURSIVELY(frame, "bgm_music_title");
     if bgmMusicTitle_text ~= nil then
         bgmMusicTitle_text:SetTextByKey("value", titleName);
         frame:SetUserValue("MUSIC_TITLE", gb:GetName().."/"..titleName);
@@ -1281,7 +1281,7 @@ function BGMPLAYER_CHANGE_SKIN_TITLE_GROUP(frame, isChange)
         end
     end
 
-    local title_txt = GET_CHILD_RECURSIVELY(frame, "bgm_mugic_title");
+    local title_txt = GET_CHILD_RECURSIVELY(frame, "bgm_music_title");
     if title_txt ~= nil then
         local changeFormat = "";
         if isChange == false then

@@ -757,6 +757,7 @@ function CRAFT_START_CRAFT(idSpace, recipeName, totalCount, upDown)
 		if memoSet ~= nil then
 			local name = memoSet:GetChild("name"):GetText();
 			local memo = memoSet:GetChild("memo"):GetText();
+
 			nameList = NewStringList();
 			
 			if GetUTF8Len(name) > RECIPE_ITEM_NAME_LEN then
@@ -787,7 +788,7 @@ function CRAFT_START_CRAFT(idSpace, recipeName, totalCount, upDown)
 
     local flag, cnt = CHECK_MATERIAL_COUNT(recipecls, totalCount)
     if flag == false then
-        ui.AddText("SystemMsgFrame", ClMsg('NotEnoughRecipe'))        
+        ui.AddText("SystemMsgFrame", ClMsg('NotEnoughRecipe'));
         if upDown ~= nil then
             upDown:SetNumberValue(cnt)
             ITMCRAFT_BUTTON_UP(upDown)
@@ -1622,10 +1623,8 @@ function CRAFT_EXIT(frame, msg, argStr, argNum)
 end
 
 function SORT_PURE_INVITEMLIST(a,b)
-
 	-- 같은 ClassID를 가진 템일 경우 쓸모 없는 템부터 합성 하도록 정렬하는 함수. 
 	-- 정렬순위 : 매직어뮬렛 > 총 젬 경험치 > 뚫린 소켓 수 > 현재 강화 횟수 > 남은 포텐셜 > 젬 레벨
-
 	local itemobj_a = GetIES(a:GetObject());
 	local itemobj_b = GetIES(b:GetObject());
     
@@ -1789,6 +1788,24 @@ function CRAFT_ITEM_ALL(itemSet, btn)
 	local needcount = tonumber(materialItemCnt);
 	local resultlist = session.GetItemIDList();	
 
+	local check_reinforce = false
+	local restrict_reinforce = 0
+
+	local legend_recipe = targetslot:GetUserValue('recipe_name')		
+	if legend_recipe ~= 'None' then
+		local legend_recipe_cls = GetClass('legendrecipe', legend_recipe)
+		local token = StringSplit(itemSet:GetName(), '_')
+		if #token >= 2 then
+			local slot_number = token[2]
+			 restrict_reinforce = TryGetProp(legend_recipe_cls, 'MaterialItemReinforce_' .. slot_number, 0)
+			if restrict_reinforce ~= 0 then
+				check_reinforce = true
+			end
+		end	
+	end
+
+	local min_reinforce = 1000
+
 	for i = 1, #invItemlist do
 		local tempinvItem = invItemlist[i];
 		local isAlreadyAdd = 0
@@ -1800,13 +1817,27 @@ function CRAFT_ITEM_ALL(itemSet, btn)
 			end
 		end
 
+		if check_reinforce == true then
+			local item_obj = GetIES(tempinvItem:GetObject())
+			if isAlreadyAdd == 0 and tempinvItem.isLockState == false and TryGetProp(item_obj, 'Reinforce_2', 0) >= restrict_reinforce then				
+				local diff = math.abs(TryGetProp(item_obj, 'Reinforce_2', 0) - restrict_reinforce)
+				if diff < min_reinforce then
+					min_reinforce = diff
+					invItemadd = tempinvItem					
+				end
+			end
+		else
 		if isAlreadyAdd == 0 and tempinvItem.isLockState == false then
 			invItemadd = tempinvItem
 			break
 		end
 	end
+	end
 
 	if invItemadd == nil then
+		if check_reinforce == true then
+			ui.SysMsg(ScpArgMsg('MoreReinforceForCraft{count}', 'count', restrict_reinforce))
+		end
 		return
 	end
 	
@@ -1816,7 +1847,26 @@ function CRAFT_ITEM_ALL(itemSet, btn)
 	end
 	
 	local itemObj = GetIES(invItemadd:GetObject())
+	local item_guid = GetIESID(itemObj)
+	itemSet:SetUserValue(itemSet:GetName(), tostring(item_guid))
+
 	if IS_EQUIP(itemObj) == true then		
+		-- 제작재료 강화수치 체크
+		local legend_recipe = targetslot:GetUserValue('recipe_name')		
+		if legend_recipe ~= 'None' then
+			local legend_recipe_cls = GetClass('legendrecipe', legend_recipe)			
+			local token = StringSplit(itemSet:GetName(), '_')
+			if #token >= 2 then
+				local slot_number = token[2]
+				local restrict_reinforce = TryGetProp(legend_recipe_cls, 'MaterialItemReinforce_' .. slot_number, 0)
+				if TryGetProp(itemObj, 'Reinforce_2', 0) < restrict_reinforce then
+					ui.SysMsg(ScpArgMsg('MoreReinforceForCraft{count}', 'count', restrict_reinforce))
+					return
+				end
+			end			
+		end
+		-- end of 제작재료 강화수치 체크
+
 		local frame = ui.GetFrame(g_itemCraftFrameName);
 		frame:SetUserValue("TARGETSET", itemSet:GetName())
 		frame:SetUserValue("TARGET_GUID", GetIESID(itemObj))
@@ -1829,9 +1879,7 @@ function CRAFT_ITEM_ALL(itemSet, btn)
 	if (ignoreType or invItemadd.type == materialItemClassID) and invItemadd.count >= needcount then		
 		session.AddItemID(invItemadd:GetIESID(), needcount);
 		local icon 		= targetslot:GetIcon();
-
 		SET_ITEM_TOOLTIP_BY_OBJ(icon, invItemadd)
-
 		targetslot:SetEventScript(ui.RBUTTONUP, "CRAFT_ITEM_CANCEL");
 		targetslot:SetEventScriptArgString(ui.RBUTTONUP,invItemadd:GetIESID())
 
@@ -1879,6 +1927,24 @@ function CRAFT_ITEM_ALL_ForLegend()
 	local needcount = tonumber(materialItemCnt);
 	local resultlist = session.GetItemIDList();	
 
+	local check_reinforce = false
+	local restrict_reinforce = 0
+
+	local legend_recipe = targetslot:GetUserValue('recipe_name')		
+	if legend_recipe ~= 'None' then
+		local legend_recipe_cls = GetClass('legendrecipe', legend_recipe)
+		local token = StringSplit(itemSet:GetName(), '_')
+		if #token >= 2 then
+			local slot_number = token[2]
+			 restrict_reinforce = TryGetProp(legend_recipe_cls, 'MaterialItemReinforce_' .. slot_number, 0)
+			if restrict_reinforce ~= 0 then
+				check_reinforce = true
+			end
+		end	
+	end
+
+	local min_reinforce = 1000
+
 	for i = 1, #invItemlist do
 		local tempinvItem = invItemlist[i];
 		local isAlreadyAdd = 0
@@ -1890,10 +1956,21 @@ function CRAFT_ITEM_ALL_ForLegend()
 			end
 		end
 
+		if check_reinforce == true then
+			local item_obj = GetIES(tempinvItem:GetObject())
+			if isAlreadyAdd == 0 and tempinvItem.isLockState == false and TryGetProp(item_obj, 'Reinforce_2', 0) >= restrict_reinforce then				
+				local diff = math.abs(TryGetProp(item_obj, 'Reinforce_2', 0) - restrict_reinforce)
+				if diff < min_reinforce then
+					min_reinforce = diff
+					invItemadd = tempinvItem					
+				end
+			end
+		else
 		if isAlreadyAdd == 0 and tempinvItem.isLockState == false then
 			invItemadd = tempinvItem
 			break
 		end
+	end
 	end
 
 	if invItemadd == nil then
@@ -1906,7 +1983,26 @@ function CRAFT_ITEM_ALL_ForLegend()
 	end
 	
 	local itemObj = GetIES(invItemadd:GetObject())
+	local item_guid = GetIESID(itemObj)
+	itemSet:SetUserValue(itemSet:GetName(), tostring(item_guid))
+
 	if IS_EQUIP(itemObj) == true then		
+		-- 제작재료 강화수치 체크
+		local legend_recipe = targetslot:GetUserValue('recipe_name')		
+		if legend_recipe ~= 'None' then
+			local legend_recipe_cls = GetClass('legendrecipe', legend_recipe)			
+			local token = StringSplit(itemSet:GetName(), '_')
+			if #token >= 2 then
+				local slot_number = token[2]
+				local restrict_reinforce = TryGetProp(legend_recipe_cls, 'MaterialItemReinforce_' .. slot_number, 0)
+				if TryGetProp(itemObj, 'Reinforce_2', 0) < restrict_reinforce then
+					ui.SysMsg(ScpArgMsg('MoreReinforceForCraft{count}', 'count', restrict_reinforce))
+					return
+				end
+			end			
+		end
+		-- end of 제작재료 강화수치 체크
+
 		local frame = ui.GetFrame(g_itemCraftFrameName);
 		frame:SetUserValue("TARGETSET", itemSet:GetName())
 		frame:SetUserValue("TARGET_GUID", GetIESID(itemObj))		
@@ -1915,9 +2011,7 @@ function CRAFT_ITEM_ALL_ForLegend()
 	if (ignoreType or invItemadd.type == materialItemClassID) and invItemadd.count >= needcount then		
 		session.AddItemID(invItemadd:GetIESID(), needcount);
 		local icon = targetslot:GetIcon();
-
 		SET_ITEM_TOOLTIP_BY_OBJ(icon, invItemadd)
-
 		targetslot:SetEventScript(ui.RBUTTONUP, "CRAFT_ITEM_CANCEL");
 		targetslot:SetEventScriptArgString(ui.RBUTTONUP,invItemadd:GetIESID())
 

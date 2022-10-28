@@ -86,7 +86,7 @@ function HOUSING_PROMOTE_POST_UPDATE(code, ret_json)
 
     local parsed = json.decode(ret_json);
 
-    if parsed["thumbnail_id"] ~= nil and parsed["channel_id"] ~= nil and parsed["page_id"] ~= nil then
+    if parsed["thumbnail_id"] ~= nil then
         GetHousingThumbnailImage("HOUSING_PROMOTE_POST_THUMNAIL_UPDATE", parsed["channel_id"], parsed["page_id"], parsed["thumbnail_id"], "None");
     end    
 
@@ -126,8 +126,6 @@ function HOUSING_PROMOTE_POST_UPDATE(code, ret_json)
     housing_warp_btn:SetEventScriptArgString(ui.LBUTTONUP, parsed["channel_id"]);
 
     frame:ShowWindow(1);
-
-    session.housing.board.OpenPost(parsed["channel_id"]);
 end
 
 function HOUSING_PROMOTE_POST_THUMNAIL_UPDATE(code, pageID, filePath)
@@ -135,13 +133,10 @@ function HOUSING_PROMOTE_POST_THUMNAIL_UPDATE(code, pageID, filePath)
         return;
     end
     
-    local folderPath = filefind.GetBinPath("Housing"):c_str()
-    local fullPath = folderPath .. "\\" .. filePath;
-
     local frame = ui.GetFrame("housing_promote_post");
-    local thumbnail = GET_CHILD_RECURSIVELY(frame, "thumbnail");
-    if filefind.FileExists(fullPath, true) == true then
-        ui.SetImageByPath(fullPath, thumbnail);
+    local thumbnail = GET_CHILD_RECURSIVELY(frame, "thumbnail");    
+    if filefind.FileExists(filePath, true) == true then
+        ui.SetImageByPath(filePath, thumbnail);
         thumbnail:Invalidate();
     end
 
@@ -163,10 +158,10 @@ function HOUSING_PROMOTE_POST_POINT_INFO(frame, table)
     pointinfo_1:SetTextByKey("value", table["personalHousing_PlaceLV"]);
 
     local pointinfo_2 = GET_CHILD(frame, "pointinfo_2");
-    pointinfo_2:SetTextByKey("value", table["personalHousing_PlacePoint"]);
+    pointinfo_2:SetTextByKey("value", table["personalHousing_Point1"]);
 
     local pointinfo_3 = GET_CHILD(frame, "pointinfo_3");
-    pointinfo_3:SetTextByKey("value", table["personalHousing_Point1"]);
+    pointinfo_3:SetTextByKey("value", table["personalHousing_PlacePoint"]);
 end
 
 function HOUSING_PROMOTE_POST_MY_OPTION_TOGGLE(frame, value)
@@ -199,13 +194,12 @@ function HOUSING_PROMOTE_POST_WARP_HOUSE(parent, ctrl, aidx)
         return;
     end
 
-    local yesscp = string.format("HOUSING_PROMOTE_POST_REQUEST_POST_HOUST_WARP('%s', 1)", aidx);
+    local yesscp = string.format("HOUSING_PROMOTE_POST_REQUEST_POST_HOUST_WARP(%s)", aidx);
     ui.MsgBox(ScpArgMsg("ANSWER_JOIN_PH_1"), yesscp, "None");    
 end
 
-function HOUSING_PROMOTE_POST_REQUEST_POST_HOUST_WARP(aidx, type)
-    
-    housing.RequestPostHouseWarp(aidx, tonumber(type));
+function HOUSING_PROMOTE_POST_REQUEST_POST_HOUST_WARP(aidx)
+    housing.RequestPostHouseWarp(aidx);
 end
 
 ------------------ 마이 하우스 ------------------
@@ -288,7 +282,7 @@ function HOUSING_PROMOTE_POST_MY_HOUSE_UPDATE(code, ret_json)
 
     local parsed = json.decode(ret_json);
     
-    if parsed["thumbnail_id"] ~= nil and parsed["channel_id"] ~= nil and parsed["page_id"] ~= nil then
+    if parsed["thumbnail_id"] ~=  nil then
         GetHousingThumbnailImage("HOUSING_PROMOTE_POST_THUMNAIL_UPDATE", parsed["channel_id"], parsed["page_id"], parsed["thumbnail_id"], "None");
     end
 

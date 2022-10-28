@@ -37,10 +37,6 @@ function EARTHTOWERSHOP_BUY_ITEM(itemName,itemCount)
 	if recipecls.AccountNeedProperty ~= 'None' then
 	    local aObj = GetMyAccountObj()
         local sCount = TryGetProp(aObj, recipecls.AccountNeedProperty); 
-        -- --EVENT_2003_WHITEDAY
-        -- if recipecls.ClassName == 'WhiteDayShop2003_14' then
-        --     sCount = sCount + 1
-        -- end
 --        --EVENT_1906_SUMMER_FESTA
 --        local time = geTime.GetServerSystemTime()
 --        time = time.wYear..time.wMonth..time.wDay
@@ -208,9 +204,9 @@ function REQ_EVENT_2001_NEWYEAR_SHOP_OPEN()
 end
 
 function REQ_EVENT_2002_FISHING_SHOP_OPEN()
-    -- local frame = ui.GetFrame("earthtowershop");
-    -- frame:SetUserValue("SHOP_TYPE", 'FishingShop2002');
-    -- ui.OpenFrame('earthtowershop');
+    local frame = ui.GetFrame("earthtowershop");
+    frame:SetUserValue("SHOP_TYPE", 'FishingShop2002');
+    ui.OpenFrame('earthtowershop');
 end
 
 function REQ_EVENT_SHOP_OPEN_COMMON(shopType)
@@ -329,8 +325,8 @@ function EARTH_TOWER_INIT(frame, shopType)
         title:SetText('{@st43}'..ScpArgMsg("EVENT_2001_NEWYEAR_SHOP"));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
     elseif shopType == 'FishingShop2002' then
-        -- title:SetText('{@st43}'..ScpArgMsg("EVENT_2002_FISHING_SHOP"));
-        -- close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
+        title:SetText('{@st43}'..ScpArgMsg("EVENT_2002_FISHING_SHOP"));
+        close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
     else
         title:SetText('{@st43}'..ScpArgMsg(shopType));
         close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', ScpArgMsg("EventShop")));
@@ -416,17 +412,20 @@ end
 
 function EXCHANGE_COUNT_CHECK(cls)
     local recipecls = GetClass('ItemTradeShop', cls.ClassName);
+
     if recipecls.AccountNeedProperty ~= 'None' then
         local aObj = GetMyAccountObj()
         local sCount = TryGetProp(aObj, recipecls.AccountNeedProperty);
-        -- --EVENT_2003_WHITEDAY
-        -- if recipecls.ClassName == 'WhiteDayShop2003_14' then
-        --     sCount = sCount + 1
-        -- end
         return sCount;
     end
 
-    return "None"; 
+    if recipecls.NeedProperty ~= 'None' then
+        local sObj = GetSessionObject(GetMyPCObject(), "ssn_shop");
+        local sCount = TryGetProp(sObj, recipecls.NeedProperty);
+        return sCount;
+    end
+
+    return "None";
 end
 
 function INSERT_ITEM(cls, tree, slotHeight, haveMaterial, shopType)
@@ -645,10 +644,6 @@ function EXCHANGE_CREATE_TREE_PAGE(tree, slotHeight, groupName, classType, cls, 
     if recipecls.AccountNeedProperty ~= 'None' then
         local aObj = GetMyAccountObj()
         local sCount = TryGetProp(aObj, recipecls.AccountNeedProperty); 
-        -- --EVENT_2003_WHITEDAY
-        -- if recipecls.ClassName == 'WhiteDayShop2003_14' then
-        --     sCount = sCount + 1
-        -- end
         local cntText = ScpArgMsg("Excnaged_AccountCount_Remind","COUNT",string.format("%d", sCount))
         local tradeBtn = GET_CHILD(ctrlset, "tradeBtn");
         if sCount <= 0 then
@@ -872,7 +867,7 @@ function EARTH_TOWER_SHOP_TRADE_ENTER()
     elseif shopType == 'NewYearShop' then
         item.DialogTransaction("EVENT_2001_NEWYEAR_SHOP_1_THREAD1", resultlist, cntText);
     elseif shopType == 'FishingShop2002' then
-        -- item.DialogTransaction("EVENT_2002_FISHING_SHOP_1_THREAD1", resultlist, cntText);
+        item.DialogTransaction("EVENT_2002_FISHING_SHOP_1_THREAD1", resultlist, cntText);
     else
         local strArgList = NewStringList();
         strArgList:Add(shopType);
@@ -1064,10 +1059,6 @@ function EARTHTOWERSHOP_CHANGECOUNT_NUM_CHANGE(ctrlset,change)
     if recipecls.AccountNeedProperty ~= 'None' then
         local aObj = GetMyAccountObj()
         local sCount = TryGetProp(aObj, recipecls.AccountNeedProperty); 
-        -- --EVENT_2003_WHITEDAY
-        -- if recipecls.ClassName == 'WhiteDayShop2003_14' then
-        --     sCount = sCount + 1
-        -- end
 --        --EVENT_1906_SUMMER_FESTA
 --        local time = geTime.GetServerSystemTime()
 --        time = time.wYear..time.wMonth..time.wDay
@@ -1087,6 +1078,7 @@ end
 function CRAFT_ITEM_CANCEL(eachSet, slot, stringArg)
     if eachSet~=nil then
         eachSet:SetUserValue("MATERIAL_IS_SELECTED", 'nonselected');
+        eachSet:SetUserValue(eachSet:GetName(), 'None');
 
         local slot = GET_CHILD_RECURSIVELY(eachSet, "slot");
         if slot ~= nil then

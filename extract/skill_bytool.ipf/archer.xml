@@ -30,6 +30,12 @@
 				<Frame Angle="0" AniTime="10199" Dist="0" ForceATK="0" HitCount="1" Length="30" PosType="0" RandDist="0" RandomPerHit="0" RotAngle="0" SklAngle="0.17453292" TermMax="0" TermMin="0" Time="9999" Type="FAN" Width="30"/>
 			</HitList>
 			<EtcList>
+				<Scp Client="NO" Scp="SKL_BUFF_REMOVE" Time="0" UseSleep="NO">
+					<Str Str="Archer_Kneelingshot"/>
+				</Scp>
+				<Scp Client="NO" Scp="SKL_BUFF_REMOVE" Time="0" UseSleep="NO">
+					<Str Str="Bazooka_Buff"/>
+				</Scp>				
 				<Scp Client="YES" Scp="C_EFFECT" Time="0" UseSleep="NO">
 					<Str_Arg Arg="2" Str="Non"/>
 					<Str Str="Dummy_arrow_effect"/>
@@ -61,6 +67,10 @@
                     <Num Num="1"/>
                     <Num Num="100"/>
                     <Num Num="0"/>
+                </Scp>
+                <Scp Client="NO" Scp="SKL_SET_IMMUNE_STATE_REMOVE" Time="500" UseSleep="YES">
+                    <Str Str="Skill_NoDamage_Buff"/>
+                    <Num Num="200"/>
                 </Scp>
 			</EtcList>
 			<ResultList>

@@ -39,6 +39,11 @@ end
 function MARKET_CLOSE(frame)
 	TRADE_DIALOG_CLOSE();
 	RESET_MARKET_OPTION(frame);
+
+	local marketSellFrame = ui.GetFrame("market_sell");
+	if marketSellFrame ~= nil then
+		MARKET_SELL_FILTER_RESET(marketSellFrame);
+	end
 end
 
 function RECIPE_SEARCH_FIND_PAGE(frame, page)
@@ -200,7 +205,7 @@ function ON_MARKET_ITEM_LIST(frame, msg, argStr, argNum)
 			else
 				MARKET_DRAW_CTRLSET_CARD(frame)
 			end			
-		elseif groupName == "ExpOrb" then
+		elseif groupName == "ExpOrb" or groupName == "SubExpOrb" then
 			MARKET_DRAW_CTRLSET_EXPORB(frame)
 		elseif groupName == 'OPTMisc' then
 			MARKET_DRAW_CTRLSET_OPTMISC(frame)
@@ -216,8 +221,12 @@ local function MARKET_CTRLSET_SET_ICON(ctrlSet, itemObj, marketItem)
 	SET_ITEM_TOOLTIP_ALL_TYPE(pic:GetIcon(), marketItem, itemObj.ClassName, "market", marketItem.itemType, marketItem:GetMarketGuid());
 
     SET_SLOT_STYLESET(pic, itemObj)
-    if itemObj.MaxStack > 1 then
-		SET_SLOT_COUNT_TEXT(pic, marketItem.count, '{s16}{ol}{b}');
+	if itemObj.MaxStack > 1 then
+		local font = '{s16}{ol}{b}';
+		if 100000 <= marketItem.count then	-- 6자리 수 폰트 크기 조정
+			font = '{s14}{ol}{b}';
+		end
+		SET_SLOT_COUNT_TEXT(pic, marketItem.count, font);
 	end
 end
 
@@ -278,7 +287,7 @@ function MARKET_DRAW_CTRLSET_DEFAULT(frame, isShowLevel)
 
 		MARKET_CTRLSET_SET_ICON(ctrlSet, itemObj, marketItem);
 
-		if itemObj.GroupName == "ExpOrb" then
+		if itemObj.GroupName == "ExpOrb" or itemObj.GroupName == "SubExpOrb" then
 			local curExp, maxExp = GET_LEGENDEXPPOTION_EXP(itemObj)
 			local expPoint = 0
 			if maxExp ~= nil and maxExp ~= 0 then

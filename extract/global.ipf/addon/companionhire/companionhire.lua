@@ -1,22 +1,11 @@
 
 function TRY_CECK_BARRACK_SLOT_BY_COMPANION_EXCHANGE(select)
-	
-	local accountInfo = session.barrack.GetMyAccount();
 	local petCnt = session.pet.GetPetTotalCount();
-	local myCharCont = accountInfo:GetPCCount() + petCnt;
-	local buySlot = session.loginInfo.GetBuySlotCount();
-	local barrackCls = GetClass("BarrackMap", accountInfo:GetThemaName());
-	
-	if myCharCont > barrackCls.MaxCashPC + barrackCls.BaseSlot then
-		ui.SysMsg(ClMsg('CanCreateCharCuzMaxSlot')); -- 구입할 슬롯이 없다는거
-		return;
-	end
-
-		-- 슬롯 산다는거
-	if myCharCont >= barrackCls.BaseSlot + buySlot then
+	local availableSlotCnt = GET_MY_AVAILABLE_CHARACTER_SLOT();
+	if petCnt >= availableSlotCnt then
 		local frame = ui.GetFrame("companionhire");
 		frame:SetUserValue("EXCHANGE_TIKET", select);
-		control.ReqCharSlotTPPrice();
+		EXEC_BUY_CHARACTER_SLOT();
 		return;
 	end
 

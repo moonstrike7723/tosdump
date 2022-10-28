@@ -88,25 +88,22 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 }
     
     local daycheckbuff = 
-	{{'5','1',{'Event_Class_Change_Pointup_500'}}
-	,{'5','2',{'Event_healHSP_Speedup','Event_LootingChance_Add_1000'}}
-	,{'5','3',{'Event_healHSP_Speedup'}}
-	,{'5','8',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'5','9',{'Event_healHSP_Speedup','Event_Legend_Uphill_Count_Reset','Event_Penalty_Clear_Gem_Reinforce'}}
-	,{'5','10',{'Event_healHSP_Speedup'}}
-	,{'5','15',{'Event_LootingChance_Add_1000','Event_Penalty_Clear_Gem_Reinforce'}}
-	,{'5','16',{'Event_healHSP_Speedup','Event_Reappraisal_Discount_50'}}
-	,{'5','17',{'Event_healHSP_Speedup','Event_Even_Transcend_Discount_50'}}
-	,{'5','22',{'Event_Class_Change_Pointup_500'}}
-	,{'5','23',{'Event_Unique_Raid_Bonus_Limit','Event_Penalty_Clear_Gem_Reinforce'}}
-	,{'5','24',{'Event_healHSP_Speedup'}}
-	,{'5','29',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-	,{'5','30',{'Event_Reagent_Bottle_Expup_100'}}
-	,{'5','31',{'Event_Cooldown_SPamount_Decrease'}}
+	{{'6','5',{'Event_Class_Change_Pointup_500','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'6','6',{'Event_ATK_and_DEF_UP_BUFF','Event_LootingChance_Add_1000'}}
+	,{'6','7',{'Event_ATK_and_DEF_UP_BUFF','Event_Cooldown_SPamount_Decrease'}}
+	,{'6','12',{'Event_healHSP_Speedup','Event_Reappraisal_Discount_50'}}
+	,{'6','13',{'Event_healHSP_Speedup','Event_Even_Transcend_Discount_50'}}
+	,{'6','14',{'Event_healHSP_Speedup','Event_Penalty_Clear_Gem_Reinforce'}}
+	,{'6','19',{'Event_ATK_and_DEF_UP_BUFF','Event_Class_Change_Pointup_500'}}
+	,{'6','20',{'Event_healHSP_Speedup','Event_LootingChance_Add_1000'}}
+	,{'6','21',{'Event_healHSP_Speedup','Event_Unique_Raid_Bonus_Limit'}}
+	,{'6','26',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+	,{'6','27',{'Event_ATK_and_DEF_UP_BUFF','Event_Reinforce_Discount_50'}}
+	,{'6','28',{'Event_healHSP_Speedup','Event_LootingChance_Add_1000'}}
 		}
 	
 	-- 기본 적용 버프
-	local dayBuffList = {'Event_Even_Transcend_Discount_50'}
+	local dayBuffList = {'Event_Expup_100'}
 	--날짜별 버프
 	for i = 1, #daycheckbuff do
 		if (tostring(month) == daycheckbuff[i][1]) and (tostring(day) == daycheckbuff[i][2])then
@@ -170,6 +167,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_801", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_802", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_803", 0)
+                        TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_805", 0)
                         TxSetIESProp(tx, accountObject, "REGULAR_BURNING_EVENT_COUNT_RESET", 1)
                         local ret = TxCommit(tx)
         

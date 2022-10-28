@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
 <EmitterList>
 	<battle name="E_effectitem_littleprince" filename="E_effectitem_littleprince" loop="true" nodecount="5" xml="E_effectitem_littleprince.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="TRUE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
 	<battle name="E_wing_littleprince_effect" filename="E_wing_littleprince_effect" loop="true" nodecount="6" xml="E_wing_littleprince_effect.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="TRUE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>

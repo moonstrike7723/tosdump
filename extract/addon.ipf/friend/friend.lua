@@ -16,8 +16,15 @@ function FRIEND_ON_INIT(addon, frame)
 	addon:RegisterMsg("FRIEND_NAME_CHANGED", "ON_UPDATE_FRIEND_LIST");
 	addon:RegisterMsg("GAME_START_3SEC", "CHECK_FRIEND_NEW_INVITE");
 
-    FRIEND_EXPAND_UNIT = 10;
-	
+	FRIEND_EXPAND_UNIT = 10;
+
+	-- sort list
+	local frame = ui.GetFrame('friend')
+	local sortTypeList = GET_CHILD_RECURSIVELY(frame, 'sortTypeList')
+
+	sortTypeList:AddItem("LOGIN", ScpArgMsg("SortByLogin"))
+	sortTypeList:AddItem("RECENT", ScpArgMsg("SortByRecent"))
+	sortTypeList:AddItem("TEAMNAME", ScpArgMsg("SortByTeamName"))
 end
 
 function ON_TREE_NODE_RCLICK(frame, msg, clickedGroupName, argNum)
@@ -149,8 +156,7 @@ function CHECK_FRIEND_NEW_INVITE(frame)
 end
 
 function FRIEND_OPEN(frame)
-	
-	
+
 end
 
 function ON_UPDATE_FRIEND_LIST(frame, msg, argStr, argNum)
@@ -182,8 +188,13 @@ function ENABLE_SHOW_ONLY_ONLINE_FRIEND(parent, ctrl)
 end
 
 function SEARCH_FRIEND()
-	local frame = ui.GetFrame("friend");
-	UPDATE_FRIEND_LIST(frame)			
+	local frame = ui.GetFrame("friend")
+	UPDATE_FRIEND_LIST(frame)
+end
+
+function SELECT_FRIEND_LIST_SORT_TYPE()
+	local frame = ui.GetFrame("friend")
+	UPDATE_FRIEND_LIST(frame)
 end
 
 function UPDATE_FRIEND_LIST(frame)
@@ -334,10 +345,13 @@ function BUILD_FRIEND_LIST(frame, listType, groupName, iscustom)
 	page:RemoveAllChild();
 	page:SetFocusedRow(-1);
 
-    local showCnt = 0;
-	local cnt = session.friends.GetFriendCount(listType);
-	for i = 0 , cnt - 1 do
-		local friendInfo = session.friends.GetFriendByIndex(listType, i);        	
+	local sortTypeList = GET_CHILD_RECURSIVELY(frame, "sortTypeList")
+
+	local showCnt = 0;
+	local sortType = sortTypeList:GetSelItemKey();
+	local friendList = SORTED_FRIEND_LIST(sortType, listType);
+	for i = 1, #friendList do
+		local friendInfo = session.friends.GetFriendByIndex(listType, friendList[i]);
         if isNormalTree == false or showCnt < visibleInfoCnt then
 		    if (showOnlyOnline == 0) or 
             (showOnlyOnline == 1 and friendInfo.mapID ~= 0) or
@@ -387,6 +401,82 @@ function BUILD_FRIEND_LIST(frame, listType, groupName, iscustom)
 	
 	tree:OpenNodeAll();
 
+end
+
+function SORTED_FRIEND_LIST(sortType, listType)
+	local list = {}
+
+	local cnt = session.friends.GetFriendCount(listType)
+	for i = 0, cnt-1 do
+		list[#list+1] = i
+	end
+
+	if sortType == "TEAMNAME" then
+		table.sort(list, function(a, b)
+			local friendInfoA = session.friends.GetFriendByIndex(listType, a)
+			local friendInfoB = session.friends.GetFriendByIndex(listType, b)
+		
+			local friendNameA = friendInfoA:GetInfo():GetFamilyName()
+			local friendNameB = friendInfoB:GetInfo():GetFamilyName()
+
+			if friendNameA == nil or friendNameA == "" then
+				return false
+			end
+
+			if friendNameB == nil or friendNameB == "" then
+				return true
+			end
+
+			return friendNameA < friendNameB
+		end)
+	end
+
+	if sortType == "LOGIN" then
+		table.sort(list, function(a, b)
+			local friendInfoA = session.friends.GetFriendByIndex(listType, a)
+			local friendInfoB = session.friends.GetFriendByIndex(listType, b)
+
+			local loginStateA = friendInfoA.mapID ~= 0
+			local loginStateB = friendInfoB.mapID ~= 0
+
+			-- 둘 다 접속중이면 이름순으로
+			if loginStateA and loginStateB then
+				local friendNameA = friendInfoA:GetInfo():GetFamilyName()
+				local friendNameB = friendInfoB:GetInfo():GetFamilyName()
+
+				if friendNameA == nil or friendNameA == "" then
+					return false
+				end
+	
+				if friendNameB == nil or friendNameB == "" then
+					return true
+				end
+	
+				return friendNameA < friendNameB
+			end
+
+			if loginStateA and loginStateB == false then
+				return true
+			end
+
+			if loginStateB and loginStateA == false then
+				return false
+			end
+		
+			local logoutTimeA = imcTime.GetDiffSecFromNow(friendInfoA:GetInfo().logoutTime)
+			local logoutTimeB = imcTime.GetDiffSecFromNow(friendInfoB:GetInfo().logoutTime)
+
+			return logoutTimeA < logoutTimeB
+		end)
+	end
+
+	if sortType == "RECENT" then
+		table.sort(list, function(a, b)
+			return a > b
+		end)
+	end
+
+	return list
 end
 
 function CONFIRM_FRIEND_STATE(parent, ctrl, str, num)
@@ -622,14 +712,14 @@ function ON_FRIEND_SESSION_CHANGE(frame, msg, aid, listType)
 	if nil == f then
 		return;
 	end
-	local showOnlyOnline = config.GetXMLConfig("Friend_ShowOnlyOnline")
 
-	if showOnlyOnline == 1 or f.mapID == 0 then
+	local showOnlyOnline = config.GetXMLConfig("Friend_ShowOnlyOnline")
+	if showOnlyOnline == 1 then
 		ON_UPDATE_FRIEND_LIST(frame);
 		return;
 	end
-	local treename = 'friendtree_normal'
 
+	local treename = 'friendtree_normal'
 	if listType ~= FRIEND_LIST_COMPLETE then
 		treename = 'friendtree_request'
 	end
@@ -640,6 +730,7 @@ function ON_FRIEND_SESSION_CHANGE(frame, msg, aid, listType)
 	if f:GetGroupName() ~= nil and f:GetGroupName() ~= "" then
 		pageCtrlName = "PAGE_" .. f:GetGroupName();
 	end
+
 	local page = tree:GetChild(pageCtrlName);
 	
 	if page == nil then
@@ -649,22 +740,48 @@ function ON_FRIEND_SESSION_CHANGE(frame, msg, aid, listType)
 			page = tree:GetChild("PAGE_" .. FRIEND_GET_GROUPNAME(listType));
 		end
 	end
-	local childName = "FR_" .. listType .. "_" .. f:GetInfo():GetACCID();
 
+	local childName = "FR_" .. listType .. "_" .. f:GetInfo():GetACCID();
 	local ctrlSet = page:GetChild(childName);
+
+	-- 이전 온라인/오프라인 구분 기준: ctrlSet:GetChild('logoutText') == nil
+	-- 현재 온라인/오프라인 구분 기준: f.mapID == 0
+
+	-- 이전에 온라인 / 현재 온라인인 경우: 위치 텍스트만 수정
+	if ctrlSet ~= nil then
+		if f.mapID ~= 0 and ctrlSet:GetChild('logoutText') == nil then
+
+			local map_name_text = ctrlSet:GetChild("map_name_text")
+			local map_name_channel_text = ctrlSet:GetChild("map_name_channel_text")
+			
+			local mapCls = GetClassByType("Map", f.mapID)
+
+			if map_name_channel_text ~= nil and mapCls ~= nil then
+				map_name_channel_text:SetColorTone(0)
+				map_name_channel_text:SetTextByKey("name", mapCls.Name)
+				map_name_channel_text:SetTextByKey("channel", f.channel+1)
+	
+				map_name_channel_text:ShowWindow(1)
+				map_name_text:ShowWindow(0)
+			end
+
+			return
+		end
+	end
+
+	-- 그 외의 경우: 컨트롤셋 새로 생성
 	if ctrlSet ~= nil then
 		page:RemoveChild(childName);
 	end
-	if f.mapID == 0 and ctrlSet:GetChild('logoutText') == nil then
+
+	if f.mapID == 0 then
 		ctrlSet = page:CreateOrGetControlSet('friend_not_online', childName, 0, 0);
-		
 	else --온라인상태
 		ctrlSet = page:CreateOrGetControlSet(GET_FRIEND_CTRLSET_NAME(listType), childName, 0, 0);
 		ctrlSet:Resize(ctrlSet:GetOriginalWidth(), FRIEND_MINIMIZE_HEIGHT);
 	end
-
-	UPDATE_FRIEND_CONTROLSET(ctrlSet, listType, f);
 	
+	UPDATE_FRIEND_CONTROLSET(ctrlSet, listType, f);
 end
 
 function OPEN_FRIEND_FRAME()

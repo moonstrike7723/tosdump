@@ -148,7 +148,7 @@ function MAKE_ALL_DEFAULT_HAIR()
 		end
 	end
 end
-	
+
 function TEST_AYASE()
 	debug.TestMannequin();
 end
@@ -1467,7 +1467,8 @@ function SCR_SKILLSCROLL(invItem)
 		if mGameName ~= nil and mGameName ~= 'None' then
 			local indunCls = GetClassByStrProp('Indun', 'MGame', mGameName)
 			local dungeonType = TryGetProp(indunCls, 'DungeonType', 'None')
-			if dungeonType == 'Raid' or dungeonType == 'GTower' or dungeonType == 'WeeklyRaid' then
+			local stringArg = TryGetProp(obj, 'StringArg', 'None')
+			if (dungeonType == 'Raid' or dungeonType == 'GTower' or dungeonType == 'WeeklyRaid') and stringArg ~= 'RaidConsume' then
 				ui.SysMsg(ClMsg("NotAvailableInThisContents"))
 				return
 			end
@@ -3227,6 +3228,11 @@ function ON_RIDING_VEHICLE(onoff)
     if summonedCompanion ~= nil then
 		local companionObj = summonedCompanion:GetObject();
 		local companionIES = GetIES(companionObj);
+		local companionIsActivated = TryGetProp(companionIES, 'IsActivated');
+		if companionIsActivated == 0 and onoff == 1 then 
+			ui.SysMsg(ClMsg('CompanionIsNotActive'));
+			return
+		end
 		local companionClassName = TryGetProp(companionIES, 'ClassName');
 		if companionClassName ~= nil then
 			local companionClass = GetClass('Companion', companionClassName);

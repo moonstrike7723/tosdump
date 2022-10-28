@@ -93,6 +93,8 @@ function TOGGLE_WEEKLYBOSSINFO(frame, type)
     categoryBox:ShowWindow(1 - type);
     local bottomBox = GET_CHILD_RECURSIVELY(frame, 'bottomBox');
     bottomBox:ShowWindow(1 - type);
+    local raidrankingBox = GET_CHILD_RECURSIVELY(frame, 'raidrankingBox');
+    raidrankingBox:ShowWindow(0);
 end
 
 function SET_WEEKLYBOSS_INDUN_COUNT(frame)
@@ -112,6 +114,8 @@ function TOGGLE_INDUNINFO(frame,type)
     lvAscendRadio:ShowWindow(1 - type)
     local lvDescendRadio = GET_CHILD_RECURSIVELY(frame,'lvDescendRadio')
     lvDescendRadio:ShowWindow(1 - type)
+    local raidrankingBox = GET_CHILD_RECURSIVELY(frame, 'raidrankingBox');
+    raidrankingBox:ShowWindow(0);
     if type == 1 then
         local resetInfoText = GET_CHILD_RECURSIVELY(frame, 'resetInfoText'); 
         resetInfoText:ShowWindow(0)
@@ -1483,6 +1487,8 @@ function INDUNINFO_TAB_CHANGE(parent, ctrl)
 		INDUNINFO_UI_OPEN(frame);
     elseif index == 1 then
         WEEKLYBOSSINFO_UI_OPEN(frame);
+    elseif index == 2 then
+        RAID_RANKING_UI_OPEN(frame);
 	end
 end
 
@@ -1730,6 +1736,11 @@ function WEEKLY_BOSS_RANK_UPDATE()
 
         local damage = session.weeklyboss.GetRankInfoDamage(i - 1);
         local teamname = session.weeklyboss.GetRankInfoTeamName(i - 1);
+        local guildID = session.weeklyboss.GetRankInfoGuildID(i - 1)
+        if guildID ~= "0" then
+            ctrlSet:SetUserValue("GUILD_IDX",guildID)
+            GetGuildEmblemImage("WEEKLY_BOSS_EMBLEM_IMAGE_SET",guildID)
+        end
 
         local name = GET_CHILD(ctrlSet, "attr_name_text", "ui::CRichText");
         name:SetTextByKey("value", teamname);
@@ -1739,6 +1750,31 @@ function WEEKLY_BOSS_RANK_UPDATE()
     
     end
 
+end
+
+function WEEKLY_BOSS_EMBLEM_IMAGE_SET(code, return_json)
+    if code ~= 200 then
+        if code == 400 or code == 404 then
+            return
+        else
+            SHOW_GUILD_HTTP_ERROR(code, return_json, "WEEKLY_BOSS_EMBLEM_IMAGE_SET")
+            return
+        end
+    end
+    
+    local guild_idx = return_json
+    emblemFolderPath = filefind.GetBinPath("GuildEmblem"):c_str()
+    local emblemPath = emblemFolderPath .. "\\" .. guild_idx .. ".png";
+
+    local frame = ui.GetFrame('induninfo')
+    local rankListBox = GET_CHILD_RECURSIVELY(frame, "rankListBox", "ui::CGroupBox");
+    for i = 0,rankListBox:GetChildCount()-1 do
+        local controlset = rankListBox:GetChildByIndex(i)
+        if controlset:GetUserValue("GUILD_IDX") == guild_idx then
+            local picture = tolua.cast(controlset:GetChildRecursively("attr_emblem_pic"), "ui::CPicture");
+            ui.SetImageByPath(emblemPath, picture);        
+        end
+    end
 end
 
 -- 페이지 컨트롤 page
@@ -1795,10 +1831,325 @@ function WEEKLY_BOSS_JOIN_ENTER_CLICK_MSG(type)
     local ctrl = GET_CHILD_RECURSIVELY(frame,"joinenter")
     if type == 1 then
         ReqEnterWeeklyBossIndun(type)
-    elseif ctrl:GetTextByKey('cur') < ctrl:GetTextByKey('max') then
+    elseif ctrl:GetTextByKey('cur') < ctrl:GetTextByKey('max') or session.weeklyboss.GetNowWeekNum() == 1 or session.weeklyboss.GetNowWeekNum() == 2 then
         ReqEnterWeeklyBossIndun(type)
     else
         ui.SysMsg(ScpArgMsg('IRREDIAN1131_DLG_LANG_1_CANT'));
     end
 end
 --------------------------------- 주간 보스 레이드 ---------------------------------
+
+--------------------------------- 레이드 랭킹 ---------------------------------
+local json = require "json_imc";
+local curPage = 1;
+local infolistY = 0;
+local finishedLoading = false;
+local scrolledTime = 0;
+local raidrankingcategory = {};
+
+function RAID_RANKING_UI_OPEN(frame)
+    TOGGLE_RAID_RANKING_UI(frame);
+    RAID_RANKING_CATEGORY_INIT(frame);
+end
+
+function TOGGLE_RAID_RANKING_UI(frame)
+    local raidrankingBox = GET_CHILD_RECURSIVELY(frame, 'raidrankingBox');
+    raidrankingBox:ShowWindow(1);
+
+    local WeeklyBossbox = GET_CHILD(frame, 'WeeklyBossbox');
+    WeeklyBossbox:ShowWindow(0);
+    local categoryBox = GET_CHILD(frame, 'categoryBox');
+    categoryBox:ShowWindow(0);
+    local contentBox = GET_CHILD(frame, 'contentBox');
+    contentBox:ShowWindow(0);
+    local bottomBox = GET_CHILD(frame, 'bottomBox');
+    bottomBox:ShowWindow(0);
+end
+
+function RAID_RANKING_CATEGORY_SORT_BY_LEVEL()
+    raidrankingcategory = {}
+
+    local clsList, cnt = GetClassList("raid_ranking_category");
+    for i = 0, cnt - 1 do
+        local cls = GetClassByIndexFromList(clsList, i);
+        raidrankingcategory[#raidrankingcategory + 1] = cls;
+    end
+
+    --table.sort(raidrankingcategory, SORT_BY_LEVEL_BASE_NAME);
+end
+
+function RAID_RANKING_CATEGORY_INIT(frame)
+    frame:SetUserValue('SELECTED_DETAIL', 0);
+
+    local raidcategoryBox = GET_CHILD_RECURSIVELY(frame, 'raidcategoryBox');
+    raidcategoryBox:RemoveAllChild();
+    raidcategoryBox:EnableHitTest(1);
+    
+    local raidrankinglist = GET_CHILD_RECURSIVELY(frame, 'raidrankinglist');
+    raidrankinglist:RemoveAllChild();
+    raidrankinglist:SetScrollPos(0);
+    raidrankinglist:SetEventScript(ui.SCROLL, "RAID_RANKING_INFO_SCROLL");
+
+    infolistY = 0;
+    curPage = 1;
+    scrolledTime = 0;
+
+    RAID_RANKING_CATEGORY_SORT_BY_LEVEL();
+    local clsList, cnt = GetClassList("raid_ranking_category");
+
+    local y = 0;
+    local width = 350;
+    if 8 < cnt then 
+        width = 330; 
+    end
+
+    for i = 1, #raidrankingcategory do
+        local cls = raidrankingcategory[i]
+        local ctrl = raidcategoryBox:CreateOrGetControlSet("raid_ranking_category_info", "RAID_RANKING_CTRL"..cls.ClassID, 0, y);
+
+        local btnctrl = GET_CHILD(ctrl, "button");
+        btnctrl:SetUserValue('RAID_RANKING_CLASS_ID', cls.ClassID);
+        btnctrl:SetEventScript(ui.LBUTTONUP, 'RAID_RANKING_CATEGORY_CLICK');
+
+        local levelctrl = GET_CHILD(ctrl, "level");
+        local namectrl = GET_CHILD(ctrl, "name");
+
+        levelctrl:SetTextByKey("value", cls.Level);
+        namectrl:SetTextByKey("value", ClMsg(cls.ClassName));  -- 콘텐츠 이름
+        namectrl:SetUserValue('RAID_RANKING_CLASS_ID', cls.ClassID);
+        namectrl:SetEventScript(ui.LBUTTONUP, 'RAID_RANKING_CATEGORY_CLICK');
+
+        y = y + ctrl:GetHeight() - 5;
+    end
+
+end
+
+function RAID_RANKING_CATEGORY_CLICK(parent, detailCtrl)
+    local frame = parent:GetTopParentFrame();
+
+    local indunClassID = detailCtrl:GetUserIValue('RAID_RANKING_CLASS_ID');
+    local preSelectedDetail = frame:GetUserIValue('SELECTED_DETAIL');
+    if indunClassID == preSelectedDetail then
+        return;
+    end
+    
+    local raidcategoryBox = GET_CHILD_RECURSIVELY(frame, 'raidcategoryBox');
+    raidcategoryBox:EnableHitTest(0);
+    ReserveScript("RAID_RANKING_CATEGORY_UI_UNFREEZE()", 1.0);
+    
+    local raidrankinglist = GET_CHILD_RECURSIVELY(frame, 'raidrankinglist');
+    raidrankinglist:RemoveAllChild();
+    raidrankinglist:SetScrollPos(0);
+
+    -- set skin
+    local preSelectedCtrl = GET_CHILD_RECURSIVELY(frame, 'RAID_RANKING_CTRL'..preSelectedDetail);
+    if preSelectedCtrl ~= nil then
+        local preBtnCtrl = GET_CHILD(preSelectedCtrl, "button");
+        preBtnCtrl:SetSkinName("base_btn");
+    end
+
+    detailCtrl:SetSkinName("baseyellow_btn");
+    frame:SetUserValue('SELECTED_DETAIL', indunClassID);
+
+    infolistY = 0;
+    curPage = 1;
+    scrolledTime = imcTime.GetAppTime();
+
+    local rankCls = GetClassByType("raid_ranking_category", indunClassID);
+    GetRaidRanking('RAID_RANKING_INFO_UPDATE', rankCls.ClassName, curPage, TryGetProp(rankCls, "Order", "asc"));
+end
+
+function RAID_RANKING_INFO_UPDATE(code, ret_json)    
+    finishedLoading = true;
+    
+    if code ~= 200 then
+        if code == 500 then
+            ui.SysMsg(ScpArgMsg('CantExecInThisArea'));
+        end
+        
+        local frame = ui.GetFrame("induninfo");
+        RAID_RANKING_CATEGORY_INIT(frame);
+        return;
+    end
+
+    local parsed = json.decode(ret_json);
+    local count = parsed['count'];
+    if tonumber(count) == 0 then
+        return;
+    end
+
+    local list = parsed['list'];
+    for k, v in pairs(list) do
+        local rank = v['rank'];
+        local time = v['score'];
+        local member = v['member'];
+
+        if 100 < rank then
+            return;
+        end
+
+        infolistY = RAID_RANKING_INFO_DETAIL(infolistY, rank, time, member);
+    end
+end
+
+function RAID_RANKING_INFO_DETAIL(y, rank, time, member)
+    local frame = ui.GetFrame("induninfo");
+    local myParty = false;
+
+    local gb = GET_CHILD_RECURSIVELY(frame, 'raidrankinglist');
+    
+    local ctrl = gb:CreateOrGetControlSet("raid_ranking_info", "RAID_RANKING_DETAIL_"..rank, 5, y);
+
+    local rankCtrl = GET_CHILD(ctrl, 'rank');
+    rankCtrl:SetTextByKey("value", rank);
+
+    local timetext = GET_RAID_RANKING_TIME_TXT(time);
+    local timeCtrl = GET_CHILD(ctrl, 'time');
+    timeCtrl:SetTextByKey("value", timetext);
+
+    local membergb = GET_CHILD(ctrl, 'membergb');
+    membergb:RemoveAllChild();
+
+    local pic = GET_CHILD(ctrl, 'pic');
+
+    if rank <= 3 then
+        pic:SetImage('raid_week_rank_0'..rank)
+        pic:ShowWindow(1);
+
+        rankCtrl:ShowWindow(0);
+    else
+        pic:ShowWindow(0);
+        rankCtrl:ShowWindow(1);
+    end
+
+    local memberstrlist = StringSplit(member, ', ');
+    local memberCnt = #memberstrlist;
+    
+    local membery = 20;
+    for i = 1, memberCnt do
+        local infostrlist = StringSplit(memberstrlist[i], ' ');
+        local teamname = "";
+        local guildname = "";
+        local memberCtrl = membergb:CreateOrGetControlSet("raid_ranking_info_member", "member_"..i, 0, membery);
+        if 1 < #infostrlist then
+            guildname = infostrlist[1];
+            teamname = infostrlist[2];
+
+            local guildCtrl = GET_CHILD(memberCtrl, "guild");
+            guildCtrl:SetText(guildname);
+        else
+            teamname = infostrlist[1];
+        end
+        
+        local teamCtrl = GET_CHILD(memberCtrl, "team");
+        teamCtrl:SetText(teamname);
+
+        local myHandle = session.GetMyHandle();
+        if teamname == info.GetFamilyName(myHandle) then
+            myParty = true;
+        end
+
+        membery = membery + (memberCtrl:GetHeight() * 1.5);
+    end
+   
+
+    membergb:Resize(membergb:GetWidth(), membery + 15);
+    local height = ctrl:GetHeight();
+    
+    if ctrl:GetHeight() < membergb:GetHeight() then
+        height = membergb:GetHeight();
+    end
+    
+    ctrl:Resize(ctrl:GetWidth(), height);
+
+    if myParty == true then
+        ctrl:SetSkinName("guildbattle_win_bg");
+    end
+
+    y = y + ctrl:GetHeight();
+    return y;
+end
+
+function GET_RAID_RANKING_TIME_TXT(time)
+	if time == 0.0 then
+		return "";
+	end
+
+    local sec = time / 1000;
+    
+	local hour = math.floor(sec / 3600);
+	if hour < 0 then
+		hour = 0;
+	end
+
+	sec = sec - hour * 3600;
+
+	local min = math.floor(sec / 60);
+	if min < 0 then
+		min = 0;
+	end
+
+	sec = math.floor(sec - min * 60);
+	if sec < 0 then
+		sec = 0;
+	end
+
+    local hourtext = hour;
+    if hour < 10 then
+        hourtext = string.format("0%s", hour);
+	end
+
+    local mintext = min;
+    if min < 10 then
+        mintext = string.format("0%s", min);
+    end
+    
+    local sectext = sec;
+    if sec < 10 then
+        sectext = string.format("0%s", sec);
+    end
+    
+    local final_text = ''
+    
+    if hourtext ~= '00' then
+        final_text = hourtext..ScpArgMsg("Auto_SiKan").." "..mintext..ScpArgMsg("Auto_Bun").." "..sectext..ScpArgMsg("Auto_Cho");
+    elseif mintext ~= '00' then
+        final_text = mintext..ScpArgMsg("Auto_Bun").." "..sectext..ScpArgMsg("Auto_Cho")
+    else
+        final_text = sectext..ScpArgMsg("Auto_Cho")
+    end
+
+    return final_text
+end
+
+function RAID_RANKING_INFO_SCROLL(parent, ctrl)
+    local frame = ui.GetFrame("induninfo");
+
+    if ctrl:IsScrollEnd() == true and finishedLoading == true then       
+        local classID = frame:GetUserIValue('SELECTED_DETAIL');
+
+        local rankCls = GetClassByType("raid_ranking_category", classID);
+        if rankCls == nil then
+            return;
+        end
+
+        local now = imcTime.GetAppTime();
+        local dif = now - scrolledTime;
+
+        if 2 < dif then
+            curPage = curPage + 1;
+            GetRaidRanking('RAID_RANKING_INFO_UPDATE', rankCls.ClassName, curPage, TryGetProp(rankCls, 'Order', 'asc'));
+            scrolledTime = now
+            finishedLoading = false;
+        end
+    end
+end
+
+function RAID_RANKING_CATEGORY_UI_UNFREEZE()
+    local frame = ui.GetFrame("induninfo");
+
+    local raidcategoryBox = GET_CHILD_RECURSIVELY(frame, 'raidcategoryBox');
+    raidcategoryBox:EnableHitTest(1);    
+end
+
+--------------------------------- 레이드 랭킹 ---------------------------------

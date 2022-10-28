@@ -1,4 +1,4 @@
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <Category>
 	<ReadXml Name="bonescale"/>
 	<ReadXml Name="skill_Simony"/>
@@ -11,13 +11,13 @@
 	<ReadXml Name="cell"/>
 	<ReadXml Name="item"/>
 	<ReadXml Name="item_Equip_EP12"/>
-	<ReadXml Name="item_HiddenAbility"/>
 	<ReadXml Name="item_colorspray"/>
-	<ReadXml Name="item_Equip"/>
+	<ReadXml Name="item_Equip"/>  
+	<ReadXml Name="item_HiddenAbility"/>
 	<ReadXml Name="item_event"/>
 	<ReadXml Name="item_event_Equip"/>
-	<ReadXml Name="item_GuildHousing"/>
-	<ReadXml Name="item_PersonalHousing"/>
+	<ReadXml Name="item_GuildHousing"/>	
+	<ReadXml Name="item_PersonalHousing"/>	
 	<ReadXml Name="item_Quest"/>
 	<ReadXml Name="item_opt"/>
 	<ReadXml Name="item_common"/>
@@ -253,12 +253,21 @@
 	<ReadXml Name="Episode_Quest"/>
 	<ReadXml Name="Episode_Reward"/>
 	<ReadXml Name="contents_info"/>
-	<ReadXml Name="item_ark_option"/>
+	<ReadXml Name="item_ark_option"/>	
 	<ReadXml Name="playlist_playtime"/>
 	<ReadXml Name="boss_pattern_table"/>
 	<ReadXml Name="item_skillmake_costume"/>
 	<ReadXml Name="skill_selectground_drawrange"/>
 	<ReadXml Name="skill_ignore_holdskill"/>
 	<ReadXml Name="event_new_season_server_content_clear_coin_reward"/>
+	<ReadXml Name="legend_misc_exchange_list"/>
+	<ReadXml Name="special_misc_recipe"/>
+	<ReadXml Name="raid_ranking_category"/>
+	<ReadXml Name="housing_featured_category"/>
 	<ReadXml Name="weekly_time_table"/>
+	<ReadXml Name="skill_multiplehit"/>
+	<ReadXml Name="goddess_roulette_contents"/>
+	<ReadXml Name="ancient_dungeon_reward"/>
+	<ReadXml Name="skill_ancient"/>
+	<ReadXml Name="ancient_dungeon_info"/>
 </Category>
