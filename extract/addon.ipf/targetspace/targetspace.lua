@@ -13,7 +13,7 @@ function TARGETSPACE_ON_MSG(frame, msg, argStr, argNum)
 	end
 end
 
-function TARGETSPACE_SET(frame, type)
+function TARGETSPACE_SET(frame, type)		
 	if type == nil then
 		type = 0;
 	end
@@ -29,8 +29,6 @@ function TARGETSPACE_SET(frame, type)
 		return;
 	end
 
-	local isCompanion = COMPANION_SPACE_PRECHECK(handle, targetinfo.companionName) == 1;
-
 	local frame = ui.GetFrame("targetSpace_"..handle);
 	if frame == nil then
 		ui.CreateTargetSpace(handle);
@@ -43,59 +41,35 @@ function TARGETSPACE_SET(frame, type)
 
 		local spaceObj = GET_CHILD(frame, "space", "ui::CAnimPicture");
 		local LbtnObj  = GET_CHILD(frame, 'mouseLbtn', 'ui::CPicture');
-		local RbtnObj = GET_CHILD(frame, 'mouseRbtn', 'ui::CPicture');
 		local joyBbtn  = GET_CHILD(frame, 'joyBbtn', 'ui::CPicture');
 	
 		if type == 1 then
 			spaceObj:ShowWindow(0);
 			LbtnObj:ShowWindow(0);
-			RbtnObj:ShowWindow(0);
 			joyBbtn:ShowWindow(1);
 		elseif type == 2 then
 			spaceObj:PlayAnimation();
 			spaceObj:ShowWindow(1);
 			LbtnObj:ShowWindow(0);
-			RbtnObj:ShowWindow(0);
 			joyBbtn:ShowWindow(0);
+
 		elseif type == 3 then
 			spaceObj:ShowWindow(0);
-			if isCompanion == true then
-				LbtnObj:ShowWindow(0);
-				RbtnObj:ShowWindow(1);
-			else
-				if housing.IsEditMode() == false then
-					LbtnObj:ShowWindow(1);
-				else
-					LbtnObj:ShowWindow(0);
-				end
-				RbtnObj:ShowWindow(0);
-			end
+			LbtnObj:ShowWindow(1);
 			joyBbtn:ShowWindow(0);
-		elseif type == 0 then -- �ڵ����
+		elseif type == 0 then -- 자동모드
 			if IsJoyStickMode() == 1 then
 				spaceObj:ShowWindow(0);
 				LbtnObj:ShowWindow(0);
-				RbtnObj:ShowWindow(0);
 				joyBbtn:ShowWindow(1);
 			else
-				local spaceMarkHeightOffset = 0;
-				local actor = world.GetActor(handle);
-				if actor ~= nil then
-					local cls = GetClassByType("Monster", actor:GetType());
-					if cls ~= nil then
-						spaceMarkHeightOffset = TryGet(cls, "SpaceMarkHeightOffset");
-					end
-				end
-				
-				spaceObj:SetMargin(0, 0, 0, spaceMarkHeightOffset);
-
 				spaceObj:PlayAnimation();
 				spaceObj:ShowWindow(1);
 				LbtnObj:ShowWindow(0);
-				RbtnObj:ShowWindow(0);
 				joyBbtn:ShowWindow(0);
 			end
 		end
+		
 	end	
 end
 
@@ -108,7 +82,7 @@ function TARGETSPACE_CLEAR(frame)
 	end
 end
 
-function COMPANION_SPACE_PRECHECK(handle, className)
+function COMPANION_SPACE_PRECHECK(handle, className)	
 	local cls = GetClass("Companion", className);
 	if nil == cls then
 		return 0;
@@ -125,7 +99,7 @@ function COMPANION_SPACE_PRECHECK(handle, className)
 	return 0;
 end
 
-function TARGETSPACE_PRECHECK(handle)
+function TARGETSPACE_PRECHECK(handle)	
 	local pc = GetMyPCObject();
 	local dlgInfo = info.GetDialogInfo(handle)
 	local dialog = dlgInfo:GetDialog()
@@ -149,14 +123,10 @@ function TARGETSPACE_PRECHECK(handle)
 			return 1;
 		end
 	end
-	
+
 	if dialog == 'None' then
         return 0
     else
-        if session.config.IsMouseMode() == true then
-            return 1
-        end
-        
         local npcselectIES = GetClass('NPCSelectDialog',dialog)
         local ret = 0
         local questNPCFlag = false
