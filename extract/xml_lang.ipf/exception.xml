@@ -241,4 +241,9 @@
 	<Wdord Msg="grass"/>
 	<Wdord Msg="해빙신발"/>
 	<Wdord Msg="루시팔찌"/>
+	<Wdord Msg="jewel"/>
+	<Wdord Msg="reputation"/>
+	<Wdord Msg="Reputation"/>
+	<Wdord Msg="Jewel"/>
+	<Wdord Msg="jewelry"/>
 </Exception>

@@ -160,6 +160,11 @@
 			<Class ClassID="10003541" ClassName="Event_Random_Bountyhunt_Box" CT_ExpireDateTime="2021-11-30 00:00"/>
 			<Class ClassID="10003551" ClassName="EVENT_2112_Blessed_Fruit" CT_ExpireDateTime="2022-04-19 00:00"/>
 			<Class ClassID="10003565" ClassName="Event_2203_ARBOR_DAY_Seed" CT_ExpireDateTime="2022-06-07 00:00"/>
+			<Class ClassID="10003561" ClassName="Event_2203_ARBOR_DAY_Box_2" CT_ExpireDateTime="2022-06-14 00:00"/>
+			<Class ClassID="10003562" ClassName="Event_2203_ARBOR_DAY_Box_3" CT_ExpireDateTime="2022-06-14 00:00"/>
+			<Class ClassID="10003563" ClassName="Event_2203_ARBOR_DAY_Box_4" CT_ExpireDateTime="2022-06-14 00:00"/>
+			<Class ClassID="10003572" ClassName="Event_2203_ARBOR_DAY_Box_1_GLOBAL" CT_ExpireDateTime="2022-06-14 00:00"/>
+			<Class ClassID="10003573" ClassName="Event_2203_ARBOR_DAY_Box_5_GLOBAL" CT_ExpireDateTime="2022-06-14 00:00"/>
 		</Category>
 		<Category Name="Event_item_Upgrade">
 			<Class ClassID="10010112" ClassName="Moru_Ruby_event_28" CT_ExpireDateTime="2021-12-21 00:00:00"/>
