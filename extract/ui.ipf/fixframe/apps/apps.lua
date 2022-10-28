@@ -12,53 +12,28 @@ function APPS_LOSTFOCUS_SCP(frame, ctrl, argStr, argNum)
 		end
 	end
 	
-	ui.CloseFrame("apps");	
-end
-
-function APPS_TRY_LEAVE(type)
-    if ui.CheckHoldedUI() == true then
-        ui.SysMsg(ClMsg('CantDoThatCuzDoingSomething'));
-        return
-    end
-    if type ~= "Channel" then
-        local alertFrame = ui.GetFrame('expireditem_alert');
-        local nearFutureSec = tonumber(alertFrame:GetUserConfig("NearFutureSec"));
-        if nearFutureSec ~= nil then
-            local list = GET_SCHEDULED_TO_EXPIRED_ITEM_LIST(nearFutureSec);
-            local needToAskItem = (list ~= nil and #list > 0);
-            local needToAskToken = IS_NEED_TO_ALERT_TOKEN_EXPIRATION(nearFutureSec);
-            if needToAskItem or needToAskToken then
-                addon.BroadMsg("EXPIREDITEM_ALERT_OPEN", type, 0);
-                return;
-            end
-        end
-    end
-    RUN_GAMEEXIT_TIMER(type)
+	ui.CloseFrame("apps");
+	
+	--[[
+	메뉴 계속 활성화 되어있도록 해서 주석처리
+	local sysmenuFrame = ui.GetFrame("sysmenu");
+	if 1 == sysmenuFrame:GetUserIValue("DISABLE_L_FOCUS") then
+		return;
+	end
+	
+	sysmenuFrame:SetEffect("sysmenu_LostFocus", ui.UI_TEMP0);
+	sysmenuFrame:StartEffect(ui.UI_TEMP0);
+	]]
 end
 
 function APPS_TRY_MOVE_BARRACK()
-    APPS_TRY_LEAVE("Barrack");
+	RUN_GAMEEXIT_TIMER("Barrack");
 end
 
 function APPS_TRY_LOGOUT()
-    APPS_TRY_LEAVE("Logout");
+	RUN_GAMEEXIT_TIMER("Logout");
 end
 
 function APPS_TRY_EXIT()
-    local yesScp = string.format("APPS_TRY_LEAVE(\"%s\")", "Exit");
-	ui.MsgBox(ClMsg("AskReallyExit"), yesScp, "None");
-end
-
-function APPS_INIT_BUTTONS(frame)    
-    local attendanceBtn = GET_CHILD(frame, 'attendanceBtn');
-    local EXITAPP = GET_CHILD(frame, 'EXITAPP');
-    if GET_PROGRESS_ATTENDANCE_CHECK() == true then
-        local margin = EXITAPP:GetOriginalMargin();
-        EXITAPP:SetMargin(margin.left, margin.top, margin.right, margin.bottom);
-        attendanceBtn:ShowWindow(1);
-    else
-        local margin = attendanceBtn:GetOriginalMargin();
-        EXITAPP:SetMargin(margin.left, margin.top, margin.right, margin.bottom);
-        attendanceBtn:ShowWindow(0);        
-    end
+	RUN_GAMEEXIT_TIMER("Exit");
 end

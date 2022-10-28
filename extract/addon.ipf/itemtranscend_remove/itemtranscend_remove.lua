@@ -1,5 +1,3 @@
--- 현재 사용하지 않는 축복석 추출 / 아이템 추출 관련 UI입니다.
--- 자세한 내용은 Dev #30338을 참조해주시기 바랍니다.
 
 function ITEMTRANSCEND_REMOVE_ON_INIT(addon, frame)
 
@@ -7,11 +5,10 @@ function ITEMTRANSCEND_REMOVE_ON_INIT(addon, frame)
 
 end
 
-function ON_OPEN_DLG_ITEMTRANSCEND_REMOVE(frame, msg, argStr, isLegendShop)
+function ON_OPEN_DLG_ITEMTRANSCEND_REMOVE(frame)
 	frame:ShowWindow(1);	
 	ui.SetHoldUI(false);
 	frame:SetUserValue("ANIMETION_PROG_WIP", 0);
-	frame:SetUserValue('IS_LEGEND_SHOP', isLegendShop);
 end
 
 function ITEMTRASCEND_REMOVE_OPEN(frame)
@@ -26,9 +23,6 @@ function ITEMTRASCEND_REMOVE_OPEN(frame)
 	INVENTORY_SET_CUSTOM_RBTNDOWN("ITEMTRANSCEND_REMOVE_INV_RBTN")	
 	ui.OpenFrame("inventory");
 	
-	frame:SetUserValue('TRANSCEND_REMOVE', 'YES');
-	frame:SetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE", 0);
-
 	local needTxt = string.format("{@st43b}{s16}%s{/}", ScpArgMsg("ITEMTRANSCEND_REMOVE_GUIDE_FIRST"));	
 	SETTEXT_GUIDE(frame, 3, needTxt);
 
@@ -42,19 +36,10 @@ function ITEMTRASCEND_REMOVE_CLOSE(frame)
 		return;
 	end
 
-	control.DialogOk();
-
-	INVENTORY_SET_CUSTOM_RBTNDOWN("None");
-
-	-- DialogOk()를 실행하면 다이얼로그가 전부 닫힙니다.
-	-- 추가적인 다이얼로그를 띄우고 싶으시다면 반드시 DialogOK() 하단에 실행해주세요.
-	local dialog_type = frame:GetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE");
-	control.CustomCommand("REQ_LEGEND_ITEM_DIALOG", dialog_type);
-
-	frame:SetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE", 0);
 	frame:SetUserValue("ANIMETION_PROG_WIP", 0);
+	INVENTORY_SET_CUSTOM_RBTNDOWN("None");
 	frame:ShowWindow(0);
-
+	control.DialogOk();
 	ui.CloseFrame("inventory");
  end
 
@@ -89,15 +74,15 @@ function REMOVE_TRANSCEND_REMOVE_TARGET_ITEM(frame)
 	local reg = GET_CHILD(gbox, "reg");
 	reg:ShowWindow(0);
 
-	local needTxt = string.format("{@st43b}{s16}%s{/}", ScpArgMsg("ITEMTRANSCEND_REMOVE_GUIDE_FIRST"));	
+	local needTxt = string.format("{@st43b}{s16}%s{/}", ScpArgMsg("ITEMTRANSCEND_BREAK_GUIDE_FIRST"));	
 	SETTEXT_GUIDE(frame, 3, needTxt);
 end
 
  function ITEM_TRANSEND_REMOVE_DROP(frame, icon, argStr, argNum)
 
-	local liftIcon = ui.GetLiftIcon();
-	local FromFrame = liftIcon:GetTopParentFrame();
-	local toFrame = frame:GetTopParentFrame();
+	local liftIcon 				= ui.GetLiftIcon();
+	local FromFrame 			= liftIcon:GetTopParentFrame();
+	local toFrame				= frame:GetTopParentFrame();
 
 	local iconInfo = liftIcon:GetInfo();
 	ITEM_TRANSCEND_REMOVE_REG_TARGETITEM(frame, iconInfo:GetIESID());
@@ -129,13 +114,6 @@ function ITEM_TRANSCEND_REMOVE_REG_TARGETITEM(frame, itemID)
 
 	if transcend == 0 then
 		ui.MsgBox(ScpArgMsg("YouCanRemoveOnlyTreancendedItem"));
-		return;
-	end
-
-	if TryGetProp(obj, 'LegendGroup', 'None') ~= 'None' then
-		frame:SetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE", 2);
-		ui.CloseFrame('itemtranscend_remove');
-		ui.CloseFrame('inventory');
 		return;
 	end
 
@@ -282,14 +260,13 @@ function ITEMTRANSCEND_REMOVE_EXEC(frame)
 	
 	imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_BTN_OK_SOUND"));
 	ui.SetHoldUI(true);
---	ui.MsgBox_NonNested(ScpArgMsg("IfYouRemoveTranscend_YouCannotReceieveTranscendStones_Continue?"), frame:GetName(), "_ITEMTRANSCEND_REMOVE_EXEC_MSG", "_ITEMTRANSCEND_REMOVE_CANCEL");		
-	WARNINGMSGBOX_FRAME_OPEN(ScpArgMsg("IfYouRemoveTranscend_YouCannotReceieveTranscendStones_Continue?"), "_ITEMTRANSCEND_REMOVE_EXEC_MSG", "_ITEMTRANSCEND_REMOVE_CANCEL")		
+	ui.MsgBox_NonNested(ScpArgMsg("IfYouRemoveTranscend_YouCannotReceieveTranscendStones_Continue?"), frame:GetName(), "_ITEMTRANSCEND_REMOVE_EXEC_MSG", "_ITEMTRANSCEND_REMOVE_CANCEL");		
+	
 	frame:SetUserValue("ANIMETION_PROG_WIP", 1);
 end
 
 function _ITEMTRANSCEND_REMOVE_EXEC_MSG()
-	--ui.MsgBox(ScpArgMsg("TranscendValueWillBeZero_Continue?"), "_ITEMTRANSCEND_REMOVE_EXEC", "_ITEMTRANSCEND_REMOVE_CANCEL");	
-	WARNINGMSGBOX_FRAME_OPEN(ScpArgMsg("TranscendValueWillBeZero_Continue?"), "_ITEMTRANSCEND_REMOVE_EXEC", "_ITEMTRANSCEND_REMOVE_CANCEL")		
+	ui.MsgBox(ScpArgMsg("TranscendValueWillBeZero_Continue?"), "_ITEMTRANSCEND_REMOVE_EXEC", "_ITEMTRANSCEND_REMOVE_CANCEL");	
 end
 
 function _ITEMTRANSCEND_REMOVE_CANCEL()
@@ -321,7 +298,7 @@ function _ITEMTRANSCEND_REMOVE_EXEC()
 	UPDATE_TRANSCEND_REMOVE_ITEM(frame , 0);
 	imcSound.PlaySoundEvent(frame:GetUserConfig("TRANS_CAST"));
 	
-	local needTxt = string.format("{@st43b}{s16}%s{/}", ScpArgMsg("ITEMTRANSCEND_REMOVE_GUIDE_FIRST"));	
+	local needTxt = string.format("{@st43b}{s16}%s{/}", ScpArgMsg("ITEMTRANSCEND_BREAK_GUIDE_FIRST"));	
 	SETTEXT_GUIDE(frame, 3, needTxt);
 	
 	local gbox = frame:GetChild("gbox");
@@ -331,15 +308,14 @@ end
 
 function TRANSCEND_REMOVE_UPDATE()
 	local frame = ui.GetFrame("itemtranscend_remove");	
-    local needTxt = string.format("{@st43b}{s16}%s{/}", ScpArgMsg("ITEMTRANSCEND_REMOVE_GUIDE_FIRST"));	
-	SETTEXT_GUIDE(frame, 3, needTxt);
-
 	local animpic_bg = GET_CHILD_RECURSIVELY(frame, "animpic_bg");
 	animpic_bg:ShowWindow(1);
 	animpic_bg:ForcePlayAnimation();
 
 	ui.MsgBox(ScpArgMsg("TranscendRemove"));
+	
 end
+
 
 function ITEMTRANSCEND_BG_ANIM_TICK_REMOVE(ctrl, str, tick)
 

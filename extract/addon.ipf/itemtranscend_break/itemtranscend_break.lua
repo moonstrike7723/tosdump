@@ -1,5 +1,3 @@
--- 현재 사용하지 않는 축복석 추출 / 아이템 추출 관련 UI입니다.
--- 자세한 내용은 Dev #30338을 참조해주시기 바랍니다.
 
 function ITEMTRANSCEND_BREAK_ON_INIT(addon, frame)
 
@@ -25,8 +23,6 @@ function ITEMTRASCEND_BREAK_OPEN(frame)
 	UPDATE_TRANSCEND_BREAK_ITEM(frame);
 	INVENTORY_SET_CUSTOM_RBTNDOWN("ITEMTRANSCEND_BREAK_INV_RBTN")	
 	ui.OpenFrame("inventory");
-
-	frame:SetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE", 0);
 	
 	local needTxt = string.format("{@st43b}{s16}%s{/}", ScpArgMsg("ITEMTRANSCEND_BREAK_GUIDE_FIRST"));	
 	SETTEXT_GUIDE(frame, 3, needTxt);
@@ -40,20 +36,11 @@ function ITEMTRASCEND_BREAK_CLOSE(frame)
 	if ui.CheckHoldedUI() == true then
 		return;
 	end
-
-	control.DialogOk();
 		
-	INVENTORY_SET_CUSTOM_RBTNDOWN("None");
-
-	-- DialogOk()를 실행하면 다이얼로그가 전부 닫힙니다.
-	-- 추가적인 다이얼로그를 띄우고 싶으시다면 반드시 DialogOK() 하단에 실행해주세요.
-	local dialog_type = frame:GetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE");
-	control.CustomCommand("REQ_LEGEND_ITEM_DIALOG", dialog_type);
-
-	frame:SetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE", 0);
 	frame:SetUserValue("ANIMETION_PROG_WIP", 0);
+	INVENTORY_SET_CUSTOM_RBTNDOWN("None");
 	frame:ShowWindow(0);
-
+	control.DialogOk();
 	ui.CloseFrame("inventory");
  end
 
@@ -102,9 +89,9 @@ end
 
  function ITEM_TRANSEND_BREAK_DROP(frame, icon, argStr, argNum)
 
-	local liftIcon = ui.GetLiftIcon();
-	local FromFrame = liftIcon:GetTopParentFrame();
-	local toFrame = frame:GetTopParentFrame();
+	local liftIcon 				= ui.GetLiftIcon();
+	local FromFrame 			= liftIcon:GetTopParentFrame();
+	local toFrame				= frame:GetTopParentFrame();
 
 	local iconInfo = liftIcon:GetInfo();
 	ITEM_TRANSCEND_BREAK_REG_TARGETITEM(frame, iconInfo:GetIESID());
@@ -112,6 +99,7 @@ end
 end
   
 function ITEM_TRANSCEND_BREAK_REG_TARGETITEM(frame, itemID)
+
 	local invItem = GET_PC_ITEM_BY_GUID(itemID);
 	if invItem == nil then
 		return;
@@ -132,17 +120,9 @@ function ITEM_TRANSCEND_BREAK_REG_TARGETITEM(frame, itemID)
 		ui.SysMsg(ClMsg("MaterialItemIsLock"));
 		return;
 	end
-	
-	local transcend = TryGetProp(obj, "Transcend")
-	if transcend == nil or transcend == 0 then
-		ui.MsgBox(ScpArgMsg("YouCanBreakOnlyTreancendedItem"));
-		return;
-	end
 
-	if TryGetProp(obj, 'LegendGroup', 'None') ~= 'None' then
-		frame:SetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE", 2);
-		ui.CloseFrame('itemtranscend_break');
-		ui.CloseFrame('inventory');
+	if transcend == 0 then
+		ui.MsgBox(ScpArgMsg("YouCanBreakOnlyTreancendedItem"));
 		return;
 	end
 
@@ -195,10 +175,10 @@ function UPDATE_TRANSCEND_BREAK_ITEM(frame)
 		text_material:SetTextByKey("value", GET_FULL_NAME(targetObj));
 		text_material:ShowWindow(1);
 
-		local materialItem = "misc_BlessedStone";
+		local materialItem = GET_TRANSCEND_MATERIAL_ITEM(targetObj);
 		local matItemCls = GetClass("Item", materialItem);
 		if matItemCls ~= nil then
-			local resultString = ScpArgMsg("{Item}WillBeReturnedBy{Count}", "Item", matItemCls.Name, "Count", GET_TRANSCEND_BREAK_ITEM_COUNT(targetObj) * 10);
+			local resultString = ScpArgMsg("{Item}WillBeReturnedBy{Count}", "Item", matItemCls.Name, "Count", GET_TRANSCEND_BREAK_ITEM_COUNT(targetObj));
 			text_breakresult:SetTextByKey("value", resultString);
 		else
 			text_breakresult:SetTextByKey("value", "");
@@ -330,7 +310,7 @@ function _ITEMTRANSCEND_BREAK_EXEC()
 	end
 
 	local obj = GetIES(invItem:GetObject());
-	if IsGreaterThanForBigNumber(GET_TRANSCEND_BREAK_SILVER(obj), GET_TOTAL_MONEY_STR()) == 1 then
+	if GET_TOTAL_MONEY() < GET_TRANSCEND_BREAK_SILVER(obj) then
 		ui.SysMsg(ClMsg("NotEnoughMoney"));
 		return;
 	end
@@ -352,9 +332,6 @@ end
 
 function TRANSCEND_BREAK_UPDATE(itemName, count)
 	local frame = ui.GetFrame("itemtranscend_break");
-    local needTxt = string.format("{@st43b}{s16}%s{/}", ScpArgMsg("ITEMTRANSCEND_BREAK_GUIDE_FIRST"));	
-	SETTEXT_GUIDE(frame, 3, needTxt);
-
 	UPDATE_TRANSCEND_BREAK_ITEM(frame);
 	UPDATE_TRANSCEND_BREAK_RESULT(frame, itemName, count);
 end
