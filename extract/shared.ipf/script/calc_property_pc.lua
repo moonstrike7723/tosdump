@@ -2899,10 +2899,6 @@ end
 
 
 function SCR_PC_MOVINGSHOTABLE(pc)
-    if IsBuffApplied(pc, 'SnipersSerenity_Buff') == 'YES' then
-    	return 0;
-    end
-    
     local jobObj = nil
     if IsServerObj(pc) == 1 then
         jobObj = GetJobObject(pc);

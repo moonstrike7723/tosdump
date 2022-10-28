@@ -8776,6 +8776,11 @@
 		<image name="icon_item_202108package_ALL" file="\icon\payment\icon_item_202108package_ALL.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_skin_chuseok" file="\icon\payment\icon_item_skin_chuseok.png" imgrect="0 0 256 256" CMM_Caption="추석 옥토끼 말풍선 마이크"/>
 		<image name="icon_item_skin_chuseok_pic" file="\icon\payment\icon_item_skin_chuseok_pic.png" imgrect="0 0 256 256" CMM_Caption="추석 옥토끼 말풍선 프리뷰"/>
+		<image name="icon_item_misc_pvp_mine2_NotLimit_1000" file="\icon\payment\icon_item_misc_pvp_mine2_NotLimit_1000.png" imgrect="0 0 128 128" CMM_Caption="용병단 증표: 1,000"/>
+		<image name="icon_item_box_awakening_460" file="\icon\payment\icon_item_box_awakening_460.png" imgrect="0 0 128 128" CMM_Caption="[Lv.460] 장비 각성 상자"/>
+		<image name="icon_item_Ticket_vibora_vision_luchador" file="\icon\payment\icon_item_Ticket_vibora_vision_luchador.png" imgrect="0 0 256 256" CMM_Caption="바이보라 비전 - 도블레 아타케 지급권"/>
+		<image name="icon_item_luchador_complete_pack" file="\icon\payment\icon_item_luchador_complete_pack.png" imgrect="0 0 256 256" CMM_Caption="루차도르 컴플리트 패키지"/>
+		<image name="icon_item_luchador_standard_pack" file="\icon\payment\icon_item_luchador_standard_pack.png" imgrect="0 0 256 256" CMM_Caption="루차도르 스탠다드 패키지"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>

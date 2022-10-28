@@ -2919,7 +2919,7 @@ function GODDESS_MGR_RANDOMOPTION_APPLY_EXEC(parent, btn)
 	end
 
 	local yesscp = string.format('_GODDESS_MGR_RANDOMOPTION_APPLY_EXEC()')
-	local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetEngrave'), yesscp, 'None')
+	local msgbox = ui.MsgBox(ClMsg('TryRandomOptionPresetApply'), yesscp, 'None')
 	SET_MODAL_MSGBOX(msgbox)
 end
 
