@@ -123,7 +123,7 @@
 		<Class ClassID="501196" OverrideType="ADD" ClassName="EVENT_STEAM_CARNIVAL_FIRE_MSG3" Data='축제 의상을 입고 축제 폭죽을 사용하면{nl}"모두의 불꽃 축제"{nl}버프를 추가로 획득할 수 있습니다.'/>
 		<Class ClassID="501199" OverrideType="ADD" ClassName="EVENT_STEAM_1903_CHOCO_REWARD_SEL1" Data="달콤한 초콜릿 받기"/>
 		<Class ClassID="501200" OverrideType="ADD" ClassName="EVENT_STEAM_1903_CHOCO_REWARD_SEL2" Data="이벤트 기간이 아닙니다."/>
-		<Class ClassID="501242" OverrideType="ADD" ClassName="EVENT_STEAM_1912_FORTUNE" Data="주말에만 대화하실 수 있습니다."/>
+		<Class ClassID="501242" OverrideType="ADD" ClassName="EVENT_STEAM_1912_FORTUNE" Data="금,토,일에만 대화하실 수 있습니다."/>
 		<Class ClassID="501243" OverrideType="ADD" ClassName="GACHA_BOUNS_SEL3" Data=" {nl}원하는 보상을 선택해주세요."/>
 	</Category>
 	<Category Name="Premium">

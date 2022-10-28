@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <packeteffects>
+    <Category ID="139">
+        <Effect Name="E_pc_effectitem_gabia"/>
+    </Category>
     <Category ID="143">
         <Effect Name="Appraiser_Blindside"/>
         <Effect Name="Exorcist_Katadikazo"/>
@@ -300,6 +303,15 @@
         <Effect Name="I_smoke052_white3"/>
         <Effect Name="I_smoke052_white2"/>
         <Effect Name="F_light029_yellow2"/>
+        <Effect Name="F_levitation039_red"/>
+        <Effect Name="F_sys_team_ground_red"/>
+        <Effect Name="F_levitation039_red"/>
+        <Effect Name="F_sys_team_ground_red"/>
+        <Effect Name="Step_Hidden"/>
+        <Effect Name="STAGE_MANAGER"/>
+        <Effect Name="Stage_02(Tantaliser)"/>
+        <Effect Name="Stage_03(Moringponia)"/>
+        <Effect Name="AbuseCheck"/>
     </Category>
     <Category ID="144">
         <Effect Name="F_pc_CardBook_ground_dark"/>

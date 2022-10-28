@@ -6,11 +6,13 @@ function SCR_STEAM_TREASURE_EVENT_DIALOG(self,pc)
         RemoveBuff(pc, 'Event_Steam_Secret_Market')
     end
 
-    local select = ShowSelDlg(pc, 0, 'EV_DAILYBOX_SEL', ScpArgMsg("EVENT_STEAM_2018REWARD_DLG1"), ScpArgMsg("EVENT_STEAM_2018REWARD_DLG2"), ScpArgMsg("Cancel"))
+    local select = ShowSelDlg(pc, 0, 'EV_DAILYBOX_SEL', ScpArgMsg("GLOBAL_EVENT1912_4TH_BOARD_NOTICE_MSG"), ScpArgMsg("EVENT_STEAM_2018REWARD_DLG1"), ScpArgMsg("EVENT_STEAM_2018REWARD_DLG2"), ScpArgMsg("Cancel"))
   
     if select == 1 then
-        SCR_EV2018_REWARD_GUIDE_DIALOG(self, pc)
+        SCR_EVENT1912_4TH_BORAD_NPC_DIALOG(self, pc)
     elseif select == 2 then
+        SCR_EV2018_REWARD_GUIDE_DIALOG(self, pc)
+    elseif select == 3 then
         SCR_EV2018_REWARD_DAYDAY_DIALOG(self, pc)
     end
 end
@@ -115,51 +117,86 @@ end
 
 function SCR_STEAM_TREASURE_EVENT_1912_WEEKEND_DIALOG(self, pc) -- 버프 이벤트 npc -- 
 
-    --local sysTime = nil;
-    
-    --if IsServerSection() == 1 then
-    --    sysTime = GetDBTime();
-    --end
-	
-	--if sysTime == nil then
-    --    return "NO";
-    --end
-	
-	local now_time = os.date('*t')
+    local aObj = GetAccountObj(pc);
+    local now_time = os.date('*t')
+    local month = now_time['month']
+    local year = now_time['year']
+    local day = now_time['day']
+    local wday = now_time['wday']
+    local nowbasicyday = SCR_DATE_TO_YDAY_BASIC_2000(year, month, day)
 	local weekday = now_time['wday']
 	
     local buffList = {{'모루 강화 비용 50% 할인','Event_Reinforce_Discount_50'}
-                     ,{'루팅 찬스 1,000 증가','	Event_LootingChance_Add_1000'}
+                     ,{'루팅 찬스 1,000 증가','Event_LootingChance_Add_1000'}
 					 ,{'아이템 옵션 재감정 비용 50% 할인','Event_Reappraisal_Discount_50'}
 					 ,{'시약병 경험치 증가량 2배','Event_Reagent_Bottle_Expup_100'}
 					 ,{'클래스 변경 포인트 지급량 500% 증가','Event_Class_Change_Pointup_500'}
 					 ,{'짝수 단계 초월 비용 50% 할인','Event_Even_Transcend_Discount_50'}
+					 ,{'경험치 100% 증가','Event_Expup_100'}
 					 ,{'젬 강화에 젬 사용 시, 경험치 페널티 면제','Event_Penalty_Clear_Gem_Reinforce'}
 					 ,{'유니크 레이드 입장 아이템 소모량 고정 + 유니크 레이드 보상 2배 지급','Event_Unique_Raid_Bonus'}
 					 ,{'10초마다 HP 및 SP+500 회복, 이동 속도 +2','Event_healHSP_Speedup'}
 					 }
     
-
-	if pc.Lv < 50 then
-        SendAddOnMsg(pc, "NOTICE_Dm_scroll", ScpArgMsg("EVENT_1801_ORB_MSG8","LV",50), 10);
-        return
-    end
+    local daycheckbuff = 
+	{{'1','3','Event_Class_Change_Pointup_500'}
+	,{'1','5','Event_Reinforce_Discount_50'}
+	,{'1','10','Event_Reappraisal_Discount_50'}
+	,{'1','12','Event_Even_Transcend_Discount_50'}
+	,{'1','17','Event_Class_Change_Pointup_500'}
+	,{'1','19','Event_Reinforce_Discount_50'}
+	,{'1','24','Event_Reappraisal_Discount_50'}
+	,{'1','26','Event_Even_Transcend_Discount_50'}
+	,{'1','31','Event_Class_Change_Pointup_500'}
+	,{'2','2','Event_Reinforce_Discount_50'}
+		}
+		
+	--if pc.Lv < 50 then
+    --    SendAddOnMsg(pc, "NOTICE_Dm_scroll", ScpArgMsg("EVENT_1801_ORB_MSG8","LV",50), 10);
+    --    return
+    --end
+	if weekday > 1 and weekday < 6 then --월~목
+		SendSysMsg(pc,"EVENT_STEAM_1912_FORTUNE"); --보상은 금,토,일에만 지급됩니다.
+		return;
+	end
 	
     local select = ShowSelDlg(pc, 0, 'FLASHMOB_EVENT_REWARD_SUCCESS', ScpArgMsg("Receieve"), ScpArgMsg("Cancel"))
     --sysTime.wDayOfWeek
-	
-	if weekday > 1 and weekday < 6 then --월~목
-		SendSysMsg(pc,"EVENT_1708_JURATE_MSG7")
-			return;
-	end
 
     if select == 1 then 
-			for i = 1,#buffList do
-				PlayEffect(pc, 'F_sys_expcard_normal', 2.5, 1, "BOT", 1);
-				PlaySound(pc, "item_drop_hp_1")
-				AddBuff(pc, pc, buffList[i][2], 1, 0, 3600*6*1000, 1)
-				SendAddOnMsg(pc, "NOTICE_Dm_GetItem", ScpArgMsg("GM_BUFF_MSG1","BUFF",#buffList), 5);
+		local buffcount = 0;
+		PlaySound(pc, "item_drop_hp_1");
+		PlayEffect(pc, 'F_sys_expcard_normal', 2.5, 1, "BOT", 1);
+		AddBuff(pc, pc, buffList[7][2], 1, 0, 3600*6*1000, 1); --경험치 100% 증가
+		buffcount= buffcount+1;
+
+			if weekday == 7 then --토요일
+				AddBuff(pc, pc, buffList[9][2], 1, 0, 3600*6*1000, 1); --유니크 레이드 보상 2배
+				buffcount= buffcount+1;
 			end
+			if weekday == 1 then --일요일
+				AddBuff(pc, pc, buffList[2][2], 1, 0, 3600*6*1000, 1); --루팅찬스
+				buffcount= buffcount+1;
+			end
+			
+			for i = 1, #daycheckbuff do
+				if (tostring(month) == daycheckbuff[i][1]) and (tostring(day) == daycheckbuff[i][2])then
+					AddBuff(pc, pc, daycheckbuff[i][3], 1, 0, 3600*6*1000, 1);
+					buffcount= buffcount+1;
+				end
+			end
+			
+			if aObj.STEAM_TREASURE_EVENT_1902_WEEKEND ~= day then --보상 지급
+			    local tx = TxBegin(pc);
+				TxGiveItem(tx, 'EVENT_1712_SECOND_CHALLENG_14d_Team', 5, 'STEAM_TREASURE_EVENT_1912_WEEKEND'); 
+				TxGiveItem(tx, 'Event_190110_ChallengeModeReset_14d', 5, 'STEAM_TREASURE_EVENT_1912_WEEKEND'); 
+				TxGiveItem(tx, 'Adventure_Reward_Seed_14d_Team', 10, 'STEAM_TREASURE_EVENT_1912_WEEKEND'); 
+				TxGiveItem(tx, 'Event_Goddess_Statue', 5, 'STEAM_TREASURE_EVENT_1912_WEEKEND'); 
+				TxSetIESProp(tx, aObj, 'STEAM_TREASURE_EVENT_1902_WEEKEND', day);
+				local ret = TxCommit(tx);
+			end
+		
+			SendAddOnMsg(pc, "NOTICE_Dm_GetItem", ScpArgMsg("GM_BUFF_MSG1","BUFF",buffcount), 5);
 	end
 
 	

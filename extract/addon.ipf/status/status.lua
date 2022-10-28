@@ -1206,7 +1206,6 @@ function STATUS_SLOT_RBTNDOWN(frame, slot, argStr, equipSpot)
         item.UnEquip(spot);
     else
         ui.SysMsg(ScpArgMsg("Auto_inBenToLie_Bin_SeulLosi_PilyoHapNiDa."));
-
     end
 end
 

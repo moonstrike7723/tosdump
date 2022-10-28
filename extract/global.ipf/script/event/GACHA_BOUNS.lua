@@ -1,6 +1,6 @@
-function SCR_GACHA_BOUNS_VALUE(self, pc)
+function SCR_GACHA_BOUNS_VALUE(self, pc, cubetype)
     local aObj = GetAccountObj(pc);
-	local cubetype = 2; -- 레티샤는 1/ 여큐는 2 / 반드시 지켜주세요 --
+	--local cubetype = 2; -- 레티샤는 1/ 여큐는 2 / 반드시 지켜주세요 --
 	local count_reward;
     local next_count, next_bouns = 0, 0;
     local rewardlist = {}
@@ -15,7 +15,13 @@ function SCR_GACHA_BOUNS_VALUE(self, pc)
 	elseif cubetype == 2 then
 		count = aObj.STEAM190716_GACHA_HAIRACC_COUNT;
 		bouns = aObj.STEAM190716_GACHA_HAIRACC_BOUNS;
-		count_reward = 25;
+        count_reward = 25;
+
+    -- 201912 STEAM GABIA CUBE
+    elseif cubetype == 3 then
+        count = aObj.STEAM191231_GACHA_HAIRACC_COUNT;
+		bouns = aObj.STEAM191231_GACHA_HAIRACC_BONUS;
+        count_reward = 25;
 	else 
 		Chat("Error cubetype")
 	end
@@ -23,7 +29,8 @@ function SCR_GACHA_BOUNS_VALUE(self, pc)
                                     --[         카 운 트          ], [          보너스           ] --
     local bounslist = {
         {count_reward, count_reward*2, count_reward*3, count_reward*4, count_reward*5,      'STEAM190730_GACHA_TP_COUNT',      'STEAM190730_GACHA_TP_BOUNS', count_reward}, -- tp
-        {count_reward, count_reward*2, count_reward*3, count_reward*4, count_reward*5, 'STEAM190716_GACHA_HAIRACC_COUNT', 'STEAM190716_GACHA_HAIRACC_BOUNS', count_reward} -- hairacc
+        {count_reward, count_reward*2, count_reward*3, count_reward*4, count_reward*5, 'STEAM190716_GACHA_HAIRACC_COUNT', 'STEAM190716_GACHA_HAIRACC_BOUNS', count_reward}, -- hairacc
+        {count_reward, count_reward*2, count_reward*3, count_reward*4, count_reward*5, 'STEAM191231_GACHA_HAIRACC_COUNT', 'STEAM191231_GACHA_HAIRACC_BONUS', count_reward}  -- 201912 STEAM GABIA CUBE
     }
 
     -- next count
@@ -79,15 +86,24 @@ function SCR_GACHA_BOUNS_DIALOG(self, pc)
         RideVehicle(pc, ridingCompanion, 0)
     end
     
+    local select = ShowSelDlg(pc,0, ScpArgMsg('GACHA_BOUNS_SEL3'), 'Goddess Blessed Cube', 'Gabia Cube')
+    if select ~= 1 and select ~= 2 then
+        return;
+    end
 
     local aObj = GetAccountObj(pc);
 
-    local count, bouns, cubetype, next_count, next_bouns, rewardlist, rewardtext = SCR_GACHA_BOUNS_VALUE(self, pc)
+    local count, bouns, cubetype, next_count, next_bouns, rewardlist, rewardtext = SCR_GACHA_BOUNS_VALUE(self, pc, select + 1)
 
     local cube_name = 'Leticia Secret Cube'
 
     if cubetype == 2 then
         cube_name = 'Goddess Blessed Cube'
+    end
+
+    -- 201912 STEAM GABIA CUBE
+    if cubeType == 3 then
+        cube_name = 'Gabia Cube'
     end
 
     if rewardtext == '' then
@@ -98,11 +114,18 @@ function SCR_GACHA_BOUNS_DIALOG(self, pc)
 
         if select == 1 or select == nil then
             return;
+
         elseif select == 2 then
             local bounslist = {'GACHA_HAIRACC_BOUNS01', 'GACHA_HAIRACC_BOUNS02', 'GACHA_HAIRACC_BOUNS03', 'GACHA_HAIRACC_BOUNS04', 'GACHA_HAIRACC_BOUNS05'}
             if cubetype == 1 then
                 bounslist = {'GACHA_TP_BOUNS01', 'GACHA_TP_BOUNS02', 'GACHA_TP_BOUNS03', 'GACHA_TP_BOUNS04', 'GACHA_TP_BOUNS05'}
             end
+
+            -- 201912 STEAM GABIA CUBE
+            if cubetype == 3 then
+                bounslist = {'GACHA_GABIA_BONUS01', 'GACHA_GABIA_BONUS02', 'GACHA_GABIA_BONUS03', 'GACHA_GABIA_BONUS04', 'GACHA_GABIA_BONUS05'}
+            end
+
             if bouns >= 4 then
                 bouns = 4;
             end

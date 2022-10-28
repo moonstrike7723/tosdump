@@ -1235,3 +1235,16 @@ function GET_BUFF_BY_NAME_C(buffName)
     local handle = session.GetMyHandle();
     return info.GetBuff(handle, buffCls.ClassID);
 end
+
+
+-- doll_gabia
+function DOLL_GABIA_BUFF_ENTER(actor, obj, buff)
+end
+
+function DOLL_GABIA_BUFF_UPDATE(actor, obj, buff)
+	SCR_CREATE_FAIRY(actor:GetHandleVal(), "doll_gabia");
+end
+
+function DOLL_GABIA_BUFF_LEAVE(actor, obj, buff)
+	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_gabia");
+end

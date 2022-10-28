@@ -32,6 +32,11 @@ function SCR_ITEM_GACHA_TP(pc, rewGroup, gachaClassName, gachacnt, gachaLog, gac
 	elseif gachaClassName == 'GACHA_TP_BOUNS01' or gachaClassName == 'GACHA_TP_BOUNS02' or gachaClassName == 'GACHA_TP_BOUNS03' or gachaClassName == 'GACHA_TP_BOUNS04' or gachaClassName == 'GACHA_TP_BOUNS05' then
 		TxSetIESProp(tx, aObj, 'STEAM190730_GACHA_TP_BOUNS', aObj.STEAM190730_GACHA_TP_BOUNS + 1)
 		reason = 'STEAM190730_GACHA_TP_BOUNS'
+
+	-- 201912 STEAM GABIA CUBE
+	elseif gachaClassName == 'GACHA_GABIA_BONUS01' or gachaClassName == 'GACHA_GABIA_BONUS02' or gachaClassName == 'GACHA_GABIA_BONUS03' or gachaClassName == 'GACHA_GABIA_BONUS04' or gachaClassName == 'GACHA_GABIA_BONUS05' then
+		TxSetIESProp(tx, aObj, 'STEAM191231_GACHA_HAIRACC_BONUS', aObj.STEAM191231_GACHA_HAIRACC_BONUS + 1)
+		reason = 'STEAM191231_GACHA_HAIRACC_BONUS'
 	else
         TxTakeItem(tx, gachaClassName, 1, gachaLog, 99999); -- 1 옆에는 없어질때 남는 로그
 		reason = gachaLog
@@ -63,6 +68,12 @@ function SCR_ITEM_GACHA_TP(pc, rewGroup, gachaClassName, gachacnt, gachaLog, gac
 		TxSetIESProp(tx, aObj, 'STEAM190716_GACHA_HAIRACC_COUNT', aObj.STEAM190716_GACHA_HAIRACC_COUNT + 1)
 	elseif gachaClassName == "Gacha_HairAcc_010" then
 		TxSetIESProp(tx, aObj, 'STEAM190716_GACHA_HAIRACC_COUNT', aObj.STEAM190716_GACHA_HAIRACC_COUNT + 10)
+
+	-- 201912 STEAM GABIA CUBE
+	elseif gachaClassName == "GLOBAL_STEAM_GABIA" then
+		TxSetIESProp(tx, aObj, 'STEAM191231_GACHA_HAIRACC_COUNT', aObj.STEAM191231_GACHA_HAIRACC_COUNT + 1)
+	elseif gachaClassName == "GLOBAL_STEAM_GABIA_11" then
+		TxSetIESProp(tx, aObj, 'STEAM191231_GACHA_HAIRACC_COUNT', aObj.STEAM191231_GACHA_HAIRACC_COUNT + 10)
 	end
 	-- override end
 

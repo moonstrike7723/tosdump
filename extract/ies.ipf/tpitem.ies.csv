@@ -18,6 +18,8 @@ ClassID,Price,JobGrade,Itemdate,AccountLimitCount,ClassName,Category,SubCategory
 55,39,0,191224,1,ClassName55,TP_Premium,TP_Useable,GLOBAL_1912_PACKAGE_1,,2019-12-24 00:00:00,2020-01-08 00:00:00,,
 56,358,0,191224,5,ClassName56,TP_Premium,TP_Useable,GLOBAL_1912_PACKAGE_2,,2019-12-24 00:00:00,2020-01-08 00:00:00,,
 57,129,0,191224,5,ClassName57,TP_Premium,TP_Useable,GLOBAL_1912_PACKAGE_3,,2019-12-24 00:00:00,2020-01-08 00:00:00,,
+58,30,0,1912311,0,ClassName58,TP_Premium,TP_Useable,GLOBAL_STEAM_GABIA,,,,,
+59,300,0,1912312,0,ClassName59,TP_Premium,TP_Useable,GLOBAL_STEAM_GABIA_11,,,,,
 101,8,0,151229,0,ClassName101,TP_Premium,TP_Consume,Mic_bundle10,,,,,
 102,1,0,151229,0,ClassName102,TP_Premium,TP_Consume,Mic,,,,,
 103,32,0,151229,0,ClassName103,TP_Premium,TP_Consume,RestartCristal_bundle10,,,,,

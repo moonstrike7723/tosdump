@@ -653,6 +653,10 @@
 		<Class ClassID="4243" ClassName="HiddenAbility" Data="아츠"/>
 		<Class ClassID="4244" ClassName="SelectBox_Default" Data="선택 상자"/>
 		<Class ClassID="4245" ClassName="NonTradableItemIsNotForCompanion" Data="팀 창고 이동이 불가능한 아이템은 컴패니언에게 착용시킬 수 없습니다."/>
+		
+		<Class ClassID="4250" ClassName="TP_201912" Data="가비야의 은총이 담긴 깃털 봉헌"/>
+		<Class ClassID="4251" ClassName="TP_201912_Wing_change" Data="가비야 테마 교환 상점"/>
+		<Class ClassID="4252" ClassName="TP_201912_fur_change" Data="가비야의 은총이 담긴 재료 교환 상점"/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -4626,6 +4630,7 @@
 		<Class ClassID="27011" ClassName="GM_BUFF_MSG2" Data="GM의 응원을 받아 착용 중인 모든 장비의 내구도가 5씩 회복됩니다!"/>
 		<Class ClassID="27012" ClassName="GM_BUFF_MSG3" Data="현재 레드옥스 버프가 적용 중입니다."/>
 		<Class ClassID="27013" ClassName="GM_BUFF_MSG4" Data="현재 레드옥스 - GM의 응원이 적용 중입니다."/>
+		<Class ClassID="27014" ClassName="ALREADY_BUFF_Reagent_Bottle_Expup" Data="이미 시약병 경험치 획득량 2배 증가 효과가 적용되어 있습니다."/>
 		<Class ClassID="27020" ClassName="DAYCHECK_EVENT_GETITEM" Data="출석 이벤트{nl}시즌 : {SEASON}{nl}{COUNT}일차 달성{nl}보상 : {ITEMNAME} {ITEMCOUNT}개"/>
 		<Class ClassID="27021" ClassName="DAYCHECK_EVENT_PCDATA" Data="출석 이벤트{nl}시즌 : {SEASON}{nl}{COUNT}일차 달성"/>
 		<Class ClassID="27022" ClassName="DAYCHECK_EVENT_SILVER_GET" Data="대박 실버 상자 보상{nl}{COUNT} 실버 획득!"/>
@@ -4657,6 +4662,7 @@
 		<Class ClassID="27132" ClassName="CATACOMB_HALLOWEEN_MSG3" Data="3회 참여 보상을 받는다"/>
 		<Class ClassID="27133" ClassName="CATACOMB_HALLOWEEN_MSG4" Data="30회 참여 보상을 받는다"/>
 		<Class ClassID="27182" ClassName="GACHA_SITEM_GET_ALLMSG" Data="{s24}축하드립니다!{nl}{PC} 님이 레티샤의 시크릿 큐브에서{nl}{ITEMNAME} 를(을) 획득하셨습니다!"/>
+		<Class ClassID="27184" ClassName="GACHA_SITEM_GET_ALLMSG_3" Data="{s24}축하드립니다!{nl}{PC} 님이 가비야의 은총이 담긴 깃털 장식으로{nl}{ITEMNAME} 를(을) 획득하셨습니다!"/>
 		<Class ClassID="27200" ClassName="MOLE_BINGO_MSG1" Data="{SEC}초 안에 빙고를 맞춰 {POINT}점을 달성하세요!"/>
 		<Class ClassID="27201" ClassName="MOLE_BINGO_MSG2" Data="{POINT}점 달성!{nl}보상{ITEM}"/>
 		<Class ClassID="27202" ClassName="MOLE_BINGO_MSG3" Data="두더지 잡기 빙고가 종료됩니다{nl}점수 : {POINT} 달성{nl}팀 최고점수 : {MAXPOINT}"/>
@@ -5714,6 +5720,19 @@
 		<Class ClassID="41136" ClassName="EVENT_1910_HALLOWEEN_SHOP" Data="할로윈 이벤트 상점"/>
 		<Class ClassID="41137" ClassName="EVENT_1910_HALLOWEEN_MSG6" Data="오늘 사탕을 {@st66d_y}{s18}{GET_BONUS}{/}{/}개 획득하였으며, 보너스 획득량은 총 {@st66d_y}{s18}{GET_EVENT}{/}{/}개 입니다.{nl}총 획득량은 {@st66d_y}{s18}{GET_TOTAL}{/}{/}개 입니다."/>
 		<Class ClassID="41138" ClassName="EVENT_1910_HALLOWEEN_MSG7" Data="곧 {@st66d_y}{s20}달콤한 할로윈 사탕{/}{/}이 지급됩니다. 사탕 지급 전 종료시 정상적으로 아이템이 지급되지 않을 수 있습니다."/>
+		<Class ClassID="41200" ClassName="EVENT1912_4TH_BORAD_NPC_MSG_1" Data="{#FF0000}이벤트 안내를 확인한다{/}"/>
+		<Class ClassID="41201" ClassName="EVENT1912_4TH_BORAD_NPC_MSG_2" Data="{#003399}[이벤트] 4주년 폭죽{/}을 수령한다"/>
+		<Class ClassID="41202" ClassName="EVENT1912_4TH_BORAD_NPC_MSG_3" Data="[이벤트] 4주년 기념 상점을 이용한다"/>
+		<Class ClassID="41203" ClassName="Event4thShop1912_TITLE_NAME_1" Data="T.O.S 4주년 기념 상점"/>
+		<Class ClassID="41204" ClassName="EVENT1912_4TH_BORAD_NPC_MSG_2_CANT" Data="오늘은 더 이상 [이벤트] 4주년 폭죽을 수령할 수 없습니다."/>
+		<Class ClassID="41205" ClassName="EVENT1912_4TH_ssn_main_msg_1" Data="{#ff6d00}{ITEM_NAME}{/}을 {COUNT}개 획득했습니다"/>
+		<Class ClassID="41206" ClassName="EVENT1912_4TH_ssn_main_msg_2" Data="접속 보상 : {#ff6d00}{ITEM_NAME}{/}을 {COUNT}개 획득했습니다"/>
+		<Class ClassID="41207" ClassName="EVENT1912_4TH_ssn_main_msg_3" Data="접속 시간 : {#ff6d00}{ITEM_NAME}{/}을 {COUNT}개 획득했습니다"/>
+		<Class ClassID="41208" ClassName="EVENT1912_4TH_GetBuff_Msg_1" Data="{#ff6d00}[이벤트] 4주년 x2{/} 효과가 적용되었습니다"/>
+		<Class ClassID="41209" ClassName="EVENT1912_4TH_GetBuff_Msg_2" Data="{#ff6d00}[이벤트] 4주년 x3{/} 효과가 적용되었습니다"/>
+		<Class ClassID="41210" ClassName="EVENT1912_4TH_COIN_MSG1" Data="하루 획득가능한 {#ff6d00}[이벤트] 4주년 기념 주화{/} 5,000개를 모두 모았습니다."/>
+		<Class ClassID="41211" ClassName="EVENT1912_4TH_COIN_REMAIN_MSG1" Data="오늘 4주년 기념 주화를 총 {@st66d_y}{s18}{GET}{/}{/}개 획득했습니다.{nl}{@st66d_y}{s18}{REMAIN}{/}{/}개의 4주년 기념 주화를 더 획득할 수 있습니다.{nl}4주년 기념 주화는 팀 단위로 획득할 수 있으며{nl}다음날 오전 06시에 초기화 됩니다"/>
+		<Class ClassID="41212" ClassName="EVENT1912_4TH_COIN_MSG2" Data="곧 {@st66d_y}{s20}[이벤트] 4주년 기념 주화{/}{/}가 지급됩니다. {@st66d_y}{s20}[이벤트] 4주년 기념 주화{/}{/} 지급 전 종료시 정상적으로 아이템이 지급되지 않을 수 있습니다."/>
 		<Class ClassID="50001" ClassName="UNDER30_2_CHECK_MSG2" Data="유독가스에 중독되어 비석을 확인하는데 힘듭니다"/>
 		<Class ClassID="50002" ClassName="UNDER301_MONSTER_PAIR_ERROR_1" Data="오늘 진행가능한 {DAYMAXCOUNT}회 중 {DAYPLAYCOUNT} 회를 모두 진행하셨습니다."/>
 		<Class ClassID="50003" ClassName="BRACKEN431_SUB_NPC_NAME" Data="사제 개러티"/>
@@ -8762,6 +8781,7 @@
 		<Class ClassID="90201" ClassName="1910_HALLOWEEN_DOOR_DOTIME_MSG1" Data="문을 두드리는 중"/>
 		<Class ClassID="90202" ClassName="1910_HALLOWEEN_BOSS_SCAR_MSG2" Data="허수아비에 힘을 충전 하는 중"/>
 		<Class ClassID="90205" ClassName="EVENT_1909_ANCIENT_DLG1" Data="그리모어를 찢어라"/>
+		<Class ClassID="90226" ClassName="GLOBAL_EVENT1912_4TH_BOARD_NOTICE_MSG" Data="{#003399}신년 이벤트 안내{/}"/>
 	</Category>
 	<Category Name="BattleText">
 		<Class ClassID="100001" ClassName="ADD_DAMAGE_{Auto_1}!" Data="추가 데미지 {Auto_1}!"/>
@@ -13261,6 +13281,8 @@
 		<Class ClassID="300185" ClassName="PremiumToken_New_Return" Data="토큰"/>
 		<Class ClassID="300186" ClassName="tpshop_first_buy_msg" Data="최초 상품 구매 시,{nl}더 이상 {@st66d_y}{s18}첫 구매 상점{/}{/}을 이용할 수 없습니다.{nl}첫 구매 상점은 {@st47}{s18}TP상점{/}{/}에서 확인할 수 있습니다.{nl}그래도 구매하시겠습니까?"/>
 		<Class ClassID="300187" ClassName="Select_Arts" Data="신비한 서를 선택하세요"/>
+		<Class ClassID="300188" ClassName="needMoreItem" Data="가비야의 은총이 담긴 깃털 부족합니다."/>
+		<Class ClassID="300189" ClassName="Event_Theme" Data="[이벤트] 가비야 테마"/>
 		<Class ClassID="300190" ClassName="remain_TP" Data="미수령 TP"/>
 		<Class ClassID="300191" ClassName="remain_TP_exists" Data="미수령 TP가 존재합니다. 수령하시겠습니까?"/>
 	</Category>
@@ -13351,6 +13373,7 @@
 		<Class ClassID="302076" ClassName="DISTRACTOR_shadow_raid_main" Data="흰 까마귀의 영면지"/>
 		<Class ClassID="302077" ClassName="STAMP_TOUR_HIDDEN_MISSION_COMPLETE" Data="히든 미션의 목표를 달성했습니다!{nl}클라페다나 오르샤에 있는 마법협회 NPC와 대화해 보상을 받아 가세요!"/>
 		<Class ClassID="302078" ClassName="HALLOWEEN_CANDY_UNSERVICEABILITY" Data="이미 호박맛 할로윈 사탕의 효과가 적용되고 있습니다.{nl}잔여 시간이 지난 뒤 다시 사용해주세요."/>
+		<Class ClassID="302082" ClassName="npc_Xmas_Evt_NPC" Data="[유료 상품 교환 NPC]{nl}가비야의 전령"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>

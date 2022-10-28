@@ -5183,7 +5183,31 @@
 			</ToolScp>
 		</StartList>
 	</AI>
-	<AI Name="EVENT1_1_TRIGGER_MONSTER_AI" ActiveMessageMapInBattle="1">
+<AI Name="EVENT1912_4TH_BUFF2_RUN_MON_AI_RUN" UpdateMS="10000" ActiveMessageMapInBattle="1">
+        <List>
+            <ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+                <Str Str="EVENT1912_4TH_BUFF2_RUN_MON_RUN"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_EFFECT" Client="NO" UseSleep="NO">
+                <Num Num="0"/>
+                <Str_Arg Str="F_sys_team_ground_red" Arg="3"/>
+                <Str Str="BOT"/>
+            </ToolScp>
+        </List>
+        <StartList>
+            <ToolScp Scp="EnableAIOutOfPC" Client="NO" UseSleep="NO"/>
+            <ToolScp Scp="S_AI_EFFECT_ATTACH" Client="NO" UseSleep="NO">
+                <Num Num="0"/>
+                <Str_Arg Str="F_levitation039_red" Arg="5"/>
+                <Str Str="TOP"/>
+            </ToolScp>
+            <ToolScp Scp="S_AI_EFFECT_ATTACH" Client="NO" UseSleep="NO">
+                <Num Num="0"/>
+                <Str_Arg Str="F_light081_ground_orange_loop" Arg="8"/>
+                <Str Str="BOT"/>
+            </ToolScp>
+        </StartList>
+    </AI>	<AI Name="EVENT1_1_TRIGGER_MONSTER_AI" ActiveMessageMapInBattle="1">
 		<List>
 			<ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
 				<Str Str="Attack"/>
@@ -25455,4 +25479,22 @@ return GET_RATE_MHP(self, damage) * 100"/>
 			</ToolScp>
 		</HitList>
 	</AI>
+    <AI Name="EVENT_TP_SHOP_1912_NPC_AI" UpdateMS="60000" ActiveMessageMapInBattle="1">
+        <List>
+            <ToolScp Scp="SAI_FUNC_DIRECT" Client="NO" UseSleep="NO">
+                <Str Str="SCR_EVENT_TP_SHOP_1912_NPC_AI_UPDATE"/>
+            </ToolScp>
+        </List>
+        <DeadList>
+            <ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+                <Str Str="SCR_EVENT_TP_SHOP_1912_NPC_AI_LEAVE"/>
+            </ToolScp>
+        </DeadList>
+        <StartList>
+            <ToolScp Scp="SAI_FUNC2_DIRECT" Client="NO" UseSleep="NO">
+                <Str Str="SCR_EVENT_TP_SHOP_1912_NPC_AI_BORN"/>
+            </ToolScp>
+            <ToolScp Scp="EnableAIOutOfPC" Client="NO" UseSleep="NO"/>
+        </StartList>
+    </AI>
 </AIList>

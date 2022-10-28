@@ -232,5 +232,9 @@
 			<effect TargetNode="Dummy_eff01" effect="F_light163_yellow" scale="0.2" offset="0;0" ReinforceValue="0" UseAttach="NO" PlayType="All" IsKeeping="NO" BlendMode="NO" OnLifeTime="NO" LifeTimeValue="0.0" GiveAttackFromEffect="None" UseTrailEffectChange="true" GiveAttackFromEffectScale="0.5" GiveAttackSelfEffect="None" GiveAttackSelfEffectScale="0.5" GiveAttackFromSound="None" GiveAttackSelfSound="None" TakeAttackEffect="None" TakeAttackEffectScale="0.5" TakeAttackSound="None" GiveAttackFromEffectOffSet="0;0" GiveAttackSelfEffectOffSet="0;0" TakeAttackEffectOffSet="0;0" SoundVolume="1"/>
 		</ItemList>
 	</Effect_Item>
-	<Effect_Item/>
+	<Effect_Item>
+		<ItemList ItemClassName="Effect_xmas_event">
+			<effect TargetNode="Dummy_body" effect="None" scale="1" offset="0;0" ReinforceValue="0" UseAttach="NO" PlayType="All" IsKeeping="NO" BlendMode="NO" OnLifeTime="NO" LifeTimeValue="0.0" GiveAttackFromEffect="None" UseTrailEffectChange="true" GiveAttackFromEffectScale="0.5" GiveAttackSelfEffect="None" GiveAttackSelfEffectScale="1" GiveAttackFromSound="None" GiveAttackSelfSound="None" TakeAttackEffect="F_hit_star" TakeAttackEffectScale="0.7" TakeAttackSound="hit_nice" GiveAttackFromEffectOffSet="0;0" GiveAttackSelfEffectOffSet="0;0" TakeAttackEffectOffSet="0;0" SoundVolume="1"/>
+		</ItemList>
+	</Effect_Item>
 </List>

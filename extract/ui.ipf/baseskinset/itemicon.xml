@@ -3504,6 +3504,10 @@
 		<image name="icon_item_accessory_2019xmas05" file="\icon\hairacc\icon_item_accessory_2019xmas05.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_accessory_2019xmas06" file="\icon\hairacc\icon_item_accessory_2019xmas06.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_accessory_2019xmas07" file="\icon\hairacc\icon_item_accessory_2019xmas07.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_gabia01" file="\icon\hairacc\icon_item_accessory_gabia01.png" imgrect="0 0 256 256" CMM_Caption="2019_12월 가비야 악세사리"/>
+		<image name="icon_item_accessory_gabia02" file="\icon\hairacc\icon_item_accessory_gabia02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_gabia03" file="\icon\hairacc\icon_item_accessory_gabia03.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_gabia04" file="\icon\hairacc\icon_item_accessory_gabia04.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="collection_item">
 		<image name="icon_collitem_collection" file="\icon\colletion\icon_item_collection.tga" imgrect="0 0 673 419" CMM_Caption="월계수"/>
@@ -5436,6 +5440,9 @@
 		<image name="icon_item_EVENT_190919_ANCIENT_SCROLL" file="\icon\item\icon_item_EVENT_190919_ANCIENT_SCROLL.png" imgrect="0 0 80 80" CMM_Caption="몬스터 선택 스크롤"/>
 		<image name="icon_item_gemMisc10" file="\icon\item\icon_item_gemMisc10.png" imgrect="0 0 256 256" CMM_Caption="레티샤 시크릿 큐브_레드"/>
 		<image name="icon_item_Extractkit_goldbox" file="\icon\item\icon_item_Extractkit_goldbox.png" imgrect="0 0 256 256" CMM_Caption="pc방 황금 아이커 상자"/>
+		<image name="icon_item_wing_pinics" file="\icon\item\icon_item_wing_pinics.png" imgrect="0 0 80 80" CMM_Caption="가비야 날개"/>
+		<image name="icon_item_feather_pinics" file="\icon\item\icon_item_feather_pinics.png" imgrect="0 0 80 80" CMM_Caption="가비야 깃털"/>
+		<image name="icon_item_4th_coin" file="\icon\item\icon_item_4th_coin.png" imgrect="0 0 128 128" CMM_Caption="4주년 기념 주화"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_h_bigplant_set_01_green" file="\icon\housing\icon_item_h_bigplant_set_01_green.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 화단_01(초록색)"/>
@@ -6596,6 +6603,16 @@
 		<image name="icon_item_wing_2019xmas02" file="\icon\payment\icon_item_wing_2019xmas02.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_effectitem_whitebirds" file="\icon\payment\icon_item_effectitem_whitebirds.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_2019xmas_weaponbox" file="\icon\payment\icon_item_2019xmas_weaponbox.png" imgrect="0 0 256 256" CMM_Caption="2019 크리스마스 무기선택 상자"/>
+		<image name="icon_item_selectbox_gabia01" file="\icon\payment\icon_item_selectbox_gabia01.png" imgrect="0 0 256 256" CMM_Caption="2019_12월 여큡 가비야 테마"/>
+		<image name="icon_item_selectbox_gabia02" file="\icon\payment\icon_item_selectbox_gabia02.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_gabia01_m" file="\icon\payment\item_icon_gabia01_m.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_gabia01_f" file="\icon\payment\item_icon_gabia01_f.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_gabia02_m" file="\icon\payment\item_icon_gabia02_m.png" imgrect="0 0 256 256"/>
+		<image name="item_icon_gabia02_f" file="\icon\payment\item_icon_gabia02_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Effect_gabiaFire" file="\icon\payment\icon_item_Effect_gabiaFire.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_wing_gabia" file="\icon\payment\icon_item_wing_gabia.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_doll_gabia" file="\icon\payment\icon_item_doll_gabia.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_gabia_set" file="\icon\payment\icon_item_gabia_set.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>
