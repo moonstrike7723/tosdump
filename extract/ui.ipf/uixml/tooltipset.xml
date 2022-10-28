@@ -81,7 +81,7 @@
 			<groupbox name="etc" margin="820 0 0 0" rect="0 0 410 0" skin="bg" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="etc_sub" margin="410 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_normal" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="equip_main" margin="820 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
-			<groupbox name="equip_main_addinfo" margin="1230 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip_sub" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+            <groupbox name="equip_main_addinfo" margin="1230 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip_sub" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="equip_sub" margin="410 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="equip_sub_addinfo" margin="110 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip_sub" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="bosscard" margin="824 0 0 0" rect="0 0 380 0" skin="monstercard" hittest="false" draw="false" updateparent="true" scrollbar="false" layout_gravity="left top"/>
@@ -100,7 +100,7 @@
 			<groupbox name="etc" margin="820 0 0 0" rect="0 0 410 0" skin="bg" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="etc_sub" margin="410 0 0 0" rect="0 0 410 50" skin="test_Item_tooltip_normal" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="equip_main" margin="820 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
-			<groupbox name="equip_main_addinfo" margin="1230 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+            <groupbox name="equip_main_addinfo" margin="1230 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="equip_sub" margin="410 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="equip_sub_addinfo" margin="110 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="bosscard" margin="820 0 0 0" rect="0 0 380 0" skin="monstercard" hittest="false" draw="false" updateparent="true" scrollbar="false" layout_gravity="left top"/>
@@ -262,7 +262,7 @@
 			<groupbox name="etc" margin="820 0 0 0" rect="0 0 410 0" skin="bg" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="etc_sub" margin="410 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_normal" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="equip_main" margin="820 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
-			<groupbox name="equip_main_addinfo" margin="1230 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip_sub" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+            <groupbox name="equip_main_addinfo" margin="1230 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip_sub" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="equip_sub" margin="410 0 0 0" rect="0 0 410 0" skin="test_Item_tooltip_equip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="equip_sub_addinfo" margin="110 0 0 0" rect="0 0 300 0" skin="test_Item_tooltip_equip_sub" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
 			<groupbox name="bosscard" margin="820 0 0 0" rect="0 0 370 0" skin="testbosscard_tooltip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
@@ -336,7 +336,7 @@
 			<groupbox name="list1" parent="static_gb" rect="0 0 308 24" margin="0 0 0 0" layout_gravity="left top" draw="false"/>
 			<button name="starTextBox1" parent="list1" rect="0 0 48 24" margin="10 0 0 0" layout_gravity="left center" image="brownbox_op_100" draw="false" format="%s" param1="value" useclickimg="false" textalign="center center"/>
 			<groupbox name="paramTextBox1" parent="list1" rect="0 0 212 24" margin="60 0 0 0" layout_gravity="left center" skin="lightbrownbox_op_100"/>
-			<richtext name="paramText1" parent="paramTextBox1" rect="0 0 200 30" margin="5 0 0 0" layout_gravity="left center" format="팀생성 %s일 이상" param1="value" param1_def="0" textalign="left center" fontname="white_16_b_ol" fixwidth="true"/>
+			<richtext name="paramText1" parent="paramTextBox1" rect="0 0 200 30" margin="5 0 0 0" layout_gravity="left center" format="팀 생성 %s일 이상" param1="value" param1_def="0" textalign="left center" fontname="white_16_b_ol" fixwidth="true"/>
 			<checkbox name="check1" parent="list1" rect="0 0 30 30" margin="0 0 3 0" layout_gravity="right center"/>
 			<groupbox name="list2" parent="static_gb" rect="0 0 308 24" margin="0 0 0 0" layout_gravity="left top" draw="false"/>
 			<button name="starTextBox2" parent="list2" rect="0 0 48 24" margin="10 0 0 0" layout_gravity="left center" image="brownbox_op_100" draw="false" format="%s" param1="value" useclickimg="false"/>
@@ -346,12 +346,12 @@
 			<groupbox name="list3" parent="static_gb" rect="0 0 308 24" margin="0 0 0 0" layout_gravity="left top" draw="false"/>
 			<button name="starTextBox3" parent="list3" rect="0 0 48 24" margin="10 0 0 0" layout_gravity="left center" image="brownbox_op_100" draw="false" format="%s" param1="value" useclickimg="false"/>
 			<groupbox name="paramTextBox3" parent="list3" rect="0 0 212 24" margin="60 0 0 0" layout_gravity="left center" skin="lightbrownbox_op_100"/>
-			<richtext name="paramText3" parent="paramTextBox3" rect="0 0 200 30" margin="5 0 0 0" layout_gravity="left center" format="에피소드 12-1 클리어" textalign="left center" fontname="white_16_b_ol" fixwidth="true"/>
+			<richtext name="paramText3" parent="paramTextBox3" rect="0 0 200 30" margin="5 0 0 0" layout_gravity="left center" format="에피소드12-1 클리어." textalign="left center" fontname="white_16_b_ol" fixwidth="true"/>
 			<checkbox name="check3" parent="list3" rect="0 0 30 30" margin="0 0 3 0" layout_gravity="right center"/>
 			<groupbox name="list4" parent="static_gb" rect="0 0 308 24" margin="0 0 0 0" layout_gravity="left top" draw="false"/>
 			<button name="starTextBox4" parent="list4" rect="0 0 48 24" margin="10 0 0 0" layout_gravity="left center" image="brownbox_op_100" draw="false" format="%s" param1="value" useclickimg="false"/>
 			<groupbox name="paramTextBox4" parent="list4" rect="0 0 212 24" margin="60 0 0 0" layout_gravity="left center" skin="lightbrownbox_op_100"/>
-			<richtext name="paramText4" parent="paramTextBox4" rect="0 0 200 30" margin="5 0 0 0" layout_gravity="left center" format="최초 유료 TP 구매 이력으로 %s일 이상" param1="value" param1_def="0" textalign="left center" fontname="white_16_b_ol" fixwidth="true"/>
+			<richtext name="paramText4" parent="paramTextBox4" rect="0 0 200 30" margin="5 0 0 0" layout_gravity="left center" format="최초 유료 TP 구매 이력으로 %s일 이상." param1="value" param1_def="0" textalign="left center" fontname="white_16_b_ol" fixwidth="true"/>
 			<checkbox name="check4" parent="list4" rect="0 0 30 30" margin="0 0 3 0" layout_gravity="right center"/>
 			<groupbox name="list5" parent="static_gb" rect="0 0 308 24" margin="0 0 0 0" layout_gravity="left top" draw="false"/>
 			<button name="starTextBox5" parent="list5" rect="0 0 48 24" margin="10 0 0 0" layout_gravity="left center" image="brownbox_op_100" draw="false" format="%s" param1="value" useclickimg="false"/>
