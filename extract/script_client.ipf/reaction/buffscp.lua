@@ -1314,6 +1314,9 @@ function ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
         end
     elseif buffEpeeGarde ~= nil then
         actor:GetAnimation():SetSTDAnim("SKL_EPEEGARDE_ASTD");
+        actor:GetAnimation():ResetRUNAnim();
+        actor:GetAnimation():ResetWLKAnim();
+        actor:GetAnimation():ResetTURNAnim();
     elseif buffHelmet ~= nil then
         actor:GetAnimation():SetChangeJumpAnim(true);
         actor:GetAnimation():SetTURNAnim("SKL_MURMILLO_ATURN");
