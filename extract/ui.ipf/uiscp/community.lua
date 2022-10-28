@@ -28,22 +28,20 @@ end
 function _SHOW_PC_CONTEXT_MENU(handle)
 
 	local context = SHOW_PC_CONTEXT_MENU(handle);
-	if context == nil then
-		return;
-	end
 	context:SetOffset(g_lastContextMenuX, g_lastContextMenuY);
 	
 
 end
 
 function SHOW_PC_CONTEXT_MENU(handle)
-	if world.IsPVPMap() == true or session.colonywar.GetIsColonyWarMap() == true or IS_IN_EVENT_MAP() == true then
+
+	if world.IsPVPMap() == true then
 		return;
 	end
 
 	local targetInfo= info.GetTargetInfo(handle);
 	if targetInfo.IsDummyPC == 1 then
-		if targetInfo.isSkillObj == 0 then --Ïú†Ï≤¥Ïù¥ÌÉàÏùÄ ÌÅ¥Î¶≠Ìï¥ÎèÑ ÏïÑÎ¨¥Î∞òÏùë ÏóÜÎèÑÎ°ù ÌïúÎã§.
+		if targetInfo.isSkillObj == 0 then --¿Ø√º¿Ã≈ª¿∫ ≈¨∏Ø«ÿµµ æ∆π´π›¿¿ æ¯µµ∑œ «—¥Ÿ.
 			POPUP_DUMMY(handle, targetInfo);
 		end
 		return
@@ -97,57 +95,38 @@ function SHOW_PC_CONTEXT_MENU(handle)
 		end
 			
 		local contextMenuCtrlName = string.format("{@st41}%s (%d){/}", pcObj:GetPCApc():GetFamilyName(), handle);
-		local context = ui.CreateContextMenu("PC_CONTEXT_MENU", pcObj:GetPCApc():GetFamilyName(), 0, 0, 270, 100);
-
-		-- Ïó¨Í∏∞Ïóê Ï∫êÎ¶≠ÌÑ∞ Ï†ïÎ≥¥Î≥¥Í∏∞, Î°úÍ∑∏ÏïÑÏõÉPCÍ¥ÄÎ†® Î©îÎâ¥ Ï∂îÍ∞ÄÌïòÎ©¥Îê®
-		if session.world.IsIntegrateServer() == false then
+		local context = ui.CreateContextMenu("PC_CONTEXT_MENU", pcObj:GetPCApc():GetFamilyName(), 0, 0, 170, 100);
+		-- ø©±‚ø° ƒ≥∏Ø≈Õ ¡§∫∏∫∏±‚, ∑Œ±◊æ∆øÙPC∞¸∑√ ∏ﬁ¥∫ √ﬂ∞°«œ∏Èµ 
+		local strWhisperScp = string.format("ui.WhisperTo('%s')", pcObj:GetPCApc():GetFamilyName());
+		if true == session.loginInfo.IsPremiumState(ITEM_TOKEN) then
 			local strScp = string.format("exchange.RequestChange(%d)", pcObj:GetHandleVal());
-			ui.AddContextMenuItem(context, "{img context_transaction 18 18} "..ClMsg("Exchange"), strScp);
+			ui.AddContextMenuItem(context, ClMsg("Exchange"), strScp);
+		end
 		
-			local strWhisperScp = string.format("ui.WhisperTo('%s')", pcObj:GetPCApc():GetFamilyName());
-			ui.AddContextMenuItem(context, "{img context_whisper 18 17} "..ClMsg("WHISPER"), strWhisperScp);
+		local strScp = "";
+		if session.world.IsIntegrateServer() == false then
+			ui.AddContextMenuItem(context, ClMsg("WHISPER"), strWhisperScp);
 			strScp = string.format("PARTY_INVITE(\"%s\")", pcObj:GetPCApc():GetFamilyName());
-			ui.AddContextMenuItem(context, "{img context_party_invitation 18 17} "..ClMsg("PARTY_INVITE"), strScp);
-                        
-            --[[
-			if AM_I_LEADER(PARTY_GUILD) == 1 or IS_GUILD_AUTHORITY(1, session.loginInfo.GetAID()) == 1 then
+			ui.AddContextMenuItem(context, ClMsg("PARTY_INVITE"), strScp);
+
+			if AM_I_LEADER(PARTY_GUILD) == 1 then
 				strScp = string.format("GUILD_INVITE(\"%s\")", pcObj:GetPCApc():GetFamilyName());
 				ui.AddContextMenuItem(context, ClMsg("GUILD_INVITE"), strScp);
 			end
-			--]]
-			if session.party.GetPartyInfo(PARTY_GUILD) ~= nil and targetInfo.hasGuild == false then
-				strScp = string.format("GUILD_INVITE(\"%s\")", pcObj:GetPCApc():GetFamilyName());
-				ui.AddContextMenuItem(context, "{img context_guild_invitation 18 17} "..ClMsg("GUILD_INVITE"), strScp);
-			end
 
 			strscp = string.format("barrackNormal.Visit(%d)", handle);
-			ui.AddContextMenuItem(context, "{img context_lodging_visit 16 17} "..ScpArgMsg("VisitBarrack"), strscp);
-			strscp = string.format("ui.ToggleHeaderText(%d)", handle);
-			if pcObj:GetHeaderText() ~= nil and string.len(pcObj:GetHeaderText()) ~= 0 then
-				if pcObj:IsHeaderTextVisible() == true  then			
-					ui.AddContextMenuItem(context, "{img context_preface_block 18 17} "..ClMsg("BlockTitleText"), strscp);
-				else
-					ui.AddContextMenuItem(context, "{img context_preface_remove 18 17} "..ClMsg("UnblockTitleText"), strscp);
-				end
-			end
+			ui.AddContextMenuItem(context, ScpArgMsg("VisitBarrack"), strscp);
 		end
 
 		strscp = string.format("PROPERTY_COMPARE(%d)", handle);
-		ui.AddContextMenuItem(context, "{img context_look_into 18 17} "..ScpArgMsg("Auto_SalPyeoBoKi"), strscp);
-			
+		ui.AddContextMenuItem(context, ScpArgMsg("Auto_SalPyeoBoKi"), strscp);
+
 		if session.world.IsIntegrateServer() == false then
 			local strRequestAddFriendScp = string.format("friends.RequestRegister('%s')", pcObj:GetPCApc():GetFamilyName());
-			ui.AddContextMenuItem(context, "{img context_friend_application 18 13} "..ScpArgMsg("ReqAddFriend"), strRequestAddFriendScp);
+			ui.AddContextMenuItem(context, ScpArgMsg("ReqAddFriend"), strRequestAddFriendScp);
 		end
 
-		ui.AddContextMenuItem(context, "{img context_friendly_match 18 17} "..ScpArgMsg("RequestFriendlyFight"), string.format("REQUEST_FIGHT(\"%d\")", pcObj:GetHandleVal()));
-		-- ui.AddContextMenuItem(context, ScpArgMsg("RequestFriendlyAncientFight"), string.format("REQUEST_ANCIENT_FIGHT(\"%d\")", pcObj:GetHandleVal()));
-		
-		local mapprop = session.GetCurrentMapProp();
-    	local mapCls = GetClassByType("Map", mapprop.type);	
-		if IS_TOWN_MAP(mapCls) == true then
-			ui.AddContextMenuItem(context, "{img context_personal_housing 18 17} "..ScpArgMsg("PH_SEL_DLG_2"), string.format("REQUEST_PERSONAL_HOUSING_WARP(\"%s\")", pcObj:GetPCApc():GetAID()));
-		end
+		ui.AddContextMenuItem(context, ScpArgMsg("RequestFriendlyFight"), string.format("REQUEST_FIGHT(\"%d\")", pcObj:GetHandleVal()));
 
 		local familyname = pcObj:GetPCApc():GetFamilyName()
 		local otherpcinfo = session.otherPC.GetByFamilyName(familyname);
@@ -155,69 +134,26 @@ function SHOW_PC_CONTEXT_MENU(handle)
 		if session.world.IsIntegrateServer() == false then
 			local strRequestLikeItScp = string.format("SEND_PC_INFO(%d)", handle);
 			if session.likeit.AmILikeYou(familyname) == true then
-				ui.AddContextMenuItem(context, "{img context_like 18 17} "..ScpArgMsg("ReqUnlikeIt"), strRequestLikeItScp);
+				ui.AddContextMenuItem(context, ScpArgMsg("ReqUnlikeIt"), strRequestLikeItScp);
 			else
-				ui.AddContextMenuItem(context, "{img context_like 18 17} "..ScpArgMsg("ReqLikeIt"), strRequestLikeItScp);
+				ui.AddContextMenuItem(context, ScpArgMsg("ReqLikeIt"), strRequestLikeItScp);
 			end
 		end
 
-		ui.AddContextMenuItem(context, "{img context_automatic_suspicion 16 17} "..ScpArgMsg("Report_AutoBot"), string.format("REPORT_AUTOBOT_MSGBOX(\"%s\")", pcObj:GetPCApc():GetFamilyName()));
-
-        -- report guild emblem
-        if  pcObj:IsGuildExist() == true then
-            ui.AddContextMenuItem(context, "{img context_inappropriate_emblem 17 17} "..ScpArgMsg("Report_GuildEmblem"), string.format("REPORT_GUILDEMBLEM_MSGBOX(\"%s\")", pcObj:GetPCApc():GetFamilyName()));        
-        end
-
-		-- Î≥¥Ìò∏Î™®Îìú, Í∞ïÏ†úÌÇ•
+		-- ∫∏»£∏µÂ, ∞≠¡¶≈±
 		if 1 == session.IsGM() then
 			ui.AddContextMenuItem(context, ScpArgMsg("GM_Order_Protected"), string.format("REQUEST_GM_ORDER_PROTECTED(\"%s\")", pcObj:GetPCApc():GetFamilyName()));
 			ui.AddContextMenuItem(context, ScpArgMsg("GM_Order_Kick"), string.format("REQUEST_GM_ORDER_KICK(\"%s\")", pcObj:GetPCApc():GetFamilyName()));
 		end
-		
-		if session.world.IsDungeon() and session.world.IsIntegrateIndunServer() == true then
-			local aid = pcObj:GetPCApc():GetAID();
-			local serverName = GetServerNameByGroupID(GetServerGroupID());
-			local playerName = pcObj:GetPCApc():GetFamilyName();
-			local scp = string.format("SHOW_INDUN_BADPLAYER_REPORT(\"%s\", \"%s\", \"%s\")", aid, serverName, playerName);
-			ui.AddContextMenuItem(context, ScpArgMsg("IndunBadPlayerReport"), scp);
-		end
 
-		ui.AddContextMenuItem(context, "{img context_cancel 18 17} "..ClMsg("Cancel"), "None");
+
+		ui.AddContextMenuItem(context, ClMsg("Cancel"), "None");
 		ui.OpenContextMenu(context);
 		return  context;
 	end
+
+
 end
-
-function REPORT_AUTOBOT_MSGBOX(teamName)
-
-	local msgBoxString = ScpArgMsg("DoYouReportAuto{Name}?", "Name", teamName);
-	local yesScp = string.format("REPORT_AUTOBOT( \"%s\" )", teamName);
-	
-	ui.MsgBox(msgBoxString, yesScp, "None");	
-end
-
-function REPORT_AUTOBOT(teamName)
-
-	packet.ReportAutoBot(teamName);
-	local msgStr = ScpArgMsg("ThxReportAuto{Name}", "Name", teamName);
-	ui.SysMsg(msgStr);
-end
-
-function REPORT_GUILDEMBLEM_MSGBOX(teamName)
-
-	local msgBoxString = ScpArgMsg("DoYouReportGuildEmblem{Name}?", "Name", teamName);
-	local yesScp = string.format("REPORT_GUILDEMBLEM( \"%s\" )", teamName);
-	
-	ui.MsgBox(msgBoxString, yesScp, "None");	
-end
-
-function REPORT_GUILDEMBLEM(teamName)
-
-	packet.ReportGuildEmblem(teamName);
-	local msgStr = ScpArgMsg("ThxReportGuildEmblem{Name}", "Name", teamName);
-	ui.SysMsg(msgStr);
-end
-
 
 function REQUEST_GM_ORDER_PROTECTED(teamName)
 	packet.RequestGmOrderMsg(teamName, 'protected');
@@ -233,17 +169,6 @@ function REQUEST_FIGHT(handle)
 
 end
 
-function REQUEST_ANCIENT_FIGHT(handle)
-
-	-- packet.RequestAncientFriendlyFight(handle, 0);
-
-end
-
-function REQUEST_PERSONAL_HOUSING_WARP(aidx)
-    local yesscp = string.format("HOUSING_PROMOTE_POST_REQUEST_POST_HOUST_WARP('%s', 0)", aidx);
-    ui.MsgBox(ScpArgMsg("ANSWER_JOIN_PH_1"), yesscp, "None");
-end
-
 function ASKED_FRIENDLY_FIGHT(handle, familyName)
 
 	local msgBoxString = ScpArgMsg("DoYouAcceptFriendlyFightingWith{Name}?", "Name", familyName);
@@ -251,25 +176,9 @@ function ASKED_FRIENDLY_FIGHT(handle, familyName)
 
 end
 
-function ASKED_ANCIENT_FRIENDLY_FIGHT(handle, familyName)
-
-	local msgBoxString = ScpArgMsg("DoYouAcceptFriendlyFightingWith{Name}?", "Name", familyName);
-	ui.MsgBox(msgBoxString, string.format("ACK_ANCIENT_FRIENDLY_FIGHT(%d)", handle) ,"None");
-
-end
-
 function ACK_FRIENDLY_FIGHT(handle)
-	if IsBuffApplied(GetMyPCObject(), 'Instrument_Use_Buff') == 'NO' then
-		packet.RequestFriendlyFight(handle, 1);
-	else
-		local msgStr = ScpArgMsg("Instrument_MSG2")
-		ui.SysMsg(msgStr)
-	end
-end
 
-function ACK_ANCIENT_FRIENDLY_FIGHT(handle)
-
-	packet.RequestAncientFriendlyFight(handle, 1);
+	packet.RequestFriendlyFight(handle, 1);
 
 end
 
@@ -278,11 +187,7 @@ function PARTY_INVITE(name)
 end
 
 function GUILD_INVITE(name)
-	party.GuildMemberInviteByWeb(name)
-end
-
-function GUILD_INVITE_BY_WEB(name)    
-    party.GuildMemberInviteByWeb(name)
+	party.ReqDirectInvite(PARTY_GUILD, name);
 end
 
 function PROPERTY_COMPARE(handle)

@@ -18,6 +18,17 @@
 			</Trigger>
 		</TriggerList>
 	</SpcItem>
+	<SpcItem Name="Coursing_Debuff">
+		<TriggerList Act="BeforeAttacked">
+			<Trigger>
+				<ExecList>
+					<ToolScp Scp="SPCI_CRTHR" Client="NO" UseSleep="NO">
+						<Num Num="40"/>
+					</ToolScp>
+				</ExecList>
+			</Trigger>
+		</TriggerList>
+	</SpcItem>
 	<SpcItem Name="Growling_Return_Debuff">
 		<TriggerList Act="Attacked">
 			<Trigger>
@@ -83,51 +94,6 @@
 						<Num Num="5"/>
 						<Num Num="5"/>
 					</ToolScp>
-				</ExecList>
-			</Trigger>
-		</TriggerList>
-	</SpcItem>
-	<SpcItem Name="ITEM_BUFF_VIBORA_THMACE_KATADIKAZO">
-		<TriggerList Act="SkillUsed">
-			<Trigger>
-				<ExecList>
-					<ToolScp Scp="SCR_VIBORA_THMACE_KATADIKAZO_USESKL" Client="NO" UseSleep="NO"/>
-				</ExecList>
-			</Trigger>
-		</TriggerList>
-	</SpcItem>
-	<SpcItem Name="Hwarang_DoNotRetreat_Buff">
-		<TriggerList Act="SkillUsed">
-			<Trigger>
-				<ExecList>
-					<ToolScp Scp="SCR_SKILL_USE_Hwarang_DoNotRetreat_Arts" Client="NO" UseSleep="NO"/>
-				</ExecList>
-			</Trigger>
-		</TriggerList>
-	</SpcItem>
-	<SpcItem Name="Hwarang_DoNotRetreat_Arts_Buff">
-		<TriggerList Act="SkillUsed">
-			<Trigger>
-				<ExecList>
-					<ToolScp Scp="SCR_SKILL_USE_Hwarang_DoNotRetreat_Arts" Client="NO" UseSleep="NO"/>
-				</ExecList>
-			</Trigger>
-		</TriggerList>
-	</SpcItem>
-	<SpcItem Name="GroovingMuzzle_UseStack_Buff">
-		<TriggerList Act="SkillUsed">
-			<Trigger>
-				<ExecList>
-					<ToolScp Scp="SCR_Musketeer_GroovingMuzzle_CONSUME_STACK" Client="NO" UseSleep="NO"/>
-				</ExecList>
-			</Trigger>
-		</TriggerList>
-	</SpcItem>
-	<SpcItem Name="HideShot_Buff">
-		<TriggerList Act="SkillUsed">
-			<Trigger>
-				<ExecList>
-					<ToolScp Scp="SCR_CHECK_TigerHunter_HideShot" Client="NO" UseSleep="NO"/>
 				</ExecList>
 			</Trigger>
 		</TriggerList>

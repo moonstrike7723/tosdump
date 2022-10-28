@@ -18,6 +18,7 @@ function GET_MAP_POS(frame, mapprop, x, y, width, height)
 end
 
 function MAP_MON_MINIMAP(frame, msg, argStr, argNum, info)
+
 	local isMinimap = false;
 	if frame:GetTopParentFrame():GetName() == "minimap" then
 		frame = GET_CHILD(frame, 'npclist', 'ui::CGroupBox');
@@ -31,20 +32,38 @@ function MAP_MON_MINIMAP(frame, msg, argStr, argNum, info)
 		return;
 	end
 
-	local SIZE = 40;
-	if info.isDot == true then
-		SIZE = 14;
+	local mapprop = session.GetCurrentMapProp();
+	
+	local isPC = info.type == 0;
+	local monCls = nil;
+	if false == isPC then
+		monCls = GetClassByType("Monster", info.type);
+	end
+
+	local width;
+	local height;
+	if isPC then
+		width = 40;
+		height = 40;
+	else
+		if monCls.MonRank == "Boss" then
+			width = 200;
+			height = 200;
+		else
+			width = 40;
+			height = 40;
+		end
 	end
 
 	local ctrlName = "_MONPOS_" .. info.handle;
-	monPic = frame:CreateOrGetControl('picture', ctrlName, 0, 0, SIZE, SIZE);
+	monPic = frame:CreateOrGetControl('picture', ctrlName, 0, 0, width, height);
 	tolua.cast(monPic, "ui::CPicture");
 	if false == monPic:HaveUpdateScript("_MONPIC_AUTOUPDATE") then
-		monPic:RunUpdateScript("_MONPIC_AUTOUPDATE", 1);
+		monPic:RunUpdateScript("_MONPIC_AUTOUPDATE", 0);
 	end
 
-	monPic:SetUserValue("W", SIZE);
-	monPic:SetUserValue("H", SIZE);
+	monPic:SetUserValue("W", width);
+	monPic:SetUserValue("H", height);
 	monPic:SetUserValue("HANDLE", info.handle);
 	monPic:SetUserValue("EXTERN", "YES");
 	monPic:SetUserValue("EXTERN_PIC", "YES");
@@ -56,37 +75,55 @@ function MAP_MON_MINIMAP(frame, msg, argStr, argNum, info)
 		dd = CLAMP(dd, 0.5, 1.5);
 		monPic:SetScale(dd, dd);
 	end
-
-	local imgName = GET_MAP_MON_MINIMAP_IMAGENAME(info)
-	monPic:SetImage(imgName);
-	monPic:SetEnableStretch(1);
-	monPic:ShowWindow(1);
-
-	MAP_MON_MINIMAP_SETPOS(frame, info);
-end
-
-function GET_MAP_MON_MINIMAP_IMAGENAME(info)
-	local isPC = info.type == 0;
+	
 	if isPC then
-		return GET_JOB_ICON(info.job);
-	end
-	if info.useIcon == true then
-		if info.isDot == true then
-			return "monster_notice_dot"
+		monPic:SetEnableStretch(1);
+		monPic:ShowWindow(1);
+
+		local myTeam = GET_MY_TEAMID();
+		local outLineColor;
+		if myTeam == info.teamID then
+			outLineColor = "CCFFFFFF";
 		else
-			local monCls = GetClassByType("Monster", info.type);
-			return monCls.MinimapIcon
+			outLineColor = "CCCC0000";
+		end
+
+
+		local imgName = GET_JOB_ICON(info.job);
+		monPic:SetImage(imgName);
+		monPic:ShowWindow(1);
+
+	else
+		if monCls.MonRank == "Boss" then
+			--필드보스 위치 알려주는거 주석
+			--SET_PICTURE_QUESTMAP(monPic, 30);
+			--ctrlName = "_MONPOS_T_" .. info.handle;
+			--local textC = frame:CreateOrGetControl('richtext', ctrlName, 0, 0, width, height);
+			--tolua.cast(textC, "ui::CRichText");
+			--textC:SetTextAlign("center", "bottom");
+			--textC:SetText("{@st42_yellow}" .. ClMsg("FieldBossAppeared!") .. "{nl}{@st42}" .. monCls.Name);
+			--textC:ShowWindow(1);
+			--textC:SetUserValue("EXTERN", "YES");
+		else
+			local myTeam = GET_MY_TEAMID();
+			if info.useIcon == true then
+				monPic:SetImage(monCls.Icon);
+			else
+				if info.teamID == 0 then
+					monPic:SetImage("fullyellow");
+				elseif info.teamID ~= myTeam then
+					monPic:SetImage("fullred");
+				else
+					monPic:SetImage("fullblue");
+				end
+			end
+			
+			monPic:SetEnableStretch(1);
+			monPic:ShowWindow(1);
 		end
 	end
-	
-	local myTeam = GET_MY_TEAMID();
-	if info.teamID == 0 then
-		return "fullyellow";
-	elseif info.teamID ~= myTeam then
-		return "fullred";
-	else
-		return "fullblue";
-	end
+
+	MAP_MON_MINIMAP_SETPOS(frame, info);
 end
 
 function MAP_MON_MINIMAP_SETPOS(frame, info)
@@ -144,6 +181,7 @@ function ON_MON_MINIMAP_END(frame, msg, argStr, handle)
 end
 
 function _MONPIC_AUTOUPDATE(ctrl)
+
 	local handle = ctrl:GetUserIValue("HANDLE");	
 	local actor = world.GetActor(handle);
 	if actor ~= nil then
@@ -168,4 +206,17 @@ function _MONPIC_AUTOUPDATE(ctrl)
 	end
 
 	return 1;
+end
+
+function MAP_MON_MINIMAP_START(frame, msg, argStr, type)
+
+	local bossCls = GetClassByType("Monster", type);
+	
+	local bossIntro = ui.GetFrame("bossintro");
+	bossIntro:ShowWindow(1);
+	bossIntro:SetDuration(3);
+	bossIntro:SetTextByKey("BossName", bossCls.Name);
+	bossIntro:SetTextByKey("BossIntroMsg", ClMsg("BossMonsterAppearedInField"));
+	
+
 end

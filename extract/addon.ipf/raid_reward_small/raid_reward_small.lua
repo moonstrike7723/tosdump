@@ -15,37 +15,13 @@ function ITEM_BALLOON_CLEAR(handle)
 	end
 end
 
-function ITEM_BALLOON_COMMON(handle, itemObj, tooltipEnum, duration, delaySec, skinName, msgText, isShowText, itemID, modifiedString)
-    if world.GetLayer() ~= 0 then
+function ITEM_BALLOON_COMMON(handle, itemCls, tooltipEnum, duration, delaySec, skinName, msgText)
+-- ?????? ?????? ??? ??? ???? ?????
+  if world.GetLayer() ~= 0 then
 		return 0;
 	end
 
-    local forgeryItem, forgeryObj = nil;
-	if itemObj == nil then
-        if modifiedString == nil or modifiedString == "None" then
-		    return;
-		else
-			forgeryItem = session.link.CreateOrGetGCLinkObject(itemID, modifiedString);			
-			if forgeryItem == nil then
-				return;
-			end
-			
-            forgeryObj = GetIES(forgeryItem:GetObject());
-            if forgeryObj == nil then
-                return;
-            end
-            itemObj = forgeryObj;
-        end
-	end
-    
-    if itemObj == nil then
-        return;
-    end
-
-	local scp = _G[itemObj.RefreshScp];
-	if nil ~= scp then
-		scp(itemObj);
-	end
+	_G[itemCls.RefreshScp](itemCls);
 
 	delaySec = 0.0;
 
@@ -58,18 +34,6 @@ function ITEM_BALLOON_COMMON(handle, itemObj, tooltipEnum, duration, delaySec, s
 	else
 		if frame:IsVisible() == 0 then
 			isFirstItem = true;
-		end
-	end
-
-	local strlist = {}
-	if string.find(skinName, 'event_tp_itembox') ~= nil then
-		isFirstItem = true;
-		
-		strlist = StringSplit(skinName, ';');
-		if #strlist == 2 then
-			skinName = strlist[1];
-		else
-			skinName = "junksilvergacha_itembox";
 		end
 	end
 
@@ -110,59 +74,31 @@ function ITEM_BALLOON_COMMON(handle, itemObj, tooltipEnum, duration, delaySec, s
 		widthCnt = widthCnt-3;
 	end
 
-	if isShowText == 1 then
-		descText:SetText(msgText);
-	else
-		descText:SetText("");
-	end
+	descText:SetText(msgText);
 	local ctrlSet = itemcontainer:CreateControlSet(skinName, "BOX_" .. cnt, widthCnt * ctrlSetWidth, descText:GetHeight() + ctrlSetHeight * heightCnt);
 	local slot = GET_CHILD(ctrlSet, "slot", "ui::CSlot");
 	local itemSlot = GET_CHILD(ctrlSet, "itemslot", "ui::CSlot");
 	local itemtext = GET_CHILD(ctrlSet, "itemtext", "ui::CRichText");	
-	if itemObj ~= nil then
-        if forgeryObj ~= nil then
-			local img = GET_ITEM_ICON_IMAGE(forgeryObj);
-	        SET_SLOT_IMG(itemSlot, img);
-
-            local icon = itemSlot:GetIcon();
-            APPRAISER_FORGERY_SET_TOOLTIP(icon, forgeryObj, forgeryItem);            
-        else
-		    SET_SLOT_ITEM_OBJ(itemSlot, itemObj);
-        end
+	if itemCls ~= nil then
+		SET_SLOT_ITEM_OBJ(itemSlot, itemCls);
 		itemSlot:EnableDrag(0);
-		local rewardTxt = REWARD_SET_ITEM_TEXT(skinName, itemObj);
-		itemtext:SetTextByKey("txt", rewardTxt);
+
+		local gradeTxt = GET_ITEM_GRADE_TXT(itemCls, 24);
+		itemtext:SetTextByKey("txt", gradeTxt);
 	else
 		CLEAR_SLOT_ITEM_INFO(itemSlot);
 		itemtext:SetTextByKey("txt", "");
-	end
-
-	if string.find(skinName, 'event_tp_itembox') ~= nil then
-		local pic = GET_CHILD(ctrlSet, "pic", "ui::CPicture");
-		if #strlist == 2 then
-			pic:SetImage(strlist[2]);
-
-			ReserveScript(string.format("REWARD_SMALL_EFFECT_START(\"%d\")", handle), 0.1);
-		end
 	end
 	
 	local width = maxWidthCnt * ctrlSetWidth + ctrlSetWidth;
 	local height = heightCnt * ctrlSetHeight + ctrlSetHeight;
 	itemcontainer:Resize(width, height);
 
+
 	frame:Resize(itemcontainer:GetWidth(), itemcontainer:GetHeight() + 50);
 	itemSlot:EnableHitTest(1)
 	RAID_REWARD_BAL_POS(frame);
-	
-end
 
-function REWARD_SET_ITEM_TEXT(skinName, itemCls)
-    local skinTitle = "junksilvergacha_itembox"
-	if skinName == skinTitle or skinName == skinTitle.."_high" or skinName == skinTitle.."_mid" or skinName == skinTitle.."_low" then
-		return GET_FULL_NAME(itemCls)
-	else
-		return GET_ITEM_GRADE_TXT(itemCls, 24);
-	end
 end
 
 function REWARD_ITEM_BALLOON(handle, rewardList)
@@ -201,22 +137,12 @@ function REWARD_ITEM_BALLOON(handle, rewardList)
 end
 
 function RAID_REWARD_BAL_POS(frame)
-	
+
 	frame = tolua.cast(frame, "ui::CFrame");
 	local handle = frame:GetUserIValue("HANDLE");
-	local pos = info.GetPositionInScreen(handle, 2);
-	local point = frame:ScreenPosToFramePos(pos.x, pos.y);
-
+	local point = info.GetPositionInUI(handle, 2);
 	local x = point.x - frame:GetWidth() / 2;
-	local y = point.y - frame:GetHeight();
+	local y = point.y - frame:GetHeight() - 40;
 	frame:MoveFrame(x, y);
-
 	return 1;
-end
-
-function REWARD_SMALL_EFFECT_START(handle)
-	local customName = string.format("ITEM_COMMON_%d", handle);
-	local frame = ui.GetFrame(customName);
-	local itemSlot = GET_CHILD_RECURSIVELY(frame, "itemslot", "ui::CSlot");
-	itemSlot:PlayUIEffect("I_gacha_end03", 2.5, "EFFECT", true);
 end

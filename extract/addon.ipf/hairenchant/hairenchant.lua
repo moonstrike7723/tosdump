@@ -13,26 +13,14 @@ function HAIRENCHANT_OK_BTN(frame, ctrl)
 	item.DoPremiumItemEnchantchip(itemIES, enchantGuid);
 end
 
-function HAIRENCHANT_SUCEECD(itemIES, moruItemClassID)
+function HAIRENCHANT_SUCEECD(itemIES)
 	HAIRENCHANT_UPDATE_ITEM_OPTION(itemIES);
-		
-	local invItem = session.GetInvItemByGuid(itemIES);
-	if invItem == nil then
-		return;
-	end
-
-	local itemCls = GetClassByType("Item", invItem.type);
-	local typeStr = "Item"	
-	if itemCls.ItemType == "Equip" then
-		typeStr = itemCls.ItemType; 
-	end	
-
 	imcSound.PlaySoundEvent("premium_enchantchip");
 	
 	local invframe = ui.GetFrame("inventory");
 	local inventoryGbox = invframe:GetChild("inventoryGbox");
-	local treeGbox = inventoryGbox:GetChild("treeGbox_" .. typeStr);
-	local tree = GET_CHILD(treeGbox,"inventree_" .. typeStr);
+	local treeGbox = inventoryGbox:GetChild("treeGbox");
+	local tree = GET_CHILD(treeGbox,"inventree");
 	tree:CloseNodeAll();
 
 	local treegroup = tree:FindByValue("Premium");
@@ -45,13 +33,9 @@ function HAIRENCHANT_SUCEECD(itemIES, moruItemClassID)
 	local invItem = session.GetInvItemByGuid(enchantGuid)
 	local cnt = enchantFrame:GetChild("scrollCnt");
 	if invItem ~= nil then
-		cnt:SetTextByKey("value", tostring(invItem.count));
+	cnt:SetTextByKey("value", tostring(invItem.count));
 	else
-		enchantGuid = GET_NEXT_ITEM_GUID_BY_CLASSID(moruItemClassID);
-		enchantFrame:SetUserValue("Enchant", enchantGuid);
-		local itemHaveCount = GET_INV_ITEM_COUNT_BY_CLASSID(moruItemClassID);
-
-		cnt:SetTextByKey("value", itemHaveCount);
+		cnt:SetTextByKey("value", tostring(0));
 	end
 end
 
@@ -109,7 +93,7 @@ function HAIRENCHANT_DRAW_HIRE_ITEM(slot, invItem)
 
 	local obj = GetIES(invItem:GetObject());
 	if ENCHANTCHIP_ABLIE(obj) ~= 1 then
-		ui.SysMsg(ClMsg("MagicEnchant").." "..ClMsg("IT_ISNT_REINFORCEABLE_ITEM"));
+		ui.SysMsg(ClMsg("CannotDropItem"));
 		return;
 	end
 
@@ -122,7 +106,7 @@ function HAIRENCHANT_DRAW_HIRE_ITEM(slot, invItem)
 	local frame = ui.GetFrame("hairenchant");
 	frame:SetUserValue("itemIES", itemIES);
 	local slot  = frame:GetChild("slot");
-	SET_SLOT_ITEM_IMAGE(slot, invItem);
+	SET_SLOT_ITEM_IMANGE(slot, invItem);
 
 	local itemName = frame:GetChild("itemName")
 	itemName:SetTextByKey("value", obj.Name);
@@ -143,6 +127,7 @@ function HAIRENCHANT_UI_RESET()
 	slot  = tolua.cast(slot, 'ui::CSlot');
 	slot:ClearIcon();
 
+	local frame = ui.GetFrame("hairenchant");
 	local nonOption = false;
 	for i = 1, 3 do
 		local propName = "HatPropName_"..i;
@@ -156,4 +141,5 @@ function HAIRENCHANT_UI_RESET()
 	cnt:SetTextByKey("value", tostring(0));
 
 	frame:ShowWindow(0);
+
 end
