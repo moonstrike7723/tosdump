@@ -2324,7 +2324,7 @@ end
 function SCR_ABIL_Monk34_INACTIVE(self, ability)
     local skill = GetSkill(self, "Monk_PalmStrike");
     if skill ~= nil then
-        SetSkillOverHeat(self, skill.ClassName, 3);
+        SetSkillOverHeat(self, skill.ClassName, 4);
         RequestResetOverHeat(self, "PalmStrike_OH")
 
         local shootTime = GetExProp(ability, "Monk34_ShootTime")
