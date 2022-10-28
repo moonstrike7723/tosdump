@@ -1,6 +1,6 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3
-999901,202003,100000,202003,150000,202004,70000,202004,20000,0,0,inGame_E1,Lovely Rolly Polly,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1947,,,
-999902,202003,100000,202003,150000,202003,240000,202003,190000,0,0,inGame_E2,Goddess' Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1946,,,
+999901,202003,240000,202003,290000,202004,70000,202004,20000,0,0,inGame_E1,Leticia Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1954,,,
+999902,202003,100000,202003,150000,202004,70000,202004,20000,0,0,inGame_E2,Lovely Rolly Polly,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1947,,,
 999903,202003,30000,202003,80000,202011,120000,202011,70000,0,0,inGame_E3,WeekEnd Burning Event,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1943,,,
 999904,202002,250000,202003,10000,202003,240000,202003,190000,0,0,inGame_E4,Blossom Package,inGame_E4,https://treeofsavior.com/page/news/view.php?n=1936,,,
 999905,202002,250000,202003,10000,202003,170000,202003,120000,0,0,inGame_E5,Re:Cube,inGame_E5,https://treeofsavior.com/page/news/view.php?n=1935,,,

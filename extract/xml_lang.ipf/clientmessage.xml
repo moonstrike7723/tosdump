@@ -47,6 +47,7 @@
 		<Class ClassID="45" ClassName="CantConnectChatServer{port}" Data="채팅 서버에 연결할 수 없습니다 문제가 지속된다면, 응답 Network port의 가용 여부를 확인해주시기 바랍니다."/>
 		<Class ClassID="46" ClassName="CantLoadChatServerInfo" Data="채팅 서버정보를 로드할 수 없습니다. 재 접속 이후에도 문제 발생시 게임 고객센터에 문의해주세요."/>
 		<Class ClassID="47" ClassName="CantCreateTeamCuzExisting" Data="Cannot create a team due to the existing team in the other world."/>
+    <Class ClassID="48" ClassName="CantConnectChatServer{error}" Data="ErrorCode[{error}] 채팅 서버에 연결할 수 없습니다."/>
 	</Category>
 	<Category Name="ChatMsg">
 		<Class ClassID="300" ClassName="TemporarilyUnavailable_1" Data="일시적으로 중지된 기능입니다."/>
