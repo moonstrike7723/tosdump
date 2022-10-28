@@ -14496,6 +14496,7 @@ ClassID,ClassName,Caption,NextPage,ImgName,VoiceName,Text,arg1,arg2,arg3,arg4
 5010152,NPC_EVENT_LAST_WINTER_DLG4,이벤트 알림판,,blank,,이미 버프가 존재합니다.,,,,
 5010153,NPC_EVENT_LAST_WINTER_DLG5,이벤트 알림판,,blank,,너무 이릅니다.,,,,
 5010154,EVENT_COOPERATION_DLG1,이벤트 알림판,,blank,,이벤트 상점용 아이템으로 교환해 드립니다.{nl}몇 개를 교환하시겠습니까?,,,,
+5010170,NPC_EVENT_2YEARS_DLG7,초대에 응한 마스터,,blank,,이벤트 워프 주문서 - 2주년 이벤트 시작 아이템을 먼저 사용해주세요.{nl}[획득 방법]{nl}TOS - Second Anniversary Present DLC에서 무료로 받을 수 있습니다.{nl}(최초 GM 메시지함으로 지급됩니다.),,,,
 5015000,NPC_KUPOLE_TESTSERVER_DLG_01,큐폴 서버 지원병,,blank,,큐폴 서버 일일 출석 보상이 지급되었습니다.,,,,
 5015001,NPC_KUPOLE_TESTSERVER_DLG_02,큐폴 서버 지원병,,blank,,오늘은 이미 보상을 지급 받았습니다.,,,,
 5200000,NPC_JUNK_SHOP,유랑 상인 게랄다스,,blank,,내가 바로 게랄다스지.{nl}온 세상을 돌아다니며 많은 고물.. 아니 보물들을 수집했지.{nl}후후 내 보물의 가치는 측정할 수 없지.{np}혹시 오래된 황금 주화라고 들어봤나?{nl}내가 요즘 그거를 수집하고 있거든{np}실버와 내가 모은 보물 중 하나를 주지.{nl}오래된 황금 주화를 준다면 공짜로 더 좋은 물건과 바꿔주지.{np}어때? 교환할 텐가?,,,,
