@@ -2065,6 +2065,8 @@
 		<Class ClassID="21417" ClassName="Guide" Data="가이드"/>
 		<Class ClassID="21418" ClassName="NewEpisodeLockMsg_Episode_12_2" Data="{@st59}해당 에피소드의 클리어 보상은 추후 공개될 예정입니다.{nl}{#FFFF00}[Episode12-2]{/}의 퀘스트 시작은 {#FFFF00}종언의 길{/}의 {#FFFF00}여신 라이마{/}로부터 시작할 수 있습니다.{nl}단, Episode12-2는 Episode12-1의 퀘스트를 모두 완료해야만 진행할 수 있습니다.{/}"/>
 		<Class ClassID="21419" ClassName="NewEpisodeLockMsg_Episode_13" Data="{@st59}해당 에피소드의 클리어 보상은 추후 공개될 예정입니다.{nl}{#FFFF00}[Episode13]{/}의 퀘스트 시작은 {#FFFF00}오르샤{/}의 {#FFFF00}이네사 해먼데일{/}로부터 시작할 수 있습니다."/>
+		<Class ClassID="21421" ClassName="InstrumentKeyboardClose" Data="악기연주를 닫습니다."/>
+		<Class ClassID="21422" ClassName="ImpossibleInstrumentState" Data="악기연주 상태에서는 불가능한 동작입니다."/>
 	</Category>
 	<Category Name="ChatText">
 		<Class ClassID="22001" ClassName="Guard" Data="방어"/>
@@ -9763,6 +9765,9 @@
 		<Class ClassID="92082" ClassName="TeamBelongingItem" Data="{#62100c}{s18}귀속됨{/}{/}"/>
 		<Class ClassID="92083" ClassName="GILTINE_START_MSG" Data="보스 등장."/>
 		<Class ClassID="92084" ClassName="GACHA_SITEM_GET_ALLMSG_8" Data="{s24}축하드립니다!{nl}{PC} 님이 신년 복주머니 큐브에서{nl}{ITEMNAME} 를(을) 획득하셨습니다!"/>
+		<Class ClassID="92087" ClassName="Orgel_MSG5" Data="악기 연주 도중에는 사용할 수 없습니다."/>
+		<Class ClassID="92088" ClassName="Instrument_MSG" Data="악기 사용이 불가능한 상태입니다."/>
+		<Class ClassID="92089" ClassName="Instrument_MSG2" Data="악기 연주 도중에는 친선 대결이 불가능합니다."/>
 	</Category>
 	<Category Name="BattleText">
 		<Class ClassID="100001" ClassName="ADD_DAMAGE_{Auto_1}!" Data="추가 대미지 {Auto_1}!"/>
@@ -14805,6 +14810,7 @@
 		<Class ClassID="302335" ClassName="EVENT_2102_REPAIR_MSG8" Data="여신상을 수리한다."/>
 		<Class ClassID="302336" ClassName="EVENT_2102_REPAIR_MSG9" Data="{#FF0000}오늘은 이미 여신상을 수리하셨습니다.{nl}일일 제한은 매일 오전 6시에 초기화됩니다.{/}"/>
 		<Class ClassID="302337" ClassName="Event_2102_REPAIRKIT_CHECK_MESSAGE{DAY}" Data="{#003399}딥디르비와 여신상 이벤트{/}{nl}[이벤트] 여신상 수리키트 획득량 ({DAY}/500){nl}{#ff0000}※일일 제한은 매일 오전 06시 초기화 됩니다.{/}"/>
+		<Class ClassID="302358" ClassName="EVENT_2011_5TH_Special_Vibora_Shop_Material" Data="바이보라 무기 1개 {nl}[이벤트] TOS 주화 1000개{nl}[이벤트] 5주년 기념 주화 50개"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>

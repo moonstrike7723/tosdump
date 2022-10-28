@@ -1712,6 +1712,11 @@ function TRY_TO_USE_WARP_ITEM(invitem, itemobj)
 		ui.SysMsg(ScpArgMsg("CannotUseThieInThisMap"));
 		return 0;
 	end
+
+	if IsInstrumentState(pc) == "YES" then
+		ui.SysMsg(ScpArgMsg("ImpossibleInstrumentState"));
+		return 0;
+	end
 	
 	-- 워프 주문서 예외처리. 실제 워프가 이루어질때 아이템이 소비되도록.
 	local warpscrolllistcls = GetClass("warpscrolllist", itemobj.ClassName);
@@ -1753,7 +1758,6 @@ function TRY_TO_USE_WARP_ITEM(invitem, itemobj)
 			return 1;
 		end
 		
-		local pc = GetMyPCObject();
         local warpFrame = ui.GetFrame('worldmap2_mainmap');
         warpFrame:SetUserValue('WARP_TYPE', "ITEM")
 		warpFrame:SetUserValue('SCROLL_WARP', itemobj.ClassName)
@@ -1777,6 +1781,11 @@ end
 
 --아이템의 사용
 function INVENTORY_RBDC_ITEMUSE(frame, object, argStr, argNum)
+	local pc = GetMyPCObject();
+	if IsBuffApplied(pc, 'Instrument_Use_Buff') == 'YES' then
+		return;
+	end
+	
 	local invitem = GET_SLOT_ITEM(object);
     if invitem == nil then
 		return;
@@ -1881,7 +1890,7 @@ function INVENTORY_RBDC_ITEMUSE(frame, object, argStr, argNum)
 
 		return;
 	end	
-
+	
     -- mixer
 	local mixerFrame = ui.GetFrame("mixer");
 	if mixerFrame:IsVisible() == 1 then
@@ -1926,7 +1935,7 @@ function INVENTORY_RBDC_ITEMUSE(frame, object, argStr, argNum)
 	else -- non-equip item use        
 		if true == RUN_CLIENT_SCP(invitem) then        
             return;
-        end
+		end
 		local groupName = itemobj.GroupName;
 		local itemType = itemobj.ItemType;
 		if itemType == 'Consume' or itemType == 'Quest' or itemType == 'Cube' or groupName == 'ExpOrb' or groupName == 'SubExpOrb' then
@@ -2126,6 +2135,11 @@ end
 
 --아이템의 사용
 function INVENTORY_RBDOUBLE_ITEMUSE(frame, object, argStr, argNum)
+	local pc = GetMyPCObject();
+	if IsBuffApplied(pc, 'Instrument_Use_Buff') == 'YES' then
+		return;
+	end
+	
 	local invitem = GET_SLOT_ITEM(object);
     if invitem == nil then
 		return;
@@ -2696,6 +2710,11 @@ end
 
 --현재 가지고 있는 염색의 종류를 haveHairColorList에 넣음
 function CHANGE_HAIR_COLOR(frame)
+	local pc = GetMyPCObject();
+	if IsBuffApplied(pc, 'Instrument_Use_Buff') == 'YES' then
+		return;
+	end
+	
 	local hairColorBtn = GET_CHILD_RECURSIVELY(frame, "HAIR_COLOR");
 	if hairColorBtn == nil then
 		return;
@@ -3878,6 +3897,11 @@ function INV_HAT_VISIBLE_STATE(frame)
 end
 
 function INV_HAT_VISIBLE_STEATE_SET(frame)
+	local pc = GetMyPCObject();
+	if IsBuffApplied(pc, 'Instrument_Use_Buff') == 'YES' then
+		return;
+	end
+
 	if frame:GetUserIValue("CLICK_COOL_TIME") > imcTime.GetAppTime() then
 		return;	
 	end
@@ -3951,6 +3975,11 @@ function INV_HAIR_WIG_VISIBLE_STATE(frame)
 end
 
 function INV_HAIR_WIG_VISIBLE_STATE_SET(frame)
+	local pc = GetMyPCObject();
+	if IsBuffApplied(pc, 'Instrument_Use_Buff') == 'YES' then
+		return;
+	end
+
 	if frame:GetUserIValue("CLICK_COOL_TIME") > imcTime.GetAppTime() then
 		return;	
 	end
@@ -4112,7 +4141,7 @@ function WEAPONSWAP_HOTKEY_ENTERED()
 end
 
 --index = 1 일때 1번창으로 스왑하는 함수. 2일때 2번창으로 스왑하는 함수
-function DO_WEAPON_SWAP(frame, index)       
+function DO_WEAPON_SWAP(frame, index)
     if quickslot.IsDoingWeaponSwap() == true then
         return
     end
@@ -4123,6 +4152,10 @@ function DO_WEAPON_SWAP(frame, index)
 
 	local pc = GetMyPCObject();
 	if pc == nil then
+		return;
+	end
+	
+	if IsBuffApplied(pc, 'Instrument_Use_Buff') == 'YES' then
 		return;
 	end
 

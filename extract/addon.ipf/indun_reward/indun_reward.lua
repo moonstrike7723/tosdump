@@ -187,10 +187,6 @@ function SCR_INDUN_REWARD_WAIT_RETURN(textReturn)
 	return 1;
 end
 
-function SCR_INDUN_REWARD_RETURN(frame)
-	packet.ReqReturnOriginServer();
-end
-
 function SCR_INDUN_REWARD_CLOSE(frame)
     local frame = ui.GetFrame("indun_reward");
 	frame:ShowWindow(0);

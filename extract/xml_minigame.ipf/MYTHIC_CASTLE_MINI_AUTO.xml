@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by asdasd (IMCGames Co., Ltd) -->
 <GameList>
     <Game Name="MYTHIC_CASTLE_MINI_AUTO" minLv="0" maxLv="0" mapName="Mythic_castle" playerCountCheckDestroy="1" startWaitSec="76">
         <StageList>
@@ -519,6 +520,7 @@
                 <ObjList>
                     <Obj Type="Monster" MonType="20053" Pos="-1389.43#0.70#-1065.13" genCount="1" genTime="20000" objectKey="0"/>
                     <Obj Type="Monster" MonType="20026" Pos="-809.16#93.15#-906.44" genCount="1" genTime="20000" objectKey="1" propList="&apos;Enter&apos; &apos;MYTHIC_GO_TO_START_POINT&apos; &apos;Range&apos; &apos;650&apos; "/>
+                    <Obj Type="Monster" MonType="40070" Pos="-1603.44#0.80#-1069.03" angle="-69" genCount="1" genTime="20000" objectKey="2" propList="&apos;Dialog&apos; &apos;MYHTIC_CASTLE_BOARD&apos; "/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="10">

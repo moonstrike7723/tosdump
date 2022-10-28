@@ -7223,6 +7223,7 @@
         <Effect Name="CHALLENGE_AUTO_2"/>
         <Effect Name="CHALLENGE_AUTO_1"/>
         <Effect Name="I_knife002_rotate#Dummy_Force"/>
+        <Effect Name="F_ground174_pink"/>
     </Category>
     <Category ID="27">
         <Effect Name="SAPPER_TRAP_Sapper_BroomTrap"/>
