@@ -24,9 +24,9 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 		return;
 	end
 
-	local retHair, hairCouponItem = CHECK_COUPON_ITEM(pc, hairCouponGuid);
-	local retDye, dyeCouponItem = CHECK_COUPON_ITEM(pc, dyeCouponGuid);
-		local retSkin, skinCouponItem = CHECK_COUPON_ITEM(pc, skinCouponGuid);
+	local retHair, hairCouponItem = CHECK_HAIR_COUPON_ITEM(pc, hairCouponGuid);
+	local retDye, dyeCouponItem = CHECK_DYE_COUPON_ITEM(pc, dyeCouponGuid);
+		local retSkin, skinCouponItem = CHECK_SKIN_COUPON_ITEM(pc, skinCouponGuid);
 	if retHair == false or retDye == false or retSkin == false then
 		return;
 	end
