@@ -57,7 +57,7 @@ function INDUNINFO_CREATE_CATEGORY(frame)
                     cyclePicImg:SetImage('indun_icon_event_s_eng')
                     local margin = cyclePicImg:GetOriginalMargin();
                     cyclePicImg:SetMargin(margin.left, margin.top, margin.right, margin.bottom);
-                    cyclePicImg:Resize(cyclePicImg:GetOriginalWidth() + 11, cyclePicImg:GetOriginalHeight());         
+                    cyclePicImg:Resize(cyclePicImg:GetOriginalWidth() + 1, cyclePicImg:GetOriginalHeight());         
                 end
 
                 categoryCtrl:SetUserValue('RESET_GROUP_ID', resetGroupID);

@@ -164,7 +164,7 @@
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="다음 꽃길로 이동하세요"/>
+                                <Str Str="다음 봄길로 이동하세요"/>
                                 <Str Str="Clear"/>
                                 <Num Num="3"/>
                             </ToolScp>
@@ -396,7 +396,7 @@
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="다음 꽃길로 이동하세요"/>
+                                <Str Str="다음 봄길로 이동하세요"/>
                                 <Str Str="Clear"/>
                                 <Num Num="3"/>
                             </ToolScp>
@@ -710,7 +710,7 @@
                     <Event execCount="1" eventName="msg">
                         <execList>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="꽃길을 오염시키는 쓰론위버를 해치우세요"/>
+                                <Str Str="봄길을 오염시키는 쓰론위버를 해치우세요"/>
                                 <Str Str="!"/>
                                 <Num Num="5"/>
                             </ToolScp>
@@ -732,7 +732,7 @@
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="다음 꽃길로 이동하세요"/>
+                                <Str Str="다음 봄길로 이동하세요"/>
                                 <Str Str="Clear"/>
                                 <Num Num="3"/>
                             </ToolScp>
@@ -810,7 +810,7 @@
                                 <AbsPosRange X="1428.0652" Y="106.4933" Z="1113.7729"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_GIVE_ITEM" Client="NO" UseSleep="NO">
-                                <Str Str="Event_JP_FLOWER_CUBE/1"/>
+                                <Str Str="Event_JP_FLOWER_CUBE/5"/>
                                 <Str Str="FLOWER_EVENT"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">

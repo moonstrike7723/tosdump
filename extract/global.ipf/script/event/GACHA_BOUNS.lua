@@ -1,7 +1,6 @@
 function SCR_GACHA_BOUNS_VALUE(self, pc)
     local aObj = GetAccountObj(pc);
-    --201912 STEAM GABIA CUBE 특수 케이스로 3
-    local cubetype = 3; -- 레티샤는 1/ 여큐는 2 / 반드시 지켜주세요 --
+    local cubetype = 1; -- 레티샤는 1/ 여큐는 2 / 반드시 지켜주세요 --
 	local count_reward;
     local next_count, next_bouns = 0, 0;
     local rewardlist = {}
