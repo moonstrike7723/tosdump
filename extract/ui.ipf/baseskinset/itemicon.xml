@@ -8898,6 +8898,9 @@
 		<image name="icon_item_selectbox_ep13athleisure02_reward" file="\icon\payment\icon_item_selectbox_ep13athleisure02_reward.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_toy_ep13athleisure01" file="\icon\payment\icon_item_toy_ep13athleisure01.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_toy_ep13athleisure02" file="\icon\payment\icon_item_toy_ep13athleisure02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_misc_pvp_mine2_NotLimit_50000" file="\icon\payment\icon_item_misc_pvp_mine2_NotLimit_50000.png" imgrect="0 0 128 128" CMM_Caption="용병단 증표:50,000"/>
+		<image name="icon_item_newcle_siera_big_set" file="\icon\payment\icon_item_newcle_siera_big_set.png" imgrect="0 0 256 256" CMM_Caption="뉴클/시에라 가루 대형 번들"/>
+		<image name="icon_item_doll_santa_guilty" file="\icon\payment\icon_item_doll_santa_guilty.png" imgrect="0 0 256 256" CMM_Caption="길티네 인형"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>

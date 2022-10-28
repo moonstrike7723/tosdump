@@ -15842,6 +15842,7 @@
 		<Class ClassID="501295" ClassName="BountyHuntBoss_Chat11" Data="저항했지만 빠져나오는데 실패했다!"/>
 		<Class ClassID="501296" ClassName="BountyHuntBoss_Chat12" Data="빠져나오는데 성공했다!"/>
 		<Class ClassID="501297" ClassName="BountyHuntBoss_Chat13" Data="잡아먹혔다!{nl}상호작용으로 저항할 수 있을 것 같다."/>
+		<Class ClassID="501298" ClassName="BURNING_EVENT_COUNT_RESET_SEL2" Data="성물 레이드 : 자동 매칭 (Normal) 입장 횟수 초기화 하기"/>
 	</Category>
 	<Category Name="GEM_GACHA">
 		<Class ClassID="510001" ClassName="GEM_GACHA_SEL1" Data="젬 1회 뽑기"/>

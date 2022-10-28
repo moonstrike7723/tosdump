@@ -25220,6 +25220,7 @@ ClassID,ClassName,Mesh,Path,ArmbandInfo,UseAlpha,IsJiggleBoneHair
 727142,head91_eye01_emerald,char_hi\pc\faces\jigglebone\F\head.xac,char_texture\pc\face\jigglebone\F\head\eye01_emerald\,,NO,YES
 727143,head91_eye01_cateye_blue,char_hi\pc\faces\jigglebone\F\head.xac,char_texture\pc\face\jigglebone\F\head\eye01_cateyeblue\,,NO,YES
 727144,head91_eye01_cateye_brown,char_hi\pc\faces\jigglebone\F\head.xac,char_texture\pc\face\jigglebone\F\head\eye01_cateyebrown\,,NO,YES
+727156,doll_santa_guilty,char_hi\monster\doll_santa_guilty_set.xac,char_texture\monster\doll_santa_guilty\,,NO,
 727201,Hair112,char_hi\pc\faces\jigglebone\M\retro_long_regent\retro_long_regent.xac,char_texture\pc\face\jigglebone\M\retro_long_regent\,,NO,YES
 727202,Hair112_gold,char_hi\pc\faces\jigglebone\M\retro_long_regent\retro_long_regent.xac,char_texture\pc\face\jigglebone\M\retro_long_regent\gold\,,NO,YES
 727203,Hair112_brown,char_hi\pc\faces\jigglebone\M\retro_long_regent\retro_long_regent.xac,char_texture\pc\face\jigglebone\M\retro_long_regent\brown\,,NO,YES

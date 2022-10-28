@@ -1323,6 +1323,7 @@ ClassID,BuyPrice,SellPrice,ClassName,Category,SubCategory,PackageList
 11150,0,30,Effect_ep13athleisure,Recyle_Shop_Sell,Recyle_Shop_Sell,
 11156,0,30,artefact_ep13athleisure01,Recyle_Shop_Sell,Recyle_Shop_Sell,
 11157,0,30,artefact_ep13athleisure02,Recyle_Shop_Sell,Recyle_Shop_Sell,
+11158,0,30,Doll_santa_guilty,Recyle_Shop_Sell,Recyle_Shop_Sell,
 100001,0,30,helmet_astronaut,Recyle_Shop_Sell,Recyle_Shop_Sell,
 100002,0,30,ABAND01_148,Recyle_Shop_Sell,Recyle_Shop_Sell,
 100003,0,30,helmet_twndeer,Recyle_Shop_Sell,Recyle_Shop_Sell,
