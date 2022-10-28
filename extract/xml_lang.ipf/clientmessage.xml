@@ -13862,6 +13862,12 @@
 		<Class ClassID="302095" ClassName="STAMP_TOUR_TRADE_WARNING" Data="{item} 아이템은 팀창고 이동이 불가능합니다.{nl}수령하시겠습니까?"/>
 		<Class ClassID="302096" ClassName="STAMP_TOUR_WEEK_MSG" Data="{week}주차에 공개됩니다."/>
 		<Class ClassID="302097" ClassName="STAMP_TOUR_PERSONAL_HOUSING_POINT" Data="[스탬프 투어]주거 정착 물품 교환{nl}{count}/{max}"/>
+		<Class ClassID="302098" ClassName="NewUserShop2004" Data="트린이날 이벤트 상점"/>
+		<Class ClassID="302099" ClassName="EVENT_2004_NEWUSER_SEL_MSG1" Data="{#003399}[트린이날]{/} 이벤트 설명"/>
+		<Class ClassID="302100" ClassName="EVENT_2004_NEWUSER_SEL_MSG2" Data="{#003399}[트린이날]{/} 이벤트 상점"/>
+		<Class ClassID="302101" ClassName="EVENT_2004_NEWUSER_CHECK_MESSAGE{TIME}{COIN}" Data="[이벤트] 포포리온 뱃지 일일 획득 정보{nl}1시간 접속시 뱃지 20개 획득 ({TIME}/60분){nl}일일 총 획득량 ({COIN}/100){nl}{#FF0000}※ 1시간 접속 획득 주화는 일일 주화 획득 제한에 포함됩니다.{/}{nl}{#FF0000}※일일 최대 획득량은 오전 6시 초기화 됩니다.{/}"/>
+		<Class ClassID="302102" ClassName="EVENT_2004_NEWUSER_CHECK_MESSAGE_DONE" Data="[이벤트] 포포리온 뱃지 일일 획득 정보{nl}오늘 획득 가능한 [이벤트] 포포리온 뱃지를 모두 획득하였습니다.{nl}{#FF0000}※일일 최대 획득량은 오전 6시 초기화 됩니다.{/}"/>
+		<Class ClassID="302103" ClassName="EVENT_COIN_FULL{COIN}" Data="오늘 획득 가능한 {COIN}을(를) 전부 획득하셨습니다."/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -14109,7 +14115,7 @@
 		<Class ClassID="510733" ClassName="PvpMine_TeamA_NPC_Dead" Data="{ol}{img mine_pvp_teamicon_bladetryst 40 40}{/}{#ff6d00} 칼날서약 용병단원{/}을 {NAME}이(가) 처치하였습니다.{nl}{ol}{img mine_pvp_teamicon_bladetryst 40 40}{/}{#ff6d00} 칼날서약 용병단원{/}의 포인트 {POINT}이 약탈되었습니다."/>
 		<Class ClassID="510734" ClassName="PVP_MINE_TAKE_DAMAGE_MSG_1" Data="{ol}{img mine_pvp_teamicon_goldencroon 40 40}{/}{#5ae2e7} 황금노래 용병단원{/}이 피해를 입고 있습니다."/>
 		<Class ClassID="510735" ClassName="PVP_MINE_TAKE_DAMAGE_MSG_2" Data="{ol}{img mine_pvp_teamicon_bladetryst 40 40}{/}{#ff6d00} 칼날서약 용병단원{/}이 피해를 받고 있습니다."/>
-	    <Class ClassID="510736" ClassName="pvp_mine_return_dlg" Data="자원 쟁탈전이 종료되었습니다."/>
+		<Class ClassID="510736" ClassName="pvp_mine_return_dlg" Data="자원 쟁탈전이 종료되었습니다."/>
 	</Category>
 	<Category Name="Beauty_Shop">
 		<Class ClassID="510801" ClassName="Beauty_Shop_IN" Data="뷰티샵 입장"/>
@@ -15034,5 +15040,8 @@
 		<Class ClassID="591012" ClassName="Rift_Dungeon_Created" Data="차원 붕괴 지점이 생성 되었습니다."/>
 		<Class ClassID="591013" ClassName="Rift_Dungeon_Not_Exists" Data="생성된 차원 붕괴 지점이 없습니다.{nl}파티 리더만 생성 가능합니다."/>
 		<Class ClassID="591014" ClassName="Rift_Dungeon_Really2" Data="{Level} 단계를 선택하셨습니다. 입장 하시겠습니까?{nl}{Color}용병단 증표 소지량 : {HasCount} / {MaxCount}{/}"/>
+	</Category>
+	<Category Name="GlobalEventDialog">
+		<Class ClassID="597000" ClassName="EVENT_2004_NEWUSER_SEL_MSG1_GLOBAL" Data="{#003399}[트린이날]{/} 이벤트"/>
 	</Category>
 </idspace>

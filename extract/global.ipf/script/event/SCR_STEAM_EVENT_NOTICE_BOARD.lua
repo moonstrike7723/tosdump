@@ -6,16 +6,11 @@ function SCR_STEAM_TREASURE_EVENT_DIALOG(self,pc)
         RemoveBuff(pc, 'Event_Steam_Secret_Market')
     end
 
-	ShowOkDlg(pc, 'GLOBAL_EVENT_BOARD_NO_EVENT', 1) -- 현재 이벤트 알림판에서 진행중인 이벤트가 없습니다. --
-	
-    --local select = ShowSelDlg(pc, 0, 'EVENT_2001_Seollal_BORAD_DLG1')
-    --if select == 1 then
-    --    SCR_EV2018_REWARD_GUIDE_DIALOG(self, pc)
-    --elseif select == 2 then
-	--	SCR_EV2018_REWARD_DAYDAY_DIALOG(self, pc)  
-	-- elseif select == 3 then
-	-- 	SCR_EVENT_2001_NEWYEAR_BOARD_DIALOG(self, pc)
-    --end
+    local select = ShowSelDlg(pc, 0, 'EV_DAILYBOX_SEL', ScpArgMsg("EVENT_2004_NEWUSER_SEL_MSG1_GLOBAL"), ScpArgMsg("Cancel"))
+    
+    if select == 1 then
+        SCR_EVENT_2004_NEWUSER_BOARD_DIALOG(self, pc)
+    end
 end
 
 function SCR_STEAM_2018_TREASURE_EVENT_DIALOG(self,pc) -- 국내 수확 이벤트 함수명 바꿔서 사용 --
