@@ -82,21 +82,25 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 ,{'통합 포인트 획득량 2배 증가 ','EVENT_CONTENTS_TOTAL_POINT_BOOST'}
 					 ,{'필드 드롭율 50% 증가','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}
 					 ,{'[주말 앤 버닝] 성물 레이드 : 자동 매칭 (Normal) 입장 횟수 초기화','Event_Mythic_Auto_Count_Reset'}					 
+					 ,{'챌린지 모드 보상 증가','EVENT_CHALLENGE_REWARD_BOOST'}					 
+					 ,{'분열 특이점(자동매칭) 모드 보상 증가','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}					 
 					 }
     
 	local daycheckbuff = 
-					 {{'3','4',{'Event_Expup_100','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}}
-					 ,{'3','5',{'Event_Expup_100','Event_Challenge_Count_Reset'}}
-					 ,{'3','6',{'Event_Expup_100','Event_Mythic_Auto_Count_Reset'}}
-					 ,{'3','11',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-					 ,{'3','12',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
-					 ,{'3','13',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
-					 ,{'3','18',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-					 ,{'3','19',{'Event_Expup_50','Event_Reagent_Bottle_Expup_100'}}
-					 ,{'3','20',{'Event_LootingChance_Add_1000','Event_Reappraisal_Discount_50'}}
-					 ,{'3','25',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-					 ,{'3','26',{'Event_Expup_50','Event_healHSP_Speedup'}}
-					 ,{'3','27',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+					 {{'4','1',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
+					 ,{'4','2',{'Event_Expup_50','Event_Reagent_Bottle_Expup_100'}}
+					 ,{'4','3',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'4','8',{'Event_Expup_100','Event_Mythic_Auto_Count_Reset'}}
+					 ,{'4','9',{'Event_Expup_100','EVENT_CHALLENGE_REWARD_BOOST'}}
+					 ,{'4','10',{'Event_Expup_100','Event_Reinforce_Discount_50'}}
+					 ,{'4','15',{'Event_Expup_100','Event_Challenge_Count_Reset'}}
+					 ,{'4','16',{'Event_Expup_100','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}}
+					 ,{'4','17',{'Event_Expup_100','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}}
+					 ,{'4','22',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+					 ,{'4','23',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
+					 ,{'4','24',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+					 ,{'4','29',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+					 ,{'4','30',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
 						 }
 	
 	-- 기본 적용 버프
@@ -236,7 +240,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 			end
 		end
 	        --MYTHIC_AUTO_RESET
-	elseif  REGULAR_BURNING_EVENT_SERVER_TIME_CHECK(self) == 20220306 then -- before active select dialog
+	elseif  REGULAR_BURNING_EVENT_SERVER_TIME_CHECK(self) == 20220408 then -- before active select dialog
 		local mythicrecheck = TryGetProp(accountObject,"REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET",0)
 		
 		if distractor == 2 then
