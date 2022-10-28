@@ -226,7 +226,10 @@ function OPEN_PROPERTY_SHOP(shopName)
 	end
 
 	itemlist:RealignItems();
-	
+	local gb = itemlist:GetGroupBox();	
+	tolua.cast(gb, "ui::CGroupBox")  
+	gb:SetScrollPos(0)
+
 	PROPERTYSHOP_CHANGE_COUNT(frame);
 
 	if shopName == "GUILD_CONTRIBUTION_SHOP" then
@@ -344,8 +347,12 @@ function OPEN_PVP_PROPERTY_SHOP(shopName)
 		end
 
 	end
-
+	
 	itemlist:RealignItems();
+	local gb = itemlist:GetGroupBox();	
+	tolua.cast(gb, "ui::CGroupBox")  
+	gb:SetScrollPos(0)
+
 	PROPERTYSHOP_CHANGE_COUNT(frame);
 	local t_mymoney = GET_CHILD_RECURSIVELY(bg, "t_mymoney");
 	t_mymoney:SetTextByKey("value", GET_COMMAED_STRING(GET_PROPERTY_SHOP_MY_POINT(frame)));
