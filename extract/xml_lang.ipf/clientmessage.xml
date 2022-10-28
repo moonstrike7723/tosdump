@@ -9586,6 +9586,8 @@
 		<Class ClassID="102438" ClassName="NOTICE_START_CASUAL_GAMBLE" Data="여신의 축복 이벤트가 시작되었습니다!"/>
 		<Class ClassID="102439" ClassName="ReallyEndRecruit" Data="현재 진행중인 참가자 모집을 마감하시겠습니까?"/>
 		<Class ClassID="102440" ClassName="ReallyCancelRecruit" Data="현재 진행중인 길드 퀘스트를 포기하시겠습니까?"/>
+		<Class ClassID="102441" ClassName="EventServerGuildQuestCheck" Data="{#003399}[시즌서버]{/} 길드퀘스트 누적 클리어 횟수 확인하기"/>
+		<Class ClassID="102442" ClassName="EventServerGuildQuestCheckMsg{WEEKCOUNT}{TOTALCOUNT}" Data="길드 퀘스트 누적 클리어 횟수{nl}주간 클리어 횟수({WEEKCOUNT}/3){nl}누적 클리어 횟수({TOTALCOUNT}/12){nl}{#FF0000}※주간 클리어 횟수는 매주 화요일 00시에 초기화 됩니다.{/}"/>
 	</Category>
 	<Category Name="EqupClasses">
 		<Class ClassID="103001" ClassName="THSword" Data="양손검"/>
