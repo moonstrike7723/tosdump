@@ -17142,9 +17142,9 @@
 		<Class ClassID="1000034" ClassName="CantJoinChallengeCasualMode" Data="파티원이 2명이상인 상태에서는 챌린지 모드(1인)에 입장하실 수 없습니다."/>
 		<Class ClassID="1000035" ClassName="challenge_Mode_Auto_StartMsg" Data="5초 뒤에 시작됩니다."/>
 		<Class ClassID="1000036" ClassName="AutoMathcingWithPartyMaxLimit" Data="최대 파티 인원수 보다 더 많은 파티원으로 매칭할 수 없습니다."/>
-		<Class ClassID="1000037" ClassName="challenge_Mode_Auto_Enter_01" Data="챌린지 모드 : Lv440 1인 모드"/>
-		<Class ClassID="1000038" ClassName="challenge_Mode_Auto_Enter_02" Data="챌린지 모드 : Lv460 1인 모드"/>
-		<Class ClassID="1000039" ClassName="challenge_Mode_Auto_Enter_03" Data="챌린지 모드 : Lv460 자동매칭"/>
+		<Class ClassID="1000037" ClassName="challenge_Mode_Auto_Enter_01" Data="챌린지 모드 : Lv460 1인 모드"/>
+		<Class ClassID="1000038" ClassName="challenge_Mode_Auto_Enter_02" Data="챌린지 모드 : Lv480 1인 모드"/>
+		<Class ClassID="1000039" ClassName="challenge_Mode_Auto_Enter_03" Data="챌린지 모드 : Lv480 자동매칭"/>
 		<Class ClassID="1000040" ClassName="challenge_HardMode_Auto_Enter_01" Data="챌린지 모드 : 분열 특이점 자동매칭 "/>
 		<Class ClassID="1000041" ClassName="challenge_auto_mode_fail" Data="챌린지 모드 자동매칭에 실패하였습니다."/>
 		<Class ClassID="1000042" ClassName="challenge_auto_division_mode_fail" Data="챌린지 모드 : 분열 특이점 자동매칭에 실패하였습니다."/>
