@@ -1,6 +1,6 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202107,270000,202108,10000,202108,170000,202108,120000,0,0,inGame_E1,[Special] Hot Summer Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2324,,,,
-999902,202107,270000,202108,10000,202108,100000,202108,50000,0,0,inGame_E2,Goddess' Blessed Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2322,,,,
+999901,202108,100000,202108,150000,202108,240000,202108,190000,0,0,inGame_E1,Leticia's Secret Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2332,,,,
+999902,202107,270000,202108,10000,202108,170000,202108,120000,0,0,inGame_E2,[Special] Hot Summer Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2324,,,,
 999903,202107,200000,202107,250000,202108,310000,202108,260000,0,0,inGame_E3,Fashion Museum: All Stars,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2317,,,,
 999904,202108,30000,202108,80000,202108,240000,202108,190000,0,0,inGame_E4,Watermelon Fishing,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2329,,,,
 999905,202107,280000,202108,10000,202108,240000,202108,190000,0,0,inGame_E5,Demon God's Temptation,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2323,,,,

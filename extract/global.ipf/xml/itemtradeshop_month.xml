@@ -66,12 +66,12 @@
 		<Class ClassID="224" ClassName="SilverGachaShop_24" SellStartTime="2021-01-12 18:00:00" SellEndTime="2021-07-13 13:59:59"/>
 		<Class ClassID="225" ClassName="SilverGachaShop_25" SellStartTime="2021-01-12 18:00:00" SellEndTime="2021-07-13 13:59:59"/>
 		<Class ClassID="226" ClassName="SilverGachaShop_26" SellStartTime="2021-01-12 18:00:00" SellEndTime="2021-07-13 13:59:59"/>
-		<Class ClassID="227" ClassName="SilverGachaShop_27" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-17 13:59:59"/>
-		<Class ClassID="228" ClassName="SilverGachaShop_28" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-17 13:59:59"/>
-		<Class ClassID="229" ClassName="SilverGachaShop_29" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-17 13:59:59"/>
-		<Class ClassID="230" ClassName="SilverGachaShop_30" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-17 13:59:59"/>
-		<Class ClassID="231" ClassName="SilverGachaShop_31" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-17 13:59:59"/>
-		<Class ClassID="232" ClassName="SilverGachaShop_32" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-17 13:59:59"/>
+		<Class ClassID="227" ClassName="SilverGachaShop_27" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-09 23:59:59"/>
+		<Class ClassID="228" ClassName="SilverGachaShop_28" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-09 23:59:59"/>
+		<Class ClassID="229" ClassName="SilverGachaShop_29" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-09 23:59:59"/>
+		<Class ClassID="230" ClassName="SilverGachaShop_30" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-09 23:59:59"/>
+		<Class ClassID="231" ClassName="SilverGachaShop_31" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-09 23:59:59"/>
+		<Class ClassID="232" ClassName="SilverGachaShop_32" SellStartTime="2021-02-09 18:00:00" SellEndTime="2021-08-09 23:59:59"/>
 		<Class ClassID="233" ClassName="SilverGachaShop_33" SellStartTime="2021-03-09 18:00:00" SellEndTime="2021-09-07 13:59:59"/>
 		<Class ClassID="234" ClassName="SilverGachaShop_34" SellStartTime="2021-03-09 18:00:00" SellEndTime="2021-09-07 13:59:59"/>
 		<Class ClassID="235" ClassName="SilverGachaShop_35" SellStartTime="2021-03-09 18:00:00" SellEndTime="2021-09-07 13:59:59"/>

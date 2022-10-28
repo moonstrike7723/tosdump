@@ -3505,20 +3505,28 @@ function GET_AUTO_MEMBER_JOIN_GUILD_IDX(groupid, nation)
             return "1137058231881971";
         end
     elseif nation == 'GLOBAL_JP' then
-        if groupid == 1202 then
+        if groupid == 1202 then --사내 JPN
             return '32461362823197'
+        elseif groupid == 1201 then --사내 JPN_LIVE
+            return '820338753567'
+        elseif groupid == 1007 then --라다
+            return '1295027129097010'
+        elseif groupid == 1008 then --달리아
+            return '1294769431133037'
         end
     elseif nation == 'GLOBAL' then
-        if groupid == 1001 then
+        if groupid == 1201 then --사내 STM
+            return '103371272880147'
+        elseif groupid == 1101 then --사내 JPN_LIVE
+            return '29025388986425'
+        elseif groupid == 1001 then --아래부턴 라이브
             return '506544147923578'
-        elseif groupid == 1003 then
+        elseif groupid == 1003 then 
             return '377991481786398'
         elseif groupid == 1004 then 
             return '693014448046952'
         elseif groupid == 1005 then
             return '578656648822807' 
-        elseif groupid == 1201 then
-            return '103371272880147'
         end
     end
 
