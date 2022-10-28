@@ -34,6 +34,7 @@
                         <Str Str="Clear"/>
                         <Num Num="5"/>
                     </ToolScp>
+                <ToolScp Scp="RAID_CLEAR_TIME_RECORD" Client="NO" UseSleep="NO"/>
                 </StartScpList>
                 <ObjList>
                     <Obj Type="Monster" MonType="160065" Pos="-1.64#10.56#-10.99" genCount="1" genTime="20000" autoGen="0" objectKey="0"/>

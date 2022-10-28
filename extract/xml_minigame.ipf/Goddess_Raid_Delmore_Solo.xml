@@ -23,7 +23,7 @@
                         <execList>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Start/0"/>
-                                <Str Str="SCR_DELMORE_CASTLE_GATE_SET_MODE"/>
+                                <Str Str="SET_RAID_MODE_BY_CMD"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="catapult_active"/>

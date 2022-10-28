@@ -23,7 +23,7 @@
                         <execList>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Start/0"/>
-                                <Str Str="SCR_JELLYZELE_SET_MODE"/>
+                                <Str Str="SET_RAID_MODE_BY_CMD"/>
                             </ToolScp>
                         </execList>
                     </Event>
