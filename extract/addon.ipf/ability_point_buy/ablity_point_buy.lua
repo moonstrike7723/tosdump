@@ -2,39 +2,18 @@ function ABILITY_POINT_BUY_ON_INIT(addon, frame)
     addon:RegisterMsg('SUCCESS_BUY_ABILITY_POINT', 'ABILITY_POINT_BUY_RESET');
 end
 
-function GET_SILVER_BY_ONE_ABILITY_POINT_CALC()
-    local exchangeRate = SILVER_BY_ONE_ABILITY_POINT;
-	-- Test Server Spec : 80% Sale --
-	local pc = GetMyPCObject();
-    if (GetServerNation() == "KOR" and (GetServerGroupID() == 9001 or GetServerGroupID() == 9501)) then
-        exchangeRate = math.floor(exchangeRate * 0.2);
-	end
-    
-    if exchangeRate < 1 then
-        exchangeRate = 1;
-    end
-    
-    return exchangeRate;
-end
-
 function ABILITY_POINT_BUY_OPEN(frame)
     local ratioValueText = GET_CHILD_RECURSIVELY(frame, 'ratioValueText');
-    local exchangeRate = GET_SILVER_BY_ONE_ABILITY_POINT_CALC();
-    ratioValueText:SetTextByKey('ratio', GET_COMMAED_STRING(exchangeRate));
---    ratioValueText:SetTextByKey('ratio', GET_COMMAED_STRING(SILVER_BY_ONE_ABILITY_POINT));
+    ratioValueText:SetTextByKey('ratio', GET_COMMAED_STRING(SILVER_BY_ONE_ABILITY_POINT));
 
     ABILITY_POINT_BUY_RESET(frame);
-
-    local sklAbilFrame = ui.GetFrame('skillability');
-    SET_FRAME_OFFSET_TO_RIGHT_TOP(frame, sklAbilFrame);
 end
 
 function ABILITY_POINT_BUY_RESET(frame)
     local enableValueText = GET_CHILD_RECURSIVELY(frame, 'enableValueText');
     local buyPointEdit = GET_CHILD_RECURSIVELY(frame, 'buyPointEdit');
-    local money = GET_TOTAL_MONEY_STR();
-    local exchangeRate = GET_SILVER_BY_ONE_ABILITY_POINT_CALC();
-    local enableCount = math.floor(tonumber(money) / exchangeRate);
+    local money = GET_TOTAL_MONEY();
+    local enableCount = math.floor(money / SILVER_BY_ONE_ABILITY_POINT);
     
     enableValueText:SetTextByKey('count', enableCount);
     frame:SetUserValue('ENABLE_COUNT', enableCount);
@@ -68,16 +47,16 @@ function ABILITY_POINT_BUY_UPDATE_MONEY(frame)
     local consumeMoneyText = GET_CHILD_RECURSIVELY(frame, 'consumeMoneyText');
     local remainMoneyText = GET_CHILD_RECURSIVELY(frame, 'remainMoneyText');
     local moneyValueText = GET_CHILD_RECURSIVELY(frame, 'moneyValueText');
-    local money = GET_TOTAL_MONEY_STR();
+    local money = GET_TOTAL_MONEY();
 
-    local consumeMoney = ABILITY_POINT_BUY_GET_CONSUME_MONEY(frame);    
-    local remainMoney = SumForBigNumberInt64(money, '-'..consumeMoney);
+    local consumeMoney = ABILITY_POINT_BUY_GET_CONSUME_MONEY(frame);
+    local remainMoney = money - consumeMoney;
     local consumeMoneyStr = GET_COMMAED_STRING(consumeMoney);
     local remainMoneyStr = "";
-    if tonumber(consumeMoney) > 0 then
+    if consumeMoney > 0 then
         consumeMoneyStr = '-'..consumeMoneyStr;
     end
-    if tonumber(remainMoney) >= 0 then
+    if remainMoney >= 0 then
         remainMoneyStr = GET_COMMAED_STRING(remainMoney);
     else
         local EXCEED_MONEY_STYLE = frame:GetUserConfig('EXCEED_MONEY_STYLE');
@@ -91,8 +70,7 @@ end
 
 function ABILITY_POINT_BUY_GET_CONSUME_MONEY(frame)
     local pointCount = frame:GetUserIValue('POINT_COUNT');
-    local exchangeRate = GET_SILVER_BY_ONE_ABILITY_POINT_CALC();
-    local consumeMoney = MultForBigNumberInt64(pointCount, exchangeRate);
+    local consumeMoney = pointCount * SILVER_BY_ONE_ABILITY_POINT;
     return consumeMoney;
 end
 
@@ -104,8 +82,7 @@ end
 function ABILITY_POINT_BUY_SET_EDIT(edit, count)
     local topFrame = edit:GetTopParentFrame();
     local enableCount = topFrame:GetUserIValue('ENABLE_COUNT');
-    count = tonumber(count)
-    if count == nil then
+    if count == nil or count == "" then
         count = 0;
         edit:SetText('0');
     end
@@ -127,8 +104,8 @@ function ABILITY_POINT_BUY(parent, ctrl)
     end
 
     local consumeMoney = ABILITY_POINT_BUY_GET_CONSUME_MONEY(topFrame);
-    local money = GET_TOTAL_MONEY_STR();
-    if IsGreaterThanForBigNumber(consumeMoney, money) == 1 then
+    local money = GET_TOTAL_MONEY();
+    if consumeMoney > money then
         ui.SysMsg(ClMsg('NotEnoughMoney'));
         return;
     end
