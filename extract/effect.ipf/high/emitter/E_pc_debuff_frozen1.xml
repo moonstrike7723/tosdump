@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) --><EffectEvent>	<Effect node="Bip01 Pelvis" frame="0" effect="I_force148_ice" scale="1"/>	<Effect node="Dummy013" frame="1" effect="F_ground233_ice" scale="0.5"/></EffectEvent>

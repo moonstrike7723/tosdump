@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8"?><!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) --><EffectEvent>	<Effect frame="0" node="Dummy001" effect="F_scout_Granata_explosion_pink" scale="2"/>	<Effect frame="0" node="Dummy002" effect="I_force114_kruvina_dead_mesh" scale="1"/></EffectEvent>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<ActionDesc>
+	<Sound frame="0" soundFile="skl_eff_toy_ep14rider"/>
+	<AttachModel frame="0" XAC="toy_ep14rider" node="Dummy_gacha_root" isAttach="true" autoDetach="true" index="0" anim="toy_ep14rider_ani.xsm"/>
+	<HeadRotBip frame="0" BipName="Dummy_head"/>
+</ActionDesc>
