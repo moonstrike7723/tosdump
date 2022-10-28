@@ -15092,6 +15092,12 @@
 		<Class ClassID="302526" ClassName="EVENT_2106_SUMMER_FESTA_DOUBLE_MSG" Data="{#FF3333}※수박 깨기에 성공하여 보상 아이템 수량이 2배로 지급되었습니다!{/}"/>
 		<Class ClassID="302527" ClassName="EVENT_2106_SUMMER_FESTA_WORLD_REWARD_MSG" Data="{#FF3333}※수박깨기를 50회 이상 참여하여야 수령하실 수 있습니다.{/}"/>
 		<Class ClassID="302534" ClassName="EVENT_2106_SUMMER_FESTA_MSG1" Data="{#003399}주말 출석 보상이 지급되었습니다!{/}"/>
+		<Class ClassID="302577" ClassName="EVENT_2107_FISHING_SEL_MSG1" Data="{#0033FF}[수박 낚시]{/} 이벤트 안내"/>
+		<Class ClassID="302578" ClassName="EVENT_2107_FISHING_SEL_MSG2" Data="{#0033FF}[수박 낚시]{/} 문어발 미끼 수령하기"/>
+		<Class ClassID="302579" ClassName="EVENT_2107_FISHING_SHOP" Data="{#0033FF}[수박 낚시]{/} 이벤트 상점"/>
+		<Class ClassID="302580" ClassName="EVENT_2107_FISHING_CAT_MSG2" Data="소지하고 있는 {#0033FF}[이벤트] 수박 물고기{/}가 없습니다."/>
+		<Class ClassID="302581" ClassName="EVENT_2107_FISHING_CHECK_MESSAGE1{BAIT}{TRADE}" Data="{#0033FF}[돌아온 수박 낚시]{/}{nl}[이벤트] 문어발 미끼 일일 수령 횟수 {#0033FF}({BAIT}/1회){/}{nl}이벤트 기간 중 [수박 낚시] 시원한 수박 교환 횟수 {#0033FF}({TRADE}/150회){/}{nl}{#FF3333}※일일 수령 횟수는 매일 오전 6시 초기화 됩니다.{nl}※이벤트 기간 중 [수박 낚시] 시원한 수박의 최대 교환 교환 횟수는 150개 이며, 이후 교환 시 버프만 획득 가능합니다.{/}"/>
+		<Class ClassID="302582" ClassName="EVENT_2107_FISHING_CHECK_MESSAGE2{TIME}{CHECK}" Data="{#0033FF}[돌아온 수박 낚시 출석 이벤트]{/}{nl}토요일, 일요일 1시간 접속 시 마다 '시원한 수박' 지급!{nl}일일 수령 횟수 {#0033FF}({CHECK}/2){/}{nl}접속 시간 {#0033FF}({TIME}/120분){/}{nl}{#FF3333}※일일 제한은 매일 오전 06시에 초기화 됩니다.{/}"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>

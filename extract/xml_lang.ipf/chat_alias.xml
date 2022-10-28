@@ -79,5 +79,7 @@
 		<Class ClassID="89" ClassName="/camping" Alias="/캠핑" ConvertWhenSend="1"/>
 		<Class ClassID="92" ClassName="/watermelon" Alias="/수박깨기" ConvertWhenSend="1"/>
 		<Class ClassID="93" ClassName="/weekendcheck" Alias="/주말출석" ConvertWhenSend="1"/>
+		<Class ClassID="97" ClassName="/fishingcat" Alias="/수박" ConvertWhenSend="1"/>
+		<Class ClassID="98" ClassName="/fishingcheck" Alias="/주말접속" ConvertWhenSend="1"/>
 	</Category>
 </idspace>
