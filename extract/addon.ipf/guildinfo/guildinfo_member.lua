@@ -498,12 +498,6 @@ function WARP_GUILD_MEMBER_EXEC(aid)
                 local lastTime = imcTime.GetSysTimeByStr(lastGuildOutDay)
                 local addTime = AFTER_GUILD_OUT_COLONY_WAR_PARTICIPATE_PERIOD_DELAY
 
-                --200827_SEASON
-                local IsSeasonSvr = IS_SEASON_SERVER()
-                if IsSeasonSvr == "YES" then
-                    addTime = 720
-                end
-
                 local enterEnableTime = imcTime.AddSec(lastTime, (addTime*60));
                 local nowTime = session.GetDBSysTime();
                 local difSec = imcTime.GetDifSec(enterEnableTime, nowTime);

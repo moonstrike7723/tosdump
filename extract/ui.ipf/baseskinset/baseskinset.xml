@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <skinset name="Base">
 	<skinlist category="frames">
@@ -9567,6 +9567,7 @@
 		<image name="medeina_emotion04" file="\icon\emoticon\medeina_emotion04.png" imgrect="0 0 128 128"/>
 		<image name="medeina_emotion05" file="\icon\emoticon\medeina_emotion05.png" imgrect="0 0 128 128"/>
 		<image name="medeina_emotion06" file="\icon\emoticon\medeina_emotion06.png" imgrect="0 0 128 128"/>
+		<image name="Hitomico_emoticon_01" file="\icon\emoticon\Hitomico_emoticon_01.png" imgrect="0 0 128 128"/>
 	</imagelist>
 	<imagelist category="itemtooltip_image">
 		<image name="circle_gem" file="\skin\tooltip_skin_3.tga" imgrect="805 228 30 30"/>
@@ -11488,6 +11489,8 @@
 		<image name="021_npc_NoirParesseus" file="\skin\npccard\021_npc_NoirParesseus.tga" imgrect="0 0 330 440"/>
 		<image name="022_npc_Mei" file="\skin\npccard\022_npc_Mei.tga" imgrect="0 0 330 440"/>
 		<image name="023_npc_ShellyPennington" file="\skin\npccard\023_npc_ShellyPennington.tga" imgrect="0 0 330 440"/>
+		<image name="024_npc_WinonaEnde" file="\skin\npccard\024_npc_WinonaEnde.tga" imgrect="0 0 330 440"/>
+		<image name="025_npc_Feliksia" file="\skin\npccard\025_npc_Feliksia.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>

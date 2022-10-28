@@ -8435,6 +8435,16 @@
         <Key Name="Hide_3226" Value="106710"/>
         <Key Name="Reward_d_dcapital_108" Value="106716"/>
         <Key Name="Reward_f_castle_101" Value="106717"/>
+        <Key Name="HaveEmoticon_109" Value="106818"/>
+        <Key Name="HaveEmoticon_110" Value="106819"/>
+        <Key Name="HaveEmoticon_111" Value="106821"/>
+        <Key Name="HaveEmoticon_112" Value="106820"/>
+        <Key Name="HaveEmoticon_114" Value="106846"/>
+        <Key Name="Hide_3116" Value="106828"/>
+        <Key Name="Hide_3117" Value="106827"/>
+        <Key Name="Kill_Legend_Boss_Giltine_Q1" Value="106817"/>
+        <Key Name="Kill_boss_BowerKeeper" Value="106816"/>
+        <Key Name="Kill_boss_RaganosisCommander" Value="106815"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Guild">
         <Key Name="STEAM_NEW_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="105307"/>
@@ -8717,6 +8727,19 @@
         <Key Name="SEASON_SERVER_GUILD_QUEST_REWARD_GET" Value="105574"/>
         <Key Name="SEASON_SERVER_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="105576"/>
         <Key Name="SEASON_SERVER_GUILD_QUEST_WEEK_SUCCESS_COUNT" Value="105579"/>
+        <Key Name="GUILD_QUEST_REWARD" Value="106804"/>
+        <Key Name="NEW_GUILD_QUEST_BORUTA_SPECIAL_SUCCESS_COUNT" Value="106806"/>
+        <Key Name="NEW_GUILD_QUEST_BORUTA_TOTAL_SUCCESS_COUNT" Value="106802"/>
+        <Key Name="NEW_GUILD_QUEST_BORUTA_WEEK_SUCCESS_COUNT" Value="106811"/>
+        <Key Name="NEW_GUILD_QUEST_NEXT_RESET_DATE" Value="106814"/>
+        <Key Name="NEW_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="106812"/>
+        <Key Name="NEW_GUILD_QUEST_WEEK_SUCCESS_COUNT" Value="106807"/>
+        <Key Name="OLD_GUILD_QUEST_BORUTA_SPECIAL_SUCCESS_COUNT" Value="106808"/>
+        <Key Name="OLD_GUILD_QUEST_BORUTA_TOTAL_SUCCESS_COUNT" Value="106810"/>
+        <Key Name="OLD_GUILD_QUEST_BORUTA_WEEK_SUCCESS_COUNT" Value="106809"/>
+        <Key Name="OLD_GUILD_QUEST_NEXT_RESET_DATE" Value="106813"/>
+        <Key Name="OLD_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="106805"/>
+        <Key Name="OLD_GUILD_QUEST_WEEK_SUCCESS_COUNT" Value="106803"/>
     </KeyIDSpc>
     <KeyIDSpc Name="ZoneObject">
         <Key Name="Hero_Line" Value="118"/>
@@ -9972,6 +9995,7 @@
         <Key Name="ICOR_TRY_COUNT" Value="105560"/>
         <Key Name="Magic_Soul_Atk" Value="106482"/>
         <Key Name="StringArg2" Value="106494"/>
+        <Key Name="SkillName" Value="106801"/>
     </KeyIDSpc>
     <KeyIDSpc Name="SessionObject">
         <Key Name="ROKAS31_SUB_01" Value="2534"/>
@@ -17344,6 +17368,7 @@
         <Key Name="MG_Last_EP12_2_F_CASTLE_101_MQ_03_1_MINI" Value="106632"/>
         <Key Name="WARP_C_KLAIPE_CATHEDRAL_MEDIUM" Value="106665"/>
         <Key Name="WARP_F_CASTLE_101" Value="106633"/>
+        <Key Name="Event_2010_LVUP_ABILITY_2" Value="106825"/>
     </KeyIDSpc>
     <KeyIDSpc Name="GuildMember">
         <Key Name="Name" Value="9011"/>
@@ -20474,6 +20499,27 @@
         <Key Name="FirstQuestClear_Episode_12_2_92017" Value="106792"/>
         <Key Name="HadVisited_11208" Value="106784"/>
         <Key Name="HadVisited_5002" Value="106789"/>
+        <Key Name="ContentsTotalShop_2009_23" Value="106840"/>
+        <Key Name="ContentsTotalShop_2009_24" Value="106842"/>
+        <Key Name="ContentsTotalShop_2009_25" Value="106837"/>
+        <Key Name="ContentsTotalShop_2009_26" Value="106843"/>
+        <Key Name="ContentsTotalShop_2009_27" Value="106839"/>
+        <Key Name="ContentsTotalShop_2009_28" Value="106838"/>
+        <Key Name="ContentsTotalShop_2009_29" Value="106841"/>
+        <Key Name="EVENT_2010_EMOTICON_QUEST" Value="106823"/>
+        <Key Name="EVENT_2010_GUILD_NEW_SEASON_ITEM_GET" Value="106824"/>
+        <Key Name="EVENT_2011_FISHING_BAIT_RECEIVED" Value="106844"/>
+        <Key Name="EVENT_2011_FISHING_TRADE_COUNT" Value="106845"/>
+        <Key Name="EVENT_2011_SILVER_GACHA" Value="106829"/>
+        <Key Name="GUILD_QUEST_REWARD" Value="106822"/>
+        <Key Name="LastServerGuildOutDay" Value="106826"/>
+        <Key Name="demonlord_thema" Value="106836"/>
+        <Key Name="dress_demonlord_1" Value="106833"/>
+        <Key Name="dress_demonlord_2" Value="106832"/>
+        <Key Name="dress_demonlord_3" Value="106835"/>
+        <Key Name="dress_demonlord_4" Value="106830"/>
+        <Key Name="dress_demonlord_5" Value="106834"/>
+        <Key Name="dress_demonlord_6" Value="106831"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PartyMember">
         <Key Name="Auth_Survey" Value="7222"/>

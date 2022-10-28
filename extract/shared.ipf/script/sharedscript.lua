@@ -1865,12 +1865,7 @@ end
 function GET_RECIPE_REQITEM_CNT(cls, propname,pc)
 
 	local recipeType = cls.RecipeType;
-	--EVENT_2007_GUILD
-	if IsBuffApplied(pc,"EVENT_Season_Guild_Benefits_BUFF") == "YES" then
-		if cls[propname] == "misc_pvp_mine2" then
-			return cls[propname .. "_Cnt"] * 0.8, TryGet(cls, propname .. "_Level");
-		end
-	end
+
     if recipeType == "Anvil" or recipeType == "Grill" then
         return cls[propname .. "_Cnt"], TryGet(cls, propname .. "_Level");
     elseif recipeType == "Drag" or recipeType == "Upgrade" then

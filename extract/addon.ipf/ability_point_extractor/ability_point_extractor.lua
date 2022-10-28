@@ -136,11 +136,6 @@ function ABILITY_POINT_EXTRACTOR_GET_CONSUME_MONEY(frame)
         eventDiscount = 1
 	end
 	
-	local pc = GetMyPCObject()
-	if IsBuffApplied(pc,"EVENT_Season_Guild_Benefits_BUFF") == "YES" then
-		consumeMoney = 0
-	end
-
     return consumeMoney, eventDiscount;
 end
 

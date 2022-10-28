@@ -1,8 +1,4 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202010,260000,202010,310000,202011,100000,202011,50000,0,0,inGame_E1,Goddess's_Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2125,,,,
-999902,202010,260000,202010,310000,202011,100000,202011,50000,0,0,inGame_E2,Lunar Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2122,,,,
-999903,202010,130000,202010,180000,202011,100000,202011,50000,0,0,inGame_E3,Halloween Masquerade,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2116,,,,
-999904,202008,110000,202008,160000,202011,100000,202011,50000,0,0,inGame_E4,Season Server Stamp Tour,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2071,,,,Season
-999905,202008,110000,202008,160000,202011,100000,202011,50000,0,0,inGame_E5,Season Server Goddess' Roulette,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2069,,,,Season
-999906,202007,140000,202007,190000,202112,310000,202112,300000,0,0,inGame_E6,SteamGuard Guide,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
-999907,202003,310000,202004,50000,202112,310000,202112,300000,0,0,inGame_E7,Weekend Burning Event,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2126,time_del,,,Normal
+999901,202011,100000,202011,150000,202012,10000,202011,260000,0,0,inGame_E1,Welcoming Merge Attendance,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2135,,,,
+999902,202007,140000,202007,190000,202112,310000,202112,300000,0,0,inGame_E2,SteamGuard Guide,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
+999903,202003,310000,202004,50000,202112,310000,202112,300000,0,0,inGame_E3,Weekend Burning Event,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2126,time_del,,,Normal
