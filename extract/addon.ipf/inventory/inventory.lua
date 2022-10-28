@@ -1647,6 +1647,11 @@ function CHECK_INV_LBTN(frame, object, argStr, argNum)
 		return;
 	end
 	
+	local invitem = session.GetInvItem(argNum);
+	if invitem ~= nil and INVENTORY_LBTN_MARKET_SELL(invitem) == true then
+		return;
+	end
+
 	local havetg = item.HaveTargetItem();
 	if havetg == 0 then
 		return;
@@ -1758,10 +1763,10 @@ function INVENTORY_RBDC_ITEMUSE(frame, object, argStr, argNum)
 	if INVENTORY_RBTN_LEGENDDECOMPOSE(invitem) == true then
 		return;
 	end
-
-    if INVENTORY_RBTN_MARKET_SELL(invitem) == true then
-    	return;
-    end
+	
+	if INVENTORY_RBTN_MARKET_SELL(invitem) == true then
+		return;
+	end
 	
 	local invFrame = ui.GetFrame("inventory");	
 	invFrame:SetUserValue("INVITEM_GUID", invitem:GetIESID());
@@ -2635,10 +2640,51 @@ function CHANGE_HAIR_COLOR(frame)
 	local Selectclass   = GenderList:GetClass(pc.Gender);
 	local Selectclasslist = Selectclass:GetSubClassList();
 
-    local nowHeadIndex = item.GetHeadIndex()
+	local nowHeadIndex = item.GetHeadIndex()
 	local nowHairCls = Selectclasslist:GetClass(nowHeadIndex);
 	local nowPCHairEngName = imcIES.GetString(nowHairCls, 'EngName'); --현재 내가 '헤어'슬롯에 착용한 아이템
 
+	local hairFrame = GET_CHILD_RECURSIVELY(frame, "HAIR")
+	local slot = tolua.cast(hairFrame, "ui::CSlot");
+	local item = GET_SLOT_ITEM(slot);
+	if item ~= nil then
+		local itemObj = GetIES(item:GetObject());	
+		if itemObj.MarketCategory == "Look_Designcut" then
+			-- 디자인 컷 아이템은 유저 보유 헤어 컬러 리스트가 아닌 따로 정해진 헤어 컬러 리스트 보여 줌
+			local DyeList = {};
+			local clsList, cnt = GetClassList("Designcut_Dye_List");
+			for i = 0 , cnt - 1 do
+				local cls = GetClassByIndexFromList(clsList, i);
+				if cls.Group == itemObj.ClassName then
+					DyeList[cls.DyeName] = 1;
+				end
+			end
+	
+			for i = 0, Selectclasslist:Count() do
+				local eachcls = Selectclasslist:GetByIndex(i);
+				if eachcls ~= nil then
+					local eachHairEngName = imcIES.GetString(eachcls, 'EngName');
+					if eachHairEngName == nowPCHairEngName then
+						-- eachColor, eachColorE : 게임 내 전체 헤어 컬러(한글이름, 영어이름)
+						local eachColor = imcIES.GetString(eachcls, 'Color');	
+						local eachColorE = imcIES.GetString(eachcls, 'EngColor');	
+						eachColorE = string.lower(eachColorE);
+						-- 전체 헤어 컬러 목록에서 해당 디자인 컷이 가진 헤어 컬러 목록을 드롭 리스트에 넣음
+						if DyeList[eachColorE] == 1 then
+							haveHairColorList[#haveHairColorList + 1] = eachColor;
+							haveHairColorEList[#haveHairColorEList + 1] = eachColorE;
+						end					
+					end
+				end
+			end
+
+			SORT_HAIR_COLORLIST(hairColorBtn, haveHairColorList, haveHairColorEList);
+			CREATE_DESIGNCUT_DYE_DROPLIST(hairColorBtn, haveHairColorList, haveHairColorEList);
+			return;
+		end
+	end
+	
+	-- 일반 가발 아이템 헤어 컬러 리스트
 	for i = 0, Selectclasslist:Count() do
 		local eachcls = Selectclasslist:GetByIndex(i);
 		if eachcls ~= nil then
@@ -2652,10 +2698,10 @@ function CHANGE_HAIR_COLOR(frame)
 				if TryGetProp(etc, "HairColor_" .. eachColorE) == 1 then
 					haveHairColorList[#haveHairColorList + 1] = eachColor;
 					haveHairColorEList[#haveHairColorEList + 1] = eachColorE;
-				end
+				end				
 			end
 		end
-	end	
+	end
 
 	SORT_HAIR_COLORLIST(hairColorBtn, haveHairColorList, haveHairColorEList)
 	CREATE_HAIR_DYE_DROPLIST(hairColorBtn, haveHairColorList, haveHairColorEList);
@@ -2704,8 +2750,19 @@ function CREATE_HAIR_DYE_DROPLIST(control, colorList, colorEList)
 	end
 end
 
+function CREATE_DESIGNCUT_DYE_DROPLIST(control, colorList, colorEList)
+	local dropListFrame = ui.MakeDropListFrame(control, 0, 0, 150, 600, #colorList, ui.LEFT, "SELECT_DESIGNCUT_DYE_IN_DROPLIST", nil, nil);
+	for i = 0, #colorList do
+		ui.AddDropListItem(colorList[i + 1], nil, colorEList[i + 1]);
+	end
+end
+
 function SELECT_HAIR_DYE_IN_DROPLIST(select, color)
     item.ReqChangeHead(color);
+end
+
+function SELECT_DESIGNCUT_DYE_IN_DROPLIST(select, color)
+	item.ReqChangeDesigncut(color);
 end
 
 function STATUS_DUMP_SLOT_SET(a,s,d)
@@ -4001,11 +4058,30 @@ function INVENTORY_RBTN_LEGENDPREFIX(invItem)
 end
 
 function INVENTORY_RBTN_MARKET_SELL(invitem)
+	local market = ui.GetFrame('market');
+	if market ~= nil and market:IsVisible() == 1  then
+		return true;
+	end
+	
+	local market_sell = ui.GetFrame('market_sell');
+	if market_sell ~= nil and market_sell:IsVisible() == 1  then
+		return true;
+	end
+
+	local market_cabinet = ui.GetFrame('market_cabinet');
+	if market_cabinet ~= nil and market_cabinet:IsVisible() == 1  then
+		return true;
+	end
+
+	return false;
+end
+
+function INVENTORY_LBTN_MARKET_SELL(invitem)
 	local market_sell = ui.GetFrame('market_sell');
 	if market_sell ~= nil and market_sell:IsVisible() == 0  then
 		return false;		
 	end
-	MARKET_SELL_RBUTTON_ITEM_CLICK(market_sell, invitem);
+	MARKET_SELL_LBUTTON_ITEM_CLICK(market_sell, invitem);
 	return true;
 end
 
@@ -4253,6 +4329,24 @@ function BEFORE_APPLIED_YESSCP_OPEN(invItem)
     	local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg(strLang));
     	ui.MsgBox_NonNested(textmsg, itemobj.Name, 'REQUEST_SUMMON_BOSS_TX', "None");
     end
+	return;
+end
+
+function BEFORE_APPLIED_YESSCP_OPEN_BASIC_MSG(invItem)
+	if invItem == nil then
+		return;
+	end
+	
+	local invFrame = ui.GetFrame("inventory");	
+	local itemobj = GetIES(invItem:GetObject());
+	if itemobj == nil then
+		return;
+	end
+	invFrame:SetUserValue("REQ_USE_ITEM_GUID", invItem:GetIESID());
+
+	local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg("YESSCP_OPEN_BASIC_MSG"));
+	ui.MsgBox_NonNested(textmsg, itemobj.Name, 'REQUEST_SUMMON_BOSS_TX', "None");
+	
 	return;
 end
 

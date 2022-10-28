@@ -2,8 +2,6 @@ function GODDESS_ROULETTE_ON_INIT(addon, frame)
 	addon:RegisterMsg("GODDESS_ROULETTE_START", "GODDESS_ROULETTE_START");
 	addon:RegisterMsg("GODDESS_ROULETTE_STATE_UPDATE", "GODDESS_ROULETTE_STATE_UPDATE");
 	addon:RegisterMsg("GODDESS_ROULETTE_ITEM_UPDATE", "GODDESS_ROULETTE_ITEM_UPDATE");
-
-	GODDESS_ROULETTE_INIT();
 end
 
 function GODDESS_ROULETTE_OPEN()
@@ -63,16 +61,17 @@ end
 
 function GODDESS_ROULETTE_REMAIN_UPDATE(frame)
 	local startbtn = GET_CHILD_RECURSIVELY(frame, "startbtn");
-	local nowCnt = GET_CONTENT_USE_ROULETTE_COUNT();
+	local accObj = GetMyAccountObj();
+	local nowCnt = GET_USE_ROULETTE_COUNT(accObj);
 
 	if nowCnt ~= 0 then
 		startbtn:SetTextByKey("curCnt",  "{#fff200}"..nowCnt.."{/}");
 	else
 		startbtn:SetTextByKey("curCnt", nowCnt);
 	end
-	startbtn:SetTextByKey("maxCnt", EVENT_NEW_SEASON_SERVER_ROULETTE_MAX_COUNT);	
+	startbtn:SetTextByKey("maxCnt", GET_MAX_ROULETTE_COUNT(accObj));	
 
-	local coinCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_Roulette_Coin"}}, false);
+	local coinCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = GET_ROULETTE_COIN_CLASSNAME(accObj)}}, false);
 
 	startbtn:SetTextTooltip(ScpArgMsg("GoddessRouletteUseCointipText{count}", "count", coinCnt));
 end
@@ -146,16 +145,18 @@ function GODDESS_ROULETTE_BTN_CLICK(parent, ctrl)
         return;
 	end
 
+	local accObj = GetMyAccountObj();
+	
 	-- 코인 수량 확인
-	local curCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = "Event_Roulette_Coin"}}, false);
+	local curCnt = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = "ClassName", Value = GET_ROULETTE_COIN_CLASSNAME(accObj)}}, false);
 	if curCnt < 10 then
 		ui.SysMsg(ClMsg("Goddess_Roulette_Coin_Fail"));
 		return;
 	end
 
 	-- 남은 이용 횟수 확인
-	local nowCnt = GET_CONTENT_USE_ROULETTE_COUNT();	
-	if EVENT_NEW_SEASON_SERVER_ROULETTE_MAX_COUNT <= nowCnt then
+	local nowCnt = GET_USE_ROULETTE_COUNT(accObj);
+	if GET_MAX_ROULETTE_COUNT(accObj) <= nowCnt then
 		ui.SysMsg(ClMsg("Goddess_Roulette_Max_Rullet_count"));
 		return;
 	end

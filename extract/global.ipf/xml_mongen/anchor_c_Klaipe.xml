@@ -8,6 +8,5 @@
 		<Class OverrideType="REMOVE" ClassID="10005" GenType="50005" PosX="59" PosY="149" PosZ="305" Direction="180" Name="친구 추천 도우미"/>
 		<Class OverrideType="REMOVE" ClassID="10007" GenType="50007" PosX="59" PosY="149" PosZ="305" Direction="180" Name="초기화 지원 도우미"/>
 		<Class ClassID="5220" GenType="10067" PosX="74" PosY="154" PosZ="311" Direction="-180"/>
-		<Class OverrideType="REMOVE" ClassID="5227" GenType="10068" PosX="-267.7074" PosY="-1.21924" PosZ="-723.6546" Direction="-86"/>
-	</Category>
+			</Category>
 </idspace>

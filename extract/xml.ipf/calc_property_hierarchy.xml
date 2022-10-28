@@ -67,6 +67,7 @@
 		<Child Name="PATK_MAIN_RATE_BM"/>
 		<Child Name="MINPATK_MAIN_RATE_BM"/>
 		<Child Name="MAXPATK"/>
+		<Child Name="PATKADJ_RATE_BM"/>
 	</hierarchy>
 	<hierarchy Name="MAXPATK">
 		<Child Name="STR"/>
@@ -90,6 +91,7 @@
 		<Child Name="PATK_SUB_RATE_BM"/>
 		<Child Name="MINPATK_SUB_RATE_BM"/>
 		<Child Name="MAXPATK_SUB"/>
+		<Child Name="PATKADJ_SUB_RATE_BM"/>
 	</hierarchy>
 	<hierarchy Name="MAXPATK_SUB">
 		<Child Name="STR"/>
@@ -172,6 +174,7 @@
 		<Child Name="MATK_RATE_BM"/>
 		<Child Name="MINMATK_RATE_BM"/>
 		<Child Name="MAXMATK"/>
+		<Child Name="MATKADJ_RATE_BM"/>
 	</hierarchy>
 	<hierarchy Name="MAXMATK">
 		<Child Name="INT"/>

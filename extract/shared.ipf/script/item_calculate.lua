@@ -102,7 +102,9 @@ function GET_COMMON_PROP_LIST()
         'Leather_Def',
         'Cloth_Def',
         'Iron_Def',
-	'ADD_BOSS_ATK'        
+        'ADD_BOSS_ATK',
+        'Magic_Ice_Atk',
+        'Magic_Earth_Atk',
     };
 end
 
@@ -191,13 +193,14 @@ function GET_REINFORCE_ADD_VALUE_ATK(item, ignoreReinf, reinfBonusValue, basicTo
     reinforceValue = reinforceValue + reinfBonusValue
     
     value = math.floor((reinforceValue + (lv * (reinforceValue * (0.08 + (math.floor((math.min(21,reinforceValue)-1)/5) * 0.015 ))))));
+    value = value * (reinforceRatio / 100) * gradeRatio
 
-    value = value * (reinforceRatio / 100) * gradeRatio + buffValue;
-    
     local classType = TryGetProp(item,"ClassType")
     if classType == 'Trinket' then
         value = value * 0.5
     end
+
+    value = value + buffValue
           
     value = SyncFloor(value);
     return math.floor(value);
@@ -294,7 +297,7 @@ end
 function GET_BASIC_ATK(item)
     local lv = TryGetProp(item,"UseLv");
     if lv == nil then
-        return 0;
+        return 0, 0;
     end
     
     local hiddenLv = TryGetProp(item,"ItemLv");        
@@ -317,7 +320,7 @@ function GET_BASIC_ATK(item)
     end
     local itemstring = TryGetProp(item, 'StringArg')
     if itemstring == nil then
-        return;
+        return 0, 0;
     end
     
     if itemstring == 'Growth_Item' then
@@ -329,7 +332,7 @@ function GET_BASIC_ATK(item)
     
     local grade = TryGetProp(item, "ItemGrade");
     if grade == nil then
-        return 0;
+        return 0, 0;
     end
     
     -- 팀 배틀 리그에서는 가상의 무기 등급과 무기 레벨을 받아 오도록 설정 --
@@ -343,29 +346,29 @@ function GET_BASIC_ATK(item)
 
     local slot = TryGetProp(item,"DefaultEqpSlot");
     if slot == nil then
-        return 0;
+        return 0, 0;
     end
     
     local classType = TryGetProp(item,"ClassType");
     if classType == nil then
-        return 0;
+        return 0, 0;
     end
     
     
     
     local itemGradeClass = GetClassList('item_grade')
     if itemGradeClass == nil then
-        return 0;
+        return 0, 0;
     end
     
     local weaponClass = GetClassByNameFromList(itemGradeClass,'WeaponClassTypeRatio')
     if weaponClass == nil then
-        return 0;
+        return 0, 0;
     end
     
     local weaponDamageClass = GetClassByNameFromList(itemGradeClass,'WeaponDamageRange')
     if weaponDamageClass == nil then
-        return 0;
+        return 0, 0;
     end
     
     if itemGradeClass ~= nil and weaponClass[classType] > 0 then
@@ -379,7 +382,7 @@ function GET_BASIC_ATK(item)
     
     local damageRange = weaponDamageClass[classType]
     if damageRange == nil then
-        return 0;
+        return 0, 0;
     end
     
     local maxAtk = itemATK * damageRange;

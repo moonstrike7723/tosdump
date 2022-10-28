@@ -1077,26 +1077,14 @@ end
 
 
 function SCR_ABIL_PELTASTA5_ACTIVE(self, ability)
-    
     local lItem  = GetEquipItem(self, 'LH');
-    local addValue = 0;
-    
-    if lItem.ClassType == "Shield" then
-        addValue = ability.Level;
+    if TryGetProp(lItem, "ClassType") == "Shield" then
+        AddBuff(self, self, "Peltasta5_Shield_Buff", TryGetProp(ability, "Level", 0));
     end
-    
-    self.MaxHateCount_BM = self.MaxHateCount_BM + addValue;
-    SetExProp(ability, "ADD_MaxHateCount", addValue);
-    
-    Invalidate(self, "MaxHateCount");
 end
 
 function SCR_ABIL_PELTASTA5_INACTIVE(self, ability)
-    
-    local addValue = GetExProp(ability, "ADD_MaxHateCount");
-    self.MaxHateCount_BM = self.MaxHateCount_BM - addValue;
-	
-    Invalidate(self, "MaxHateCount");
+    RemoveBuff(self, "Peltasta5_Shield_Buff");
 end
 
 function SCR_ABIL_DOPPELSOELDNER24_ACTIVE(self, ability)
@@ -1858,6 +1846,12 @@ function SCR_ABIL_Arbalester10_INACTIVE(self, ability)
 end
 
 function SCR_ABIL_SPEARMASTERY_Dagger_ACTIVE(self, ability)
+    SCR_ABIL_SPEARMASTERY_Dagger_CALC(self, ability)
+end
+
+function SCR_ABIL_SPEARMASTERY_Dagger_CALC(self, ability)
+    local prev_addATK = GetExProp(ability, "ABIL_ADD_ATK");
+
     local addATK = 0;
 
     local rItem  = GetEquipItem(self, 'RH');
@@ -1866,8 +1860,23 @@ function SCR_ABIL_SPEARMASTERY_Dagger_ACTIVE(self, ability)
         local akt = (lItem.MINATK + lItem.MAXATK) / 2
         addATK = math.floor(akt * 0.25);
     end
+
+    local add_rate = 1;
+    if IsBuffApplied(self, 'SwellHands_Buff') == 'YES' then
+        local swellhands_buff = GetBuffByName(self, 'SwellHands_Buff');
+        local max_ratio = GetExProp(swellhands_buff, 'MAX_RATIO');
+		add_rate = add_rate + (max_ratio / 100);
+    end
+
+    if IsBuffApplied(self, 'Honor_Buff') == 'YES' then
+        local honor_buff = GetBuffByName(self, 'Honor_Buff');
+        local add_patk = GetExProp(honor_buff, 'ADD_PATK');
+		add_rate = add_rate + add_patk;
+    end
+
+    addATK = addATK * add_rate;
     
-    self.PATK_MAIN_BM = self.PATK_MAIN_BM + addATK;
+    self.PATK_MAIN_BM = self.PATK_MAIN_BM - prev_addATK + addATK;
     
     SetExProp(ability, "ABIL_ADD_ATK", addATK);
 end
@@ -1954,10 +1963,14 @@ function SCR_ABIL_Paladin41_INACTIVE(self, ability)
 	local skill = GetSkill(self, "Paladin_Sanctuary");
     if skill ~= nil then
         local shoottime = GetExProp(ability, "Paladin41_shoottime");
-        skill.ShootTime = shoottime;
-        skill.IgnoreAnimWhenMove = "NO"
-        InvalidateSkill(self, skill.ClassName);
-        SendSkillProperty(self, skill);
+        
+        local abilPaladin42 = GetAbility(self, "Paladin42")
+        if TryGetProp(abilPaladin42, "ActiveState", 0) == 0 then
+            skill.ShootTime = shoottime;
+            skill.IgnoreAnimWhenMove = "NO"
+            InvalidateSkill(self, skill.ClassName);
+            SendSkillProperty(self, skill);
+        end
     end
 end
 
@@ -1977,9 +1990,73 @@ function SCR_ABIL_Paladin42_INACTIVE(self, ability)
 	local skill = GetSkill(self, "Paladin_Sanctuary");
     if skill ~= nil then
         local shoottime = GetExProp(ability, "Paladin42_shoottime");
-        skill.ShootTime = shoottime;
-        skill.IgnoreAnimWhenMove = "NO"
-        InvalidateSkill(self, skill.ClassName);
-        SendSkillProperty(self, skill);
+        
+        local abilPaladin41 = GetAbility(self, "Paladin41")
+        if TryGetProp(abilPaladin41, "ActiveState", 0) == 0 then
+            skill.ShootTime = shoottime;
+            skill.IgnoreAnimWhenMove = "NO"
+            InvalidateSkill(self, skill.ClassName);
+            SendSkillProperty(self, skill);
+        end
     end
+end
+
+function SCR_ABIL_Paladin40_ACTIVE(self, ability)
+    local skill = GetSkill(self, "Paladin_Sanctuary");
+    if skill ~= nil then
+        local abilPaladin41 = GetAbility(self, "Paladin41")
+        local abilPaladin42 = GetAbility(self, "Paladin42")
+        if (abilPaladin41 ~= nil and TryGetProp(abilPaladin41, "ActiveState", 0) == 1) or (abilPaladin42 ~= nil and TryGetProp(abilPaladin42, "ActiveState", 0) == 0) then
+            skill.ShootTime = 500;
+            skill.IgnoreAnimWhenMove = "YES"
+            InvalidateSkill(self, skill.ClassName);
+            SendSkillProperty(self, skill);
+        else
+            skill.ShootTime = 50000;
+            skill.IgnoreAnimWhenMove = "NO"
+            InvalidateSkill(self, skill.ClassName);
+            SendSkillProperty(self, skill);            
+        end
+    end
+end
+
+function SCR_ABIL_Paladin40_INACTIVE(self, ability)
+	local skill = GetSkill(self, "Paladin_Sanctuary");
+    if skill ~= nil then
+        local abilPaladin41 = GetAbility(self, "Paladin41")
+        local abilPaladin42 = GetAbility(self, "Paladin42")
+        if (abilPaladin41 ~= nil and TryGetProp(abilPaladin41, "ActiveState", 0) == 1) or (abilPaladin42 ~= nil and TryGetProp(abilPaladin42, "ActiveState", 0) == 0) then
+            skill.ShootTime = 500;
+            skill.IgnoreAnimWhenMove = "YES"
+            InvalidateSkill(self, skill.ClassName);
+            SendSkillProperty(self, skill);
+        else
+            skill.ShootTime = 50000;
+            skill.IgnoreAnimWhenMove = "NO"
+            InvalidateSkill(self, skill.ClassName);
+            SendSkillProperty(self, skill);            
+        end
+    end
+end
+
+function SCR_ABIL_Schwarzereiter26_ACTIVE(self, ability)
+    if IsBuffApplied(self, 'Schwarzereiter26_Buff') ~= 'YES' then
+        AddBuff(self, self, 'Schwarzereiter26_Buff', 1, 0, 0, 1)
+    end
+end
+
+function SCR_ABIL_Schwarzereiter26_INACTIVE(self, ability)
+    RemoveBuff(self, 'Schwarzereiter26_Buff')
+    RemoveBuff(self, 'Specialmove_Buff')
+end
+
+function SCR_ABIL_Sheriff14_ACTIVE(self, ability)
+    if IsBuffApplied(self, 'Sheriff14_Buff') ~= 'YES' then
+        AddBuff(self, self, 'Sheriff14_Buff', 99, 0, 0, 1)
+    end
+end
+
+function SCR_ABIL_Sheriff14_INACTIVE(self, ability)
+    RemoveBuff(self, 'Sheriff14_Buff')
+    RemoveBuff(self, 'Reload_Buff')
 end

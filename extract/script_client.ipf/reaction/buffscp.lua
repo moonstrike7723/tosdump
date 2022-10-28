@@ -1,4 +1,4 @@
--- buffscp.lua
+﻿-- buffscp.lua
 
 function ShadowUmbrella_ENTER(actor, obj, buff)
 
@@ -405,14 +405,39 @@ function Proliferation_ENTER(actor, obj, buff)
     end 
 
     actor:SetTransfomedNodeScale(1);
-    actor:PushSetNodeScale("Proliferation1", "Bip01 L Hand", 2.0);
-    actor:PushSetNodeScale("Proliferation2", "Dummy_L_HAND", 1.25);
-    actor:PushSetNodeScale("ProliferationRH1", "Bip01 R Hand", 2.0)
-    actor:PushSetNodeScale("ProliferationRH2", "Dummy_R_HAND", 1.25)
-    actor:PushSetNodeScale("ProliferationRH3", "Dummy_R_dagger", 1.25)
-    actor:PushSetNodeScale("ProliferationRH4", "Dummy_R_allebell", 1.25)
-    actor:PushSetNodeScale("ProliferationRH5", "Dummy_R_umbrella", 1.25)
-    actor:PushSetNodeScale("ProliferationRH6", "Dummy_Shield", 1.25)
+
+    local isEquipDoubleHandItem = false;
+    local apc = actor:GetPCApc();
+    if apc ~= nil then
+        local rhItemType = apc:GetEquipItem(ES_RH);
+        local rhItemCls = GetClassByType("Item", rhItemType);
+        if rhItemCls ~= nil then
+            local eqpType = TryGetProp(rhItemCls, "EqpType");
+            if eqpType ~= nil and eqpType == "DH" then
+                isEquipDoubleHandItem = true;
+            end
+        end
+    end
+
+    if isEquipDoubleHandItem == true then
+        actor:PushSetNodeScale("Proliferation1", "Bip01 L Hand", 1.3);
+        actor:PushSetNodeScale("Proliferation2", "Dummy_L_HAND", 1.25);
+        actor:PushSetNodeScale("ProliferationRH1", "Bip01 R Hand", 1.3)
+        actor:PushSetNodeScale("ProliferationRH2", "Dummy_R_HAND", 1.25)
+        actor:PushSetNodeScale("ProliferationRH3", "Dummy_R_dagger", 1.25)
+        actor:PushSetNodeScale("ProliferationRH4", "Dummy_R_allebell", 1.25)
+        actor:PushSetNodeScale("ProliferationRH5", "Dummy_R_umbrella", 1.25)
+        actor:PushSetNodeScale("ProliferationRH6", "Dummy_Shield", 1.25)
+    else
+        actor:PushSetNodeScale("Proliferation1", "Bip01 L Hand", 2.0);
+        actor:PushSetNodeScale("Proliferation2", "Dummy_L_HAND", 1.25);
+        actor:PushSetNodeScale("ProliferationRH1", "Bip01 R Hand", 2.0)
+        actor:PushSetNodeScale("ProliferationRH2", "Dummy_R_HAND", 1.25)
+        actor:PushSetNodeScale("ProliferationRH3", "Dummy_R_dagger", 1.25)
+        actor:PushSetNodeScale("ProliferationRH4", "Dummy_R_allebell", 1.25)
+        actor:PushSetNodeScale("ProliferationRH5", "Dummy_R_umbrella", 1.25)
+        actor:PushSetNodeScale("ProliferationRH6", "Dummy_Shield", 1.25)
+    end
 end
 
 function Proliferation_LEAVE(actor, obj, buff)
@@ -865,17 +890,17 @@ end
 
 
 function OutrageScp_ENTER(actor, obj, buff)
-    ScpChangeMovingShotAnimationSet(actor, obj, buff);
+    --ScpChangeMovingShotAnimationSet(actor, obj, buff);
 end
 
 function OutrageScp_LEAVE(actor, obj, buff)
-    actor:GetAnimation():ResetSTDAnim();
-    actor:GetAnimation():ResetRUNAnim();
-    actor:GetAnimation():ResetWLKAnim();
-    actor:GetAnimation():ResetTURNAnim();
-    actor:SetAlwaysBattleState(false);
-    actor:GetAnimation():PlayFixAnim("ASTD", 1, 1);
-    ScpChangeMovingShotAnimationSet(actor, obj, buff);
+    -- actor:GetAnimation():ResetSTDAnim();
+    -- actor:GetAnimation():ResetRUNAnim();
+    -- actor:GetAnimation():ResetWLKAnim();
+    -- actor:GetAnimation():ResetTURNAnim();
+    -- actor:SetAlwaysBattleState(false);
+    -- actor:GetAnimation():PlayFixAnim("ASTD", 1, 1);
+    -- ScpChangeMovingShotAnimationSet(actor, obj, buff);
 end
 
 
@@ -1322,6 +1347,14 @@ function WEEKLY_MIRTIS_EFFECT_LEAVE(actor, obj, buff)
     effect.DetachActorEffect(actor, "E_effectitem_mirtis", 0.0);
 end
 
+function WEEKLY_WARPULIS_EFFECT_ENTER(actor, obj, buff)
+    effect.AddActorEffectByOffset(actor, "E_effect_item_warpulis", 0.8, "BOT");
+end
+
+function WEEKLY_WARPULIS_EFFECT_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "E_effect_item_warpulis", 0.0);
+end
+
 function HiphopEffect_pre_ENTER(actor, obj, buff)
 end
 
@@ -1335,4 +1368,22 @@ end
 
 function ITEM_EFFECT_LITTLEPRINCE_LEAVE(actor, obj, buff)
     effect.DetachActorEffect(actor, "E_effectitem_littleprince", 0)
+end
+
+function Bunsin_Mijinhide_Buff_CLIENT_ENTER(actor, obj, buff)
+    local value = actor:GetEffect():SetColorBlend("Bunsin_Mijinhide_Buff", 0, 0, 0, 0, true, 0, false, 0);
+end
+
+function Bunsin_Mijinhide_Buff_CLIENT_LEAVE(actor, obj, buff)
+
+end
+
+function EP12TACTICAL_EFFECT02_PRE_ENTER(actor, obj, buff)
+    effect.AddActorEffectByOffset(actor, "I_policeline001_mesh", 1, "Middle", true);
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
+end
+
+function EP12TACTICAL_EFFECT02_PRE_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "I_policeline001_mesh", 0);
+    actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
 end

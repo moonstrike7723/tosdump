@@ -88,7 +88,7 @@ ClassID,ConditionArg4,ClassName,UseType,ValueType,PropertyType,ConditionScp,Cond
 87,0,card_Golem_gray,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,DEF_BM,DEF,10,물리 방어력 +{@st66d_y}{s16}[%d]{/}{/},10
 88,0,card_Naktis,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,HR_BM,HR,1.5,명중 +{@st66d_y}{s16}[%d]{/}{/},1.5
 89,0,card_RingCrawler,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,MNA_ITEM_BM,,1,정신 스탯 +{@st66d_y}{s16}[%d]{/}{/},1
-90,0,card_Durahan,Dead,StarCount,,SCR_CARDCHECK_DEAD,,,,SCR_CARDEFFECT_REVIVAL,,,,"전투 불능 시 {@st66d_y}{s16}[%d]{/}{/}%% 확률로 10%%의 HP가 회복된 상태로 부활 ",1
+90,0,card_Durahan,Dead,StarCount,,SCR_CARDCHECK_DEAD,,,,SCR_CARDEFFECT_REVIVAL,,,,전투 불능 시 {@st66d_y}{s16}[%d]{/}{/}%% 확률로 10%%의 HP가 회복된 상태로 부활,1
 91,0,card_Riteris,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_IMMUNE,Res_Blind_Debuff_BM,,2,암흑 상태이상 저항 +{@st66d_y}{s16}[%d]{/}{/},2
 92,0,card_Nuaele,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_RATE,MDEF_RATE_BM,MDEF,1,마법 방어력 +{@st66d_y}{s16}[%d]{/}{/}%%,1
 93,0,card_Neop,Always,StarCount,,,,100,,SCR_CARDEFFECT_ITEM_EFFECTIVE,HPPOTION,,1,HP 포션 종류 효과 +{@st66d_y}{s16}[%d]{/}{/}%%,1
@@ -178,5 +178,8 @@ ClassID,ConditionArg4,ClassName,UseType,ValueType,PropertyType,ConditionScp,Cond
 177,0,Master_card_AbrehMelinn,BeforeAttack,StarCount,,,,,,SCR_CARDEFFECT_DAMAGE_RATE_BY_BUFF,Fire,Keyword,1,불 상태 이상에 걸린 대상에게 주는 대미지{@st66d_y}{s16}[%d]{/}{/}%% 증가,1
 178,0,Master_card_Rashn,Always,StarCount,,,,,,SCR_CARDEFFECT_STATUS_PLUS,STR_ITEM_BM,,4,힘 스탯 +{@st66d_y}{s16}[%d]{/}{/},4
 179,0,Master_card_Lucia,Always,StarCount,,,,,,SCR_CARDEFFECT_STATUS_PLUS,INT_ITEM_BM,,4,"지능 스텟 +{@st66d_y}{s16}[%d]{/}{/} ",4
+180,0,card_Glacier,Always,StarCount,,,,,,SCR_CARDEFFECT_STATUS_ALL_PLUS,CON_ITEM_BM/MNA_ITEM_BM,CON_ITEM_BM/MNA_ITEM_BM,1/1,"정신, 체력 + {@st66d_y}{s16}[%d]{/}{/}",1
 181,0,Master_card_EdmundasTiller,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,DEX_ITEM_BM,,4,민첩 스탯 +{@st66d_y}{s16}[%d]{/}{/},4
 182,0,Master_card_Rozaliia,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,MNA_ITEM_BM,,4,정신 스탯 +{@st66d_y}{s16}[%d]{/}{/},4
+183,0,Master_card_Vilius,Always,StarCount,,,,100,,SCR_CARDEFFECT_STATUS_PLUS,HR_BM,HR,10,명중 +{@st66d_y}{s16}[%d]{/}{/},10
+184,0,Master_card_JenaHavindar,Always,StarCount,,,,,,SCR_CARDEFFECT_STATUS_ALL_PLUS,Add_Damage_Atk_BM,Add_Damage_Atk,40,추가 대미지 + {@st66d_y}{s16}[%d]{/}{/},40

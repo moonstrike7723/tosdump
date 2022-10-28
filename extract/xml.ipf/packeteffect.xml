@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by asdasd (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by asd (IMCGames Co., Ltd) -->
 <packeteffects>
     <Category ID="163">
         <Effect Name="F_archer_bodkinpoint_hit_explosion#Dummy001"/>
         <Effect Name="F_explosion026_rize#Dummy001"/>
+        <Effect Name="GLACIER_TUTO_RP_MINI"/>
+        <Effect Name="F_light140_blue_loop"/>
+        <Effect Name="F_ground180_snow_loop"/>
+        <Effect Name="F_cleric_zemina_buff_blue"/>
+        <Effect Name="std_loop"/>
     </Category>
     <Category ID="132">
         <Effect Name="I_arrow005_mash2_red#Dummy_back_arrow04"/>
@@ -16,6 +21,21 @@
         <Effect Name="F_cleric_omikuji_ground_wish"/>
         <Effect Name="F_cleric_omikuji_ground_healthy"/>
         <Effect Name="F_cleric_omikuji_ground_money"/>
+        <Effect Name="SKL_IMMOLATION"/>
+        <Effect Name="BlossomBlader_Flash"/>
+        <Effect Name="skl_DaggerFinish"/>
+        <Effect Name="Barbarian_Pouncing_Abil"/>
+        <Effect Name="SKL_SHIELDTRAIN"/>
+        <Effect Name="E_archer_buff_shot_hand"/>
+        <Effect Name="SKL_RAWA"/>
+        <Effect Name="F_spread_in045_light_violet_loop"/>
+        <Effect Name="F_cleric_Retaliation_ground_line_violet_blue"/>
+        <Effect Name="F_cleric_Retaliation_ground_line_violet"/>
+        <Effect Name="F_cleric_merkabah_buff_wing"/>
+        <Effect Name="F_cleric_Retaliation_ground_line_mint"/>
+        <Effect Name="F_cleric_Revival_light2"/>
+        <Effect Name="F_pattern002_wind_white_loop"/>
+        <Effect Name="F_pattern002_wind_white"/>
     </Category>
     <Category ID="70">
         <Effect Name="EVENT_2001_NEWYEAR_INIT_PAD"/>
@@ -41,6 +61,9 @@
         <Effect Name="Field_Macro_Debuff_Remove"/>
         <Effect Name="Crusader_Condemn_Damage_Pad"/>
         <Effect Name="Crusader_Condemn_Heal_Pad"/>
+        <Effect Name="F_boss_Moringponia_Buff_Pad"/>
+        <Effect Name="F_boss_Moringponia_Debuff_Pad"/>
+        <Effect Name="boss_misrus_circlewave"/>
     </Category>
     <Category ID="187">
         <Effect Name="F_bg_boil002"/>
@@ -48,6 +71,7 @@
         <Effect Name="F_wizard_combustion_ground"/>
         <Effect Name="guild_agit_extension"/>
         <Effect Name="F_buff_basic050_circle"/>
+        <Effect Name="skl_eff_finger_flick"/>
     </Category>
     <Category ID="14">
         <Effect Name="GUILD_COLONY_F_REMAINS_37_1"/>
@@ -249,6 +273,15 @@
         <Effect Name="Weekly_Lecifer_Pad"/>
         <Effect Name="I_spin006_2"/>
         <Effect Name="SOLO_DUNGEON_MINI_ANCIENT_QUEST"/>
+        <Effect Name="F_Skiaclipse_pad_1"/>
+        <Effect Name="F_Skiaclipse_pad_2"/>
+        <Effect Name="Weekly_Summon_DefDown"/>
+        <Effect Name="Weekly_Summon_Lethargy"/>
+        <Effect Name="I_breath021_dark#Dummy_effect_skl_force"/>
+        <Effect Name="ChiefGuard_smoke"/>
+        <Effect Name="weekly_boss_frosterRoad_ice_age"/>
+        <Effect Name="weekly_ShadowGaoler_circlewave"/>
+        <Effect Name="weekly_warpulis_windpad"/>
     </Category>
     <Category ID="146">
         <Effect Name="beginner"/>
@@ -285,7 +318,6 @@
         <Effect Name="Fever"/>
         <Effect Name="I_halloween_buff"/>
         <Effect Name="Quset_3"/>
-        <Effect Name="F_little_dionys_ground001"/>
     </Category>
     <Category ID="135">
         <Effect Name="HaveToPutPetAtBarrack"/>
@@ -483,6 +515,11 @@
         <Effect Name="Stage_03(Moringponia)"/>
         <Effect Name="AbuseCheck"/>
         <Effect Name="1_on"/>
+        <Effect Name="item_vibora_shield_pad"/>
+        <Effect Name="LEGEND_RAID_GLACIER_NORMAL"/>
+        <Effect Name="LEGEND_RAID_GLACIER_HARD"/>
+        <Effect Name="LEGEND_RAID_GLACIER_EASY"/>
+        <Effect Name="Pattern_Reigning"/>
     </Category>
     <Category ID="144">
         <Effect Name="F_pc_CardBook_ground_dark"/>
@@ -590,6 +627,7 @@
         <Effect Name="I_archer_FocusFire_arrow_trail#Bip01 Spine2"/>
         <Effect Name="SKL_KATADIKAZO_CAST"/>
         <Effect Name="SKL_KATADIKAZO_LOOP"/>
+	<Effect Name="E_cleric_katadikazo"/>
         <Effect Name="SKL_KATADIKAZO_SHOT"/>
         <Effect Name="SKL_RUBRIC_CAST"/>
         <Effect Name="SKL_RUBRIC_SHOT"/>
@@ -704,6 +742,8 @@
         <Effect Name="I_arrow020_ignas_mon_mesh2#Bip001 Spine1"/>
         <Effect Name="I_spiral003_mesh#Bip001 Spine1"/>
         <Effect Name="I_cleric_katadikazo_mesh#Bip001 Spine1"/>
+	<Effect Name="I_cleric_katadikazo_mesh"/>
+	<Effect Name="F_cleric_ground_katadikazo"/>
         <Effect Name="I_wizard_DemonScratch_mesh2#Bip001 Spine1"/>
         <Effect Name="F_spread_out026_dark_low"/>
         <Effect Name="I_wizard_DemonScratch_mesh2"/>
@@ -1614,6 +1654,11 @@
         <Effect Name="I_emo_exclamation#Bip001"/>
         <Effect Name="F_water007"/>
         <Effect Name="F_bubble003_green2"/>
+        <Effect Name="I_emo_guildmileage_coin"/>
+        <Effect Name="Dummy_bell"/>
+        <Effect Name="salute"/>
+        <Effect Name="SALUTE"/>
+        <Effect Name="EXPLANATION"/>
     </Category>
     <Category ID="201">
         <Effect Name="F_cleric_devinestigma_hit_smoke_LOW##0.5"/>
@@ -2297,7 +2342,22 @@
         <Effect Name="I_horn001_ground_burstup"/>
         <Effect Name="EVENT_2001_NEWYEAR_MISSION"/>
         <Effect Name="LEGEND_RAID_MORINGPONIA_HARD"/>
+        <Effect Name="I_force108_violet"/>
+        <Effect Name="I_force108_violet#Bip001 Spine"/>
+        <Effect Name="F_ground199_star"/>
+        <Effect Name="I_force109_energybolt"/>
         <Effect Name="EVENT_2004_UPHILL_MISSION"/>
+        <Effect Name="SOLO_DUNGEON_MINI_ANCIENT_QUEST"/>
+        <Effect Name="F_explosion133_dark"/>
+        <Effect Name="I_smoke026_spread_out##0.5"/>
+        <Effect Name="I_smoke013_dark4##0.5"/>
+        <Effect Name="I_smoke013_dark8##0.5"/>
+        <Effect Name="F_explosion033_orange2"/>
+        <Effect Name="F_explosion028_dark"/>
+        <Effect Name="F_explosion033_white"/>
+        <Effect Name="F_explosion033_blue"/>
+        <Effect Name="F_explosion033_darkblue"/>
+        <Effect Name="I_force018_trail_ice2_800"/>
     </Category>
     <Category ID="197">
         <Effect Name="F_burstup030_fire1"/>
@@ -2649,6 +2709,9 @@
         <Effect Name="E_scout_annihiation"/>
         <Effect Name="F_scout_annihiation_bottom"/>
         <Effect Name="F_hit021_thin"/>
+        <Effect Name="F_wizard_Empowering_buff"/>
+        <Effect Name="F_spread_out028_blue"/>
+        <Effect Name="Appraiser_Blindside_HiddenAbil"/>
     </Category>
     <Category ID="84">
         <Effect Name="M_PAST_FLIBRARY_1"/>
@@ -2883,6 +2946,10 @@
         <Effect Name="F_ground071_fire"/>
         <Effect Name="I_fantasylibrary_brickfloor_dead"/>
         <Effect Name="voice_cleric_m_bwakayiman_shot"/>
+        <Effect Name="I_smoke013_dark8##0.5"/>
+        <Effect Name="F_explosion133_dark"/>
+        <Effect Name="F_explosion033_white"/>
+        <Effect Name="F_explosion028_dark"/>
     </Category>
     <Category ID="62">
         <Effect Name="I_force007_vilolet"/>
@@ -5252,7 +5319,63 @@
         <Effect Name="I_force018_trail_violet"/>
         <Effect Name="F_pattern008_violet_loop##1"/>
         <Effect Name="Weekly_boss_Mirtis_line"/>
+        <Effect Name="I_force018_trail_rize_blue"/>
+        <Effect Name="F_cleric_HengeStone_ground_loop##0.2"/>
+        <Effect Name="F_pattern013_ground_blue##1"/>
+        <Effect Name="I_force018_trail_greeb_energy#Bip001 R Finger31"/>
+        <Effect Name="Unique_Glacier_Storm"/>
+        <Effect Name="I_force098_dark#Bip001 R Finger31"/>
+        <Effect Name="I_force045_green#Bip001 R Finger31"/>
+        <Effect Name="I_force018_trail_dark3#Bip001 R Finger31"/>
+        <Effect Name="F_lineup007_white"/>
+        <Effect Name="F_pattern008_violet2##0.5"/>
+        <Effect Name="F_pattern008_violet2##0.2"/>
+        <Effect Name="F_smoke024_blue1##0.5"/>
+        <Effect Name="F_pattern006_malletwyvern##0.2"/>
+        <Effect Name="I_smoke045_spread_in##0.5"/>
+        <Effect Name="F_warrior_upperslash_cast_ground2##0.5"/>
+        <Effect Name="F_burstup003_mint##0.5"/>
+        <Effect Name="F_warrior_upperslash_cast_ground2##1"/>
+        <Effect Name="F_wizard_Tiwaz_cast_ground##1"/>
+        <Effect Name="I_light006_blue##1"/>
+        <Effect Name="F_burstup001_blue_light2##0.5"/>
+        <Effect Name="I_smoke013_whiteDark##0.5"/>
+        <Effect Name="F_item_drop_line_loop_white##0.5"/>
+        <Effect Name="F_item_drop_line_loop_white##0.5##0.5"/>
+        <Effect Name="Unique_Pbeta_circle"/>
+        <Effect Name="UNIQUE_RAID_GLACIER"/>
+        <Effect Name="I_smoke004_4##0.5"/>
+        <Effect Name="Unique_Pbeta_Storm"/>
+        <Effect Name="Unique_Pbeta_BloodRing"/>
+        <Effect Name="Unique_Pbeta_RingDmg"/>
+        <Effect Name="F_skillrange_donut001"/>
+        <Effect Name="I_skillrange_donut0"/>
         <Effect Name="EVENT_2004_UPHILL_MISSION"/>
+        <Effect Name="Unique_Glacier_Snow"/>
+        <Effect Name="Pbeta"/>
+        <Effect Name="Unique_Pbeta_IceRink"/>
+        <Effect Name="Unique_Pbeta_Storm_2"/>
+        <Effect Name="Fail_Check"/>
+        <Effect Name="I_skillrange_90"/>
+        <Effect Name="Pbeta_Obj_Pad"/>
+        <Effect Name="Pbeta_Obj_Dmg_Pad"/>
+        <Effect Name="Unique_Pbeta_BattleField"/>
+        <Effect Name="Unique_Pbeta_contaminate"/>
+        <Effect Name="F_smoke185_spread_out_blue"/>
+        <Effect Name="Unique_Pbeta_AntiMagic"/>
+        <Effect Name="F_ground190_circle_crack_ice"/>
+        <Effect Name="I_smoke013_dark8##0.5"/>
+        <Effect Name="F_explosion133_dark"/>
+        <Effect Name="F_explosion033_white"/>
+        <Effect Name="F_explosion028_dark"/>
+        <Effect Name="Unique_Glacier_SnowWhirlwind"/>
+        <Effect Name="F_spin011_ice2_dark#Dummy001"/>
+        <Effect Name="Unique_Glacier_Area"/>
+        <Effect Name="Unique_Pbeta_Breath_IceRink"/>
+        <Effect Name="F_ground190_circle_crack_ice_blue"/>
+        <Effect Name="ISA_CAST"/>
+        <Effect Name="ISA_SHOT"/>
+        <Effect Name="TIWAZ_SHOT"/>
     </Category>
     <Category ID="45">
         <Effect Name="Cleric_Barrier"/>
@@ -6449,7 +6572,34 @@
         <Effect Name="F_explosion028_red "/>
         <Effect Name="I_smoke013_dark_earth##0.8"/>
         <Effect Name="EVENT_2001_NEWYEAR_MISSION"/>
+        <Effect Name="LEGEND_RAID_MORINGPONIA_HARD"/>
+        <Effect Name="F_ground191_circle_crack##0.1"/>
+        <Effect Name="F_ground190_circle_crack##0.1"/>
+        <Effect Name="I_force018_trail_water3"/>
+        <Effect Name="I_force018_trail_water#Bip001 R Finger2"/>
+        <Effect Name="F_explosion98_water3_2#Bone002"/>
         <Effect Name="EVENT_2004_UPHILL_MISSION"/>
+        <Effect Name="SOLO_DUNGEON_MINI_ANCIENT_QUEST"/>
+        <Effect Name="F_ground190_circle_crack"/>
+        <Effect Name="F_ground190_circle_crack_ice"/>
+        <Effect Name="F_spin011_ice2_dark"/>
+        <Effect Name="F_ground190_circle_crack_ice_blue"/>
+        <Effect Name="F_spin011_ice2_dark_blue#Dummy001"/>
+        <Effect Name="F_spin011_ice2_dark_blue"/>
+        <Effect Name="I_force018_trail_ice2_800"/>
+        <Effect Name="F_explosion086_ice_blue"/>
+        <Effect Name="I_ground012_ice5_loop"/>
+        <Effect Name="I_force018_ice#Bip001 R Finger31"/>
+        <Effect Name="I_force018_trail_psychokinesis_800#Bip001 R Finger31"/>
+        <Effect Name="I_shield004_ice_mesh#Bip001 R Finger31"/>
+        <Effect Name="F_ground117_ice##0.2"/>
+        <Effect Name="I_ground015_ice_mesh##0.2"/>
+        <Effect Name="F_ground113_ice3##1"/>
+        <Effect Name="F_ground113_ice3##3"/>
+        <Effect Name="I_shield005_ice_mesh#Bip001 R Finger31"/>
+        <Effect Name="F_ground113_ice3##2.5"/>
+        <Effect Name="I_ground012_ice5_loop2"/>
+        <Effect Name="I_shield005_ice_mesh##1"/>
     </Category>
     <Category ID="27">
         <Effect Name="SAPPER_TRAP_Sapper_BroomTrap"/>
@@ -7110,6 +7260,7 @@
         <Effect Name="RIGHTTURN"/>
         <Effect Name="RootCrystal"/>
         <Effect Name="RUN_INTE_WARP"/>
+        <Effect Name="LEGEND_RAID_MORINGPONIA_HARD"/>
     </Category>
     <Category ID="177">
         <Effect Name="KATYN10_SECTOR2_OWL01_MINI"/>
@@ -7153,6 +7304,7 @@
         <Effect Name="F_explosion019_rize#Dummy_skl1_badak"/>
         <Effect Name="Mon_FirePilla"/>
         <Effect Name="F_warrior_whirlwind_shot_spin"/>
+        <Effect Name="F_warrior_whirlwind_shot_spin_art"/>
         <Effect Name="E_warrior_whirlwind_shot"/>
         <Effect Name="Mon_Heal"/>
         <Effect Name="I_laser012_fire"/>
@@ -8280,10 +8432,43 @@
         <Effect Name="F_water003"/>
         <Effect Name="E_effectitem_whitebird"/>
         <Effect Name="E_effectitem_mirtis"/>
+        <Effect Name="SOLO_DUNGEON_MINI_ANCIENT_QUEST"/>
+        <Effect Name="SUMMON_MUSHROOM"/>
+        <Effect Name="CURSE_PATTERN"/>
+        <Effect Name="DARK_PATTERN"/>
+        <Effect Name="I_skillrange_90"/>
+        <Effect Name="I_skillrange_240"/>
+        <Effect Name="Fail_Check"/>
+        <Effect Name="Pbeta_KruvinaMist"/>
+        <Effect Name="Boss_Pbeta"/>
+        <Effect Name="Boss_Pbeta"/>
+        <Effect Name="Boss_Glacier"/>
+        <Effect Name="PBETA_KRUVINA_MIST"/>
+        <Effect Name="PBETA_KRUVINA_SPIRIT"/>
+        <Effect Name="PBETA_BATTLE_FIELD"/>
+        <Effect Name="PBETA_SUMMON_TRAP"/>
+        <Effect Name="GLACIER_ESSENCE_WARMTH"/>
+        <Effect Name="GLACIER_WITCHCRAFT_FIELD"/>
+        <Effect Name="GLACIER_COLD_BLAST"/>
+        <Effect Name="GLACIER_SNOW_STORM"/>
+        <Effect Name="Unique_Glacier_SnowStorm"/>
+        <Effect Name="GLACIER_ROTATE_FREEZE"/>
+        <Effect Name="GLACIER_ENCHANTMENT"/>
+        <Effect Name="Unique_Glacier_ColdBlast"/>
+        <Effect Name="GLACIER_ICE_SPEAR"/>
+        <Effect Name="F_summon_red2"/>
+        <Effect Name="Unique_Glacier_IceSpear"/>
+        <Effect Name="F_ground190_circle_crack_ice"/>
+        <Effect Name="F_pose_magical2_light02_blue"/>
         <Effect Name="F_summon_groundred2"/>
         <Effect Name="boss_whitewitch"/>
         <Effect Name="Unique_Pbeta_Breath_IceRink"/>
         <Effect Name="Unique_Pbeta_Battle_Second_Victory_Pad"/>
+        <Effect Name="I_ice007_trail_mesh"/>
+        <Effect Name="F_summon_ground_yellow_attach"/>
+        <Effect Name="F_summon_ground_green"/>
+        <Effect Name="F_summon_ground_blue"/>
+        <Effect Name="F_summon_ground_red_attach"/>
     </Category>
     <Category ID="19">
         <Effect Name="I_fallen_statue_atk002_mash"/>

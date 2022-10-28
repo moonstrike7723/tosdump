@@ -8,13 +8,8 @@ function ICORRELEASE_MULTIPLE_ON_INIT(addon, frame)
 	addon:RegisterMsg("UPDATE_COLONY_TAX_RATE_SET", "ON_ICORRELEASE_MULTIPLE_UPDATE_COLONY_TAX_RATE_SET")
 end
 
-function ON_OPEN_DLG_ICORRELEASE_MULTIPLE(frame, msg, argStr, argNum)
+function ON_OPEN_DLG_ICORRELEASE_MULTIPLE(frame)
 	frame:ShowWindow(1)
-	if argNum == 1 then
-		frame:SetUserValue('IS_LEGEND_SHOP', 1)
-	else
-		frame:SetUserValue('IS_LEGEND_SHOP', 0)
-	end
 end
 
 function ON_ICORRELEASE_MULTIPLE_UPDATE_COLONY_TAX_RATE_SET(frame)
@@ -92,15 +87,12 @@ function CLEAR_ICORRELEASE_MULTIPLE()
 
 	local costBox = GET_CHILD_RECURSIVELY(frame, 'costBox')
 	local priceText = GET_CHILD_RECURSIVELY(costBox, 'priceText')
-	local price = GET_OPTION_RELEASE_COST()
-	priceText:SetTextByKey('price', price)
+	priceText:SetTextByKey('price', GET_OPTION_RELEASE_COST())
 	costBox:ShowWindow(1)
 end
 
 function _UPDATE_RELEASE_MULTIPLE_COST(frame)
 	local totalPrice = 0
-
-	local is_legend_shop = frame:GetUserIValue('IS_LEGEND_SHOP')
 
 	local max_count = GET_ICOR_MULTIPLE_MAX_COUNT()
 	for i = 1, max_count do
@@ -109,10 +101,7 @@ function _UPDATE_RELEASE_MULTIPLE_COST(frame)
 		local invItem = GET_SLOT_ITEM(slot)
 		if invItem ~= nil then
 			local invItemObj = GetIES(invItem:GetObject())
-			local eachPrice = GET_OPTION_RELEASE_COST(invItemObj, GET_COLONY_TAX_RATE_CURRENT_MAP(), is_legend_shop)
-			if is_legend_shop ~= 1 then
-				eachPrice = GET_OPTION_RELEASE_COST(invItemObj, nil, is_legend_shop)
-			end
+			local eachPrice = GET_OPTION_RELEASE_COST(invItemObj, GET_COLONY_TAX_RATE_CURRENT_MAP())
 
 			totalPrice = totalPrice + eachPrice
 		end
@@ -171,15 +160,10 @@ function ICORRELEASE_CTRL_REG_TARGETITEM(ctrlSet, itemID)
 
 	local invItemObj = GetIES(invItem:GetObject())
 	local itemCls = GetClassByType('Item', invItemObj.ClassID)
+	
 	if IS_ENABLE_RELEASE_OPTION(invItemObj) ~= true then
 		-- 복원 대상인지 체크
-		ui.SysMsg(ClMsg("IMPOSSIBLE_ITEM"))
-		return
-	end
-	
-	--이벤트 장비인지 체크
-	if TryGetProp(invItemObj, 'PremiumEquip', 0) == 0 and SHARED_IS_EVENT_ITEM_CHECK(itemCls, "NoEnchant") == true then
-		ui.SysMsg(ClMsg("IcorNotAdded_EP12_CANT1"))
+		ui.SysMsg(ClMsg("IcorNotAdded"))
 		return
 	end
 	
@@ -256,9 +240,6 @@ function ICORRELEASE_CTRL_REG_TARGETITEM(ctrlSet, itemID)
 	labelline:ShowWindow(0)
 	local property_gbox = GET_CHILD(tooltip_equip_property_CSet,'property_gbox','ui::CGroupBox')
 
-	tooltip_equip_property_CSet:Resize(gBox:GetWidth(), tooltip_equip_property_CSet:GetHeight())
-	property_gbox:Resize(gBox:GetWidth(), property_gbox:GetHeight())
-	
 	local inner_yPos = 0
 
 	local randomOptionProp = {}
@@ -326,26 +307,6 @@ function ICORRELEASE_CTRL_REG_TARGETITEM(ctrlSet, itemID)
 		inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(property_gbox, inheritItemCls.OptDesc, 0, inner_yPos)
 	end
 
-	if inheritItemCls.OptDesc ~= nil and (inheritItemCls.OptDesc == 'None' or inheritItemCls.OptDesc == '') and TryGetProp(inheritItemCls, 'StringArg', 'None') == 'Vibora' then
-		local opt_desc = inheritItemCls.OptDesc
-		if opt_desc == 'None' then
-			opt_desc = ''
-		end
-		
-		for idx = 1, MAX_VIBORA_OPTION_COUNT do			
-			local additional_option = TryGetProp(inheritItemCls, 'AdditionalOption_' .. tostring(idx), 'None')			
-			if additional_option ~= 'None' then
-				local tooltip_str = 'tooltip_' .. additional_option					
-				local cls_message = GetClass('ClientMessage', tooltip_str)
-				if cls_message ~= nil then
-					opt_desc = opt_desc .. ClMsg(tooltip_str)
-				end
-			end
-		end
-		
-		inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(property_gbox, opt_desc, 0, inner_yPos);
-	end
-
 	if invItemObj.ReinforceRatio > 100 then
 		local opName = ClMsg("ReinforceOption")
 		local strInfo = ABILITY_DESC_PLUS(opName, math.floor(10 * invItemObj.ReinforceRatio/100))
@@ -386,8 +347,6 @@ function ICORRELEASE_MULTIPLE_EXEC(frame)
 	frame = frame:GetTopParentFrame()
 	local invframe = ui.GetFrame("inventory")
 
-	local is_legend_shop = frame:GetUserIValue('IS_LEGEND_SHOP')
-
 	local totalPrice = 0
 	local max_count = GET_ICOR_MULTIPLE_MAX_COUNT()
 	for i = 1, max_count do
@@ -401,10 +360,7 @@ function ICORRELEASE_MULTIPLE_EXEC(frame)
 			end
 			
 			local invItemObj = GetIES(invItem:GetObject())
-			local eachPrice = GET_OPTION_RELEASE_COST(invItemObj, GET_COLONY_TAX_RATE_CURRENT_MAP(), is_legend_shop)
-			if is_legend_shop ~= 1 then
-				eachPrice = GET_OPTION_RELEASE_COST(invItemObj, nil, is_legend_shop)
-			end
+			local eachPrice = GET_OPTION_RELEASE_COST(invItemObj, GET_COLONY_TAX_RATE_CURRENT_MAP())
 
 			totalPrice = totalPrice + eachPrice
 		end

@@ -31,7 +31,11 @@ function GODDESS_ROULETTE_RESULT_FULLDARK_UI_OPEN(grade, itemClassName, itemCoun
 
     local itemname = GET_CHILD(frame, "itemname");
     if itemCount ~= nil then
-        itemname:SetTextByKey("value", itemCls.Name.." "..itemCount);
+        if IS_EVENT_NEW_SEASON_SERVER() == true then
+            itemname:SetTextByKey("value", itemCls.Name.." "..itemCount);
+        else
+            itemname:SetTextByKey("value", itemCls.Name.." "..itemCount..ClMsg("Piece"));
+        end
     else
         itemname:SetTextByKey("value", itemCls.Name);
     end

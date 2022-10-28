@@ -130,7 +130,7 @@ function ICORADD_CTRL_REG_MAIN_ITEM(ctrlSet, itemID)
 	if invItem == nil then
 		return
 	end
-	
+
 	local max_count = GET_ICOR_MULTIPLE_MAX_COUNT()
 	for i = 1, max_count do
 		local temp = GET_CHILD_RECURSIVELY(frame, 'ctrlset_' .. i)
@@ -147,21 +147,9 @@ function ICORADD_CTRL_REG_MAIN_ITEM(ctrlSet, itemID)
 	local itemObj = GetIES(invItem:GetObject())
 	local itemCls = GetClassByType('Item', itemObj.ClassID)
 	if TryGetProp(itemCls, 'NeedRandomOption', 0) == 1 and TryGetProp(itemCls, 'LegendGroup', 'None') == 'None' then
-		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
+	    ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
         return
 	end
-
-	if TryGetProp(itemObj, 'ItemGrade') > 5 then
-		ui.SysMsg(ClMsg('CantUseGoddessItemToIcor'))
-		return
-	end
-
-	--이벤트 아이템 확인
-	if SHARED_IS_EVENT_ITEM_CHECK(itemCls, "NoEnchant") == true then
-		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
-		return
-	end
-
 		
 	local invframe = ui.GetFrame("inventory")
 	if true == invItem.isLockState or true == IS_TEMP_LOCK(invframe, invItem) then
@@ -203,12 +191,11 @@ function ICORADD_CTRL_REG_MAIN_ITEM(ctrlSet, itemID)
 	end
 end
 
--- 아이커 장착
 function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 	if ui.CheckHoldedUI() == true then
 		return
 	end
-	
+
 	local frame = ctrlSet:GetTopParentFrame()
 
 	local max_count = GET_ICOR_MULTIPLE_MAX_COUNT()
@@ -227,7 +214,7 @@ function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 	local gBox = GET_CHILD_RECURSIVELY(ctrlSet, "optionGbox_1")
 	gBox:RemoveChild('tooltip_equip_property_narrow')
 
-	local invItem = session.GetInvItemByGuid(itemID)	
+	local invItem = session.GetInvItemByGuid(itemID)
 	if invItem == nil then
 		return
 	end
@@ -241,7 +228,7 @@ function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 	end
 
 	-- invItem 이 아이커가 아니면 에러 후 리턴 if invItem
-	if TryGetProp(itemObj, 'GroupName') ~= 'Icor' and TryGetProp(itemObj, 'GroupName', 'None') ~= 'Arcane' then
+	if TryGetProp(itemObj, 'GroupName') ~= 'Icor' then
 		ui.SysMsg(ClMsg("MustEquipIcor"))
 		return
 	end
@@ -255,60 +242,22 @@ function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 	local slot = GET_CHILD_RECURSIVELY(ctrlSet, "slot")
 	local slotInvItem = GET_SLOT_ITEM(slot)
 	local slotInvItemCls = nil
-	local tempItem = nil
-	if slotInvItem ~= nil then		
-		tempItem = GetIES(slotInvItem:GetObject())
+	if slotInvItem ~= nil then
+		local tempItem = GetIES(slotInvItem:GetObject())
 		slotInvItemCls = GetClass('Item', tempItem.ClassName)
-		if TryGetProp(tempItem, 'ItemGrade', 0) > 5 then
-			ui.SysMsg(ClMsg('IMPOSSIBLE_ITEM'))			
-			return
-		end
 	end
     
 	--아이커의 atk 과 slot 의 atk 이 맞아야만 장착가능
 	local targetItem = GetClass('Item', itemObj.InheritanceItemName)
-	
-	if itemObj.GroupName == 'Icor' then
-        if TryGetProp(targetItem, 'StringArg', 'None') == 'Vibora' then				
-			ui.SysMsg(ClMsg('NowCantViboraIcorToWeapon'))
-			return
-		end
-    end
-
-	if TryGetProp(itemObj, 'GroupName', 'None') == 'Arcane' then
-		if TryGetProp(itemObj, 'TeamBelonging', 0) == 1 then
-			ui.SysMsg(ClMsg('TeamBelongingArcaneOnlyUseGoddess'))
-			return
-		end
-
-		local class_type = TryGetProp(slotInvItemCls, 'ClassType', 'None')
-		if IS_WEAPON_TYPE(class_type) == false then
-			ui.SysMsg(ClMsg('NotMatchItemClassType')) -- atk 타입이 안맞아서 리턴	
-			return
-		end		
-		targetItem = GetClass('Item', itemObj.ClassName);
-	end
-
     if targetItem == nil then
         targetItem = GetClass('Item', itemObj.InheritanceRandomItemName)
     end
         
-	if (IS_ICORABLE_RANDOM_LEGEND_ITEM(slotInvItemCls) and itemObj.InheritanceRandomItemName ~= 'None') then
+	if targetItem.ClassType ~= slotInvItemCls.ClassType or (IS_ICORABLE_RANDOM_LEGEND_ITEM(slotInvItemCls) and itemObj.InheritanceRandomItemName ~= 'None') then
 		ui.SysMsg(ClMsg('NotMatchItemClassType')) -- atk 타입이 안맞아서 리턴
 		return
 	end
 	
-	if tempItem ~= nil then		
-		local obj = tempItem
-		local obj_add = itemObj
-		if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
-		or (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'GroupName', 'None') == 'Arcane')
-		or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
-			ui.SysMsg(ClMsg("AlearyIcorAdded"))
-			return
-		end	
-	end
-
 	local yPos = 0
 	local basicList = GET_EQUIP_TOOLTIP_PROP_LIST(targetItem)
     local list = {}
@@ -356,9 +305,6 @@ function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 	local labelline = GET_CHILD_RECURSIVELY(tooltip_equip_property_CSet, "labelline")
 	labelline:ShowWindow(0)
 	local property_gbox = GET_CHILD(tooltip_equip_property_CSet,'property_gbox','ui::CGroupBox')
-
-	tooltip_equip_property_CSet:Resize(gBox:GetWidth(), tooltip_equip_property_CSet:GetHeight())
-	property_gbox:Resize(gBox:GetWidth(), property_gbox:GetHeight())
 
 	local class = GetClassByType("Item", targetItem.ClassID)
 
@@ -463,26 +409,6 @@ function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 		inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(property_gbox, targetItem.OptDesc, 0, inner_yPos)
 	end
 
-	if targetItem.OptDesc ~= nil and (targetItem.OptDesc == 'None' or targetItem.OptDesc == '') and TryGetProp(targetItem, 'StringArg', 'None') == 'Vibora' then
-		local opt_desc = targetItem.OptDesc
-		if opt_desc == 'None' then
-			opt_desc = ''
-		end
-		
-		for idx = 1, MAX_VIBORA_OPTION_COUNT do			
-			local additional_option = TryGetProp(targetItem, 'AdditionalOption_' .. tostring(idx), 'None')			
-			if additional_option ~= 'None' then
-				local tooltip_str = 'tooltip_' .. additional_option					
-				local cls_message = GetClass('ClientMessage', tooltip_str)
-				if cls_message ~= nil then
-					opt_desc = opt_desc .. ClMsg(tooltip_str)
-				end
-			end
-		end
-
-		inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(property_gbox, opt_desc, 0, inner_yPos);
-	end
-
 	if targetItem.IsAwaken == 1 then
 		local opName = string.format("[%s] %s", ClMsg("AwakenOption"), ScpArgMsg(targetItem.HiddenProp))
 		local strInfo = ABILITY_DESC_PLUS(opName, targetItem.HiddenPropValue)
@@ -532,11 +458,10 @@ function ICORADD_MULTIPLE_EXEC(frame)
 					ui.SysMsg(ClMsg("MaterialItemIsLock"))
 					return
 				end
-				
+
 				local obj = GetIES(invItem:GetObject())
 				local obj_add = GetIES(invItem_add:GetObject())
 				if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
-				or (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'GroupName', 'None') == 'Arcane')
 				or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
 					ui.SysMsg(ClMsg("AlearyIcorAdded"))
 					return
@@ -589,15 +514,6 @@ function _ICORADD_MULTIPLE_EXEC(checkRebuildFlag)
 				return
 			end
 	
-			local obj = GetIES(mainInvItem:GetObject())
-			local obj_add = GetIES(addInvItem:GetObject())
-			if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
-			or (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'GroupName', 'None') == 'Arcane')
-			or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
-				ui.SysMsg(ClMsg("AlearyIcorAdded"))
-				return
-			end
-
 			session.AddItemID(mainInvItem:GetIESID(), 1)
 			session.AddItemID(addInvItem:GetIESID(), 1)
 		end
@@ -618,7 +534,6 @@ function _ICORADD_MULTIPLE_EXEC(checkRebuildFlag)
 end
 
 function SUCCESS_ICOR_ADD_MULTIPLE(frame)
-	frame = ui.GetFrame('icoradd_multiple')
 	local do_add = GET_CHILD_RECURSIVELY(frame, "do_add")
 	do_add:ShowWindow(0)
 
@@ -697,7 +612,7 @@ function REMOVE_ICORADD_CTRL_ADD_ITEM(slot)
 	gBox:RemoveChild('tooltip_equip_property_narrow')
 end
 
-function ICORADD_MULTIPLE_INV_RBTN(itemObj, slot)	
+function ICORADD_MULTIPLE_INV_RBTN(itemObj, slot)
 	local frame = ui.GetFrame("icoradd_multiple")
 	if frame == nil then
 		return
@@ -705,14 +620,8 @@ function ICORADD_MULTIPLE_INV_RBTN(itemObj, slot)
 	
 	local itemCls = GetClass('Item', TryGetProp(itemObj, 'ClassName', 'None'))
 	if TryGetProp(itemCls, 'NeedRandomOption', 0) == 1 and TryGetProp(itemCls, 'LegendGroup', 'None') == 'None' then    
-		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))		
+	    ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
         return
-	end
-
-	--이벤트 아이템 확인
-	if SHARED_IS_EVENT_ITEM_CHECK(itemCls, "NoEnchant") == true then
-		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))		
-		return
 	end
 
 	local icon = slot:GetIcon()
@@ -720,30 +629,10 @@ function ICORADD_MULTIPLE_INV_RBTN(itemObj, slot)
 	local invItem = GET_PC_ITEM_BY_GUID(iconInfo:GetIESID())
 	local obj = GetIES(invItem:GetObject())
 
-	local isIcor = (TryGetProp(itemObj, 'GroupName', 'None') == 'Icor') or (TryGetProp(itemObj, 'GroupName', 'None') == 'Arcane')
+	local isIcor = (TryGetProp(itemObj, 'GroupName', 'None') == 'Icor')
 	local inheritItemName = 'None'
 	if isIcor == true then
 		local inheritanceItemName = TryGetProp(itemObj, 'InheritanceItemName', 'None')
-		
-		if itemObj.GroupName == 'Icor' then
-			local cls = GetClass('Item', inheritanceItemName)
-			if cls ~= nil then
-				if TryGetProp(cls, 'StringArg', 'None') == 'Vibora' then				
-					ui.SysMsg(ClMsg('NowCantViboraIcorToWeapon'))
-					return
-				end
-			end
-		end
-
-		if TryGetProp(itemObj, 'GroupName', 'None') == 'Arcane' then
-			if TryGetProp(itemObj, 'TeamBelonging', 0) == 1 then
-				ui.SysMsg(ClMsg('TeamBelongingArcaneOnlyUseGoddess'))
-				return
-			end
-
-			inheritanceItemName = TryGetProp(itemObj, 'ClassName', 'None')			
-		end
-
 		local inheritanceRandomItemName = TryGetProp(itemObj, 'InheritanceRandomItemName', 'None')
 		if inheritanceItemName ~= 'None' then
 			inheritItemName = inheritanceItemName
@@ -765,7 +654,7 @@ function ICORADD_MULTIPLE_INV_RBTN(itemObj, slot)
 		else
 			tempSlot = GET_CHILD_RECURSIVELY(ctrlSet, "slot")
 		end
-		
+
 		local slotSetItem = GET_SLOT_ITEM(tempSlot)
 		if slotSetItem == nil then
 			if isIcor == true then
@@ -774,27 +663,9 @@ function ICORADD_MULTIPLE_INV_RBTN(itemObj, slot)
 				if mainItem ~= nil then
 					local mainObj = GetIES(mainItem:GetObject())
 					local inheritItem = GetClass('Item', inheritItemName)
+					if inheritItem ~= nil and mainObj.ClassType == inheritItem.ClassType then
+						ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, iconInfo:GetIESID())
 
-					local slot_add = GET_CHILD_RECURSIVELY(ctrlSet, "slot_add")					
-					local invItem_add = GET_SLOT_ITEM(slot_add)
-					
-					local obj_add = itemObj
-					if (TryGetProp(mainObj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
-					or TryGetProp(mainObj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
-						ui.SysMsg(ClMsg("AlearyIcorAdded"))
-						return
-					end
-					
-					if inheritItem ~= nil then
-						if inheritItem.ClassType == 'Arcane' then								
-							if IS_WEAPON_TYPE(mainObj.ClassType) == true then
-								ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, iconInfo:GetIESID())
-							end
-						else
-							if mainObj.ClassType == inheritItem.ClassType then
-								ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, iconInfo:GetIESID())
-							end
-						end
 						break
 					end
 				end
@@ -802,11 +673,11 @@ function ICORADD_MULTIPLE_INV_RBTN(itemObj, slot)
 				-- invitem 이 slot 들어갈 템이 아니면 에러후 리턴
 				if TryGetProp(obj, 'LegendGroup', 'None') == 'None' then
 					--장착 안대는 아이템
-					ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))					
+					ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
 					return
 				end
 			
-				CLEAR_ICORADD_CTRL(ctrlSet)				
+				CLEAR_ICORADD_CTRL(ctrlSet)
 
 				ICORADD_CTRL_REG_MAIN_ITEM(ctrlSet, iconInfo:GetIESID())
 				
@@ -825,12 +696,11 @@ function ADD_ITEM_PROPERTY_TEXT_NARROW(GroupCtrl, txt, xmargin, yPos )
 	local ControlSetObj	= GroupCtrl:CreateControlSet('tooltip_item_prop_richtxt_narrow', "ITEM_PROP_" .. cnt , 0, yPos)
 	local ControlSetCtrl = tolua.cast(ControlSetObj, 'ui::CControlSet')
 	local richText = GET_CHILD(ControlSetCtrl, "text", "ui::CRichText")
-	
-	richText:SetMaxWidth(GroupCtrl:GetWidth()-50)
 	richText:SetTextByKey('text', txt)
-	ControlSetCtrl:Resize(GroupCtrl:GetWidth()-20, richText:GetHeight())
+	ControlSetCtrl:Resize(ControlSetCtrl:GetWidth(), richText:GetHeight())
 	GroupCtrl:ShowWindow(1)
 
 	GroupCtrl:Resize(GroupCtrl:GetWidth(),GroupCtrl:GetHeight() + ControlSetObj:GetHeight())
+	
 	return ControlSetCtrl:GetHeight() + ControlSetCtrl:GetY()
 end

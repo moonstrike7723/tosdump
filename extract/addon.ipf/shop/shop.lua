@@ -365,6 +365,9 @@ function SHOP_SELL_DROP(frame, ctrl)
 
 	local iconInfo = liftIcon:GetInfo();
 	local iesID = liftIcon:GetTooltipIESID();
+	if iesID == '0' then
+		return
+	end
 	local invItem = session.GetInvItemByGuid(iesID);
 	if invItem == nil then
 		return;
@@ -392,7 +395,7 @@ function SHOP_SELL(invitem, sellCount, frame, setTotalCount)
 		return;
 	end
 
-	if itemobj.MarketCategory == "Housing_Furniture" then
+	if itemobj.MarketCategory == "Housing_Furniture" or itemobj.MarketCategory == "PHousing_Furniture" or itemobj.MarketCategory == "PHousing_Wall" or itemobj.MarketCategory == "PHousing_Carpet" then
 		ui.SysMsg(ClMsg("Housing_Cant_Sell_This_Item"));
 		return;
 	end
@@ -1295,7 +1298,6 @@ function CONTEXT_SOLD_ITEM(frame, slot, guid)
 	local context = ui.CreateContextMenu("SOLD_ITEM_CONTEXT", "{@st41}".. GET_FULL_NAME(obj).. "{@st42b}..",0, 0, 100, 100);
 	local strScp = string.format("SHOP_REQ_CANCEL_SELL('%s', '%s')", guid, topFrame:GetName());
 
-	ui.AddContextMenuItem(context, ScpArgMsg("Auto_{@st42b}JaeMaeip"), strScp);
 	strScp = string.format("SHOP_REQ_DELETE_SOLDITEM('%s', '%s')", guid, topFrame:GetName());
 	ui.AddContextMenuItem(context, ScpArgMsg("Auto_{@st42b}yeongKuJeKeo"), strScp);
 	ui.AddContextMenuItem(context, ScpArgMsg("Auto_{@st42b}ChwiSo"), "SHOP_SOLDED_CANCEL");

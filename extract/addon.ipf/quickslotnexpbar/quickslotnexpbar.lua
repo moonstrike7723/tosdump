@@ -91,18 +91,6 @@ local function quickslot_item_amount_refresh(ies_id, class_id)
 	end
 end
 
-function QUICKSLOT_MAKE_GAUGE(slot)
-
-	local x = 2;
-	local y = slot:GetHeight() - 11;
-	local width  = 45;
-	local height = 10;
-	local gauge = slot:MakeSlotGauge(x, y, width, height);
-	gauge:SetDrawStyle(ui.GAUGE_DRAW_CELL);
-	gauge:SetSkinName("dot_skillslot");
-	
-end
-
 function QUICKSLOT_SET_GAUGE_VISIBLE(slot, isVisible)
 	local gauge = slot:GetSlotGauge();
 	gauge:ShowWindow(isVisible);

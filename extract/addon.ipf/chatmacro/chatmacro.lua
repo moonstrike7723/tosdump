@@ -58,7 +58,7 @@ function CHATMACRO_UPDATE_TOKEN_STATE(frame)
 end
 
 function IS_MACRO_UNVISIBLE_WEAPON_POSE(className)
-	if className == "KICK" or className == "POPCORN" or className == "DABDANCE" or className == "CHEERUP" or className == "UNBELIEVABLE" then
+	if className == "KICK" or className == "POPCORN" or className == "DABDANCE" or className == "CHEERUP" or className == "UNBELIEVABLE" or className == "SPOTLIGHT" then
 		return true;
 	end
 	return false;
@@ -270,6 +270,9 @@ function SAVE_CHAT_MACRO(macroGbox, isclose)
 		else
 			local slot = macroGbox:GetChild("CHAT_MACRO_SLOT_" .. i);		
 			local poseID = tonumber( slot:GetUserValue('POSEID') );
+			if poseID == nil then
+				poseID = 0;
+			end
 			packet.ReqSaveChatMacro(i, poseID, text);
 	    end        
 	end

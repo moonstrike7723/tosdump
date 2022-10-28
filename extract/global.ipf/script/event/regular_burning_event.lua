@@ -89,18 +89,21 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 }
     
     local daycheckbuff = 
-	{{'7','3',{'Event_ATK_and_DEF_UP_BUFF','Event_RootCrystal_Check_Buff'}}
-	,{'7','4',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-	,{'7','5',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
-	,{'7','10',{'Event_Class_Change_Pointup_500','Event_LootingChance_Add_1000'}}
-	,{'7','11',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'7','12',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'7','17',{'Event_RootCrystal_Check_Buff','Event_Worship_Affect_10fold'}}
-	,{'7','18',{'Event_RootCrystal_Check_Buff','Event_Reappraisal_Discount_50'}}
-	,{'7','19',{'Event_healHSP_Speedup','Event_Worship_Affect_10fold'}}
-	,{'7','24',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'7','25',{'Event_Class_Change_Pointup_500','Event_LootingChance_Add_1000'}}
-	,{'7','26',{'Event_healHSP_Speedup','Event_Reinforce_Discount_50'}}
+	{{'7','31',{'Event_ATK_and_DEF_UP_BUFF','Event_LootingChance_Add_1000'}}
+	,{'8','1',{'Event_ATK_and_DEF_UP_BUFF','Event_Class_Change_Pointup_500'}}
+	,{'8','2',{'Event_ATK_and_DEF_UP_BUFF','Event_Reagent_Bottle_Expup_100'}}
+	,{'8','7',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'8','8',{'Event_healHSP_Speedup','Event_Penalty_Clear_Gem_Reinforce'}}
+	,{'8','9',{'Event_healHSP_Speedup','Event_Even_Transcend_Discount_50'}}
+	,{'8','14',{'Event_RootCrystal_Check_Buff','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'8','15',{'Event_RootCrystal_Check_Buff','Event_Unique_Raid_Bonus_Limit'}}
+	,{'8','16',{'Event_RootCrystal_Check_Buff','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'8','21',{'Event_Class_Change_Pointup_500','Event_LootingChance_Add_1000'}}
+	,{'8','22',{'Event_Worship_Affect_10fold','Event_LootingChance_Add_1000'}}
+	,{'8','23',{'Event_Cooldown_SPamount_Decrease','Event_LootingChance_Add_1000'}}
+	,{'8','28',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+	,{'8','29',{'Event_LootingChance_Add_1000','Event_Reinforce_Discount_50'}}
+	,{'8','30',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
 		}
 	
 	-- 기본 적용 버프

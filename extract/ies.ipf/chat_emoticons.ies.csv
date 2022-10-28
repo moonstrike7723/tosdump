@@ -106,3 +106,6 @@ ClassID,IconSpineScale,IconSpineDurationTime,ClassName,CheckServer,IconTokken,Ic
 5003,0.18,5,motion_kupole_emotion01,YES,큐폴데헷모션,Motion,kupolecon01
 5004,0.2,5,motion_kupole_emotion03,YES,큐폴충격모션,Motion,kupolecon02
 5005,0.18,5,motion_kupole_emotion05,YES,큐폴한숨모션,Motion,kupolecon03
+5006,0.18,5,motion_bakarine_emotion55,YES,디오니스무서워모션,Motion,dionyscon01
+5007,0.18,5,motion_bakarine_emotion58,YES,디오니스감동모션,Motion,dionyscon02
+5008,0.18,5,motion_bakarine_emotion56,YES,디오니스분노모션,Motion,dionyscon03

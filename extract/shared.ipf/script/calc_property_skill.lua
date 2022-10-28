@@ -1,4 +1,4 @@
-﻿--- calc_property_skill.lua
+--- calc_property_skill.lua
 
 function HAS_DRAGON_POWER(pc)
     if pc == nil  then
@@ -272,6 +272,7 @@ function SCR_Get_SpendSP_Magic(skill)
         (GetZoneName(pc) == "guild_agit_1" or GetZoneName(pc) == "guild_agit_extension") then
         return 0
     end
+
     return math.floor(value);
 end
 
@@ -531,12 +532,6 @@ function SCR_GET_SKL_COOLDOWN(skill)
         end
     end
     
-    if skill.ClassName == "Cleric_Heal" then
-        if IsPVPServer(pc) == 1 then
-            basicCoolDown = basicCoolDown + 28000
-        end
-    end
-    
     if skill.ClassName == "Cleric_Cure" then
         local jobHistory = '';
         if IsServerObj(pc) == 1 then
@@ -559,8 +554,18 @@ function SCR_GET_SKL_COOLDOWN(skill)
         end
     end
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
+    if IsPVPServer(pc) == 1 then
+        if skill.ClassName == "Cleric_Heal" then
+            basicCoolDown = basicCoolDown + 2000
+        end
+
+        if skill.ClassName == "Priest_Revive" or skill.ClassName == "Priest_Resurrection" then
+            basicCoolDown = 180000
+        end
+    end
+
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
     if coolDownClassify == "Fix" then
@@ -611,7 +616,7 @@ function SCR_GET_SKL_COOLDOWN_ADD_LEVEL_BYGEM(skill)
         end
     end
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -630,7 +635,7 @@ function SCR_GET_SKL_COOLDOWN_Bunshin_no_jutsu(skill)
     local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
     basicCoolDown = basicCoolDown + abilAddCoolDown;
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -643,7 +648,7 @@ function SCR_GET_SKL_COOLDOWN_KaguraDance(skill)
     local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
     basicCoolDown = basicCoolDown + abilAddCoolDown;
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -657,7 +662,7 @@ function SCR_GET_SKL_COOLDOWN_BUNSIN(skill)
     local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
     basicCoolDown = basicCoolDown + abilAddCoolDown;
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     if IsServerSection() == 1 and GetExProp(pc, "BUNSIN_VIBORA_DAGGER") ~= 0 then
         basicCoolDown = 0
@@ -680,7 +685,7 @@ function SCR_GET_SKL_COOLDOWN_PrimeAndLoad(skill)
         basicCoolDown = basicCoolDown - (abilMusketeer29.Level * 1000);
     end
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
 
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;   
@@ -701,7 +706,7 @@ function SCR_GET_SKL_COOLDOWN_CounterSpell(skill)
         end
     end
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     
@@ -730,7 +735,7 @@ function SCR_GET_SKL_CoolDown_BackSlide(skill)
         end
     end
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -751,7 +756,7 @@ function SCR_GET_SKL_CoolDown_Prevent(skill)
         end
     end
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -790,7 +795,7 @@ function SCR_GET_SKL_COOLDOWN_Golden_Bell_Shield(skill)
     
     basicCoolDown = basicCoolDown + abilAddCoolDown;
         
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     if IsPVPServer(pc) == 1 then
         basicCoolDown = basicCoolDown + 10000;
@@ -806,7 +811,7 @@ function SCR_GET_SKL_COOLDOWN_VisibleTalent(skill)
     local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
     basicCoolDown = basicCoolDown + abilAddCoolDown  - ((skill.Level - 1) * 1000);
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     
@@ -822,7 +827,7 @@ function SCR_GET_SKL_COOLDOWN_Chronomancer_Stop(skill)
     local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
     basicCoolDown = basicCoolDown + abilAddCoolDown  - ((skill.Level - 1) * 5000);
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     
@@ -861,7 +866,18 @@ function SCR_GET_SKL_COOLDOWN_WIZARD(skill)
     
     basicCoolDown = basicCoolDown + abilAddCoolDown;
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+
+    if IsPVPServer(pc) == 1 then
+        if skill.ClassName == "Chronomancer_BackMasking" then
+            basicCoolDown = 180000
+        end
+
+        local abilChronomancer12 = GetAbility(pc, "Chronomancer12")
+        if skill.ClassName == "Chronomancer_Samsara" and abilChronomancer12 ~= nil and TryGetProp(abilChronomancer12, "ActiveState", 0) == 1 then
+            basicCoolDown = 180000
+        end
+    end
     
     if basicCoolDown < skill.MinCoolDown then
         return skill.MinCoolDown;
@@ -883,7 +899,7 @@ function SCR_GET_SKL_COOLDOWN_Teleportation(skill)
     local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
     
     basicCoolDown = (basicCoolDown - (TryGetProp(skill, "Level", 0) - 1) * 1000) + abilAddCoolDown;
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     if basicCoolDown < skill.MinCoolDown then
         return skill.MinCoolDown;
@@ -906,7 +922,7 @@ function SCR_GET_SKL_COOLDOWN_SummonFamiliar(skill)
     
     basicCoolDown = basicCoolDown + abilAddCoolDown;
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     if basicCoolDown < skill.MinCoolDown then
         return skill.MinCoolDown;
@@ -925,7 +941,7 @@ function SCR_GET_SKL_COOLDOWN_Bloodletting(skill)
     
     basicCoolDown = basicCoolDown + abilAddCoolDown;
         
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     if IsPVPServer(pc) == 1 then
         basicCoolDown = basicCoolDown + 20000;
@@ -943,7 +959,7 @@ function SCR_GET_SKL_COOLDOWN_HealingFactor(skill)
     
     basicCoolDown = basicCoolDown + abilAddCoolDown;
         
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     if IsPVPServer(pc) == 1 then
         basicCoolDown = basicCoolDown + 20000;
@@ -961,7 +977,7 @@ function SCR_GET_SKL_COOLDOWN_GravityPole(skill)
     
     basicCoolDown = basicCoolDown + abilAddCoolDown;
         
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     if IsPVPServer(pc) == 1 then
         basicCoolDown = basicCoolDown + 15000;
@@ -1807,7 +1823,7 @@ function SCR_GET_Slithering_Ratio2(skill)
 end
 
 function SCR_GET_Slithering_Ratio3(skill)
-    local value = skill.Level
+    local value = math.floor(skill.Level * 1.5)
     
     return value
 end
@@ -2640,7 +2656,7 @@ function SCR_GET_SKL_COOLDOWN_MortalSlash(skill)
         end
     end
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     if IsBuffApplied(pc, "Bunshin_Debuff") == "YES" then
         local bunshinBuff = nil
@@ -2915,7 +2931,7 @@ function SCR_GET_BackSlide_Bufftime(skill)
 end
 
 function SCR_GET_Sprint_Ratio(skill)
-    local value = 5 + skill.Level * 0.5
+    local value = skill.Level * 4
     
     return value
 end
@@ -3359,8 +3375,8 @@ function SCR_GET_JincanGu_Ratio(skill)
 
     local pc = GetSkillOwner(skill);
     local value = skill.Level
-    if value > 10 then
-        value = 10
+    if value > 5 then
+        value = 5
     end
 
     return value;
@@ -3827,7 +3843,7 @@ function SCR_GET_SKL_COOLDOWN_CannonBarrage(skill)
         basicCoolDown = basicCoolDown * abilCoolDownRate;
     end
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
 
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;   
@@ -4343,7 +4359,7 @@ end
 
 -- 데스모두스 흡혈 디버프와 네크로맨서 시독 디버프 대미지 증가 통합 적용
 function SCR_GET_SummonDamage_Ratio(skill)
-    local value = skill.Level * 84
+    local value = 210 + (skill.Level-1) * 10
 
     return value
 end
@@ -4442,14 +4458,10 @@ function SCR_GET_Ayin_sof_Ratio(skill)
 end
 
 function SCR_GET_Ayin_sof_Ratio2(skill)
-    local value = 15
+    
     local pc = GetSkillOwner(skill);
-    
-    local abil = GetAbility(pc, "Kabbalist6")
-    if abil ~= nil and 1 == abil.ActiveState then
-        value = value + abil.Level
-    end
-    
+    local value = get_hp_recovery_ratio(pc, TryGetProp(pc, "RHP", 0))
+
     return value
 end
 
@@ -5985,6 +5997,12 @@ function SCR_GET_DoubleGunStance_Ratio(skill)
     return value
 end
 
+function SCR_GET_DoubleGunStance_Ratio2(skill)
+    local value = 20 + skill.Level * 4
+    
+    return value
+end
+
 function SCR_GET_EmperorsBane_Time(skill)
     local value = 4
     return value;
@@ -6158,6 +6176,27 @@ function SCR_GET_SR_LV_Stabbing(skill)
     return 1
 
 end
+
+function SCR_GET_SR_LV_Murmillo(skill)
+    local pc = GetSkillOwner(skill);
+    if pc == nil and ui.GetFrame("pub_createchar"):IsVisible() == 1 then
+        return skill.SklSR;
+    end
+
+    local value = pc.SR + skill.SklSR;
+    
+    local abil = GetAbility(pc, "Murmillo29")
+    if abil ~= nil and TryGetProp(abil, "ActiveState", 0) == 1 and IsBuffApplied(pc, "Sprint_Buff") == "YES" then
+        value = value * 2
+    end
+
+    if value < 1 then
+        value = 1
+    end
+    
+    return value
+end
+
 
 function SCR_Get_BodkinPoint_Ratio(skill)
 
@@ -7196,6 +7235,12 @@ end
 function SCR_GET_Burrow_Ratio(skill)
 local value = 5 * skill.Level
 return value
+end
+
+function SCR_GET_Burrow_Time(skill)
+    local value = 20 + skill.Level * 2
+    value = value * SCR_REINFORCEABILITY_TOOLTIP(skill)
+    return value
 end
 
 function SCR_Get_HellFire_SkillFactor(skill)
@@ -8454,7 +8499,7 @@ function SCR_Get_Zhendu_Bufftime(skill)
 
 end
 
--- 속성 추가 타격
+-- 속성 추가 타격 --
 function SCR_Get_Zhendu_Ratio(skill)
     local value = 0 
     local pc = GetSkillOwner(skill)
@@ -8467,18 +8512,11 @@ function SCR_Get_Zhendu_Ratio(skill)
     return math.floor(value)
 end
 
--- 추가 대미지
+-- 대미지 증가 --
 function SCR_Get_Zhendu_Ratio2(skill)
-    local pc = GetSkillOwner(skill);
-    local skillLv = skill.Level;
-    local value = 100 + (skillLv -1) * 50;
-    if pc ~= nil then
-        local str = TryGetProp(pc, "STR", 0)
-        local dex = TryGetProp(pc, "DEX", 0)
-        value = value + (str + dex)
-    end
+    local value = 20 + (10 * skill.Level);
     
-    return math.floor(value)
+    return value
 end
 
 function SCR_GET_JollyRoger_Bufftime(skill)
@@ -8519,33 +8557,25 @@ end
 
 
 function SCR_GET_WeaponTouchUp_Ratio(skill)
-    return skill.Level
+    return skill.Level * 0.7
 end
 
 function SCR_GET_WeaponTouchUp_Ratio2(skill)
     local pc = GetSkillOwner(skill)
-    local value = 2500 + skill.Level * 250 + pc.INT
+    local value = math.floor(2500 + skill.Level * 250 + ((pc.DEX + pc.STR) * 0.5))
     local Squire3 = GetAbility(pc, 'Squire3');
-    
-    if Squire3 ~= nil and 1 == Squire3.ActiveState and skill.Level >= 3 then
-        value = value + Squire3.Level * 20
-    end
     
     return value
 end
 
 function SCR_GET_ArmorTouchUp_Ratio(skill)
-    return skill.Level
+    return skill.Level * 0.7
 end
 
 function SCR_GET_ArmorTouchUp_Ratio2(skill)
     local pc = GetSkillOwner(skill)
-    local value = 500 + skill.Level * 50 + pc.INT
+    local value = math.floor(500 + skill.Level * 50 + ((pc.DEX + pc.STR) * 0.1))
     local Squire4 = GetAbility(pc, 'Squire4');
-    
-    if Squire4 ~= nil and 1 == Squire4.ActiveState and skill.Level >= 3 then
-        value = value + Squire4.Level * 5
-    end
     
     return value
 end
@@ -8656,6 +8686,22 @@ function SCR_GET_Camp_Ratio2(skill)
     return skill.Level * 5
 end
 
+function SCR_GET_FOOD_salad_Ratio(skilllevel)
+    return 4 + skilllevel * 1.2
+end
+
+function SCR_GET_FOOD_sandwich_Ratio(skilllevel)
+    return 4 + skilllevel * 1.2
+end
+
+function SCR_GET_FOOD_soup_Ratio(skilllevel)
+    return skilllevel * 3
+end
+
+function SCR_GET_FOOD_yogurt_Ratio(skilllevel)
+    return skilllevel * 3
+end
+
 function SCR_GET_SR_LV_TEST(skill)
 
     local pc = GetSkillOwner(skill);
@@ -8686,8 +8732,14 @@ end
 
 
 function SCR_GET_SwashBuckling_Ratio(skill)
-    return 9 + skill.Level;
+    local pc = GetSkillOwner(skill);
+    local value = 4 * skill.Level;
+    
+    if IsPVPField(pc) == 1 then
+        value = skill.Level;
+    end
 
+    return value
 end
 
 function SCR_GET_SwashBuckling_Ratio2(skill)
@@ -8697,8 +8749,13 @@ function SCR_GET_SwashBuckling_Ratio2(skill)
 end
 
 function SCR_GET_SwashBuckling_Bufftime(skill)
-    local buffTime = 10;
+    local buffTime = 5 + skill.Level * 2
     local pc = GetSkillOwner(skill);
+
+    if IsPVPField(pc) == 1 then
+        buffTime = buffTime * 0.5
+    end
+
     if pc ~= nil then
         local abilPeltasta32 = GetAbility(pc, "Peltasta32");
         if abilPeltasta32 ~= nil and TryGetProp(abilPeltasta32, "ActiveState") == 1 then
@@ -9302,20 +9359,37 @@ function SCR_GET_SharpSpear_Ratio(skill)
 end
 
 function SCR_GET_HighGuard_Ratio(skill)
-    local pc = GetSkillOwner(skill);
-    local value = skill.Level * 5
+    local value = 50
     value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill));
-    
-    if IsPVPField(pc) == 1 then
-        value = value / 2
-    end
     
     return value
 end
 
 function SCR_GET_HighGuard_Ratio2(skill)
-    local value = 50 - (skill.Level * 2)
-    return math.floor(value)
+    local value = 25
+    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill));
+
+    return value
+end
+
+function SCR_GET_HighGuard_Ratio3(skill)
+    local value = 50 - (skill.Level - 1) * 10
+
+    if value < 0 then
+        value = 0
+    end
+
+    return value
+end
+
+function SCR_GET_HighGuard_Ratio4(skill)
+    local value = 25 - (skill.Level - 1) * 5
+
+    if value < 0 then
+        value = 0
+    end
+
+    return value
 end
 
 function SCR_GET_HighGuard_Time(skill)
@@ -9902,13 +9976,13 @@ function SCR_GET_HoverBomb_Ratio(skill)
 end
 
 function SCR_GET_SneakHit_Ratio(skill)
-    return 30 + skill.Level * 2;
+    return 40 + skill.Level * 2;
 end
 
 function SCR_GET_SneakHit_Bufftime(skill)
 
     local pc = GetSkillOwner(skill)
-    local value = 30 + skill.Level * 4;
+    local value = 35 + skill.Level * 7;
     
     local Rogue1_abil = GetAbility(pc, 'Rogue1');
     if Rogue1_abil ~= nil and 1 == Rogue1_abil.ActiveState then
@@ -9919,15 +9993,15 @@ function SCR_GET_SneakHit_Bufftime(skill)
 end
 
 function SCR_GET_Feint_Ratio(skill)
-    return 3 * skill.Level;
+    return 30 + skill.Level * 10;
 end
 
 function SCR_GET_Feint_Ratio2(skill)
-    return 2 + skill.Level * 1
+    return 5 + skill.Level * 1.5
 end
 
 function SCR_GET_Feint_Bufftime(skill)
-    return 10 + skill.Level * 2
+    return 2.5 + skill.Level * 0.2
 end
 
 function SCR_GET_Spoliation_Ratio(skill)
@@ -9936,6 +10010,12 @@ end
 
 function SCR_GET_Evasion_Ratio(skill)
     local value = 50 * skill.Level
+    
+    return value
+end
+
+function SCR_GET_Evasion_Ratio2(skill)
+    local value = 2 * skill.Level
     
     return value
 end
@@ -10763,9 +10843,9 @@ function SCR_GET_SPENDITEM_COUNT_PALADIN40(skill)
     local addCount = GetAbilityAddSpendValue(pc, skill.ClassName, "SpendItem");
     local abil = GetAbility(pc, "Paladin40")
     if abil ~= nil and abil.ActiveState == 1 then
-        addCount = addCount + 10
+        addCount = 1;
     end
-
+    
     return count + addCount;
 end
 
@@ -10912,8 +10992,17 @@ function SCR_GET_Devaluation_BuffTime(skill)
 end
 
 function SCR_GET_Blindside_Ratio2(skill)
+    local pc = GetSkillOwner(skill);
     local value = 5 + skill.Level
-    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
+
+    local abilRateAdd = 1
+    local abilAppraiser3 = GetAbility(pc, "Appraiser3")
+    if abilAppraiser3 ~= nil and TryGetProp(abilAppraiser3, "ActiveState") == 1 then
+        local abillevel = TryGetProp(abilAppraiser3, "Level", 0)
+        abilRateAdd = abilRateAdd + (abillevel * 0.005 + 0.1)
+    end
+
+    value = math.floor(value * abilRateAdd)
     
     return value
 end
@@ -11155,7 +11244,7 @@ function SCR_GET_TracerBullet_Ratio(skill)
 end
 
 function SCR_GET_TracerBullet_BuffTime(skill)
-    local value = 15
+    local value = 15 + skill.Level * 3
     
     return value;
 end
@@ -11582,8 +11671,7 @@ end
 
 
 function SCR_GET_LatentVenom_Ratio2(skill)
-
-    local value = 100
+    local value = 25 + (5 * skill.Level)
 
     return value;
 end
@@ -11751,7 +11839,7 @@ function SCR_GET_Engkrateia_Ratio2(skill)
 end
 
 function SCR_GET_TheTreeofSepiroth_Ratio(skill)
-    local value = 36 + (skill.Level - 1) * 16.9
+    local value = 45 + (skill.Level - 1) * 21.1
     value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
     return value
 end
@@ -12095,7 +12183,7 @@ function SCR_GET_FreezeBullet_Ratio(skill)
 end
 
 function SCR_GET_brutality_Ratio(skill)
-    local value = (skill.Level * 4)
+    local value = 20 + (skill.Level * 4)
     
     return value
 end
@@ -12138,8 +12226,15 @@ end
 
 function SCR_GET_Hallucination_Ratio(skill)
     local value = 25 + (skill.Level * 5)
-    value = math.floor(value * SCR_REINFORCEABILITY_TOOLTIP(skill))
-    
+    local pc = GetSkillOwner(skill)
+    local reinforceAbilName = TryGetProp(skill, "ReinforceAbility", "None");
+    if reinforceAbilName ~= "None" then
+        local reinforceAbil = GetAbility(pc, reinforceAbilName)
+        if reinforceAbil ~= nil then
+            local abilLevel = TryGetProp(reinforceAbil, "Level")
+            value = value * (1 + (reinforceAbil.Level * 0.005));
+        end
+    end
     return value
 end
 
@@ -12153,10 +12248,6 @@ end
 function SCR_GET_SR_LV_Hackapell_GrindCutter(skill)
     local pc = GetSkillOwner(skill);
     local value = pc.SR + skill.SklSR;
-    
-    if IsBuffApplied(pc, "CavalryCharge_Buff") == "YES" then
-        value = value + 10
-    end
     
     if value < 1 then
         value = 1
@@ -12172,21 +12263,21 @@ function SCR_GET_SKL_COOLDOWN_Preparation(skill)
     
     basicCoolDown = basicCoolDown + abilAddCoolDown;
         
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     return math.floor(basicCoolDown);
 end
 
 function SCR_GET_SKL_COOLDOWN_KnifeThrowing(skill)
     local pc = GetSkillOwner(skill);
-    local basicCoolDown = TryGetProp(skill, "BasicCoolDown", 0) - TryGetProp(skill, "Level", 0) * 1000;
+    local skllv = TryGetProp(skill, "Level", 0)
+    local basicCoolDown = TryGetProp(skill, "BasicCoolDown", 0)
     local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
-    
+    if skllv >= 6 then
+        basicCoolDown = basicCoolDown - (skllv-5) * 1000;
+    end
     basicCoolDown = basicCoolDown + abilAddCoolDown;
-        
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
-    
-
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     return math.floor(basicCoolDown);
 end
 
@@ -12420,7 +12511,14 @@ end
 
 function SCR_GET_Fanning_Ratio(skill)
     local pc = GetSkillOwner(skill)
-    local value = math.floor(TryGetProp(pc, 'SR', 0) / 7) + 4
+    local value = math.floor(TryGetProp(pc, 'SR', 0) / 2) + 4
+    value = math.min(value, 10)
+    return value
+end
+
+function SCR_GET_Fanning_Ratio2(skill)
+    local pc = GetSkillOwner(skill)
+    local value = math.floor(TryGetProp(pc, 'SR', 0) / 3) + 4
     value = math.min(value, 10)
     return value
 end
@@ -12432,7 +12530,7 @@ function SCR_GET_Westraid_Time(skill)
 end
 
 function SCR_GET_Westraid_Ratio(skill)
-    local value = math.floor(3 + skill.Level * 0.4)
+    local value = math.floor(4 + skill.Level * 1)
     return value
 end
 
@@ -12662,7 +12760,7 @@ function SCR_GET_SKL_COOLDOWN_ControlBlade(skill)
         end
     end
     
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     
     local ret = math.floor(basicCoolDown) / 1000
@@ -12709,7 +12807,7 @@ end
 
 function SCR_GET_Penyerapan_Ratio(skill)
     local pc = GetSkillOwner(skill);
-    local value = 500 + (skill.Level-1) * 100;
+    local value = 800 + (skill.Level-1) * 275;
     
     if pc ~= nil then
         local str = TryGetProp(pc, "STR", 0)
@@ -12826,7 +12924,7 @@ function SCR_GET_SKL_COOLDOWN_SeptEtoiles(skill)
         end
     end
 
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -12871,7 +12969,7 @@ function SCR_GET_SKL_COOLDOWN_Fleche(skill)
         end
     end
 
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -12916,7 +13014,7 @@ function SCR_GET_SKL_COOLDOWN_HolySmash(skill)
         end
     end
 
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -12961,7 +13059,7 @@ function SCR_GET_SKL_COOLDOWN_Condemn(skill)
         end
     end
 
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -12980,7 +13078,7 @@ function SCR_GET_SKL_COOLDOWN_BlossomSlash(skill)
     basicCoolDown = basicCoolDown + abilAddCoolDown;
     
     if IsBuffApplied(pc, "ITEM_BUFF_VIBORA_THSWORD") == "YES" then
-        basicCoolDown = basicCoolDown - 10000
+        basicCoolDown = basicCoolDown - 15000
     end
 
     local cls = GetClassList("SkillRestrict");
@@ -13005,7 +13103,7 @@ function SCR_GET_SKL_COOLDOWN_BlossomSlash(skill)
         end
     end
 
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
     if coolDownClassify == "Fix" then
@@ -13020,7 +13118,10 @@ end
 function SCR_GET_Crusader_Chants_Heal_Ratio(skill)
     local pc = GetSkillOwner(skill);
     local skills = GetSkill(pc, 'Crusader_Chants')
-    value = 100 + skills.Level * 80
+    local value = 100
+    if skills ~= nil then
+        value = 100 + skills.Level * 80
+    end
     return math.floor(value)
 end
 
@@ -13048,16 +13149,16 @@ function SCR_GET_Tracking_Ratio2(skill)
     return value
 end
 
-function SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+function SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
 
     -- Laima CoolTime Buff
     local laimaCoolTime = GetExProp(pc, "LAIMA_BUFF_COOLDOWN")
-    if laimaCoolTime ~= 0 then
+    if laimaCoolTime ~= 0 and TryGetProp(skill, "CoolDownGroup", "None") ~= "ItemSetSkill" then
         basicCoolDown = basicCoolDown * (1 - laimaCoolTime)
     end
 
     -- Laima CoolTime Debuff
-    if laimaCoolTime == 0 and IsBuffApplied(pc, 'CarveLaima_Debuff') == 'YES' then
+    if laimaCoolTime == 0 and IsBuffApplied(pc, 'CarveLaima_Debuff') == 'YES' and TryGetProp(skill, "CoolDownGroup", "None") ~= "ItemSetSkill" then
         basicCoolDown = basicCoolDown * 1.2;
     end
 
@@ -13154,7 +13255,7 @@ function SCR_GET_SKL_COOLDOWN_ShadowThorn(skill)
         end
     end
 
-    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, basicCoolDown)
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
     
     local ret = math.floor(basicCoolDown) / 1000
     ret = math.floor(ret) * 1000;
@@ -13179,5 +13280,295 @@ function SCR_GET_BreakingWheel_Ratio(skill)
         end
     end
 
+    return value
+end
+
+function SCR_GET_Outrage_Ratio(skill)
+    local arg1 = TryGetProp(skill, 'Level', '1')
+    local value = 100 + arg1 * 10
+    return value
+end
+
+function SCR_GET_SR_LV_Granata(skill)
+
+    local pc = GetSkillOwner(skill);
+    if pc == nil and ui.GetFrame("pub_createchar"):IsVisible() == 1 then
+        return skill.SklSR;
+    end
+
+    local value = pc.SR + skill.SklSR;
+    
+    if value < 1 then
+        value = 1
+    end
+    
+    if GetExProp(pc, "ITEM_VIBORA_DAGGER_TAGLIO") > 0 then
+        value = value + 10
+    end
+    
+    return value
+end
+
+function SCR_Get_SkillFactor_Vibora_Granada(skill)
+    local pc = GetSkillOwner(skill)
+    local Granada = GetSkill(pc, "Arditi_Granata")
+    local value = TryGetProp(Granada, "SkillFactor", 0)
+
+    value = value * 0.125
+
+    return value
+end
+
+function SCR_Get_SkillFactor_Vibora_KnifeThrow(skill)
+    local pc = GetSkillOwner(skill)
+    local Knife = GetSkill(pc, "Rogue_KnifeThrowing")
+    local value = TryGetProp(Knife, "SkillFactor", 0)
+    
+    value = value * 0.6
+    
+    return value
+end
+
+function SCR_GET_SKL_COOLDOWN_ArrowRain(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    local VTS = GetExProp(pc, 'ITEM_VIBORA_ARROW_RAIN')
+    if VTS ~= 0 then
+        basicCoolDown = basicCoolDown - 20000
+    end
+
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+    
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+function SCR_Get_SkillFactor_Vibora_Gust(skill)
+    local pc = GetSkillOwner(skill)
+    local skl = GetSkill(pc, "Cryomancer_IciclePike")
+    local value = TryGetProp(skl, "SkillFactor", 0)
+
+    value = value
+    
+    return value
+end
+
+function SCR_Get_SkillFactor_Highlander_CounterSlash(skill)
+    local pc = GetSkillOwner(skill)
+    local skl = GetSkill(pc, "Highlander_CartarStroke")
+    local value = TryGetProp(skl, "SkillFactor", 0) * 4
+
+    value = value * 3
+
+    return value
+end
+
+function SCR_Get_SkillFactor_Hoplite_ThrouwingSpear_Vibora(skill)
+    local pc = GetSkillOwner(skill)
+    local skl = GetSkill(pc, "Hoplite_ThrouwingSpear")
+    local value = TryGetProp(skl, "SkillFactor", 0)
+
+    value = value * 3
+
+    value = value / 2
+    
+    return value
+end
+
+function SCR_GET_SR_LV_PierceShot(skill)
+
+    local pc = GetSkillOwner(skill);
+    if pc == nil and ui.GetFrame("pub_createchar"):IsVisible() == 1 then
+        return skill.SklSR;
+    end
+
+    local value = pc.SR + skill.SklSR;
+    
+    if value < 1 then
+        value = 1
+    end
+    
+    if GetExProp(pc, "ITEM_VIBORA_MUSKET_TIGERHUNTER") > 0 then
+        value = value + 10
+    end
+    
+    return value
+end
+
+function SCR_GET_SKL_COOLDOWN_PierceShot(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    local VTS = GetExProp(pc, 'ITEM_VIBORA_MUSKET_TIGERHUNTER')
+    if VTS ~= 0 then
+        basicCoolDown = basicCoolDown - 10000
+    end
+
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+    
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+function SCR_GET_SKL_COOLDOWN_RIP(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    if IsBuffApplied(pc, "ITEM_BUFF_VIBORA_PISTOL") == "YES" then
+        basicCoolDown = basicCoolDown - 10000
+    end
+
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+    
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+function SCR_GET_SKL_COOLDOWN_MozambiqueDrill(skill)
+    local pc = GetSkillOwner(skill);
+    local basicCoolDown = skill.BasicCoolDown;
+    local abilAddCoolDown = GetAbilityAddSpendValue(pc, skill.ClassName, "CoolDown");
+    basicCoolDown = basicCoolDown + abilAddCoolDown;
+    
+    if IsBuffApplied(pc, "ITEM_BUFF_VIBORA_PISTOL") == "YES" then
+        basicCoolDown = basicCoolDown - 10000
+    end
+
+    local cls = GetClassList("SkillRestrict");
+    local sklCls = GetClassByNameFromList(cls, skill.ClassName);
+    local coolDownClassify = nil;
+    local zoneAddCoolDown = 0;
+    
+    if sklCls ~= nil then
+        local isKeyword = TryGetProp(sklCls, "Keyword", nil)
+        if IsRaidField(pc) == 1 then
+            if string.find(isKeyword, "IsRaidField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "Raid_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        elseif IsPVPField(pc) == 1 then
+            if string.find(isKeyword, "IsPVPField") == 1 then
+                local addCoolDown = TryGetProp(sklCls, "PVP_CoolDown", nil)
+                addCoolDown = StringSplit(addCoolDown, "/");
+                coolDownClassify, zoneAddCoolDown = addCoolDown[1], addCoolDown[2]
+            end
+        end
+    end
+
+    basicCoolDown = SCR_COMMON_COOLDOWN_DECREASE(pc, skill, basicCoolDown)
+    
+    local ret = math.floor(basicCoolDown) / 1000
+    ret = math.floor(ret) * 1000;
+    if coolDownClassify == "Fix" then
+        ret = zoneAddCoolDown;
+    elseif coolDownClassify == "Add" then
+        ret = zoneAddCoolDown + ret
+    end
+    
+    return math.floor(ret);
+end
+
+function SCR_Get_SkillFactor_Vibora_Katadikazo(skill)
+    local pc = GetSkillOwner(skill)
+    local skl = GetSkill(pc, "Exorcist_Katadikazo")
+    local value = TryGetProp(skl, "SkillFactor", 0)
+
+    value = (value * 3) * 2
+    
     return value
 end

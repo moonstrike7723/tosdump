@@ -737,23 +737,37 @@ function SCR_Get_MINPATK(self)
     
     local value = defaultValue + byLevel + byStat + byItem;
     
+    local maxAtk = 0;
+    local maxAtkList = { "MAXATK", "PATK", "ADD_MAXATK" };
+    for i = 1, #maxAtkList do
+        local maxAtkTemp = GetSumOfEquipItem(self, maxAtkList[i]);
+        if maxAtkTemp == nil then
+            maxAtkTemp = 0;
+        end
+        
+        maxAtk = maxAtk + maxAtkTemp;
+    end
+
     local leftMinAtk = 0;
     local leftHand = GetEquipItemForPropCalc(self, 'LH');
     if leftHand ~= nil then
         leftMinAtk = leftHand.MINATK;
+        maxAtk = maxAtk - leftHand.MAXATK;
     end
     
-    local throwItemMinAtk = 0;
-    local rightHand = GetEquipItemForPropCalc(self, 'RH');
-    if IsBuffApplied(self, 'Warrior_RH_VisibleObject') == 'YES' and rightHand ~= nil then
-        throwItemMinAtk = rightHand.MINATK;
+    local minAtkAdj = 0;
+    local adjRate = TryGetProp(self, 'PATKADJ_RATE_BM');
+    if adjRate ~= nil and adjRate > 0 then
+        if adjRate > 1 then
+            adjRate = 1
+        end
+        local atkDiff = maxAtk - (byItem - leftMinAtk);
+        if atkDiff > 0 then
+            minAtkAdj = atkDiff * adjRate;
+    end
     end
 
-    if IsServerSection(self) == 1 then
-        REFRESH_ITEM(self, rightHand);
-    end
-
-    value = value - leftMinAtk - throwItemMinAtk;
+    value = value - leftMinAtk + minAtkAdj;
 
     local byBuff = 0;
     local byBuffList = { "PATK_BM", "MINPATK_BM", "PATK_MAIN_BM", "MINPATK_MAIN_BM" };
@@ -829,17 +843,7 @@ function SCR_Get_MAXPATK(self)
         leftMaxAtk = leftHand.MAXATK;
     end
     
-    local throwItemMaxAtk = 0;
-    local rightHand = GetEquipItemForPropCalc(self, 'RH');
-    if IsBuffApplied(self, 'Warrior_RH_VisibleObject') == 'YES' and rightHand ~= nil then
-        throwItemMaxAtk = rightHand.MAXATK;
-    end
-
-    if IsServerSection(self) == 1 then
-        REFRESH_ITEM(self, rightHand);
-    end
-    
-    value = value - leftMaxAtk - throwItemMaxAtk;
+    value = value - leftMaxAtk;
     
     local byBuff = 0;
     local byBuffList = { "PATK_BM", "MAXPATK_BM", "PATK_MAIN_BM", "MAXPATK_MAIN_BM" };
@@ -904,17 +908,37 @@ function SCR_Get_MINPATK_SUB(self)
     
     local value = defaultValue + byLevel + byStat + byItem;
     
+    local maxAtk = 0;
+    local maxAtkList = { "MAXATK", "PATK", "ADD_MAXATK" };
+    for i = 1, #maxAtkList do
+        local maxAtkTemp = GetSumOfEquipItem(self, maxAtkList[i]);
+        if maxAtkTemp == nil then
+            maxAtkTemp = 0;
+        end
+        
+        maxAtk = maxAtk + maxAtkTemp;
+    end
+    
     local rightMinAtk = 0;
     local rightHand = GetEquipItemForPropCalc(self, 'RH');
     if rightHand ~= nil then
         rightMinAtk = rightHand.MINATK;
+        maxAtk = maxAtk - rightHand.MAXATK;
     end
 
-    if IsServerSection(self) == 1 then
-        REFRESH_ITEM(self, rightHand);
+    local minAtkAdj = 0;
+    local adjRate = TryGetProp(self, 'PATKADJ_SUB_RATE_BM');
+    if adjRate ~= nil and adjRate > 0 then
+        if adjRate > 1 then
+            adjRate = 1
+        end
+        local atkDiff = maxAtk - (byItem - rightMinAtk);
+        if atkDiff > 0 then
+            minAtkAdj = atkDiff * adjRate;
+        end
     end
     
-    value = value - rightMinAtk;
+    value = value - rightMinAtk + minAtkAdj;
     
     local byBuff = 0;
     local byBuffList = { "PATK_BM", "MINPATK_BM", "PATK_SUB_BM", "MINPATK_SUB_BM" };
@@ -1059,17 +1083,30 @@ function SCR_Get_MINMATK(self)
     
     local value = defaultValue + byLevel + byStat + byItem;
     
-    local throwItemMinMAtk = 0;
-    local rightHand = GetEquipItemForPropCalc(self, 'RH');
-    if IsBuffApplied(self, 'Warrior_RH_VisibleObject') == 'YES' and rightHand ~= nil then
-        throwItemMinMAtk = rightHand.MATK;
+    local maxAtk = 0;
+    local maxAtkList = { "MATK", "ADD_MATK", "ADD_MAXATK" };
+    for i = 1, #maxAtkList do
+        local maxAtkTemp = GetSumOfEquipItem(self, maxAtkList[i]);
+        if maxAtkTemp == nil then
+            maxAtkTemp = 0;
+        end
+        
+        maxAtk = maxAtk + maxAtkTemp;
     end
 
-    if IsServerSection(self) == 1 then
-        REFRESH_ITEM(self, rightHand);
+    local minAtkAdj = 0;
+    local adjRate = TryGetProp(self, 'MATKADJ_RATE_BM');
+    if adjRate ~= nil and adjRate > 0 then
+        if adjRate > 1 then
+            adjRate = 1
+        end
+        local atkDiff = maxAtk - byItem;
+        if atkDiff > 0 then
+            minAtkAdj = atkDiff * adjRate;
+        end
     end
     
-    value = value - throwItemMinMAtk;
+    value = value + minAtkAdj;
     
     local byBuff = 0;
     local byBuffList = { "MATK_BM", "MINMATK_BM" };
@@ -1732,7 +1769,12 @@ function SCR_GET_RHPTIME(self)
     if byBuff == nil then
         byBuff = 0;
     end
-    
+
+    local squireBuff = GetBuffByName(self, 'squire_food3_buff')
+    if squireBuff ~= nil then
+        defaultTime = math.floor(defaultTime * (1 - GetExProp(squireBuff, "SQUIRE_FOOD_ADD_RHPTIME")))
+    end
+
     local value = defaultTime - byItem - byBuff;
 
     if IsBuffApplied(self, 'SitRest') == 'YES' then 
@@ -1813,13 +1855,29 @@ function SCR_GET_RSPTIME(self)
     if byBuff == nil then
         byBuff = 0;
     end
-    
+
+    local servantBuff = GetBuffByName(self, 'ServantSP_Buff')
+    if servantBuff ~= nil then
+        defaultTime = math.floor(defaultTime * (1 - GetExProp(servantBuff, "ADD_RSPTIME")))
+    end
+
+    local squireBuff = GetBuffByName(self, 'squire_food4_buff')
+    if squireBuff ~= nil then
+        defaultTime = math.floor(defaultTime * (1 - GetExProp(squireBuff, "SQUIRE_FOOD_ADD_RSPTIME")))
+    end
+
+    -- 딥디르비 제미나 여신상도 처리 필요
+    local zeminaBuff = GetBuffByName(self, 'CarveZemina_Buff')
+    if zeminaBuff ~= nil then
+        defaultTime = math.floor(defaultTime * (1 - GetExProp(zeminaBuff, "RSPTIME")))
+    end
+
     local value = defaultTime - byItem - byBuff;
     
     if IsBuffApplied(self, 'SitRest') == 'YES' then 
         value = value * 0.5;
     end
-    
+
     if value < 1000 then
         value = 1000;
     end
@@ -2272,7 +2330,13 @@ function SCR_Get_MSPD(self)
         if value >= GetExProp(self, 'SniperSPD') then
             return GetExProp(self, 'SniperSPD')
         end
-    end    
+    end
+    
+    if IsBuffApplied(self, 'Burrow_Rogue') == 'YES' then
+        if value >= GetExProp(self, 'BurrowSPD') then
+            return GetExProp(self, 'BurrowSPD')
+        end
+    end
     
     return math.floor(value);
 end
@@ -3611,9 +3675,10 @@ function SCR_GET_Magic_Fire_Atk(pc)
 end
 
 function SCR_GET_Magic_Ice_Atk(pc)
-    -- 아이템에서는 사용하지 않아 아이템에 대한 추가치 로직은 없음
-    -- 만약 아이템에서 사용하게 되면 로직 추가해야함
-    local byItem = 0;
+    local byItem = GetSumOfEquipItem(pc, "Magic_Ice_Atk");
+    if byItem == nil then
+        byItem = 0;
+    end
     
     local byBuff = TryGetProp(pc, "Magic_Ice_Atk_BM");
     if byBuff == nil then
@@ -3641,9 +3706,10 @@ function SCR_GET_Magic_Lightning_Atk(pc)
 end
 
 function SCR_GET_Magic_Earth_Atk(pc)
-    -- 아이템에서는 사용하지 않아 아이템에 대한 추가치 로직은 없음
-    -- 만약 아이템에서 사용하게 되면 로직 추가해야함
-    local byItem = 0;
+    local byItem = GetSumOfEquipItem(pc, "Magic_Earth_Atk");
+    if byItem == nil then
+        byItem = 0;
+    end
     
     local byBuff = TryGetProp(pc, "Magic_Earth_Atk_BM");
     if byBuff == nil then
@@ -4345,21 +4411,21 @@ function SCR_Get_HEAL_PWR(self)
     
     local byRateBuff = 0;
 
-    local byRateBuffTemp = TryGetProp(self, "HEAL_PWR_RATE_BM");
+    local byRateBuffTemp = TryGetProp(self, "HEAL_PWR_RATE_BM");    
     if byRateBuffTemp ~= nil then
         byRateBuff = byRateBuff + byRateBuffTemp;
     end
     
-    byRateBuff = math.floor(value * byRateBuffTemp);
-    
-    value = value + byBuff + byRateBuff;
-    
+    byRateBuff = math.floor(value * byRateBuffTemp);    
+    value = value + byBuff + byRateBuff;    
     local byAbil = GetExProp(self, "ABIL_MACE_ADDHEAL")
     if byAbil == nil then
         byAbil = 0
     end
-	
-    value = value * (1 + byAbil) 
+    
+    local seal_option = GetExProp(self, "ITEM_Cleric_PatronSaint_HwpRate")        
+    seal_option = seal_option / 1000 -- 치유력 증가 합연산으로 처리한다
+    value = value * (1 + byAbil + seal_option) 
     
     if value < 1 then
     	value = 1;

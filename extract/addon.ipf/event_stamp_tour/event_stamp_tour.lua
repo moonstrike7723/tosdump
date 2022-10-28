@@ -349,7 +349,7 @@ function SCR_EVENT_STAMP_OPEN_ADVENTURE_BOOK_MAP()
 end
 
 function EVENT_STAMP_IS_COMING_SOON(week)
-	local startTime = imcTime.GetSysTime(2020,6,9,0)
+	local startTime = imcTime.GetSysTime(2020,4,16,6)
 	local week_startTime = imcTime.AddSec(startTime,(week-1)*7*24*60*60)
 	local currentDate = geTime.GetServerSystemTime()
 	if imcTime.GetDifSec(week_startTime,currentDate) > 0 then
