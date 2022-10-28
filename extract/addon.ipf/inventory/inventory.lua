@@ -3346,11 +3346,11 @@ function RUN_CLIENT_CONVERT_TO_NOTRADE(count)
     item.DialogTransaction("COVERT_TO_NOTRADE", resultlist)
 end
 
-function CHECK_EXEC_DELETE_ITEMDROP(count, className)    
+function CHECK_EXEC_DELETE_ITEMDROP(count, className)
 	s_dropDeleteItemCount = tonumber(count);
 	local yesScp = string.format("EXEC_DELETE_ITEMDROP");
 	local warningMsgCostumeItem = false 
-	local cls = GetClass('Item', className)
+	local cls = GetClass('Item', className:GetUserValue("ITEM_CLASSNAME"))
 	if cls.MarketCategory == 'Premium_Costume' and cls.StringArg == 'SilverGacha' then
 		warningMsgCostumeItem = true
 	end
