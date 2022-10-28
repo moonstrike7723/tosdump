@@ -9607,6 +9607,21 @@
         <Key Name="Reward_ep14_2_d_castle_1" Value="112566"/>
         <Key Name="Reward_ep14_2_d_castle_2" Value="112588"/>
         <Key Name="Reward_ep14_2_d_castle_3" Value="112565"/>
+        <Key Name="CollectionRead_319" Value="112984"/>
+        <Key Name="CollectionRead_320" Value="113082"/>
+        <Key Name="CollectionRead_321" Value="113083"/>
+        <Key Name="HadVisited_11257" Value="113095"/>
+        <Key Name="HaveEmoticon_150" Value="112983"/>
+        <Key Name="HaveEmoticon_151" Value="112982"/>
+        <Key Name="Hide_3392" Value="112971"/>
+        <Key Name="Hide_3393" Value="113091"/>
+        <Key Name="Kill_Field_boss_baubas2" Value="113094"/>
+        <Key Name="Kill_GuildEvent_npc_baubas2" Value="113092"/>
+        <Key Name="Kill_Guild_npc_baubas2" Value="113090"/>
+        <Key Name="Kill_boss_Falouros" Value="112972"/>
+        <Key Name="Kill_boss_Falouros_Auto" Value="112974"/>
+        <Key Name="Kill_boss_Falouros_Solo" Value="112973"/>
+        <Key Name="Kill_npc_baubas2" Value="113093"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Guild">
         <Key Name="STEAM_NEW_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="105307"/>
@@ -9920,6 +9935,9 @@
         <Key Name="CTT_TempProperty_GUILD_Str_5" Value="109105"/>
         <Key Name="CTT_TempProperty_GUILD_Str_6" Value="109102"/>
         <Key Name="GUILD_MISSION_CREATE_ARG" Value="111055"/>
+        <Key Name="GuildEvent_Baubas_Count" Value="113098"/>
+        <Key Name="GuildEvent_Baubas_Reset" Value="113099"/>
+        <Key Name="GuildEvent_Baubas_Reset_Hour" Value="113100"/>
     </KeyIDSpc>
     <KeyIDSpc Name="ZoneObject">
         <Key Name="Hero_Line" Value="118"/>
@@ -10650,6 +10668,7 @@
         <Key Name="TR" Value="6607"/>
         <Key Name="TR_BM" Value="6601"/>
         <Key Name="Velnias_Defence" Value="6644"/>
+        <Key Name="IMMUNE_CYAN" Value="113126"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Ability">
         <Key Name="SkillCategory" Value="136"/>
@@ -11264,6 +11283,8 @@
         <Key Name="GoddessIcorName" Value="112848"/>
         <Key Name="IsGoddessIcorOption" Value="112847"/>
         <Key Name="RandomGemLevel" Value="112849"/>
+        <Key Name="Ductility_Count" Value="113077"/>
+        <Key Name="StarIcon" Value="113123"/>
     </KeyIDSpc>
     <KeyIDSpc Name="SessionObject">
         <Key Name="ROKAS31_SUB_01" Value="2534"/>
@@ -19075,6 +19096,8 @@
         <Key Name="RAID_CASTLE_EP14_2_MQ_1" Value="112471"/>
         <Key Name="RAID_CASTLE_EP14_2_MQ_2" Value="112469"/>
         <Key Name="ep14_2_START_quest" Value="112950"/>
+        <Key Name="MG_Last_Baubas_Guild_Raid" Value="113096"/>
+        <Key Name="RAID_CASTLE_EP14_2_MQ_3" Value="112970"/>
     </KeyIDSpc>
     <KeyIDSpc Name="GuildMember">
         <Key Name="Name" Value="9011"/>
@@ -26564,6 +26587,140 @@
         <Key Name="VakarineCertificate_TradeCount8" Value="112524"/>
         <Key Name="VakarineCertificate_TradeCount9" Value="112520"/>
         <Key Name="VakarineCertificate_TradeCount_Reset" Value="112530"/>
+        <Key Name="AchieveExchangeEventReward_10110" Value="113109"/>
+        <Key Name="AchieveExchangeEventReward_10111" Value="113105"/>
+        <Key Name="AchieveExchangeEventReward_10112" Value="113102"/>
+        <Key Name="AchieveExchangeEventReward_10113" Value="113113"/>
+        <Key Name="AchieveExchangeEventReward_10114" Value="113122"/>
+        <Key Name="AchieveExchangeEventReward_10115" Value="113106"/>
+        <Key Name="AchieveExchangeEventReward_10116" Value="113117"/>
+        <Key Name="AchieveExchangeEventReward_10117" Value="113104"/>
+        <Key Name="AchieveExchangeEventReward_10118" Value="113112"/>
+        <Key Name="AchieveExchangeEventReward_10119" Value="113120"/>
+        <Key Name="AchieveExchangeEventReward_10120" Value="113111"/>
+        <Key Name="AchieveExchangeEventReward_10121" Value="113103"/>
+        <Key Name="AchieveExchangeEventReward_10122" Value="113110"/>
+        <Key Name="AchieveExchangeEventReward_10123" Value="113116"/>
+        <Key Name="AchieveExchangeEventReward_10124" Value="113114"/>
+        <Key Name="AchieveExchangeEventReward_10125" Value="113121"/>
+        <Key Name="AchieveExchangeEventReward_10126" Value="113115"/>
+        <Key Name="AchieveExchangeEventReward_10127" Value="113119"/>
+        <Key Name="AchieveExchangeEventReward_10128" Value="113107"/>
+        <Key Name="AchieveExchangeEventReward_10129" Value="113101"/>
+        <Key Name="AchieveExchangeEventReward_10130" Value="113118"/>
+        <Key Name="AchieveExchangeEventReward_10131" Value="113108"/>
+        <Key Name="AchieveReward_EVENT_2209_MOON_RABBIT_01" Value="113030"/>
+        <Key Name="AchieveReward_EVENT_2209_MOON_RABBIT_02" Value="112994"/>
+        <Key Name="AchieveReward_EVENT_2209_MOON_RABBIT_03" Value="113028"/>
+        <Key Name="AchieveReward_EVENT_2209_MOON_RABBIT_04" Value="112989"/>
+        <Key Name="AchieveReward_EVENT_2209_MOON_RABBIT_05" Value="113015"/>
+        <Key Name="AchieveReward_EVENT_2209_MOON_RABBIT_06" Value="113035"/>
+        <Key Name="AchieveReward_EVENT_2209_MOON_RABBIT_07" Value="113017"/>
+        <Key Name="AchieveReward_Raid_Falouros_bronze" Value="113022"/>
+        <Key Name="AchieveReward_Raid_Falouros_gold" Value="113031"/>
+        <Key Name="AchieveReward_Raid_Falouros_silver" Value="113014"/>
+        <Key Name="ContentsTotalShop_2209_1" Value="113075"/>
+        <Key Name="ContentsTotalShop_2209_2" Value="113076"/>
+        <Key Name="ContentsTotalShop_2209_3" Value="113085"/>
+        <Key Name="EP14_Artefact_014_cabinet" Value="113079"/>
+        <Key Name="EP14_Artefact_015_cabinet" Value="113080"/>
+        <Key Name="EP14_Artefact_016_cabinet" Value="113081"/>
+        <Key Name="EP14_Contents_Artefact_001_cabinet" Value="113125"/>
+        <Key Name="EP14_Contents_Artefact_002_cabinet" Value="113124"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_1" Value="113050"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_10" Value="113059"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_11" Value="113067"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_12" Value="113066"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_13" Value="113055"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_14" Value="113073"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_15" Value="113060"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_16" Value="113044"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_17" Value="113054"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_18" Value="113061"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_19" Value="113053"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_2" Value="113057"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_20" Value="113071"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_21" Value="113064"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_22" Value="113065"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_23" Value="113072"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_24" Value="113049"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_25" Value="113047"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_26" Value="113063"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_27" Value="113068"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_28" Value="113074"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_29" Value="113051"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_3" Value="113048"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_30" Value="113046"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_31" Value="113069"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_4" Value="113056"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_5" Value="113058"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_6" Value="113045"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_7" Value="113062"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_8" Value="113052"/>
+        <Key Name="EVENT_2209_FISHING_SHOP_9" Value="113070"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_1" Value="113000"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_10" Value="113011"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_11" Value="113038"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_12" Value="112997"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_13" Value="113027"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_14" Value="113021"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_15" Value="113013"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_16" Value="112990"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_17" Value="113032"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_18" Value="112995"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_19" Value="113026"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_2" Value="112991"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_20" Value="113023"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_21" Value="113007"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_22" Value="113033"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_23" Value="113034"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_24" Value="113001"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_25" Value="113029"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_26" Value="113036"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_27" Value="113043"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_28" Value="113006"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_29" Value="113037"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_3" Value="112993"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_30" Value="113040"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_31" Value="112999"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_32" Value="113005"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_33" Value="113004"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_34" Value="113025"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_35" Value="113010"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_36" Value="112988"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_37" Value="113018"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_38" Value="113024"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_39" Value="112998"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_4" Value="112996"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_40" Value="113002"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_41" Value="113039"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_42" Value="112985"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_43" Value="113003"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_44" Value="113020"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_45" Value="113012"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_46" Value="113041"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_47" Value="113019"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_5" Value="112992"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_6" Value="113016"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_7" Value="112987"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_8" Value="113009"/>
+        <Key Name="EVENT_2209_MOON_RABBIT_9" Value="112986"/>
+        <Key Name="GEM_Templer_MoraleBanner_cabinet" Value="112979"/>
+        <Key Name="GEM_Templer_MortalWave_cabinet" Value="112981"/>
+        <Key Name="GEM_Templer_Retribution_cabinet" Value="112980"/>
+        <Key Name="GEM_Templer_RevengeBanner_cabinet" Value="112978"/>
+        <Key Name="GEM_Templer_VitalityBanner_cabinet" Value="112977"/>
+        <Key Name="HadVisited_11257" Value="113097"/>
+        <Key Name="HaveEmoticon_150" Value="113008"/>
+        <Key Name="HaveEmoticon_151" Value="113042"/>
+        <Key Name="RidePet_14" Value="113078"/>
+        <Key Name="SWD04_126_9_cabinet" Value="112975"/>
+        <Key Name="SWD04_126_9_cabinet_upgrade" Value="112976"/>
+        <Key Name="dress_ep14egypt_1" Value="113089"/>
+        <Key Name="dress_ep14egypt_2" Value="113084"/>
+        <Key Name="dress_ep14egypt_3" Value="113088"/>
+        <Key Name="dress_ep14egypt_4" Value="113087"/>
+        <Key Name="ep14egypt_thema" Value="113086"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PartyMember">
         <Key Name="Auth_Survey" Value="7222"/>

@@ -329,29 +329,26 @@ function ITEM_CABINET_SET_EDIT_TOOLTIP_BY_CATEGORY(frame)
 		return
 	end
 	
-	local firstKeyword = ""
-	local lastKeyword = ""
-	if category_Index==0 then
-		firstKeyword = ""
-		lastKeyword =ClMsg("ItemCabinetLastKeyWord1")
-	elseif category_Index==1 then
-		firstKeyword = ""
-		lastKeyword =ClMsg("ItemCabinetLastKeyWord2")
-	elseif category_Index==2 then
-		firstKeyword = ""
-		lastKeyword =ClMsg("ItemCabinetLastKeyWord3")
-	elseif category_Index==3 then
-		firstKeyword = ""
-		lastKeyword =ClMsg("ItemCabinetLastKeyWord4")
-	elseif category_Index==4 then
-		firstKeyword = ClMsg("ItemCabinetFirstKeyWord1")
-		lastKeyword = ClMsg("ItemCabinetLastKeyWord5")
-	elseif category_Index==5 then
-		firstKeyword = ClMsg("ItemCabinetFirstKeyWord2")
-		lastKeyword = ClMsg("ItemCabinetLastKeyWord6")	
-	end
-	edit_tooltip:SetTextByKey("front",firstKeyword);
-	edit_tooltip:SetTextByKey("back", lastKeyword);
+	local firstKeywords = 
+		{
+			"", "", "", "", 
+			ClMsg("ItemCabinetFirstKeyWord1"), 
+			ClMsg("ItemCabinetFirstKeyWord2"),
+			""
+		}
+	local lastKeywords = 
+		{
+			ClMsg("ItemCabinetLastKeyWord1"), 
+			ClMsg("ItemCabinetLastKeyWord2"), 
+			ClMsg("ItemCabinetLastKeyWord3"), 
+			ClMsg("ItemCabinetLastKeyWord4"), 
+			ClMsg("ItemCabinetLastKeyWord5"), 
+			ClMsg("ItemCabinetLastKeyWord6"),
+			ClMsg("ItemCabinetLastKeyWord7")
+		}
+
+	edit_tooltip:SetTextByKey("front",firstKeywords[category_Index + 1]);
+	edit_tooltip:SetTextByKey("back", lastKeywords[category_Index + 1]);
 	edit_tooltip:ShowWindow(1)
 end
 
@@ -362,8 +359,11 @@ function ITEM_CABINET_CHANGE_JOBTAB(frame)
 	local jobbox = GET_CHILD_RECURSIVELY(frame,"jobbox")
 	local job_tab = GET_CHILD_RECURSIVELY(frame,"job_tab")
 	local job_tab_index = job_tab:GetSelectItemIndex()
-		local jobname = GET_CHILD_RECURSIVELY(frame,"jobname")
-	if currJobTab_index~=job_tab_index then currJobTab_index = job_tab_index end
+	local jobname = GET_CHILD_RECURSIVELY(frame,"jobname")
+	
+	if currJobTab_index ~= job_tab_index then 
+		currJobTab_index = job_tab_index 
+	end
 
 	jobname:SetText(ClMsg("AlltargetClasses"))
 	if(jobbox:GetUserValue("job_name")~=nil) then
@@ -395,31 +395,21 @@ end
 function ITEM_CABINET_OPEN_CLASS_DROPLIST(parent, ctrl)
 	local topframe = parent:GetTopParentFrame()
 	local job_tab = GET_CHILD_RECURSIVELY(topframe,"job_tab")
-	local jobtab_index = job_tab:GetSelectItemIndex();
-	local selectedJob = ""
-	if jobtab_index ==0 then
-		selectedJob = "Warrior"
-	elseif jobtab_index==1 then
-		selectedJob = "Wizard"	
-	elseif jobtab_index==2 then
-		selectedJob = "Archer"
-	elseif jobtab_index==3 then
-		selectedJob = "Cleric"
-	else
-		selectedJob = "Scout"
-	end	
+	local jobtab_sel_idx = job_tab:GetSelectItemIndex();
+	local job_list = {"Warrior", "Wizard", "Archer", "Cleric", "Scout"}
+
 	local itemList, itemListCnt = GetClassList("Job");--xml 파일 cabinet_weapon, ..ark,..armor등 classId 입력값
 	local jobcnt = 0;
-	local selectedJobList ={} 
-	local jobKeyList={}
+	local selectedJobList = {} 
+	local jobKeyList = {}
 	for	i=0, itemListCnt-1 do
-		local cls =GetClassByIndexFromList(itemList,i)
-		local ctrltype= TryGetProp(cls,"CtrlType","None")
-		local name= TryGetProp(cls,"Name","None") --한글 이름명
-		local jobname= TryGetProp(cls,"JobName","None") --영어 이름명
+		local cls = GetClassByIndexFromList(itemList,i)
+		local ctrltype = TryGetProp(cls,"CtrlType","None")
+		local name = TryGetProp(cls,"Name","None") --한글 이름명
+		local jobname = TryGetProp(cls,"JobName","None") --영어 이름명
 		local rank = TryGetProp(cls,"Rank",200)
-		if rank<=JOB_CHANGE_MAX_RANK and selectedJob==ctrltype then			
-			jobcnt = jobcnt +1	
+		if rank <= JOB_CHANGE_MAX_RANK and job_list[jobtab_sel_idx + 1] == ctrltype then			
+			jobcnt = jobcnt +1	 
 			table.insert(selectedJobList,name)
 			table.insert(jobKeyList,jobname)															
 		end	
@@ -438,24 +428,13 @@ function ITEM_CABINET_LARGE_FILTER_JOB(frame,itemList,itemListCnt)
 	local result_List = {};
 	local topframe = frame:GetTopParentFrame()
 	local job_tab = GET_CHILD_RECURSIVELY(topframe,"job_tab")
-	local jobtab_index = job_tab:GetSelectItemIndex();
-	-- 0 : Swordman 1: Wizard 2:Archer 3:Cleric 4. Scout
-	local selectedJob = ""
-	if jobtab_index ==0 then
-		selectedJob = "Warrior"
-	elseif jobtab_index==1 then
-		selectedJob = "Wizard"	
-	elseif jobtab_index==2 then
-		selectedJob = "Archer"
-	elseif jobtab_index==3 then
-		selectedJob = "Cleric"
-	else
-		selectedJob = "Scout"
-	end		
+	local jobtab_sel_idx = job_tab:GetSelectItemIndex();
+	local job_list = {"Warrior", "Wizard", "Archer", "Cleric", "Scout"}
+
 	for i=0, itemListCnt-1 do
 		local cls = GetClassByIndexFromList(itemList,i)
 		local basejob_name = TryGetProp(cls,"CtrlType","None")
-		if basejob_name==selectedJob then
+		if basejob_name == job_list[jobtab_sel_idx + 1] then
 			table.insert(result_List,cls)
 		end
 	end
@@ -488,7 +467,7 @@ function ITEM_CABINET_FILTER_RELICGEM(frame,itemList,itemListCnt)
 	local relic_tab = GET_CHILD_RECURSIVELY(topframe,"relic_tab");
 	local relictab_index = relic_tab:GetSelectItemIndex();
 	local selectedGem = ""
-	-- 0 : cyan 1: magenta 2:black
+
 	if relictab_index== 0 then
 		selectedGem = "Gem_Relic_Cyan"
 	elseif relictab_index==1 then
@@ -541,12 +520,10 @@ function ITEM_CABINET_SKILLGEM_REGISTRATION_SUPPORT(frame,category)
 end
 
 function ITEM_CABINET_SKILLGEM_REGISTER_RBTN(item_obj, slot)
-	
 	local frame 	  = ui.GetFrame('item_cabinet')
 	local cabinet_tab = GET_CHILD_RECURSIVELY(frame,"cabinet_tab")
 	local itemgbox = GET_CHILD_RECURSIVELY(frame,"itemgbox")
 	local upgrade_tab = GET_CHILD_RECURSIVELY(frame,"upgrade_tab")
-	local edit 	= GET_CHILD_RECURSIVELY(frame, "ItemSearch");
 	local tab_index   = cabinet_tab:GetSelectItemIndex()
 	if ui.IsFrameVisible("item_cabinet") ~= 1 or tab_index~=4 then return end
 	if TryGetProp(item_obj,"StringArg","None") ~= "SkillGem" then return end
@@ -570,7 +547,6 @@ function ITEM_CABINET_SKILLGEM_REGISTER_RBTN(item_obj, slot)
 	local ctrlType 	 = TryGetProp(cabinetCls,"CtrlType","None")
 	local job_tab 	 = GET_CHILD_RECURSIVELY(frame,"job_tab")
 	local edit 	= GET_CHILD_RECURSIVELY(frame, "ItemSearch");
-	
 	if ctrlType=="Warrior" then
 		job_tab:SelectTab(0)
 	elseif ctrlType=="Wizard" then
@@ -673,43 +649,46 @@ function ITEM_CABINET_CREATE_LIST(frame)
 		jobbox:ShowWindow(0);
 		relicTab:ShowWindow(0);
 		local equipTabIndex = equipTab:GetSelectItemIndex();
-		local equipTxt = GET_CHILD_RECURSIVELY(frame, "equipmenttxt");
-	
 		if category == "Weapon" then
 			if equipTabIndex == 0 then		
 				group = "VIBORA";
 			end
 			equipTab:ChangeCaptionOnly(0,"{@st66b}{s16}"..ClMsg("Vibora"),false)
 			
-			local tuto_icon_1 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_1")
-			local tuto_icon_2 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_2")
-			local Is_UITUTO_Prog1 = GetUITutoProg("UITUTO_EQUIPCACABINET1")
-			if Is_UITUTO_Prog1 == 100 then
-				tuto_icon_1:ShowWindow(0);
-			else
-				tuto_icon_1:ShowWindow(1);
-			end
-			local Is_UITUTO_Prog3 = GetUITutoProg("UITUTO_EQUIPCACABINET3")
-			if Is_UITUTO_Prog3 == 100 then
-				tuto_icon_2:ShowWindow(0);
-			else
-				tuto_icon_2:ShowWindow(1);
-			end
-			
+			-- tutorial
+			do
+				local tuto_icon_1 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_1")
+				local tuto_icon_2 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_2")
+				local Is_UITUTO_Prog1 = GetUITutoProg("UITUTO_EQUIPCACABINET1")
+				if Is_UITUTO_Prog1 == 100 then
+					tuto_icon_1:ShowWindow(0);
+				else
+					tuto_icon_1:ShowWindow(1);
+				end
+				local Is_UITUTO_Prog3 = GetUITutoProg("UITUTO_EQUIPCACABINET3")
+				if Is_UITUTO_Prog3 == 100 then
+					tuto_icon_2:ShowWindow(0);
+				else
+					tuto_icon_2:ShowWindow(1);
+				end
+		 	end
 		elseif category == "Armor" then
 			if equipTabIndex == 0 then		
 				group = "GODDESS_EVIL";
 			end
 			equipTab:ChangeCaptionOnly(0,"{@st66b}{s16}"..ClMsg("GoddessEvil"),false)
 
-			local tuto_icon_1 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_1")
-			local tuto_icon_2 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_2")
-			tuto_icon_1:ShowWindow(0);
-			local Is_UITUTO_Prog2 = GetUITutoProg("UITUTO_EQUIPCACABINET2")
-			if Is_UITUTO_Prog2 == 100 then
-				tuto_icon_2:ShowWindow(0);
-			else
-				tuto_icon_2:ShowWindow(1);
+			-- tutorial
+			do
+				local tuto_icon_1 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_1")
+				local tuto_icon_2 = GET_CHILD_RECURSIVELY(frame, "UITUTO_ICON_2")
+				tuto_icon_1:ShowWindow(0);
+				local Is_UITUTO_Prog2 = GetUITutoProg("UITUTO_EQUIPCACABINET2")
+				if Is_UITUTO_Prog2 == 100 then
+					tuto_icon_2:ShowWindow(0);
+				else
+					tuto_icon_2:ShowWindow(1);
+				end
 			end
 		end
 	elseif category=="Skillgem" then
@@ -865,7 +844,6 @@ function ITEM_CABINET_ITEM_TAB_INIT(listCls, itemTabCtrl)
 	
 	local itemClsName = get_name_func(listCls, GetMyAccountObj());	
 	
-	
 	if itemClsName == 'None' then return; end
 	local itemCls = GetClass('Item', itemClsName);
 	if itemCls == nil then return; end
@@ -896,6 +874,8 @@ function ITEM_CABINET_ITEM_TAB_INIT(listCls, itemTabCtrl)
 		if curlv~=nil and curlv > 0 then
 			itemSlot:SetText("Lv."..curlv,"quickiconfont",ui.RIGHT,ui.BOTTOM,-2,1)
 		end	
+	elseif category == "Artefact" then
+		itemSlot:EnableHitTest(0)
 	else
 		icon:SetTooltipNumArg(itemCls.ClassID);
 		icon:SetTooltipStrArg('char_belonging');
@@ -1738,8 +1718,6 @@ function _CABINET_RELIC_GEM_REINFORCE_SUCCESS_EFFECT(frame)
 	ui.SetHoldUI(false)
 end
 
-
-
 function _RUN_CABINET_RELIC_GEM_REINFORCE_FAILED()
 	local frame = ui.GetFrame('item_cabinet')
 	if frame:IsVisible() == 0 then return end
@@ -1816,7 +1794,6 @@ function CONFIRM_ITEM_CABINET_REINFORCE()
 	end
 	
 end
-
 
 function CLEAR_ITEM_CABINET_REINFORCE()
 	local frame = ui.GetFrame('item_cabinet')
@@ -1945,16 +1922,20 @@ function UPDATE_ITEM_CABINET_REINFORCE(frame)
 
 end
 
-
 function ITEM_CABINET_REINFORCE_SECTION(frame,self,cabinetItemCls)
 	local curSelected_ClsName = TryGetProp(cabinetItemCls,"ClassName","None")
 	local preSelected_ClsName = frame:GetUserValue('PRE_NAME')
 	local rresult_gb = GET_CHILD_RECURSIVELY(frame,"rresult_gb")
 	rresult_gb:ShowWindow(0)
+	
 	if curSelected_ClsName ~= preSelected_ClsName then
 		ITEM_CABINET_RESET_RELIC_GEM_REINF_MAT_CNT(frame)
 	end
-	if ITEM_CABINET_REINFORCE_IS_AVAILABLE(frame,cabinetItemCls) ==false then return end
+	
+	if ITEM_CABINET_REINFORCE_IS_AVAILABLE(frame,cabinetItemCls) == false then 
+		return 
+	end
+	
 	local curLv		  = ITEM_CABINET_GET_RELICGEM_UPGRADE_ACC_PROP(frame,cabinetItemCls)
 	local selectedSlot= GET_CHILD_RECURSIVELY(self:GetParent(),"itemIcon") 
 	local iconinfo 	  = selectedSlot:GetIcon():GetInfo()
@@ -1983,40 +1964,29 @@ function ITEM_CABINET_REINFORCE_SECTION(frame,self,cabinetItemCls)
 	local silver_cnt  = shared_item_relic.get_gem_reinforce_silver(curLv)
 	frame:SetUserValue('REINFORCE_PRICE',silver_cnt)
 	ITEM_CABINET_REINFORCE_PRICE_UPDATE(frame,0)	
-	local rextra_mat_info = GET_CHILD_RECURSIVELY(frame, 'rextra_mat_info')
-	
 	ITEM_CABINET_UPDATE_RELIC_GEM_REINF_EXTRA_MAT(frame)
 	ITEM_CABINET_UPDATE_REINFORCE_DISCOUNT(frame)
 	ITEM_CABINET_RELIC_GEM_REINF_RATE_UPDATE(frame)
 	ITEM_CABINET_REINFORCE_EXEC_BTN_UPDATE(frame)
-
 end
 
 function ITEM_CABINET_SELECT_ITEM(parent, self)	
 	local frame = parent:GetTopParentFrame();
+	local tab = GET_CHILD_RECURSIVELY(frame, "upgrade_tab"); 
 	local category = ITEM_CABINET_GET_CATEGORY(parent);
-	local tab;
-	local index;
+
 	if category == 'Relicgem' then
 		local lvup_scroll = ui.GetFrame('relicgem_lvup_scroll');
 		if lvup_scroll ~= nil and lvup_scroll:IsVisible() == 1 then
-			local aObj = GetMyAccountObj();
-			local itemType = parent:GetUserIValue("ITEM_TYPE");
-			RELICGEM_LVUP_SCROLL_SET_TARGET_ITEM_CABINET(cabinetframe, itemType);
+			RELICGEM_LVUP_SCROLL_SET_TARGET_ITEM_CABINET(cabinetframe, parent:GetUserIValue("ITEM_TYPE"));
 			return
 		else
 			tab = GET_CHILD_RECURSIVELY(frame, "upgrade_relicgem_tab"); 
-			index = tab:GetSelectItemIndex();
-			tab:SelectTab(index)
 		end
-	else
-		tab = GET_CHILD_RECURSIVELY(frame, "upgrade_tab"); 
-		index = tab:GetSelectItemIndex();	
 	end
 
-	local tab = GET_CHILD_RECURSIVELY(frame, "upgrade_tab"); 
-	local index = tab:GetSelectItemIndex();					    
 	local aObj = GetMyAccountObj();							
+	local index = tab:GetSelectItemIndex();
 	local itemType = parent:GetUserIValue("ITEM_TYPE"); 
 	local itemCls = GetClassByType("cabinet_"..string.lower(category), itemType);
 	local itemName = itemCls.ClassName; 
@@ -2025,10 +1995,9 @@ function ITEM_CABINET_SELECT_ITEM(parent, self)
 	frame:SetUserValue("CATEGORY", category);  
 	frame:SetUserValue("ITEM_TYPE", itemType); 
 	frame:SetUserValue("TARGET_LV", curLv + 1); -- 최초 등록은 0Lv->1Lv
+
 	ITEM_CABINET_CLOSE_SUCCESS(frame);
-	
 	ITEM_CABINET_SELECT_TAB(frame, parent); --item_cabinet, parent: ITEM_TAB_CTRL_X
-	
 	ITEM_CABINET_REGISTER_SECTION(frame, category, itemType, curLv); --
 	ITEM_CABINET_ENCHANT_TEXT_SETTING(frame, category, index);
 	ITEM_CABINET_SELECTED_ITEM_CLEAR();
@@ -2093,9 +2062,7 @@ function ITEM_CABINET_ICOR_SECTION(frame, self, entry_cls)
 	local silverText = GET_CHILD_RECURSIVELY(frame,"pricetxt");
 	
 	local cost = tonumber(entry_cls.MakeCostSilver)
-
-	local category = frame:GetUserValue("CATEGORY")
-	if string.lower(category) == 'accessory' then		
+	if category == 'Accessory' then		
 		cost = GET_ACC_CABINET_COST(entry_cls, GetMyAccountObj())
 	end
 
@@ -2140,10 +2107,17 @@ function ITEM_CABINET_ENCHANT_TEXT_SETTING(frame, category, index)
 	else
 		local enchantbtn = GET_CHILD_RECURSIVELY(frame,"enchantbtn");
 		local upgrade_tab = GET_CHILD_RECURSIVELY(frame, 'upgrade_tab');
-		
-		if category == "Weapon" or category == "Armor" then
+		if category == "Weapon" or category == "Armor" or category == "Artefact" then
 			enchantbtn:SetTextByKey("name", ClMsg("Enchant"));
-			upgrade_tab:ChangeCaptionOnly(0,"{@st66b}{s16}"..ClMsg("IcorEnchant"),false)
+			
+			local tab_name = "None"
+			if category == "Artefact" then
+				tab_name = ClMsg("Briquetting")
+			else
+				tab_name = ClMsg("IcorEnchant")
+			end
+			upgrade_tab:ChangeCaptionOnly(0,"{@st66b}{s16}"..tab_name,false)
+			
 			if index == 0 then
 				GET_CHILD_RECURSIVELY(frame,"slot"):ShowWindow(1);
 				enchantbtn:SetEventScript(ui.LBUTTONUP, "ITEM_CABINET_EXCUTE_ENCHANT");
@@ -2163,21 +2137,9 @@ function ITEM_CABINET_GET_CATEGORY(frame)
 	local frame = frame:GetTopParentFrame();
 	local tab = GET_CHILD_RECURSIVELY(frame, "cabinet_tab");
 	local index = tab:GetSelectItemIndex();
+	local category_list = { "Weapon", "Armor", "Accessory", "Ark", "Skillgem", "Relicgem", "Artefact"} 
 
-	if index == 0 then
-		category = "Weapon";
-	elseif index == 1 then
-		category = "Armor";
-	elseif index == 2 then
-		category = "Accessory";
-	elseif index == 3 then
-		category = "Ark";
-	elseif index == 4 then
-		category = "Skillgem";
-	elseif index == 5 then
-		category = "Relicgem"
-	end
-	return category;
+	return category_list[index + 1];
 end
 
 
@@ -2278,13 +2240,12 @@ function ITEM_CABINET_UPGRADE_TAB(parent, ctrl)
 
 		ITEM_CABINET_ENCHANT_TEXT_SETTING(frame, category, index);
 
-		if category == "Weapon" or category == "Armor" then
+		if category == "Weapon" or category == "Armor" or category == "Artefact" then
 			local inven = ui.GetFrame('inventory');
 			if inven:IsVisible() == 0 then inven:ShowWindow(1); end
 
 			GET_CHILD_RECURSIVELY(frame,"slot"):ShowWindow(1);		
 			INVENTORY_SET_CUSTOM_RBTNDOWN("ITEM_CABINET_INV_BTN");
-
 		else
 			GET_CHILD_RECURSIVELY(frame,"slot2"):ShowWindow(1);
 			GET_CHILD_RECURSIVELY(frame,"belongingtxt"):ShowWindow(1);
@@ -2381,6 +2342,8 @@ function ITEM_CABINET_EXCUTE_REGISTER(parent, self)
 		clmsg = ClMsg('ReallyRegisterForCabinet_Skillgem')
 	elseif cabinet_tabItem_index==5 then
 		clmsg = ClMsg('ReallyRegisterForCabinet_Relicgem')
+	elseif cabinet_tabItem_index==6 then
+		clmsg = ClMsg('ReallyRegisterForCabinet_Artefact')
 	else 
 		clmsg = ClMsg('ReallyRegisterForCabinet')
 	end
@@ -2468,16 +2431,17 @@ function ITEM_CABINET_DRAW_MATERIAL(frame, materialTable, targetLV, maxLv)
 	end
 
 	local next_item_cls = GetClass("Item", itemClsName)
+	local next_item_txt = GET_CHILD_RECURSIVELY(frame, 'next_item_name');
 	
 	local slot = GET_CHILD_RECURSIVELY(frame, 'slot_reg');
-	local next_item_txt = GET_CHILD_RECURSIVELY(frame, 'next_item_name');
-
-
 	local icon = CreateIcon(slot);
 	icon:SetImage(next_item_cls.Icon);
 	
 	if category=="Relicgem" then
 		next_item_txt:SetTextByKey("name", next_item_cls.Name.." (".. ClMsg("LevelOfRegisterGem") ..")")
+		slot:EnableHitTest(0)
+	elseif category == "Artefact" then
+		next_item_txt:SetTextByKey("name", next_item_cls.Name)
 		slot:EnableHitTest(0)
 	else
 		slot:EnableHitTest(1)
@@ -3166,6 +3130,12 @@ function ITEM_CABINET_OPTION_INFO(gBox, targetItem)
 		if desc ~= "" then
 			inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(tooltip_equip_property_CSet, desc, 0, inner_yPos)
 		end
+	end
+
+	local briquetCls = GetClass("cabinet_artefact", targetItem.ClassName)
+	if briquetCls ~= nil then
+		local desc = ClMsg("BriquetDesc")
+		inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(tooltip_equip_property_CSet, desc, 0, 10)
 	end
 
 	for i = 1 , 3 do

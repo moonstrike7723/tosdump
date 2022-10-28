@@ -24,6 +24,7 @@
 		<tabitem name="tab_ark" parent="cabinet_tab" width="40" normalimage="inventory_ark" overimage="inventory_ark_cursoron" selectimage="inventory_ark_clicked" texttooltip="{@st59}아크{/}" layout_gravity="left top"/>
 		<tabitem name="tab_skillgem" parent="cabinet_tab" width="40" normalimage="inventory_gem" overimage="inventory_gem_cursoron" selectimage="inventory_gem_clicked" texttooltip="{@st59}스킬 젬{/}" layout_gravity="left top"/>		
 		<tabitem name="tab_relicgem" parent="cabinet_tab" width="40" normalimage="inventory_relic_gem" overimage="inventory_relic_gem_cursoron" selectimage="inventory_relic_gem_clicked" texttooltip="{@st59}성물 젬{/}" layout_gravity="left top"/>		
+		<tabitem name="tab_artefact" parent="cabinet_tab" width="40" normalimage="inventory_equip" overimage="inventory_equip_cursoron" selectimage="inventory_equip_clicked" texttooltip="{@st59}무기 외형{/}" layout_gravity="left top"/>
 		
 		<!--성물젬 생성/등록/업그레이드 탭 별도 생성-->
 		<tab name="upgrade_relicgem_tab" parent="gbox" margin="0 60 15 0" rect="0 0 485 40" layout_gravity="right top" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" clicksound="button_click_big" LBtnDownScp="ITEM_CABINET_UPGRADE_RELICGEM_TAB" fixwidth="true" itemspc="0" oversound="button_cursor_over_2" skin="tab2"/>

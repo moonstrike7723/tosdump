@@ -361,19 +361,17 @@ function GET_ITEM_TOOLTIP_DESC(obj, desc)
 		byDescColumn = "";
 	end
 	
-	if config.GetServiceNation() == "KOR" then
-		local name = TryGetProp(obj, 'ClassName', 'None')
-		local cls = GetClass('recycle_shop', name)
-		if cls ~= nil  then
-			local sell = TryGetProp(cls, 'SellPrice', 0)
-			if sell > 0 then				
-				byDescColumn = replace(byDescColumn, ClMsg('ExchangeRecycleMedal_1'), '')
-				byDescColumn = replace(byDescColumn, ClMsg('ExchangeRecycleMedal_2'), '')
-	
-				if TryGetProp(obj, 'TeamBelonging', 0) == 0 and TryGetProp(obj, 'CharacterBelonging', 0) == 0 then
-					local suffix = '{nl}' .. ScpArgMsg('ExchangeRecycleMedal', 'value', sell)
-					byDescColumn = byDescColumn .. suffix
-				end
+	local name = TryGetProp(obj, 'ClassName', 'None')
+	local cls = GetClass('recycle_shop', name)
+	if cls ~= nil  then
+		local sell = TryGetProp(cls, 'SellPrice', 0)
+		if sell > 0 then				
+			byDescColumn = replace(byDescColumn, ClMsg('ExchangeRecycleMedal_1'), '')
+			byDescColumn = replace(byDescColumn, ClMsg('ExchangeRecycleMedal_2'), '')
+
+			if TryGetProp(obj, 'TeamBelonging', 0) == 0 and TryGetProp(obj, 'CharacterBelonging', 0) == 0 then
+				local suffix = '{nl}' .. ScpArgMsg('ExchangeRecycleMedal', 'value', sell)
+				byDescColumn = byDescColumn .. suffix
 			end
 		end
 	end

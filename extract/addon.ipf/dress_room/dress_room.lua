@@ -13,6 +13,7 @@ end
 
 function DRESS_ROOM_UI_CLOSE(frame)
 	ui.CloseFrame('dress_room_magic')
+	ui.CloseFrame('dress_room_register')
 end
 
 function DRESS_ROOM_INIT(frame)
@@ -71,6 +72,7 @@ function DRESS_ROOM_INIT_DECK(frame,ctrlSet,cls,itemTable,aObj)
 	if TryGetProp(aObj,thema) == 0 then
 		gb_complete:SetVisible(0)
 		ctrlSet:SetSkinName(frame:GetUserConfig("DISABLE_SKIN"));
+		ctrlSet:SetUserValue("COLLECTION_STATE", "DISABLE");
 		font = frame:GetUserConfig("DISABLE_DECK_TITLE_FONT")
 		desc_font = frame:GetUserConfig("DISABLE_MAGIC_LIST_FONT");
 		local iconMagic = GET_CHILD_RECURSIVELY(ctrlSet,"iconMagic")
@@ -81,12 +83,14 @@ function DRESS_ROOM_INIT_DECK(frame,ctrlSet,cls,itemTable,aObj)
 		font = frame:GetUserConfig("COMPLETE_DECK_TITLE_FONT")
 		desc_font = frame:GetUserConfig("ENABLE_MAGIC_LIST_FONT");
 		ctrlSet:SetSkinName(frame:GetUserConfig("ENABLE_SKIN"));
+		ctrlSet:SetUserValue("COLLECTION_STATE", "COMPLETE");
 	--미완성
 	else
 		gb_complete:SetVisible(0)
 		font = frame:GetUserConfig("DECK_TITLE_FONT")
 		desc_font = frame:GetUserConfig("ENABLE_MAGIC_LIST_FONT");
 		ctrlSet:SetSkinName(frame:GetUserConfig("ENABLE_SKIN"));
+		ctrlSet:SetUserValue("COLLECTION_STATE", "INCOMPLETE");
 	end
 	collec_name:SetTextByKey("font",font)
 	magicList:SetTextByKey("font",desc_font)
@@ -98,6 +102,10 @@ end
 function DRESS_ROOM_GET_REWARD_TEXT(cls)
 	local reward = StringSplit(TryGetProp(cls,"PropList"),';')
 	local rewardStr = {}
+	local rewardPerPiece = TryGetProp(cls, "RewardPerPiece", "NO")
+	if rewardPerPiece == "YES" then
+		table.insert(rewardStr,ClMsg("PerPieceInCollection"))
+	end
 	for i = 1,#reward do
 		local prop = StringSplit(reward[i],'/')
 		local propStr = string.format("%s+%d",ClMsg(prop[1]),prop[2])
@@ -117,11 +125,11 @@ function GET_DRESS_ROOM_THEMA_ITEM_NUM(thema,itemTable,aObj)
 	return cnt
 end
 
-function DRESS_ROOM_SET_COSTUME_SLOT(gBox,itemList)
+function DRESS_ROOM_SET_COSTUME_SLOT(gBox, itemList, state)
 	local aObj = GetMyAccountObj()
 	local frame = gBox:GetTopParentFrame()
 	local disable_color = frame:GetUserConfig("NOT_HAVE_COLOR")
-	for i = 1,#itemList do
+	for i = 1, #itemList do
 		local rewardCls = itemList[i]
 		local slotCtrlSet = gBox:CreateOrGetControlSet('dress_rool_slot', "SLOT_"..rewardCls.ClassName, 20 + (i-1)*60, 0);
 		local slot = GET_CHILD_RECURSIVELY(slotCtrlSet,"slot")
@@ -129,9 +137,15 @@ function DRESS_ROOM_SET_COSTUME_SLOT(gBox,itemList)
 		SET_SLOT_IMG(slot, itemCls.Icon);
 		SET_ITEM_TOOLTIP_BY_TYPE(slot:GetIcon(), itemCls.ClassID);
 		slotCtrlSet:SetUserValue("DRESS_PROP",rewardCls.ClassName)
+		local btn = GET_CHILD_RECURSIVELY(slotCtrlSet, "btn")
+		btn:ShowWindow(0)
 		local icon = CreateIcon(slot)
 		if DRESS_ROOM_IS_ITEM_SET(aObj, rewardCls) == false then
 			icon:SetColorTone(disable_color)
+			if TryGetProp(rewardCls, "Group", "None") == "dress_room_blessed_cube" then
+				btn:ShowWindow(1)
+				btn:SetEventScriptArgNumber(ui.LBUTTONUP, rewardCls.ClassID)
+			end
 		else
 			icon:SetColorTone("FFFFFFFF")
 		end
@@ -149,7 +163,7 @@ function OPEN_DRESS_ROOM_DECK_DETAIL(parent,ctrl,argStr,argNum)
 	gb_items:SetVisible(is_open)
 
 	if is_open == 1 then
-		DRESS_ROOM_SET_COSTUME_SLOT(gb_items,itemTable[thema])
+		DRESS_ROOM_SET_COSTUME_SLOT(gb_items, itemTable[thema], ctrlSet:GetUserValue("COLLECTION_STATE"))
 	end
 	ctrlSet:SetUserValue("DETAIL_OPEN", is_open)
 	RESIZE_DRESS_ROOM_CTRLSET(ctrlSet)
@@ -195,7 +209,7 @@ end
 
 function ON_DRESS_ROOM_UPDATE(frame,msg,thema,argNum)
 	local clsList,cnt = GetClassList("dress_room_reward")
-	local ListBox = GET_CHILD_RECURSIVELY(frame,"ListBox")
+	local ListBox = GET_CHILD_RECURSIVELY(frame, "ListBox")
 	local ctrlSet = nil
 	for i = 0, cnt-1 do
 		local tmp = ListBox:GetControlSet('dress_room_deck', 'CTRL_'..i);
@@ -212,12 +226,12 @@ function ON_DRESS_ROOM_UPDATE(frame,msg,thema,argNum)
 	local aObj = GetMyAccountObj()
 	local itemTable = DRESS_ROOM_GET_ITEM_TABLE()
 	local rewardCls = GetClass("dress_room_reward",thema)
-	DRESS_ROOM_INIT_DECK(frame,ctrlSet,rewardCls,itemTable,aObj)
+	DRESS_ROOM_INIT_DECK(frame, ctrlSet, rewardCls, itemTable, aObj)
 	local is_open = ctrlSet:GetUserIValue("DETAIL_OPEN")
-	local gb_items = GET_CHILD_RECURSIVELY(ctrlSet,"gb_items")
+	local gb_items = GET_CHILD_RECURSIVELY(ctrlSet, "gb_items")
 	gb_items:SetVisible(is_open)
 	if is_open == 1 then
-		DRESS_ROOM_SET_COSTUME_SLOT(gb_items,itemTable[thema])
+		DRESS_ROOM_SET_COSTUME_SLOT(gb_items, itemTable[thema], ctrlSet:GetUserValue("COLLECTION_STATE"))
 	end
 end
 
@@ -233,20 +247,29 @@ function VIEW_DRESS_ROOM_ALL_STATUS(parent, ctrl)
 	for i = 0, cnt-1 do
 		local cls = GetClassByIndexFromList(clsList, i);
 		local thema = TryGetProp(cls,"ClassName")
+		local rewardPerPiece = TryGetProp(cls, "RewardPerPiece", "NO") == "YES"
 		local is_complete = true
+		local pieceCount = 0
 		for j = 1,#itemTable[thema] do
 			if DRESS_ROOM_IS_ITEM_SET(aObj,itemTable[thema][j]) == false then
-				is_complete = false
-				break
+				if rewardPerPiece == false then
+					is_complete = false
+					break
+				end
+			else
+				pieceCount = pieceCount + 1
 			end
 		end
-		if is_complete == true then
+		if is_complete == true or (rewardPerPiece == true and pieceCount > 0) then
 			local reward = StringSplit(TryGetProp(cls,"PropList"),';')
 			for i = 1,#reward do
 				local prop = StringSplit(reward[i],'/')
 				local propName,propValue = ClMsg(prop[1]),tonumber(prop[2])
 				if completeList[propName] == nil then
 					completeList[propName] = 0
+				end
+				if rewardPerPiece == true then
+					propValue = propValue * pieceCount
 				end
 				completeList[propName] = completeList[propName] + propValue
 			end
