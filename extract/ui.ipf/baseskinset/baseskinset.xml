@@ -12756,6 +12756,7 @@
 		<image name="icon_TOSHero_Buff_Random_1" file="\icon\buff_icon5.tga" imgrect="256 1024 128 128" CMM_Caption="랜덤 버프"/>
 		<image name="icon_Event_2108_Archeology" file="\icon\buff_icon5.tga" imgrect="384 1024 128 128" CMM_Caption="고고학 버프"/>
 		<image name="icon_ridepet_ep13raincoat_buff" file="\icon\buff_icon5.tga" imgrect="512 1024 128 128" CMM_Caption="금붕어 버프"/>
+		<image name="icon_Event_Buff_Stew" file="\icon\buff_icon5.tga" imgrect="896 1152 128 128" CMM_Caption="할로윈 이벤트 스튜"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>

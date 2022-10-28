@@ -881,6 +881,10 @@
 		<image name="icon_item_SpecialCostume_crusader_f" file="\icon\equip\icon_item_Crusader01_sp.png" imgrect="0 0 256 256" CMM_Caption="크루세이더_스페셜코스튬"/>
 		<image name="icon_item_SpecialCostume_clown_m" file="\icon\equip\icon_item_SpecialCostume_clown_f_01.png" imgrect="0 0 256 256" CMM_Caption="클로운_스페셜코스튬"/>
 		<image name="icon_item_SpecialCostume_clown_f" file="\icon\equip\icon_item_SpecialCostume_clown_f_01.png" imgrect="0 0 256 256" CMM_Caption="클로운_스페셜코스튬"/>
+		<image name="icon_item_21halloween01_m" file="\icon\equip\icon_item_21halloween01_m.png" imgrect="0 0 256 256" CMM_Caption="21년 할로윈 코스튬 4종"/>
+		<image name="icon_item_21halloween01_f" file="\icon\equip\icon_item_21halloween01_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_21halloween02_m" file="\icon\equip\icon_item_21halloween02_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_21halloween02_f" file="\icon\equip\icon_item_21halloween02_f.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="256_costume_icons">
 		<image name="icon_item_Alchemist_f" file="\icon\equip\Alchemist_f_icon.png" imgrect="0 0 256 256" CMM_Caption="알케미스트"/>
@@ -4246,6 +4250,9 @@
 		<image name="icon_item_accessory_ep13retro01" file="\icon\hairacc\icon_item_accessory_ep13retro01.png" imgrect="0 0 256 256" CMM_Caption="2021_9월 여신의 큐브 3종"/>
 		<image name="icon_item_helmet_ep13retro01" file="\icon\hairacc\icon_item_helmet_ep13retro01.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_helmet_ep13retro02" file="\icon\hairacc\icon_item_helmet_ep13retro02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_helmet_21halloween_t" file="\icon\hairacc\icon_item_helmet_21halloween_t.png" imgrect="0 0 256 256" CMM_Caption="21년 할로윈 헬멧 코스튬 3종"/>
+		<image name="icon_item_helmet_21halloween_o" file="\icon\hairacc\icon_item_helmet_21halloween_o.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_helmet_21halloween_s" file="\icon\hairacc\icon_item_helmet_21halloween_s.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="collection_item">
 		<image name="icon_collitem_collection" file="\icon\colletion\icon_item_collection.tga" imgrect="0 0 673 419" CMM_Caption="월계수"/>
@@ -6617,6 +6624,11 @@
 		<image name="icon_item_Event_2108_Relic_C4" file="\icon\item\icon_item_Event_2108_Relic_C4.png" imgrect="0 0 128 128" CMM_Caption="이벤트 유물 동4"/>
 		<image name="icon_item_Event_2108_Ticket" file="\icon\item\icon_item_Event_2108_Ticket.png" imgrect="0 0 128 128" CMM_Caption="이벤트 유물 교환권"/>
 		<image name="icon_item_Event_2108_Box_S" file="\icon\item\icon_item_Event_2108_Box_S.png" imgrect="0 0 128 128" CMM_Caption="이벤트 유물 상자S"/>
+		<image name="icon_item_Event_Stew_Ingredient" file="\icon\item\icon_item_Event_Stew_Ingredient.png" imgrect="0 0 128 128" CMM_Caption="이벤트 요리 재료"/>
+		<image name="icon_item_Pumpkin_candy" file="\icon\item\icon_item_Pumpkin_candy.png" imgrect="0 0 128 128" CMM_Caption="호박 사탕 바구니"/>
+		<image name="icon_item_Pumpkin_Stew_1" file="\icon\item\icon_item_Pumpkin_Stew_1.png" imgrect="0 0 128 128" CMM_Caption="호박 스튜 1성"/>
+		<image name="icon_item_Pumpkin_Stew_2" file="\icon\item\icon_item_Pumpkin_Stew_2.png" imgrect="0 0 128 128" CMM_Caption="호박 스튜 2성"/>
+		<image name="icon_item_Pumpkin_Stew_3" file="\icon\item\icon_item_Pumpkin_Stew_3.png" imgrect="0 0 128 128" CMM_Caption="호박 스튜 3성"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_housing_craft_bronze_1" file="\icon\item\icon_item_housing_craft_bronze_1.png" imgrect="0 0 256 256" CMM_Caption="[하우징 공방] 쿠폰"/>

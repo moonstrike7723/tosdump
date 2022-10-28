@@ -160,6 +160,17 @@
 			<Class ClassID="10000445" ClassName="Event_Stone_500_32" CT_ExpireDateTime="2021-11-02 00:00"/>
 			<Class ClassID="10000446" ClassName="Multiple_Token_MythicHARD_Event3" CT_ExpireDateTime="2021-11-02 00:00"/>
 			<Class ClassID="10000447" ClassName="Ticket_Mythic_Auto_Event3" CT_ExpireDateTime="2021-11-02 00:00"/>
+			<Class ClassID="10000482" ClassName="Multiple_Token_MythicHARD_Event35" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000483" ClassName="Ticket_Mythic_Auto_Event35" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000484" ClassName="Event_ChallengeModeReset_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000485" ClassName="Event_dungeoncount_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000486" ClassName="Event_indunReset_Team_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000487" ClassName="Event_Goddess_Statue_Team_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000488" ClassName="Event_Adventure_Reward_Seed_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000489" ClassName="Event_Ability_Point_Stone_5_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000490" ClassName="Event_Stone_500_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000491" ClassName="Multiple_Token_MythicAuto_Event_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10000492" ClassName="Event_Ability_Point_Stone_10000_34" CT_ExpireDateTime="2021-11-30 00:00"/>
 		</Category>
 		<Category Name="Evnet_Item">
 			<Class ClassID="10003057" ClassName="Event_2004_Stamp_All_Clear_2" CT_ExpireDateTime="2020-11-17 00:00:00"/>
@@ -257,6 +268,7 @@
 			<Class ClassID="10003472" ClassName="Event_2107_Next_Box" CT_ExpireDateTime="2021-10-12 06:00"/>
 			<Class ClassID="10003475" ClassName="EVENT_2017_Fruit" CT_ExpireDateTime="2021-10-12 06:00"/>
 			<Class ClassID="10003476" ClassName="EVENT_2017_Blessed_Fruit" CT_ExpireDateTime="2021-10-12 06:00"/>
+			<Class ClassID="10003541" ClassName="Event_Random_Bountyhunt_Box" CT_ExpireDateTime="2021-11-30 00:00"/>
 		</Category>
 		<Category Name="Event_item_Upgrade">
 			<Class ClassID="10010001" ClassName="Extract_kit_Gold_Team_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
@@ -315,6 +327,11 @@
 			<Class ClassID="10010116" ClassName="misc_Engrave_460_NoTrade_Event_32" CT_ExpireDateTime="2021-11-02 00:00"/>
 			<Class ClassID="10010117" ClassName="Moru_Ruby_event_32" CT_ExpireDateTime="2021-11-02 00:00"/>
 			<Class ClassID="10010118" ClassName="Moru_Event_Gold_32" CT_ExpireDateTime="2021-11-02 00:00"/>
+			<Class ClassID="10010129" ClassName="misc_reinforce_percentUp_460_Event_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10010130" ClassName="misc_Enchant_460_Event_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10010131" ClassName="misc_Engrave_460_NoTrade_Event_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10010132" ClassName="Moru_Ruby_event_35" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10010133" ClassName="Moru_Event_Gold_35" CT_ExpireDateTime="2021-11-30 00:00"/>
 		</Category>
 		<Category Name="Event_Item_item_premium">
 			<Class ClassID="10600010" ClassName="Event_Sandra_Glass_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
@@ -392,6 +409,11 @@
 			<Class ClassID="10600174" ClassName="Premium_Master_Glass_32" CT_ExpireDateTime="2021-11-02 00:00"/>
 			<Class ClassID="10600175" ClassName="Premium_Sandra_Glass_32" CT_ExpireDateTime="2021-11-02 00:00"/>
 			<Class ClassID="10600176" ClassName="Premium_Sandra_Glass_1line_32" CT_ExpireDateTime="2021-11-02 00:00"/>
+			<Class ClassID="10600186" ClassName="Premium_Mystic_Glass_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10600187" ClassName="Premium_Master_Glass_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10600188" ClassName="Premium_Sandra_Glass_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10600189" ClassName="Premium_Sandra_Glass_1line_34" CT_ExpireDateTime="2021-11-30 00:00"/>
+			<Class ClassID="10600190" ClassName="Ticket_Vasilissa_Party_Enter_NoTrade_Event34" CT_ExpireDateTime="2021-11-30 00:00"/>
 		</Category>
 	</Category>
 </idspace>
