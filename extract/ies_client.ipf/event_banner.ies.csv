@@ -1,5 +1,5 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202012,290000,202101,10000,202101,50000,202101,30000,0,0,inGame_E1,New Years Attendance,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2170,,,,
+999901,202101,50000,202101,100000,202102,160000,202102,110000,0,0,inGame_E1,2021 Festival,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2172,,,,
 999902,202012,220000,202012,270000,202101,50000,202012,310000,0,0,inGame_E2,Sunny Bunny Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2167,,,,
 999903,202012,150000,202012,200000,202101,120000,202101,70000,0,0,inGame_E3,Demon God Temptation,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2159,,,,
 999904,202011,170000,202011,220000,202112,310000,202112,300000,0,0,inGame_E4,Costume Collection Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2142,,,,

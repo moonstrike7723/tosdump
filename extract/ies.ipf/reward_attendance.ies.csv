@@ -392,10 +392,3 @@ ClassID,DayOffset,RewardCount,RewardItemCnt_1,AppendPropertyStatus,ClassName,Gro
 1327,27,1,4,430,SeasonNewWorldEvent_27,SeasonNewWorldEvent,S,Event_Unique_Enchant_Jewel,Level
 1328,28,1,8,0,SeasonNewWorldEvent_28,SeasonNewWorldEvent,A,Ability_Point_Stone_1000_14d_Team,
 1329,29,1,1,0,SeasonNewWorldEvent_29,SeasonNewWorldEvent,S,Premium_RankReset_14d,
-1500,0,1,1,0,EVENT_STM_NEW_YEAR_00,EVENT_STM_NEW_YEAR,A,Event_New_Year_box_1_STM,
-1501,1,1,1,0,EVENT_STM_NEW_YEAR_01,EVENT_STM_NEW_YEAR,A,Event_New_Year_box_2_STM,
-1502,2,1,1,0,EVENT_STM_NEW_YEAR_02,EVENT_STM_NEW_YEAR,A,Event_New_Year_box_3_STM,
-1503,3,1,1,0,EVENT_STM_NEW_YEAR_03,EVENT_STM_NEW_YEAR,S,Event_New_Year_box_4_STM,
-1504,4,1,1,0,EVENT_STM_NEW_YEAR_04,EVENT_STM_NEW_YEAR,S,Event_New_Year_box_5_STM,
-1505,5,1,1,0,EVENT_STM_NEW_YEAR_05,EVENT_STM_NEW_YEAR,S,Event_New_Year_box_6_STM,
-1506,6,1,1,0,EVENT_STM_NEW_YEAR_06,EVENT_STM_NEW_YEAR,A,Event_New_Year_box_7_STM,
