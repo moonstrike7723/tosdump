@@ -705,7 +705,7 @@
 		<controls>
 			<picture name="material_icon" layout_gravity="left top" rect="0 0 40 40" margin="10 10 0 0" stretch="true"/>
 			<picture name="material_questionmark" image="question_mark" layout_gravity="left top" rect="0 0 40 40" margin="10 10 0 0" stretch="true"/>
-			<richtext name="material_name" rect="0 0 80 30" margin="90 0 0 0" layout_gravity="left center" textalign="left center" resizebytext="true" fixwidth="false" format="미정" param1="미정" param2="미정" param3="미정" caption="미정" fontname="brown_18"/>
+			<richtext name="material_name" rect="0 0 280 30" margin="55 0 0 0" layout_gravity="left center" textalign="left center" resizebytext="true" fixwidth="true" format="미정" param1="미정" param2="미정" param3="미정" caption="미정" fontname="brown_18"/>
 			<richtext name="material_count" rect="0 0 30 30" margin="0 0 30 0" layout_gravity="right center" textalign="right center" resizebytext="true" fixwidth="false" format="%s%s{/} / %s{/}" param1="color" param2="curCount" param3="needCount" fontname="brown_18"/>
 			<labelline name="labelline" skin="labelline_def_2" margin="10 0 0 0" rect="0 0 390 1" layout_gravity="left bottom"/>
 		</controls>
