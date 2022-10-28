@@ -8,6 +8,7 @@
 		<Class ClassID="30037" ClassName="USE_HISTORY_MSG" Value="0" Desc="몽고 db에 특정 시스템 메시지 저장/로드 기능 사용할 것인지" UseInScript="NO"/>
 		<Class ClassID="30040" ClassName="WRITE_BORUTA_SKILL_LOG" Value="1" Desc="보루타 길드 미션에서 스킬 사용 로그를 남길건가? (1: 남김, 0: 안함)" UseInScript="NO"/>
 		<Class ClassID="30049" ClassName="USE_NEXON_PROTECTION_MODE" Value="0" Desc="hwid, ip 확인 후 보호모드 적용 여부, 1:사용 0:안함" UseInScript="YES"/>
+		<Class ClassID="30054" ClassName="USE_NEXON_CASHOUT" Value="0" Desc="CashOut 적용 여부, 1:사용 0:안함" UseInScript="NO"/>
 	</Category>
 	<Category Name="DebugValue">
 		<Class ClassID="31506" ClassName="USE_LOW_FPS_AUTO_TRACING" Value="1" Desc="ZoneServer의 FPS가 2프레임 이하일때 트레이싱 정보를 수집하는 기능" UseInScript="NO"/>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 http://www.altova.com by MintPC Mi -->
 <skinset name="Base">
 	<imagelist category="item_tooltip_icon">
@@ -7851,6 +7851,7 @@
 		<image name="icon_item_selectbox_ep12demonlord03_1" file="\icon\payment\icon_item_selectbox_ep12demonlord03_1.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_wing_ep12demonlord" file="\icon\payment\icon_item_wing_ep12demonlord.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_dalmatian" file="\icon\payment\icon_item_dalmatian.png" imgrect="0 0 256 256" CMM_Caption="달마시안 알"/>
+		<image name="icon_item_allbox_ep12demonlord" file="\icon\payment\icon_item_allbox_ep12demonlord.png" imgrect="0 0 256 256" CMM_Caption="11월 테마 올패키지"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>

@@ -2714,7 +2714,7 @@ function FIELD_BOSS_TIME_TAB_SETTING(frame)
 	for i = 1,7 do
 		local time = imcTime.AddSec(first_time,3600*24*(i-1))
 		local date_str = string.format("%02d/%02d",time.wMonth,time.wDay)
-		season_tab:AddItem(date_str, true, "", "cooperation_war_date_btn", "cooperation_war_date_btn_cursoron", "cooperation_war_date_btn_clicked","", false)
+		season_tab:AddItem("{@st42b}{s16}"..date_str, true, "", "cooperation_war_date_btn", "cooperation_war_date_btn_cursoron", "cooperation_war_date_btn_clicked","", false)
 		if time.wDay == now_time.wDay then
 			season_tab_idx = i-1
 		end
@@ -2732,7 +2732,7 @@ function FIELD_BOSS_TIME_TAB_SETTING(frame)
 			break
 		end
 		local hour_str = string.format("%02d:00",hour)
-		sub_tab:AddItem(hour_str, true, "", "cooperation_war_time_btn", "cooperation_war_time_btn_cursoron", "cooperation_war_time_btn_clicked","", false)
+		sub_tab:AddItem("{@st42b}{s16}"..hour_str, true, "", "cooperation_war_time_btn", "cooperation_war_time_btn_cursoron", "cooperation_war_time_btn_clicked","", false)
 		if hour > now_time.wHour then
 			hour_tab_idx = i
 		end

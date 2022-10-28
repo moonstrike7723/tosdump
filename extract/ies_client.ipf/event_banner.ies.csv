@@ -1,8 +1,9 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
-999901,202011,170000,202011,220000,202012,150000,202012,100000,0,0,inGame_E1,Demon God's Temptation,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2141,,,,
-999902,202011,170000,202011,220000,202012,10000,202011,260000,0,0,inGame_E2,Leticia's Secret Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2143,,,,
-999903,202011,170000,202011,220000,202012,150000,202012,100000,0,0,inGame_E3,Harvest Festival,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2138,,,,
-999904,202011,170000,202011,220000,202112,310000,202112,300000,0,0,inGame_E4,Costume Collection Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2142,,,,
-999905,202011,100000,202011,150000,202012,10000,202011,260000,0,0,inGame_E5,Welcoming Merge Attendance,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2135,,,,
-999906,202007,140000,202007,190000,202112,310000,202112,300000,0,0,inGame_E6,SteamGuard Guide,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
-999907,202003,310000,202004,50000,202112,310000,202112,300000,0,0,inGame_E7,Weekend Burning Event,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2126,time_del,,,Normal
+999901,202011,240000,202011,290000,202012,80000,202012,30000,0,0,inGame_E1,Magical Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2146,,,,
+999902,202011,170000,202011,220000,202012,150000,202012,100000,0,0,inGame_E2,Demon God's Temptation,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2141,,,,
+999903,202011,170000,202011,220000,202012,10000,202011,260000,0,0,inGame_E3,Leticia's Secret Cube,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2143,,,,
+999904,202011,170000,202011,220000,202012,150000,202012,100000,0,0,inGame_E4,Harvest Festival,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2138,,,,
+999905,202011,170000,202011,220000,202112,310000,202112,300000,0,0,inGame_E5,Costume Collection Event,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2142,,,,
+999906,202011,100000,202011,150000,202012,10000,202011,260000,0,0,inGame_E6,Welcoming Merge Attendance,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2135,,,,
+999907,202007,140000,202007,190000,202112,310000,202112,300000,0,0,inGame_E7,SteamGuard Guide,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2042,time_del,,,
+999908,202003,310000,202004,50000,202112,310000,202112,300000,0,0,inGame_E8,Weekend Burning Event,inGame_E8,https://treeofsavior.com/page/news/view.php?n=2126,time_del,,,Normal
