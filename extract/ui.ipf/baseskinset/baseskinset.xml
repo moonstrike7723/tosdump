@@ -11545,6 +11545,8 @@
 		<image name="023_npc_ShellyPennington" file="\skin\npccard\023_npc_ShellyPennington.tga" imgrect="0 0 330 440"/>
 		<image name="024_npc_WinonaEnde" file="\skin\npccard\024_npc_WinonaEnde.tga" imgrect="0 0 330 440"/>
 		<image name="025_npc_Feliksia" file="\skin\npccard\025_npc_Feliksia.tga" imgrect="0 0 330 440"/>
+		<image name="026_npc_MistesGoldmund" file="\skin\npccard\026_npc_MistesGoldmund.tga" imgrect="0 0 330 440"/>
+		<image name="027_npc_FeliksiaAleisterCrowley" file="\skin\npccard\027_npc_FeliksiaAleisterCrowley.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>
