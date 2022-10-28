@@ -3,8 +3,6 @@ function QUESTITEMUSE_ON_INIT(addon, frame)
 	addon:RegisterMsg('QUESTITEM_EMPTY', 'QUESTITEMUSE_ON_MSG');
 
 	QUEST_CHECK_COUNT = 0;
-	local title = frame:GetChild('title');
-	title:SetText("{@st43}" .. hotKeyTable.GetHotKeyString("QuestItemUse") .. "{/}")
 end
 
 function QUESTITEMUSE_ON_MSG(frame, msg, argStr, argNum)
@@ -28,7 +26,7 @@ function QUESTITEMUSE_ON_MSG(frame, msg, argStr, argNum)
 				local beforeIcon = slot:GetIcon();
 				local needToCreateIcon = true;
 				if beforeIcon ~= nil then
-					if slot:GetValue() == argNum and beforeIcon:GetInfo():GetImageName() == itemClass.Icon then
+					if slot:GetValue() == argNum and beforeIcon:GetInfo().imageName == itemClass.Icon then
 						needToCreateIcon = false;
 					end
 				end
@@ -75,20 +73,15 @@ end
 
 function QUESTITEMUSE_EXECUTE()
 
-	local tempItemFrame = ui.GetFrame("tempitemuse")
-	--임사사용템, 퀘스트템 중 우선순위 정해야함
-	if tempItemFrame ~= nil and tempItemFrame:IsVisible() == 1 then
-		TEMPITEMUSE_EXECUTE()
-	else
-		local frame = ui.GetFrame('questitemuse');
-		if frame ~= nil and frame:IsVisible() == 1 then
-			local itemGroup = frame:GetChild('itemgroup');
-			imcSound.PlaySoundEvent("button_v_click");
-			for i=0, itemGroup:GetChildCount()-1 do
-				local childCtrl = itemGroup:GetChildByIndex(i);
-				local invItem	= session.GetInvItemByType(childCtrl:GetValue());
-				INV_ICON_USE(invItem);
-			end
+	local frame = ui.GetFrame('questitemuse');
+
+	if frame ~= nil and frame:IsVisible() == 1 then
+		local itemGroup = frame:GetChild('itemgroup');
+		imcSound.PlaySoundEvent("button_v_click");
+		for i=0, itemGroup:GetChildCount()-1 do
+			local childCtrl = itemGroup:GetChildByIndex(i);
+			local invItem	= session.GetInvItemByType(childCtrl:GetValue());
+			INV_ICON_USE(invItem);
 		end
 	end
 end

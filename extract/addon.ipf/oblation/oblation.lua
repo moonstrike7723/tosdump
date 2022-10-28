@@ -145,18 +145,20 @@ function UPDATE_OBLATION_INV_COUNT(frame)
 	if itemList ~= nil then
 		local givenPrice = 0;
 		local expectedSilver = 0;
-		local retTable = {givenPrice = 0, expectedSilver = 0};
-		FOR_EACH_INVENTORY(itemList, function(invItemList, invItem, retTable)			
+		local index = itemList:Head();
+		while index ~= itemList:InvalidIndex() do
+			local invItem = itemList:Element(index);
+			
+			curCount = curCount + 1
 			local itemProp = geItemTable.GetProp(invItem.type);
 			local sellPrice = geItemTable.GetSellPrice(itemProp);
 			local givenSilver = math.floor(sellPrice * GET_OBLATION_PRICE_PERCENT());
 			local getSilver = sellPrice - givenSilver;
-			retTable.givenPrice = retTable.givenPrice + givenSilver * invItem.count;
-			retTable.expectedSilver = retTable.expectedSilver + getSilver * invItem.count;
-		end, false, retTable);
-		curCount = itemList:Count();
-		givenPrice = retTable.givenPrice;
-		expectedSilver = retTable.expectedSilver;
+			givenPrice = givenPrice + givenSilver * invItem.count;
+			expectedSilver = expectedSilver + getSilver * invItem.count;
+
+			index = itemList:Next(index);
+		end
 
 		local gbox = frame:GetChild("gbox");
 		local consumesilver = gbox:GetChild("consumesilver");
@@ -164,7 +166,7 @@ function UPDATE_OBLATION_INV_COUNT(frame)
 		local mysilver = gbox:GetChild("mysilver");
 		consumesilver:SetTextByKey("value", givenPrice);
 		expectsilver:SetTextByKey("value", expectedSilver);
-		mysilver:SetTextByKey("value", GET_COMMAED_STRING(GET_TOTAL_MONEY_STR()));
+		mysilver:SetTextByKey("value", GET_TOTAL_MONEY());
 	end 
 
 	count:SetTextByKey("curcount", curCount);

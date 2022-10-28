@@ -39,7 +39,6 @@ function CALC_PCBANG_GROWTH_ITEM_LEVEL(item)
     local lvList = {
                         1,
                         15,
-                        40,
                         75,
                         120,
                         170,
@@ -47,9 +46,7 @@ function CALC_PCBANG_GROWTH_ITEM_LEVEL(item)
                         270,
                         315,
                         350,
-                        380,
-                        400,
-                        430
+                        380
                     };
     
     if pcLv >= lvList[#lvList] then
@@ -62,8 +59,6 @@ function CALC_PCBANG_GROWTH_ITEM_LEVEL(item)
             if pcLv < targetLv then
                 lv = targetItemLv;
                 break;
-            elseif pcLv >= targetLv then
-                lv = targetLv
             end
         end
     end

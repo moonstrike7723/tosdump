@@ -43,10 +43,6 @@
                                 <Str Str="!"/>
                                 <Num Num="5"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="AllPCDead"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                     <Event execCount="1" eventName="NOT_IN_PC">
@@ -56,73 +52,6 @@
                         <execList>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
                                 <Str Str="Fail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="AllPCExist"/>
-                            </ToolScp>
-                        </execList>
-                    </Event>
-                    <Event execCount="1" eventName="TIMEOUT">
-                        <condList>
-                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="3600"/>
-                            </ToolScp>
-                        </condList>
-                        <execList>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_START" Client="NO" UseSleep="NO">
-                                <Str Str="Fail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="제한 시간 60분을 전부 소모했습니다.{nl}60초 후 이동했던 곳으로 이동합니다."/>
-                                <Str Str="!"/>
-                                <Num Num="5"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="TimeOut"/>
-                            </ToolScp>
-                        </execList>
-                    </Event>
-                    <Event execCount="1" eventName="REMAIN_30MIN">
-                        <condList>
-                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="1800"/>
-                            </ToolScp>
-                        </condList>
-                        <execList>
-                            <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="제한 시간 30분 남았습니다."/>
-                                <Str Str="!"/>
-                                <Num Num="5"/>
-                            </ToolScp>
-                        </execList>
-                    </Event>
-                    <Event execCount="1" eventName="REMAIN_15MIN">
-                        <condList>
-                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="2700"/>
-                            </ToolScp>
-                        </condList>
-                        <execList>
-                            <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="제한 시간 15분 남았습니다."/>
-                                <Str Str="!"/>
-                                <Num Num="5"/>
-                            </ToolScp>
-                        </execList>
-                    </Event>
-                    <Event execCount="1" eventName="REMAIN_5MIN">
-                        <condList>
-                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="3300"/>
-                            </ToolScp>
-                        </condList>
-                        <execList>
-                            <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="제한 시간 5분 남았습니다."/>
-                                <Str Str="!"/>
-                                <Num Num="5"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -143,10 +72,6 @@
                             </ToolScp>
                         </condList>
                         <execList>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="MinigameFailure"/>
-                            </ToolScp>
                             <ToolScp Scp="MGAME_END" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
                             </ToolScp>
@@ -201,51 +126,6 @@
                     </Event>
                     <Event execCount="1" eventName="STAGE_STOP">
                         <execList>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="Success"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="OBJECT"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="EVENT_CHECK"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="Intro"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="1ST"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="2ND"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="3RD"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="3RD_1"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="3RD_2"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="4TH"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="5TH"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="6TH"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="7TH"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="8TH"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
-                                <Str Str="9TH"/>
-                            </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
                                 <Str Str="OBJECT"/>
                             </ToolScp>
@@ -263,12 +143,6 @@
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
                                 <Str Str="3RD"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
-                                <Str Str="3RD_1"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
-                                <Str Str="3RD_2"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
                                 <Str Str="4TH"/>
@@ -291,6 +165,45 @@
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
                                 <Str Str="Success"/>
                             </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="Success"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="OBJECT"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="EVENT_CHECK"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="Intro"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="1ST"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="2ND"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="3RD"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="4TH"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="5TH"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="6TH"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="7TH"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="8TH"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
+                                <Str Str="9TH"/>
+                            </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DESTROY" Client="NO" UseSleep="NO">
                                 <Str Str="Success"/>
                             </ToolScp>
@@ -308,12 +221,6 @@
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DESTROY" Client="NO" UseSleep="NO">
                                 <Str Str="3RD"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DESTROY" Client="NO" UseSleep="NO">
-                                <Str Str="3RD_1"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DESTROY" Client="NO" UseSleep="NO">
-                                <Str Str="3RD_2"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DESTROY" Client="NO" UseSleep="NO">
                                 <Str Str="4TH"/>
@@ -1168,14 +1075,15 @@
             </Stage>
             <Stage Name="Intro">
                 <StartScpList>
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO" CondFunc="">
+                        <Str Str="PastFantasyLibrary"/>
+                        <Str Str="Intro"/>
+                        <Str Str="Start"/>
+                    </ToolScp>
                     <ToolScp Scp="MGAME_SET_RAID_ICON" Client="NO" UseSleep="NO">
                         <Str Str="아가일라 플러리를 기다리는 중 입니다"/>
                         <Str Str="stage_ready"/>
                         <Num Num="10"/>
-                    </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
-                        <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
@@ -1392,10 +1300,6 @@
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
                                 <Str Str="Intro"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -1442,38 +1346,25 @@
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
                         <Str Str="마족들을 처치하세요!"/>
                     </ToolScp>
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO">
+                        <Str Str="PastFantasyLibrary"/>
+                        <Str Str="Play"/>
+                        <Str Str="Stage1"/>
+                    </ToolScp>
                     <ToolScp Scp="MGAME_SET_RAID_ICON" Client="NO" UseSleep="NO">
                         <Str Str="붉은 경계석을 파괴하는 마족들을 처치하세요!"/>
                         <Str Str="stage_start"/>
                         <Num Num="10"/>
                     </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
-                        <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
-                    </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="400323" Pos="-1403.52#64.75#-14.80" range="100" genTime="20000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="-1403.52#64.75#-14.80" range="100" genTime="20000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="200"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_1"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
-                                    <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
-                                    <Str Str="UR_PAST_FL_STAGE_1"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO" CustomFuncTxt="(self)
 
@@ -1485,27 +1376,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="-1085.07#57.64#26.86" range="100" genTime="20000" autoGen="0" objectKey="2" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="-1085.07#57.64#26.86" range="100" genTime="20000" autoGen="0" objectKey="2" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="200"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_1"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
-                                    <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
-                                    <Str Str="UR_PAST_FL_STAGE_1"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO" CustomFuncTxt="(self)
 
@@ -1517,27 +1394,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="-1334.56#57.64#72.51" range="100" genTime="20000" autoGen="0" objectKey="3" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="-1334.56#57.64#72.51" range="100" genTime="20000" autoGen="0" objectKey="3" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="200"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_1"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
-                                    <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
-                                    <Str Str="UR_PAST_FL_STAGE_1"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO" CustomFuncTxt="(self)
 
@@ -1549,27 +1412,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="-1200.98#57.64#82.44" range="100" genTime="20000" autoGen="0" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="-1200.98#57.64#82.44" range="100" genTime="20000" autoGen="0" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="200"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_1"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
-                                    <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
-                                    <Str Str="UR_PAST_FL_STAGE_1"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO" CustomFuncTxt="(self)
 
@@ -1621,14 +1470,12 @@
                     </Event>
                     <Event execCount="1" eventName="CLEAR">
                         <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="120"/>
+                            </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_MONCNT_OVER" Client="NO" UseSleep="NO">
                                 <MGameObj List="OBJECT/1"/>
                                 <Num Num="1"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
-                                <Str Str="UR_PAST_FL_STAGE_1"/>
-                                <Str Str="OVER"/>
-                                <Num Num="20"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -1653,10 +1500,6 @@
                             <ToolScp Scp="MGAME_EVT_SCP_FACTION" Client="NO" UseSleep="NO">
                                 <MGameObj List="OBJECT/1"/>
                                 <Str Str="Neutral"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -1689,14 +1532,6 @@
                                 <Str Str="붉은 경계석이 파괴되어 길티네에게 발각됐습니다.{nl}60초 뒤 입장했던 곳으로 이동합니다."/>
                                 <Str Str="!"/>
                                 <Num Num="5"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageFail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="DefenseFail"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -1805,9 +1640,10 @@
                     <ToolScp Scp="MGAME_SET_TIMEOUT" Client="NO" UseSleep="NO">
                         <Num Num="600"/>
                     </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO">
                         <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
+                        <Str Str="Play"/>
+                        <Str Str="Stage2"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
@@ -1826,7 +1662,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58515" Pos="-1443.44#1.84#-789.98" genCount="1" genTime="20000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58515" Pos="-1443.44#1.84#-789.98" genCount="1" genTime="20000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -1840,7 +1676,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58515" Pos="-1290.72#3.40#-548.50" genCount="1" genTime="20000" autoGen="0" objectKey="2" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58515" Pos="-1290.72#3.40#-548.50" genCount="1" genTime="20000" autoGen="0" objectKey="2" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -1854,7 +1690,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58516" Pos="-1456.69#1.87#-577.93" genCount="1" genTime="20000" autoGen="0" objectKey="3" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58516" Pos="-1456.69#1.87#-577.93" genCount="1" genTime="20000" autoGen="0" objectKey="3" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -1868,7 +1704,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58516" Pos="-1278.26#3.40#-769.01" genCount="1" genTime="20000" autoGen="0" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58516" Pos="-1278.26#3.40#-769.01" genCount="1" genTime="20000" autoGen="0" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -1918,10 +1754,6 @@
                             <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_STAGE3_BOOKMARK_WITHDRAW"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                     <Event execCount="1" eventName="FAIL">
@@ -1952,14 +1784,6 @@
                                 <Str Str="!"/>
                                 <Num Num="5"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageFail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="TimeOut"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                     <Event eventName="MONSTER_GEN">
@@ -1987,10 +1811,10 @@
                             </ToolScp>
                         </execList>
                     </Event>
-                    <Event execCount="1" eventName="BOSSKILL_CHECK">
+                    <Event eventName="BOSSKILL_CHECK">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="5"/>
+                                <Num Num="10"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_MONCNT" Client="NO" UseSleep="NO">
                                 <MGameObj List="2ND/0"/>
@@ -2019,16 +1843,17 @@
                         <Str Str="stage_ready"/>
                         <Num Num="10"/>
                     </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO">
                         <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
+                        <Str Str="Play"/>
+                        <Str Str="Stage3"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="58515" Pos="-764.13#-66.34#-595.25" range="100" genCount="1" genTime="20000" objectKey="0" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; "/>
-                    <Obj Type="Monster" MonType="58515" Pos="-464.09#-66.34#-599.09" range="100" genCount="1" genTime="20000" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; "/>
-                    <Obj Type="Monster" MonType="58516" Pos="-297.37#-65.28#-512.02" range="100" genCount="1" genTime="20000" objectKey="2" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; "/>
-                    <Obj Type="Monster" MonType="58516" Pos="-643.74#-66.34#-714.83" range="100" genCount="1" genTime="20000" objectKey="3" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; "/>
+                    <Obj Type="Monster" MonType="58515" Pos="-764.13#-66.34#-595.25" range="100" genCount="1" genTime="20000" objectKey="0" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; "/>
+                    <Obj Type="Monster" MonType="58515" Pos="-464.09#-66.34#-599.09" range="100" genCount="1" genTime="20000" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; "/>
+                    <Obj Type="Monster" MonType="58516" Pos="-297.37#-65.28#-512.02" range="100" genCount="1" genTime="20000" objectKey="2" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; "/>
+                    <Obj Type="Monster" MonType="58516" Pos="-643.74#-66.34#-714.83" range="100" genCount="1" genTime="20000" objectKey="3" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; "/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="SUB_ACTIVE">
@@ -2122,10 +1947,6 @@
                                 <Num Num="1"/>
                                 <Num Num="0"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                     <Event execCount="1" eventName="FAIL">
@@ -2175,21 +1996,13 @@
                                 <Str Str="!"/>
                                 <Num Num="5"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageFail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="TimeOut"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
             </Stage>
             <Stage Name="3RD_1" AutoStart="0">
                 <ObjList>
-                    <Obj Type="Monster" MonType="58512" Pos="83.52#-67.76#-646.93" range="100" genCount="1" genTime="20000" autoGen="0" objectKey="0" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; ">
+                    <Obj Type="Monster" MonType="58512" Pos="83.52#-67.76#-646.93" range="100" genCount="1" genTime="20000" autoGen="0" objectKey="0" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -2203,7 +2016,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="323.65#-67.76#-434.76" range="150" genCount="1" genTime="20000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; ">
+                    <Obj Type="Monster" MonType="400323" Pos="323.65#-67.76#-434.76" range="150" genCount="1" genTime="20000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -2246,10 +2059,10 @@
             </Stage>
             <Stage Name="3RD_2" AutoStart="0">
                 <ObjList>
-                    <Obj Type="Monster" MonType="58515" Pos="-658.61#-120.67#-1122.84" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="0" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; &apos;SimpleAI&apos; &apos;STAGE3_02_MONSTER_AI&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58515" Pos="-658.61#-120.67#-1122.84" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="0" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; &apos;SimpleAI&apos; &apos;STAGE3_02_MONSTER_AI&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1"/>
                     </Obj>
-                    <Obj Type="Monster" MonType="58516" Pos="-657.72#-120.67#-1136.07" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; &apos;SimpleAI&apos; &apos;STAGE3_02_MONSTER_AI&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58516" Pos="-657.72#-120.67#-1136.07" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; &apos;SimpleAI&apos; &apos;STAGE3_02_MONSTER_AI&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1"/>
                     </Obj>
                 </ObjList>
@@ -2282,16 +2095,20 @@
             <Stage Name="4TH" AutoStart="0">
                 <StartScpList>
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
-                        <Str Str="아가일라 플러리를 보호하면서{nl}마족 몬스터들을 처치하세요!"/>
+                        <Str Str="아가일라 플러리를 보호하세요!"/>
+                    </ToolScp>
+                    <ToolScp Scp="MGAME_SET_TIMEOUT" Client="NO" UseSleep="NO">
+                        <Num Num="120"/>
                     </ToolScp>
                     <ToolScp Scp="MGAME_SET_RAID_ICON" Client="NO" UseSleep="NO">
                         <Str Str="아가일라 플러리가 결계 장치를 해제할 때까지 그녀를 보호하세요!"/>
                         <Str Str="stage_ready"/>
                         <Num Num="10"/>
                     </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO">
                         <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
+                        <Str Str="Play"/>
+                        <Str Str="Stage4"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
@@ -2376,26 +2193,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="583.55#-64.51#106.26" range="150" genCount="1" genTime="20000" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="583.55#-64.51#106.26" range="150" genCount="1" genTime="20000" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_4"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_4"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -2403,26 +2207,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="929.84#-64.51#83.29" range="150" genCount="1" genTime="20000" objectKey="5" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="929.84#-64.51#83.29" range="150" genCount="1" genTime="20000" objectKey="5" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_4"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_4"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -2430,26 +2221,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="629.23#-64.51#-88.82" range="150" genCount="1" genTime="20000" objectKey="6" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="629.23#-64.51#-88.82" range="150" genCount="1" genTime="20000" objectKey="6" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_4"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_4"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -2457,26 +2235,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="896.61#-64.51#-98.66" range="150" genCount="1" genTime="20000" objectKey="7" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="896.61#-64.51#-98.66" range="150" genCount="1" genTime="20000" objectKey="7" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI UpdateMS="1000" ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_4"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_4"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -2489,7 +2254,7 @@
                     <Event eventName="REGEN_01">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="5"/>
+                                <Num Num="15"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_MONCNT" Client="NO" UseSleep="NO">
                                 <MGameObj List="4TH/4/4TH/7"/>
@@ -2507,7 +2272,7 @@
                     <Event eventName="REGEN_02">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="5"/>
+                                <Num Num="15"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_MONCNT" Client="NO" UseSleep="NO">
                                 <MGameObj List="4TH/5/4TH/6"/>
@@ -2525,7 +2290,7 @@
                     <Event eventName="REGEN_TRAP">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="30"/>
+                                <Num Num="15"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_MONCNT" Client="NO" UseSleep="NO">
                                 <MGameObj List="4TH/1/4TH/2/4TH/3"/>
@@ -2542,14 +2307,12 @@
                     </Event>
                     <Event execCount="1" eventName="CLEAR">
                         <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="120"/>
+                            </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_MONCNT_OVER" Client="NO" UseSleep="NO">
                                 <MGameObj List="OBJECT/29"/>
                                 <Num Num="1"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
-                                <Str Str="UR_PAST_FL_STAGE_4"/>
-                                <Str Str="OVER"/>
-                                <Num Num="20"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -2577,10 +2340,6 @@
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_EXEC_DELMON" Client="NO" UseSleep="NO">
                                 <MGameObjPtr List="OBJECT/55"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -2613,14 +2372,6 @@
                                 <Str Str="아가일라 플러리가 쓰러져 계획을 더 이상 진행할 수 없게 됐습니다.{nl}60초 뒤 입장했던 곳으로 이동합니다."/>
                                 <Str Str="!"/>
                                 <Num Num="5"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageFail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="DefenseFail"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -2701,13 +2452,14 @@
                         <Str Str="stage_ready"/>
                         <Num Num="10"/>
                     </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO">
                         <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
+                        <Str Str="Play"/>
+                        <Str Str="Stage5"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="154090" Pos="-75.59#11.21#276.32" genCount="1" genTime="1000" objectKey="0" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;HPCount&apos; &apos;15&apos; &apos;Faction&apos; &apos;Monster&apos; ">
+                    <Obj Type="Monster" MonType="154090" Pos="-75.59#11.21#276.32" genCount="1" genTime="1000" objectKey="0" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;HPCount&apos; &apos;60&apos; &apos;Faction&apos; &apos;Monster&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <DeadList>
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
@@ -2729,7 +2481,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="154090" Pos="-0.85#11.21#350.03" genCount="1" genTime="1000" objectKey="1" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;15&apos; ">
+                    <Obj Type="Monster" MonType="154090" Pos="-0.85#11.21#350.03" genCount="1" genTime="1000" objectKey="1" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;60&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <DeadList>
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
@@ -2751,7 +2503,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="154090" Pos="99.79#11.21#353.87" genCount="1" genTime="1000" objectKey="2" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;15&apos; ">
+                    <Obj Type="Monster" MonType="154090" Pos="99.79#11.21#353.87" genCount="1" genTime="1000" objectKey="2" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;60&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <DeadList>
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
@@ -2773,7 +2525,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="154090" Pos="173.15#11.21#278.44" genCount="1" genTime="1000" objectKey="3" propList="&apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;15&apos; &apos;Name&apos; &apos;UnvisibleName&apos; ">
+                    <Obj Type="Monster" MonType="154090" Pos="173.15#11.21#278.44" genCount="1" genTime="1000" objectKey="3" propList="&apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;60&apos; &apos;Name&apos; &apos;UnvisibleName&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <DeadList>
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
@@ -2795,7 +2547,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="154090" Pos="175.91#11.21#176.01" genCount="1" genTime="1000" objectKey="4" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;15&apos; ">
+                    <Obj Type="Monster" MonType="154090" Pos="175.91#11.21#176.01" genCount="1" genTime="1000" objectKey="4" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;60&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <DeadList>
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
@@ -2817,7 +2569,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="154090" Pos="99.53#11.21#100.40" genCount="1" genTime="1000" objectKey="5" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;15&apos; ">
+                    <Obj Type="Monster" MonType="154090" Pos="99.53#11.21#100.40" genCount="1" genTime="1000" objectKey="5" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;60&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <DeadList>
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
@@ -2839,7 +2591,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="154090" Pos="-5.70#11.21#101.39" genCount="1" genTime="1000" objectKey="6" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;15&apos; ">
+                    <Obj Type="Monster" MonType="154090" Pos="-5.70#11.21#101.39" genCount="1" genTime="1000" objectKey="6" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;60&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <DeadList>
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
@@ -2861,7 +2613,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="154090" Pos="-80.45#11.21#176.97" genCount="1" genTime="1000" objectKey="7" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;15&apos; ">
+                    <Obj Type="Monster" MonType="154090" Pos="-80.45#11.21#176.97" genCount="1" genTime="1000" objectKey="7" propList="&apos;Name&apos; &apos;UnvisibleName&apos; &apos;Faction&apos; &apos;Monster&apos; &apos;HPCount&apos; &apos;60&apos; ">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <DeadList>
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
@@ -2883,7 +2635,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="187.32#11.21#361.95" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="8" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="187.32#11.21#361.95" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="8" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -2897,7 +2649,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="-89.37#11.21#359.76" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="9" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="-89.37#11.21#359.76" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="9" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -2911,7 +2663,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="-84.62#11.21#89.54" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="10" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="-84.62#11.21#89.54" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="10" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -2925,7 +2677,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="197.29#11.21#87.79" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="11" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="197.29#11.21#87.79" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="11" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -2939,7 +2691,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="-79.62#11.21#345.62" range="60" genCount="1" genTime="20000" objectKey="12" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="-79.62#11.21#345.62" range="60" genCount="1" genTime="20000" objectKey="12" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -2953,7 +2705,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="-75.97#11.21#103.32" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="13" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="-75.97#11.21#103.32" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="13" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -2967,7 +2719,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="179.35#11.21#79.10" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="14" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="179.35#11.21#79.10" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="14" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -2981,7 +2733,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="201.04#11.21#364.47" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="15" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="201.04#11.21#364.47" range="60" genCount="1" genTime="20000" autoGen="0" objectKey="15" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3063,10 +2815,6 @@
                                 <Str Str="Clear"/>
                                 <Num Num="5"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                     <Event execCount="1" eventName="FAIL">
@@ -3099,14 +2847,6 @@
                                 <Str Str="하우벅의 마력이 소실되어 계획을 더 이상 진행할 수 없습니다{nl}60초 뒤 입장했던 곳으로 이동합니다."/>
                                 <Str Str="!"/>
                                 <Num Num="5"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageFail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="TimeOut"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -3142,6 +2882,11 @@
             </Stage>
             <Stage Name="6TH" AutoStart="0">
                 <StartScpList>
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO">
+                        <Str Str="PastFantasyLibrary"/>
+                        <Str Str="Play"/>
+                        <Str Str="Stage6"/>
+                    </ToolScp>
                     <ToolScp Scp="MGAME_SET_RAID_ICON" Client="NO" UseSleep="NO">
                         <Str Str="하우벅이 결계를 없애기 위해선 많은 마력이 필요하다고 합니다{nl}주변의 마족들을 처치하여 하우벅에게 마력을 주입해주세요!"/>
                         <Str Str="stage_start"/>
@@ -3153,13 +2898,9 @@
                     <ToolScp Scp="MGAME_SET_TIMEOUT" Client="NO" UseSleep="NO">
                         <Num Num="180"/>
                     </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
-                        <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
-                    </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="58513" Pos="-93.57#40.83#808.14" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="0" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="-93.57#40.83#808.14" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="0" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3173,10 +2914,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3191,7 +2932,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="-93.00#40.88#714.10" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="-93.00#40.88#714.10" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="1" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3205,10 +2946,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3223,7 +2964,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="125.42#40.95#792.01" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="2" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="125.42#40.95#792.01" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="2" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3237,10 +2978,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3255,7 +2996,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="-124.92#40.93#839.05" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="3" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="-124.92#40.93#839.05" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="3" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3269,10 +3010,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3287,7 +3028,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="-111.68#40.94#698.75" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="-111.68#40.94#698.75" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3301,10 +3042,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3319,7 +3060,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="150.87#40.95#809.44" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="5" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="150.87#40.95#809.44" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="5" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3330,13 +3071,13 @@
                                 <ToolScp Scp="SAI_DEAD_FUNC2_DIRECT" Client="NO" UseSleep="NO">
                                     <Str Str="SCR_STAGE6_MONSTER_DEAD"/>
                                 </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
+                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO" CondFunc="">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3351,7 +3092,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="400323" Pos="117.70#43.91#675.21" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="6" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="400323" Pos="117.70#43.91#675.21" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="6" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3365,10 +3106,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3383,7 +3124,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="96.99#40.95#700.56" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="7" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="96.99#40.95#700.56" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="7" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3397,10 +3138,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3415,7 +3156,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="-124.04#40.91#796.51" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="8" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="-124.04#40.91#796.51" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="8" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3429,10 +3170,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3447,7 +3188,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="-81.58#40.92#683.01" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="9" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="-81.58#40.92#683.01" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="9" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3461,10 +3202,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3479,7 +3220,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="81.37#40.95#674.67" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="10" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="81.37#40.95#674.67" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="10" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3493,10 +3234,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3511,7 +3252,7 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="144.09#40.95#780.08" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="11" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="144.09#40.95#780.08" range="40" genCount="1" genTime="1000" autoGen="0" objectKey="11" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
@@ -3525,10 +3266,10 @@
                                 <ToolScp Scp="S_AI_DEAD_GTOWER_DM_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
                                     <Str Str="STAGE6_MON_KILL"/>
-                                    <Num Num="40"/>
+                                    <Num Num="80"/>
                                     <Str Str="하우벅에게 마력을 전달합니다"/>
                                     <Str Str="scroll"/>
-                                    <Num Num="5"/>
+                                    <Num Num="3"/>
                                 </ToolScp>
                                 <ToolScp Scp="SAI_DEAD_ADD_MGAME_V_NAME" Client="NO" UseSleep="NO">
                                     <Str Str="UNIQUE_RAID_PAST_FANTASY_LIBRARY"/>
@@ -3548,12 +3289,12 @@
                     <Event eventName="REGEN_01">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="5"/>
+                                <Num Num="10"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="STAGE6_MON_KILL"/>
                                 <Str Str="UNDER"/>
-                                <Num Num="40"/>
+                                <Num Num="80"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_MONCNT" Client="NO" UseSleep="NO">
                                 <MGameObj List="6TH/0/6TH/1/6TH/2/6TH/3/6TH/4/6TH/5/6TH/6/6TH/7/6TH/8/6TH/9/6TH/10/6TH/11"/>
@@ -3573,7 +3314,7 @@
                             <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="STAGE6_MON_KILL"/>
                                 <Str Str="OVER"/>
-                                <Num Num="40"/>
+                                <Num Num="80"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -3606,10 +3347,6 @@
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_EXEC_DELMON" Client="NO" UseSleep="NO">
                                 <MGameObjPtr List="OBJECT/56"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -3644,14 +3381,6 @@
                                 <Str Str="시간 내에 마력을 모으지 못해 계획이 실패했습니다{nl}60초 뒤 입장했던 곳으로 이동합니다."/>
                                 <Str Str="!"/>
                                 <Num Num="5"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageFail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="TimeOut"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -3718,9 +3447,10 @@
                     <ToolScp Scp="MGAME_SET_TIMEOUT" Client="NO" UseSleep="NO">
                         <Num Num="600"/>
                     </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO">
                         <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
+                        <Str Str="Play"/>
+                        <Str Str="Stage7"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
@@ -3791,10 +3521,6 @@
                                 <Num Num="1"/>
                                 <Num Num="0"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                     <Event execCount="1" eventName="FAIL">
@@ -3829,14 +3555,6 @@
                                 <Str Str="!"/>
                                 <Num Num="5"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageFail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="TimeOut"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                     <Event execCount="1" eventName="BOSS_SUMMON">
@@ -3867,32 +3585,20 @@
                         <Str Str="stage_start"/>
                         <Num Num="10"/>
                     </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO">
                         <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
+                        <Str Str="Play"/>
+                        <Str Str="Stage8"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="58512" Pos="1308.13#-83.09#298.15" angle="-45" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="3" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="1308.13#-83.09#298.15" angle="-45" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="3" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다!"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -3900,26 +3606,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="1269.67#-80.96#46.17" angle="45" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="1269.67#-80.96#46.17" angle="45" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="4" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다!"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -3927,26 +3620,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="1596.60#-83.09#303.14" angle="-135" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="5" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="1596.60#-83.09#303.14" angle="-135" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="5" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다!"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -3954,26 +3634,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58512" Pos="1564.67#-83.09#35.58" angle="135" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="6" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58512" Pos="1564.67#-83.09#35.58" angle="135" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="6" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다!"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -3981,26 +3648,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="1263.16#-74.21#19.26" angle="45" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="7" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="1263.16#-74.21#19.26" angle="45" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="7" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다!"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -4008,26 +3662,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="1259.50#-83.09#308.26" angle="-45" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="8" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="1259.50#-83.09#308.26" angle="-45" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="8" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다!"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -4035,26 +3676,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="1601.85#-83.09#329.31" angle="-135" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="9" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="1601.85#-83.09#329.31" angle="-135" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="9" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다!"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -4062,26 +3690,13 @@
                             </StartList>
                         </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="58513" Pos="1587.70#-83.09#15.37" angle="135" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="10" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;UniqueRaid&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
+                    <Obj Type="Monster" MonType="58513" Pos="1587.70#-83.09#15.37" angle="135" range="70" genCount="1" genTime="1000" autoGen="0" objectKey="10" UseAiOutOfPc="1" propList="&apos;StatType&apos; &apos;206&apos; &apos;Lv&apos; &apos;360&apos; " tendency="1">
                         <SelfAI ActiveMessageMapInBattle="1">
                             <List>
                                 <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
                                     <Num Num="1000"/>
                                 </ToolScp>
                             </List>
-                            <DeadList>
-                                <ToolScp Scp="SAI_DEAD_ADD_MGAME_V" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="1"/>
-                                </ToolScp>
-                                <ToolScp Scp="S_AI_DEAD_GTOWER_DM" Client="NO" UseSleep="NO">
-                                    <Str Str="UR_PAST_FL_STAGE_8"/>
-                                    <Num Num="20"/>
-                                    <Str Str="마족 몬스터를 처치했습니다!"/>
-                                    <Str Str="scroll"/>
-                                    <Num Num="5"/>
-                                </ToolScp>
-                            </DeadList>
                             <StartList>
                                 <ToolScp Scp="S_AI_SET_TENDENCY" Client="NO" UseSleep="NO">
                                     <Str Str="Attack"/>
@@ -4147,14 +3762,12 @@
                     </Event>
                     <Event execCount="1" eventName="CLEAR">
                         <condList>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="90"/>
+                            </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_MONCNT_OVER" Client="NO" UseSleep="NO">
                                 <MGameObj List="OBJECT/39"/>
                                 <Num Num="1"/>
-                            </ToolScp>
-                            <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
-                                <Str Str="UR_PAST_FL_STAGE_8"/>
-                                <Str Str="OVER"/>
-                                <Num Num="20"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -4167,10 +3780,6 @@
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DESTROY" Client="NO" UseSleep="NO">
                                 <Str Str="8TH"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_EVT_SCP_FACTION" Client="NO" UseSleep="NO">
-                                <MGameObj List="OBJECT/39"/>
-                                <Str Str="Neutral"/>
-                            </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_VALUE" Client="NO" UseSleep="NO">
                                 <Str Str="8TH_CLEAR"/>
                                 <Num Num="2"/>
@@ -4180,9 +3789,9 @@
                                 <Str Str="Clear"/>
                                 <Num Num="5"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
+                            <ToolScp Scp="MGAME_EVT_SCP_FACTION" Client="NO" UseSleep="NO">
+                                <MGameObj List="OBJECT/39"/>
+                                <Str Str="Neutral"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -4218,14 +3827,6 @@
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_EXEC_DELMON" Client="NO" UseSleep="NO">
                                 <MGameObjPtr List="OBJECT/40/OBJECT/41"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageFail"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_FAIL_CHECK_LOG" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="DefenseFail"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -4314,12 +3915,13 @@
             </Stage>
             <Stage Name="9TH" AutoStart="0">
                 <StartScpList>
+                    <ToolScp Scp="MGAME_CUSTOM_LOG" Client="NO" UseSleep="NO">
+                        <Str Str="PastFantasyLibrary"/>
+                        <Str Str="Play"/>
+                        <Str Str="Stage9"/>
+                    </ToolScp>
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
                         <Str Str="마군주 프로스터 로드를 처치하세요!"/>
-                    </ToolScp>
-                    <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGESTART" Client="NO" UseSleep="NO">
-                        <Str Str="PastFantasyLibrary"/>
-                        <Str Str="StageStart"/>
                     </ToolScp>
                 </StartScpList>
                 <CompleteScpList>
@@ -4353,14 +3955,6 @@
                                 <Str Str="마군주 프로스터 로드를 쓰러뜨렸습니다!{nl}아가일라 플러리의 계획을 성공적으로 마쳤습니다!{nl}20초 뒤 입장했던 곳으로 이동합니다."/>
                                 <Str Str="Clear"/>
                                 <Num Num="5"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="StageClear"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
-                                <Str Str="PastFantasyLibrary"/>
-                                <Str Str="MinigameSuccess"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -4398,19 +3992,6 @@
                         <execList>
                             <ToolScp Scp="MGAME_EVT_EXEC_DELMON" Client="NO" UseSleep="NO">
                                 <MGameObjPtr List="OBJECT/39/OBJECT/40/OBJECT/41"/>
-                            </ToolScp>
-                        </execList>
-                    </Event>
-                </StageEvents>
-            </Stage>
-            <Stage Name="RankResetPoint">
-                <ObjList/>
-                <StageEvents>
-                    <Event execCount="1" eventName="PointSetting">
-                        <execList>
-                            <ToolScp Scp="MGAME_SET_RANK_RESET_POINT_AND_LOG" Client="NO" UseSleep="NO">
-                                <Num Num="20"/>
-                                <Str Str="UniqueRaid: M_Past_FantasyLibrary_1"/>
                             </ToolScp>
                         </execList>
                     </Event>
