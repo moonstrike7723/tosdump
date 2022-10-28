@@ -87,22 +87,26 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 ,{'마신의 성소 - 자동매칭(Normal) 보상 증가','EVENT_GILTINE_REWARD_BOOST'}					 
 					 ,{'챌린지 모드 보상 증가','EVENT_CHALLENGE_REWARD_BOOST'}					 
 					 ,{'분열 특이점(자동매칭) 모드 보상 증가','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}		
-					 ,{'베르니케 파편 던전 에테르 젬 강화 횟수 증가','EVENT_SOLO_DUNGEON_REWARD_BOOST'}					 
+					 ,{'베르니케 파편 던전 에테르 젬 강화 횟수 증가','EVENT_SOLO_DUNGEON_REWARD_BOOST'}		
+					 ,{'가라앉는 나포선: 가디스(자동 매칭) 콘텐츠 보상 증가','EVENT_JELLYZELE_REWARD_BOOST'}					 
+					 ,{'델무어 격전지: 가디스(자동 매칭) 콘텐츠 보상 증가','EVENT_DELMORE_REWARD_BOOST'}					 
+
 					 }
     
-	local daycheckbuff = 
-					 {{'8','5',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-					 ,{'8','6',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
-					 ,{'8','7',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-					 ,{'8','12',{'Event_Expup_100','EVENT_EARRING_REWARD_BOOST'}}
-					 ,{'8','13',{'Event_Expup_100','EVENT_CHALLENGE_REWARD_BOOST'}}
-					 ,{'8','14',{'Event_Expup_100','Event_Mythic_Auto_Count_Reset'}}
-					 ,{'8','19',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-					 ,{'8','20',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
-					 ,{'8','21',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-					 ,{'8','26',{'Event_LootingChance_Add_1000','Event_Challenge_Count_Reset'}}
-					 ,{'8','27',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
-					 ,{'8','28',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
+	local daycheckbuff = 					 
+					 {{'9','2',{'Event_Expup_100','EVENT_CHALLENGE_REWARD_BOOST'}}
+					 ,{'9','3',{'Event_Expup_100','EVENT_DELMORE_REWARD_BOOST'}}
+					 ,{'9','4',{'Event_Expup_100','EVENT_MYTHIC_REWARD_BOOST'}}
+					 ,{'9','9',{'Event_Expup_50','Event_healHSP_Speedup'}}
+					 ,{'9','10',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+					 ,{'9','11',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
+					 ,{'9','16',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'9','17',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+					 ,{'9','18',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
+					 ,{'9','23',{'Event_Expup_100','EVENT_JELLYZELE_REWARD_BOOST'}}
+					 ,{'9','24',{'Event_Expup_100','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}}
+					 ,{'9','25',{'Event_Expup_100','EVENT_SOLO_DUNGEON_REWARD_BOOST'}}
+
 						 }
 	
 	-- 기본 적용 버프
@@ -242,7 +246,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 			end
 		end
 	        --MYTHIC_AUTO_RESET
-	elseif  REGULAR_BURNING_EVENT_SERVER_TIME_CHECK(self) == 20220814 then -- before active select dialog
+	elseif  REGULAR_BURNING_EVENT_SERVER_TIME_CHECK(self) == 20220904 then -- before active select dialog
 		local mythicrecheck = TryGetProp(accountObject,"REGULAR_BURNING_EVENT_MYTHIC_AUTO_RESET",0)
 		
 		if distractor == 2 then
