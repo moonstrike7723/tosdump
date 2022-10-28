@@ -138,17 +138,13 @@ local function _REQUEST_SEAL_ADDITIONAL_RATIO(targetSeal, matSeal, additionalIte
 	session.AddItemID(targetSeal:GetIESID(), 1);
 	session.AddItemID(matSeal:GetIESID(), 1);
     local resultlist = session.GetItemIDList();
-	item.DialogTransaction('GET_SEAL_INFO_ADDITIONAL', resultlist, '2 '..additionalItemCount);
+	item.DialogTransaction('GET_SEAL_INFO', resultlist, '2 '..additionalItemCount);
 end
 
 local function _INIT_APPLY_OPTION_BOX(frame, itemObj)	
 	local applyOptionBox = GET_CHILD_RECURSIVELY(frame, 'applyOptionBox');
 	DESTROY_CHILD_BYNAME(applyOptionBox, 'OPTION_');
 	if itemObj == nil then
-		return;
-	end
-
-	if itemObj.StringArg == "Seal_Material" then
 		return;
 	end
 
@@ -334,13 +330,8 @@ function REINFORCE_SEAL_CHECK_MATERIAL(parent, ctrl, itemObj)
 	end
 
 	local targetSeal, targetSealObj = s_reinforceSeal.TargetSeal:GetItemInfo();	
-	local ret, reson = IS_VALID_SEAL_MATERIAL_ITEM(targetSealObj, itemObj);
-	if ret == false then
-		if reson == "SealMaterialTargetItemWarning" then
-			ui.SysMsg(ClMsg("SealMaterialTargetItemWarning"));
-		else
-			ui.SysMsg(ClMsg('CantUseSeal'));
-		end
+	if IS_VALID_SEAL_MATERIAL_ITEM(targetSealObj, itemObj) == false then
+		ui.SysMsg(ClMsg('CantUseSeal'));
 		return false;
 	end
 
@@ -406,7 +397,7 @@ function REINFORCE_SEAL_EXECUTE(parent, ctrl)
 		clmsg = ClMsg('AdditionalItemCountIsNotMax');
 	end
 	if successRatio < 100 then
-		clmsg = clmsg..'{nl}'..ClMsg('SealReinforceInfo');
+		clmsg = clmsg..'{nl}'..ClMsg('DestroyReinforceItem');
 	end
 
 	clmsg = clmsg..'{nl}'..ClMsg('ReallyReinforceSeal');
@@ -524,16 +515,13 @@ function ON_SUCCESS_REINFORCE_SEAL(frame, msg, result, argNum)
 	if materialItemObj == nil then
 		s_reinforceSeal.MaterialSeal:Clear();
 	end
-	
+
 	if result ~= 'Success' then
 		return;
 	end
-	
-	if targetItemObj.StringArg ~= "Seal_Material" then
-		local nextOptionBox = _GET_NEXT_OPTION_BOX(frame);
-		imcGroupBox:StartAlphaEffect(nextOptionBox, 2, 0.1);
-	end
-	
+
+	local nextOptionBox = _GET_NEXT_OPTION_BOX(frame);
+	imcGroupBox:StartAlphaEffect(nextOptionBox, 2, 0.1);
 	ReserveScript("SUCESS_REINFORCE_SEAL_EFFECT()", 2);
 end
 

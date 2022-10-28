@@ -1,3 +1,4 @@
+
 function SKILLABILITY_ON_INIT(addon, frame)
     addon:RegisterOpenOnlyMsg('SUCCESS_BUY_ABILITY_POINT', 'ON_SKILLABILITY_BUY_ABILITY_POINT');
     addon:RegisterOpenOnlyMsg('SUCCESS_LEARN_ABILITY', 'ON_SKILLABILITY_LEARN_ABILITY');
@@ -9,141 +10,20 @@ function SKILLABILITY_ON_INIT(addon, frame)
     addon:RegisterOpenOnlyMsg('RESET_SKL_UP', 'SKILLABILITY_ON_FULL_UPDATE');
 	addon:RegisterOpenOnlyMsg('JOB_CHANGE', 'SKILLABILITY_ON_FULL_UPDATE');
 	addon:RegisterOpenOnlyMsg('UPDATE_SKILLMAP', 'SKILLABILITY_ON_FULL_UPDATE');
+	addon:RegisterOpenOnlyMsg('SKILL_LIST_GET', 'SKILLABILITY_ON_FULL_UPDATE');
     addon:RegisterOpenOnlyMsg('SKILL_LIST_GET_RESET_SKILL', 'SKILLABILITY_ON_FULL_UPDATE');
 	addon:RegisterOpenOnlyMsg('ABILITY_LIST_GET', 'SKILLABILITY_ON_FULL_UPDATE');
 	addon:RegisterOpenOnlyMsg('RESET_ABILITY_UP', 'SKILLABILITY_ON_FULL_UPDATE');
 	addon:RegisterOpenOnlyMsg('UPDATE_COMMON_SKILL_LIST', 'ON_UPDATE_COMMON_SKILL_LIST');
-    addon:RegisterOpenOnlyMsg('POPULAR_SKILL_INFO', 'ON_POPULAR_SKILL_INFO');
-    
-    addon:RegisterMsg('SKILL_LIST_GET', 'SKILLABILITY_ON_FULL_UPDATE');
-    addon:RegisterMsg('DELETE_QUICK_SKILL', 'SKILLABILITY_ON_FULL_UPDATE');
-    addon:RegisterMsg("SPECIFIC_SKILL_GET", "SKILLABILITY_ADD_SPECIFIC_SKILL");
-    addon:RegisterMsg('DELETE_SPECIFIC_SKILL', 'SKILLABILITY_REMOVE_SPECIFIC_SKILL');
+	addon:RegisterOpenOnlyMsg('POPULAR_SKILL_INFO', 'ON_POPULAR_SKILL_INFO');
 end
 
-function UPDATE_SKILL_BY_SKILLMAKECOSTUME(resStr)
-    local datas = StringSplit(resStr, ":");
-    local msg = datas[1];
-    local skillName = datas[2];
-    local frame = ui.GetFrame("skillability");
-    if frame ~= nil then
-        local ctrlSet = GET_CHILD_RECURSIVELY(frame, "SKILL_"..skillName);
-        if ctrlSet ~= nil then
-            if msg == "create_skill" then
-                ctrlSet:SetVisible(1);
-            elseif msg == "remove_skill" then
-                ctrlSet:SetVisible(0);
-                frame:RemoveChild(ctrlSet:GetName());
-                local commonSkillCount = session.skill.GetCommonSkillCount();
-                local job_tab = GET_CHILD_RECURSIVELY(frame, "job_tab");
-                if job_tab ~= nil and commonSkillCount <= 0 then
-                    local tabIndex = job_tab:GetIndexByName("tab_"..0);
-                    job_tab:DeleteTab(tabIndex);
-                end
-            end
-        end
-
-        session.skill.ReqCommonSkillList();
-        frame:Invalidate();
-    end
-end
-
-function SKILLABILITY_COMMON_LEGENDITEMSKILL_UPDATE(frame, msg, skillID, argNum)
-    if frame == nil then return; end
-    if skillID == nil or skillID == "" or skillID == "None" then return end
-    local skillability_job = GET_CHILD_RECURSIVELY(frame, "skillability_job_Common");
-    if skillability_job == nil then return end
-    local skilltree_gb = GET_CHILD_RECURSIVELY(skillability_job, "skilltree_gb");
-    if skilltree_gb == nil then return end
-
-    -- check child skillID
-    local gb_ChildCnt = skilltree_gb:GetChildCount();
-    local exist_trans_skill = HAS_SKILLTREEGB_IN_COMMON_TRANSSKILL_BY_CHILD(skilltree_gb, gb_ChildCnt);
-    if exist_trans_skill == nil then return; end
-
-    -- check msg skillID
-    local skillInfo = session.GetSkill(tonumber(skillID));
-    if skillInfo ~= nil then
-        local sklObj = GetIES(skillInfo:GetObject());
-        if sklObj == nil then return end
-        if HAS_SKILLTREEGB_IN_COMMON_TRANSSKILL_BY_SKILL_OBJ(sklObj) == false then
-            exist_trans_skill = false;
-        end
-    end
-
-    if exist_trans_skill == true or argNum == 1 then
-        local commSkillCnt = session.skill.GetCommonSkillCount();
-        if commSkillCnt <= 0 then
-            local job_tab = GET_CHILD_RECURSIVELY(frame, "job_tab");
-            if job_tab ~= nil then
-                local tabIndex = job_tab:GetIndexByName("tab_0");
-                job_tab:DeleteTab(tabIndex);
-            end
-            return;
-        end
-
-        if msg == "DELETE_SPECIFIC_SKILL" and argNum == 1 then
-            if gb_ChildCnt <= 0 then return; end
-            for i = 0, gb_ChildCnt - 1 do
-                local gb_Child = skilltree_gb:GetChildByIndex(i);
-                if gb_Child == nil then break end
-
-                if string.find(gb_Child:GetName(), "SKILL_") ~= nil and HAS_SKILLTREEGB_IN_COMMON_TRANSSKILL_BY_CHILDNAME(gb_Child:GetName()) == false then
-                    local ctrlSet = GET_CHILD_RECURSIVELY(skilltree_gb, gb_Child:GetName());
-                    if skillInfo == nil then
-                        ctrlSet:SetVisible(0);
-                        frame:RemoveChild(ctrlSet:GetName());
-                    end
-                end
-            end
-        elseif msg == "SPECIFIC_SKILL_GET" and argnum == 1 then
-            if skillInfo == nil then return; end
-            local sklObj = GetIES(skillInfo:GetObject());
-            if sklObj == nil then return end
-
-            local visibleSkillName = "SKILL_"..sklObj.ClassName;
-            local ctrlSet = GET_CHILD_RECURSIVELY(skilltree_gb, visibleSkillName);
-            if ctrlSet ~= nil then
-                ctrlSet:SetVisible(1);
-            end
-        end
-    else
-        if skillInfo == nil then return end
-        local sklObj = GetIES(skillInfo:GetObject());
-        if sklObj == nil then return end
-
-        local visibleSkillName = "SKILL_"..sklObj.ClassName;
-        local ctrlSet = GET_CHILD_RECURSIVELY(skilltree_gb, visibleSkillName);
-        if ctrlSet ~= nil then
-            ctrlSet:SetVisible(1);
-        end
-    end
-
-    session.skill.ReqCommonSkillList();
-    skillability_job:Invalidate();
-end
-
-function SKILLABILITY_ADD_SPECIFIC_SKILL(frame, msg, skillID, argNum)
-    if skillID ~= nil then
-        SKILLABILITY_COMMON_LEGENDITEMSKILL_UPDATE(frame, msg, skillID, argNum);
-        frame:Invalidate();
-    end
-end
-
-function SKILLABILITY_REMOVE_SPECIFIC_SKILL(frame, msg, skillID, argNum)
-    if skillID ~= nil then
-        SKILLABILITY_COMMON_LEGENDITEMSKILL_UPDATE(frame, msg, skillID, argNum);
-        frame:Invalidate();
-    end
-end
-
-function SKILLABILITY_ON_FULL_UPDATE(frame, msg, skillID, argNum)
+function SKILLABILITY_ON_FULL_UPDATE(frame)
     local oldgb = SKILLABILITY_GET_SELECTED_TAB_GROUPBOX(frame);
     local jobClsName = nil;
     if oldgb ~= nil then
         jobClsName = oldgb:GetUserValue("JobClsName");
     end
-
     SKILLABILITY_MAKE_JOB_TAB(frame);
     local job_tab = GET_CHILD(frame, "job_tab");
     if jobClsName ~= nil and jobClsName ~= "Common" then
@@ -154,12 +34,6 @@ function SKILLABILITY_ON_FULL_UPDATE(frame, msg, skillID, argNum)
         local tabIndex = job_tab:GetIndexByName("tab_"..0);
         job_tab:SelectTab(tabIndex);
     end
-
-    if skillID ~= nil then
-        SKILLABILITY_COMMON_LEGENDITEMSKILL_UPDATE(frame, msg, skillID, argNum);
-    end
-
-    frame:Invalidate();
 end
 
 function SKILLABILITY_MAKE_JOB_TAB(frame)
@@ -173,13 +47,13 @@ function SKILLABILITY_MAKE_JOB_TAB(frame)
 
     local addTabInfoList = SKILLABILITY_GET_JOB_TAB_INFO_LIST();
     local gblist = UI_LIB_TAB_ADD_TAB_LIST(frame, job_tab, addTabInfoList, job_tab_width, job_tab_height, ui.CENTER_HORZ, ui.TOP, job_tab_x, job_tab_y, "job_tab_box", "true", tab_width, "JobClsName");
-    
-    for i = 1, #gblist do
-    local gb = gblist[i];
+
+    for i=1, #gblist do
+        local gb = gblist[i];
         gb:SetTabChangeScp("SKILLABILITY_ON_CHANGE_TAB");
     end
     SKILLABILITY_ON_CHANGE_TAB(frame);
-    frame:SetUserValue("CLICK_ABIL_ACTIVE_TIME", imcTime.GetAppTime());
+	frame:SetUserValue("CLICK_ABIL_ACTIVE_TIME", imcTime.GetAppTime());
 end
 
 function SKILLABILITY_ON_OPEN(frame)
@@ -188,13 +62,13 @@ function SKILLABILITY_ON_OPEN(frame)
     
     local jobObj = info.GetJob(session.GetMyHandle());
 	local jobCtrlTypeName = GetClassString('Job', jobObj, 'CtrlType');
-    ui.ReqRedisSkillPoint(jobCtrlTypeName);
-    ui.UpdateKeyboardSelectChildByFrameName("skillability");
+	ui.ReqRedisSkillPoint(jobCtrlTypeName);
 end
 
 function SKILLABILITY_ON_CHANGE_TAB(frame)
     local gb = SKILLABILITY_GET_SELECTED_TAB_GROUPBOX(frame);
     local jobClsName = gb:GetUserValue("JobClsName");
+    
     CLEAR_SKILLABILITY_POINT(jobClsName)
     
     local skillability_job = gb:CreateOrGetControlSet("skillability_job", "skillability_job_"..jobClsName, 0, 0);
@@ -202,6 +76,7 @@ function SKILLABILITY_ON_CHANGE_TAB(frame)
 end
 
 function SKILLABILITY_FILL_JOB_GB(skillability_job, jobClsName)
+
     local skill_gb = GET_CHILD(skillability_job, "skill_gb");
     local ability_gb = GET_CHILD(skillability_job, "ability_gb");
     local skilltree_gb = GET_CHILD_RECURSIVELY(skill_gb, "skilltree_gb");
@@ -436,7 +311,7 @@ function SKILLABILITY_FILL_LINKABIL_CTRLSET(classCtrl, abilClass)
     --from MAKE_ABILITYSHOP_ICON
 
 	-- icon.
-    local icon = CreateIcon(slot);	
+	local icon = CreateIcon(slot);	
     icon:SetImage(abilClass.Icon);
 	icon:SetTooltipType('ability');
     icon:SetDropFinallyScp("DROP_FINALLY_ABILITY_ICON");
@@ -517,26 +392,17 @@ function SKILLABILITY_FILL_SKILL_INFO(infoctrl, info)
     if cls == nil then
         lv = 1
     end
-
-    local sklProp = geSkillTable.Get(sklClsName);
-    if sklProp ~= nil then
-        overHeat = sklProp:GetOverHeatCnt();
-    end
-
+    
     if obj ~= nil then
-        sp = GET_SPENDSP_BY_LEVEL(obj, lv);
-        coolDown = obj.CoolDown / 1000;
-        if overHeat == 0 then
-            overHeat = GET_SKILL_OVERHEAT_COUNT(obj);
-        end
+        sp = GET_SPENDSP_BY_LEVEL(obj);
+        overHeat = GET_SKILL_OVERHEAT_COUNT(obj);
+        coolDown = obj.CoolDown/1000;
     else
         local tempObj = CreateGCIESByID("Skill", sklCls.ClassID);
         tempObj.Level = lv;
-        sp = GET_SPENDSP_BY_LEVEL(tempObj, lv);
-        coolDown = tempObj.CoolDown / 1000;
-        if overHeat == 0 then
-            overHeat = GET_SKILL_OVERHEAT_COUNT(tempObj);
-        end
+        sp = GET_SPENDSP_BY_LEVEL(tempObj);
+        coolDown = tempObj.CoolDown/1000;
+        overHeat = GET_SKILL_OVERHEAT_COUNT(tempObj);
     end
     
     lv = ScpArgMsg("level{value}", "value", lv);
@@ -576,7 +442,7 @@ function SKILLABILITY_FILL_SKILL_INFO(infoctrl, info)
     weapon_gb:RemoveAllChild();
     local skillCls = GetClass("Skill", sklClsName);
     local iconCount, companionIconCount = MAKE_STANCE_ICON(weapon_gb, skillCls.ReqStance, skillCls.EnableCompanion, 0, 0);
-    local weaponWidth = iconCount * 20 + companionIconCount * 20;
+    local weaponWidth = iconCount*20+companionIconCount*20;
     if iconCount == 0 then
         weaponWidth = weaponWidth + 28;
     end
@@ -585,7 +451,6 @@ end
 
 function SKILLABILITY_FILL_ABILITY_GB(skillability_job, ability_gb, jobClsName)
     if jobClsName == "Common" then
-        SKILLABILITY_FILL_ACCOUNT_ABILITY_GB(skillability_job, ability_gb, jobClsName);
         return;
     end
     local frame = skillability_job:GetTopParentFrame();
@@ -596,32 +461,19 @@ function SKILLABILITY_FILL_ABILITY_GB(skillability_job, ability_gb, jobClsName)
     local jobCls = GetClass("Job", jobClsName);
     local jobEngName = jobCls.EngName;
     local abilGroupName = SKILLABILITY_GET_ABILITY_GROUP_NAME(jobEngName);
-    local list = SKILLABILITY_GET_ABILITY_NAME_LIST(jobClsName, jobEngName)--Ability_Peltasta
+    local list = SKILLABILITY_GET_ABILITY_NAME_LIST(jobEngName)--Ability_Peltasta
 
-    local clsSortList = {};
+    local clsList = {};
+
     for i=1, #list do
         local abilClass = GetClass("Ability", list[i]);
-        clsSortList[#clsSortList+1] = {}
-        clsSortList[#clsSortList]["cls"] = abilClass;
-        clsSortList[#clsSortList]["isDefaultAbil"] = IS_ABILITY_KEYWORD(abilClass, "DEFAULT_ABIL");
+        clsList[#clsList+1] = abilClass;
     end
 
     -- sort them. 
-    table.sort(clsSortList, function(lhs, rhs)
-        if lhs["isDefaultAbil"] == rhs["isDefaultAbil"] then
-            return false
-        elseif lhs["isDefaultAbil"] then
-            return false
-        elseif rhs["isDefaultAbil"] then
-            return true
-        end
-        return lhs["cls"].ActiveGroup < rhs["cls"].ActiveGroup;
+    table.sort(clsList, function(lhs, rhs)
+        return lhs.ActiveGroup < rhs.ActiveGroup;
     end);
-
-    local clsList = {};
-    for i=1, #clsSortList do
-        clsList[#clsList+1] = clsSortList[i]["cls"]
-    end
 
     CLEAR_SKILLABILITY_LEARN_COUNT_BY_JOB(ability_gb, jobClsName);
 
@@ -649,7 +501,7 @@ function SKILLABILITY_FILL_ABILITY_GB(skillability_job, ability_gb, jobClsName)
 
     --point
     local abilitypoint_text = GET_CHILD_RECURSIVELY(skillability_job, "abilitypoint_text");
-    local pointAmount = session.ability.GetAbilityPoint();
+    local pointAmount = GET_SKILLABILITY_ABILITY_POINT_REMAIN_AMOUNT();
     abilitypoint_text:SetTextByKey("value", GetCommaedText(pointAmount));
 end
 
@@ -659,9 +511,15 @@ function SKILLABILITY_UPDATE_CONFIRM_BTN(parent)
     local jobClsName = gb:GetUserValue("JobClsName");
     local ability_gb = GET_CHILD_RECURSIVELY(gb, "ability_gb");
     local confirm_btn = GET_CHILD_RECURSIVELY(gb, "confirm_btn");
-    
-    local jobEngName = GET_JOB_ENG_NAME(jobClsName);
+    if jobClsName == "Common" then
+        confirm_btn:SetEnable(0);
+        return;
+    end
+
+    local jobCls = GetClass("Job", jobClsName);
+    local jobEngName = jobCls.EngName;
     local abilGroupName = SKILLABILITY_GET_ABILITY_GROUP_NAME(jobEngName);
+
     local isReqSkill = IS_CHANGED_SKILLABILITY_SKILL(jobClsName)
     local isReqAbil = IS_CHANGED_SKILLABILITY_ABILITY(ability_gb, abilGroupName, jobClsName)
     
@@ -745,28 +603,23 @@ function SKILLABILITY_FILL_ABILITY_CTRLSET(ability_gb, classCtrl, abilClass, gro
     local abilMasterPic = GET_CHILD(classCtrl, "abilMasterPic");
     local toggle = GET_CHILD(classCtrl, "toggle");
         
+	local maxLevel = tonumber(groupClass.MaxLevel)
     local abilIES = GetAbilityIESObject(GetMyPCObject(), abilClass.ClassName);
+    local isMax = IS_ABILITY_MAX(GetMyPCObject(), groupClass, abilClass);
     local abilLv = 0;
-    local maxLevel = 0;
-    local isMax = 0;
-    if groupClass ~= nil then
-        maxLevel = tonumber(groupClass.MaxLevel)
-        isMax = IS_ABILITY_MAX(GetMyPCObject(), groupClass, abilClass);
-    else
-        maxLevel = 1;
-        isMax = 1;
-    end
-
     if isMax == 1 then
-        abilLv = maxLevel;
+        abilLv = groupClass.MaxLevel;
     elseif abilIES ~= nil then
         abilLv = abilIES.Level;
     end
-    
     if maxLevel < abilLv then
-        abilLv = maxLevel;
+        abilLv = groupClass.MaxLevel;
     end
     
+    local notMax = 1;
+    if isMax == 1 then
+        notMax = 0;
+    end
     local learnCount = GET_SKILLABILITY_LEARN_COUNT(ability_gb, abilClass.ClassName)
     
 	-- icon.
@@ -816,9 +669,7 @@ function SKILLABILITY_FILL_ABILITY_CTRLSET(ability_gb, classCtrl, abilClass, gro
         abilLevelText:SetTextByKey("arrow", "");
         abilLevelText:SetTextByKey("after", "");
     end
-    if maxLevel ~= nil then
-        abilLevelMaxText:SetTextByKey("value", "Lv."..maxLevel);
-    end
+    abilLevelMaxText:SetTextByKey("value", "Lv."..groupClass.MaxLevel);
 
     -- condition.
     local condition = SKILLABILITY_GET_ABILITY_CONDITION(abilIES, groupClass, isMax);
@@ -827,25 +678,20 @@ function SKILLABILITY_FILL_ABILITY_CTRLSET(ability_gb, classCtrl, abilClass, gro
 
     -- master.
     abilMasterPic:SetVisible(isMax);
-
     local abilPointGB = GET_CHILD(classCtrl, "abilPointGB");
-    if isMax == 1 then
-        abilPointGB:SetVisible(0);
-    else
-        abilPointGB:SetVisible(1);
-    end
+    abilPointGB:SetVisible(notMax);
 
     -- skin
     local unlockScpRet = GET_ABILITY_CONDITION_UNLOCK(abilIES, groupClass);
     local isLock = (unlockScpRet ~= nil and unlockScpRet ~= 'UNLOCK');
-    if abilLv + learnCount <= 0 then
-        classCtrl:SetSkinName(SKIN_LEVEL_ZERO);
-    elseif isLock then
-        classCtrl:SetSkinName(SKIN_LOCK);
-	elseif isMax ~= 1 then
-        classCtrl:SetSkinName(SKIN_UNLOCK);
-    else
+    if isLock then
+		classCtrl:SetSkinName(SKIN_LOCK);
+    elseif abilLv + learnCount <= 0 then
+		classCtrl:SetSkinName(SKIN_LEVEL_ZERO);
+	elseif isMax == 1 then
         classCtrl:SetSkinName(SKIN_LEVEL_MAX);
+    else
+        classCtrl:SetSkinName(SKIN_UNLOCK);
     end
 
     -- price
@@ -1065,23 +911,29 @@ function ON_COMMIT_SKILLABILITY(parent, btn)
     local gb = SKILLABILITY_GET_SELECTED_TAB_GROUPBOX(frame);
     local ability_gb = GET_CHILD_RECURSIVELY(gb, "ability_gb");
     local jobClsName = gb:GetUserValue("JobClsName");
+    if jobClsName == "Common" then
+        return;
+    end
+
     local isReqSkill = COMMIT_SKILLABILITY_SKILL(jobClsName)
 
-    local jobEngName = GET_JOB_ENG_NAME(jobClsName);
+    local jobCls = GetClass("Job", jobClsName);
+    local jobEngName = jobCls.EngName;
     local abilGroupName = SKILLABILITY_GET_ABILITY_GROUP_NAME(jobEngName);
     COMMIT_SKILLABILITY_ABILITY(ability_gb, abilGroupName, jobClsName)
 
     if isReqSkill then
         --imcSound.PlaySoundItem('statsup');
 		--frame:ShowWindow(0);
-    end
+	end
 end
 
 function ON_SKILLABILITY_BUY_ABILITY_POINT(frame, msg, argmsg, argnum)
     local gb = SKILLABILITY_GET_SELECTED_TAB_GROUPBOX(frame);
     local abilitypoint_text = GET_CHILD_RECURSIVELY(gb, "abilitypoint_text");
-    local pointAmount = session.ability.GetAbilityPoint();
+    local pointAmount = GET_SKILLABILITY_ABILITY_POINT_REMAIN_AMOUNT();
     abilitypoint_text:SetTextByKey("value", GetCommaedText(pointAmount));
+
 end
 
 function ON_SKILLABILITY_UPDATE_PROPERTY(frame, msg, argstr, argnum)
@@ -1096,8 +948,6 @@ function ON_SKILLABILITY_UPDATE_PROPERTY(frame, msg, argstr, argnum)
     end
 
     local skillability_job = GET_CHILD_RECURSIVELY(gb, "skillability_job_"..jobClsName);
-    SKILLABILITY_FILL_JOB_GB(skillability_job, jobClsName)
-
     local ability_gb = GET_CHILD_RECURSIVELY(gb, "ability_gb");
     SKILLABILITY_FILL_ABILITY_GB(skillability_job, ability_gb, jobClsName);
 end
@@ -1105,10 +955,7 @@ end
 function ON_SKILLABILITY_LEARN_ABILITY(frame, msg, abilName)
     local gb = SKILLABILITY_GET_SELECTED_TAB_GROUPBOX(frame);
     local jobClsName = gb:GetUserValue("JobClsName");
-    local ability_gb = GET_CHILD_RECURSIVELY(gb, "ability_gb");
-    local skillability_job = GET_CHILD_RECURSIVELY(gb, "skillability_job_"..jobClsName);
     if jobClsName == "Common" then
-        SKILLABILITY_FILL_ACCOUNT_ABILITY_GB(skillability_job, ability_gb, jobClsName);
         return;
     end
 
@@ -1118,6 +965,8 @@ function ON_SKILLABILITY_LEARN_ABILITY(frame, msg, abilName)
     local abilClass = GetClass("Ability", abilName);
     local groupClass = GetClass(abilGroupName, abilName);
     local abilitylist_gb = GET_CHILD_RECURSIVELY(gb, "abilitylist_gb");
+    local ability_gb = GET_CHILD_RECURSIVELY(gb, "ability_gb");
+    local skillability_job = GET_CHILD_RECURSIVELY(gb, "skillability_job_"..jobClsName);
 
     SKILLABILITY_FILL_ABILITY_GB(skillability_job, ability_gb, jobClsName)
     
@@ -1129,7 +978,7 @@ end
 function ON_SKILLABILITY_UPDATE_ABILITY_POINT(frame, msg, argStr, argNum)
     local gb = SKILLABILITY_GET_SELECTED_TAB_GROUPBOX(frame);
     local abilitypoint_text = GET_CHILD_RECURSIVELY(gb, "abilitypoint_text");
-    local pointAmount = session.ability.GetAbilityPoint();
+    local pointAmount = GET_SKILLABILITY_ABILITY_POINT_REMAIN_AMOUNT();
     abilitypoint_text:SetTextByKey("value", GetCommaedText(pointAmount));
 end
 
@@ -1173,7 +1022,7 @@ function TOGGLE_ABILITY(abilName)
     end
 
     topFrame:SetUserValue("CLICK_ABIL_ACTIVE_TIME", curTime);
-    pc.RequestToggleAbility(abilCls.ClassID)
+    pc.ReqExecuteTx("SCR_TX_PROPERTY_ACTIVE_TOGGLE", abilName);    
 end
 
 function SKILLABILITY_INIT_TOGGLE_ABILITY(parent, ctrl, abilClass, isActive)
@@ -1262,27 +1111,45 @@ function UI_TOGGLE_SKILLTREE()
 end
 
 function ON_POPULAR_SKILL_INFO(frame)
-    -- #63405 스킬 HOT 표시 UI 제거 일감으로 관련내용 삭제
+    local gb = SKILLABILITY_GET_SELECTED_TAB_GROUPBOX(frame);
+    local skilltree_gb = GET_CHILD_RECURSIVELY(gb, "skilltree_gb");
+    local jobClsName = gb:GetUserValue("JobClsName");
+    if jobClsName == "Common" then
+        return;
+    end
+
+    local treelist = GET_TREE_INFO_VEC(jobClsName)
+    local topSkillName1 = ui.GetRedisHotSkillByRanking(jobClsName, 1);
+    local topSkillName2 = ui.GetRedisHotSkillByRanking(jobClsName, 2);
+	for i = 1, #treelist do
+        local info = treelist[i];
+        local cls = info["class"];
+        local ctrlset = skilltree_gb:GetControlSet("skillability_skillset", "SKILL_"..cls.SkillName);
+        local hotimg = GET_CHILD(ctrlset, "hitimg");
+        if topSkillName1 == cls.SkillName then
+            hotimg:SetImage("Hit_indi_icon");
+        elseif topSkillName2 == cls.SkillName then
+            hotimg:SetImage("Hit_indi_icon");
+        else
+            hotimg:SetImage("None_Mark");
+        end
+	end
 end
     
 function ON_UPDATE_COMMON_SKILL_LIST(frame, msg, argStr, argNum)
-    local commonSkillCount = session.skill.GetCommonSkillCount();	
+	local commonSkillCount = session.skill.GetCommonSkillCount();	
 	if commonSkillCount < 1 then		
-        local job_tab = GET_CHILD_RECURSIVELY(frame, "job_tab");
-        if job_tab ~= nil then
-            local tabIndex = job_tab:GetIndexByName("tab_0");
-            job_tab:DeleteTab(tabIndex);
-        end
-    end
-    
-    SKILLABILITY_ON_FULL_UPDATE(frame);
+		return;
+	end
+	
+    SKILLABILITY_MAKE_JOB_TAB(frame);
 end
 
 function SKILLTREE_MAKE_COMMON_TYPE_SKILL_EMBLEM(frame)
 	local grid = GET_CHILD_RECURSIVELY(frame, 'skill', 'ui::CGrid');
 	local cid = frame:GetUserValue("TARGET_CID");
 	local pcSession = session.GetSessionByCID(cid);
-	local pcJobInfo = pcSession:GetPCJobInfo();
+	local pcJobInfo = pcSession.pcJobInfo;
 	local jobCount = pcJobInfo:GetJobCount();
 	local childCount = grid:GetChildCount();
 	if jobCount + 1 > childCount then
@@ -1334,7 +1201,7 @@ function SKILLABILITY_DEPLOY_COMMON_SKILL_CONTROLSET(skilltree_gb, jobClsName, s
     local ctrlset = skilltree_gb:CreateOrGetControlSet("skillability_skillset", "SKILL_"..sklClsName, x, y);
     local info = GET_COMMON_SKILL_INFO_BY_CLSNAME(sklClsName);
     AUTO_CAST(ctrlset);
-    SKILLABILITY_FILL_SKILL_CTRLSET(ctrlset, info, jobClsName);
+    SKILLABILITY_FILL_SKILL_CTRLSET(ctrlset, info, jobClsName)
 end
 
 function SKILLABILITY_DEPLOY_JOB_SKILL(skilltree_gb, jobClsName, unlockLvHash, SKILL_COL_COUNT, SKILL_LINE_BREAK_COUNT, SKILL_LV_HEIGHT, SKILL_LV_MARGIN, SKILL_LV_DIST)
@@ -1342,15 +1209,10 @@ function SKILLABILITY_DEPLOY_JOB_SKILL(skilltree_gb, jobClsName, unlockLvHash, S
     local rowCount = 0;
     --deploy skill controlset
     local y = 0;
-
-    if jobClsName == "Common" then
-        skilltree_gb:RemoveAllChild()
-    end
-    
     --total loop count == skill count in job
     for lv, lvList in pairs(unlockLvHash) do 
         local levelRow = CALC_LIST_LINE_BREAK(lvList, SKILL_COL_COUNT, SKILL_LINE_BREAK_COUNT);
-        for i=1, #levelRow do
+        for i=1, #levelRow do 
             local levelCol = levelRow[i];
             y = rowCount * (SKILL_LV_HEIGHT) + SKILL_LV_MARGIN + (SKILL_LV_DIST)*(i-1);
             for j = 1, #levelCol do
@@ -1386,215 +1248,4 @@ function SKILLABILITY_DEPLOY_LABEL_LINE(skilltree_gb, unlockLvHash, SKILL_COL_CO
         leveltext:SetFontName('brown_16');
         leveltext:SetText('Lv.'..lv);
     end
-end
-
------------------------ ACCOUNT_ABILITY -----------------------
-function SKILLABILITY_FILL_ACCOUNT_ABILITY_GB(skillability_job, ability_gb, jobClsName)
-    local frame = skillability_job:GetTopParentFrame();
-
-    local abilitytop_gb = GET_CHILD(ability_gb, "abilitytop_gb");
-    local height = ui.GetControlSetAttribute("skillability_ability", "height");
-
-    local abilitylist_gb = GET_CHILD(ability_gb, "abilitylist_gb");
-    abilitylist_gb:RemoveAllChild();
-
-    CLEAR_SKILLABILITY_LEARN_COUNT_BY_JOB(ability_gb, jobClsName);
-
-    local clsList, cnt = GetClassList("account_ability");
-    for i = 0, cnt - 1 do
-		local abilCls = GetClassByIndexFromList(clsList, i);
-        local abilClsName = abilCls.ClassName;
-
-        local ctrlset = abilitylist_gb:CreateOrGetControlSet("skillability_ability", "skillability_ability_"..abilClsName, 30, i * height);
-        AUTO_CAST(ctrlset);
-
-        SKILLABILITY_FILL_ACCOUNT_ABILITY_CTRLSET(ability_gb, ctrlset, abilCls);
-    end
-
-    --cancel btn
-    local cancel_btn = GET_CHILD_RECURSIVELY(skillability_job, "cancel_btn");
-	cancel_btn:SetEventScript(ui.LBUTTONUP, "ON_CANCEL_SKILLABILITY");
-
-    --confirm btn
-    local confirm_btn = GET_CHILD_RECURSIVELY(skillability_job, "confirm_btn");
-	confirm_btn:SetEventScript(ui.LBUTTONUP, "ON_COMMIT_SKILLABILITY");
-    SKILLABILITY_UPDATE_CONFIRM_BTN(skillability_job)
-
-    --point
-    local abilitypoint_text = GET_CHILD_RECURSIVELY(skillability_job, "abilitypoint_text");
-    local pointAmount = session.ability.GetAbilityPoint();
-    abilitypoint_text:SetTextByKey("value", GetCommaedText(pointAmount));
-end
-
-function SKILLABILITY_FILL_ACCOUNT_ABILITY_CTRLSET(ability_gb, classCtrl, abilCls)
-    local AFTER_ARROW = classCtrl:GetUserConfig("AFTER_ARROW");
-
-    local SKIN_LOCK = classCtrl:GetUserConfig("SKIN_LOCK");
-    local SKIN_UNLOCK = classCtrl:GetUserConfig("SKIN_UNLOCK");
-    local SKIN_LEVEL_ZERO = classCtrl:GetUserConfig("SKIN_LEVEL_ZERO");
-    local SKIN_LEVEL_MAX = classCtrl:GetUserConfig("SKIN_LEVEL_MAX");
-
-    local slot = GET_CHILD(classCtrl, "slot");
-    local nameText = GET_CHILD(classCtrl, "nameText");
-    local abilLevelText = GET_CHILD(classCtrl, "abilLevelText");
-    local abilConditionText = GET_CHILD(classCtrl, "abilConditionText");
-    local abilLevelMaxText = GET_CHILD(classCtrl, "abilLevelMaxText");
-    local descGB = GET_CHILD_RECURSIVELY(classCtrl, "descGB");
-    local descText = GET_CHILD_RECURSIVELY(classCtrl, "descText");
-    local abilMasterPic = GET_CHILD(classCtrl, "abilMasterPic");
-    local toggle = GET_CHILD(classCtrl, "toggle");
-
-    local aObj = GetMyAccountObj();
-
-    local abilClsName = TryGetProp(abilCls, "ClassName", "None");
-    local expprop = TryGetProp(abilCls, "ExpAccountPropertyName", "None");
-    local maxLevel = TryGetProp(abilCls, "MaxLevel", 0);
-
-    local isMax = 0;
-    local abilexp = TryGetProp(aObj, expprop, 0);
-    local abilLv = account_ability.GetAccountAbilityLevel_ByStr(abilClsName, abilexp);
-    if maxLevel < abilLv then
-        abilLv = maxLevel;
-    elseif maxLevel == abilLv then
-        isMax = 1;
-    end
-    
-    local learnCount = GET_SKILLABILITY_LEARN_COUNT(ability_gb, abilClsName);
-
-    -- icon
-    local iconName = TryGetProp(abilCls, "Icon", "None");
-    if iconName ~= "None" then
-        SET_SLOT_IMG(slot, iconName);
-        slot:EnablePop(0);
-    end
-    
-    -- toggle
-    toggle:ShowWindow(0);
-    classCtrl:SetUserValue("ClsName", abilClsName);
-
-	-- name
-    nameText:SetTextByKey("value", abilCls.Name);
-
-    -- desc
-    local desc = "* "..ScpArgMsg("AccountAbilityOptionText{Option}{addvalue}", "Option", abilCls.Name, "addvalue", abilCls.PointByLevel)
-	descText:SetTextByKey("value", desc);
-    
-    -- level
-    if learnCount > 0 then
-        local before = ScpArgMsg("level{value}", "value", abilLv);
-        local after = ScpArgMsg("level{value}", "value", abilLv+learnCount);
-        abilLevelText:SetTextByKey("before", before);
-        abilLevelText:SetTextByKey("arrow", AFTER_ARROW);
-        abilLevelText:SetTextByKey("after", after);
-    elseif abilLv ~= 0 then
-        local before = ScpArgMsg("level{value}", "value", abilLv);
-        abilLevelText:SetTextByKey("before", before);
-        abilLevelText:SetTextByKey("arrow", "");
-        abilLevelText:SetTextByKey("after", "");
-    else
-        abilLevelText:SetTextByKey("before", ClMsg("NotLearnedYet"));
-        abilLevelText:SetTextByKey("arrow", "");
-        abilLevelText:SetTextByKey("after", "");
-    end
-
-    if maxLevel ~= nil then
-        abilLevelMaxText:SetTextByKey("value", "Lv."..maxLevel);
-    end
-
-    -- condition
-
-    -- master.
-    abilMasterPic:SetVisible(isMax);
-    local abilPointGB = GET_CHILD(classCtrl, "abilPointGB");
-    if isMax == 1 then
-        abilPointGB:SetVisible(0);
-    else
-        abilPointGB:SetVisible(1);
-    end
-
-    -- skin
-    if abilLv + learnCount <= 0 then
-        classCtrl:SetSkinName(SKIN_LEVEL_ZERO);
-	elseif isMax ~= 1 then
-        classCtrl:SetSkinName(SKIN_UNLOCK);
-    else
-        classCtrl:SetSkinName(SKIN_LEVEL_MAX);
-    end
-
-    -- price 
-    local start_level = abilLv + 1;
-    local goal_level = abilLv + learnCount;
-    local need_point = account_ability.GetTotalAbilityCostStr(abilClsName, start_level, goal_level) -- 필요한 요구치
-
-    local abilPrice = GET_CHILD_RECURSIVELY(classCtrl, "abilPrice");
-    abilPrice:SetTextByKey("value", need_point);
-
-    local addBtn = GET_CHILD_RECURSIVELY(classCtrl, "abilAdd");
-    addBtn:SetEventScript(ui.LBUTTONUP, "ON_ADD_ACCOUNT_ABILITY_COUNT");
-    addBtn:SetEventScriptArgString(ui.LBUTTONUP, abilClsName);
-    addBtn:SetEventScriptArgNumber(ui.LBUTTONUP, 1);
-    addBtn:SetOverSound('button_over');
-    addBtn:SetClickSound('button_click_big');
-
-    addBtn:SetEventScript(ui.RBUTTONUP, "ON_ADD_ACCOUNT_ABILITY_COUNT");
-    addBtn:SetEventScriptArgString(ui.RBUTTONUP, abilClsName);
-    addBtn:SetEventScriptArgNumber(ui.RBUTTONUP, 10);
-    addBtn:SetEnable(1);
-
-    local revBtn = GET_CHILD_RECURSIVELY(classCtrl, "abilRevert");
-    revBtn:SetEventScript(ui.LBUTTONUP, "ON_REVERT_ACCOUNT_ABILITY_COUNT");
-    revBtn:SetEventScriptArgString(ui.LBUTTONUP, abilClsName);
-    revBtn:SetOverSound('button_over');
-    revBtn:SetClickSound('button_click_big');
-    revBtn:SetEnable(1);
-end
-
-function ON_ADD_ACCOUNT_ABILITY_COUNT(parent, btn, abilClsName, count)
-    parent = parent:GetParent();
-    parent = parent:GetParent();
-    AUTO_CAST(parent);
-
-    local frame = parent:GetTopParentFrame();
-    local gb = SKILLABILITY_GET_SELECTED_TAB_GROUPBOX(frame);
-    local ability_gb = GET_CHILD_RECURSIVELY(gb, "ability_gb");
-
-    local abilCls = GetClass("account_ability", abilClsName);
-    if abilCls == nil then
-        return;
-    end
-
-    local expprop = TryGetProp(abilCls, "ExpAccountPropertyName", "None");
-    local maxLevel = TryGetProp(abilCls, "MaxLevel", 0);
-    count = count + GET_SKILLABILITY_LEARN_COUNT(ability_gb, abilClsName);
-    
-    local aObj = GetMyAccountObj();
-	local exp = TryGetProp(aObj, expprop, 0);
-    local curLevel = account_ability.GetAccountAbilityLevel_ByStr(abilClsName, exp);
-    local destLevel = curLevel + count;
-	if destLevel > maxLevel then
-		count = maxLevel - curLevel;
-    end
-
-    SET_SKILLABILITY_LEARN_COUNT(ability_gb, abilClsName, count);
-    SKILLABILITY_FILL_ACCOUNT_ABILITY_CTRLSET(ability_gb, parent, abilCls);
-    SKILLABILITY_UPDATE_CONFIRM_BTN(parent);
-end
-
-function ON_REVERT_ACCOUNT_ABILITY_COUNT(parent, btn, abilClsName, argnum)
-    parent = parent:GetParent();
-    parent = parent:GetParent();
-    AUTO_CAST(parent);
-
-    local frame = parent:GetTopParentFrame();
-    local gb = SKILLABILITY_GET_SELECTED_TAB_GROUPBOX(frame);
-    local ability_gb = GET_CHILD_RECURSIVELY(gb, "ability_gb");
-
-    local abilCls = GetClass("account_ability", abilClsName);
-    if abilCls == nil then
-        return;
-    end
-
-    SET_SKILLABILITY_LEARN_COUNT(ability_gb, abilClsName, "None");
-    SKILLABILITY_FILL_ACCOUNT_ABILITY_CTRLSET(ability_gb, parent, abilCls);    
-    SKILLABILITY_UPDATE_CONFIRM_BTN(parent);
 end

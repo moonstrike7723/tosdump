@@ -13,14 +13,8 @@ function GUILDINFO_JOINT_INVENTORY_LOAD()
     local curTime = geTime.GetServerSystemTime();
 
     curTime = imcTime.AddSec(curTime, -10800) -- 3시간
-
     local curSysTimeStr = string.format("%04d-%02d-%02d %02d:%02d:%02d", curTime.wYear, curTime.wMonth, curTime.wDay, curTime.wHour, curTime.wMinute, curTime.wSecond)
-    START_REQ_GUILD_WAREHOUSE_LOG(curSysTimeStr);
-
-    local itemDateText = GET_CHILD_RECURSIVELY(ui.GetFrame("guildinfo"), "itemDateText")
-    if GetServerNation() == 'GLOBAL' or GetServerNation() == 'THI' then
-        itemDateText:SetText('Time')
-    end
+    GetGuildWareHouseLog("ON_GUILD_WAREHOUSE_GET", curSysTimeStr)
 
     local slotCnt = JOINT_INVENTORY_SLOT_COUNT()
    
@@ -34,40 +28,6 @@ function GUILDINFO_JOINT_INVENTORY_LOAD()
     itemSlotSet:CreateSlots()
 
 end
-
-function START_REQ_GUILD_WAREHOUSE_LOG(curSysTimeStr)
-
-    local frame = ui.GetFrame("guildinfo")
-    if frame == nil or frame:IsVisible() == 0 then
-		return;
-    end
-
-    GetGuildWareHouseLog("ON_GUILD_WAREHOUSE_GET", curSysTimeStr, "0"); 
-
-    local itemLogBox = GET_CHILD_RECURSIVELY(frame, "itemLogBox")
-    -- 아이템 클리어 및 시간 저장.
-    itemLogBox:SetUserValue('StartTime', curSysTimeStr);  -- 시작 시간
-    itemLogBox:SetUserValue("Count", 0);  -- 저장된 갯수.
-    itemLogBox:RemoveAllChild()
-
-end
-
-function CONTINUOUS_REQ_GUILD_WAREHOUSE_LOG(log_idx)
-
-    local frame = ui.GetFrame("guildinfo")
-    if frame == nil or frame:IsVisible() == 0 then
-		return;
-    end
-
-    local itemLogBox = GET_CHILD_RECURSIVELY(frame, "itemLogBox")
-    local startReqSysTime = itemLogBox:GetUserValue('StartTime');
-    if startReqSysTime == nil or startReqSysTime == "" then
-        return
-    end
-
-    GetGuildWareHouseLog("ON_GUILD_WAREHOUSE_GET", startReqSysTime, tostring(log_idx));
-end
-
 
 function JOINT_INVENTORY_SLOT_COUNT()
     local guildObj = GET_MY_GUILD_OBJECT();
@@ -89,7 +49,6 @@ function JOINT_INVENTORY_SLOT_COUNT()
 end
 
 function ON_GUILD_WAREHOUSE_GET(code, ret_json)
-
     if code ~= 200 then -- 400:사용한 내역이 없음
         if code ~= 400 then
             SHOW_GUILD_HTTP_ERROR(code, ret_json, "ON_GUILD_WAREHOUSE_GET")
@@ -97,26 +56,16 @@ function ON_GUILD_WAREHOUSE_GET(code, ret_json)
         return
     end
 
-    if ret_json == 'result_is_empty' then
-        -- 모든 데이터 받았음.
-        return
-    end
-
-    -- 길드 인포가 열려있지 않은 경우 종료시킨다.
     local frame = ui.GetFrame("guildinfo")
-    if frame == nil or frame:IsVisible() == 0 then
-		return;
-    end
-    
-	local itemLogBox = GET_CHILD_RECURSIVELY(frame, "itemLogBox")
-    local last_idx = 0;
-    local offset_i = itemLogBox:GetUserIValue("Count");  -- 저장된 갯수 불러오기
+    local itemLogBox = GET_CHILD_RECURSIVELY(frame, "itemLogBox")
+
+    itemLogBox:RemoveAllChild()
     local parsed_json = json.decode(ret_json)
     local i=1;
     for i=1, #parsed_json do
         local element = parsed_json[#parsed_json - i + 1];
 
-        local ctrlSet = itemLogBox:CreateOrGetControlSet("guild_joint_inventory_log", offset_i + i, 0, 0)
+        local ctrlSet = itemLogBox:CreateOrGetControlSet("guild_joint_inventory_log", i, 0, 0)
         ctrlSet = AUTO_CAST(ctrlSet);
 
         local dateText = GET_CHILD_RECURSIVELY(ctrlSet, "dateText")
@@ -145,17 +94,9 @@ function ON_GUILD_WAREHOUSE_GET(code, ret_json)
         count:SetTextByKey("count", element["count"])
         ctrlSet:Resize(itemLogBox:GetWidth(), ctrlSet:GetHeight())
         ctrlSet:Invalidate()
-
-        -- last log idx 
-        last_idx = element["log_idx"];
     end
 
-    -- counter 저장
-    itemLogBox:SetUserValue("Count", offset_i +  #parsed_json);  
-
     GBOX_AUTO_ALIGN(itemLogBox, 0, 0, 0, true, false, true)
-
-    CONTINUOUS_REQ_GUILD_WAREHOUSE_LOG(last_idx); -- 연속 요청
 end
 
 function ON_GUILD_JOINT_INV_ITEM_LIST_GET(frame, msg, strArg, numArg)
@@ -318,8 +259,8 @@ function ON_LOG_TIME_SET(parent, ctrl)
     curTime = imcTime.AddSec(curTime, -selectedTime)
     
     local curSysTimeStr = string.format("%04d-%02d-%02d %02d:%02d:%02d", curTime.wYear, curTime.wMonth, curTime.wDay, curTime.wHour, curTime.wMinute, curTime.wSecond)
-    START_REQ_GUILD_WAREHOUSE_LOG(curSysTimeStr);
-    
+    GetGuildWareHouseLog("ON_GUILD_WAREHOUSE_GET", curSysTimeStr)
+
     local frame = ui.GetFrame("guildinfo");
     local showOnlyDeposit = GET_CHILD_RECURSIVELY(frame, "showOnlyDeposit")
     local showOnlyWithdraw = GET_CHILD_RECURSIVELY(frame, "showOnlyWithdraw")
@@ -335,9 +276,5 @@ end
 function ON_UPDATE_GUILD_MILEAGE(frame, msg, strArg, numArg)
     local mileageCount = GET_CHILD_RECURSIVELY(frame, "mileageCount");
     mileageCount:SetTextByKey('point', numArg)
-	
-	local guild = session.party.GetPartyInfo(PARTY_GUILD);
-	if guild ~= nil then
-		guild.info:SetMileage(numArg);
-	end
 end
+
