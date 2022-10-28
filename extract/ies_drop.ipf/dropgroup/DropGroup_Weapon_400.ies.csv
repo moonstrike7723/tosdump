@@ -45,3 +45,6 @@ ClassID,DropRatio,ChallengeDownRatio,ItemClassName,ItemProperty
 44,300,0,TSF02_161,
 45,300,0,TSP02_161,
 46,300,0,TSW02_161,
+47,200,0,TRK02_103,
+48,44,0,TRK03_103,
+49,11,0,TRK04_103,

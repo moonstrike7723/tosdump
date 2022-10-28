@@ -6,3 +6,4 @@ ClassID,DropRatio,Money_Min,Money_Max,DPK_Min,DPK_Max,DPK_Expo,EPIK_Min,EPIK_Max
 5,2,0,0,0,0,0,0,0,,Item,Item,RedOrb_Cockatries,
 6,2,0,0,0,0,0,0,0,,Item,Item,Gem_Wugushi_Bewitch,
 7,133,0,0,0,0,0,0,0,,Item,Item,misc_Cockatries2,
+8,30,0,0,0,0,0,0,0,,Item,Item,SWD03_103,

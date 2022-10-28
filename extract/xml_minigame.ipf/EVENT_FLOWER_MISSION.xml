@@ -808,7 +808,11 @@
                         <execList>
                             <ToolScp Scp="MGAME_EXEC_SETPOS" Client="NO" UseSleep="NO">
                                 <AbsPosRange X="1428.0652" Y="106.4933" Z="1113.7729"/>
-                            </ToolScp>                            
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_GIVE_ITEM" Client="NO" UseSleep="NO">
+                                <Str Str="Event_JP_FLOWER_CUBE/5"/>
+                                <Str Str="FLOWER_EVENT"/>
+                            </ToolScp>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
                                 <Str Str="미션 성공 : 30초 후 원래 존으로 돌아갑니다"/>
                                 <Str Str="Clear"/>

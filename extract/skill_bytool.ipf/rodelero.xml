@@ -44,6 +44,12 @@
 					<Num Num="100" />
 					<Num Num="-1" />
 				</ToolScp>
+                <ToolScp Client="NO" Scp="S_R_TGT_REMOVE_BUFF" UseSleep="NO">
+                <Str FuncTxt="local func_name = 'get_remove_buff_tooltip_' .. TryGetProp(skill, 'ClassName', 'None')
+               local func = _G[func_name]
+               if func == nil then return end
+               return func(skill.Level)" Str="0" UseFunc="1"/>
+              </ToolScp>
 			</ResultList>
 		</MainSkl>
 	</Skill>
@@ -117,10 +123,19 @@
 			</EtcList>
 			<ResultList>
 				<ToolScp Client="NO" Scp="S_R_TGTBUFF" UseSleep="NO">
-					<Str Str="ShieldPush_Debuff" />
+					<Str Str="ShieldPush_DEF_Debuff" />
 					<Num FuncTxt="return skill.Level;" Num="1" UseFunc="1" />
 					<Num Num="0" />
 					<Num Num="10000" />
+					<Num Num="1" />
+					<Num Num="100" />
+					<Num Num="-1" />
+				</ToolScp>
+				<ToolScp Client="NO" Scp="S_R_TGTBUFF" UseSleep="NO">
+					<Str Str="ShieldPush_Debuff" />
+					<Num FuncTxt="return skill.Level;" Num="1" UseFunc="1" />
+					<Num Num="0" />
+					<Num Num="5000" />
 					<Num Num="1" />
 					<Num Num="100" />
 					<Num Num="-1" />

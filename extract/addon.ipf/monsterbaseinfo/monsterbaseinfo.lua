@@ -1,6 +1,6 @@
 
 function MONSTERBASEINFO_ON_INIT(addon, frame)  
-    addon:RegisterMsg('PC_PROPERTY_UPDATE', 'MONSTERBASEINFO_ON_MSG');
+    addon:RegisterMsg('PC_PROPERTY_UPDATE_TO_MONBASEINFO', 'MONSTERBASEINFO_ON_MSG');
     addon:RegisterMsg('TARGET_CLOSE', 'ON_TARGET_CLEAR');
     addon:RegisterMsg('TARGET_CLEAR', 'ON_TARGET_CLEAR');
     addon:RegisterMsg('TARGET_UPDATE', 'ON_MONB_TARGET_UPDATE');
@@ -64,6 +64,7 @@ function DRAW_DEBUFF_UI_EFECT(handle, buffType)
 end
 
 function MONBASE_GAUGE_SET(frame, targetinfo)
+    if targetinfo == nil then return; end
     local nameRichText = GET_CHILD(frame, "name", "ui::CRichText");
     local stat = targetinfo.stat;
     local hpGauge = GET_CHILD(frame, "hp", "ui::CGauge");
@@ -299,7 +300,7 @@ function MONSTERBASEINFO_ON_MSG(baseFrame, msg, argStr, argNum)
         return;
     end
     
-    if msg == 'PC_PROPERTY_UPDATE' then
+    if msg == 'PC_PROPERTY_UPDATE_TO_MONBASEINFO' then
         MONSTERBASEINFO_CHECK_OPENCONDITION(frame);
     end
 end

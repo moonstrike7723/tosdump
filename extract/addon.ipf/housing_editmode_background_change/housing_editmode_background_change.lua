@@ -12,31 +12,22 @@
 		btn_apply:SetTextByKey("value", ClMsg("ITEM_IsUsed"));
 		btn_apply:SetEnable(0);
 	else
-		local price = TryGetProp(housingPlaceClass, "ThemaPrice", 0);
 		local isHas_name = "PersonalHousing_HasPlace_" .. tostring(mapClassID);
 		local isHas = TryGetProp(accountObject, isHas_name, "NO");
-		local isException = BoolToNumber(price <= 0)
 		if isHas == "YES" then
 			txt_is_has:SetTextByKey("value", ClMsg("IsHaved"));
 			pic_silver:ShowWindow(0);
 			txt_silver:ShowWindow(0);
 			btn_apply:SetTextByKey("value", ClMsg("GuildEmblemChange"));
-		elseif isException == 1 then
-			local text = string.format("{%s}%s","#FF0000",ClMsg("IsReputation"))
-			txt_is_has:SetTextByKey("value", text);
-			pic_silver:ShowWindow(0);
-			txt_silver:ShowWindow(0);
-			btn_apply:ShowWindow(0)
 		else
 			txt_is_has:SetTextByKey("value", "");
 			pic_silver:ShowWindow(1);
 			txt_silver:ShowWindow(1);
-			txt_silver:SetTextByKey("value", GET_COMMAED_STRING(price));
+			txt_silver:SetTextByKey("value", GET_COMMAED_STRING(TryGetProp(housingPlaceClass, "ThemaPrice", 0)));
 			btn_apply:SetTextByKey("value", ClMsg("Auto_KuMae"));
 		end
 		btn_apply:SetEnable(1);
 		btn_apply:SetUserValue("IS_HAS", isHas);
-		btn_apply:SetUserValue("Price", tostring(price));
 	end
 
 	btn_apply:SetUserValue("MapID", mapClassID);
@@ -133,22 +124,12 @@ function BTN_HOUSING_EDITMODE_BACKGROUND_CHANGE(gbox, btn)
 
 	local mapID = tonumber(btn:GetUserValue("MapID"));
 	local isHas = btn:GetUserValue("IS_HAS");
-	local price = tonumber(btn:GetUserValue("Price"));
 	local msg = "ReallyBuy?";
-	
+
 	if isHas == "YES" then
 		isHasValue = 1;
 		msg = "ReallyChange?";
-	else
-		local myMoney = tonumber(GET_TOTAL_MONEY_STR());	
-		if myMoney < price then
-			ui.SysMsg(ClMsg('Auto_SilBeoKa_BuJogHapNiDa.'));
-			return;
-		end
 	end
-
-	housing.CancelArrangingMovingMove();
-	ui.CloseFrame("housing_editmode_control");
 
 	local yesscp = string.format("DO_HOUSING_EDITMODE_BACKGROUND_CHANGE(%d, %d)", isHasValue, mapID);
 	ui.MsgBox(ScpArgMsg(msg), yesscp, 'None');

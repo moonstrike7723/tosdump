@@ -98,7 +98,11 @@ ClassID,WikiPoint,TeachPoint,AutoGet,ClassName,TargetClassName,TargetMapName,Ill
 9031,0,0,0,R_Dungeon_Key02,R_Dungeon_Key02,,icon_item_recipe_misc1,제작서- 레전드 레이드 포탈 스톤,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,수상한 기운이 감도는 시에라를 만들 수 있는 제작서
 9032,0,0,0,R_Legend_Misc_Moringponia,R_Legend_Misc_Moringponia,,icon_item_recipe_misc1,제작서-모링포니아 왕관,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,수상한 기운이 감도는 시에라를 만들 수 있는 제작서
 9033,0,0,0,R_Legend_Misc_Misrus,R_Legend_Misc_Misrus,,icon_item_recipe_misc1,제작서 - 머즈루스 사슬,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,수상한 기운이 감도는 시에라를 만들 수 있는 제작서
+9034,0,0,0,R_Moru_Ruby_Charge,R_Moru_Ruby_Charge,,icon_item_recipe_misc1,제작서 - 루비 모루,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,수상한 기운이 감도는 시에라를 만들 수 있는 제작서
 9035,0,0,0,R_Ruby_noCharge,R_Ruby_noCharge,,icon_item_recipe_misc1,제작서 - 빛나는 루비 모루,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,수상한 기운이 감도는 시에라를 만들 수 있는 제작서
+9036,0,0,0,R_misc_ore23_stone,R_misc_ore23_stone,,icon_item_recipe_misc1,제작서 - 시에라 스톤,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,재료를 만들 수 있는 제작서
+9037,0,0,0,R_God_Potion_ATK,R_God_Potion_ATK,,icon_item_recipe_misc1,제작서 - 여신의 지원 상자: 징벌,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,포션을 만들 수 있는 제작서입니다.
+9038,0,0,0,R_God_Potion_DEF,R_God_Potion_DEF,,icon_item_recipe_misc1,제작서 - 여신의 지원 상자: 가호,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,포션을 만들 수 있는 제작서입니다.
 9023,0,0,0,R_Steam_YC_Event,R_Steam_YC_Event,,icon_item_stonepaper_03,제작서-[이벤트] 복원된 여신상,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,[이벤트] 복원된 여신상을 만들 수 있는 제작서
 10006,10,5,0,R_SWD01_109,R_SWD01_109,,icon_item_weapon_misc1,제작서-크리스,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 10008,10,5,0,R_SWD01_116,R_SWD01_116,,icon_item_weapon_misc1,제작서-모플라,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
@@ -604,6 +608,8 @@ ClassID,WikiPoint,TeachPoint,AutoGet,ClassName,TargetClassName,TargetMapName,Ill
 50067,10,5,0,R_RAP04_122,R_RAP04_122,,icon_item_weapon_misc5,제작서 - 머즈루스 레이피어,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 50068,10,5,0,R_CAN04_116,R_CAN04_116,,icon_item_weapon_misc5,제작서 - 머즈루스 캐논,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 50069,10,5,0,R_MUS04_116,R_MUS04_116,,icon_item_weapon_misc5,제작서 - 머즈루스 머스킷,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
+50070,10,5,0,R_TRK04_110,R_TRK04_110,,icon_item_weapon_misc5,제작서 - 머즈루스 트링킷,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
+50071,10,5,0,R_TRK04_108,R_TRK04_108,,icon_item_weapon_misc5,제작서 - 스키아클립스 트링킷,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 30029,10,5,0,R_HAND01_108,R_HAND01_108,,icon_item_gloves_misc1,제작서-그리마 글로브,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 30030,10,5,0,R_FOOT01_108,R_FOOT01_108,,icon_item_boots_misc1,제작서-그리마 부츠,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 30031,10,5,0,R_LEG01_108,R_LEG01_108,,icon_item_pants_misc1,제작서-그리마 팬츠,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
@@ -1075,6 +1081,12 @@ ClassID,WikiPoint,TeachPoint,AutoGet,ClassName,TargetClassName,TargetMapName,Ill
 34091,10,5,0,R_BRC04_118,BRC04_118,,icon_item_bracelet_misc5,제작서- 어비스 이레디안 브레이슬릿,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 34092,10,5,0,R_NECK04_119,NECK04_119,,icon_item_necklace_misc5,제작서- 세비사 이레디안 네클리스,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 34093,10,5,0,R_BRC04_119,BRC04_119,,icon_item_bracelet_misc5,제작서- 세비사 이레디안 브레이슬릿,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
+34094,10,5,0,R_NECK04_120,R_NECK04_120,,icon_item_necklace_misc5,제작서- 피크티스 네클리스,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
+34095,10,5,0,R_NECK04_121,R_NECK04_121,,icon_item_necklace_misc5,제작서- 칸트리베 네클리스,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
+34096,10,5,0,R_NECK04_122,R_NECK04_122,,icon_item_necklace_misc5,제작서- 주오다 네클리스,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
+34097,10,5,0,R_BRC04_120,R_BRC04_120,,icon_item_bracelet_misc5,제작서- 피크티스 브레이슬릿,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
+34098,10,5,0,R_BRC04_121,R_BRC04_121,,icon_item_bracelet_misc5,제작서- 칸트리베 브레이슬릿,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
+34099,10,5,0,R_BRC04_122,R_BRC04_122,,icon_item_bracelet_misc5,제작서- 주오다 브레이슬릿,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 31005,10,5,0,R_SHD01_105,R_SHD01_105,,icon_item_shirts_misc1,제작서-라운드 실드,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 31006,10,5,0,R_SHD01_106,R_SHD01_106,,icon_item_shirts_misc1,제작서-스틸 카이트 실드,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.
 31008,10,5,0,R_SHD01_108,R_SHD01_108,,icon_item_shirts_misc1,제작서-머시너리 실드,Recipe,{#5090ff}{ol},{/}{/}{/},WIKIPAGE_ITEM,장비를 제작할 수 있는 제작서입니다. 마우스 오른쪽 클릭으로 제작서를 모험일지에 등록할 수 있습니다.

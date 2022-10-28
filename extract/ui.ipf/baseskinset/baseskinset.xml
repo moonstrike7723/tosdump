@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <skinset name="Base">
 	<skinlist category="frames">
@@ -201,6 +201,17 @@
 			<img name="bottomleft" imgrect="614 420 140 140"/>
 			<img name="bottomcore" imgrect="755 420 128 140"/>
 			<img name="bottomright" imgrect="884 420 140 140"/>
+		</skin>
+		<skin name="mainwindow2_ver2" texture="\skin\tooltip_skin_3.tga">
+			<img name="topleft" imgrect="1458 1718 157 120"/>
+			<img name="topcore" imgrect="1616 1718 63 120"/>
+			<img name="topright" imgrect="1680 1718 165 120"/>
+			<img name="bodyleft" imgrect="1458 1839 157 98"/>
+			<img name="bodycore" imgrect="1616 1839 63 98"/>
+			<img name="bodyright" imgrect="1680 1839 165 98"/>
+			<img name="bottomleft" imgrect="1458 1938 157 110"/>
+			<img name="bottomcore" imgrect="1616 1938 63 110"/>
+			<img name="bottomright" imgrect="1680 1938 165 110"/>
 		</skin>
 		<skin name="mainwindow2" texture="\skin\tooltip_skin_3.tga">
 			<img name="topleft" imgrect="1458 1718 157 120"/>
@@ -4274,6 +4285,94 @@
 			<img name="bottomcore" imgrect="1100 338 90 1"/>
 			<img name="bottomright" imgrect="1191 338 145 1"/>
 		</skin>
+		<skin name="relabeling_episode_title" texture="\skin\tooltip_skin_3.tga">
+			<img name="topleft" imgrect="1075 151 215 1"/>
+			<img name="topcore" imgrect="1291 151 81 1"/>
+			<img name="topright" imgrect="1373 151 215 1"/>
+			<img name="bodyleft" imgrect="1075 153 215 67"/>
+			<img name="bodycore" imgrect="1291 153 81 67"/>
+			<img name="bodyright" imgrect="1373 153 215 67"/>
+			<img name="bottomleft" imgrect="1075 221 215 1"/>
+			<img name="bottomcore" imgrect="1291 221 81 1"/>
+			<img name="bottomright" imgrect="1373 221 215 1"/>
+		</skin>
+		<skin name="relabeling_episode_gray_title" texture="\skin\tooltip_skin_3.tga">
+			<img name="topleft" imgrect="1075 223 215 1"/>
+			<img name="topcore" imgrect="1291 223 81 1"/>
+			<img name="topright" imgrect="1373 223 215 1"/>
+			<img name="bodyleft" imgrect="1075 225 215 67"/>
+			<img name="bodycore" imgrect="1291 225 81 67"/>
+			<img name="bodyright" imgrect="1373 225 215 67"/>
+			<img name="bottomleft" imgrect="1075 293 215 1"/>
+			<img name="bottomcore" imgrect="1291 293 81 1"/>
+			<img name="bottomright" imgrect="1373 293 215 1"/>
+		</skin>
+		<skin name="quest_titlebar_green_skin" texture="\skin\tooltip_skin_3.tga">
+			<img name="topleft" imgrect="1075 295 30 1"/>
+			<img name="topcore" imgrect="1106 295 30 1"/>
+			<img name="topright" imgrect="1137 295 30 1"/>
+			<img name="bodyleft" imgrect="1075 297 30 32"/>
+			<img name="bodycore" imgrect="1106 297 30 32"/>
+			<img name="bodyright" imgrect="1137 297 30 32"/>
+			<img name="bottomleft" imgrect="1075 330 30 1"/>
+			<img name="bottomcore" imgrect="1106 330 30 1"/>
+			<img name="bottomright" imgrect="1137 330 30 1"/>
+		</skin>
+		<skin name="dark_balloon_2" texture="\skin\say_balloon.tga">
+			<img name="topleft" imgrect="86 1 170 150"/>
+			<img name="topcore" imgrect="257 1 80 150"/>
+			<img name="topright" imgrect="338 1 170 150"/>
+			<img name="bodyleft" imgrect="86 152 170 10"/>
+			<img name="bodycore" imgrect="257 152 80 10"/>
+			<img name="bodyright" imgrect="338 152 170 10"/>
+			<img name="bottomleft" imgrect="86 163 170 150"/>
+			<img name="bottomcore" imgrect="257 163 80 150"/>
+			<img name="bottomright" imgrect="338 163 170 150"/>
+		</skin>
+		<skin name="rolling_pink_balloon" texture="\skin\say_balloon.tga">
+			<img name="topleft" imgrect="86 314 94 34"/>
+			<img name="topcore" imgrect="181 314 18 34"/>
+			<img name="topright" imgrect="200 314 94 34"/>
+			<img name="bodyleft" imgrect="86 349 94 6"/>
+			<img name="bodycore" imgrect="181 349 18 6"/>
+			<img name="bodyright" imgrect="200 349 94 6"/>
+			<img name="bottomleft" imgrect="86 356 94 34"/>
+			<img name="bottomcore" imgrect="181 356 18 34"/>
+			<img name="bottomright" imgrect="200 356 94 34"/>
+		</skin>
+		<skin name="rolling_blue_balloon" texture="\skin\say_balloon.tga">
+			<img name="topleft" imgrect="295 314 94 34"/>
+			<img name="topcore" imgrect="390 314 18 34"/>
+			<img name="topright" imgrect="409 314 94 34"/>
+			<img name="bodyleft" imgrect="295 349 94 6"/>
+			<img name="bodycore" imgrect="390 349 18 6"/>
+			<img name="bodyright" imgrect="409 349 94 6"/>
+			<img name="bottomleft" imgrect="295 356 94 34"/>
+			<img name="bottomcore" imgrect="390 356 18 34"/>
+			<img name="bottomright" imgrect="409 356 94 34"/>
+		</skin>
+		<skin name="test_paper_bg" texture="\skin\stamp_tour.tga">
+			<img name="topleft" imgrect="1 804 277 145"/>
+			<img name="topcore" imgrect="279 804 149 145"/>
+			<img name="topright" imgrect="429 804 277 145"/>
+			<img name="bodyleft" imgrect="1 950 277 60"/>
+			<img name="bodycore" imgrect="279 950 149 60"/>
+			<img name="bodyright" imgrect="429 950 277 60"/>
+			<img name="bottomleft" imgrect="1 1011 277 145"/>
+			<img name="bottomcore" imgrect="279 1011 149 145"/>
+			<img name="bottomright" imgrect="429 1011 277 145"/>
+		</skin>
+		<skin name="test_skill_skin3" texture="\skin\stamp_tour.tga">
+			<img name="topleft" imgrect="645 637 66 35"/>
+			<img name="topcore" imgrect="712 637 110 35"/>
+			<img name="topright" imgrect="823 637 65 35"/>
+			<img name="bodyleft" imgrect="645 673 66 50"/>
+			<img name="bodycore" imgrect="712 673 110 50"/>
+			<img name="bodyright" imgrect="823 673 65 50"/>
+			<img name="bottomleft" imgrect="645 724 66 35"/>
+			<img name="bottomcore" imgrect="712 724 110 35"/>
+			<img name="bottomright" imgrect="823 724 65 35"/>
+		</skin>
 	</skinlist>
 	<skinlist category="buttons">
 		<skin name="button_companion" texture="\skin\barrack.tga">
@@ -4959,6 +5058,12 @@
 			<img name="mouseon" imgrect="403 272 67 67"/>
 			<img name="cooltime" imgrect="403 272 67 67"/>
 			<img name="selected" imgrect="403 272 67 67"/>
+		</skin>
+		<skin name="box_custom_slot" texture="\skin\pip_test2.tga">
+			<img name="slot" imgrect="328 313 68 68"/>
+			<img name="mouseon" imgrect="397 313 68 68"/>
+			<img name="cooltime" imgrect="397 313 68 68"/>
+			<img name="selected" imgrect="466 313 68 68"/>
 		</skin>
 		<skin name="slot_add_item" texture="\skin\guild_skin.tga">
 			<img name="slot" imgrect="872 621 70 70"/>
@@ -5882,6 +5987,22 @@
 			<img name="dropbutton_click" imgrect="941 613 16 12"/>
 			<img name="dropbutton_cursoron" imgrect="941 626 16 12"/>
 		</skin>
+		<skin name="droplist_normal4" texture="\skin\pip_test.tga">
+			<img name="left" imgrect="403 791 23 36"/>
+			<img name="middle" imgrect="427 791 20 36"/>
+			<img name="right" imgrect="448 791 23 36"/>
+			<img name="dropbutton" imgrect="618 777 20 16"/>
+			<img name="dropbutton_click" imgrect="660 777 20 16"/>
+			<img name="dropbutton_cursoron" imgrect="702 777 20 16"/>
+		</skin>
+		<skin name="droplist_normal5" texture="\skin\pip_test.tga">
+			<img name="left" imgrect="1676 747 20 34"/>
+			<img name="middle" imgrect="1697 747 45 34"/>
+			<img name="right" imgrect="1743 747 20 34"/>
+			<img name="dropbutton" imgrect="618 777 20 16"/>
+			<img name="dropbutton_click" imgrect="660 777 20 16"/>
+			<img name="dropbutton_cursoron" imgrect="702 777 20 16"/>
+		</skin>
 	</skinlist>
 	<skinlist>
 		<skin name="Char1_1_F" texture="\skin\mainframe_04.tga">
@@ -6118,6 +6239,18 @@
 			<img name="cooltime" imgrect="1565 804 54 54"/>
 			<img name="selected" imgrect="1565 804 54 54"/>
 		</skin>
+		<skin name="market_skin" texture="\skin\pip_test_item.tga">
+			<img name="slot" imgrect="1343 168 50 51"/>
+			<img name="mouseon" imgrect="1565 804 54 54"/>
+			<img name="cooltime" imgrect="1565 804 54 54"/>
+			<img name="selected" imgrect="1565 804 54 54"/>
+		</skin>
+		<skin name="ark_slot" texture="\skin\pip_test.tga">
+			<img name="slot" imgrect="2049 0 60 60"/>
+			<img name="mouseon" imgrect="1163 801 100 100"/>
+			<img name="cooltime" imgrect="1163 801 100 100"/>
+			<img name="selected" imgrect="1163 801 100 100"/>
+		</skin>
 	</skinlist>
 	<imagelist category="wearing_weapon">
 		<image name="weapon_OHS" file="\icon\wearing_weapon.tga" imgrect="0 0 20 20" CMM_Caption="한손검"/>
@@ -6180,6 +6313,7 @@
 		<image name="Map_Klapeda" file="\skin\indunmap\Map_Klapeda.png" imgrect="0 0 295 450" CMM_Caption="클라페다"/>
 		<image name="Map_Orsha" file="\skin\indunmap\Map_Orsha.png" imgrect="0 0 295 450" CMM_Caption="오르샤"/>
 		<image name="Map_Request_shadow_raid_main" file="\skin\indunmap\Map_Request_shadow_raid_main.png" imgrect="0 0 295 450" CMM_Caption="스키아클립스 던전"/>
+		<image name="Map_Moringponia_Raid" file="\skin\indunmap\Map_Moringponia_Raid.png" imgrect="0 0 295 450" CMM_Caption="유니크 모링포니아 레이드"/>
 	</imagelist>
 	<imagelist category="jootest_image">
 		<image name="market_hairacc" file="\skin\market_skin.tga" imgrect="1927 447 60 60" CMM_Caption="마켓_헤어악세사리"/>
@@ -6819,6 +6953,20 @@
 		<image name="housing_level_icon_04" file="\skin\guild_skin.tga" imgrect="497 714 100 100" CMM_Caption="길드하우징 레벨 아이콘4"/>
 		<image name="housing_level_icon_05" file="\skin\guild_skin.tga" imgrect="598 714 100 100" CMM_Caption="길드하우징 레벨 아이콘5"/>
 		<image name="housing_brown_box" file="\skin\guild_skin.tga" imgrect="1 872 607 109" CMM_Caption="길드하우징 bg"/>
+		<image name="indun_icon_mon" file="\skin\indun_skin.tga" imgrect="776 615 27 20" CMM_Caption="던전 요일 표시 : 월"/>
+		<image name="indun_icon_tue" file="\skin\indun_skin.tga" imgrect="804 615 27 20"/>
+		<image name="indun_icon_wed" file="\skin\indun_skin.tga" imgrect="832 615 27 20"/>
+		<image name="indun_icon_thu" file="\skin\indun_skin.tga" imgrect="860 615 27 20"/>
+		<image name="indun_icon_fri" file="\skin\indun_skin.tga" imgrect="888 615 27 20"/>
+		<image name="indun_icon_sat" file="\skin\indun_skin.tga" imgrect="916 615 27 20"/>
+		<image name="indun_icon_sun" file="\skin\indun_skin.tga" imgrect="944 615 27 20"/>
+		<image name="indun_icon_mon_eng" file="\skin\indun_skin.tga" imgrect="776 594 27 20" CMM_Caption="던전 요일 표시 : 월_영문"/>
+		<image name="indun_icon_tue_eng" file="\skin\indun_skin.tga" imgrect="804 594 27 20"/>
+		<image name="indun_icon_wed_eng" file="\skin\indun_skin.tga" imgrect="832 594 27 20"/>
+		<image name="indun_icon_thu_eng" file="\skin\indun_skin.tga" imgrect="860 594 27 20"/>
+		<image name="indun_icon_fri_eng" file="\skin\indun_skin.tga" imgrect="888 594 27 20"/>
+		<image name="indun_icon_sat_eng" file="\skin\indun_skin.tga" imgrect="916 594 27 20"/>
+		<image name="indun_icon_sun_eng" file="\skin\indun_skin.tga" imgrect="944 594 27 20"/>
 		<image name="open_leftup" file="\skin\tooltip_skin_3.tga" imgrect="418 802 23 23" CMM_Caption="프랍 회전 아이콘"/>
 		<image name="open_leftdown" file="\skin\tooltip_skin_3.tga" imgrect="442 802 23 23"/>
 		<image name="open_rightup" file="\skin\tooltip_skin_3.tga" imgrect="466 802 23 23"/>
@@ -7153,6 +7301,11 @@
 		<image name="protection_prize" file="\skin\god_protect_skin.tga" imgrect="574 391 139 137" CMM_Caption="가호 당첨 슬롯"/>
 		<image name="protection_pattern" file="\skin\god_protect_skin.tga" imgrect="1 1 572 720" CMM_Caption="여신의 가호 패턴무늬"/>
 		<image name="protection_title" file="\skin\god_protect_skin.tga" imgrect="1 722 548 150" CMM_Caption="여신의 가호 타이틀"/>
+		<image name="skin_color_01" file="\skin\skin_color_chip.tga" imgrect="0 0 42 42" CMM_Caption="피부색_01"/>
+		<image name="skin_color_02" file="\skin\skin_color_chip.tga" imgrect="43 0 42 42" CMM_Caption="피부색_02"/>
+		<image name="skin_color_03" file="\skin\skin_color_chip.tga" imgrect="86 0 42 42" CMM_Caption="피부색_03"/>
+		<image name="skin_color_04" file="\skin\skin_color_chip.tga" imgrect="129 0 42 42" CMM_Caption="피부색_04"/>
+		<image name="skin_color_05" file="\skin\skin_color_chip.tga" imgrect="0 43 42 42" CMM_Caption="피부색_05"/>
 		<image name="mystic_note_production" file="\skin\mystic_note_production.tga" imgrect="0 0 453 832" CMM_Caption="신비의 서 제작"/>
 		<image name="mystic_note_decomposition" file="\skin\mystic_note_decomposition.tga" imgrect="0 0 436 895" CMM_Caption="신비의 서 분해"/>
 		<image name="bgm_simple_bg" file="\skin\bgm_player.tga" imgrect="1 1 390 474" CMM_Caption="bgm 심플 bg"/>
@@ -7163,6 +7316,12 @@
 		<image name="m_title_classic" file="\skin\bgm_player.tga" imgrect="178 528 172 23" CMM_Caption="미니 타이틀_클래식"/>
 		<image name="change_c_button" file="\skin\bgm_player.tga" imgrect="825 1 69 23" CMM_Caption="스킨 바꾸기_클래식"/>
 		<image name="change_s_button" file="\skin\bgm_player.tga" imgrect="895 1 69 23" CMM_Caption="스킨 바꾸기_심플"/>
+		<image name="skin_color_06" file="\skin\skin_color_chip.tga" imgrect="43 43 42 42" CMM_Caption="컬러칩 최종"/>
+		<image name="skin_color_07" file="\skin\skin_color_chip.tga" imgrect="86 43 42 42"/>
+		<image name="skin_color_08" file="\skin\skin_color_chip.tga" imgrect="43 86 42 42"/>
+		<image name="skin_color_09" file="\skin\skin_color_chip.tga" imgrect="129 43 42 42"/>
+		<image name="skin_color_10" file="\skin\skin_color_chip.tga" imgrect="0 86 42 42"/>
+		<image name="skin_color_11" file="\skin\skin_color_chip.tga" imgrect="86 86 42 42"/>
 		<image name="m_question_mark" file="\skin\tocket_monsters.tga" imgrect="657 1 97 128" CMM_Caption="트켓몬 물음표 마크"/>
 		<image name="monster_card_starmark" file="\skin\tocket_monsters.tga" imgrect="755 1 47 44" CMM_Caption="별 마크"/>
 		<image name="normal_card" file="\skin\tocket_monsters.tga" imgrect="1 1 163 218" CMM_Caption="노말 카드"/>
@@ -7175,7 +7334,31 @@
 		<image name="stamp_tour_list" file="\skin\stamp_tour.tga" imgrect="954 1 468 192" CMM_Caption="스탬프 투어 목록"/>
 		<image name="stamp_tour_list_accomplish" file="\skin\stamp_tour.tga" imgrect="954 465 460 184" CMM_Caption="스탬프 투어 달성 활성화"/>
 		<image name="starmark_multipl05" file="\skin\pip_test2.tga" imgrect="734 238 20 15" CMM_Caption="거래등급optx5"/>
+		<image name="compen_unacted" file="\skin\tooltip_skin_3.tga" imgrect="1571 97 43 35" CMM_Caption="보물상자 닫힘"/>
+		<image name="compen_open" file="\skin\tooltip_skin_3.tga" imgrect="1571 63 36 33" CMM_Caption="보물상자 열림"/>
+		<image name="npc_guide_arrow_x2" file="\skin\tooltip_skin_3.tga" imgrect="1846 1890 60 60" CMM_Caption="길잡이 화살표_두배크기"/>
+		<image name="exclamation_digitnotice" file="\skin\tooltip_skin_3.tga" imgrect="1571 133 4 15" CMM_Caption="보물상자 느낌표 표시"/>
+		<image name="relabeling_clear" file="\skin\tooltip_skin_3.tga" imgrect="1571 13 102 49" CMM_Caption="에피소드 클리어 글씨"/>
+		<image name="relabeling_end_check" file="\skin\tooltip_skin_3.tga" imgrect="1608 63 24 22" CMM_Caption="리라벨링 퀘스트 완료 체크"/>
+		<image name="relabeling_carry" file="\skin\tooltip_skin_3.tga" imgrect="1633 63 22 20" CMM_Caption="퀘스트 정보로 옮겨짐"/>
+		<image name="relabeling_lock" file="\skin\tooltip_skin_3.tga" imgrect="1700 14 38 48" CMM_Caption="잠금 좌물쇠"/>
+		<image name="rolling_pink_balloon_direction" file="\skin\say_balloon.tga" imgrect="1 76 82 75" CMM_Caption="핑크하트 말풍선 말꼬리"/>
+		<image name="rolling_blue_balloon_direction" file="\skin\say_balloon.tga" imgrect="1 152 82 75" CMM_Caption="블루다이아 말풍선 말꼬리"/>
+		<image name="personal_housing_guide_plusmark" file="\skin\pip_test2.tga" imgrect="846 286 25 25" CMM_Caption="개인하우징 가이드 플러스마크"/>
 		<image name="very_nice_stamp_eng" file="\skin\stamp_tour.tga" imgrect="1079 340 124 124" CMM_Caption="a++ 도장"/>
+		<image name="casual_gambling_slot" file="\skin\god_protect_skin.tga" imgrect="714 391 110 110" CMM_Caption="캐주얼 던전 겜블 슬롯"/>
+		<image name="gold_arrow_below" file="\skin\monstercard.tga" imgrect="1 915 65 81" CMM_Caption="황금화살표 아래 방향"/>
+		<image name="vaivora_decorate_attendance" file="\skin\attendance_sheet_skin.tga" imgrect="1 1004 329 116" CMM_Caption="2020 출석체크 타이틀 데코레이션"/>
+		<image name="rainbow_attendance" file="\skin\attendance_sheet_skin.tga" imgrect="1 1121 323 119" CMM_Caption="2020 출석체크 레인보우"/>
+		<image name="stamp_coin_mark" file="\skin\stamp_tour.tga" imgrect="889 650 97 74" CMM_Caption="코인 도장"/>
+		<image name="stamp_watch_mark" file="\skin\stamp_tour.tga" imgrect="987 650 97 74" CMM_Caption="시계 도장"/>
+		<image name="stamp_stamp_mark" file="\skin\stamp_tour.tga" imgrect="1085 650 97 74" CMM_Caption="도장 도장"/>
+		<image name="stamp_flag_mark" file="\skin\stamp_tour.tga" imgrect="1183 650 97 74" CMM_Caption="깃발 도장"/>
+		<image name="misson_checkbox" file="\skin\stamp_tour.tga" imgrect="645 760 40 29" CMM_Caption="오늘 할 일 체크마크"/>
+		<image name="misson_completion" file="\skin\stamp_tour.tga" imgrect="686 760 40 29" CMM_Caption="오늘 할 일 완료"/>
+		<image name="red_check_line" file="\skin\stamp_tour.tga" imgrect="889 725 430 22" CMM_Caption="오늘 할 일 밑줄"/>
+		<image name="stamp_roulette_mark" file="\skin\stamp_tour.tga" imgrect="1281 650 97 74" CMM_Caption="룰렛 도장"/>
+		<image name="coming_soon_notice" file="\skin\stamp_tour.tga" imgrect="727 760 316 76" CMM_Caption="커밍순"/>
 	</imagelist>
 	<imagelist category="je_button">
 		<image name="menu_guild_info" file="\skin\guild_skin.tga" imgrect="165 298 45 45" CMM_Caption="길드 정보"/>
@@ -7337,6 +7520,12 @@
 		<image name="button_view_info" file="\skin\pip_test2.tga" imgrect="683 109 26 25"/>
 		<image name="button_view_info_cursoron" file="\skin\pip_test2.tga" imgrect="710 109 26 25"/>
 		<image name="button_view_info_clicked" file="\skin\pip_test2.tga" imgrect="710 109 26 25"/>
+		<image name="button_reduction_mini" file="\skin\pip_test2.tga" imgrect="683 135 26 25" CMM_Caption="돌발퀘스트 접기 버튼"/>
+		<image name="button_reduction_mini_cursoron" file="\skin\pip_test2.tga" imgrect="710 135 26 25"/>
+		<image name="button_reduction_mini_clicked" file="\skin\pip_test2.tga" imgrect="710 135 26 25"/>
+		<image name="button_close_mini" file="\skin\pip_test2.tga" imgrect="683 161 26 25" CMM_Caption="돌발퀘스트 닫기 버튼"/>
+		<image name="button_close_mini_cursoron" file="\skin\pip_test2.tga" imgrect="710 161 26 25"/>
+		<image name="button_close_mini_clicked" file="\skin\pip_test2.tga" imgrect="710 161 26 25"/>
 		<image name="btn_use_buff_personal_on" file="\skin\guild_skin.tga" imgrect="706 666 82 43" CMM_Caption="길드 버프_개인"/>
 		<image name="btn_use_buff_personal_on_cursoron" file="\skin\guild_skin.tga" imgrect="706 666 82 43"/>
 		<image name="btn_use_buff_personal_on_clicked" file="\skin\guild_skin.tga" imgrect="706 666 82 43"/>
@@ -7394,6 +7583,21 @@
 		<image name="god_protection_button" file="\skin\god_protect_skin.tga" imgrect="295 873 74 74" CMM_Caption="여신의 가호 버튼"/>
 		<image name="god_protection_button_cursoron" file="\skin\god_protect_skin.tga" imgrect="370 873 74 74"/>
 		<image name="god_protection_button_clicked" file="\skin\god_protect_skin.tga" imgrect="445 873 74 74"/>
+		<image name="custom_costume_01" file="\skin\barrack.tga" imgrect="1784 2 70 71" CMM_Caption="커스텀코스튬 01"/>
+		<image name="custom_costume_01_cursoron" file="\skin\barrack.tga" imgrect="1855 2 70 71"/>
+		<image name="custom_costume_01_clicked" file="\skin\barrack.tga" imgrect="1926 2 70 71"/>
+		<image name="custom_costume_02" file="\skin\barrack.tga" imgrect="1784 74 70 71" CMM_Caption="커스텀코스튬 02"/>
+		<image name="custom_costume_02_cursoron" file="\skin\barrack.tga" imgrect="1855 74 70 71"/>
+		<image name="custom_costume_02_clicked" file="\skin\barrack.tga" imgrect="1926 74 70 71"/>
+		<image name="custom_costume_03" file="\skin\barrack.tga" imgrect="1784 146 70 71" CMM_Caption="커스텀코스튬 03"/>
+		<image name="custom_costume_03_cursoron" file="\skin\barrack.tga" imgrect="1855 146 70 71"/>
+		<image name="custom_costume_03_clicked" file="\skin\barrack.tga" imgrect="1926 146 70 71"/>
+		<image name="custom_costume_04" file="\skin\barrack.tga" imgrect="1784 218 70 71" CMM_Caption="커스텀코스튬 04"/>
+		<image name="custom_costume_04_cursoron" file="\skin\barrack.tga" imgrect="1855 218 70 71"/>
+		<image name="custom_costume_04_clicked" file="\skin\barrack.tga" imgrect="1926 218 70 71"/>
+		<image name="custom_costume_05" file="\skin\barrack.tga" imgrect="1784 290 70 71" CMM_Caption="커스텀코스튬 05"/>
+		<image name="custom_costume_05_cursoron" file="\skin\barrack.tga" imgrect="1855 290 70 71"/>
+		<image name="custom_costume_05_clicked" file="\skin\barrack.tga" imgrect="1926 290 70 71"/>
 		<image name="heart_simple" file="\skin\bgm_player.tga" imgrect="485 1 27 24" CMM_Caption="즐겨찾기 하트_심플"/>
 		<image name="heart_simple_cursoron" file="\skin\bgm_player.tga" imgrect="513 1 27 24"/>
 		<image name="heart_simple_clicked" file="\skin\bgm_player.tga" imgrect="541 1 27 24"/>
@@ -7533,6 +7737,18 @@
 		<image name="stamp_life_02" file="\skin\stamp_tour.tga" imgrect="645 584 102 52" CMM_Caption="스탬프 투어_생활02"/>
 		<image name="stamp_life_02_cursoron" file="\skin\stamp_tour.tga" imgrect="748 584 102 52"/>
 		<image name="stamp_life_02_clicked" file="\skin\stamp_tour.tga" imgrect="851 584 102 52"/>
+		<image name="housing_magnifier" file="\skin\pip_test2.tga" imgrect="672 286 28 28" CMM_Caption="개인하우징_커스텀_돋보기"/>
+		<image name="housing_magnifier_cursoron" file="\skin\pip_test2.tga" imgrect="701 286 28 28"/>
+		<image name="housing_magnifier_clicked" file="\skin\pip_test2.tga" imgrect="730 286 28 28"/>
+		<image name="housing_name_change" file="\skin\pip_test2.tga" imgrect="759 286 28 28" CMM_Caption="개인하우징_커스텀_이름바꾸기"/>
+		<image name="housing_name_change_cursoron" file="\skin\pip_test2.tga" imgrect="788 286 28 28"/>
+		<image name="housing_name_change_clicked" file="\skin\pip_test2.tga" imgrect="817 286 28 28"/>
+		<image name="casual_gambling_token" file="\skin\god_protect_skin.tga" imgrect="295 948 72 72" CMM_Caption="캐주얼 던전 겜블링 오픈 버튼"/>
+		<image name="casual_gambling_token_cursoron" file="\skin\god_protect_skin.tga" imgrect="368 948 72 72"/>
+		<image name="casual_gambling_token_clicked" file="\skin\god_protect_skin.tga" imgrect="441 948 72 72"/>
+		<image name="god_roulette_coin_entrance" file="\skin\stamp_tour.tga" imgrect="1044 760 72 72" CMM_Caption="여신의 룰렛 코인"/>
+		<image name="god_roulette_coin_entrance_cursoron" file="\skin\stamp_tour.tga" imgrect="1117 760 72 72"/>
+		<image name="god_roulette_coin_entrance_clicked" file="\skin\stamp_tour.tga" imgrect="1190 760 72 72"/>
 	</imagelist>
 	<imagelist category="testmin_image">
 		<image name="clock_inven" file="\skin\pip_test.tga" imgrect="403 698 50 50" CMM_Caption="기간제 시계 아이콘 및 날짜 뒷배경"/>
@@ -7823,6 +8039,10 @@
 		<image name="house_change02" file="\skin\barrack.tga" imgrect="1957 954 70 70"/>
 		<image name="house_change_man" file="\skin\HUD.tga" imgrect="2021 543 25 25"/>
 		<image name="personal_shop_edit" file="\skin\HUD.tga" imgrect="2021 569 25 25"/>
+		<image name="icon_house_p_basic_1" file="\icon\housing\icon_house_p_basic_1.png" imgrect="0 0 400 400"/>
+		<image name="icon_house_p_candyshop_1" file="\icon\housing\icon_house_p_candyshop_1.png" imgrect="0 0 400 400"/>
+		<image name="icon_house_p_fishman_1" file="\icon\housing\icon_house_p_fishman_1.png" imgrect="0 0 400 400"/>
+		<image name="icon_house_p_girlsroom_1" file="\icon\housing\icon_house_p_girlsroom_1.png" imgrect="0 0 400 400"/>
 	</imagelist>
 	<imagelist category="monster_info_icon">
 		<image name="mon_info_fire" file="\skin\HUD.tga" imgrect="1941 0 35 34"/>
@@ -8333,6 +8553,25 @@
 		<image name="kupole_emotion06" file="\icon\emoticon\kupole_emotion06.png" imgrect="0 0 128 128"/>
 		<image name="medeina_emotion02" file="\icon\emoticon\medeina_emotion01.png" imgrect="0 0 128 128"/>
 		<image name="medeina_emotion01" file="\icon\emoticon\medeina_emotion02.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion55" file="\icon\emoticon\bakarine_emotion01.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion56" file="\icon\emoticon\bakarine_emotion02.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion57" file="\icon\emoticon\bakarine_emotion03.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion58" file="\icon\emoticon\bakarine_emotion08.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion59" file="\icon\emoticon\bakarine_emotion04.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion60" file="\icon\emoticon\bakarine_emotion10.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion61" file="\icon\emoticon\bakarine_emotion06.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion62" file="\icon\emoticon\bakarine_emotion09.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion63" file="\icon\emoticon\bakarine_emotion05.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion64" file="\icon\emoticon\bakarine_emotion07.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion65" file="\icon\emoticon\bakarine_emotion11.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion66" file="\icon\emoticon\bakarine_emotion12.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion67" file="\icon\emoticon\bakarine_emotion13.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion68" file="\icon\emoticon\bakarine_emotion14.png" imgrect="0 0 128 128"/>
+		<image name="bakarine_emotion69" file="\icon\emoticon\bakarine_emotion15.png" imgrect="0 0 128 128"/>
+		<image name="ragana_emotion70" file="\icon\emoticon\ragana_emotion01.png" imgrect="0 0 128 128"/>
+		<image name="ragana_emotion71" file="\icon\emoticon\ragana_emotion02.png" imgrect="0 0 128 128"/>
+		<image name="ragana_emotion72" file="\icon\emoticon\ragana_emotion03.png" imgrect="0 0 128 128"/>
+		<image name="ragana_emotion73" file="\icon\emoticon\ragana_emotion04.png" imgrect="0 0 128 128"/>
 	</imagelist>
 	<imagelist category="itemtooltip_image">
 		<image name="circle_gem" file="\skin\tooltip_skin_3.tga" imgrect="805 228 30 30"/>
@@ -8577,8 +8816,7 @@
 		<image name="ability_fix" file="\skin\mainframe_A.tga" imgrect="730 452 70 30"/>
 		<image name="ability_on" file="\skin\mainframe_A.tga" imgrect="730 390 70 30"/>
 		<image name="ability_off" file="\skin\mainframe_A.tga" imgrect="730 421 70 30"/>
-		<image name="dark_balloon_2" file="\skin\tooltip_skin_3.tga" imgrect="1025 1532 430 300"/>
-		<image name="dark_balloon_direction" file="\skin\tooltip_skin_3.tga" imgrect="929 1494 80 80"/>
+		<image name="dark_balloon_2_direction" file="\skin\say_balloon.tga" imgrect="1 1 80 74"/>
 		<image name="dark_balloon" file="\skin\login_barrack.tga" imgrect="352 0 200 200"/>
 		<image name="star_mark" file="\skin\tooltip_skin_3.tga" imgrect="854 50 95 90"/>
 		<image name="star_mark2" file="\skin\pip_test_item.tga" imgrect="1409 928 95 90"/>
@@ -8880,6 +9118,7 @@
 		<image name="key_GRAVE" file="\icon\keycap_icon.tga" imgrect="960 0 64 64"/>
 		<image name="NOTICE_Dm_Shoptutorial" file="\icon\NOTICE_Dm_Shoptutorial.tga" imgrect="0 0 45 160"/>
 		<image name="key_SPACE" file="\icon\keycap_icon.tga" imgrect="576 128 128 64"/>
+		<image name="key_wheel" file="\icon\keycap_icon.tga" imgrect="960 128 64 64"/>
 	</imagelist>
 	<imagelist category="social_icon">
 		<image name="icon_life_sell" file="\icon\system\icon_life_sell.tga" imgrect="0 0 80 80"/>
@@ -8936,7 +9175,7 @@
 		<image name="icon_gesture_wave" file="\icon\social.tga" imgrect="244 487 80 80"/>
 		<image name="icon_gesture_im" file="\icon\social.tga" imgrect="325 487 80 80"/>
 		<image name="icon_gesture_chair" file="\icon\social.tga" imgrect="406 487 80 80"/>
-	<image name="icon_pose_stand" file="\icon\social.tga" imgrect="1 568 80 80"/>
+		<image name="icon_pose_stand" file="\icon\social.tga" imgrect="1 568 80 80"/>
 	</imagelist>
 	<imagelist>
 		<image name="chat_page_arrow_left" file="\skin\mainframe_A.tga" imgrect="766 943 40 40"/>
@@ -9148,6 +9387,8 @@
 		<image name="minimap_event_2" file="\icon\minimap_icon3_2.tga" imgrect="81 0 80 80"/>
 		<image name="minimap_event_3" file="\icon\minimap_icon3_2.tga" imgrect="0 81 80 80"/>
 		<image name="minimap_event_4" file="\icon\minimap_icon3_2.tga" imgrect="81 81 80 80"/>
+		<image name="minimap_clear" file="\icon\minimap_icon3.tga" imgrect="0 0 84 84"/>
+		<image name="minimap_personal_house" file="\icon\minimap_icon3.tga" imgrect="257 672 80 80 "/>
 	</imagelist>
 	<imagelist category="quest_tags">
 		<image name="quest_tag_1_MAIN" file="\icon\minimap_icon.tga" imgrect="61 31 16 16"/>
@@ -9605,10 +9846,21 @@
 		<image name="Dlg_port_SHERIFF_MASTER" file="\npcimg\SHERIFF_MASTER.png" imgrect="0 0 700 1000" CMM_Caption="셰리프 마스터"/>
 		<image name="Dlg_port_ARDITI_MASTER" file="\npcimg\ARDITI_MASTER.png" imgrect="0 0 750 1000" CMM_Caption="아르디티 마스터"/>
 		<image name="Dlg_port_MATROSS_MASTER" file="\npcimg\MATROSS_MASTER.png" imgrect="0 0 900 950" CMM_Caption="매트로스 마스터"/>
+		<image name="Dlg_port_Baiga" file="\npcimg\Baiga.png" imgrect="0 0 800 1000" CMM_Caption="바이가"/>
+		<image name="Dlg_port_Baiga_override" file="\npcimg\Baiga_override.png" imgrect="0 0 800 1000" CMM_Caption="바이가 실루엣"/>
+		<image name="Dlg_port_Ragana" file="\npcimg\Ragana.png" imgrect="0 0 800 1000" CMM_Caption="라가나"/>
+		<image name="Dlg_port_Ausirine" file="\npcimg\Ausirine.png" imgrect="0 0 800 1000" CMM_Caption="아우슈리네"/>
+		<image name="Dlg_port_RANGDA_MASTER" file="\npcimg\RANGDA_MASTER.png" imgrect="0 0 1000 1000" CMM_Caption="랑다 마스터"/>
+		<image name="Dlg_port_TERRAMANCER_MASTER" file="\npcimg\TERRAMANCER_MASTER.png" imgrect="0 0 700 900" CMM_Caption="테라맨서 마스터"/>
+		<image name="Dlg_port_BLOSSOMBLADER_MASTER" file="\npcimg\BLOSSOMBLADER_MASTER.png" imgrect="0 0 650 800" CMM_Caption="매화검수 마스터"/>
+		<image name="Dlg_port_ARBALESTER_MASTER" file="\npcimg\ARBALESTER_MASTER.png" imgrect="0 0 750 950" CMM_Caption="아발리스터 마스터"/>
+		<image name="Dlg_port_CRUSADER_MASTER" file="\npcimg\CRUSADER_MASTER.png" imgrect="0 0 800 1000" CMM_Caption="크루세이더 마스터"/>
 	</imagelist>
 	<imagelist category="Dlg_boss">
 		<image name="balloon_Skiaclipse" file="\skin\monster_Dlg.tga" imgrect="0 0 220 260" CMM_Caption="스키아클립스"/>
 		<image name="balloon_Misrus" file="\skin\monster_Dlg.tga" imgrect="221 0 220 260" CMM_Caption="머즈루스"/>
+		<image name="balloon_Unique_Boss_Moringponia" file="\skin\monster_Dlg.tga" imgrect="442 0 220 260" CMM_Caption="모링포니아"/>
+		<image name="balloon_Unique_Boss_Tantaliser" file="\skin\monster_Dlg.tga" imgrect="0 261 220 260" CMM_Caption="탄타이저"/>
 	</imagelist>
 	<imagelist category="bufficon">
 		<image name="icon_Str_up" file="\icon\buff_icon.tga" imgrect="256 384 128 128" CMM_Caption="힘+"/>
@@ -9881,8 +10133,28 @@
 		<image name="icon_pizza" file="\icon\buff_icon2.tga" imgrect="768 1408 128 128" CMM_Caption="맛있는 피자"/>
 		<image name="icon_rangerBlue" file="\icon\buff_icon2.tga" imgrect="896 1920 128 128" CMM_Caption="전대물 블루"/>
 		<image name="icon_rangerYellow" file="\icon\buff_icon3.tga" imgrect="0 0 128 128" CMM_Caption="전대물 옐로우"/>
-		<image name="icon_rangerGreen" file="\icon\buff_icon3.tga" imgrect="0 128 128 128" CMM_Caption="전대물 그린"/>
-		<image name="icon_rangerPink" file="\icon\buff_icon3.tga" imgrect="0 256 128 128" CMM_Caption="전대물 핑크"/>
+		<image name="icon_rangerGreen" file="\icon\buff_icon3.tga" imgrect="128 0 128 128" CMM_Caption="전대물 그린"/>
+		<image name="icon_rangerPink" file="\icon\buff_icon3.tga" imgrect="256 0 128 128" CMM_Caption="전대물 핑크"/>
+		<image name="icon_legend_raid_bonus" file="\icon\buff_icon3.tga" imgrect="384 0 128 128" CMM_Caption="레전드 레이드"/>
+		<image name="icon_TANTALISER_PAD_CREATE_DEBUFF" file="\icon\buff_icon3.tga" imgrect="512 0 128 128" CMM_Caption="저주"/>
+		<image name="icon_TANTALISER_FRENZY_BUFF" file="\icon\buff_icon3.tga" imgrect="640 0 128 128" CMM_Caption="탄타이저 폭주"/>
+		<image name="icon_TANTALISER_STACK_DEBUFF" file="\icon\buff_icon3.tga" imgrect="768 0 128 128" CMM_Caption="낙인"/>
+		<image name="icon_TANTALISER_AMBIENT_DAMAGE_DEBUFF" file="\icon\buff_icon3.tga" imgrect="896 0 128 128" CMM_Caption="자기장"/>
+		<image name="icon_RiceCake" file="\icon\buff_icon3.tga" imgrect="0 128 128 128" CMM_Caption="가래떡"/>
+		<image name="icon_TANTALISER_POSITIVE_POLE" file="\icon\buff_icon3.tga" imgrect="128 128 128 128" CMM_Caption="양극"/>
+		<image name="icon_TANTALISER_NEGATIVE_POLE" file="\icon\buff_icon3.tga" imgrect="256 128 128 128" CMM_Caption="음극"/>
+		<image name="icon_MORINGPONIA_POISON_RESISTANCE" file="\icon\buff_icon3.tga" imgrect="384 128 128 128" CMM_Caption="독 내성"/>
+		<image name="icon_MORINGPONIA_CHANGE_FACTION_DEBUFF" file="\icon\buff_icon3.tga" imgrect="512 128 128 128" CMM_Caption="변이"/>
+		<image name="icon_MORINGPONIA_CHANGE_FACTION2_DEBUFF" file="\icon\buff_icon3.tga" imgrect="640 128 128 128" CMM_Caption="피아식별 불가"/>
+		<image name="icon_cler_ChantsH" file="\icon\buff_icon3.tga" imgrect="768 128 128 128" CMM_Caption="찬트: 여신의 가호 (버프 아이콘)"/>
+		<image name="icon_cler_ChantsD" file="\icon\buff_icon3.tga" imgrect="896 128 128 128" CMM_Caption="찬트: 여신의 징벌 (버프 아이콘)"/>
+		<image name="icon_cler_ChantsHD" file="\icon\buff_icon3.tga" imgrect="0 256 128 128" CMM_Caption="찬트: 여신의 축복 (버프 아이콘)"/>
+		<image name="icon_ability_archer_arbalester16" file="\icon\buff_icon3.tga" imgrect="128 256 128 128" CMM_Caption="아발리스터 버프01"/>
+		<image name="icon_ability_archer_arbalester17" file="\icon\buff_icon3.tga" imgrect="256 256 128 128" CMM_Caption="아발리스터 버프02"/>
+		<image name="icon_ability_Wizard_terramancer17" file="\icon\buff_icon3.tga" imgrect="384 256 128 128" CMM_Caption="테라맨서 버프"/>
+		<image name="icon_newb_return_personal" file="\icon\buff_icon3.tga" imgrect="640 256 128 128" CMM_Caption="신규,복귀_개인"/>
+		<image name="icon_newb_return_party" file="\icon\buff_icon3.tga" imgrect="768 256 128 128" CMM_Caption="신규,복귀_파티"/>
+		<image name="icon_event_2002_choco" file="\icon\buff_icon3.tga" imgrect="640 512 128 128" CMM_Caption="발렌타인데이 버프"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>
@@ -10092,6 +10364,12 @@
 	</imagelist>
 	<imagelist category="npccard">
 		<image name="001_npc_payawoota" file="\skin\npccard\001_npc_payawoota.tga" imgrect="0 0 330 440"/>
+		<image name="002_npc_vaidotas" file="\skin\npccard\002_npc_vaidotas.tga" imgrect="0 0 330 440"/>
+		<image name="003_npc_vlaentinas" file="\skin\npccard\003_npc_vlaentinas.tga" imgrect="0 0 330 440"/>
+		<image name="004_npc_uska" file="\skin\npccard\004_npc_uska.tga" imgrect="0 0 330 440"/>
+		<image name="005_npc_bayl" file="\skin\npccard\005_npc_bayl.tga" imgrect="0 0 330 440"/>
+		<image name="006_npc_Cyrenia" file="\skin\npccard\006_npc_Cyrenia.tga" imgrect="0 0 330 440"/>
+		<image name="007_npc_Neringa" file="\skin\npccard\007_npc_Neringa.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>
@@ -10255,6 +10533,7 @@
 		<image name="156_boss_Skiaclipse" file="\skin\bosscard\156_boss_Skiaclipse.tga" imgrect="0 0 330 440"/>
 		<image name="157_boss_Moringponia" file="\skin\bosscard\157_boss_Moringponia.tga" imgrect="0 0 330 440"/>
 		<image name="158_boss_Misrus" file="\skin\bosscard\158_boss_Misrus.tga" imgrect="0 0 330 440"/>
+		<image name="159_boss_tantaliser" file="\skin\bosscard\159_boss_tantaliser.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="sub_card3">
 		<image name="legend_card_fragment_lv1" file="\skin\bosscard\legend_card_fragment_lv1.tga" imgrect="0 0 330 440"/>
@@ -10392,6 +10671,143 @@
 		<image name="Collar_TBL3rd" file="\skin\user_title_skin.tga" imgrect="0 145 214 34" CMM_Caption="칭호 3"/>
 		<image name="plate_achieve_whitecrow_first_kill_twn" file="\skin\user_title_skin.tga" imgrect="0 180 214 34" CMM_Caption="Banisher of Crows_대만"/>
 		<image name="plate_achieve_whitecrow_clear_twn" file="\skin\user_title_skin.tga" imgrect="0 215 214 39" CMM_Caption="First Conqueror_대만"/>
+		<image name="plate_achieve_moringponia_first_kill" file="\skin\user_title_skin.tga" imgrect="215 0 216 35" CMM_Caption="moringponia_first_kill"/>
+		<image name="plate_achieve_moringponia_clear" file="\skin\user_title_skin.tga" imgrect="215 36 214 37" CMM_Caption="moringponia_clear"/>
+		<image name="plate_original_revelator" file="\skin\user_title_skin.tga" imgrect="215 74 214 37" CMM_Caption="원초의 계시자_일본"/>
+	</imagelist>
+	<imagelist category="skin_hair">
+		<image name="icon_skintone_01_m01" file="\skin\skinhair\icon_skintone_01_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 01"/>
+		<image name="icon_skintone_01_m02" file="\skin\skinhair\icon_skintone_01_m02.png" imgrect="0 0 80 80" CMM_Caption=""/>
+		<image name="icon_skintone_01_m03" file="\skin\skinhair\icon_skintone_01_m03.png" imgrect="0 0 80 80" CMM_Caption=""/>
+		<image name="icon_skintone_01_m04" file="\skin\skinhair\icon_skintone_01_m04.png" imgrect="0 0 80 80" CMM_Caption=""/>
+		<image name="icon_skintone_01_m05" file="\skin\skinhair\icon_skintone_01_m05.png" imgrect="0 0 80 80" CMM_Caption=""/>
+		<image name="icon_skintone_01_m06" file="\skin\skinhair\icon_skintone_01_m06.png" imgrect="0 0 80 80" CMM_Caption=""/>
+		<image name="icon_skintone_01_m07" file="\skin\skinhair\icon_skintone_01_m07.png" imgrect="0 0 80 80" CMM_Caption=""/>
+		<image name="icon_skintone_01_m08" file="\skin\skinhair\icon_skintone_01_m08.png" imgrect="0 0 80 80" CMM_Caption=""/>
+		<image name="icon_skintone_01_m09" file="\skin\skinhair\icon_skintone_01_m09.png" imgrect="0 0 80 80" CMM_Caption=""/>
+		<image name="icon_skintone_01_m10" file="\skin\skinhair\icon_skintone_01_m10.png" imgrect="0 0 80 80" CMM_Caption=""/>
+		<image name="icon_skintone_02_m01" file="\skin\skinhair\icon_skintone_02_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 02"/>
+		<image name="icon_skintone_02_m02" file="\skin\skinhair\icon_skintone_02_m02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_m03" file="\skin\skinhair\icon_skintone_02_m03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_m04" file="\skin\skinhair\icon_skintone_02_m04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_m05" file="\skin\skinhair\icon_skintone_02_m05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_m06" file="\skin\skinhair\icon_skintone_02_m06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_m07" file="\skin\skinhair\icon_skintone_02_m07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_m08" file="\skin\skinhair\icon_skintone_02_m08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_m09" file="\skin\skinhair\icon_skintone_02_m09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_m10" file="\skin\skinhair\icon_skintone_02_m10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_m01" file="\skin\skinhair\icon_skintone_03_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 03"/>
+		<image name="icon_skintone_03_m02" file="\skin\skinhair\icon_skintone_03_m02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_m03" file="\skin\skinhair\icon_skintone_03_m03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_m04" file="\skin\skinhair\icon_skintone_03_m04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_m05" file="\skin\skinhair\icon_skintone_03_m05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_m06" file="\skin\skinhair\icon_skintone_03_m06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_m07" file="\skin\skinhair\icon_skintone_03_m07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_m08" file="\skin\skinhair\icon_skintone_03_m08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_m09" file="\skin\skinhair\icon_skintone_03_m09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_m10" file="\skin\skinhair\icon_skintone_03_m10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_m01" file="\skin\skinhair\icon_skintone_04_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 04"/>
+		<image name="icon_skintone_04_m02" file="\skin\skinhair\icon_skintone_04_m02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_m03" file="\skin\skinhair\icon_skintone_04_m03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_m04" file="\skin\skinhair\icon_skintone_04_m04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_m05" file="\skin\skinhair\icon_skintone_04_m05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_m06" file="\skin\skinhair\icon_skintone_04_m06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_m07" file="\skin\skinhair\icon_skintone_04_m07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_m08" file="\skin\skinhair\icon_skintone_04_m08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_m09" file="\skin\skinhair\icon_skintone_04_m09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_m10" file="\skin\skinhair\icon_skintone_04_m10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_m01" file="\skin\skinhair\icon_skintone_05_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 05"/>
+		<image name="icon_skintone_05_m02" file="\skin\skinhair\icon_skintone_05_m02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_m03" file="\skin\skinhair\icon_skintone_05_m03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_m04" file="\skin\skinhair\icon_skintone_05_m04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_m05" file="\skin\skinhair\icon_skintone_05_m05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_m06" file="\skin\skinhair\icon_skintone_05_m06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_m07" file="\skin\skinhair\icon_skintone_05_m07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_m08" file="\skin\skinhair\icon_skintone_05_m08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_m09" file="\skin\skinhair\icon_skintone_05_m09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_m10" file="\skin\skinhair\icon_skintone_05_m10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_m01" file="\skin\skinhair\icon_skintone_06_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 06"/>
+		<image name="icon_skintone_06_m02" file="\skin\skinhair\icon_skintone_06_m02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_m03" file="\skin\skinhair\icon_skintone_06_m03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_m04" file="\skin\skinhair\icon_skintone_06_m04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_m05" file="\skin\skinhair\icon_skintone_06_m05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_m06" file="\skin\skinhair\icon_skintone_06_m06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_m07" file="\skin\skinhair\icon_skintone_06_m07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_m08" file="\skin\skinhair\icon_skintone_06_m08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_m09" file="\skin\skinhair\icon_skintone_06_m09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_m10" file="\skin\skinhair\icon_skintone_06_m10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f01" file="\skin\skinhair\icon_skintone_01_f01.png" imgrect="0 0 80 80" CMM_Caption="여성 01"/>
+		<image name="icon_skintone_01_f02" file="\skin\skinhair\icon_skintone_01_f02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f03" file="\skin\skinhair\icon_skintone_01_f03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f04" file="\skin\skinhair\icon_skintone_01_f04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f05" file="\skin\skinhair\icon_skintone_01_f05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f06" file="\skin\skinhair\icon_skintone_01_f06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f07" file="\skin\skinhair\icon_skintone_01_f07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f08" file="\skin\skinhair\icon_skintone_01_f08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f09" file="\skin\skinhair\icon_skintone_01_f09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f10" file="\skin\skinhair\icon_skintone_01_f10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f11" file="\skin\skinhair\icon_skintone_01_f11.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_01_f12" file="\skin\skinhair\icon_skintone_01_f12.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f01" file="\skin\skinhair\icon_skintone_02_f01.png" imgrect="0 0 80 80" CMM_Caption="여성 02"/>
+		<image name="icon_skintone_02_f02" file="\skin\skinhair\icon_skintone_02_f02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f03" file="\skin\skinhair\icon_skintone_02_f03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f04" file="\skin\skinhair\icon_skintone_02_f04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f05" file="\skin\skinhair\icon_skintone_02_f05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f06" file="\skin\skinhair\icon_skintone_02_f06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f07" file="\skin\skinhair\icon_skintone_02_f07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f08" file="\skin\skinhair\icon_skintone_02_f08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f09" file="\skin\skinhair\icon_skintone_02_f09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f10" file="\skin\skinhair\icon_skintone_02_f10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f11" file="\skin\skinhair\icon_skintone_02_f11.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_02_f12" file="\skin\skinhair\icon_skintone_02_f12.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f01" file="\skin\skinhair\icon_skintone_03_f01.png" imgrect="0 0 80 80" CMM_Caption="여성 03"/>
+		<image name="icon_skintone_03_f02" file="\skin\skinhair\icon_skintone_03_f02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f03" file="\skin\skinhair\icon_skintone_03_f03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f04" file="\skin\skinhair\icon_skintone_03_f04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f05" file="\skin\skinhair\icon_skintone_03_f05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f06" file="\skin\skinhair\icon_skintone_03_f06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f07" file="\skin\skinhair\icon_skintone_03_f07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f08" file="\skin\skinhair\icon_skintone_03_f08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f09" file="\skin\skinhair\icon_skintone_03_f09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f10" file="\skin\skinhair\icon_skintone_03_f10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f11" file="\skin\skinhair\icon_skintone_03_f11.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_03_f12" file="\skin\skinhair\icon_skintone_03_f12.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f01" file="\skin\skinhair\icon_skintone_04_f01.png" imgrect="0 0 80 80" CMM_Caption="여성 04"/>
+		<image name="icon_skintone_04_f02" file="\skin\skinhair\icon_skintone_04_f02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f03" file="\skin\skinhair\icon_skintone_04_f03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f04" file="\skin\skinhair\icon_skintone_04_f04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f05" file="\skin\skinhair\icon_skintone_04_f05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f06" file="\skin\skinhair\icon_skintone_04_f06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f07" file="\skin\skinhair\icon_skintone_04_f07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f08" file="\skin\skinhair\icon_skintone_04_f08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f09" file="\skin\skinhair\icon_skintone_04_f09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f10" file="\skin\skinhair\icon_skintone_04_f10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f11" file="\skin\skinhair\icon_skintone_04_f11.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_04_f12" file="\skin\skinhair\icon_skintone_04_f12.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f01" file="\skin\skinhair\icon_skintone_05_f01.png" imgrect="0 0 80 80" CMM_Caption="여성 05"/>
+		<image name="icon_skintone_05_f02" file="\skin\skinhair\icon_skintone_05_f02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f03" file="\skin\skinhair\icon_skintone_05_f03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f04" file="\skin\skinhair\icon_skintone_05_f04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f05" file="\skin\skinhair\icon_skintone_05_f05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f06" file="\skin\skinhair\icon_skintone_05_f06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f07" file="\skin\skinhair\icon_skintone_05_f07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f08" file="\skin\skinhair\icon_skintone_05_f08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f09" file="\skin\skinhair\icon_skintone_05_f09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f10" file="\skin\skinhair\icon_skintone_05_f10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f11" file="\skin\skinhair\icon_skintone_05_f11.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_05_f12" file="\skin\skinhair\icon_skintone_05_f12.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f01" file="\skin\skinhair\icon_skintone_06_f01.png" imgrect="0 0 80 80" CMM_Caption="여성 06"/>
+		<image name="icon_skintone_06_f02" file="\skin\skinhair\icon_skintone_06_f02.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f03" file="\skin\skinhair\icon_skintone_06_f03.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f04" file="\skin\skinhair\icon_skintone_06_f04.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f05" file="\skin\skinhair\icon_skintone_06_f05.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f06" file="\skin\skinhair\icon_skintone_06_f06.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f07" file="\skin\skinhair\icon_skintone_06_f07.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f08" file="\skin\skinhair\icon_skintone_06_f08.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f09" file="\skin\skinhair\icon_skintone_06_f09.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f10" file="\skin\skinhair\icon_skintone_06_f10.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f11" file="\skin\skinhair\icon_skintone_06_f11.png" imgrect="0 0 80 80"/>
+		<image name="icon_skintone_06_f12" file="\skin\skinhair\icon_skintone_06_f12.png" imgrect="0 0 80 80"/>
 	</imagelist>
 	<effectimagelist category="effectlist">
 		<image name="blue_orb" file="\icon\blue_orb.tga" imgrect="0 0 256 256"/>

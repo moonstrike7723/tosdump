@@ -564,7 +564,7 @@ function GET_TOOLTIP_ITEM_OBJECT(strarg, guid, numarg1)
 	elseif strarg == 'RewardAttendance' then
 		local itemObj = GetClassByType("Item", guid)
 		viewObj = CloneIES_UseCP(itemObj);
-		if guid == '699008' then
+		if string.find(itemObj.ClassName, 'Enchant_Jewel') ~= nil then
 			local temp_obj = GetClassByType("RewardAttendance", numarg1)
 			viewObj.Level = temp_obj.AppendPropertyStatus;			
 			return viewObj, 1;
@@ -839,6 +839,8 @@ function SET_REINFORCE_TEXT(gBox, invitem, yPos, isEquiped, basicProp)
 			reinforceValue = GET_REINFORCE_ADD_VALUE_ATK(invitem, ignoreReinf, bonusReinf + overReinf, basicProp);
 		elseif invitem.GroupName == "SubWeapon" then
 			reinforceValue = GET_REINFORCE_ADD_VALUE_ATK(invitem, ignoreReinf, bonusReinf + overReinf, basicProp);
+		elseif invitem.GroupName == "Trinket" then
+		    reinforceValue = GET_REINFORCE_ADD_VALUE_ATK(invitem, ignoreReinf, bonusReinf + overReinf, basicProp);
 		end
 
 		if invitem.BuffValue > 0 then

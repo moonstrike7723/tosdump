@@ -123,12 +123,6 @@ function ARK_COMPOSITION_INV_RBTNDOWN(itemObj, slot)
     end
     
     local itemObj = GetIES(invItem:GetObject());
-	
-	if TryGetProp(itemObj, 'EnableArkLvup', 0) == 1 then
-		ui.SysMsg(ClMsg('DO_NOT_EnableArkLvup'))
-		return
-	end 
-
 	if TryGetProp(itemObj, 'StringArg', 'None') == 'Ark' then
 		-- 합성에 사용할 아크 아이템 등록
         ARK_COMPOSITION_REG_ARK_ITEM(frame, iconInfo:GetIESID(), invItem, itemObj);
@@ -168,7 +162,7 @@ function ARK_COMPOSITION_ARK_ITEM_DROP(frame, icon, argStr, argNum)
 	if frame == nil then
 		return;
     end
-
+    
 	local liftIcon = ui.GetLiftIcon();
 	local FromFrame = liftIcon:GetTopParentFrame();
     if FromFrame:GetName() == 'inventory' then        
@@ -196,10 +190,7 @@ function ARK_COMPOSITION_REG_ARK_ITEM(frame, itemID, invItem, itemObj)
         ui.SysMsg(ClMsg('MaterialItemIsLock'));
 		return;
     end
-    if TryGetProp(itemObj, 'EnableArkLvup', 0) == 1 then
-		ui.SysMsg(ClMsg('DO_NOT_EnableArkLvup'))
-		return
-	end 
+    
     local current_lv = TryGetProp(itemObj, 'ArkLevel', -1)
     local max_lv = TryGetProp(itemObj, 'MaxArkLv', -1)
 
@@ -354,13 +345,8 @@ function ARK_LV_UP_MATERIAL_INIT(frame, itemObj)
     local current_lv = TryGetProp(itemObj, 'ArkLevel', -1)
     local max_lv = TryGetProp(itemObj, 'MaxArkLv', -1)
 
-    local is_character_belong = false
-    if TryGetProp(itemObj, 'CharacterBelonging', 0) == 1 then
-        is_character_belong = true
-    end
-
     local transcend, arcane, siera = shared_item_ark.get_require_item_list_for_lv()
-    local transcend_count, arcane_count, siera_count = shared_item_ark.get_require_count_for_next_lv(current_lv + 1 , max_lv, is_character_belong)
+    local transcend_count, arcane_count, siera_count = shared_item_ark.get_require_count_for_next_lv(current_lv + 1 , max_lv)
     
     ARK_LV_UP_MATERIAL_INFO(frame, 1, transcend, transcend_count)
     ARK_LV_UP_MATERIAL_INFO(frame, 2, arcane, arcane_count)
@@ -598,18 +584,19 @@ function ARK_COMPOSITION_BUTTON_CLICK(parent, ctrl)
     end
 
     local frame = parent:GetTopParentFrame();
-    local type = frame:GetUserValue('TYPE');
+    
     local ark_guid = frame:GetUserValue('ARK_ITEM_GUID');
     if ark_guid == 'None' or ark_guid == '0' then
         return;
     end
 
-    local decomposecost = GET_CHILD_RECURSIVELY(frame, "decomposecost");    
-    if type == 'EXP' and IsGreaterThanForBigNumber(decomposecost:GetText(), GET_TOTAL_MONEY_STR()) == 1 then
+    local decomposecost = GET_CHILD_RECURSIVELY(frame, "decomposecost");
+    if IsGreaterThanForBigNumber(decomposecost:GetText(), GET_TOTAL_MONEY_STR()) == 1 then
         ui.SysMsg(ClMsg("Auto_SoJiKeumi_BuJogHapNiDa."));
         return;
     end
-    
+
+    local type = frame:GetUserValue('TYPE');
     if type == 'EXP' then
         local countList = NewStringList();
 

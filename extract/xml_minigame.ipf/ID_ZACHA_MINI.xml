@@ -1100,10 +1100,10 @@
             <Stage Name="SUCCESS" AutoStart="0">
                 <StartScpList>
                     <ToolScp Scp="MGAME_SET_TIMEOUT" Client="NO" UseSleep="NO">
-                        <Num Num="10"/>
+                        <Num Num="60"/>
                     </ToolScp>
                     <ToolScp Scp="MGAME_MSG" Client="YES" UseSleep="NO">
-                        <Str Str="10초 후 입구로 돌아갑니다"/>
+                        <Str Str="60초 후 입구로 돌아갑니다"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList/>
@@ -1111,7 +1111,7 @@
                     <Event execCount="2">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="10"/>
+                                <Num Num="60"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -1236,11 +1236,6 @@
                 </StageEvents>
             </Stage>
         </StageList>
-        <EnterList>
-            <ToolScp Scp="MGAME_CHECK_INDUN" Client="NO" UseSleep="YES">
-                <Str Str="Indun_zacha1"/>
-            </ToolScp>
-        </EnterList>
         <WorldInitList>
             <ToolScp Scp="MGAME_RECALL" Client="NO" UseSleep="NO">
                 <AbsPos X="33.057667" Y="60.094898" Z="1011.8454" Random="30"/>

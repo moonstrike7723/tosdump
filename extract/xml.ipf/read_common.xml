@@ -1,5 +1,4 @@
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by asdasd (IMCGames Co., Ltd) -->
-<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by tachyon (EMBRACE) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Hey (IMCGames Co., Ltd) -->
 <Category>
 	<ReadXml Name="bonescale"/>
 	<ReadXml Name="skill_Simony"/>
@@ -241,4 +240,14 @@
 	<ReadXml Name="ancient_combo"/>
 	<ReadXml Name="monster_Ancient"/>
 	<ReadXml Name="note_eventlist"/>
+	<ReadXml Name="skintone"/>
+	<ReadXml Name="Beauty_Shop_Skin"/>
+	<ReadXml Name="Chat_Balloon"/>
+	<ReadXml Name="Episode_Quest"/>
+	<ReadXml Name="Episode_Reward"/>
+	<ReadXml Name="contents_info"/>
+	<ReadXml Name="item_ark_option"/>	
+	<ReadXml Name="playlist_playtime"/>
+	<ReadXml Name="event_new_season_server_content_clear_coin_reward"/>
+	<ReadXml Name="weekly_time_table"/>
 </Category>

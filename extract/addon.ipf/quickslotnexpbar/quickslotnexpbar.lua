@@ -25,7 +25,7 @@ function QUICKSLOTNEXPBAR_ON_INIT(addon, frame)
 	addon:RegisterMsg('INV_ITEM_CHANGE_COUNT', 'QUICKSLOTNEXPBAR_ON_MSG');
 	
 	addon:RegisterMsg('EQUIP_ITEM_LIST_GET', 'QUICKSLOTNEXPBAR_ON_MSG');
-	addon:RegisterMsg('PC_PROPERTY_UPDATE', 'QUICKSLOTNEXPBAR_ON_MSG');
+	addon:RegisterMsg('PC_PROPERTY_UPDATE_TO_QUICKSLOT', 'QUICKSLOTNEXPBAR_ON_MSG');
 	addon:RegisterMsg('PET_SELECT', 'ON_PET_SELECT');
 	
 	addon:RegisterMsg('JUNGTAN_SLOT_UPDATE', 'JUNGTAN_SLOT_ON_MSG');
@@ -775,7 +775,7 @@ function QUICKSLOTNEXPBAR_ON_MSG(frame, msg, argStr, argNum)
 		ON_PET_SELECT(frame);
 	end
 
-	if msg == 'QUICKSLOT_LIST_GET' or msg == 'GAME_START' or msg == 'EQUIP_ITEM_LIST_GET' or msg == 'PC_PROPERTY_UPDATE'
+	if msg == 'QUICKSLOT_LIST_GET' or msg == 'GAME_START' or msg == 'EQUIP_ITEM_LIST_GET' or msg == 'PC_PROPERTY_UPDATE_TO_QUICKSLOT'
     then
 		DebounceScript("QUICKSLOTNEXTBAR_UPDATE_ALL_SLOT", 0.1, 0);        
     elseif msg == 'INV_ITEM_CHANGE_COUNT' or msg == 'INV_ITEM_POST_REMOVE' then
@@ -1042,7 +1042,6 @@ function CLEAR_QUICKSLOT_SLOT(slot, makeLog, sendSavePacket)
 end
 
 function INIT_QUICKSLOT_SLOT(slot, icon)
-	icon:SetOnCoolTimeEndScp('ICON_ON_COOLTIMEEND');
 	icon:SetDumpScp('QUICKSLOTNEXPBAR_DUMPICON');
 	slot:SetEventScript(ui.RBUTTONUP, 'QUICKSLOTNEXPBAR_SLOT_USE');
 end
@@ -1180,7 +1179,10 @@ function QUICKSLOTNEXPBAR_DUMPICON(frame, control, argStr, argNum)
 end
 
 function QUICKSLOTNEXPBAR_EXECUTE(slotIndex)
-	
+	if camera.IsCameraWorkingMode() == true then
+		return;
+	end
+
 	local chatFrame = ui.GetFrame("chat");
 	if chatFrame ~= nil then
 		if chatFrame:IsVisible() == 1 then

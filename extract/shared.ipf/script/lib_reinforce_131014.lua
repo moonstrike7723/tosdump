@@ -1,4 +1,4 @@
-﻿---- lib_reinforce_131014.lua
+---- lib_reinforce_131014.lua
 function IS_MORU_FREE_PRICE(moruItem)
     if moruItem == nil then
         return false;
@@ -22,6 +22,7 @@ function IS_MORU_FREE_PRICE(moruItem)
         or moruItem.StringArg == 'SILVER'
         or moruItem.ClassName == 'Moru_Silver_Team'
         or moruItem.ClassName == 'Moru_Silver_Team_event1909'
+        or moruItem.ClassName == 'Moru_Ruby_noCharge'
         then
         return true;
     end
@@ -55,7 +56,20 @@ function IS_MORU_NOT_DESTROY_TARGET_ITEM(moruItem)
         or moruItem.ClassName == "Moru_Gold_Team_Trade" 
         or moruItem.ClassName == "Moru_Gold_14d_Team" 
         or moruItem.ClassName == "Moru_Gold_EVENT_1710_NEWCHARACTER"
-        or moruItem.ClassName == "Moru_Gold_14d_Team_event1909" then
+        or moruItem.ClassName == "Moru_Gold_14d_Team_event1909" 
+        or moruItem.StringArg == 'gold_Moru' then
+        return true;
+    end
+
+    return false;
+end
+
+function IS_MORU_NOT_DESTROY_TARGET_UNIQUE_ITEM(moruItem)
+    if moruItem == nil then
+        return false;
+    end
+
+    if moruItem.StringArg == 'unique_gold_Moru' then
         return true;
     end
 
@@ -143,7 +157,7 @@ function GET_REINFORCE_PRICE(fromItem, moruItem, pc)
         end
     elseif slot == 'LH' then
         if fromItem.ClassType == 'Shield' then
-            priceRatio = 0.66;
+            priceRatio = 0.8;
         else
             priceRatio = 0.8;
         end
@@ -151,6 +165,8 @@ function GET_REINFORCE_PRICE(fromItem, moruItem, pc)
         priceRatio = 0.75;
     elseif slot == 'NECK' or slot == 'RING' then
         priceRatio = 0.5;
+    elseif slot == 'TRINKET' then
+        priceRatio = 0.6
     else
         return 0;
     end
@@ -178,6 +194,11 @@ function GET_REINFORCE_PRICE(fromItem, moruItem, pc)
     
     --burning_event
     if IsBuffApplied(pc, "Event_Reinforce_Discount_50") == "YES" then
+        value = value/2
+    end
+
+    --steam_new_world
+    if IsBuffApplied(pc, "Event_Steam_New_World_Buff") == "YES" then
         value = value/2
     end
     

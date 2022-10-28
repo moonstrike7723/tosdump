@@ -52,6 +52,12 @@
 					<Num Num="0" />
 					<Num Num="1" />
 				</Scp>
+                <Scp Client="NO" Scp="SKL_TGT_REMOVE_BUFF" Time="100" UseSleep="NO">
+                <Str FuncTxt="local func_name = 'get_remove_buff_tooltip_' .. TryGetProp(obj, 'ClassName', 'None')
+               local func = _G[func_name]
+               if func == nil then return end
+               return func(obj.Level)" Str="0" UseFunc="1"/>
+              </Scp>  
 			</EtcList>
 		</MainSkl>
 	</Skill>
@@ -65,10 +71,28 @@
 					<Str Str="voice_war_atk_medium" />
 					<Str Str="voice_atk_medium_war_f" />
 				</Scp>
-				<Scp Client="NO" Scp="MONSKL_CRE_PAD" Time="300" UseSleep="NO">
-					<Pos Angle="0" Dist="0" />
-					<Angle Angle="0" />
-					<Str Str="Chronomancer_Pass" />
+				<Scp Client="NO" Scp="SKL_BUFF" Time="0" UseSleep="NO">
+                    <Str Str="Pass_Buff" />
+                    <Num FuncTxt="return obj.Level;" Num="0" UseFunc="1" />
+                    <Num Num="0" />
+                    <Num Num="1000" />
+                    <Num Num="1" />
+                    <Num Num="100" />
+                    <Num Num="1" />
+                </Scp>
+                <Scp Client="NO" Scp="SKL_BUFF" Time="0" UseSleep="NO">
+					<Str Str="Pass_Debuff" />
+                    <Num FuncTxt="return obj.Level;" Num="0" UseFunc="1" />
+                    <Num Num="0" />
+                    <Num Num="40000" />
+                    <Num Num="1" />
+                    <Num Num="100" />
+                    <Num Num="1" />
+					</Scp>
+                <Scp Client="YES" Scp="C_EFFECT" Time="0" UseSleep="NO">
+                    <Str_Arg Arg="2" Str="F_wizard_Pass_ground" />
+					<Str Str="None" />
+                    <Num Num="0" />
 				</Scp>
 			</EtcList>
 		</MainSkl>
@@ -178,6 +202,16 @@
 				<Scp Client="NO" Scp="BACKMASKING_START" Time="800" UseSleep="NO">
 					<Num FuncTxt=" return 50 +  obj.Level * 10;" Num="100" UseFunc="1" />
 				</Scp>
+                <Scp Client="NO" Scp="SKL_TGT_REMOVE_DEBUFF" Time="110" UseSleep="NO">
+                <Str FuncTxt="local func_name = 'get_remove_debuff_tooltip_' .. TryGetProp(obj, 'ClassName', 'None')
+               local func = _G[func_name]
+               if func == nil then return end
+               return func(obj.Level)" Str="0" UseFunc="1"/>
+               <Num FuncTxt="return TryGetProp(obj, 'MaxR', 100)"  UseFunc="1"/>
+                <Num FuncTxt="local x, y, z = GetPos(self) return x"  UseFunc="1"/>
+                <Num FuncTxt="local x, y, z = GetPos(self) return y"  UseFunc="1"/>
+                <Num FuncTxt="local x, y, z = GetPos(self) return z"  UseFunc="1"/>   
+               </Scp>
 			</EtcList>
 		</MainSkl>
 		<ByCondSkills>

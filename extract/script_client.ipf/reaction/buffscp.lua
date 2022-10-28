@@ -117,9 +117,8 @@ function PouncingClientScp_LEAVE(actor, obj, buff)
     actor:GetAnimation():ResetRUNAnim();
     actor:GetAnimation():ResetWLKAnim();
     actor:GetAnimation():ResetTURNAnim();
-    
-    actor:SetAlwaysBattleState(false);
 
+    actor:SetAlwaysBattleState(false);
 end
 
 function TaglioClientScp_ENTER(actor, obj, buff)
@@ -682,6 +681,15 @@ function GoldenBlink_LEAVE(actor, obj, buff)
     actor:GetEffect():SetColorBlink(0,0,0,0,1,0,0,1, 0 , 1);
 end
 
+--핑크
+function PinkBlink_ENTER(actor, obj, buff)
+    actor:GetEffect():SetColorBlink(0.2,0,0,0,0.58,0.36,0.52,0, 1.5, 1);
+end
+
+function PinkBlink_LEAVE(actor, obj, buff)
+    actor:GetEffect():SetColorBlink(0,0,0,0,1,0,0,1, 0 , 1);
+end
+
 
 -- 포인팅 디버프 블링크
 function Pointing_ENTER(actor, obj, buff)
@@ -1236,6 +1244,27 @@ function GET_BUFF_BY_NAME_C(buffName)
     return info.GetBuff(handle, buffCls.ClassID);
 end
 
+
+-- doll_tiny
+function DOLL_TINY_BUFF_ENTER(actor, obj, buff)
+end
+
+function DOLL_TINY_BUFF_UPDATE(actor, obj, buff)
+	SCR_CREATE_FAIRY(actor:GetHandleVal(), "doll_tiny");
+end
+
+function DOLL_TINY_BUFF_LEAVE(actor, obj, buff)
+	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_tiny");
+end
+
+-- 2019Halloween_effect / moon effect
+function HalloweenMoon_effect_ENTER(actor, obj, buff)
+    actor:GetBuff():SetUse2DEffect(false);
+end
+
+function HalloweenMoon_effect_LEAVE(actor, obj, buff)
+    
+end
 
 -- doll_gabia
 function DOLL_GABIA_BUFF_ENTER(actor, obj, buff)

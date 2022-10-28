@@ -9,6 +9,14 @@ function get_decrease_heal_debuff_tooltip_Hoplite_Pierce(lv)
     return msg
 end
 
+-- 감정사 - 약점공격
+function get_decrease_heal_debuff_tooltip_Appraiser_Blindside(lv)
+    local arg2 = 2 * tonumber(lv) * 1000
+    local bfTime = 5000
+    local msg = string.format('DecreaseHeal_Debuff/%.2f/%.2f/%d/1/100/-1/0/0', arg2, arg2, bfTime)
+    return msg
+end
+
 -- 아발리스트 - 가이디드 샷
 function get_decrease_heal_debuff_tooltip_Arbalester_GuidedShot(lv)
     local arg2 = 1.6 * tonumber(lv) * 1000
@@ -37,14 +45,6 @@ end
 function get_decrease_heal_debuff_tooltip_BlossomBlader_Flash(lv)
     local arg2 = 5 * tonumber(lv) * 1000
     local bfTime = 5000
-
-    if IsServerSection() == 0 then
-        local abil  = GetAbilityIESObject(GetMyPCObject(), "Blossomblader19");
-        if abil ~= nil and TryGetProp(abil, 'ActiveState' , 0) == 1 then
-            arg2 = arg2 / 2
-        end   
-    end
-
     local msg = string.format('DecreaseHeal_Debuff/%.2f/%.2f/%d/1/100/-1/0/0', arg2, arg2, bfTime)
     return msg
 end
@@ -282,7 +282,12 @@ function get_decrease_heal_debuff_tooltip_Warlock_Mastema(lv)
 end
 
 -- 무고사 - 잠독백세
-
+function get_decrease_heal_debuff_tooltip_Wugushi_LatentVenom(lv)
+    local arg2 = 4.6 * tonumber(lv) * 1000
+    local bfTime = 10000
+    local msg = string.format('DecreaseHeal_Debuff/%.2f/%.2f/%d/1/100/-1/0/0', arg2, arg2, bfTime)
+    return msg
+end
 
 -- 무고사 - 독무만상
 function get_decrease_heal_debuff_tooltip_Wugushi_WideMiasma(lv)

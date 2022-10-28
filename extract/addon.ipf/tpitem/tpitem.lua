@@ -17,7 +17,7 @@ function TPITEM_ON_INIT(addon, frame)
 
 	addon:RegisterMsg("SHOP_USER_INFO", "ON_SHOP_USER_INFO");
 	
-	if (config.GetServiceNation() == "GLOBAL") then
+	if (config.GetServiceNation() == "GLOBAL") or (config.GetServiceNation() == "GLOBAL_JP") then
 	addon:RegisterMsg("SHOP_USER_USED_MEDAL", "ON_SHOP_USER_USED_MEDAL"); 
 	end
 	
@@ -464,7 +464,7 @@ function TP_SHOP_DO_OPEN(frame, msg, shopName, argNum)
 	-- 요청
 	session.shop.RequestLoadShopBuyLimit();
 	session.shop.RequestEventUserTypeInfo(); -- 신규/복귀/일반 변경정보 요청.
-	if (config.GetServiceNation() == "GLOBAL") then
+	if (config.GetServiceNation() == "GLOBAL") or (config.GetServiceNation() == "GLOBAL_JP") then
 		session.shop.RequestUsedMedalTotal();		-- 사용한 유료 tp 값 관련 정보 갱신
 	end
 
@@ -645,7 +645,7 @@ function SET_TOPMOST_FRAME_SHOWFRAME(show)
 end
 
 function ON_TPSHOP_BUY_SUCCESS(frame)
-	if (config.GetServiceNation() == "GLOBAL") then
+	if (config.GetServiceNation() == "GLOBAL") or (config.GetServiceNation() == "GLOBAL_JP") then
 		session.shop.RequestUsedMedalTotal();		-- 사용한 유료 tp 값 관련 정보 갱신
 	end
 
@@ -773,7 +773,7 @@ function MAKE_CATEGORY_TREE()
 		local usedTPTypeindex = table.find(usedTPType, obj.SubCategory)			-- 플레이어 사용 tp 값에 따라 구매할 수 있는 아이템 카테고리는 여기에서 생성하지 않음
 		if obj.Category ~= 'TP_Premium_Sale' and usedTPTypeindex == 0 then
 			firstTreeItem = CREATE_TPITEM_TREE(obj, tpitemtree, i, firstTreeItem);
-		elseif config.GetServiceNation() == "GLOBAL" and usedTPTypeindex >  0 then
+		elseif ((config.GetServiceNation() == "GLOBAL") or (config.GetServiceNation() == "GLOBAL_JP")) and usedTPTypeindex >  0 then
 			local usedTP = session.shop.GetUsedMedalTotal();
 			if frame:GetUserIValue("is_RequestUsedMedal") == 1 and IS_USED_MEDAL_TYPE(obj, usedTP) then
 				firstTreeItem = CREATE_TPITEM_TREE(obj, tpitemtree, i, firstTreeItem);
@@ -853,7 +853,7 @@ function TPITEM_CLOSE(frame)
 		banner:SetUserValue("URL_BANNER", "");
 		banner:SetUserValue("NUM_BANNER", 0);
 		banner:StopUpdateScript("_PROCESS_ROLLING_BANNER");
-	elseif (config.GetServiceNation() == "GLOBAL") then
+	elseif (config.GetServiceNation() == "GLOBAL") or (config.GetServiceNation() == "GLOBAL_JP") then
 		frame:SetUserValue("is_RequestUsedMedal", 0);
 	end
 	
@@ -2368,22 +2368,23 @@ function TPSHOP_SET_PREVIEW_APC_IMAGE(frame, rotDir)
 	-- 헤어 색상 셋팅
 	local pc = GetMyPCObject()
 	local nowheadindex = item.GetHeadIndex();
-
-	local Rootclasslist = imcIES.GetClassList('HairType');
-	local Selectclass   = Rootclasslist:GetClass(pc.Gender);
+	
+	local PartClass = imcIES.GetClass("CreatePcInfo", "Hair");
+	local GenderList = PartClass:GetSubClassList();
+	local Selectclass   = GenderList:GetClass(pc.Gender);
 	local Selectclasslist = Selectclass:GetSubClassList();
 
-	local nowhaircls = Selectclasslist:GetByIndex(nowheadindex-1);
+	local nowhaircls = Selectclasslist:GetClass(nowheadindex);
 	
 	local nowengname = imcIES.GetString(nowhaircls, 'EngName') 
-	local nowcolor = imcIES.GetString(nowhaircls, 'ColorE')
+	local nowcolor = imcIES.GetString(nowhaircls, 'EngColor')
 	
 	local listCount = Selectclasslist:Count();
 	
 	for i=0, listCount do
 		local cls = Selectclasslist:GetByIndex(i);
 		if cls ~= nil then
-			if nowengname == imcIES.GetString(cls, 'EngName') and nowcolor == imcIES.GetString(cls, 'ColorE') then
+			if nowengname == imcIES.GetString(cls, 'EngName') and nowcolor == imcIES.GetString(cls, 'EngColor') then
 				apc:SetHeadType(i + 1);
 				break;
 			end
@@ -2578,7 +2579,7 @@ function TPSHOP_ITEM_BASKET_BUY(parent, control)
 	if #needWarningItemList > 0 or #cannotEquip > 0 then
     	OPEN_TPITEM_POPUPMSG(needWarningItemList, noNeedWarning, cannotEquip, itemAndTPItemIDTable, allPrice);
 	else
-		if config.GetServiceNation() == "GLOBAL" then
+		if config.GetServiceNation() == "GLOBAL" or (config.GetServiceNation() == "GLOBAL_JP" and USE_STEAM_PURCHASE_BLOCK == 1) then
 
 			if #needWarningItemList == 0 and #noNeedWarning == 0 and #cannotEquip == 0 then
 				ui.SysMsg(ClMsg('NoItemInBasket'));

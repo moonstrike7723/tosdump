@@ -3,3 +3,4 @@ ClassID,DropRatio,Money_Min,Money_Max,DPK_Min,DPK_Max,DPK_Expo,EPIK_Min,EPIK_Max
 2,40,0,0,0,0,0,0,0,,Item,Item,misc_0277,
 3,60,0,0,0,0,0,0,0,,Item,Item,SPR01_105,
 4,60,0,0,0,0,0,0,0,,Item,Item,SHD01_107,
+5,20,0,0,0,0,0,0,0,,Item,Item,SHD03_102,

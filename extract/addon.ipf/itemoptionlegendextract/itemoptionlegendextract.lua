@@ -44,7 +44,6 @@ function CLEAR_ITEMOPTION_LEGEND_EXTRACT_UI()
 
 	local frame = ui.GetFrame("itemoptionlegendextract");
 	frame:SetUserValue("ITEM_EQUIP_CLASSTYPE", "None");
-	frame:SetUserValue("TARGET_ITEM_COUNT", 0);
 	frame:SetUserValue("isAbleExchange", 0)
 	frame:SetUserValue("MATERIAL_ITEM_COUNT", 0)
 	frame:SetUserValue("MATERIAL_ITEM_HIGH_GRAD_ITEM_GUID", 0)
@@ -54,7 +53,7 @@ function CLEAR_ITEMOPTION_LEGEND_EXTRACT_UI()
 	local pic_bg = GET_CHILD_RECURSIVELY(frame, 'pic_bg');
 	pic_bg:ShowWindow(1);
 
-	-- 아이템 슬롯 3칸
+	-- 아이템 슬롯 2칸
 	local targetitemslot_1 = GET_CHILD_RECURSIVELY(frame, "targetitemslot_1", "ui::CSlot");
 	targetitemslot_1:ClearIcon();
 	targetitemslot_1:SetUserValue("SELECTED_INV_GUID", "None");
@@ -70,14 +69,6 @@ function CLEAR_ITEMOPTION_LEGEND_EXTRACT_UI()
 	ITEMOPTION_LEGEND_EXTRACT_SET_SLOT_ITEM(targetitemslot_2, 0);
 	local targetitemslot_2_bg = GET_CHILD_RECURSIVELY(frame, "targetitemslot_2_bg")
 	targetitemslot_2_bg:ShowWindow(1);
-
-	local targetitemslot_3 = GET_CHILD_RECURSIVELY(frame, "targetitemslot_3", "ui::CSlot");
-	targetitemslot_3:ClearIcon();
-	targetitemslot_3:SetUserValue("SELECTED_INV_GUID", "None");
-	targetitemslot_3:SetUserValue("TARGET_ITEM_PR", -1);
-	ITEMOPTION_LEGEND_EXTRACT_SET_SLOT_ITEM(targetitemslot_3, 0);
-	local targetitemslot_3_bg = GET_CHILD_RECURSIVELY(frame, "targetitemslot_3_bg")
-	targetitemslot_3_bg:ShowWindow(1);
 
 	local putonitembg = GET_CHILD_RECURSIVELY(frame, "putonitembg")
 	putonitembg:ShowWindow(1);
@@ -151,8 +142,6 @@ function ITEMOPTION_LEGEND_EXTRACT_INV_RBTN(itemobj, invslot, invguid)
 		local targetguid1 = slot1:GetUserValue("SELECTED_INV_GUID");
 		local slot2 = GET_CHILD_RECURSIVELY(frame, "targetitemslot_2");
 		local targetguid2 = slot2:GetUserValue("SELECTED_INV_GUID");
-		local slot3 = GET_CHILD_RECURSIVELY(frame, "targetitemslot_3");
-		local targetguid3 = slot3:GetUserValue("SELECTED_INV_GUID");
 	
 		local invitem = session.GetInvItemByGuid(invguid)
 		if invitem == nil then
@@ -169,9 +158,7 @@ function ITEMOPTION_LEGEND_EXTRACT_INV_RBTN(itemobj, invslot, invguid)
 			ITEM_OPTION_LEGEND_EXTRACT_REG_TARGETITEM(frame, 1, itemobj, invslot, invguid)
 		elseif targetguid2 == "None" then
 			ITEM_OPTION_LEGEND_EXTRACT_REG_TARGETITEM(frame, 2, itemobj, invslot, invguid)
-		elseif targetguid3 == "None" then
-			ITEM_OPTION_LEGEND_EXTRACT_REG_TARGETITEM(frame, 3, itemobj, invslot, invguid)
-		elseif targetguid1 ~= "None" and targetguid2 ~= "None" and targetguid3 ~= "None" then
+		elseif targetguid1 ~= "None" and targetguid2 ~= "None" then
 			LEGEND_OPTION_EXTRACT_KIT_REG_TARGET_ITEM(frame, invguid);
 		else			
 			CLEAR_ITEMOPTION_LEGEND_EXTRACT_UI()
@@ -230,7 +217,6 @@ function ITEM_OPTION_LEGEND_EXTRACT_REG_TARGETITEM(frame, argNum, itemobj, invsl
 		return;
 	end
 
-	local targetitemcount = frame:GetUserIValue("TARGET_ITEM_COUNT");
 	local frameItemEquipClassType = frame:GetUserValue("ITEM_EQUIP_CLASSTYPE");
 	if frameItemEquipClassType == "None" then
 		frame:SetUserValue("ITEM_EQUIP_CLASSTYPE", itemobj.ClassType);		
@@ -243,20 +229,23 @@ function ITEM_OPTION_LEGEND_EXTRACT_REG_TARGETITEM(frame, argNum, itemobj, invsl
 	
 	-- 등록 시작
 	local targetslot = GET_CHILD_RECURSIVELY(frame, "targetitemslot_"..argNum);
-	SET_SLOT_ITEM(targetslot, invitem);
+	if targetslot:GetIcon() ~= nil then
+		return;
+	end
+
 	targetslot:SetUserValue("TARGET_ITEM_PR", itemobj.PR);		
 	targetslot:SetUserValue("SELECTED_INV_GUID", guid);
+	
+	ITEMOPTION_LEGEND_EXTRACT_SET_SLOT_ITEM(invslot, 1);
+	SET_SLOT_ITEM(targetslot, invitem);
 
 	local slot_bg_image = GET_CHILD_RECURSIVELY(frame, "targetitemslot_"..argNum.."_bg")
 	slot_bg_image:ShowWindow(0)
-	
-	ITEMOPTION_LEGEND_EXTRACT_SET_SLOT_ITEM(invslot, 1);
 
-	targetitemcount = targetitemcount + 1;
-	frame:SetUserValue("TARGET_ITEM_COUNT", targetitemcount);
-
-	-- 아이템 3개가 모두 등록됬을 경우
-	if targetitemcount == 3 then
+	-- 아이템 2개가 모두 등록됬을 경우
+	local maxtargetitemcount = frame:GetUserConfig("MAX_TARGET_ITEM_COUNT");
+	local targetitemcount = GET_TARGET_ITME_COUNT(frame);
+	if targetitemcount == tonumber(maxtargetitemcount) then
 		_ITEM_OPTION_LEGEND_EXTRACT_REGISTER_ITEM(frame, itemobj)
 	end
 
@@ -264,6 +253,7 @@ end
 
 -- 인벤토리에 아이템 표시
 function ITEMOPTION_LEGEND_EXTRACT_SET_SLOT_ITEM(slot, isSelect)
+	slot = AUTO_CAST(slot);
 	if isSelect == 1 then
 		slot:SetSelectedImage('socket_slot_check');
 		slot:Select(1);
@@ -277,8 +267,9 @@ function ITEMOPTION_LEGEND_EXTRACT_SET_SLOT_ITEM(slot, isSelect)
 end
 
 -- 이미 등록된 아이템인지 확인
-function ITEMOPTION_LEGEND_EXTRACT_GET_TARGETITEM_LIST(frame, argNum, guid)	
-	for i = 1, 3 do
+function ITEMOPTION_LEGEND_EXTRACT_GET_TARGETITEM_LIST(frame, argNum, guid)
+	local maxtargetitemcount = frame:GetUserConfig("MAX_TARGET_ITEM_COUNT");
+	for i = 1, maxtargetitemcount do
 		local slot = GET_CHILD_RECURSIVELY(frame, "targetitemslot_"..i);
 		local targetguid = slot:GetUserValue("SELECTED_INV_GUID");
 
@@ -347,16 +338,13 @@ function REMOVE_OPTION_LEGEND_EXTRACT_TARGET_ITEM(frame, icon, argStr, argNum)
 	-- frame UserValue
 	frame:SetUserValue("RATIO", 0)
 
-	local targetitemcount = frame:GetUserIValue("TARGET_ITEM_COUNT");
-	targetitemcount = targetitemcount - 1;
-	frame:SetUserValue("TARGET_ITEM_COUNT", targetitemcount);
-
+	local targetitemcount = GET_TARGET_ITME_COUNT(frame);
 	if targetitemcount == 0 then
 		frame:SetUserValue("ITEM_EQUIP_CLASSTYPE", "None");
 	end
 end
 
--- 3개의 아이템 등록시 호출
+-- 2개의 아이템 등록시 호출
 function _ITEM_OPTION_LEGEND_EXTRACT_REGISTER_ITEM(frame, itemobj)
 	-- 아이커 이미지 관련
 	local slot_result = GET_CHILD_RECURSIVELY(frame, "slot_result");
@@ -403,7 +391,8 @@ function OPTION_LEGEND_EXTRACT_RATIO_CALCULATE(frame)
 	local targetitemPrAllAdd = 0;
 	local targetitemMaxPrAllAdd = 0;
 	
-	for i = 1, 3 do
+	local maxtargetitemcount = frame:GetUserConfig("MAX_TARGET_ITEM_COUNT");
+	for i = 1, maxtargetitemcount do
 		local slot = GET_CHILD_RECURSIVELY(frame, "targetitemslot_"..i);
 		local targetguid = slot:GetUserValue("SELECTED_INV_GUID");
 		local invitem = session.GetInvItemByGuid(targetguid)
@@ -434,13 +423,14 @@ function OPTION_LEGEND_EXTRACT_REGISTER_MATERIAL(frame)
 	extractkitgb:ShowWindow(1)
 
 	-- 시에라 가루
-	-- 3개의 아이템중 가장 높은 등급을 기준으로 재료 선정
+	-- 2개의 아이템중 가장 높은 등급을 기준으로 재료 선정
 	local isAbleExchange = 1;
 	local materialItemCount = 0;
 	local grade = 0;
 	local itemobj;
 
-	for i = 1, 3 do
+	local maxtargetitemcount = frame:GetUserConfig("MAX_TARGET_ITEM_COUNT");
+	for i = 1, maxtargetitemcount do
 		local slot = GET_CHILD_RECURSIVELY(frame, "targetitemslot_"..i);
 		local targetguid = slot:GetUserValue("SELECTED_INV_GUID");
 		local targetinvitem = session.GetInvItemByGuid(targetguid)
@@ -527,10 +517,11 @@ function LEGEND_EXTRACT_REGISTER_OPTION(frame)
 	local questionmark = GET_CHILD_RECURSIVELY(frame, "questionmark")
 	questionmark:ShowWindow(1);
 
-	-- 3개의 아이템이 동일한지 확인
+	-- 2개의 아이템이 동일한지 확인
 	local ClassNameList = {}
 	local isRandOption = false;
-	for i = 1, 3 do
+	local maxtargetitemcount = frame:GetUserConfig("MAX_TARGET_ITEM_COUNT");
+	for i = 1, maxtargetitemcount do
 		local slot = GET_CHILD_RECURSIVELY(frame, "targetitemslot_"..i);
 		local targetguid = slot:GetUserValue("SELECTED_INV_GUID");
 		local invitem = session.GetInvItemByGuid(targetguid)
@@ -555,14 +546,14 @@ function LEGEND_EXTRACT_REGISTER_OPTION(frame)
 		ClassNameList[i] = itemobj.ClassName;
 	end
 
-	if ClassNameList[1] == ClassNameList[2] and ClassNameList[1] == ClassNameList[3] then
+	if ClassNameList[1] == ClassNameList[2] then
 		local slot = GET_CHILD_RECURSIVELY(frame, "targetitemslot_1");
 		local targetguid = slot:GetUserValue("SELECTED_INV_GUID");
 		local invitem = session.GetInvItemByGuid(targetguid)
 		local invitemobj = GetIES(invitem:GetObject());
 
 		if isRandOption == false then
-			-- 3개의 아이템이 동일하고 랜덤 옵션이 없을 경우에는 연성할 아이커의 옵션 내용 출력
+			-- 2개의 아이템이 동일하고 랜덤 옵션이 없을 경우에는 연성할 아이커의 옵션 내용 출력
 			OPTION_LEGEND_EXTRACT_REGISTER_EXTRACTION_OPTION_CAPTION(frame, invitemobj, 0);
 			questionmark:ShowWindow(0);
 		end
@@ -644,7 +635,7 @@ end
 function OPTION_LEGEND_EXTRACT_EXEC(frame)
 	frame = frame:GetTopParentFrame();
 
-	-- 3개의 슬롯 모두 아이템이 진짜 있는지 확인
+	-- 2개의 슬롯 모두 아이템이 진짜 있는지 확인
 	local maxtargetitemcount = frame:GetUserConfig("MAX_TARGET_ITEM_COUNT");
 	local iszeroPR = false;
 	for i = 1, maxtargetitemcount do
@@ -670,7 +661,7 @@ function OPTION_LEGEND_EXTRACT_EXEC(frame)
 		clmsg = ScpArgMsg("ItemOptionLegendExtractMessage_1")
 	end
 
-	WARNINGMSGBOX_FRAME_OPEN(clmsg, "_LEGEND_OPTION_EXTRACT_EXEC", "_OPTION_LEGEND_EXTRACT_CANCEL")
+	WARNINGMSGBOX_FRAME_OPEN(clmsg, "_LEGEND_OPTION_EXTRACT_EXEC", "None")
 
 end
 
@@ -683,13 +674,13 @@ function _LEGEND_OPTION_EXTRACT_EXEC()
 	 	return;
 	end
 	
-	-- 3개의 슬롯 모두 아이템이 진짜 있는지 확인
+	-- 2개의 슬롯 모두 아이템이 진짜 있는지 확인
 	local maxtargetitemcount = frame:GetUserConfig("MAX_TARGET_ITEM_COUNT");
 	for i = 1, maxtargetitemcount do
 		local slot = GET_CHILD_RECURSIVELY(frame, "targetitemslot_"..i);
 		local targetguid = slot:GetUserValue("SELECTED_INV_GUID");
 		if targetguid == "None" then
-			ui.SysMsg("아이템 부족");
+			ui.SysMsg(ClMsg("NotEnoughRecipe"));
 			return;
 		end
 	end
@@ -718,6 +709,7 @@ function _LEGEND_OPTION_EXTRACT_EXEC()
 	end
 
 	if isAbleExchange == -2 then
+		-- 내구도 부족
 		ui.SysMsg(ClMsg("MaxDurUnderflow")); 
 		return
 	end
@@ -736,14 +728,8 @@ function _LEGEND_OPTION_EXTRACT_EXEC()
 	local targetguid1 = slot1:GetUserValue("SELECTED_INV_GUID");
     local slot2 = GET_CHILD_RECURSIVELY(frame, "targetitemslot_2");
 	local targetguid2 = slot2:GetUserValue("SELECTED_INV_GUID");
-    local slot3 = GET_CHILD_RECURSIVELY(frame, "targetitemslot_3");
-	local targetguid3 = slot3:GetUserValue("SELECTED_INV_GUID");
     local argList = string.format("%d", extractKitIconInfo.type);
-	pc.ReqExecuteTx_Item2("LEGEND_EXTRACT_ITEM_OPTION", tostring(targetguid1), tostring(targetguid2), tostring(targetguid3), argList)
-
-end
-
-function _OPTION_LEGEND_EXTRACT_CANCEL()
+	pc.ReqExecuteTx_Item2("LEGEND_EXTRACT_ITEM_OPTION", tostring(targetguid1), tostring(targetguid2), "", argList)
 
 end
 
@@ -928,7 +914,7 @@ function OPTION_LEGEND_EXTRACT_REGISTER_EXTRACTION_OPTION_CAPTION(frame, invitem
 	labelline:ShowWindow(0)
 	local property_gbox = GET_CHILD(tooltip_equip_property_CSet,'property_gbox','ui::CGroupBox')
 
-	-- 아이커일 경우 랜덤 옵션 출력
+	-- 랜덤 옵션 출력
 	if itemobj ~= 0 and IS_EXIST_RANDOM_OPTION(itemobj) == true then
 		for i = 1 , 6 do
 		    local propGroupName = "RandomOptionGroup_"..i;
@@ -1120,4 +1106,18 @@ function OPTION_LEGEND_EXTRACT_REGISTER_EXTRACTION_OPTION_CAPTION(frame, invitem
 
 	gBox:Resize(gBox:GetWidth(), tooltip_equip_property_CSet:GetHeight())
 
+end
+
+function GET_TARGET_ITME_COUNT(frame)
+	local count = 0;
+	
+	local maxtargetitemcount = frame:GetUserConfig("MAX_TARGET_ITEM_COUNT");
+	for i = 1, maxtargetitemcount do
+		local slot = GET_CHILD_RECURSIVELY(frame, "targetitemslot_"..i, "ui::CSlot");
+		if slot:GetIcon() ~= nil then
+			count = count + 1;
+		end
+	end
+
+	return count;
 end

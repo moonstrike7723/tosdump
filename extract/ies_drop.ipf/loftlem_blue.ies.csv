@@ -6,3 +6,6 @@ ClassID,DropRatio,Money_Min,Money_Max,DPK_Min,DPK_Max,DPK_Expo,EPIK_Min,EPIK_Max
 5,2,0,0,0,0,0,0,0,,Item,Item,BlueOrb_loftlem_blue,
 6,2,0,0,0,0,0,0,0,,Item,Item,RedOrb_loftlem_blue,
 7,2,0,0,0,0,0,0,0,,Item,Item,Gem_Fletcher_CrossFire,
+8,10,0,0,0,0,0,0,0,,Item,Item,STF03_109,
+9,10,0,0,0,0,0,0,0,,Item,Item,MAC03_111,
+10,10,0,0,0,0,0,0,0,,Item,Item,TSF03_110,

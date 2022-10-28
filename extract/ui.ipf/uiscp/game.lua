@@ -197,11 +197,12 @@ end
 
 function MAKE_ALL_DEFAULT_HAIR()
 
-	local Rootclasslist = imcIES.GetClassList('HairType');
+	local PartClass = imcIES.GetClass("CreatePcInfo", "Hair");
+	local GenderList = PartClass:GetSubClassList();
 
 	for gender = 1 , 2 do
 
-		local Selectclass   = Rootclasslist:GetClass(gender);
+		local Selectclass   = GenderList:GetClass(gender);
 		local Selectclasslist = Selectclass:GetSubClassList();
 
 		for i = 1, Selectclasslist:Count() do
@@ -1744,13 +1745,25 @@ function SCR_SKILLSCROLL(invItem)
 		ui.SysMsg(ClMsg("MaterialItemIsLock"));
 		return;
 	end
+
+	if IsRaidField() == 1 or IsRaidMap() == 1 then
+		local mGameName = session.mgame.GetCurrentMGameName()
+		if mGameName ~= nil and mGameName ~= 'None' then
+			local indunCls = GetClassByStrProp('Indun', 'MGame', mGameName)
+			local dungeonType = TryGetProp(indunCls, 'DungeonType', 'None')
+			if dungeonType == 'Raid' or dungeonType == 'GTower' then
+				ui.SysMsg(ClMsg("NotAvailableInThisContents"))
+				return
+			end
+		end
+	end
 	
 	local sklType = obj.SkillType;
 	spcitem.CreateScrollSkill(sklType, invItem:GetIESID(), obj.SkillLevel, true);
 	control.Skill(sklType, obj.SkillLevel, true);
 end
 
- function SCR_MONGWANGGA_CLIENT(invItem)
+function SCR_MONGWANGGA_CLIENT(invItem)
 
 	local obj = GetIES(invItem:GetObject());
 	local skilCls = GetClass("Skill", obj.StringArg);
@@ -1764,14 +1777,14 @@ function SCR_EXEC_MONWANGGA(guid, x, y, z)
 
 end
 
- function GET_TOTAL_MONEY_STR() -- int로 잘리지 않고 싶으면 이걸 쓰도록하되, 밖에서 계산할 때는 tonumber하거나 BigNumber 전용 함수들 사용 권장
+function GET_TOTAL_MONEY_STR() -- int로 잘리지 않고 싶으면 이걸 쓰도록하되, 밖에서 계산할 때는 tonumber하거나 BigNumber 전용 함수들 사용 권장
 	local silver = '0';
 	local invItem = session.GetInvItemByName('Vis');
 	if invItem ~= nil then
 		silver = invItem:GetAmountStr();
 	end
 	return silver;
- end
+end
 
 function TRADE_DIALOG_CLOSE()
 	control.DialogOk();
@@ -2456,7 +2469,7 @@ function GET_PCPROPERTY_TAG_TXT(propertyName, value)
     return ret
 end
 
-function GET_HONOR_TAG_TXT(honor, point_value)
+function GET_HONOR_TAG_TXT(honor, point_value, prop)
 
 	local cls = GetClass("AchievePoint", honor);
 	local ret
@@ -2467,11 +2480,30 @@ function GET_HONOR_TAG_TXT(honor, point_value)
 	    ret = ScpArgMsg("Auto_{ol}{@st45tw}{Auto_1}_:_{Auto_2}_Jeom","Auto_1", cls.Name,"Auto_2", point_value)
 	end
 	
+	local isNoTitle = false;
+	local font = "{@st41b}"
+	local color ="{#0064FF}"
+	if prop ~= nil then
+		if prop.noTitle == 1 then
+			isNoTitle = true;
+		end
+		if prop.color ~= nil then
+			color = prop.color;
+		end
+		if prop.font ~= nil then
+			font = prop.font;
+		end
+	end
+	
 	local clslist, cnt  = GetClassList("Achieve");
 	for i = 0 , cnt - 1 do
 		local cls2 = GetClassByIndexFromList(clslist, i);
 		if cls2.NeedPoint == honor and cls2.NeedCount <= point_value  then
-			ret = ScpArgMsg("RepeatRewardAchieve")..'{@st41b}{#0064FF}'..cls2.Name
+			if isNoTitle == true then
+				ret = font..color..cls2.Name
+			else
+				ret = ScpArgMsg("RepeatRewardAchieve")..font..color..cls2.Name
+			end
 			break
 		end
 	end
@@ -4095,4 +4127,62 @@ end
 
 function TEST_UI_OBJECT_INFO()
 	print(ui.UIObjCount(), ui.UIObjectAllocatedSize() / 1024 / 1024);
+end
+
+function ADD_QUEST_CHECK_MONSTER_CUSTOM_EXEC(questID, monName)
+	if questID == -1 then
+		return;
+	end
+
+    local pc = GetMyPCObject()
+    local questIES = GetClassByType('QuestProgressCheck', questID)
+
+	local cutStr = SCR_STRING_CUT(monName);
+	if #cutStr > 1 then
+	
+		for i = 1 , #cutStr do
+			quest.AddCheckQuestMonsterList(questID, cutStr[i]);
+		end
+	else
+		quest.AddCheckQuestMonsterList(questID, monName);
+	end
+end
+
+function REMOVE_QUEST_CHECK_MONSTER_CUSTOM_EXEC(questID, monName)
+	if questID == -1 then
+		return;
+	end
+
+    local pc = GetMyPCObject()
+    local questIES = GetClassByType('QuestProgressCheck', questID)
+
+	local cutStr = SCR_STRING_CUT(monName);
+	if #cutStr > 1 then
+		for i = 1 , #cutStr do
+            quest.RemoveCheckQuestMonsterList(questID, cutStr[i])
+		end
+	else
+        quest.RemoveCheckQuestMonsterList(questID, monName)
+	end
+
+end
+
+function FADE_OUT_IN(fadeDuration)
+	FADE_OUT();
+
+	AddLuaTimerFuncWithLimitCount("FADE_IN", 1000, 1);
+end
+
+function FADE_IN(fadeTime)
+	if fadeTime == nil then
+		fadeTime = 0.3;
+	end
+	normalview.FadeIn(fadeTime);
+end
+
+function FADE_OUT(fadeTime)
+	if fadeTime == nil then
+		fadeTime = 0.3;
+	end
+	normalview.FadeOut(fadeTime);
 end

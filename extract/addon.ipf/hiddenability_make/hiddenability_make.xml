@@ -35,7 +35,7 @@
 		<groupbox name="result_gb" rect="0 0 220 220" margin="0 705 0 0" layout_gravity="center top" draw="false" scrollbar="false"/>
 		<slot name="result_slot" parent="result_gb" rect="0 0 141 141" margin="0 0 0 0" layout_gravity="center top" draw="false" movepop="false" enabledrag="false" enabledrop="false" enablepop="false"/>
 		<richtext name="result_text" parent="result_gb" rect="0 0 210 50" margin="0 75 0 0" layout_gravity="center center" format="{@st66b}{s18} %s" param1="value" param1_def="아이템 이름" textalign="center center" fixwidth="true"/>
-		<droplist name="result_droplist" rect="0 0 350 21" margin="0 165 0 0" layout_gravity="center top" SelectScp="HIDDENABILITY_MAKE_DROPLIST_SELECT" frametextalign="left" skin="droplist_normal" visibleline="4" clicksound="button_click_big"/>
+		<droplist name="result_droplist" rect="0 0 205 21" margin="0 165 0 0" layout_gravity="center top" SelectScp="HIDDENABILITY_MAKE_DROPLIST_SELECT" frametextalign="left" skin="droplist_normal" visibleline="4" clicksound="button_click_big"/>
 		<button name="Btn" rect="0 0 180 50" margin="0 0 0 60" layout_gravity="center bottom" skin="test_red_button" caption="{@st41b}{s18}제작 하기" LBtnUpScp="HIDDENABILITY_MAKE_RESULT_ITEM_CREATE" oversound="button_cursor_over_3"/>
 		<button name="ok_Btn" rect="0 0 180 50" margin="0 0 0 60" layout_gravity="center bottom" skin="test_red_button" caption="{@st41b}{s18}확인" LBtnUpScp="HIDDENABILITY_MAKE_OK_CLLICK" oversound="button_cursor_over_3"/>
 	</controls>

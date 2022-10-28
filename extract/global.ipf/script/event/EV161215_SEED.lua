@@ -28,9 +28,6 @@
 --    end
 --end
 --
-function SCR_PRE_161215EVENT_SEED_NEXT_TIME()
-    return 60
-end
 function SCR_PRE_161215EVENT_SEED(pc)
     -- if GetServerNation() ~= 'KOR' then
     --     return 0

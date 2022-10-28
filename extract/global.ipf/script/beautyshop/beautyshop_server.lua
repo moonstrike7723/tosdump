@@ -16,7 +16,7 @@ local DRT_POS = {
 	HAIR = {x=-18.381889, y=4.7181091, z=2.6478555},
 }
 
-function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNameList, hairCouponGuid, dyeCouponGuid)
+function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNameList, hairCouponGuid, dyeCouponGuid, skinCouponGuid)
 	if #idSpaceList < 1 then
 		return;
 	end
@@ -26,7 +26,8 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 
 	local retHair, hairCouponItem = CHECK_COUPON_ITEM(pc, hairCouponGuid);
 	local retDye, dyeCouponItem = CHECK_COUPON_ITEM(pc, dyeCouponGuid);
-	if retHair == false or retDye == false then
+		local retSkin, skinCouponItem = CHECK_COUPON_ITEM(pc, skinCouponGuid);
+	if retHair == false or retDye == false or retSkin == false then
 		return;
 	end
 
@@ -56,9 +57,10 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 			Price = 0, -- for log
 			HairDiscountValue  = 0, -- for log
 			DyeDiscountValue = 0, -- for log
+			SkinDiscountValue = 0, -- for log
 		};
 			index = index +1
-	end
+		end
 	end
 
 	-- 구매할 목록이 없으면 더미 아이템을 착용해제하고 종료
@@ -72,10 +74,18 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 	local isLimit = IS_PURCHASE_LIMIT(pc, productList);
 	if isLimit == true then
 		IMC_LOG("ERROR_LOGIC", "SCR_TX_BEAUTYSHOP_PURCHASE: purchase limit - aid["..GetPcAIDStr(pc).."]");
-		return
+		return;
 	end
-
-	local totalPrice = GET_PRICE_INFO_BY_LIST(pc, productList, hairCouponItem, dyeCouponItem);
+	
+	-- 기본할인율 + 쿠폰할인율 이중 적용이 되는 아이템이 있는지 확인. (100% 할인인 경우엔 무시)
+	local isDuplicateDiscount = IS_PURCHASE_DUPLICATE_DISCOUNT(pc, productList, hairCouponItem, dyeCouponItem, skinCouponItem);
+	if isDuplicateDiscount == true then
+		SendSysMsg(pc, 'BEAUTY_SHOP_NO_DUPLICATE_DISCOUNT');
+		IMC_LOG("ERROR_LOGIC", "SCR_TX_BEAUTYSHOP_PURCHASE: purchase - duplicate discount - aid["..GetPcAIDStr(pc).."]");
+		return;
+	end
+	
+	local totalPrice = GET_PRICE_INFO_BY_LIST(pc, productList, hairCouponItem, dyeCouponItem, skinCouponItem);
 	if totalPrice < 0 then
 		return;
 	end
@@ -143,11 +153,15 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 	-- for log T_T	
 	local hairCouponName = TryGetProp(hairCouponItem, 'ClassName', 'None');
 	local dyeCouponName = TryGetProp(dyeCouponItem, 'ClassName', 'None');
+	local skinCouponName = TryGetProp(skinCouponItem, 'ClassName', 'None');
 	local appliedHairDiscount = false;
 	local appliedDyeDiscount = false;
+	local appliedSkinDiscount = false;
 	local preHairName = etc.StartHairName;
+	local preSkintoneName = etc.SkintoneName;
 	local hairEngName = 'None';
 	local targetColorEngName = 'None';
+	local skintoneName = 'None';
 	for i = 1, #productList do
 		local info = productList[i];
 		if info.HairDiscountValue > 0 then
@@ -155,6 +169,9 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 		end
 		if info.DyeDiscountValue > 0 then
 			appliedDyeDiscount = true;
+		end
+		if info.SkinDiscountValue > 0 then
+			appliedSkinDiscount = true;
 		end
 
 		local itemObj = GetClass("Item", info.ClassName)
@@ -230,7 +247,36 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 
 			-- 헤어구매의 경우 이벤트 프로퍼티 설정
 			TX_SET_BEAUTYSHOP_EVENT_PROPERTY(tx, pc)
+		elseif v.IDSpace == "Beauty_Shop_Skin" then -- Skin 구매
+			local isChange = false;
+			local r = 0; 
+			local g = 0;
+			local b = 0;
 
+			medalLog = 'ChangeSkinColor'
+			local itemCls = GetClass('Item', v.ClassName);
+			skintoneName = TryGetProp(itemCls, "StringArg"); 
+			if skintoneName ~= nil then
+				local skintone = GetClass("SkinTone", skintoneName);
+				if skintone ~= nil then
+					r = TryGetProp(skintone, "Red");
+					g = TryGetProp(skintone, "Green");
+					b = TryGetProp(skintone, "Blue");
+					if r ~= nil and g ~= nil and b ~= nil then
+						isChange = true
+					end
+				end
+			end 
+
+			if appliedSkinDiscount == true and skinCouponItem ~= nil and skinCouponGuid ~= '0' then
+				TxTakeItemByObject(tx, skinCouponItem, 1, 'BeautyShop');
+			end
+
+			if isChange == true then
+				TxChangeSkinColor(tx, r, g, b);
+			else
+				IMC_LOG("ERROR_LOGIC", "SCR_TX_BEAUTYSHOP_PURCHASE: Change skin color error. Perhaps IES is not loaded. (SkinTone or Item) - aid["..GetPcAIDStr(pc).."]");
+			end	
 		else
 			-- Beauty_Shop_Costume, Beauty_Shop_Lens, Beauty_Shop_Package_Cube Beauty_Shop_Wig
 			local itemCls = GetClass('Item', v.ClassName);			
@@ -246,9 +292,16 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 
 		local _productList = {};
 		_productList[1] = v;
-		local _price = GET_PRICE_INFO_BY_LIST(pc, _productList, hairCouponItem, dyeCouponItem);
-
-		TxAddIESProp(tx, aobj, "Medal", -_price, medalLog, cmdIdx, hairEngName, targetColorEngName);
+		local _price = GET_PRICE_INFO_BY_LIST(pc, _productList, hairCouponItem, dyeCouponItem, skinCouponItem);
+		
+		-- TP깍기
+		if v.IDSpace == "Beauty_Shop_Hair" then
+			TxAddIESProp(tx, aobj, "Medal", -_price, medalLog, cmdIdx, hairEngName, targetColorEngName);
+		elseif v.IDSpace == "Beauty_Shop_Skin" then -- Skin 구매
+			TxAddIESProp(tx, aobj, "Medal", -_price, medalLog, cmdIdx, skintoneName, "");
+		else
+			TxAddIESProp(tx, aobj, "Medal", -_price, medalLog, cmdIdx, "","");
+		end
 
 		local _stampCnt = GET_TOTAL_STAMP_COUNT(pc, _productList);
 		if _stampCnt > 0 then
@@ -282,7 +335,7 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 				CustomMongoLog(pc, "GivePCBangPointShopPoint", "Type", point_Type, "point", premiumDiff_Popo)
 			end -- steam event --
 			
-			WRITE_BEAUTY_SHOP_LOG(pc, _productList, _stampCnt, preHairName, preDyeName, hairCouponName, dyeCouponName);
+			WRITE_BEAUTY_SHOP_LOG(pc, _productList, _stampCnt, preHairName, preDyeName, hairCouponName, dyeCouponName, preSkintoneName, skintoneName, skinCouponName);
 		else
 			success = false;
 		end

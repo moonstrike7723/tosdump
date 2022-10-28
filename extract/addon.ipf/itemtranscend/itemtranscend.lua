@@ -25,6 +25,7 @@ function ITEMTRASCEND_OPEN(frame)
 	slotTemp:StopActiveUIEffect();
 	slotTemp:ShowWindow(0);	
 	frame:SetUserValue("ONANIPICTURE_PLAY", 0);
+	frame:SetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE", 0);
 
 	local text_bg = GET_CHILD_RECURSIVELY(frame, "text_bg")
 	text_bg:ShowWindow(0);
@@ -45,14 +46,24 @@ function ITEMTRANSCEND_CLOSE(frame)
 		return;
 	end
 
-	local slot_material = GET_CHILD(frame, "slot_material");
-	slot_material:StopActiveUIEffect();
 	INVENTORY_SET_CUSTOM_RBTNDOWN("None");
 	ITEMTRANSCEND_LOCK_ITEM("None");
-	frame:ShowWindow(0);
+
 	control.DialogOk();
-	ui.CloseFrame("inventory");
+
+	local slot_material = GET_CHILD(frame, "slot_material");
+	slot_material:StopActiveUIEffect();
+	
+	-- DialogOk()를 실행하면 다이얼로그가 전부 닫힙니다.
+	-- 추가적인 다이얼로그를 띄우고 싶으시다면 반드시 DialogOK() 하단에 실행해주세요.
+	local dialog_type = frame:GetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE");
+	control.CustomCommand("REQ_LEGEND_ITEM_DIALOG", dialog_type);
+
+	frame:ShowWindow(0);
 	frame:SetUserValue("ONANIPICTURE_PLAY", 0);
+	frame:SetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE", 0);
+
+	ui.CloseFrame("inventory");
  end
 
 function TRANSCEND_UPDATE(isSuccess)
@@ -62,6 +73,10 @@ function TRANSCEND_UPDATE(isSuccess)
 end
 
 function ITEM_TRANSEND_DROP(frame, icon, argStr, argNum)
+	if ui.CheckHoldedUI() == true then
+		return;
+	end
+	
 	if frame:GetUserIValue("ONANIPICTURE_PLAY") == 1 then
 		return;
 	end
@@ -95,7 +110,7 @@ function ITEM_TRANSCEND_REG_TARGETITEM(frame, itemID)
 	end
 
 	if frame:GetUserIValue('IS_LEGEND_SHOP') ~= 1 and TryGetProp(obj, 'LegendGroup', 'None') ~= 'None' then
-		control.CustomCommand("REQ_LEGEND_ITEM_DIALOG", 0);
+		frame:SetUserValue("REQ_LEGEND_ITEM_DIALOG_TYPE", 1);
 		ui.CloseFrame('itemtranscend');
 		ui.CloseFrame('inventory');
 		return;
@@ -130,12 +145,20 @@ function ITEM_TRANSCEND_REG_TARGETITEM(frame, itemID)
     --    SCR_EVENT_TRANSCEND_DISCOUNT_TEXT(frame, obj)
     --end
     
-
+	local msg = ScpArgMsg('ItemDecomposeWarningProp_Transcend')
     --burning event
     local pc = GetMyPCObject()
-    if IsBuffApplied(pc, "Event_Even_Transcend_Discount_50") == "YES" then
-        SCR_EVENT_TRANSCEND_DISCOUNT_TEXT(frame, obj)
-    end
+	if IsBuffApplied(pc, "Event_Even_Transcend_Discount_50") == "YES" then
+		local transcendCount = TryGetProp(itemObj, "Transcend");
+		if transcendCount % 2 == 1 then
+			msg = msg..ScpArgMsg('EVENT_REINFORCE_DISCOUNT_MSG1')
+		end
+	end
+	--steam_new_world
+	if IsBuffApplied(pc, "Event_Steam_New_World_Buff") == "YES" then
+		msg = msg..ScpArgMsg('EVENT_REINFORCE_DISCOUNT_MSG1')
+	end
+	SCR_EVENT_TRANSCEND_DISCOUNT_TEXT(frame, msg)
 end
 
 -- 아아템 초월시 여신의 축복석 Text 갱신 함수.
@@ -153,16 +176,11 @@ function ITEM_TRANSCEND_NEEDMATERIAL_TEXT_UPDATE(frame, targetobj)
 end
 
 --EVENT_1811_WEEKEND
-function SCR_EVENT_TRANSCEND_DISCOUNT_TEXT(frame, itemObj)
-    local transcendCount = TryGetProp(itemObj, "Transcend");
+function SCR_EVENT_TRANSCEND_DISCOUNT_TEXT(frame, msg)
     local gbox = GET_CHILD(frame, "gbox");
     local gbox2 = GET_CHILD(gbox, "gbox2");
-    local reg = GET_CHILD(gbox2, "reg");
-	if transcendCount % 2 == 1 then
-	    reg:SetTextByKey("value", ScpArgMsg('ItemDecomposeWarningProp_Transcend')..ScpArgMsg('EVENT_REINFORCE_DISCOUNT_MSG1'));
-	else
-	    reg:SetTextByKey("value", ScpArgMsg('ItemDecomposeWarningProp_Transcend'));
-	end
+	local reg = GET_CHILD(gbox2, "reg");
+	reg:SetTextByKey("value",msg)
 end
 
 
@@ -488,12 +506,20 @@ elseif keyboard.IsKeyPressed("LALT") == 1 or isMax == true then
     --end
 
 
+	local msg = ScpArgMsg('ItemDecomposeWarningProp_Transcend')
     --burning_event
     local pc = GetMyPCObject()
     if IsBuffApplied(pc, "Event_Even_Transcend_Discount_50") == "YES" then
-        SCR_EVENT_TRANSCEND_DISCOUNT_TEXT(frame, targetObj)
+		local transcendCount = TryGetProp(targetObj, "Transcend");
+		if transcendCount % 2 == 1 then
+			msg = msg..ScpArgMsg('EVENT_REINFORCE_DISCOUNT_MSG1')
+		end
     end
 
+	if IsBuffApplied(pc, "Event_Steam_New_World_Buff") == "YES" then
+		msg = msg..ScpArgMsg('EVENT_REINFORCE_DISCOUNT_MSG1')
+    end
+	SCR_EVENT_TRANSCEND_DISCOUNT_TEXT(frame, msg)
 end
 
 -- 재료를 드레그 드롭했을 경우
@@ -659,7 +685,10 @@ end
 
 -- 인벤에서 오른쪽 클릭시 
 function ITEMTRANSCEND_INV_RBTN(itemObj, slot)
-	
+	if ui.CheckHoldedUI() == true then
+		return;
+	end
+
 	local frame = ui.GetFrame("itemtranscend");
 
 	if frame:GetUserIValue("ONANIPICTURE_PLAY") == 1 then

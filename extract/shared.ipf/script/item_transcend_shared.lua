@@ -1,4 +1,4 @@
-﻿--- item_transcend_shared.lua
+--- item_transcend_shared.lua
 
 function IS_TRANSCENDING_STATE()
     local frame = ui.GetFrame("itemtranscend");
@@ -155,7 +155,7 @@ function GET_TRANSCEND_MATERIAL_COUNT(targetItem, Arg1)
     if groupName == nil then
         return 0;
     end
-
+    
     if groupName == 'Weapon' then
         if classType == 'Sword' or classType == 'Staff' or classType =='Rapier' or classType =='Spear' or classType =='Bow' or classType =='Mace' then
             equipTypeRatio = 0.8;
@@ -167,9 +167,14 @@ function GET_TRANSCEND_MATERIAL_COUNT(targetItem, Arg1)
         end
     elseif groupName == 'SubWeapon' then
             equipTypeRatio = 0.6;
-    elseif groupName == 'Armor' or classType == 'Shield' then
-        --Amor/Shield/Acc--
+        if classType == 'Trinket' then
+            equipTypeRatio = 0.4
+        end
+    elseif groupName == 'Armor' and classType ~= 'Shield' then
+        --Amor/Acc--
             equipTypeRatio = 0.33;
+    elseif classType == 'Shield' then  
+            equipTypeRatio = 0.6;
     else
         return 0;
     end
@@ -212,6 +217,14 @@ function GET_TRANSCEND_MATERIAL_COUNT(targetItem, Arg1)
             if needMatCount < 1 then
                 needMatCount = 1
             end
+        end
+    end
+
+    --steam_new_world
+    if IsBuffApplied(pc, "Event_Steam_New_World_Buff") == "YES" then
+        needMatCount = math.floor(needMatCount/2)
+        if needMatCount < 1 then
+            needMatCount = 1
         end
     end
 
@@ -373,6 +386,8 @@ function IS_TRANSCEND_SCROLL_ITEM(scrollObj)
 		return 1;
 	elseif scrollType == "transcend_Set_420" then
 		return 1;
+	elseif scrollType == "transcend_Set_430" then
+		return 1;
 	elseif scrollType == "transcend_Add" then
 		return 1;
 	end
@@ -407,6 +422,13 @@ function IS_TRANSCEND_SCROLL_ABLE_ITEM(itemObj, scrollType, scrollTranscend)
             end
         return 0
         end
+    elseif scrollType == "transcend_Set_430" then
+        if SCR_TARGET_TRANSCEND_CHECK(itemObj, scrollTranscend) == 1 and IS_TRANSCEND_ABLE_ITEM(itemObj) == 1 then
+            if itemObj.UseLv <= 430 then -- Is item UseLv under 430 then
+                return 1;
+            end
+        return 0
+        end
     elseif scrollType == "transcend_Add" then
         if IS_TRANSCEND_ABLE_ITEM(itemObj) == 1 then
             return 1;
@@ -433,7 +455,7 @@ function GET_ANTICIPATED_TRANSCEND_SCROLL_SUCCESS(itemObj, scrollObj)
         return;
     end
     
-    if scrollType == "transcend_Set" or scrollType == "transcend_Set_380" or scrollType == "transcend_Set_400" or scrollType == "transcend_Set_420" then
+    if scrollType == "transcend_Set" or scrollType == "transcend_Set_380" or scrollType == "transcend_Set_400" or scrollType == "transcend_Set_420"  or scrollType == "transcend_Set_430" then
         return transcend, percent;
     elseif scrollType == "transcend_Add" then
         local curTranscend = 0;

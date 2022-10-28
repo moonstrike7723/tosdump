@@ -18,6 +18,7 @@
 		<Item Script="None" Name="Hat_628086" Count="1" Price="3500" DailyBuyLimit="1"/>
 		<Item Script="None" Name="Hat_628019" Count="1" Price="3500" DailyBuyLimit="1"/>
 		<Item Script="None" Name="Hat_628071" Count="1" Price="3500" DailyBuyLimit="1"/>
+		<Item Script="None" Name="Hat_628012" Count="1" Price="3500" DailyBuyLimit="1"/>
 		<Item Script="None" Name="GIMMICK_Drug_PMATK2" Count="5" Price="80" DailyBuyLimit="3"/>
 		<Item Script="None" Name="GIMMICK_Drug_Restore01" Count="5" Price="80" DailyBuyLimit="3"/>
 		<Item Script="None" Name="GIMMICK_Drug_PMDEF2" Count="5" Price="80" DailyBuyLimit="3"/>
@@ -78,6 +79,7 @@
 		<Item Script="None" Name="PVP_BRC04_117" Count="2" Price="1" DailyBuyLimit="1"/>
 		<Item Script="None" Name="PVP_BRC04_118" Count="2" Price="1" DailyBuyLimit="1"/>
 		<Item Script="None" Name="PVP_BRC04_119" Count="2" Price="1" DailyBuyLimit="1"/>
+		<Item Script="None" Name="PVP_TRK05_102" Count="1" Price="1" DailyBuyLimit="1"/>
 	</Shop>
 	<Shop Name="GUILD_CONTRIBUTION_SHOP" PointScript="GET_GUILD_CONTRIBUTION_POINT">
 		<Item Script="None" Name="BRC99_114_guildshop_7d" Count="1" Price="1000" DailyBuyLimit="0"/>
@@ -86,5 +88,15 @@
 	</Shop>
 	<Shop Name="GUILD_MILEAGE_SHOP" PointScript="GET_GUILD_MILEAGE_POINT">
 		<Item Script="None" Name="GuildQuestEnterCount_1add" Count="1" Price="5000" DailyBuyLimit="0"/>
+	</Shop>
+	<Shop Name="CONTENTS_TOTAL_SHOP" PointScript="GET_CONTENTS_TOTAL_POINT">
+		<Item Script="None" Name="Gesture_Wave" Count="1" Price="3000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_1"/>
+		<Item Script="None" Name="LENS01_015" Count="1" Price="1500" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_2"/>
+		<Item Script="None" Name="LENS01_016" Count="1" Price="1500" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_3"/>
+		<Item Script="None" Name="Chat_Balloon_RollingDoor_Pink_90d" Count="1" Price="1200" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_4"/>
+		<Item Script="None" Name="Chat_Balloon_RollingDoor_BlueSky_90d" Count="1" Price="1200" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_5"/>
+		<Item Script="None" Name="ABAND01_147" Count="1" Price="1000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_6"/>
+		<Item Script="None" Name="motion_medeina_emotion01" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_7"/>
+		<Item Script="None" Name="motion_medeina_emotion02" Count="1" Price="700" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_1911_8"/>
 	</Shop>
 </PropertyShop>

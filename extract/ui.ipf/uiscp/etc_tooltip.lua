@@ -1,6 +1,6 @@
 -- etc_tooltip.lua
 
-function ITEM_TOOLTIP_ETC(tooltipframe, invitem, argStr, usesubframe)
+function ITEM_TOOLTIP_ETC(tooltipframe, invitem, argStr, usesubframe)    
 	tolua.cast(tooltipframe, "ui::CTooltipFrame");
 
 	local mainframename = 'etc'
@@ -14,7 +14,8 @@ function ITEM_TOOLTIP_ETC(tooltipframe, invitem, argStr, usesubframe)
 	local ypos = DRAW_ETC_COMMON_TOOLTIP(tooltipframe, invitem, mainframename, argStr); -- 기타 템이라면 공통적으로 그리는 툴팁들	
 	ypos = DRAW_ETC_DESC_TOOLTIP(tooltipframe, invitem, ypos, mainframename); -- 아이템 설명.
 	ypos = DRAW_ETC_RECIPE_NEEDITEM_TOOLTIP(tooltipframe, invitem, ypos, mainframename); -- 재료템이라면 필요한 재료랑 보여줌
-    ypos = DRAW_EQUIP_TRADABILITY(tooltipframe, invitem, ypos, mainframename);
+	ypos = DRAW_ETC_PREVIEW_TOOLTIP(tooltipframe, invitem, ypos, mainframename);			-- 아이콘 확대해서 보여줌
+	ypos = DRAW_EQUIP_TRADABILITY(tooltipframe, invitem, ypos, mainframename);
 	
 	local isHaveLifeTime = TryGetProp(invitem, "LifeTime");	
 	if 0 == isHaveLifeTime then
@@ -26,7 +27,7 @@ function ITEM_TOOLTIP_ETC(tooltipframe, invitem, argStr, usesubframe)
 end
 
 function DRAW_ETC_COMMON_TOOLTIP(tooltipframe, invitem, mainframename, from)
-	local gBox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
+    local gBox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
 	gBox:RemoveAllChild()
 	--스킨 세팅
 	local SkinName  = GET_ITEM_TOOLTIP_SKIN(invitem);
@@ -111,7 +112,7 @@ function DRAW_ETC_COMMON_TOOLTIP(tooltipframe, invitem, mainframename, from)
 			noTrade_cnt:ShowWindow(0);
 		end
 	end
-
+    
     if from ~= nil and from == 'accountwarehouse' then
         noTrade_cnt:ShowWindow(0)
     end
@@ -248,6 +249,32 @@ function DRAW_ETC_RECIPE_NEEDITEM_TOOLTIP(tooltipframe, invitem, ypos, mainframe
 	return CSet:GetHeight() + CSet:GetY();
 end
 
+function DRAW_ETC_PREVIEW_TOOLTIP(tooltipframe, invitem, ypos, mainframename)
+	if string.find(invitem.StringArg, "Balloon_") == nil then
+		return ypos;
+	end
+
+	local iconName = invitem.Icon;
+	if string.find(invitem.StringArg, "Balloon_") ~= nil then
+		-- 말풍선 아이템일 경우 item의 icon이 아닌 chat_balloon의 SkinPreview 이미지 출력
+		local balloonCls = GetClass('Chat_Balloon', invitem.StringArg);
+		iconName = balloonCls.SkinPreview;
+	end
+
+	local gBox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
+	gBox:RemoveChild('tooltip_preview');
+
+	local CSet = gBox:CreateControlSet('tooltip_preview', 'tooltip_preview', 0, ypos);
+	tolua.cast(CSet, "ui::CControlSet");
+	local previewPic = GET_CHILD(CSet,'previewPic','ui::CPicture')
+	previewPic:SetImage(iconName);
+
+	local BOTTOM_MARGIN = tooltipframe:GetUserConfig("BOTTOM_MARGIN");
+	gBox:Resize(gBox:GetWidth(), gBox:GetHeight() + CSet:GetHeight()+ BOTTOM_MARGIN)
+
+	return CSet:GetHeight() + CSet:GetY();
+end
+
 local function _SET_TRUST_POINT_PARAM_INFO(tooltipframe, index, paramType)
 	-- point
 	local starTextBox = GET_CHILD_RECURSIVELY(tooltipframe, 'starTextBox'..index);
@@ -308,17 +335,18 @@ function UPDATE_TRUST_POINT_TOOLTIP(tooltipframe, tree)
 	_SET_TRUST_POINT_PARAM_INFO(tooltipframe, 4, 'SafeAuth');
 	_SET_TRUST_POINT_PARAM_INFO(tooltipframe, 5, 'Quest');
 
-	if config.GetServiceNation() ~= 'KOR' and config.GetServiceNation() ~= 'GLOBAL' then
+	if config.GetServiceNation() ~= 'KOR' and config.GetServiceNation() ~= 'GLOBAL' and config.GetServiceNation() ~= 'GLOBAL_JP' then
 		_HIDE_SAFEAUTH_INFO(tooltipframe, 4, 5);
 	end
 end
 
-function UPDATE_INDUN_INFO_TOOLTIP(tooltipframe, cidStr, param1, param2, actor)	
+function UPDATE_INDUN_INFO_TOOLTIP(tooltipframe, cidStr, param1, param2, actor)
 	actor =	tolua.cast(actor, "CFSMActor")
 	tootltipframe = AUTO_CAST(tooltipframe)
 
 	local indunClsList, indunCount = GetClassList('Indun');
 	local ctrlWidth = tonumber(tooltipframe:GetUserConfig("INDUN_CTRL_WIDTH"))
+	local ctrlHeight = tonumber(tooltipframe:GetUserConfig("INDUN_CTRL_HEIGHT"))
 	local ctrlLeftMargin = tonumber(tooltipframe:GetUserConfig("INDUN_CTRL_LEFT_MARGIN"))
 	local playPerRestTypeTable={}
 
@@ -328,20 +356,21 @@ function UPDATE_INDUN_INFO_TOOLTIP(tooltipframe, cidStr, param1, param2, actor)
 	local indunLabelText = GET_CHILD_RECURSIVELY(tooltipframe, "indunLabelText")
 	indunLabelText:SetText("{@st43}{s20}" ..ClMsg("IndunCountInfo"))
 	local pcInfo = accountInfo:GetByStrCID(cidStr)
+	-- 인던 이용 현황 출력
 	for j = 0, indunCount - 1 do
 		local indunCls = GetClassByIndexFromList(indunClsList, j)
 
 		if indunCls ~= nil and indunCls.Category ~= "None" then
 
-			local indunGroupBox = indunListBox:CreateOrGetControl("groupbox", "INDUN_CONTROL_".. indunCls.PlayPerResetType, ctrlLeftMargin, 0, ctrlWidth, 20)
+			local indunGroupBox = indunListBox:CreateOrGetControl("groupbox", "INDUN_CONTROL_".. indunCls.PlayPerResetType, ctrlLeftMargin, 0, ctrlWidth, ctrlHeight)
 			indunGroupBox = tolua.cast(indunGroupBox, "ui::CGroupBox")
 			indunGroupBox:EnableDrawFrame(0)
-			local indunLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_NAME_" .. indunCls.PlayPerResetType, 0, 0, ctrlWidth / 2, 20)
+			local indunLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_NAME_" .. indunCls.PlayPerResetType, 0, 0, ctrlWidth / 2, ctrlHeight)
 			indunLabel = tolua.cast(indunLabel, 'ui::CRichText')
 			indunLabel:SetText('{@st42b}' .. indunCls.Category)
 			indunLabel:SetEnable(0)
 		
-			local indunCntLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_COUNT_" .. indunCls.PlayPerResetType, 0, 0, ctrlWidth / 2, 20)
+			local indunCntLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_COUNT_" .. indunCls.PlayPerResetType, 0, 0, ctrlWidth / 2, ctrlHeight)
 			indunCntLabel:SetGravity(ui.RIGHT, ui.TOP)
 			indunCntLabel:SetEnable(0)
 
@@ -366,16 +395,60 @@ function UPDATE_INDUN_INFO_TOOLTIP(tooltipframe, cidStr, param1, param2, actor)
 		end
 	end
 
+	-- 챌린지 모드, 프리 던전 보스 이용 현황 출력
+	local contentsClsList, count = GetClassList('contents_info');
+	for i = 0, count - 1 do
+        local contentsCls = GetClassByIndexFromList(contentsClsList, i);
+		if contentsCls ~= nil then
+            local resetGroupID = contentsCls.ResetGroupID;
+			local category = contentsCls.Category;
+			local indunGroupBox = indunListBox:GetChild('INDUN_CONTROL_'..resetGroupID);
+			if category ~= 'None' then
+				local indunGroupBox = indunListBox:CreateOrGetControl("groupbox", "INDUN_CONTROL_".. resetGroupID, ctrlLeftMargin, 0, ctrlWidth, ctrlHeight);
+				indunGroupBox = tolua.cast(indunGroupBox, "ui::CGroupBox");
+				indunGroupBox:EnableDrawFrame(0);
+
+				local indunLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_NAME_" .. resetGroupID, 0, 0, ctrlWidth / 2, ctrlHeight);
+				indunLabel = tolua.cast(indunLabel, 'ui::CRichText');
+				indunLabel:SetText('{@st42b}' .. category);
+				indunLabel:SetEnable(0);
+
+				local indunCntLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_COUNT_" .. resetGroupID, 0, 0, ctrlWidth / 2, ctrlHeight);
+				indunCntLabel = tolua.cast(indunCntLabel, 'ui::CRichText');
+				indunCntLabel:SetGravity(ui.RIGHT, ui.TOP);
+				indunCntLabel:SetEnable(0);
+
+				local curCount = BARRACK_GET_CHAR_INDUN_ENTRANCE_COUNT(cidStr, resetGroupID);
+				if curCount == nil or curCount == 'None' then
+					curCount = 0;
+				else
+					curCount = tonumber(curCount)
+				end
+
+				local maxCount = BARRACK_GET_INDUN_MAX_ENTERANCE_COUNT(resetGroupID);
+				indunCntLabel:SetText("{@st42b}" .. curCount .. "/" .. maxCount);
+
+				if pcInfo ~= nil then
+					if contentsCls.Level <= actor:GetLv()  or playPerRestTypeTable["INDUN_COUNT_" .. resetGroupID]== 1 then
+						indunLabel:SetEnable(1);
+						indunCntLabel:SetEnable(1);
+						playPerRestTypeTable["INDUN_COUNT_" .. resetGroupID] = 1;
+					end
+				end
+			end
+		end
+	end
+
 	-- 실버 표시
-	local indunGroupBox = indunListBox:CreateOrGetControl("groupbox", "INDUN_CONTROL_SILVER", ctrlLeftMargin, 0, ctrlWidth, 20)
+	local indunGroupBox = indunListBox:CreateOrGetControl("groupbox", "INDUN_CONTROL_SILVER", ctrlLeftMargin, 0, ctrlWidth, ctrlHeight)
 	indunGroupBox = tolua.cast(indunGroupBox, "ui::CGroupBox")
 	indunGroupBox:EnableDrawFrame(0)
-	local indunLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_NAME_SILVER", 0, 0, ctrlWidth / 2, 20)
+	local indunLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_NAME_SILVER", 0, 0, ctrlWidth / 2, ctrlHeight)
 	indunLabel = tolua.cast(indunLabel, 'ui::CRichText')
 	indunLabel:SetText('{@st42b}' .. ScpArgMsg('Auto_SilBeo'))
 	indunLabel:SetEnable(1)
 	
-	local indunCntLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_CRRUNT_SILVER", 0, 0, ctrlWidth / 2, 20)
+	local indunCntLabel = indunGroupBox:CreateOrGetControl("richtext", "INDUN_CRRUNT_SILVER", 0, 0, ctrlWidth / 2, ctrlHeight)
 	indunCntLabel:SetGravity(ui.RIGHT, ui.TOP)
 	indunCntLabel:SetText('{@st42b}' .. GET_COMMAED_STRING(pcInfo:GetSilver()))
 	indunCntLabel:SetEnable(1)
@@ -383,17 +456,16 @@ function UPDATE_INDUN_INFO_TOOLTIP(tooltipframe, cidStr, param1, param2, actor)
 	local spacing = tonumber(tooltipframe:GetUserConfig("INDUN_CTRL_SPACING"))
 	local startY = tonumber(tooltipframe:GetUserConfig("INDUN_CTRL_START_TOP_MARGIN"))
 	local offset = tonumber(tooltipframe:GetUserConfig("INDUN_CTRL_OFFSET"))
+	local frameoffset = tonumber(tooltipframe:GetUserConfig("INDUN_FRAME_OFFSET"))
 	GBOX_AUTO_ALIGN(indunListBox, startY, spacing, offset, true, false)
 
 	-- 인던 갯수에 따른 툴팁 크기변환
-	local spaceOffset = (indunListBox:GetChildCount() - 1) * ( offset + spacing);
+	local spaceOffset = indunListBox:GetChildCount() * (ctrlHeight + spacing) + offset;	-- 인던 list gb 크기
+
 	local bgBox = GET_CHILD(tooltipframe, 'indunListBoxBg');
-
-	tootltipframe:Resize(tootltipframe:GetOriginalWidth(), tootltipframe:GetOriginalHeight() + spaceOffset );	
-	bgBox:Resize(bgBox:GetOriginalWidth(), bgBox:GetOriginalHeight() + spaceOffset);
-	indunListBox:Resize(indunListBox:GetOriginalWidth(), indunListBox:GetOriginalHeight() + spaceOffset );	
-
-
+	indunListBox:Resize(indunListBox:GetOriginalWidth(), spaceOffset);
+	bgBox:Resize(bgBox:GetOriginalWidth(), spaceOffset + frameoffset);
+	tootltipframe:Resize(tootltipframe:GetOriginalWidth(), spaceOffset + frameoffset);
 end
 
 

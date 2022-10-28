@@ -1,15 +1,181 @@
--- quest_episode.lua
-function UPDATE_EPISODE_QUEST_LIST();
-	UpdateEpisodeQuest();
+﻿-- quest_episode.lua
+
+local episodeStateInfo = {
+	Locked = 0,
+	Clear = 1,			-- 완료
+	Reward  = 2,		-- 보상 받기 가능
+	Progress = 3,     -- 진행중
+};
+
+local episodeQuestList = nil;
+local function _GET_EPISODE_QUEST_LIST()
+
+	if episodeQuestList == nil then
+		episodeQuestList = {}
+	end
+
+	return episodeQuestList;
 end
 
+local function _GET_EPISODE_TITLE_INFO(titleName)
+	local list = _GET_EPISODE_QUEST_LIST()
+	if list == nil then
+		return nil
+	end
+	
+	for index,titleInfo in pairs(list) do
+		if titleInfo.name == titleName then
+			return titleInfo;
+		end
+	end
+
+	return nil;
+end
+
+function GET_EPISODE_TITLE_INFO(titleName)
+	return _GET_EPISODE_TITLE_INFO(titleName)
+end
+
+local function _SET_EPISODE_QUEST_INFO(titleName, episodeNumberStr, episodeName, questClassID, state)
+
+	local titleInfo = _GET_EPISODE_TITLE_INFO(titleName)
+	if titleInfo == nil then
+		--titleInfo가 없으면 생성	
+		local list = _GET_EPISODE_QUEST_LIST()
+		local makeTitleInfo = {
+				name = titleName,
+				episodeNumberString = episodeNumberStr,
+				episodeName = episodeName,			
+				isOpened = false,
+				questInfoList ={}
+			}
+		local index = #list;
+		list[index + 1] = makeTitleInfo
+		titleInfo = list[index + 1]
+	end
+
+	-- 이미 들어 있으면 갱신.
+	for index, questInfo in pairs(titleInfo.questInfoList) do
+		if questInfo.QuestClassID == questClassID then
+			questInfo.State = state;
+			return 
+		end
+	end
+
+	-- 없으면 끝에 추가.
+	local questIndex = #titleInfo.questInfoList;
+	titleInfo.questInfoList[questIndex + 1] = { State = state,
+												QuestClassID = questClassID 
+											  }
+end
+
+function SET_EPISODE_QUEST_INFO(episodeCls, questIES, questInfo)
+
+	local episodeRewardCls = GetClass("Episode_Reward", episodeCls.EpisodeName)
+	if episodeRewardCls == nil then
+		return
+	end
+
+	_SET_EPISODE_QUEST_INFO(episodeCls.EpisodeName, episodeRewardCls.ClassNumberString, episodeRewardCls.EpisodeName , questInfo.QuestClassID, questInfo.State)
+end
+
+function _UPDATE_EPISODE_QUEST_INFO(episodeCls)
+	if episodeCls == nil then
+		return;
+	end
+
+	local questID = TryGetProp(episodeCls, "QuestID");
+	if questID == nil then
+		return;
+	end
+
+	local questIES = GetClassByType("QuestProgressCheck",questID)
+	if questIES == nil then
+		return;
+	end
+
+	local pc = GetMyPCObject();
+	local questClassName = questIES.ClassName
+	if questClassName ~= "None" then
+			local questState = SCR_QUEST_CHECK_C(pc, questClassName); 					 -- 퀘스트 상태
+			local questInfo = {
+				State = questState,
+				QuestClassID = questIES.ClassID,
+			};
+			SET_EPISODE_QUEST_INFO(episodeCls, questIES, questInfo)
+	end
+end
+
+function UPDATE_EPISODE_QUEST_LIST()	
+	frame = ui.GetFrame("quest")
+
+	-- 퀘스트 리스트를 삭제.
+	local list = _GET_EPISODE_QUEST_LIST();
+	for notUse, titleInfo in pairs(list) do
+		titleInfo.questInfoList = {}
+	end
+
+	-- 에피소드 정보 업데이트
+	local clsList, cnt = GetClassList("Episode_Quest");
+	for i = 0, cnt -1 do
+		local episodeCls = GetClassByIndexFromList(clsList, i);
+		_UPDATE_EPISODE_QUEST_INFO(episodeCls)
+	end
+
+	-- draw
+	DRAW_EPISODE_QUEST_LIST(frame)
+end
+
+
+function DRAW_EPISODE_QUEST_LIST(frame)	
+	if frame == nil then
+		frame = ui.GetFrame('quest')
+	end
+
+	-- 퀘스트 창이 닫혀 있다면 갱신하지 않고 리턴
+	if frame:IsVisible() == 0 then
+		return 
+	end
+
+	local bgCtrl = GET_CHILD_RECURSIVELY(frame, 'episodeGbox');
+	if bgCtrl == nil then
+		return
+	end
+	
+	bgCtrl:RemoveAllChild()
+	local questList = _GET_EPISODE_QUEST_LIST()
+	local y = 0
+	for notUse, titleInfo in pairs(questList) do
+		y = y + DRAW_EPISODE_QUEST_CTRL(bgCtrl, titleInfo, y)
+	end
+
+	bgCtrl:Invalidate()
+	frame:Invalidate();
+end
+
+function CHECK_EPISODE_STATE(episodeRewardClassname)
+	local pc = GetMyPCObject();
+	local result = SCR_EPISODE_CHECK(pc, episodeRewardClassname)
+	if result == "Locked" then
+		return episodeStateInfo.Locked;
+	elseif result == "Clear" then
+		return episodeStateInfo.Clear;
+	elseif result == "Reward" then
+		return episodeStateInfo.Reward;
+	end
+
+	return episodeStateInfo.Progress;
+end
+
+
 -- titleinfo 정보를 가지고 컨트롤을 생성함.
-function DRAW_EPISODE_QUEST_CTRL(bgCtrl, titleInfo_episodeName, titleInfo_name, titleInfo_number, titleInfo_isOpened, titleInfo_questCount, titleInfo_questID, titleInfo_questState, y)
+function DRAW_EPISODE_QUEST_CTRL(bgCtrl, titleInfo, y)
+
 	if bgCtrl == nil then
 		return 0;
 	end
 
-	local titleCtrlSet = bgCtrl:CreateOrGetControlSet('episode_list_title', titleInfo_episodeName, 0, y );
+	local titleCtrlSet = bgCtrl:CreateOrGetControlSet('episode_list_title', titleInfo.name, 0, y );
 	if titleCtrlSet == nil then
 		return 0;
 	end
@@ -20,41 +186,32 @@ function DRAW_EPISODE_QUEST_CTRL(bgCtrl, titleInfo_episodeName, titleInfo_name, 
 	-- 2. 클리어 - 모두 완료했고 보상을 가져갔음
 	-- 3. 보상 받기 가능
 	-- 4. 진행중
-	-- 5. 최신 에피소드
-	local episodeState = geQuest.episode.GetState(titleInfo_episodeName);
+	local episodeState = CHECK_EPISODE_STATE(titleInfo.name)
 	local colorTone = "FFFFFFFF";
 	local backGroundSkinName = titleCtrlSet:GetUserConfig("NORMAL_SKIN");
-	if episodeState == geQuest.episode.eLocked then
+	if episodeState == episodeStateInfo.Locked then
 		colorTone = titleCtrlSet:GetUserConfig("LOCK_COLORTONE");
 		backGroundSkinName = titleCtrlSet:GetUserConfig("LOCK_SKIN");
-	elseif episodeState == geQuest.episode.eNext then
-		colorTone = titleCtrlSet:GetUserConfig("LOCK_COLORTONE");
-		backGroundSkinName = titleCtrlSet:GetUserConfig("LOCK_SKIN");
-	elseif episodeState == geQuest.episode.eClear then
+	elseif episodeState == episodeStateInfo.Clear then
 		colorTone = titleCtrlSet:GetUserConfig("CLEAR_COLORTONE");
 	end
 
 	local textToolTip = nil;
-	if episodeState == geQuest.episode.eLocked then
+	if episodeState == episodeStateInfo.Locked then
 		textToolTip = ScpArgMsg("EpisodeLockMsg")
-	elseif episodeState == geQuest.episode.eNew then
-		local Msg = '_'..titleInfo_episodeName
-	    textToolTip = ScpArgMsg("NewEpisodeLockMsg"..Msg)
-	elseif episodeState == geQuest.episode.eNext then
-		textToolTip = ScpArgMsg("NextEpisodeLockMsg")
-	elseif episodeState == geQuest.episode.eClear then
+	elseif episodeState == episodeStateInfo.Clear then
 		textToolTip = ScpArgMsg("EpisodeClearMsg")
 	end 
-	
+
 	-- title 정보 설정
 	local episodeGbox = GET_CHILD_RECURSIVELY(titleCtrlSet, "episodeGbox")
 	local episodeNameText = GET_CHILD_RECURSIVELY(titleCtrlSet, "episodeNameText")
 	local questNameText = GET_CHILD_RECURSIVELY(titleCtrlSet, "questNameText")
 	episodeGbox:SetSkinName(backGroundSkinName);
 	episodeGbox:SetColorTone(colorTone);
-	episodeNameText:SetTextByKey("name", titleInfo_number);
+	episodeNameText:SetTextByKey("name", titleInfo.episodeNumberString);
 	episodeNameText:SetColorTone(colorTone);
-	questNameText:SetTextByKey("name", titleInfo_name);
+	questNameText:SetTextByKey("name", titleInfo.episodeName);
 	questNameText:SetColorTone(colorTone);
 
 	if textToolTip ~= nil then
@@ -65,17 +222,17 @@ function DRAW_EPISODE_QUEST_CTRL(bgCtrl, titleInfo_episodeName, titleInfo_name, 
 
 	-- 상태 이미지 처리
 	local clearMark = GET_CHILD_RECURSIVELY(titleCtrlSet, "clearMark")	
-	local lockMark = GET_CHILD_RECURSIVELY(titleCtrlSet, "lockMark")
+	local lockMark = GET_CHILD_RECURSIVELY(titleCtrlSet, "lockMark")	
 	clearMark:ShowWindow(0);
 	lockMark:ShowWindow(0);
-	if episodeState == geQuest.episode.eLocked then
+	if episodeState == episodeStateInfo.Locked then
 		lockMark:ShowWindow(1);
 		if textToolTip ~= nil then
 			lockMark:SetTextTooltip(textToolTip)
 		end
-	elseif episodeState == geQuest.episode.eClear then
+	elseif episodeState == episodeStateInfo.Clear then
 		clearMark:ShowWindow(1);
-		clearMark:SetEventScriptArgString(ui.LBUTTONUP, titleInfo_episodeName); -- episode name
+		clearMark:SetEventScriptArgString(ui.LBUTTONUP, titleInfo.name); -- episode name
 		clearMark:SetEventScript(ui.LBUTTONUP, 'CLICK_EPISODE_REWARD');
 		clearMark:EnableHitTest(1);
 		if textToolTip ~= nil then
@@ -90,21 +247,17 @@ function DRAW_EPISODE_QUEST_CTRL(bgCtrl, titleInfo_episodeName, titleInfo_name, 
 	rewardStepBox:ShowWindow(0);
 	rewardDigitNotice:ShowWindow(0);
 	rewardBtn:ShowWindow(1);
-	rewardBtn:SetEventScriptArgString(ui.LBUTTONUP, titleInfo_episodeName); -- episode name
-	if episodeState == geQuest.episode.eReward then
+	rewardBtn:SetEventScriptArgString(ui.LBUTTONUP, titleInfo.name); -- episode name
+	if episodeState == episodeStateInfo.Reward then
 		rewardStepBox:ShowWindow(1);
 		rewardDigitNotice:ShowWindow(1);
 		rewardBtn:SetColorTone(colorTone);
-	elseif episodeState == geQuest.episode.eClear then
+	elseif episodeState == episodeStateInfo.Clear then
 		rewardBtn:SetImage(titleCtrlSet:GetUserConfig("CLEAR_REWARD_BOX"));
 		rewardBtn:SetColorTone(colorTone);
 		rewardBtn:ShowWindow(0);
-	elseif episodeState == geQuest.episode.eLocked then
+	elseif episodeState == episodeStateInfo.Locked then
 		rewardBtn:SetImage(titleCtrlSet:GetUserConfig("LOCK_REWARD_BOX"));
-	elseif episodeState == geQuest.episode.eNew then
-	    rewardBtn:SetImage(titleCtrlSet:GetUserConfig("LOCK_REWARD_BOX"));
-	elseif episodeState == geQuest.episode.eNext then
-	    rewardBtn:SetImage(titleCtrlSet:GetUserConfig("LOCK_REWARD_BOX"));
 	else
 		rewardBtn:SetColorTone(colorTone);
 	end
@@ -116,12 +269,12 @@ function DRAW_EPISODE_QUEST_CTRL(bgCtrl, titleInfo_episodeName, titleInfo_name, 
 	local questCtrlTitleHeight = 0;
 	local questCtrlTotalHeight =0;
 
-	if episodeState ~= geQuest.episode.eLocked and episodeState ~= geQuest.episode.eNext then
+	if episodeState ~= episodeStateInfo.Locked then
 		-- 퀘스트 목록 제목
 		local openMark = GET_CHILD_RECURSIVELY(titleCtrlSet, "openMark")	
 		openMark:SetImage(titleCtrlSet:GetUserConfig("OPENED_CTRL_IMAGE"))
 		-- 오픈 마크 처리.
-		if titleInfo_isOpened == true then
+		if titleInfo.isOpened == true then
 			openMark:SetImage(titleCtrlSet:GetUserConfig("CLOSED_CTRL_IMAGE"))
 		end
 
@@ -132,26 +285,32 @@ function DRAW_EPISODE_QUEST_CTRL(bgCtrl, titleInfo_episodeName, titleInfo_name, 
 		local controlSetType = "episode_list_oneline"
 		local controlsetHeight = ui.GetControlSetAttribute(controlSetType, 'height');
 
-		if questListGbox ~= nil and titleInfo_isOpened == true then -- 트리가 열려있을 때만 컨트롤 생성
+		if questListGbox ~= nil then
 			-- 퀘스트 목록 순회.
-			local questInfoCount = titleInfo_questCount;
+			local questInfoCount = #titleInfo.questInfoList;
+			local cnt = 1
 			for index = 1, questInfoCount do
-				local ctrlName = "_Q_" .. tostring(titleInfo_questID[index]);
-				local Quest_Ctrl = questListGbox:CreateOrGetControlSet(controlSetType, ctrlName, 5, controlsetHeight * (drawTargetCount));			
-				
-				-- 배경 설정.
-				if index % 2 == 1 then
-					Quest_Ctrl:SetSkinName("chat_window_2");
-				else
-					Quest_Ctrl:SetSkinName('None');
-				end
-				
-				-- detail 설정
-				UPDATE_EPISODE_QUEST_CTRL(Quest_Ctrl, titleInfo_questID[index], titleInfo_questState[index] );
+				local questInfo = titleInfo.questInfoList[index]
+				if titleInfo.isOpened == true then -- 트리가 열려있을 때만 컨트롤 생성
+					local ctrlName = "_Q_" .. questInfo.QuestClassID;
+					local Quest_Ctrl = questListGbox:CreateOrGetControlSet(controlSetType, ctrlName, 5, controlsetHeight * (drawTargetCount));			
+					
+					-- 배경 설정.
+					if cnt % 2 == 1 then
+						Quest_Ctrl:SetSkinName("chat_window_2");
+					else
+						Quest_Ctrl:SetSkinName('None');
+					end
+					cnt = cnt +1
+					
+					-- detail 설정
+					UPDATE_EPISODE_QUEST_CTRL(Quest_Ctrl, questInfo );
 
-				questCtrlTotalHeight = questCtrlTotalHeight + Quest_Ctrl:GetHeight();
+					questCtrlTotalHeight = questCtrlTotalHeight + Quest_Ctrl:GetHeight();
+				end
+
 				drawTargetCount = drawTargetCount +1
-			end
+			end	
 		end
 	end
 
@@ -162,12 +321,12 @@ function DRAW_EPISODE_QUEST_CTRL(bgCtrl, titleInfo_episodeName, titleInfo_name, 
 	return titleCtrlSet:GetHeight()
 end
 
-function UPDATE_EPISODE_QUEST_CTRL(ctrl, questClassID, questState)
+function UPDATE_EPISODE_QUEST_CTRL(ctrl, questInfo)
 
 	local Quest_Ctrl = 	tolua.cast(ctrl, "ui::CControlSet"); 
 
-	local state = questState;
-	local questID = questClassID;
+	local state = questInfo.State;
+	local questID = questInfo.QuestClassID;
 	local questIES = GetClassByType('QuestProgressCheck',questID)
 	
 	-- 퀘스트 마크 설정
@@ -256,7 +415,7 @@ function CLICK_EPISODE_REWARD(ctrlSet, ctrl, strArg, numArg)
 	
 	local frame = ctrlSet:GetTopParentFrame();
 	local xPos = frame:GetWidth() -50;
-    
-    QUESTEPISODEREWARD_INFO(strArg, xPos, {} );
+
+	QUESTEPISODEREWARD_INFO(strArg, xPos, {} );
 	
 end

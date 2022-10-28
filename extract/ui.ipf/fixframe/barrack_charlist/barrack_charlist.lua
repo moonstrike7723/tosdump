@@ -74,6 +74,16 @@ function enable_layer_btn()
     layerCtrl_3:SetAlpha(100)
 end
 
+function reset_moving_barrack_layer()
+	local frame = ui.GetFrame('barrack_charlist')
+	if frame == nil then 
+		return 
+	end
+
+	frame:SetUserValue("MovingBarrackLayer", 0);
+
+end
+
 function disable_layer_btn(frame)
     local frame = ui.GetFrame('barrack_charlist')
     if frame == nil then return end
@@ -418,13 +428,30 @@ function SELECT_BARRACK_LAYER(frame, ctrl, arg, layer)
 	scrollBox:RemoveAllChild();
     disable_char_btn(frame)
     disable_layer_btn(frame)
-    AddLuaTimerFunc('enable_layer_btn', 5000, 0)
+	AddLuaTimerFunc('enable_layer_btn', 5000, 0)
+	AddLuaTimerFunc('reset_moving_barrack_layer', 5000, 0) -- 5초뒤에 강제로 해제.
 end
 
 function BARRACK_GET_CHAR_INDUN_ENTRANCE_COUNT(cid, resetGroupID)
     local accountInfo = session.barrack.GetMyAccount();
 	local acc_obj = GetMyAccountObj()
+	if resetGroupID < 0 then
+		local contentsClsList, count = GetClassList('contents_info')		
+        local contentsCls = nil;
+        for i = 0, count - 1 do
+            contentsCls = GetClassByIndexFromList(contentsClsList, i);
+            if contentsCls ~= nil and contentsCls.ResetGroupID == resetGroupID and contentsCls.Category ~= 'None' then
+                break;
+            end
+        end
 
+        if contentsCls.UnitPerReset == 'PC' then
+			return accountInfo:GetBarrackCharEtcProp(cid, contentsCls.ResetType);
+        else
+            return acc_obj[contentsCls.ResetType];
+        end
+	end
+	
     local indunClsList, cnt = GetClassList('Indun');
     local indunCls = nil;
     for i = 0, cnt - 1 do
@@ -435,42 +462,55 @@ function BARRACK_GET_CHAR_INDUN_ENTRANCE_COUNT(cid, resetGroupID)
     end
 	if indunCls.WeeklyEnterableCount ~= nil and indunCls.WeeklyEnterableCount ~= "None" and indunCls.WeeklyEnterableCount ~= 0 then
 		if indunCls.UnitPerReset == 'PC' then
-			return accountInfo:GetBarrackCharEtcProp(cid,'IndunWeeklyEnteredCount_'..resetGroupID)  --매주 남은 횟수
+			return accountInfo:GetBarrackCharEtcProp(cid,'IndunWeeklyEnteredCount_'..resetGroupID)  --매주 ?��? ?�수
 		else
-			return(acc_obj['IndunWeeklyEnteredCount_'..resetGroupID])   							--매주 남은 횟수
+			return(acc_obj['IndunWeeklyEnteredCount_'..resetGroupID])   							--매주 ?��? ?�수
 		end
         
 	else
 		if indunCls.UnitPerReset == 'PC' then
-			return accountInfo:GetBarrackCharEtcProp(cid, 'InDunCountType_'..resetGroupID);         --매일 남은 횟수
+			return accountInfo:GetBarrackCharEtcProp(cid, 'InDunCountType_'..resetGroupID);         --매일 ?��? ?�수
 		else
-			return (acc_obj['InDunCountType_'..resetGroupID]);            							--매일 남은 횟수
+			return (acc_obj['InDunCountType_'..resetGroupID]);            							--매일 ?��? ?�수
 		end        
     end
 end
 
 function BARRACK_GET_INDUN_MAX_ENTERANCE_COUNT(resetGroupID)
-    local indunClsList, cnt = GetClassList('Indun');
-    local indunCls = nil;
-    for i = 0, cnt - 1 do
-        indunCls = GetClassByIndexFromList(indunClsList, i);
-        if indunCls ~= nil and indunCls.PlayPerResetType == resetGroupID and indunCls.Category ~= 'None' then
-            break;
+	if resetGroupID < 0 then
+        local contentsClsList, count = GetClassList('contents_info');
+        local contentsCls = nil;
+        for i = 0, count - 1 do
+            contentsCls = GetClassByIndexFromList(contentsClsList, i);
+            if contentsCls ~= nil and contentsCls.ResetGroupID == resetGroupID and contentsCls.Category ~= 'None' then
+                break;
+            end
         end
-    end
-    
-    local infinity = TryGetProp(indunCls, 'EnableInfiniteEnter', 'NO')
-    if indunCls.AdmissionItemName ~= "None" or infinity == 'YES'  then
-        local a = "{img infinity_text 20 10}"
-        return a;
-    end
-    
-    local bonusCount = 0;
-    if indunCls.WeeklyEnterableCount ~= nil and indunCls.WeeklyEnterableCount ~= "None" and indunCls.WeeklyEnterableCount ~= 0 then
-        return indunCls.WeeklyEnterableCount + bonusCount;  --매주 max
-    else
-        return indunCls.PlayPerReset + bonusCount;          --매일 max
-    end
+
+        return contentsCls.EnterableCount
+	else
+		local indunClsList, cnt = GetClassList('Indun');
+		local indunCls = nil;
+		for i = 0, cnt - 1 do
+			indunCls = GetClassByIndexFromList(indunClsList, i);
+			if indunCls ~= nil and indunCls.PlayPerResetType == resetGroupID and indunCls.Category ~= 'None' then
+				break;
+			end
+		end
+		
+		local infinity = TryGetProp(indunCls, 'EnableInfiniteEnter', 'NO')
+		if indunCls.AdmissionItemName ~= "None" or infinity == 'YES'  then
+			local a = "{img infinity_text 20 10}"
+			return a;
+		end
+		
+		local bonusCount = 0;
+		if indunCls.WeeklyEnterableCount ~= nil and indunCls.WeeklyEnterableCount ~= "None" and indunCls.WeeklyEnterableCount ~= 0 then
+			return indunCls.WeeklyEnterableCount + bonusCount;  --매주 max
+		else
+			return indunCls.PlayPerReset + bonusCount;          --매일 max
+		end
+	end    
 end
 
 local function toint(n)
@@ -549,12 +589,10 @@ function CREATE_SCROLL_CHAR_LIST(frame, actor)
 	local mapName = mapCls.Name;
 	mapNameCtrl:SetText("{@st66b}".. mapName);
 		
-	local isDraw = 0;
 	local spotCount = item.GetEquipSpotCount() - 1;
 	for i = 0 , spotCount do
 		local eqpObj = bpc:GetEquipObj(i);
 		local esName = item.GetEquipSpotName(i);
-		
 		if eqpObj ~= nil then
 			local obj = GetIES(eqpObj);
 			local eqpType = TryGet_Str(obj, "EqpType");
@@ -563,6 +601,10 @@ function CREATE_SCROLL_CHAR_LIST(frame, actor)
 					esName = "HAIR";
 				end
 			end
+
+			if esName == "TRINKET" and obj ~= nil and item.IsNoneItem(obj.ClassID) == 0 then
+			     esName = "LH"
+		        end
 		end
 		
 		local eqpSlot = GET_CHILD(detail, esName, "ui::CSlot");
@@ -581,19 +623,8 @@ function CREATE_SCROLL_CHAR_LIST(frame, actor)
 				if 0 == item.IsNoneItem(obj.ClassID) then
 					CLEAR_SLOT_ITEM_INFO(eqpSlot);
 					SET_SLOT_ITEM_OBJ(eqpSlot, obj, gender, 1);
-					if obj.ItemType == 'Equip' and obj.DBLHand == 'YES' then
-						local LhSlot = GET_CHILD(detail, 'LH', "ui::CSlot");
-						if nil ~= LhSlot then
-							LhSlot:EnableDrag(0);
-							SET_SLOT_ITEM_OBJ(LhSlot, obj, gender, 1);
-							isDraw = 1;
-						end
-					end
 				else
-					if 'LH' == esName and 1 == isDraw then
-					else
-						CLEAR_SLOT_ITEM_INFO(eqpSlot);
-					end
+					CLEAR_SLOT_ITEM_INFO(eqpSlot);
 				end
 			end
 		end
@@ -1005,7 +1036,7 @@ function UPDATE_BARRACK_MODE(frame)
 		barrack_nameUI:RemoveChild("gbox_tp_all");
 		barrack_nameUI:RemoveChild("upgrade");
 		barrack_nameUI:RemoveChild("teaminfo");
-		barrack_nameUI:RemoveChild("teaminfo_1");
+		barrack_nameUI:RemoveChild("postbox");
 		barrack_nameUI:RemoveChild("postbox_new");
 
 		local pccount = frame:GetChild("pccount");
@@ -1107,14 +1138,14 @@ function START_GAME_SET_MAP(frame, slotID, mapID, channelID)
             local zoneInst = zoneInsts:GetZoneInstByIndex(channelID)
             if zoneInst.channel < 10000 then
                 local str, gaugeString = GET_CHANNEL_STRING(zoneInst, true)
-			    channels:AddItem(zoneInst.channel, str, 0, nil, gaugeString)
+			    channels:AddItem(zoneInst.channel, str, 0, nil, gaugeString.." ")
                 channels:SelectItemByKey(0)
             else
                 local cnt = zoneInsts:GetZoneInstCount();
 		        for i = 0  , cnt - 1 do
 			        local zoneInst = zoneInsts:GetZoneInstByIndex(i);
 			        local str, gaugeString = GET_CHANNEL_STRING(zoneInst, true);
-			        channels:AddItem(zoneInst.channel, str, 0, nil, gaugeString);
+			        channels:AddItem(zoneInst.channel, str, 0, nil, gaugeString.." ");
 		        end
                 channels:SelectItemByKey(channelID);
             end            
@@ -1123,7 +1154,7 @@ function START_GAME_SET_MAP(frame, slotID, mapID, channelID)
 		    for i = 0  , cnt - 1 do
 			    local zoneInst = zoneInsts:GetZoneInstByIndex(i);
 			    local str, gaugeString = GET_CHANNEL_STRING(zoneInst, true);
-			    channels:AddItem(zoneInst.channel, str, 0, nil, gaugeString);
+			    channels:AddItem(zoneInst.channel, str, 0, nil, gaugeString.." ");
 		    end
             channels:SelectItemByKey(channelID);
         end        

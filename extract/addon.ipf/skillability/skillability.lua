@@ -191,7 +191,7 @@ function SKILLABILITY_MAKE_JOB_TAB(frame)
         gb:SetTabChangeScp("SKILLABILITY_ON_CHANGE_TAB");
     end
     SKILLABILITY_ON_CHANGE_TAB(frame);
-	frame:SetUserValue("CLICK_ABIL_ACTIVE_TIME", imcTime.GetAppTime());
+    frame:SetUserValue("CLICK_ABIL_ACTIVE_TIME", imcTime.GetAppTime());
 end
 
 function SKILLABILITY_ON_OPEN(frame)
@@ -200,7 +200,8 @@ function SKILLABILITY_ON_OPEN(frame)
     
     local jobObj = info.GetJob(session.GetMyHandle());
 	local jobCtrlTypeName = GetClassString('Job', jobObj, 'CtrlType');
-	ui.ReqRedisSkillPoint(jobCtrlTypeName);
+    ui.ReqRedisSkillPoint(jobCtrlTypeName);
+    ui.UpdateKeyboardSelectChildByFrameName("skillability");
 end
 
 function SKILLABILITY_ON_CHANGE_TAB(frame)
@@ -534,16 +535,18 @@ function SKILLABILITY_FILL_SKILL_INFO(infoctrl, info)
         overHeat = sklProp:GetOverHeatCnt();
     end
 
-    if overHeat == 0 then
-        if obj ~= nil then
-            sp = GET_SPENDSP_BY_LEVEL(obj, lv);
+    if obj ~= nil then
+        sp = GET_SPENDSP_BY_LEVEL(obj, lv);
+        coolDown = obj.CoolDown / 1000;
+        if overHeat == 0 then
             overHeat = GET_SKILL_OVERHEAT_COUNT(obj);
-            coolDown = obj.CoolDown / 1000;
-        else
-            local tempObj = CreateGCIESByID("Skill", sklCls.ClassID);
-            tempObj.Level = lv;
-            sp = GET_SPENDSP_BY_LEVEL(tempObj, lv);
-            coolDown = tempObj.CoolDown / 1000;
+        end
+    else
+        local tempObj = CreateGCIESByID("Skill", sklCls.ClassID);
+        tempObj.Level = lv;
+        sp = GET_SPENDSP_BY_LEVEL(tempObj, lv);
+        coolDown = tempObj.CoolDown / 1000;
+        if overHeat == 0 then
             overHeat = GET_SKILL_OVERHEAT_COUNT(tempObj);
         end
     end
@@ -1097,7 +1100,7 @@ function ON_COMMIT_SKILLABILITY(parent, btn)
     if isReqSkill then
         --imcSound.PlaySoundItem('statsup');
 		--frame:ShowWindow(0);
-	end
+    end
 end
 
 function ON_SKILLABILITY_BUY_ABILITY_POINT(frame, msg, argmsg, argnum)

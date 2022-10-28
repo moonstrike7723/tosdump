@@ -270,6 +270,12 @@
 					<Num Num="100" />
 					<Num Num="0" />
 				</Scp>
+                <Scp Client="NO" Scp="SKL_TGT_REMOVE_DEBUFF" Time="110" UseSleep="NO">
+                <Str FuncTxt="local func_name = 'get_remove_debuff_tooltip_' .. TryGetProp(obj, 'ClassName', 'None')
+               local func = _G[func_name]
+               if func == nil then return end
+               return func(obj.Level)" Str="0" UseFunc="1"/>
+               </Scp>
 			</EtcList>
 		</MainSkl>
 		<ByCondSkills>
@@ -340,7 +346,7 @@
 				</Scp>
                 <Scp Client="NO" Scp="SKL_SET_TARGET_CLIENT_TARGETTING" Time="10" UseSleep="NO">
                     <Num Num="1" />
-                    <Num FuncTxt="return obj.MaxR+20" UseFunc="1" Num="0" />
+                    <Num FuncTxt="return obj.MaxR+50" UseFunc="1" Num="0" />
                 </Scp>
 				<Scp Client="NO" Scp="SKL_TGT_EFFECT" Time="100" UseSleep="NO">
 					<Str_Arg Arg="0.60000002" Str="F_wizard_ShadowThorn_ground_dark2" />

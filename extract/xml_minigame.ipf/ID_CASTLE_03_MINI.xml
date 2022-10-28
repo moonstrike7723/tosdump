@@ -495,20 +495,20 @@
             <Stage Name="Success" AutoStart="0">
                 <StartScpList>
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
-                        <Str Str="성공!{nl}10초 후에 돌아갑니다"/>
+                        <Str Str="성공!{nl}60초 후에 돌아갑니다"/>
                     </ToolScp>
                     <ToolScp Scp="MGAME_SET_DM_ICON" Client="NO" UseSleep="NO">
-                        <Str Str="성공!!{np}10초 후 입구로 돌아갑니다"/>
+                        <Str Str="성공!!{np}60초 후 입구로 돌아갑니다"/>
                         <Str Str="Clear"/>
                         <Num Num="10"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList/>
                 <StageEvents>
-                    <Event execCount="1" eventName="successsec10">
+                    <Event execCount="1" eventName="successsec60">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="10"/>
+                                <Num Num="60"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -543,9 +543,6 @@
             <ToolScp Scp="MGAME_CRE_SOBJ" Client="NO" UseSleep="NO">
                 <Num Num="2"/>
                 <Str Str="SSN_MISSION_CASTLE_01_PC"/>
-            </ToolScp>
-            <ToolScp Scp="MGAME_CHECK_INDUN" Client="NO" UseSleep="YES">
-                <Str Str="Indun_castle1"/>
             </ToolScp>
         </EnterList>
     </Game>

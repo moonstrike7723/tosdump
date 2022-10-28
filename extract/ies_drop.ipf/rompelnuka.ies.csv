@@ -5,3 +5,4 @@ ClassID,DropRatio,Money_Min,Money_Max,DPK_Min,DPK_Max,DPK_Expo,EPIK_Min,EPIK_Max
 4,63,0,0,0,0,0,0,0,,Item,Item,misc_0463,
 5,2,0,0,0,0,0,0,0,,Item,Item,BlueOrb_rompelnuka,
 6,2,0,0,0,0,0,0,0,,Item,Item,RedOrb_rompelnuka,
+7,50,0,0,0,0,0,0,0,,Item,Item,SHD04_105,

@@ -121,6 +121,12 @@
                     <Str Str="voice_scout_m_redemption_cast"/>
                     <Str Str="voice_scout_f_redemption_cast"/>
 				</Scp>
+                <Scp Client="NO" Scp="SKL_TGT_REMOVE_DEBUFF" Time="110" UseSleep="NO">
+                <Str FuncTxt="local func_name = 'get_remove_debuff_tooltip_' .. TryGetProp(obj, 'ClassName', 'None')
+               local func = _G[func_name]
+               if func == nil then return end
+               return func(obj.Level)" Str="0" UseFunc="1"/>
+               </Scp>
 			</EtcList>
 		</MainSkl>
 	</Skill>
@@ -294,7 +300,7 @@
             <ToolScp Scp="SKL_KEY_DYNAMIC_CASTING" Client="YES" UseSleep="NO">
 				<Num Num="0" />
 				<Num Num="0" />
-				<Num FuncTxt="local value = 3 local addTime = 1 local pc = GetMyPCObject() if IsBuffApplied(pc, &quot;ITEM_SKIACLIPS_PISTOL_PRE&quot;) == &quot;YES&quot; then value = value + addTime end return value" Num="3" UseFunc="1" />
+                <Num Num="3" UseFunc="0"/>
 				<Num Num="1" />
 				<Num Num="0" />
 				<Num Num="0" />
@@ -319,7 +325,7 @@
 		<KeyInputStart>
             <ToolScp Scp="MONSKL_C_PLAY_ANIM" Client="YES" UseSleep="NO">
 				<Str Str="SKL_FANNING" />
-				<Num FuncTxt="local value = 1 local pc = GetMyPCObject() if IsBuffApplied(pc, &quot;ITEM_SKIACLIPS_PISTOL_PRE&quot;) == &quot;YES&quot; then value = value * 0.75 end return value" Num="1" UseFunc="1" />
+                <Num Num="1" UseFunc="0"/>
 				<Num Num="1" />
 				<Num Num="0" />
 			</ToolScp>

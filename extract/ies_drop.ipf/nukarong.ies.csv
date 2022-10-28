@@ -5,3 +5,4 @@ ClassID,DropRatio,Money_Min,Money_Max,DPK_Min,DPK_Max,DPK_Expo,EPIK_Min,EPIK_Max
 4,46,0,0,0,0,0,0,0,,Item,Item,misc_0456,
 5,2,0,0,0,0,0,0,0,,Item,Item,BlueOrb_nukarong,
 6,2,0,0,0,0,0,0,0,,Item,Item,RedOrb_nukarong,
+7,30,0,0,0,0,0,0,0,,Item,Item,SWD03_120,

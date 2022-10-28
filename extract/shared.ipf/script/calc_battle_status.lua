@@ -16,8 +16,7 @@ function get_log_scale(ret)
     return ret
 end
 
--- CalcProperty_Skill.cpp, float get_hp_recovery_ratio(imcIES::IObject* pc, float value)
--- done , 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+-- 서버에서 사용하는 함수
 function get_hp_recovery_ratio(pc, value)
     if pc == nil then
         pc = GetMyPCObject()
@@ -40,41 +39,30 @@ function get_hp_recovery_ratio(pc, value)
     ratio = math.min(max_hp_recovery_ratio, ratio)
     ratio = ratio * mhp
 
-    if IsServerSection() == 1 then
-        if IsPVPServer(pc) == 1 or IsPVPField(pc) == 1 then
-            ratio = ratio * 0.5
-        end
-    else
-        if IsPVPServer() == 1 or IsPVPField() == 1 then
-            ratio = ratio * 0.5
-        end
-    end
-
     return math.floor(ratio)
 end
 
--- sp 자연회복 가능 여부 (사용하지 않음 cpp로 이전됨), void CComponent_Battle_PC::UpdateRSP()
--- function get_sp_recovery_enable(pc)
---     local buffKeywordList = { "Curse", "Formation", "SpDrain", "UnrecoverableSP", "NoneRecoverableSP" };
---     for i = 1, #buffKeywordList do
---         if GetBuffByProp(pc, 'Keyword', buffKeywordList[i]) ~= nil then
---             return 0
---         end
---     end
+-- sp 자연회복 가능 여부
+function get_sp_recovery_enable(pc)
+    local buffKeywordList = { "Curse", "Formation", "SpDrain", "UnrecoverableSP", "NoneRecoverableSP" };
+    for i = 1, #buffKeywordList do
+        if GetBuffByProp(pc, 'Keyword', buffKeywordList[i]) ~= nil then
+            return 0
+        end
+    end
 
---     return 1
--- end
+    return 1
+end
 
--- 사용하지 않음, cpp로 이전됨, void CComponent_Battle_PC::UpdateRSP()
--- function get_sp_recovery_time(pc)
---     local value = SCR_GET_RSPTIME(pc)
+function get_sp_recovery_time(pc)
+    local value = SCR_GET_RSPTIME(pc)
     
---     if IsBuffApplied(pc, 'ManaAmplify_Debuff') == 'YES' then
---         value = 20000
---     end
+    if IsBuffApplied(pc, 'ManaAmplify_Debuff') == 'YES' then
+        value = 20000
+    end
 
---     return value
--- end
+    return value
+end
 
 -- hp 회복력
 function get_RHP_ratio_for_status(value)
@@ -261,16 +249,6 @@ function get_Ghost_Atk_ratio_for_status(value)
     return value .. ' {#ff4040}(' .. ret .. '%)'
 end
 
-function get_BOSS_ATK_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
 function get_AttackType_value_Cannon(pc)
     local value = 10
     if pc ~= nil then
@@ -278,154 +256,4 @@ function get_AttackType_value_Cannon(pc)
     end
 
     return value
-end
-
-function get_Aries_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Slash_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Strike_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Arrow_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Cannon_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Gun_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Magic_Melee_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Magic_Fire_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Magic_Ice_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Magic_Lightning_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Magic_Earth_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Magic_Poison_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Magic_Dark_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Magic_Holy_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
-end
-
-function get_Magic_Soul_Atk_ratio_for_status(value)
-    local ret = 0
-
-    local pc = GetMyPCObject()
-    if pc ~= nil then        
-        ret = get_calc_atk_value_for_status(pc, value)
-    end
-    return value .. ' {#ff4040}(' .. ret .. '%)'
 end

@@ -488,12 +488,76 @@ function SET_SKILL_TOOLTIP_CAPTION(skillFrame, caption, parsedCaption)
     skillDesc:EnableSplitBySpace(0);
 end
 
-function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)         
+function SET_SKILL_PUB_CREATECHAR_TOOLTIP_CAPTION(skillFrame, caption, parsedCaption)
+    local skillDesc = GET_CHILD(skillFrame, "desc", "ui::CRichText");   
+    skillDesc:Resize(skillDesc:GetWidth(), 20);
+    skillDesc:SetTextAlign("left", "top");
+    local translatedData = dictionary.ReplaceDicIDInCompStr(caption);
+    if caption ~= translatedData then
+        skillDesc:SetDicIDText(caption)
+    end
+    skillDesc:SetText('{@st41b}{s16}'..parsedCaption);
+    skillDesc:EnableSplitBySpace(0);
+end
+
+local function get_remove_buff_additional_tooltip(func, lv, lvDesc, additional_remove_buff_tooltip)
+    -- 버프 삭제 로직 툴팁 관련    
+    if func ~= nil then
+        local args = func(lv)        
+        local token = StringSplit(args, '/')                        
+        local msg = ScpArgMsg('AdditionalRemoveEnemyBuff{level}{prob}{count}', 'level', token[2], 'prob', tonumber(token[4]), 'count', token[3])
+        additional_remove_buff_tooltip = dictionary.ReplaceDicIDInCompStr(msg)
+    end
+
+    if additional_remove_buff_tooltip ~= nil then
+        lvDesc = string.format("%s{nl}%s", lvDesc, additional_remove_buff_tooltip)
+    end
+
+    return lvDesc
+end
+
+local function get_decrease_heal_debuff_additional_tooltip(func, lv, lvDesc, additional_decrease_heal_debuff_tooltip)
+    if func ~= nil then
+        local args = func(lv)                        
+        local token = StringSplit(args, '/')                
+        local msg = ScpArgMsg('AdditionalDecreaseHealEnemy{duration}{ratio}', 'duration', math.floor(tonumber(token[4])/1000), 'ratio', string.format("%.1f", tonumber(token[3])/1000))
+        additional_decrease_heal_debuff_tooltip = dictionary.ReplaceDicIDInCompStr(msg)
+    end
+
+    if additional_decrease_heal_debuff_tooltip ~= nil then
+        lvDesc = string.format("%s{nl}%s", lvDesc, additional_decrease_heal_debuff_tooltip)
+    end
+
+    return lvDesc
+end
+
+local function get_remove_debuff_additional_tooltip(func, lv, lvDesc, additional_decrease_heal_debuff_tooltip)
+    -- 디버프 삭제 로직 툴팁 관련    
+    if func ~= nil then
+        local args = func(lv)        
+        local token = StringSplit(args, '/')
+        local msg = ''
+        if token[6] == 'self' then
+            msg = ScpArgMsg('AdditionalRemoveSelfDebuff{level}{prob}{count}', 'level', token[2], 'prob', tonumber(token[4]), 'count', token[3])
+        else
+            msg = ScpArgMsg('AdditionalRemoveFriendDebuff{level}{prob}{count}', 'level', token[2], 'prob', tonumber(token[4]), 'count', token[3])
+        end
+        additional_remove_buff_tooltip = dictionary.ReplaceDicIDInCompStr(msg)
+    end
+
+    if additional_remove_buff_tooltip ~= nil then
+        lvDesc = string.format("%s{nl}%s", lvDesc, additional_remove_buff_tooltip)
+    end
+
+    return lvDesc
+end
+
+function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)  	
     -- destroy skill, ability tooltip
     DESTROY_CHILD_BYNAME(frame:GetChild('skill_desc'), 'SKILL_CAPTION_');
     DESTROY_CHILD_BYNAME(frame:GetChild('ability_desc'), 'ABILITY_CAPTION_');
 
-    local abil = session.GetSkillByGuid(numarg2);
+    local abil = session.GetSkillByGuid(numarg2);	
     local obj = nil;
     local objIsClone = false;
     local tooltipStartLevel = 1;
@@ -516,16 +580,15 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     if obj == nil then
         return;
     end
-
+	
     --------------------------- skill description frame ------------------------------------
     local skillFrame = GET_CHILD(frame, "skill_desc", "ui::CGroupBox")
-
     -- set skill icon and name
     SET_SKILL_TOOLTIP_ICON_AND_NAME(skillFrame, obj, true);    
     
     -- set skill description
-    local skillDesc = GET_CHILD(skillFrame, "desc", "ui::CRichText");   
-    SET_SKILL_TOOLTIP_CAPTION(skillFrame, obj.Caption, PARSE_TOOLTIP_CAPTION(obj, obj.Caption, true));    
+    local skillDesc = GET_CHILD(skillFrame, "desc", "ui::CRichText");   	
+    SET_SKILL_TOOLTIP_CAPTION(skillFrame, obj.Caption, PARSE_TOOLTIP_CAPTION(obj, obj.Caption, true));    	
 
     local stateLevel = 0;
     if strarg ~= "quickslot" then
@@ -568,7 +631,7 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
         originalText = skillCaption2
     end    
     
-    local skillLvDesc = PARSE_TOOLTIP_CAPTION(obj, skillCaption2, strarg ~= "quickslot");
+    local skillLvDesc = PARSE_TOOLTIP_CAPTION(obj, skillCaption2, strarg ~= "quickslot");	
     local lvDescStart, lvDescEnd = string.find(skillLvDesc, "Lv.");
     local lv = 1;
     if tooltipStartLevel > 0 then
@@ -587,22 +650,86 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     else
         totalLevel = obj.LevelByDB;
     end
+    
+    -- 적 버프 제거 관련 --------------------------------------------------
+    local skill_class_name = TryGetProp(obj, 'ClassName', 'None')
+    local additional_remove_buff_tooltip = nil
+    local func_name_remove_buff = nil
+    if skill_class_name ~= 'None' then
+        func_name_remove_buff = string.format('get_remove_buff_tooltip_%s', skill_class_name)
+    end
+
+    -- 아군 디버프 제거 관련 
+    local additional_remove_debuff_tooltip = nil
+    local func_name_remove_debuff = nil
+    if skill_class_name ~= 'None' then
+        func_name_remove_debuff = string.format('get_remove_debuff_tooltip_%s', skill_class_name)
+    end
+    --------------------------------------------------------------------
+    
+    -- 적에게 힐량 감소 디버프 부여 관련 ----------------------------------
+    local additional_decrease_heal_debuff_tooltip = nil
+    local func_name_decrease_heal = nil
+    if skill_class_name ~= 'None' then
+        func_name_decrease_heal = string.format('get_decrease_heal_debuff_tooltip_%s', skill_class_name)
+    end
+    --------------------------------------------------------------------
 
     local currLvCtrlSet = nil    
-    if totalLevel == 0 and lvDescStart ~= nil then  -- no have skill case        
+    if totalLevel == 0 and lvDescStart ~= nil then  -- no have skill case
         skillLvDesc = string.sub(skillLvDesc, lvDescEnd + 2, string.len(skillLvDesc));
         lvDescStart, lvDescEnd = string.find(skillLvDesc, "Lv.");        
         if lvDescStart ~= nil then              
             local lvDesc = string.sub(skillLvDesc, 2, lvDescStart -1);
             skillLvDesc  = string.sub(skillLvDesc, lvDescEnd + 2    , string.len(skillLvDesc));
+
+            -- 버프 삭제 로직 툴팁 관련 ----------------------------------------------------------------
+            if func_name_remove_buff ~= nil and _G[func_name_remove_buff] ~= nil then 
+                local func = _G[func_name_remove_buff]            
+                lvDesc = get_remove_buff_additional_tooltip(func, 1, lvDesc, additional_remove_buff_tooltip)
+            end
+
+            if func_name_remove_debuff ~= nil and _G[func_name_remove_debuff] ~= nil then 
+                local func = _G[func_name_remove_debuff]            
+                lvDesc = get_remove_debuff_additional_tooltip(func, 1, lvDesc, additional_remove_buff_tooltip)
+            end
+            -------------------------------------------------------------------------------------------------
+
+            -- 힐량 감소 디버프 부여 툴팁 관련 ----------------------------------------------------------------
+            if func_name_decrease_heal ~= nil and _G[func_name_decrease_heal] ~= nil then
+                local func = _G[func_name_decrease_heal]
+                lvDesc = get_decrease_heal_debuff_additional_tooltip(func, 1, lvDesc, additional_decrease_heal_debuff_tooltip)
+            end
+            -------------------------------------------------------------------------------------------------
+
             ypos = SKILL_LV_DESC_TOOLTIP(skillFrame, obj, totalLevel, lv, lvDesc, ypos, originalText);
         else -- max skill level = 1        
             local lvDesc = string.sub(skillLvDesc, 2, string.len(skillLvDesc));
+            
+            -- 버프 삭제 로직 툴팁 관련 ----------------------------------------------------------------
+            if func_name_remove_buff ~= nil and _G[func_name_remove_buff] ~= nil then 
+                local func = _G[func_name_remove_buff]
+                lvDesc = get_remove_buff_additional_tooltip(func, 1, lvDesc, additional_remove_buff_tooltip)
+            end
+
+            if func_name_remove_debuff ~= nil and _G[func_name_remove_debuff] ~= nil then 
+                local func = _G[func_name_remove_debuff]            
+                lvDesc = get_remove_debuff_additional_tooltip(func, 1, lvDesc, additional_remove_buff_tooltip)
+            end
+            -------------------------------------------------------------------------------------------------
+
+            -- 힐량 감소 디버프 부여 툴팁 관련 ----------------------------------------------------------------
+            if func_name_decrease_heal ~= nil and _G[func_name_decrease_heal] ~= nil then
+                local func = _G[func_name_decrease_heal]
+                lvDesc = get_decrease_heal_debuff_additional_tooltip(func, 1, lvDesc, additional_decrease_heal_debuff_tooltip)
+            end
+            -------------------------------------------------------------------------------------------------
+
             ypos = SKILL_LV_DESC_TOOLTIP(skillFrame, obj, totalLevel, lv, lvDesc, ypos, originalText);
         end            
     elseif lvDescStart ~= nil and totalLevel ~= 0 then        
-        skillLvDesc = string.sub(skillLvDesc, lvDescEnd + 2, string.len(skillLvDesc));                
-        while 1 do
+        skillLvDesc = string.sub(skillLvDesc, lvDescEnd + 2, string.len(skillLvDesc));                		
+        while 1 do			
 
             local levelvalue = 2
             if lv >= 9 then
@@ -613,16 +740,56 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
             
             lvDescStart, lvDescEnd = string.find(skillLvDesc, "Lv.");  
             if lvDescStart == nil then -- max skill level = 1
-                local lvDesc = string.sub(skillLvDesc, 2, string.len(skillLvDesc));   
-                ypos = SKILL_LV_DESC_TOOLTIP(skillFrame, obj, totalLevel, lv, lvDesc, ypos, originalText);                
+                local lvDesc = string.sub(skillLvDesc, 2, string.len(skillLvDesc));
+                
+                -- 버프 삭제 로직 툴팁 관련 -----------------------------------------------------------------------
+                if func_name_remove_buff ~= nil and _G[func_name_remove_buff] ~= nil then 
+                    local func = _G[func_name_remove_buff]
+                    lvDesc = get_remove_buff_additional_tooltip(func, lv, lvDesc, additional_remove_buff_tooltip)
+                end
+
+                if func_name_remove_debuff ~= nil and _G[func_name_remove_debuff] ~= nil then 
+                    local func = _G[func_name_remove_debuff]            
+                    lvDesc = get_remove_debuff_additional_tooltip(func, lv, lvDesc, additional_remove_buff_tooltip)
+                end
+                -------------------------------------------------------------------------------------------------
+                
+                -- 힐량 감소 디버프 부여 툴팁 관련 ----------------------------------------------------------------
+                if func_name_decrease_heal ~= nil and _G[func_name_decrease_heal] ~= nil then
+                    local func = _G[func_name_decrease_heal]
+                    lvDesc = get_decrease_heal_debuff_additional_tooltip(func, lv, lvDesc, additional_decrease_heal_debuff_tooltip)
+                end
+                -------------------------------------------------------------------------------------------------
+
+                ypos = SKILL_LV_DESC_TOOLTIP(skillFrame, obj, totalLevel, lv, lvDesc, ypos, originalText);                				
                 break;
             end            
-            local lvDesc = string.sub(skillLvDesc, 2, lvDescStart -1);               
+            local lvDesc = string.sub(skillLvDesc, 2, lvDescStart -1);   			            
             local comma = string.sub(lvDesc, 1, 1)            
             if comma ~= nil and comma == ',' then                
                 lvDesc = string.sub(skillLvDesc, 3, lvDescStart -1);   
             end
-            skillLvDesc  = string.sub(skillLvDesc, lvDescEnd + levelvalue, string.len(skillLvDesc));            
+            skillLvDesc  = string.sub(skillLvDesc, lvDescEnd + levelvalue, string.len(skillLvDesc))
+            
+            -- 버프 삭제 로직 툴팁 관련 ----------------------------------------------------------------
+            if func_name_remove_buff ~= nil and _G[func_name_remove_buff] ~= nil then 
+                local func = _G[func_name_remove_buff]
+                lvDesc = get_remove_buff_additional_tooltip(func, lv, lvDesc, additional_remove_buff_tooltip)
+            end
+
+            if func_name_remove_debuff ~= nil and _G[func_name_remove_debuff] ~= nil then 
+                local func = _G[func_name_remove_debuff]            
+                lvDesc = get_remove_debuff_additional_tooltip(func, lv, lvDesc, additional_remove_buff_tooltip)
+            end
+            -------------------------------------------------------------------------------------------------
+
+            -- 힐량 감소 디버프 부여 툴팁 관련 ----------------------------------------------------------------
+            if func_name_decrease_heal ~= nil and _G[func_name_decrease_heal] ~= nil then
+                local func = _G[func_name_decrease_heal]
+                lvDesc = get_decrease_heal_debuff_additional_tooltip(func, lv, lvDesc, additional_decrease_heal_debuff_tooltip)
+            end
+            -------------------------------------------------------------------------------------------------
+
             ypos = SKILL_LV_DESC_TOOLTIP(skillFrame, obj, totalLevel, lv, lvDesc, ypos, originalText);            
             lv = lv + 1;
         end
@@ -677,7 +844,8 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     end
 
     local showAbilCnt = 0;
-    local abilList, abilCnt = GET_ABILITYLIST_BY_SKILL_NAME(obj.ClassName, jobEngNameList)
+    local abilList, abilCnt = GET_ABILITYLIST_BY_SKILL_NAME(obj.ClassName, jobEngNameList);
+
     local pcAbilCnt = 0 -- ability count for showing
     local pcAbilList = {}
     for i = 0, abilCnt-1 do     
@@ -713,6 +881,129 @@ function UPDATE_SKILL_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
     else
         abilFrame:ShowWindow(0)
     end
+    frame:Invalidate();
+
+    if objIsClone == true then
+        DestroyIES(obj);
+    end
+end
+
+function UPDATE_SKILL_PUB_CREATECHAR_TOOLTIP(frame, strarg, numarg1, numarg2, userData, obj)
+    DESTROY_CHILD_BYNAME(frame:GetChild('skill_desc'), 'SKILL_CAPTION_');
+    DESTROY_CHILD_BYNAME(frame:GetChild('ability_desc'), 'ABILITY_CAPTION_');
+
+    local abil = session.GetSkillByGuid(numarg2);
+    local obj = nil; local objIsClone = false;
+   
+    local tooltipStartLevel = 1;
+    if abil == nil then
+        local cloneObjLevel = 0;
+        if strarg == "Level" then
+            cloneObjLevel = numarg2;
+        end
+        obj = GetClassByType("Skill", numarg1);
+        obj = CloneIES_UseCP(obj);
+        obj.LevelByDB = cloneObjLevel;
+        tooltipStartLevel = cloneObjLevel;
+        objIsClone = true;
+    else	
+        obj = GetIES(abil:GetObject());
+        tooltipStartLevel = obj.Level;
+    end
+
+    if obj == nil then return; end
+    
+    -----description frame
+    local skill_desc = GET_CHILD_RECURSIVELY(frame, "skill_desc");
+    SET_SKILL_TOOLTIP_ICON_AND_NAME(skill_desc, obj, true);
+
+    local desc_text = GET_CHILD_RECURSIVELY(skill_desc, "desc");
+    SET_SKILL_PUB_CREATECHAR_TOOLTIP_CAPTION(skill_desc, obj.Caption, PARSE_TOOLTIP_CAPTION(obj, obj.Caption, true));
+
+    local stateLv = 0;
+    if strarg ~= "quickslot" then
+        stateLv = session.GetUserConfig("SKLUP_"..obj.ClassName, 0);
+    end
+    tooltipStartLevel = tooltipStartLevel + stateLv;
+
+    local icon_pic = GET_CHILD_RECURSIVELY(skill_desc, "icon");
+    if icon_pic == nil then return; end
+
+    local icon_end_pos = icon_pic:GetY() + icon_pic:GetHeight();
+    local ypos = desc_text:GetY() + desc_text:GetHeight();    
+    if ypos < icon_end_pos then
+        ypos = icon_end_pos + 10;
+    end
+
+    -- weapon info
+    local weapon_box = GET_CHILD_RECURSIVELY(frame, "weapon_box");
+    local stance_pic = GET_CHILD_RECURSIVELY(weapon_box, "stance_pic");
+    stance_pic:RemoveAllChild();
+
+    if TryGetProp(obj, "ReqStance") ~= nil and TryGetProp(obj, "EnableCompanion") ~= nil then
+        MAKE_STANCE_ICON(stance_pic, obj.ReqStance, obj.EnableCompanion, 100, 37);
+
+        local childCnt = stance_pic:GetChildCount();
+        for i = 0, childCnt - 1 do
+            local child = stance_pic:GetChildByIndex(i);
+            if child ~= nil then
+                child:SetOffset(child:GetWidth() * i + 5, 10);
+            end
+        end
+    end
+
+    weapon_box:SetOffset(0, ypos);
+    ypos = weapon_box:GetY() + weapon_box:GetHeight() + 5;
+
+    -- level desc controlset
+    local skl_caption2 = MAKE_SKILL_CAPTION2(obj.ClassName, obj.Caption2, tooltipStartLevel);
+
+    local origin_text = "";
+    local translated_data2 = dictionary.ReplaceDicIDInCompStr(skl_caption2);
+    if skl_caption2 ~= translated_data2 then
+        origin_text = skl_caption2;
+    end
+
+    local skllv_desc = PARSE_TOOLTIP_CAPTION(obj, skl_caption2, strarg ~= "quickslot");
+    local lvdesc_start, lvdesc_end = string.find(skllv_desc, "Lv.");
+    local lv = 1;
+
+    local curLevelCtrlSet = nil;
+    skllv_desc = string.sub(skllv_desc, lvdesc_end + 2, string.len(skllv_desc));
+    lvdesc_start, lvdesc_end = string.find(skllv_desc, "Lv.");
+    if lvdesc_start ~= nil then
+        local lv_desc = string.sub(skllv_desc, 2, lvdesc_start - 1);
+        skllv_desc = string.sub(skllv_desc, lvdesc_end + 2, string.len(skllv_desc));
+
+        ypos = SKILL_LV_DESC_TOOLTIP(skill_desc, obj, lv, lv, lv_desc, ypos, origin_text);
+    end
+
+    local no_trade_cnt = nil;
+    local no_trade = GET_CHILD_RECURSIVELY(skill_desc, "trade_text");
+    local item_id = frame:GetUserValue("SCROLL_ITEM_ID");
+    if item_id ~= "None" then
+        local scroll_invtype = skill_desc:GetUserValue("SCROLL_ITEM_INVTYPE");
+        local item_obj, is_read_obj = GET_TOOLTIP_ITEM_OBJECT(scroll_invtype, item_id);
+        if item_obj ~= nil then
+            no_trade_cnt = TryGetProp(item_obj, "BelongingCount");
+            if is_read_obj == 1 then
+                DestroyIES(item_obj);
+            end
+        end
+    end
+
+    if no_trade_cnt ~= nil and no_trade_cnt >= 0 then
+        no_trade:SetTextByKey("count", no_trade_cnt);
+        no_trade:ShowWindow(1);
+        no_trade:SetOffSet(no_trade:GetOriginalX() + 10, ypos - no_trade:GetOriginalHeight());
+    else
+        no_trade:SetOffset(no_trade:GetOriginalX(), no_trade:GetOriginalY());
+        no_trade:ShowWindow(0);
+    end
+    no_trade:Invalidate();
+
+    skill_desc:Resize(frame:GetWidth(), ypos + 10);
+    frame:Resize(frame:GetWidth(), skill_desc:GetHeight() + 10);
     frame:Invalidate();
 
     if objIsClone == true then
@@ -813,15 +1104,22 @@ function SKILL_LV_DESC_TOOLTIP(frame, obj, totalLevel, lv, desc, ypos, dicidtext
     end
     
     -- font and data setting
-    if totalLevel == lv then
+    local pub_frame = ui.GetFrame("pub_createchar");
+    if pub_frame == nil or pub_frame:IsVisible() == 0 then
+        if totalLevel == lv then
+            lvDescCtrlSet:SetDraw(1);
+            lvFont = LEVEL_FONTNAME
+            descFont = DESC_FONTNAME
+        else        
+            lvDescCtrlSet:SetDraw(1);
+            lvDescCtrlSet:SetSkinName(SKIN_NEXTLV_NAME);
+            lvFont = LEVEL_NEXTLV_FONTNAME
+            descFont = DESC_NEXTLV_FONTNAME
+        end
+    else
         lvDescCtrlSet:SetDraw(1);
-        lvFont = LEVEL_FONTNAME
-        descFont = DESC_FONTNAME
-    else        
-        lvDescCtrlSet:SetDraw(1);
-        lvDescCtrlSet:SetSkinName(SKIN_NEXTLV_NAME);
-        lvFont = LEVEL_NEXTLV_FONTNAME
-        descFont = DESC_NEXTLV_FONTNAME
+        lvFont = LEVEL_FONTNAME;
+        descFont = "{@st41b}{s16}";
     end
     
     if TryGetProp(obj, 'CoolDown') ~= nil then
@@ -844,7 +1142,17 @@ function SKILL_LV_DESC_TOOLTIP(frame, obj, totalLevel, lv, desc, ypos, dicidtext
     end
 
     if overHeat == 0 then
-        overHeat = GET_SKILL_OVERHEAT_COUNT(obj);
+        if pub_frame == nil or pub_frame:IsVisible() == 0 then
+            overHeat = GET_SKILL_OVERHEAT_COUNT(obj);
+        else
+            if obj ~= nil then
+                overHeat = TryGetProp(obj, "SklUseOverHeat", 0);
+            end
+
+            if overHeat == 0 then
+                overHeat = 1;
+            end
+        end
     end
   
     local sp = GET_SPENDSP_BY_LEVEL(obj, lv);
@@ -1047,7 +1355,13 @@ function UPDATE_MON_SIMPLE_TOOLTIP(frame, monName)
     frame:Resize(frame:GetWidth(), t_desc:GetY() + t_desc:GetHeight() + 10);
 end
 
-function UPDATE_RESTRICT_INFO_TOOLTIP(frame, mapKeyword)
+local legend_raid_item_restrict = {
+    'Dispeller_1',
+    'Bujeok_1',
+    'Scroll_SkillItem',
+}
+
+function UPDATE_RESTRICT_INFO_TOOLTIP(frame, mapKeyword, isLegendRaid)
     local titleBox = GET_CHILD_RECURSIVELY(frame, "titleBox");
     local INNER_X = frame:GetUserConfig("INNER_X");
     local INNER_Y = frame:GetUserConfig("INNER_Y");
@@ -1067,6 +1381,14 @@ function UPDATE_RESTRICT_INFO_TOOLTIP(frame, mapKeyword)
         end
     end
 
+    if isLegendRaid == 1 then
+        for i = 1, #legend_raid_item_restrict do
+            local width, height = MAKE_ITEM_RESTRICT_INFO(frame, legend_raid_item_restrict[i], ypos + INNER_Y, ctrlsetWidth);
+            xpos = math.max(xpos, width);
+            ypos = height;
+        end
+    end
+
     frame:Resize(xpos + INNER_X, ypos + INNER_Y);
 end
 
@@ -1081,6 +1403,26 @@ function MAKE_RESTRICT_INFO(frame, skillRestrict, ypos, ctrlSetWidth)
 
     local INNER_X = frame:GetUserConfig("INNER_X");
     local ctrlSet = frame:CreateOrGetControlSet("skill_restrict_info_list", "SKILL_RESTRICT_INFO_" .. className, INNER_X, ypos);
+    local text = GET_CHILD_RECURSIVELY(ctrlSet, "skill_info");
+    text:SetTextByKey("img", img);
+    text:SetTextByKey("name", name);
+    text:SetTextByKey("caption", caption);
+    
+    local textWidth = text:GetTextWidth();
+    ctrlSet:Resize(textWidth, text:GetHeight());
+    return textWidth, ypos + ctrlSet:GetHeight();
+end
+
+function MAKE_ITEM_RESTRICT_INFO(frame, clsName, ypos, strlSetWidth)
+    local itemCls = GetClass("Item", clsName);
+    local imgName = TryGetProp(itemCls, "Icon");
+    local ICON_SIZE = frame:GetUserConfig("ICON_SIZE");
+    local img = string.format("{img %s %d %d}", imgName, ICON_SIZE, ICON_SIZE);
+    local name = TryGetProp(itemCls, "Name");
+    local caption = ScpArgMsg("ImpossibleToUse");
+
+    local INNER_X = frame:GetUserConfig("INNER_X");
+    local ctrlSet = frame:CreateOrGetControlSet("skill_restrict_info_list", "SKILL_RESTRICT_INFO_" .. clsName, INNER_X, ypos);
     local text = GET_CHILD_RECURSIVELY(ctrlSet, "skill_info");
     text:SetTextByKey("img", img);
     text:SetTextByKey("name", name);

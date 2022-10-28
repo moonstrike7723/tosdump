@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<ToolSkill><Skill Name="Ranger_SpiralArrow">
+<ToolSkill>
+<Skill Name="Ranger_SpiralArrow">
 		<MainSkl JumpFlee="NO" MSPDToUsePos="0" ScrLock="None">
 			<EtcList>
 				<Scp Client="YES" Scp="C_EFFECT" Time="270" UseSleep="NO">
@@ -36,7 +37,13 @@
 				</Scp>
 			</EtcList>
 			<ResultList>
-				<ToolScp Client="NO" Scp="S_R_TGTBUFF" UseSleep="NO">
+              <ToolScp Client="NO" Scp="S_R_TGT_Decrease_heal_debuff" UseSleep="NO">
+                <Str FuncTxt="local func_name = 'get_decrease_heal_debuff_tooltip_' .. TryGetProp(skill, 'ClassName', 'None')
+               local func = _G[func_name]
+               if func == nil then return end
+               return func(skill.Level)" Str="0" UseFunc="1"/>
+              </ToolScp>
+                <ToolScp Client="NO" Scp="S_R_TGTBUFF" UseSleep="NO">
 					<Str Str="SpiralArrow_Debuff" />
 					<Num Num="1" />
 					<Num Num="0" />
@@ -387,9 +394,11 @@
 		<MainSkl ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
 			<EtcList>
 				<Scp Scp="MONSKL_C_PLAY_ANIM" Client="YES" UseSleep="NO" Time="0">
-                    <Str Str="ATK" UseFunc="1" FuncTxt="local pc = GetMyPCObject()
-local abil = GetAbility(pc,&quot;Ranger38&quot;)
-if abil ~= nil and abil.ActiveState == 1 then
+                    <Str Str="ATK" UseFunc="1" FuncTxt="if self == nil then
+return &quot;ATK&quot;
+end
+local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;)
+if abilBuff ~= nil then
 return &quot;BOUNCESHOT_ICE&quot;
 else
 return &quot;ATK&quot;
@@ -399,7 +408,15 @@ end"/>
                     <Num Num="0"/>
                 </Scp>
                 <Scp Scp="C_EFFECT_ATTACH" Client="YES" UseSleep="NO" Time="0">
-					<Str_Arg Str="F_spread_in032_fire2#Dummy_Force" UseFunc="1" FuncTxt="local self = GetMyPCObject(); local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;None#Dummy_Force&quot;, 0.35; else return &quot;F_spread_in032_fire2#Dummy_Force&quot;, 0.7; end" Arg="0.69999999"/>
+					<Str_Arg Str="F_spread_in032_fire2#Dummy_Force" UseFunc="1" FuncTxt="if self == nil then
+return &quot;None#Dummy_Force&quot;, 0.35;
+end
+local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;)
+if abilBuff ~= nil then
+return &quot;None#Dummy_Force&quot;, 0.35;
+else
+return &quot;F_spread_in032_fire2#Dummy_Force&quot;, 0.7;
+end" Arg="0.69999999"/>
 					<Num Num="1"/>
 					<Pos Angle="0" Dist="0"/>
 					<Num Num="0"/>
@@ -409,7 +426,15 @@ end"/>
 					<Str Str="voice_atk_medium_war_f"/>
 				</Scp>
 				<Scp Scp="C_EFFECT_ATTACH" Client="YES" UseSleep="NO" Time="0">
-					<Str_Arg Str="F_spread_out055#Dummy_Force" UseFunc="1" FuncTxt="local self = GetMyPCObject(); local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;None#Dummy_Force&quot;, 1; else return &quot;F_spread_out055#Dummy_Force&quot;, 1; end" Arg="1"/>
+					<Str_Arg Str="F_spread_out055#Dummy_Force" UseFunc="1" FuncTxt="if self == nil then
+return &quot;None#Dummy_Force&quot;, 1; 
+end
+local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;)
+if abilBuff ~= nil then
+return &quot;None#Dummy_Force&quot;, 1; 
+else
+return &quot;F_spread_out055#Dummy_Force&quot;, 1;
+end" Arg="1"/>
 					<Num Num="1"/>
 					<Pos Angle="0" Dist="0"/>
 					<Num Num="0"/>
@@ -421,9 +446,9 @@ end"/>
 					<Num Num="999"/>
 					</Scp>
                 <Scp Scp="C_FORCE_EFT" Client="YES_Time" UseSleep="NO" Time="320">
-                    <Str_Arg Str="I_archer_dividedarrow_force_fire#Dummy_Force" UseFunc="1" FuncTxt="local self = GetMyPCObject(); local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;I_arrow003_blue#Dummy_Force_effect&quot;, 0.7; else return &quot;I_archer_dividedarrow_force_fire#Dummy_Force&quot;, 0.7; end" Arg="0.69999999"/>
+                    <Str_Arg Str="I_archer_dividedarrow_force_fire#Dummy_Force" UseFunc="1" FuncTxt="if self == nil then return &quot;I_archer_dividedarrow_force_fire#Dummy_Force&quot;, 0.7; end local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;) if abilBuff ~= nil then return &quot;I_arrow003_blue#Dummy_Force_effect&quot;, 0.7; else return &quot;I_archer_dividedarrow_force_fire#Dummy_Force&quot;, 0.7; end" Arg="0.69999999"/>
                     <Str Str="arrow_cast"/>
-					<Str_Arg Str="F_archer_dividedarrow_hit_explosion" UseFunc="1" FuncTxt="local self = GetMyPCObject(); local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;F_explosion104_ice&quot;, 0.4; else return &quot;F_archer_dividedarrow_hit_explosion&quot;, 0.35; end" Arg="0.34999999"/>
+					<Str_Arg Str="F_archer_dividedarrow_hit_explosion" UseFunc="1" FuncTxt="if self == nil then return &quot;F_archer_dividedarrow_hit_explosion&quot;, 0.35; end local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;) if abilBuff ~= nil then return &quot;F_explosion104_ice&quot;, 0.4; else return &quot;F_archer_dividedarrow_hit_explosion&quot;, 0.35; end" Arg="0.34999999"/>
 					<Str Str="arrow_blow"/>
 					<Str Str="SLOW"/>
 					<Num Num="400"/>
@@ -439,13 +464,13 @@ end"/>
 				</Scp>
 			</EtcList>
 			<ResultList>
-				<ToolScp Scp="S_R_SET_FORCE_DAMAGE" Client="NO" UseSleep="YES">
+                <ToolScp Scp="S_R_SET_FORCE_DAMAGE" Client="NO" UseSleep="NO">
 					<Num Num="1"/>
 					<Num Num="1"/>
 					<Num Num="2"/>
-					<Str_Arg Str="I_archer_dividedarrow_force_fire" UseFunc="1" FuncTxt="local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;I_arrow003_blue&quot;, 1; else return &quot;I_archer_dividedarrow_force_fire&quot;, 1; end" Arg="1"/>
+					<Str_Arg Str="I_archer_dividedarrow_force_fire" UseFunc="1" FuncTxt="if IsBuffApplied(self, &quot;BounceShot_Hidden_Buff&quot;) == &quot;YES&quot; then return &quot;I_arrow003_blue&quot;, 1; else return &quot;I_archer_dividedarrow_force_fire&quot;, 1; end" Arg="1"/>
 					<Str Str="arrow_cast"/>
-					<Str_Arg Str="F_archer_dividedarrow_hit_explosion" UseFunc="1" FuncTxt="local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;F_explosion104_ice&quot;, 0.6; else return &quot;F_archer_dividedarrow_hit_explosion&quot;, 1; end" Arg="1"/>
+					<Str_Arg Str="F_archer_dividedarrow_hit_explosion" UseFunc="1" FuncTxt="if IsBuffApplied(self, &quot;BounceShot_Hidden_Buff&quot;) == &quot;YES&quot; then return &quot;F_explosion104_ice&quot;, 0.6; else return &quot;F_archer_dividedarrow_hit_explosion&quot;, 1; end" Arg="1"/>
 					<Str Str="arrow_blow"/>
 					<Str Str="SLOW"/>
 					<Num Num="400"/>
@@ -470,6 +495,20 @@ end"/>
                     <Num Num="50"/>
 					<Num Num="-1"/>
 				</ToolScp>
+                <ToolScp Scp="S_R_TGTBUFF" Client="NO" UseSleep="NO">
+                    <Str FuncTxt="local buffName = &quot;None&quot;
+                    local hiddenAbil = GetAbility(self, &quot;Ranger38&quot;)
+                    if hiddenAbil ~= nil and TryGetProp(hiddenAbil, &quot;ActiveState&quot;, 0) == 1 then
+                        buffName = &quot;Freeze&quot;
+                    end
+                    return buffName" UseFunc="1" Str="Freeze"/>
+                    <Num Num="1"/>
+                    <Num Num="0"/>
+                    <Num Num="2500"/>
+                    <Num Num="1"/>
+                    <Num Num="100"/>
+                    <Num Num="-1"/>
+                </ToolScp>
 			</ResultList>
 		</MainSkl>
 		<ByCondSkills>
@@ -480,9 +519,11 @@ end"/>
 				<Skill ScrLock="None" JumpFlee="NO" MSPDToUsePos="0">
 					<EtcList>
 						<Scp Scp="MONSKL_C_PLAY_ANIM" Client="YES" UseSleep="NO" Time="0">
-                            <Str Str="ATK" UseFunc="1" FuncTxt="local pc = GetMyPCObject()
-local abil = GetAbility(pc,&quot;Ranger38&quot;)
-if abil ~= nil and abil.ActiveState == 1 then
+                            <Str Str="ATK" UseFunc="1" FuncTxt="if self == nil then
+return &quot;ATK&quot; 
+end
+local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;)
+if abilBuff ~= nil then
 return &quot;BOUNCESHOT_ICE&quot;
 else
 return &quot;ATK&quot;
@@ -492,7 +533,15 @@ end"/>
                             <Num Num="0"/>
                         </Scp>
                         <Scp Scp="C_EFFECT_ATTACH" Client="YES" UseSleep="NO" Time="0">
-							<Str_Arg Str="F_spread_in032_fire2#Dummy_effect_charging_L" UseFunc="1" FuncTxt="local self = GetMyPCObject(); local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;F_spread_in032_ice1#Dummy_effect_charging_L&quot;, 0.25; else return &quot;Dummy_effect_charging_L&quot;, 0.5; end" Arg="0.5"/>
+							<Str_Arg Str="F_spread_in032_fire2#Dummy_effect_charging_L" UseFunc="1" FuncTxt="if self == nil then
+return &quot;Dummy_effect_charging_L&quot;, 0.5;
+end
+local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;)
+if abilBuff ~= nil then
+return &quot;F_spread_in032_ice1#Dummy_effect_charging_L&quot;, 0.25;
+else
+return &quot;Dummy_effect_charging_L&quot;, 0.5;
+end" Arg="0.5"/>
 							<Num Num="1"/>
 							<Pos Angle="0" Dist="0"/>
 							<Num Num="0"/>
@@ -502,9 +551,9 @@ end"/>
 							<Str Str="voice_atk_medium_war_f"/>
 						</Scp>
 						<Scp Scp="C_FORCE_EFT" Client="YES_Time" UseSleep="NO" Time="0">
-							<Str_Arg Str="I_archer_dividedarrow_force_fire#Dummy_q_Force" UseFunc="1" FuncTxt="local self = GetMyPCObject(); local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;I_arrow003_blue#Dummy_q_Force&quot;, 0.7; else return &quot;I_archer_dividedarrow_force_fire#Dummy_q_Force&quot;, 0.7; end" Arg="0.69999999"/>
+							<Str_Arg Str="I_archer_dividedarrow_force_fire#Dummy_q_Force" UseFunc="1" FuncTxt="if self == nil then return &quot;I_archer_dividedarrow_force_fire#Dummy_q_Force&quot;, 0.7; end local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;) if abilBuff ~= nil then return &quot;I_arrow003_blue#Dummy_q_Force&quot;, 0.7; else return &quot;I_archer_dividedarrow_force_fire#Dummy_q_Force&quot;, 0.7; end" Arg="0.69999999"/>
 							<Str Str="arrow_cast"/>
-							<Str_Arg Str="F_archer_dividedarrow_hit_explosion" UseFunc="1" FuncTxt="local self = GetMyPCObject(); local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;F_explosion104_ice&quot;, 0.4; else return &quot;F_archer_dividedarrow_hit_explosion&quot;, 0.35; end" Arg="0.34999999"/>
+							<Str_Arg Str="F_archer_dividedarrow_hit_explosion" UseFunc="1" FuncTxt="if self == nil then return &quot;F_archer_dividedarrow_hit_explosion&quot;, 0.35; end local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;) if abilBuff ~= nil then return &quot;F_explosion104_ice&quot;, 0.4; else return &quot;F_archer_dividedarrow_hit_explosion&quot;, 0.35; end" Arg="0.34999999"/>
 							<Str Str="arrow_blow"/>
 							<Str Str="SLOW"/>
 							<Num Num="350"/>
@@ -519,7 +568,15 @@ end"/>
 							<Num Num="0"/>
 						</Scp>
 						<Scp Scp="C_EFFECT_ATTACH" Client="YES" UseSleep="NO" Time="0">
-							<Str_Arg Str="F_spread_out055#Dummy_effect_charging_L" UseFunc="1" FuncTxt="local self = GetMyPCObject(); local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;F_spread_out025_blue_2#Dummy_effect_charging_L&quot;, 1; else return &quot;F_spread_out055#Dummy_effect_charging_L&quot;, 1; end" Arg="1"/>
+							<Str_Arg Str="F_spread_out055#Dummy_effect_charging_L" UseFunc="1" FuncTxt="if self == nil then
+return &quot;F_spread_out055#Dummy_effect_charging_L&quot;, 1;
+end
+local abilBuff = info.GetBuffByName(self:GetHandleVal(), &quot;BounceShot_Hidden_Buff&quot;)
+if abilBuff ~= nil then
+return &quot;F_spread_out025_blue_2#Dummy_effect_charging_L&quot;, 1;
+else
+return &quot;F_spread_out055#Dummy_effect_charging_L&quot;, 1;
+end" Arg="1"/>
 							<Num Num="0.69999999"/>
 							<Pos Angle="0" Dist="0"/>
 							<Num Num="0"/>
@@ -532,13 +589,13 @@ end"/>
 						</Scp>
 					</EtcList>
 					<ResultList>
-				        <ToolScp Scp="S_R_SET_FORCE_DAMAGE" Client="NO" UseSleep="YES">
+                        <ToolScp Scp="S_R_SET_FORCE_DAMAGE" Client="NO" UseSleep="NO">
 							<Num Num="1"/>
 							<Num Num="1"/>
 							<Num Num="2"/>
-					        <Str_Arg Str="I_archer_dividedarrow_force_fire" UseFunc="1" FuncTxt="local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;I_arrow003_blue&quot;, 1; else return &quot;I_archer_dividedarrow_force_fire&quot;, 1; end" Arg="1"/>
+					        <Str_Arg Str="I_archer_dividedarrow_force_fire" UseFunc="1" FuncTxt="if IsBuffApplied(self, &quot;BounceShot_Hidden_Buff&quot;) == &quot;YES&quot; then return &quot;I_arrow003_blue&quot;, 1; else return &quot;I_archer_dividedarrow_force_fire&quot;, 1; end" Arg="1"/>
 							<Str Str="arrow_cast"/>
-					        <Str_Arg Str="F_archer_dividedarrow_hit_explosion" UseFunc="1" FuncTxt="local abil = GetAbility(self, &quot;Ranger38&quot;) if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;) == 1 then return &quot;F_explosion104_ice&quot;, 0.6; else return &quot;F_archer_dividedarrow_hit_explosion&quot;, 1; end" Arg="1"/>
+					        <Str_Arg Str="F_archer_dividedarrow_hit_explosion" UseFunc="1" FuncTxt="if IsBuffApplied(self, &quot;BounceShot_Hidden_Buff&quot;) == &quot;YES&quot; then return &quot;F_explosion104_ice&quot;, 0.6; else return &quot;F_archer_dividedarrow_hit_explosion&quot;, 1; end" Arg="1"/>
 							<Str Str="arrow_blow"/>
 							<Str Str="SLOW"/>
 							<Num Num="400"/>
@@ -563,6 +620,20 @@ end"/>
                             <Num Num="50"/>
 							<Num Num="-1"/>
 						</ToolScp>
+                        <ToolScp Scp="S_R_TGTBUFF" Client="NO" UseSleep="NO">
+                            <Str FuncTxt="local buffName = &quot;None&quot;
+                            local hiddenAbil = GetAbility(self, &quot;Ranger38&quot;)
+                            if hiddenAbil ~= nil and TryGetProp(hiddenAbil, &quot;ActiveState&quot;, 0) == 1 then
+                                buffName = &quot;Freeze&quot;
+                            end
+                            return buffName" UseFunc="1" Str="Freeze"/>
+                            <Num Num="1"/>
+                            <Num Num="0"/>
+                            <Num Num="2500"/>
+                            <Num Num="1"/>
+                            <Num Num="100"/>
+                            <Num Num="-1"/>
+                        </ToolScp>
 					</ResultList>
 				</Skill>
 			</SubSkl>

@@ -3,3 +3,4 @@ ClassID,DropRatio,Money_Min,Money_Max,DPK_Min,DPK_Max,DPK_Expo,EPIK_Min,EPIK_Max
 2,2,0,0,0,0,0,0,0,,Item,Item,SWD02_121,
 3,2,0,0,0,0,0,0,0,,Item,Item,BlueOrb_pyran,
 4,2,0,0,0,0,0,0,0,,Item,Item,RedOrb_pyran,
+5,30,0,0,0,0,0,0,0,,Item,Item,TBW03_111,

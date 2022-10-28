@@ -1,5 +1,6 @@
 -- bgm music player UI
 function BGMPLAYER_ON_INIT(addon, frame)
+    --ReloadBgmPlayer();
     local frame = ui.GetFrame("bgmplayer");
     if frame == nil then return end
     if IsBgmPlayerBasicFrameVisible() == 1 then
@@ -149,15 +150,17 @@ function BGMPLAYER_OPEN_UI(frame, btn)
         return;
     end
 
-    ui.CloseFrame("bgmplayer");
     if IsNotPlayArea() == false then
         ui.OpenFrame("bgmplayer"); 
         SetBgmPlayerBasicFrameVisible(1);
+
         local bgmPlayer_frame = ui.GetFrame("bgmplayer");
-        if bgmPlayer_frame == nil then return; end
+        if bgmPlayer_frame == nil then 
+            return; 
+        end
+
         BGMPLAYER_PRE_CHECK_CTRL(bgmPlayer_frame);
         BGMPLAYER_INIT_SELECTCTRLSET(bgmPlayer_frame);
-
         if frame == nil and btn == nil then
             BGMPLAYER_SKIN_INIT(bgmPlayer_frame);
         end
@@ -373,11 +376,8 @@ function BGMPLAYER_MUSIC_SET_ALL_LIST(frame, mode, option, isChange)
 
                 local musictime_txt = GET_CHILD_RECURSIVELY(musicInfoCtrlSet, "musictotaltime_text");
                 if musictime_txt ~= nil then
-                    local totalTime = GetBgmTotalTimeByTitleName(bgmTitleList[i]) / 1000;
-                    local totalMin = math.floor(totalTime / 60);
-                    local totalSec = totalTime % 60;
-                    local totalTimeStr = string.format('%d:%02d', totalMin, totalSec);
-                    musictime_txt:SetTextByKey("value", totalTimeStr);
+                    local totalTime = GetBgmTotalTimeByTitleName(bgmTitleList[i]);
+                    musictime_txt:SetTextByKey("value", totalTime);
                 end
 
                 musicInfoCtrlSet:SetUserValue("CTRLSET_NAME", "MUSICINFO_"..i);
@@ -434,11 +434,8 @@ function BGMPLAYER_MUSIC_SET_ALL_LIST(frame, mode, option, isChange)
 
                 local musictime_txt = GET_CHILD_RECURSIVELY(musicInfoCtrlSet, "musictotaltime_text");
                 if musictime_txt ~= nil then
-                    local totalTime = GetBgmTotalTimeByTitleName(bgmTitleList[i]) / 1000;
-                    local totalMin = math.floor(totalTime / 60);
-                    local totalSec = totalTime % 60;
-                    local totalTimeStr = string.format('%d:%02d', totalMin, totalSec);
-                    musictime_txt:SetTextByKey("value", totalTimeStr);
+                    local totalTime = GetBgmTotalTimeByTitleName(bgmTitleList[i]);
+                    musictime_txt:SetTextByKey("value", totalTime);
                 end
 
                 musicInfoCtrlSet:SetUserValue("CTRLSET_NAME", "MUSICINFO_"..i);
@@ -600,11 +597,8 @@ function BGMPLAYER_SEARCH_BY_MODE(frame, mode, option, isChange)
 
             local musictime_txt = GET_CHILD_RECURSIVELY(musicInfoCtrlSet, "musictotaltime_text");
             if musictime_txt ~= nil then
-                local totalTime = GetBgmTotalTimeByTitleName(searchList[i]) / 1000;
-                local totalMin = math.floor(totalTime / 60);
-                local totalSec = totalTime % 60;
-                local totalTimeStr = string.format('%d:%02d', totalMin, totalSec);
-                musictime_txt:SetTextByKey("value", totalTimeStr);
+                local totalTime = GetBgmTotalTimeByTitleName(searchList[i]);
+                musictime_txt:SetTextByKey("value", totalTime);
             end
         end
     end

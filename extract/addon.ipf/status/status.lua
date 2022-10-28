@@ -2,8 +2,7 @@
 MAX_INV_COUNT = 4999;
 
 function STATUS_ON_INIT(addon, frame)
-
-    addon:RegisterMsg('PC_PROPERTY_UPDATE', 'STATUS_UPDATE');
+    addon:RegisterMsg('PC_PROPERTY_UPDATE_TO_STATUS', 'STATUS_UPDATE');
     addon:RegisterMsg('PC_PROPERTY_UPDATE_DETAIL', 'SCR_PC_PROPERTY_UPDATE_DETAIL');
     addon:RegisterOpenOnlyMsg('STAT_UPDATE', 'STATUS_UPDATE');
     addon:RegisterMsg('RESET_STAT_UP', 'RESERVE_RESET');
@@ -19,6 +18,10 @@ function STATUS_ON_INIT(addon, frame)
     addon:RegisterMsg('UPDATE_EXP_UP', 'STATUS_UPDATE_EXP_UP_BOX');
     addon:RegisterMsg('HAIR_COLOR_CHANGE', 'ON_HAIR_COLOR_CHANGE');
     addon:RegisterMsg('UPDATE_REPRESENTATION_CLASS_ICON', 'ON_UPDATE_REPRESENTATION_CLASS_ICON');
+
+    -- 말풍선 스킨 관련
+    addon:RegisterMsg('ADD_CHATBALLOON_SKIN', 'CHATBALLOON_INIT');
+    addon:RegisterMsg('SET_MY_CHATBALLOON_SKIN', 'ON_SET_MY_CHATBALLOON_SKIN');
 
     STATUS_INFO_VIEW(frame);
 end
@@ -242,6 +245,7 @@ function STATUS_ONLOAD(frame, obj, argStr, argNum)
     end
     
     STAT_RESET(frame);
+    CHATBALLOON_INIT(frame);
     ACHIEVE_RESET(frame);
 
     STATUS_TAB_CHANGE(frame);
@@ -859,260 +863,137 @@ function STATUS_INFO()
     y = y + expupGBox:GetHeight() + 10;
 
     local returnY = STATUS_HIDDEN_JOB_UNLOCK_VIEW(pc, opc, frame, gboxctrl, y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
 
     local returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MHP", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MSP", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "RHP", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "RSP", y);
     y = returnY + 24;
 
+
     returnY = STATUS_ATTRIBUTE_VALUE_RANGE_NEW(pc, opc, frame, gboxctrl, "PATK", "MINPATK", "MAXPATK", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_RANGE_NEW(pc, opc, frame, gboxctrl, "PATK_SUB", "MINPATK_SUB", "MAXPATK_SUB", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_RANGE_NEW(pc, opc, frame, gboxctrl, "MATK", "MINMATK", "MAXMATK", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "HEAL_PWR", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "SR", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "HR", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MHR", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "BLK_BREAK", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "CRTATK", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "CRTMATK", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "CRTHR", y);
     y = returnY + 10;
 
+
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "DEF", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MDEF", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "SDR", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "DR", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "BLK", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "CRTDR", y);
     y = returnY + 10;
 
+
     returnY = STATUS_ATTRIBUTE_VALUE_DIVISIONBYTHOUSAND_NEW(pc, opc, frame, gboxctrl, "MaxSta", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "NormalASPD", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "SkillASPD", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MSPD", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_WITH_PERCENT_SYMBOL(pc, opc, frame, gboxctrl, "CastingSpeed", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_WITH_PERCENT_SYMBOL(pc, opc, frame, gboxctrl, "HateRate", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MaxWeight", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "LootingChance", y);
     y = returnY + 10;
 
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Fire_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Ice_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Lightning_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Soul_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Earth_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Poison_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Holy_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Dark_Atk", y);
-    y = returnY + 10;
-
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResFire", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResIce", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResLightning", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResSoul", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResEarth", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResSoul", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResPoison", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResHoly", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResDark", y);
-    y = returnY + 10;
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Add_Damage_Atk", y);
+    if returnY ~= y then y = returnY + 3; end
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "ResAdd_Damage", y);
+    y = returnY + 10;  -- 종류가 바뀌는 부분
 
 
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Aries_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Slash_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Strike_Atk", y);
-    y = returnY + 10;
+    y = returnY + 10; -- 종류가 달라지면 10만큼 더 아래로
 
 
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "DefAries", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "DefSlash", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "DefStrike", y);
     y = returnY + 10;
 
+
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "SmallSize_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MiddleSize_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "LargeSize_Atk", y);
+    if returnY ~= y then y = returnY + 3; end
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Ghost_Atk", y);    
     y = returnY + 10;
+
+
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "MiddleSize_Def", y);
+    y = returnY + 10;
+    
 
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Cloth_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Leather_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Iron_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Ghost_Atk", y);
+    y = returnY + 10; 
+
+
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Cloth_Def", y);
+    if returnY ~= y then y = returnY + 3; end
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Leather_Def", y);
+    if returnY ~= y then y = returnY + 3; end
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Iron_Def", y);
     y = returnY + 10;
 
+    
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Forester_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
-    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Widling_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
+    returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Widling_Atk", y);    
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Klaida_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Paramune_Atk", y);
-    if returnY ~= y then
-        y = returnY + 3;
-    end
+    if returnY ~= y then y = returnY + 3; end
     returnY = STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, "Velnias_Atk", y);
     y = returnY + 10;
+
+    -- Property Name은  calc_property_pc.lua 에서 SCR_GET_Cloth_ATK 와 일치
 
     -- STATUS_ATTRIBUTE_VALUE_RANGE(pc, opc, frame, gboxctrl, "PATK", "MINPATK", "MAXPATK");
     -- STATUS_ATTRIBUTE_VALUE_RANGE(pc, opc, frame, gboxctrl, "MATK", "MINMATK", "MAXMATK");
@@ -1440,52 +1321,91 @@ function STATUS_HIDDEN_JOB_UNLOCK_VIEW(pc, opc, frame, gboxctrl, y)
     return y
 end
 
-function STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, attibuteName, y)
-    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attibuteName, 0, y);
+local color_attribute = {}
+color_attribute['Cloth_Def'] = 'Cloth_Def_status'
+color_attribute['Leather_Def'] = 'Leather_Def_status'
+color_attribute['Iron_Def'] = 'Iron_Def_status'
+color_attribute['MiddleSize_Def'] = 'MiddleSize_Def_status'
+color_attribute['ResAdd_Damage'] = 'ResAdd_Damage_status'
+
+color_attribute['SmallSize_Atk'] = 'SmallSize_Atk_status'
+color_attribute['MiddleSize_Atk'] = 'MiddleSize_Atk_status'
+color_attribute['LargeSize_Atk'] = 'LargeSize_Atk_status'
+color_attribute['Cloth_Atk'] = 'Cloth_Atk_status'
+color_attribute['Leather_Atk'] = 'Leather_Atk_status'
+color_attribute['Iron_Atk'] = 'Iron_Atk_status'
+color_attribute['Forester_Atk'] = 'Forester_Atk_status'
+color_attribute['Widling_Atk'] = 'Widling_Atk_status'
+color_attribute['Klaida_Atk'] = 'Klaida_Atk_status'
+color_attribute['Paramune_Atk'] = 'Paramune_Atk_status'
+color_attribute['Velnias_Atk'] = 'Velnias_Atk_status'
+color_attribute['Ghost_Atk'] = 'Ghost_Atk_status'
+color_attribute['Add_Damage_Atk'] = 'Add_Damage_Atk_status'
+
+function STATUS_ATTRIBUTE_VALUE_NEW(pc, opc, frame, gboxctrl, attributeName, y)        
+    local controlSet = gboxctrl:CreateOrGetControlSet('status_stat', attributeName, 0, y);
     tolua.cast(controlSet, "ui::CControlSet");
     local title = GET_CHILD(controlSet, "title", "ui::CRichText");
-    title:SetText(ScpArgMsg(attibuteName));
-
-    if attibuteName == 'SR' then
+    if color_attribute[attributeName] ~= nil then        
+        title:SetText(ScpArgMsg(color_attribute[attributeName]));
+    else
+        title:SetText(ScpArgMsg(attributeName));
+    end
+    
+    if attributeName == 'SR' then
         title:SetTextTooltip(ScpArgMsg("StatusTooltipMsg2"))
-    elseif attibuteName == 'SDR' then
-        title:SetTextTooltip(ScpArgMsg("StatusTooltipMsg3"))
-    elseif attibuteName == 'LootingChance' then
+    elseif attributeName == 'SDR' then
+        title:SetTextTooltip(ScpArgMsg("StatusTooltipMsg3"))    
+    elseif attributeName == 'LootingChance' then
         title:SetTextTooltip(ScpArgMsg("StatusTooltipMsgLootingChance"))
+    elseif attributeName == 'RHP' or attributeName == 'RSP' then
+        title:SetTextTooltip(ScpArgMsg('StatusTooltipMsgRHPRSP'))
     end
 
     local stat = GET_CHILD(controlSet, "stat", "ui::CRichText");
     title:SetUseOrifaceRect(true)
     stat:SetUseOrifaceRect(true)
 
-    -- stat:SetText('120');
-    local grayStyle, value = SET_VALUE_ZERO(pc[attibuteName]);
-	
+    -- stat:SetText('120');    
+    local grayStyle, value = SET_VALUE_ZERO(pc[attributeName]);
+    
     if 1 == grayStyle then
         stat:SetText('');
         controlSet:Resize(controlSet:GetWidth(), stat:GetHeight());
         return y + controlSet:GetHeight();
     end
-
-    if opc ~= nil and opc[attibuteName] ~= value then
+    
+    if opc ~= nil and opc[attributeName] ~= value then
         local colBefore = frame:GetUserConfig("BEFORE_STAT_COLOR");
         local colStr = frame:GetUserConfig("ADD_STAT_COLOR")
 
-        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attibuteName]);
-
+        local beforeGray, beforeValue = SET_VALUE_ZERO(opc[attributeName]);
+    
         if beforeValue ~= value then
-            stat:SetText(colBefore .. beforeValue .. ScpArgMsg("Auto_{/}__{/}") .. colStr .. value);
+            stat:SetText(colBefore .. beforeValue .. ScpArgMsg("Auto_{/}__{/}") .. colStr .. value);            
         else
-            stat:SetText(value);
+            stat:SetText(value); 
         end
     else
-        stat:SetText(value);
+        value = get_percent_format(attributeName, value)        
+        stat:SetText(value);        
     end
-
+    
     controlSet:Resize(controlSet:GetWidth(), stat:GetHeight());
     return y + controlSet:GetHeight();
 end
 
+function get_percent_format(attribute_name, value)
+    local func_name = string.format('get_%s_ratio_for_status', attribute_name);
+    local func = _G[func_name]
+    
+    if func == nil then
+        return value
+    end
+
+    value = func(value)
+    return value
+end
 
 
 function STATUS_ITEM_RARE_OPTION_VALUE(pc, opc, frame, gboxctrl, attibuteName, y)
@@ -1860,17 +1780,18 @@ function STATUS_ACHIEVE_INIT_HAIR_COLOR(gbox)
 	local haveHairColorEList = {}
 
     local nowHeadIndex = item.GetHeadIndex()
-    local Rootclasslist = imcIES.GetClassList('HairType');
-    local Selectclass = Rootclasslist:GetClass(pc.Gender);
-    local Selectclasslist = Selectclass:GetSubClassList();
+	local PartClass = imcIES.GetClass("CreatePcInfo", "Hair");
+	local GenderList = PartClass:GetSubClassList();
+	local Selectclass   = GenderList:GetClass(pc.Gender);
+	local Selectclasslist = Selectclass:GetSubClassList();
 
-    local nowHairCls = Selectclasslist:GetByIndex(nowHeadIndex - 1);
+    local nowHairCls = Selectclasslist:GetClass(nowHeadIndex);
     if nil == nowHairCls then
         return;
     end
 
     local nowPCHairEngName = imcIES.GetString(nowHairCls, 'EngName')
-    local nowPCHairColor = imcIES.GetString(nowHairCls, 'ColorE')
+    local nowPCHairColor = imcIES.GetString(nowHairCls, 'EngColor')
     nowPCHairColor = string.lower(nowPCHairColor)
 
     -- 헤어 컬러가 많아질 경우 UI 벽을 뚫게 된다. row, col로 나눔.
@@ -1919,7 +1840,7 @@ function STATUS_ACHIEVE_INIT_HAIR_COLOR(gbox)
                 local eachengname = imcIES.GetString(eachcls, 'EngName')
                 if eachengname == nowPCHairEngName then
 
-                    local eachColorE = imcIES.GetString(eachcls, 'ColorE')
+                    local eachColorE = imcIES.GetString(eachcls, 'EngColor')
                     local eachColor = imcIES.GetString(eachcls, 'Color')
                     eachColorE = string.lower(eachColorE)
 
@@ -2480,19 +2401,20 @@ function ON_HAIR_COLOR_CHANGE(frame, msg, argStr, argNum)
     local hairCls = GET_HAIR_CLASS_C(colorItemCls.StringArg);
     local colorName = imcIES.GetString(hairCls, 'Color')    
 
-    local yesscp = string.format('item.ReqChangeHead("%s")', imcIES.GetString(hairCls, 'ColorE'));
+    local yesscp = string.format('item.ReqChangeHead("%s")', imcIES.GetString(hairCls, 'EngColor'));
     ui.MsgBox(ScpArgMsg('Hair_Color_Change{COLOR}', 'COLOR', colorName), yesscp, 'None');
 end
 
 function GET_HAIR_CLASS_C(engName)
     local pc = GetMyPCObject()
-    local Rootclasslist = imcIES.GetClassList('HairType');
-    local Selectclass = Rootclasslist:GetClass(pc.Gender);
-    local Selectclasslist = Selectclass:GetSubClassList(); -- hair classlist
+	local PartClass = imcIES.GetClass("CreatePcInfo", "Hair");
+	local GenderList = PartClass:GetSubClassList();
+	local Selectclass   = GenderList:GetClass(pc.Gender);
+	local Selectclasslist = Selectclass:GetSubClassList();
     for i = 0, Selectclasslist:Count() do
         local eachcls = Selectclasslist:GetByIndex(i);
         if eachcls ~= nil then
-            local colorE = imcIES.GetString(eachcls, 'ColorE');
+            local colorE = imcIES.GetString(eachcls, 'EngColor');
             if colorE == engName then
                 return eachcls;
             end
@@ -2546,3 +2468,174 @@ function ON_UPDATE_REPRESENTATION_CLASS_ICON(frame, msg, argStr, representationI
     etc.RepresentationClassID = tostring(representationID);
     LevJobText:SetText('{@st41}{s20}' .. lvText);
 end
+
+
+------------------------------ 말풍선 스킨 ------------------------------
+-- 말풍선 스킨 droplist 초기화, 갱신
+function CHATBALLOON_INIT(frame)
+    local frame = ui.GetFrame("status");
+	local defaultTitleText = frame:GetUserConfig("DEFAULT_TITLE_TEXT");
+
+	local chatballoonskin_list = GET_CHILD_RECURSIVELY(frame, "chatballoonskin_list", "ui::CDropList");
+    chatballoonskin_list:EnableHitTest(1);
+	chatballoonskin_list:ClearItems();
+    chatballoonskin_list:AddItem(1, defaultTitleText);
+
+    local chatballoonSkinlist, cnt = GetClassList('Chat_Balloon');
+	if chatballoonSkinlist == nil then
+		return;
+    end
+
+    local myskinClassID = session.chatballoonskin.GetChatBalloonSkin();
+	for i = 0, cnt - 1 do
+        local cls = GetClassByIndexFromList(chatballoonSkinlist, i);
+        local skinData = session.chatballoonskin.GetChatBalloonSkinDataByClassID(cls.ClassID);
+        if skinData ~= nil then
+            local balloonCls = GetClassByType('Chat_Balloon', skinData.skinID);
+            if balloonCls ~= nil then
+                local caption = "{@st42b}"..balloonCls.Name;
+                if skinData.endTime.wYear ~= 2999 then
+                    caption = caption .. " ("..ClMsg("LimitTime").. ")";
+                end
+                chatballoonskin_list:AddItem(skinData.skinID, caption);
+            end
+		end
+    end
+
+    if chatballoonskin_list:SelectItemByKey(myskinClassID) == true then
+        -- 현재 적용 말풍선 스킨 선택, 아이콘 툴팁 정보 설정
+        ON_SET_MY_CHATBALLOON_SKIN(frame, "", "", myskinClassID);
+    end
+
+end
+
+-- 적용중인 말풍선 스킨 변경
+function CHANGE_CHATBALLOON_SKIN(frame, ctrl)
+    local key = ctrl:GetSelItemKey();
+    local myskinClassID = session.chatballoonskin.GetChatBalloonSkin();
+
+    if tonumber(key) == myskinClassID then
+        return;
+    end
+
+    ctrl:EnableHitTest(0);
+    SetChatBalloonSkin(key);
+end
+
+-- 말풍선 스킨 적용 완료
+function ON_SET_MY_CHATBALLOON_SKIN(frame, msg, argStr, ClassID)
+    local frame = ui.GetFrame("status");
+
+    local chatballoonskin_slot = GET_CHILD_RECURSIVELY(frame, "chatballoonskin_slot");
+    chatballoonskin_slot:ClearIcon();
+    chatballoonskin_slot:SetFrontImage('None');
+    
+    local ctrl = GET_CHILD_RECURSIVELY(frame, "chatballoonskin_list");
+    local balloonCls = GetClassByType('Chat_Balloon', ClassID);
+    if ClassID == 1 or balloonCls == nil then   -- ClassID = 1 -> 기본 말풍선
+       chatballoonskin_slot:EnableHitTest(0);
+       ctrl:EnableHitTest(1);
+       return;
+    end
+
+    -- 아이콘 변경
+    local iconName = TryGetProp(balloonCls, "Icon", "None")
+    if iconName ~= "None" then
+        chatballoonskin_slot:EnableHitTest(1);
+        SET_SLOT_ICON(chatballoonskin_slot, iconName);
+        local icon = chatballoonskin_slot:GetIcon();
+        local isLimitTime = 0;   -- 기간제 아이템인지 0 : 무제한, 1 : 기간제
+        
+        local skinData = session.chatballoonskin.GetChatBalloonSkinDataByClassID(ClassID);
+        if skinData ~= nil then
+            if skinData.endTime.wYear ~= 2999 then
+                isLimitTime = 1;
+
+                -- 남은 시간
+                local difSec = GET_REMAIN_CHATBALLOON_SKIN_SEC(ClassID);
+                chatballoonskin_slot:SetFrontImage('clock_inven');
+                icon:SetDrawLifeTimeText(0);
+                icon:SetUserValue("REMAINSEC", difSec);
+                icon:SetUserValue("STARTSEC", imcTime.GetAppTime());
+                icon:SetDrawLifeTimeText(1);
+                icon:SetOnLifeTimeUpdateScp('ICON_UPDATE_CHATBALLOON_REMAIN_LIFETIME');                    
+            end
+        end        
+        
+        -- 툴팁 관련 내용    
+        icon:SetTooltipType("chatballoon_skin_info");
+        icon:SetTooltipArg(ClassID, isLimitTime, 0);
+        icon:SetTooltipOverlap(0);
+    end
+
+    ctrl:EnableHitTest(1);
+end
+
+-- 말풍선 스킨 툴팁 업데이트
+function UPDATE_CHATBALLOON_SKIN_INFO(tooltipframe, skinClassID, isLimitTime)
+    tolua.cast(tooltipframe, "ui::CTooltipFrame");
+    local balloonCls = GetClassByType('Chat_Balloon', skinClassID);
+
+    -- 아이템 이름 세팅
+    local name = GET_CHILD(tooltipframe, "nametext", "ui::CRichText");
+
+    name:SetTextByKey("itemname", balloonCls.Name);
+	name:AdjustFontSizeByWidth(name:GetWidth());
+    name:SetTextAlign("center","center");
+    
+    -- 미리보기
+    local previewPic = GET_CHILD(tooltipframe, "previewPic", "ui::CPicture");
+    previewPic:SetImage(balloonCls.SkinPreview);
+    local lifetimegb = GET_CHILD(tooltipframe, "lifetimegb", "ui::CGroupBox");
+    lifetimegb:RemoveChild('tooltip_lifeTimeinfo');	
+    tooltipframe:Resize(tooltipframe:GetOriginalWidth(), tooltipframe:GetOriginalHeight());
+    if isLimitTime == 1 then
+        -- 기간제
+        local difSec = GET_REMAIN_CHATBALLOON_SKIN_SEC(skinClassID);
+        local tooltip_lifeTimeinfo_CSet = lifetimegb:CreateControlSet('tooltip_lifeTimeinfo', 'tooltip_lifeTimeinfo', 0, 0);
+        tolua.cast(tooltip_lifeTimeinfo_CSet, "ui::CControlSet");
+        local lifeTime_text = GET_CHILD(tooltip_lifeTimeinfo_CSet,'lifeTime','ui::CRichText');
+            
+        lifeTime_text:SetUserValue("REMAINSEC", difSec);
+        lifeTime_text:SetUserValue("STARTSEC", imcTime.GetAppTime());
+        lifeTime_text:RunUpdateScript("SHOW_CHATBALLOON_SKIN_REMAIN_LIFE_TIME");
+
+        lifetimegb:Resize(tooltip_lifeTimeinfo_CSet:GetWidth(), tooltip_lifeTimeinfo_CSet:GetHeight() + 5);        
+        tooltipframe:Resize(tooltipframe:GetWidth(), tooltipframe:GetOriginalHeight() + lifetimegb:GetHeight());
+    end
+end
+
+-- 말풍선 스킨 남은 시간 체크 - 슬롯 아이콘
+function ICON_UPDATE_CHATBALLOON_REMAIN_LIFETIME(icon)
+	if icon == nil then
+		return 0;
+    end
+    
+    local elapsedSec = imcTime.GetAppTime() - icon:GetUserIValue("STARTSEC");
+    local startSec = icon:GetUserIValue("REMAINSEC");
+    startSec = startSec - elapsedSec;
+    if 0 > startSec then
+        return 0;
+    end
+
+	return startSec;
+end
+
+-- 말풍선 스킨 남은 시간 체크 - 툴팁
+function SHOW_CHATBALLOON_SKIN_REMAIN_LIFE_TIME(ctrl)
+	local elapsedSec = imcTime.GetAppTime() - ctrl:GetUserIValue("STARTSEC");
+	local startSec = ctrl:GetUserIValue("REMAINSEC");
+    startSec = startSec - elapsedSec;
+	if 0 > startSec then
+		ctrl:SetFontName("red_18");
+        ctrl:StopUpdateScript("SHOW_CHATBALLOON_SKIN_REMAIN_LIFE_TIME");        
+        ctrl:SetTextByKey("p_LifeTime", ClMsg("TimeExpired"));
+        return 0;
+	end 
+    
+	local timeTxt = GET_TIME_TXT(startSec);
+    ctrl:SetTextByKey("p_LifeTime", timeTxt);
+    
+	return 1;
+end
+------------------------------ 말풍선 스킨 ------------------------------

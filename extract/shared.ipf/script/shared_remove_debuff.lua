@@ -69,6 +69,21 @@ function get_remove_debuff_tooltip_Hunter_Growling(level)
     return str
 end
 
+-- 쿼렐슈터 - 블록 앤드 샷
+function get_remove_debuff_tooltip_QuarrelShooter_BlockAndShoot(level)
+    local percent = 20 * tonumber(level)
+    
+    if percent > 100 then
+        percent = 100
+    end
+
+    local remove_count = 1
+
+    -- buff_type, lv, count, percent, relation, self/around
+    local str = string.format('Debuff/3/%d/%.2f/FRIEND/self', remove_count, percent)
+    return str
+end
+
 -- 파아드파이어 - 마쉬렌데스리트
 function get_remove_debuff_tooltip_PiedPiper_Marschierendeslied(level)
     local percent = 10 * tonumber(level)
@@ -323,7 +338,7 @@ end
 
 -- 시노비 - 인법 분신술
 function get_remove_debuff_tooltip_Shinobi_Bunshin_no_jutsu(level)
-    local percent = 20 * tonumber(level)
+    local percent = 10 * tonumber(level)
     
     if percent > 100 then
         percent = 100

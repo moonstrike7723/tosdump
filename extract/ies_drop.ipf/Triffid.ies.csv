@@ -4,3 +4,4 @@ ClassID,DropRatio,Money_Min,Money_Max,DPK_Min,DPK_Max,DPK_Expo,EPIK_Min,EPIK_Max
 3,80,0,0,0,0,0,0,0,,Item,Item,R_TSP02_104,
 4,2,0,0,0,0,0,0,0,,Item,Item,BlueOrb_Triffid,
 5,2,0,0,0,0,0,0,0,,Item,Item,RedOrb_Triffid,
+6,30,0,0,0,0,0,0,0,,Item,Item,TSW03_103,

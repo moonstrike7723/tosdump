@@ -87,20 +87,6 @@ function get_remove_buff_tooltip_Rodelero_ShieldBash(level)
     return str
 end
 
--- 로델레로 - 실드 푸시
-function get_remove_buff_tooltip_Rodelero_ShieldPush(level)
-    local percent = 0.6 * tonumber(level)    
-    if percent > 100 then
-        percent = 100
-    end
-
-    local remove_count = 1
-
-    -- buff_type, lv, count, percent, relation, boss_check
-    local str = string.format('Buff/3/%d/%.2f/ENEMY/0', remove_count, percent)    
-    return str
-end
-
 -- 무르밀로 - 실드 트레인
 function get_remove_buff_tooltip_Murmillo_ShieldTrain(level)
     local percent = 2.5 * tonumber(level)    
@@ -112,14 +98,6 @@ function get_remove_buff_tooltip_Murmillo_ShieldTrain(level)
 
     -- buff_type, lv, count, percent, relation, boss_check
     local str = string.format('Buff/3/%d/%.2f/ENEMY/0', remove_count, percent)
-
-    if IsServerSection() == 0 then
-        local abil  = GetAbilityIESObject(GetMyPCObject(), "Murmillo28");             
-        if abil ~= nil and TryGetProp(abil, 'ActiveState' , 0) == 1 then
-            str = nil
-        end
-    end
-
     return str
 end
 
@@ -139,7 +117,7 @@ end
 
 -- 드라군 - 드래곤 피어
 function get_remove_buff_tooltip_Dragoon_DragonFear(level)
-    local percent = 30 * tonumber(level)    
+    local percent = 5 * tonumber(level)    
     if percent > 100 then
         percent = 100
     end
@@ -181,7 +159,7 @@ end
 
 -- 레티아리이 - 투망 던지기
 function get_remove_buff_tooltip_Retiarii_ThrowingFishingNet(level)
-    local percent = 15 * tonumber(level)    
+    local percent = 5 * tonumber(level)    
     if percent > 100 then
         percent = 100
     end
@@ -195,7 +173,7 @@ end
 
 -- 하카펠 - 카발리 차지
 function get_remove_buff_tooltip_Hackapell_CavalryCharge(level)
-    local percent = 10   
+    local percent = 1.3 * tonumber(level)    
     if percent > 100 then
         percent = 100
     end
@@ -354,6 +332,20 @@ function get_remove_buff_tooltip_PiedPiper_Wiegenlied(level)
     return str
 end
 
+-- 감정사 - 평가절하
+function get_remove_buff_tooltip_Appraiser_Devaluation(level)
+    local percent = 5 * tonumber(level)    
+    if percent > 100 then
+        percent = 100
+    end
+
+    local remove_count = 1
+
+    -- buff_type, lv, count, percent, relation, boss_check
+    local str = string.format('Buff/3/%d/%.2f/ENEMY/0', remove_count, percent)    
+    return str
+end
+
 -- 캐노니어 - 스위핑 캐논
 function get_remove_buff_tooltip_Cannoneer_SweepingCannon(level)
     local percent = 7 * tonumber(level)    
@@ -378,15 +370,7 @@ function get_remove_buff_tooltip_Matross_CanisterShot(level)
     local remove_count = 1
 
     -- buff_type, lv, count, percent, relation, boss_check
-    local str = string.format('Buff/3/%d/%.2f/ENEMY/0', remove_count, percent)
-
-    if IsServerSection() == 0 then
-        local abil  = GetAbilityIESObject(GetMyPCObject(), "Matross19");             
-        if abil ~= nil and TryGetProp(abil, 'ActiveState' , 0) == 1 then
-            str = nil
-        end
-    end
-
+    local str = string.format('Buff/3/%d/%.2f/ENEMY/0', remove_count, percent)    
     return str
 end
 
@@ -450,9 +434,9 @@ function get_remove_buff_tooltip_Monk_1InchPunch(level)
     return str
 end
 
--- 몽크 - 탄지신통
-function get_remove_buff_tooltip_Monk_God_Finger_Flicking(level)
-    local percent = 2.5 * tonumber(level)    
+-- 몽크 - 양광수
+function get_remove_buff_tooltip_Monk_EnergyBlast(level)
+    local percent = 3.3 * tonumber(level)    
     if percent > 100 then
         percent = 100
     end
@@ -578,21 +562,13 @@ end
 
 -- 크루세이더 - 프로텍션 오브 가디스
 function get_remove_buff_tooltip_Crusader_ProtectionOfGoddess(level)    
-    local percent = 10 * tonumber(level)
-    
-    if IsServerSection() == 0 then
-        local abil  = GetAbilityIESObject(GetMyPCObject(), "Crusader21");             
-        if abil ~= nil and TryGetProp(abil, 'ActiveState' , 0) == 1 then
-            percent = percent / 4
-        end
-    end
-
+    local percent = 10 * tonumber(level)    
     if percent > 100 then
         percent = 100
     end
 
     local remove_count = 1
-    
+
     -- buff_type, lv, count, percent, relation, boss_check
     local str = string.format('Buff/3/%d/%.2f/ENEMY/0', remove_count, percent)    
     return str
@@ -618,7 +594,7 @@ end
 
 -- 아웃로 - 난동 부리기
 function get_remove_buff_tooltip_OutLaw_Rampage(level)    
-    local percent = 3 * tonumber(level)    
+    local percent = 5 * tonumber(level)    
     if percent > 100 then
         percent = 100
     end

@@ -5,3 +5,5 @@ ClassID,DropRatio,Money_Min,Money_Max,DPK_Min,DPK_Max,DPK_Expo,EPIK_Min,EPIK_Max
 4,2,0,0,0,0,0,0,0,,Item,Item,BlueOrb_Colifly,
 5,2,0,0,0,0,0,0,0,,Item,Item,RedOrb_Colifly,
 6,2,0,0,0,0,0,0,0,,Item,Item,Gem_Fletcher_BodkinPoint,
+7,10,0,0,0,0,0,0,0,,Item,Item,TBW03_110,
+8,10,0,0,0,0,0,0,0,,Item,Item,BOW03_111,

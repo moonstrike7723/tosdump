@@ -1,5 +1,6 @@
 random_item = { }
 date_time = { }
+account_warehouse = {} 
 
 random_item.is_sealed_random_item = function(itemobj)
     if IS_EQUIP(itemobj) == false then
@@ -107,6 +108,29 @@ date_time.is_between_time = function(start_datetime, end_datetime)
     end
 end
 
+-- start_datetime, end_datetime = yyyy-mm-dd hh:mm:ss (string)
+-- 특정 시간(time , string)이 start, end 사이에 존재하는가
+date_time.is_this_time_between_time = function(start_datetime, time, end_datetime)
+    if start_datetime == nil or end_datetime == nil or start_datetime == 'None' or end_datetime == 'None' then
+        return false
+    end
+
+    local lua_start_datetime = date_time.get_lua_datetime_from_str(start_datetime)
+    local lua_end_datetime = date_time.get_lua_datetime_from_str(end_datetime)
+
+    if lua_start_datetime == nil or lua_end_datetime == nil then
+        return false
+    end
+
+    local now = date_time.get_lua_datetime_from_str(time)
+    if lua_start_datetime <= now and now <= lua_end_datetime then
+        return true
+    else
+        return false
+    end
+end
+
+
 -- 루아 시간을 yyyy-mm-dd hh:mm:ss 로 변환한다
 date_time.lua_datetime_to_str = function(lua_datetime)
     local ret_time = os.date('*t', lua_datetime)
@@ -137,6 +161,15 @@ date_time.add_time = function(pivot, sec)
 
     local ret_str = string.format('%04d-%02d-%02d %02d:%02d:%02d', year, month, day, hour, min, sec)
     return ret_str
+end
+
+-- 추가 팀창고 개수
+account_warehouse.get_max_tab = function()
+    return 4
+end
+
+account_warehouse.get_max_slot_per_tab = function()
+    return 70
 end
 
 function is_balance_patch_care_period()    
@@ -2597,22 +2630,62 @@ function SCR_TEXT_HIGHLIGHT(dialogClassName, text)
         end
     end
 
+    local sameZoneWordlist = CHECK_WORD_GET_LIST(targetZoneWordList);
     if #targetZoneWordList > 0 then
         for i = 1, #targetZoneWordList do
-            text = string.gsub(text, targetZoneWordList[i], '{#003399}' .. targetZoneWordList[i] .. '{/}')
+            text = string.gsub(text, targetZoneWordList[i], '{#003399}' .. targetZoneWordList[i] .. '{/}');
+        end
+    end
+
+            -- 같은 단어 목록에 추가로 색깔 지정된 부분 삭제
+            if #sameZoneWordlist > 0 then
+               for r = 1, #sameZoneWordlist do
+                    local word = sameZoneWordlist[r];
+                    if word ~= nil then
+                 local sampleText = '{#003399}{#003399}'..word..'{/}';
+                        local findText = string.find(text, sampleText);
+                        if findText ~= nil then
+                     text = string.gsub(text, sampleText, '{#003399}'..word);
+               end
+            end
         end
     end
 
     if #targetMonWordList > 0 then
         for i = 1, #targetMonWordList do
-            text = string.gsub(text, targetMonWordList[i], '{#003399}' .. targetMonWordList[i] .. '{/}')
+            text = string.gsub(text, targetMonWordList[i], '{#003399}' .. targetMonWordList[i] .. '{/}');
         end
     end
 
-    return text
+    return text;
 end
 
-function GET_DATE_BY_DATE_STRING(dateString) -- yyyy-mm-dd hh:mm:ss
+function CHECK_WORD_GET_LIST(list)
+    local same_word_list = {};
+    if #list > 0 then
+        for i = 1, #list - 1 do
+            for r = i + 1, #list do
+                if string.find(list[i], list[r]) ~= nil then
+                    local ilen = string.len(list[i]);
+                    local rlen = string.len(list[r]);
+                    
+                    if ilen > rlen then
+                        same_word_list[#same_word_list + 1] = list[r];
+                    elseif ilen < rlen then
+                        same_word_list[#same_word_list + 1] = list[i];
+                    else
+                        same_word_list[#same_word_list + 1] = list[i];
+                    end
+                end
+            end
+        end
+    end
+
+    return same_word_list;
+end
+
+function GET_DATE_BY_DATE_STRING(dateString)
+    -- yyyy-mm-dd hh:mm:ss
     local tIndex = string.find(dateString, ' ');
     if tIndex == nil then
         return -1;
@@ -2719,39 +2792,108 @@ function SCR_MAIN_QUEST_WARP_CHECK(pc, questState, questIES, questName)
         sObj = GetSessionObject(pc, 'ssn_klapeda')
     end
 
+    if sObj == nil then
+        return 'NO'
+    end
+
     local clsList, cnt = GetClassList("mainquest_startnpcwarp");
     for i = 0, cnt - 1 do
         local tQuest = GetClassByIndexFromList(clsList, i);
-
         local tQuestState
+        local preQuestState = {}
+        local preQuestStateCheck = {}
         if IsServerSection(pc) == 1 then
             tQuestState = SCR_QUEST_CHECK(pc, tQuest.ClassName)
+            if tQuest.CheckQuestName ~= "None" then
+                local sList1 = StringSplit(tQuest.CheckQuestName, ';')
+                local sList2 = StringSplit(tQuest.CheckQuestState, ';')
+                if #sList1 > 0 then
+                    for j = 1, #sList1 do
+                        preQuestState[#preQuestState+1] = SCR_QUEST_CHECK(pc, sList1[j])
+                        preQuestStateCheck[#preQuestStateCheck+1] = sList2[j]
+                    end
+                end
+            end
         else
             if pc.Lv == nil then
                 pc = GetMyPCObject()
             end
             tQuestState = SCR_QUEST_CHECK_C(pc, tQuest.ClassName)
+            if tQuest.CheckQuestName ~= "None" then
+                local sList1 = StringSplit(tQuest.CheckQuestName, ';')
+                local sList2 = StringSplit(tQuest.CheckQuestState, ';')
+                if #sList1 > 0 then
+                    for j = 1, #sList1 do
+                        preQuestState[#preQuestState+1] = SCR_QUEST_CHECK_C(pc, sList1[j])
+                        preQuestStateCheck[#preQuestStateCheck+1] = sList2[j]
+                    end
+                end
+            end
         end
 
         if tQuestState == 'POSSIBLE' then
             local tquestIES = GetClass('QuestProgressCheck', tQuest.ClassName)
-            if pc.Lv < 100 then
                 if tquestIES.QStartZone ~= 'None' and sObj.QSTARTZONETYPE ~= 'None' and tquestIES.QStartZone ~= sObj.QSTARTZONETYPE then
                 elseif tQuest.ClassName == questName then
+                if tQuest.CheckQuestName ~= "None" then
+                    if #preQuestState > 1 then
+                        local flag = 0
+                        for j = 1, #preQuestState do
+                            if preQuestState[j] == preQuestStateCheck[j] then
+                                flag = flag + 1
+                            end
+                        end
+                        if flag > 0 then
+                            return 'YES'
+                        else
+                            return 'NO'
+                        end
+                    else
+                        if preQuestState[1] == preQuestStateCheck[1] then
                     return 'YES'
+                        else
+                            return 'NO'
+                        end
+                    end
+                else
+                    return 'YES'
+                end
                 elseif tquestIES.QStartZone ~= 'None' and sObj.QSTARTZONETYPE ~= 'None' and tquestIES.QStartZone == sObj.QSTARTZONETYPE then
                     return 'NO'
                 end
+        end
+        if tQuest.ClassName == questName then
+            if tQuest.CheckQuestName ~= "None" then
+                if #preQuestState > 1 then
+                    local flag = 0
+                    for j = 1, #preQuestState do
+                        if preQuestState[j] == preQuestStateCheck[j] then
+                            flag = flag + 1
+                        end
+                    end
+                    if flag > 0 then
+                        return 'YES'
             else
                 return 'NO'
             end
+                else
+                    if preQuestState[1] == preQuestStateCheck[1] then
+                        return 'YES'
+                    else
+                        return 'NO'
+                    end
         end
-
-        if tQuest.ClassName == questName then
+--                if preQuestState == preQuestStateCheck then
+--                print(questName, tQuest.ClassName, 'in')
+--                    return 'YES'
+--                else
+--                    return 'NO'
+--                end
+            else
             return 'YES'
         end
     end
-
+    end
     return 'NO'
 end
 

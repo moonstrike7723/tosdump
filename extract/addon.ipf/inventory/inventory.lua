@@ -629,18 +629,23 @@ function REMOVE_FROM_TREEGROUP(treegroupname)
 end
 
 function INVENTORY_ON_MSG(frame, msg, argStr, argNum)
-    if msg == 'INV_ITEM_LIST_GET' or msg == 'RESET_ABILITY_UP' then
+	if msg == 'INV_ITEM_LIST_GET' or msg == 'RESET_ABILITY_UP' then
         INVENTORY_LIST_GET(frame)
-		STATUS_EQUIP_SLOT_SET(frame);
-    end
-
-    if msg == 'UPDATE_ITEM_REPAIR' or msg == 'UPDATE_ITEM_APPRAISAL' then
-    	INVENTORY_LIST_GET(frame, nil, nil, argStr)
 		STATUS_EQUIP_SLOT_SET(frame);
 	end
 	
-    if msg == 'INV_ITEM_ADD' then
-        TEMP_INV_ADD(frame, argNum)
+	if msg == 'UPDATE_ITEM_REPAIR' or msg == 'UPDATE_ITEM_APPRAISAL' then
+    	INVENTORY_LIST_GET(frame, nil, nil, argStr)
+		STATUS_EQUIP_SLOT_SET(frame);
+	end
+
+	if msg == "UPDATE_ITEM_TRANSCEND_SCROLL" then
+		INVENTORY_UPDATE_ITEM_BY_GUID(frame, argStr);
+		STATUS_EQUIP_SLOT_SET(frame);
+	end
+	
+	if msg == 'INV_ITEM_ADD' then
+		TEMP_INV_ADD(frame, argNum);
 	end
 	
 	if  msg == 'EQUIP_ITEM_LIST_GET' then
@@ -2568,13 +2573,15 @@ function CHANGE_HAIR_COLOR(frame)
 
 	local haveHairColorList = {}
 	local haveHairColorEList = {}
+	
+	local PartClass = imcIES.GetClass("CreatePcInfo", "Hair");
+	local GenderList = PartClass:GetSubClassList();
+	local Selectclass   = GenderList:GetClass(pc.Gender);
+	local Selectclasslist = Selectclass:GetSubClassList();
 
-    local Rootclasslist = imcIES.GetClassList('HairType');
-    local Selectclass = Rootclasslist:GetClass(pc.Gender);
-    local Selectclasslist = Selectclass:GetSubClassList();
     local nowHeadIndex = item.GetHeadIndex()
-	local nowHairCls = Selectclasslist:GetByIndex(nowHeadIndex - 1);
-	local nowPCHairEngName = imcIES.GetString(nowHairCls, 'EngName');	--현재 내가 '헤어'슬롯에 착용한 아이템
+	local nowHairCls = Selectclasslist:GetClass(nowHeadIndex);
+	local nowPCHairEngName = imcIES.GetString(nowHairCls, 'EngName'); --현재 내가 '헤어'슬롯에 착용한 아이템
 
 	for i = 0, Selectclasslist:Count() do
 		local eachcls = Selectclasslist:GetByIndex(i);
@@ -2583,7 +2590,7 @@ function CHANGE_HAIR_COLOR(frame)
 			if eachHairEngName == nowPCHairEngName then
 				-- eachColor, eachColorE : 게임 내 전체 헤어 컬러(한글이름, 영어이름)
 				local eachColor = imcIES.GetString(eachcls, 'Color');	
-				local eachColorE = imcIES.GetString(eachcls, 'ColorE');	
+				local eachColorE = imcIES.GetString(eachcls, 'EngColor');	
 				eachColorE = string.lower(eachColorE);
 				-- 전체 헤어 컬러 목록에서 유저가 가진 헤어 컬러 목록을 드롭 리스트에 넣음
 				if TryGetProp(etc, "HairColor_" .. eachColorE) == 1 then
@@ -2593,6 +2600,7 @@ function CHANGE_HAIR_COLOR(frame)
 			end
 		end
 	end	
+
 	SORT_HAIR_COLORLIST(hairColorBtn, haveHairColorList, haveHairColorEList)
 	CREATE_HAIR_DYE_DROPLIST(hairColorBtn, haveHairColorList, haveHairColorEList);
 end
@@ -4132,4 +4140,68 @@ function REQUEST_USE_ITEM_TX()
 	end
 	
 	item.UseByGUID(invItem:GetIESID());
+end
+
+function BEFORE_APPLIED_GESTURE_YESSCP_OPEN(invItem)
+	if invItem == nil then
+		return;
+	end
+	
+	local invFrame = ui.GetFrame("inventory");	
+	local itemobj = GetIES(invItem:GetObject());
+	if itemobj == nil then
+		return;
+	end
+	invFrame:SetUserValue("INVITEM_GUID", invItem:GetIESID());
+	
+	local strLang = TryGetProp(itemobj , 'StringArg')
+	if strLang ~='None' then
+    	local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg("Gesture_"..strLang));
+    	ui.MsgBox_NonNested(textmsg, itemobj.Name, 'REQUEST_SUMMON_BOSS_TX', "None");
+    end
+	return;
+end
+
+function BEFORE_APPLIED_CAHT_BALLOON_YESSCP_OPEN(invItem)
+	if invItem == nil then
+		return;
+	end
+	
+	local invFrame = ui.GetFrame("inventory");	
+	local itemobj = GetIES(invItem:GetObject());
+	if itemobj == nil then
+		return;
+	end
+	invFrame:SetUserValue("INVITEM_GUID", invItem:GetIESID());
+	
+	local strLang = TryGetProp(itemobj , 'StringArg')
+	local numLang = TryGetProp(itemobj , 'NumberArg1')
+	if strLang ~='None' then
+		local textmsg = string.format("[ %s ]{nl}", itemobj.Name);
+		
+		local skinData = session.chatballoonskin.GetChatBalloonSkinDataByClassName(strLang);
+		if skinData ~= nil then
+			if skinData.endTime.wYear ~= 2999 then
+				-- 기간제인 해당 말풍선 스킨 보유
+				if numLang ~= 0 then
+					-- 기간제 아이템 사용
+					textmsg = textmsg .. ScpArgMsg("ChatBalloon_YESSCP_message2");
+				else
+					-- 무제한 아이템 사용
+					textmsg = textmsg .. ScpArgMsg("ChatBalloon_YESSCP_message4");
+				end
+			else
+				-- 무제한인 해당 말풍선 스킨 보유
+				ui.SysMsg(ScpArgMsg("ChatBalloon_YESSCP_message3"));
+				return;
+			end
+		else
+			-- 보유하지 않은 말풍선 스킨 아이템 사용
+			textmsg = textmsg .. ScpArgMsg("ChatBalloon_YESSCP_message1");
+		end
+		
+		textmsg = textmsg .. ScpArgMsg("ChatBalloon_YESSCP_message5");
+    	ui.MsgBox_NonNested(textmsg, itemobj.Name, 'REQUEST_SUMMON_BOSS_TX', "None");
+    end
+	return;
 end

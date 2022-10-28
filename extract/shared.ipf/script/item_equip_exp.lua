@@ -21,6 +21,16 @@ function GET_MORE_LEGEND_EXP_UP_CARD(pc)
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_LV8');	-- 레전드 카드 ---
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_LV9');	-- 레전드 카드 ---
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_LV10');	-- 레전드 카드 ---
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV1');
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV2');
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV3');
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV4');
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV5');
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV6');
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV7');
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV8');
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV9');
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'CARD_ExpUP_bayl_LV10');
 	return sumExp;
 end
 
@@ -106,6 +116,15 @@ function GET_MORE_EVENT_EXP(pc)
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_Expup_50'); --burning_event
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_Expup_100'); --burning_event
 	sumExp = sumExp + IsBuffAppliedEXP(pc, 'STM_PIZZA_BUFF'); --피자
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF1'); -- 더 달콤한 발렌타인 초콜릿 1단계
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF2'); -- 더 달콤한 발렌타인 초콜릿 2단계
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF3'); -- 더 달콤한 발렌타인 초콜릿 3단계
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF4'); -- 더 달콤한 발렌타인 초콜릿 4단계
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_2002_CHOCO_BUFF5'); -- 더 달콤한 발렌타인 초콜릿 5단계
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'NEWUSER_PARTY_BUFF') -- 신규/복귀 유저 파티 버프
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'Event_Steam_New_World_Buff'); -- 스팀 시즌 서버 혜택
+--	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_SEASON_NEWWRORLD_PASSIVE_1'); -- 2002 [이벤트] 시즌서버 정착지원
+	sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_SEASON_NEWWRORLD_PASSIVE_2'); -- 2002 [이벤트] 유대감
 	if  TryGetProp(pc, 'Lv', 0) < 380 then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'EVENT_1905_TOS_CHIILD_BUFF1'); --자라나라 나무나무 성장 버프 --
 	end

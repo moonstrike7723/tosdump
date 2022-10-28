@@ -205,8 +205,6 @@ function ARK_RELOCATION_REG_SRC_ITEM(frame, itemID)
 	if enable == false then
 		if reason == 'ItemLock' then
 			ui.SysMsg(ClMsg('MaterialItemIsLock'));
-		elseif reason == 'CantExecCuzCharacterBelonging' then
-			ui.SysMsg(ClMsg('CantExecCuzCharacterBelonging'));
 		end
 		return;
 	end
@@ -216,11 +214,6 @@ function ARK_RELOCATION_REG_SRC_ITEM(frame, itemID)
     frame:SetUserValue('SRC_ITEM_GUID', 0);
 	
 	local itemObj = GetIES(invItem:GetObject());
-
-	if TryGetProp(itemObj, 'EnableArkLvup', 0) == 1 then
-		ui.SysMsg(ClMsg('DO_NOT_EnableArkLvup'))
-		return
-	end
 
 	local slot1_bg_image = GET_CHILD_RECURSIVELY(frame, "slot1_bg_image");
 	slot1_bg_image:ShowWindow(0);
@@ -281,8 +274,6 @@ function ARK_RELOCATION_REG_DEST_ITEM(frame, itemID)
 			ui.SysMsg(ClMsg('AlreadRegSameItem'));
 		elseif reason == 'ItemLock' then
 			ui.SysMsg(ClMsg('MaterialItemIsLock'));
-		elseif reason == 'CantExecCuzCharacterBelonging' then
-			ui.SysMsg(ClMsg('CantExecCuzCharacterBelonging'));
 		end
 		return;
 	end
@@ -296,12 +287,7 @@ function ARK_RELOCATION_REG_DEST_ITEM(frame, itemID)
 	local src_Obj = GetIES(src_item:GetObject());
     local dest_Obj = GetIES(invItem:GetObject());
 
-	if TryGetProp(src_Obj, 'EnableArkLvup', 0) == 1 or TryGetProp(dest_Obj, 'EnableArkLvup', 0) == 1 then
-		ui.SysMsg(ClMsg('DO_NOT_EnableArkLvup'))
-		return		
-	end
-
-	if shared_item_ark.is_valid_condition_for_copy(dest_Obj, src_Obj) == false then		
+    if shared_item_ark.is_valid_condition_for_copy(dest_Obj, src_Obj) == false then
 		ui.SysMsg(ClMsg('DestItemLvHigh'));
         return
     end
@@ -382,10 +368,6 @@ function IS_ENABLE_REG_ARK_ITEM(frame, invItem)
 		return false, 'Same';
 	end
 	
-	if TryGetProp(itemObj, 'CharacterBelonging', 0) == 1 then
-		return false, 'CantExecCuzCharacterBelonging'
-	end
-
 	return true;
 end
 
