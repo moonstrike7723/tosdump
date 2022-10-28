@@ -17955,6 +17955,16 @@
 		<Class ClassID="1050030" ClassName="trade_select_item_set_growth_iron_magic" Data="[성장] 판금 방어구 세트(마법)"/>
 		<Class ClassID="1050031" ClassName="trade_select_item_set_m_ep13animal01" Data="동물유치원 분홍 토끼 세트 (남)"/>
 		<Class ClassID="1050032" ClassName="trade_select_item_set_f_ep13animal01" Data="동물유치원 딸기 소 세트 (여)"/>
+		<Class ClassID="1050033" ClassName="trade_select_item_set_m_ep14fivebird01" Data="토스리오형제 아기 펭귄 코스튬 세트 (남)"/>
+		<Class ClassID="1050034" ClassName="trade_select_item_set_f_ep14fivebird01" Data="토스리오형제 아기 펭귄 코스튬 세트 (여)"/>
+		<Class ClassID="1050035" ClassName="trade_select_item_set_m_ep14fivebird01_1" Data="토스리오형제 병아리 뱁새 코스튬 세트 (남)"/>
+		<Class ClassID="1050036" ClassName="trade_select_item_set_f_ep14fivebird01_1" Data="토스리오형제 병아리 뱁새 코스튬 세트 (여)"/>
+		<Class ClassID="1050037" ClassName="trade_select_item_set_m_ep14fivebird02" Data="토스리오형제 페어리 카디널 코스튬 세트 (남)"/>
+		<Class ClassID="1050038" ClassName="trade_select_item_set_f_ep14fivebird02" Data="토스리오형제 페어리 카디널 코스튬 세트 (여)"/>
+		<Class ClassID="1050039" ClassName="trade_select_item_set_m_ep14fivebird02_1" Data="토스리오형제 전투 뱁새 코스튬 세트 (남)"/>
+		<Class ClassID="1050040" ClassName="trade_select_item_set_f_ep14fivebird02_1" Data="토스리오형제 전투 뱁새 코스튬 세트 (여)"/>
+		<Class ClassID="1050041" ClassName="trade_select_item_set_m_ep14fivebird03" Data="토스리오형제 복실복실 참새 코스튬 세트 (남)"/>
+		<Class ClassID="1050042" ClassName="trade_select_item_set_f_ep14fivebird03" Data="토스리오형제 복실복실 참새 코스튬 세트 (여)"/>
 	</Category>
 	<Category Name="UnlockQuest">
 		<Class ClassID="1060001" ClassName="UnlockQuest_SysMsg_1" Data="{#FFFF00}{s20}{QuestInfoName}{/}{/}{nl}퀘스트 목표를 갱신합니다"/>

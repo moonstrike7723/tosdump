@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <EmitterList>
+	<battle name="E_force001_trail_orange" filename="E_force001_trail_orange" loop="false" nodecount="3" xml="E_force001_trail_orange.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
+	<battle name="E_force001_trail_violet" filename="E_force001_trail_violet" loop="false" nodecount="3" xml="E_force001_trail_violet.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
+	<battle name="E_force001_trail_green" filename="E_force001_trail_green" loop="false" nodecount="3" xml="E_force001_trail_green.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
+	<battle name="E_pc_effectitem_fivebird001" filename="E_pc_effectitem_fivebird001" loop="true" nodecount="5" xml="E_pc_effectitem_fivebird001.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
 	<battle name="E_jellyzele_skl4" filename="E_jellyzele_skl4" loop="false" nodecount="6" xml="E_jellyzele_skl4.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
 	<battle name="E_laser004" filename="E_laser004" loop="true" nodecount="4" xml="E_laser004.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>
 	<battle name="E_warp_arrow_red" filename="E_warp_arrow" loop="false" nodecount="4" xml="E_warp_arrow_red.xml" paused="NO" is2D="FALSE" softParticleFactor="20" useReverse="0" preScale="1" useAttach="FALSE" preScaleXYZ="1.0/1.0/1.0" attachNodeName="None"/>

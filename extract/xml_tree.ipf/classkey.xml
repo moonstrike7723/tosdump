@@ -9334,6 +9334,10 @@
         <Key Name="MNQ_RANGDA_5_TRACK" Value="112225"/>
         <Key Name="MNQ_RANGDA_8_TRACK" Value="112227"/>
         <Key Name="PrevEquipItem_BELT" Value="112254"/>
+        <Key Name="EP14_3LINE_TUTO_MQ_15_TRACK" Value="112261"/>
+        <Key Name="Kill_Field_boss_Naktis" Value="112263"/>
+        <Key Name="Kill_Field_boss_succubus" Value="112262"/>
+        <Key Name="Kill_weekly_boss_ignas" Value="112264"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Guild">
         <Key Name="STEAM_NEW_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="105307"/>
@@ -25863,6 +25867,9 @@
         <Key Name="UQ_Char4_22_PRE1" Value="112183"/>
         <Key Name="UQ_Char4_22_PRE2" Value="112124"/>
         <Key Name="UnlockQuest_Char4_22" Value="112171"/>
+        <Key Name="AchieveReward_WEEKLY_BOSS_RANK_20" Value="112265"/>
+        <Key Name="GEM_Kabbalist_Anagrama_cabinet" Value="112267"/>
+        <Key Name="RidePet_12" Value="112266"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PartyMember">
         <Key Name="Auth_Survey" Value="7222"/>
