@@ -3,9 +3,14 @@ function LETICIA_CUBE_ON_INIT(addon, frame)
 end
 
 function LETICIA_CUBE_OPEN(frame)
-    local frame = ui.GetFrame('leticia_cube');
-    LETICIA_CUBE_LIST_UPDATE(frame);
-    frame:ShowWindow(1);
+	local frame = ui.GetFrame('leticia_cube');
+	LETICIA_CUBE_LIST_UPDATE(frame);
+	frame:ShowWindow(1);
+	if config.GetServiceNation() ~= "KOR" then
+		local infoText = GET_CHILD_RECURSIVELY(frame,"infoText")
+		infoText:SetText("")
+		session.shop.RequestUsedMedalTotal()
+	end
 end
 
 function LETICIA_CUBE_CLOSE()
@@ -29,7 +34,7 @@ function LETICIA_CUBE_LIST_UPDATE(frame)
                 local priceText = GET_CHILD_RECURSIVELY(cube, 'priceText');
                 local tpText = GET_CHILD_RECURSIVELY(cube, 'tpText');
                 local TP_IMG = frame:GetUserConfig('TP_IMG');
-                local itemCls = GetClass('Item', info.ItemClassName);
+				local itemCls = GetClass('Item', info.ItemClassName);
                 pic:SetImage(itemCls.Icon);
                 if info.ConsumeType == 'TP' then                
                     tpText:SetTextByKey('consumeType', TP_IMG);
@@ -78,29 +83,46 @@ function LETICIA_CUBE_CHANGE_INFO(cubeListBox, ctrlSet, argStr)
 end
 
 function LETICIA_CUBE_OPEN_BUTTON(frame, ctrl, argStr, argNum, _gachaClassName, _cubeName)
-    local gachaClassName = frame:GetUserValue('GACHA_DETAIL_NAME');
-    if _gachaClassName ~= nil then
-        gachaClassName = _gachaClassName;
-    end
-    local cubeName = frame:GetUserValue("CubeName");
-    if _cubeName ~= nil then
-        cubeName = _cubeName;
-    end
+	local gachaClassName = frame:GetUserValue('GACHA_DETAIL_NAME');
+	if _gachaClassName ~= nil then
+		gachaClassName = _gachaClassName;
+	end
+	local cubeName = frame:GetUserValue("CubeName");
+	if _cubeName ~= nil then
+		cubeName = _cubeName;
+	end
 
-    local gachaCls = GetClass('GachaDetail', gachaClassName);    
-    local cubeItemCls = GetClass('Item', cubeName);
-    local TP_IMG = frame:GetUserConfig('TP_IMG');
-    local clMsg = '';
-    if gachaCls.ConsumeType == 'TP' then
-        clMsg = string.format('{@st66d}{s18}{img %s 40 40} %d{/}{/}', TP_IMG, gachaCls.Price);
-    else
-        clMsg = string.format('{@st66d}{s18}{img %s 40 40} %s{/}{/}', cubeItemCls.Icon, cubeItemCls.Name);
-    end    
+	local gachaCls = GetClass('GachaDetail', gachaClassName);    
+	local cubeItemCls = GetClass('Item', cubeName);
+	local TP_IMG = frame:GetUserConfig('TP_IMG');
+	local clMsg = '';
+	if gachaCls.ConsumeType == 'TP' then
+		clMsg = string.format('{@st66d}{s18}{img %s 40 40} %d{/}{/}', TP_IMG, gachaCls.Price);
+	else
+		clMsg = string.format('{@st66d}{s18}{img %s 40 40} %s{/}{/}', cubeItemCls.Icon, cubeItemCls.Name);
+	end    
 
-    if frame:GetUserIValue('OPEN_MSG_BOX') == 0 then
-        ui.MsgBox(ScpArgMsg('LeticiaGacha{CONSUME}', 'CONSUME', clMsg)..'{nl} {nl}'..'{#85070a}'..ClMsg('ContainWarningItem'), 'REQ_LETICIA_CUBE_OPEN("'..cubeName..'")', 'LETICIA_CUBE_CLOSE_ALL()');
-        frame:SetUserValue('OPEN_MSG_BOX', 1);
+	if frame:GetUserIValue('OPEN_MSG_BOX') == 0 then
+		local msg = string.format("%s{nl} {nl}{#85070a}%s",ScpArgMsg('LeticiaGacha{CONSUME}', 'CONSUME', clMsg),ClMsg('ContainWarningItem'))
+		local yesScp = string.format('REQ_LETICIA_CUBE_OPEN("%s")',cubeName)
+		if config.GetServiceNation() ~= "KOR" then
+			local usedTP = session.shop.GetUsedMedalTotal();
+			if usedTP == 0 then
+				msg = ScpArgMsg('tpshop_first_buy_msg')
+				yesScp = string.format('NEWBIE_CHECK_LETICIA_CUBE_OPEN("%s","%S")',cubeName,clMsg)
+			else
+				msg = ScpArgMsg('LeticiaGacha{CONSUME}', 'CONSUME', clMsg)
+			end
+		end
+		ui.MsgBox(msg, yesScp, 'LETICIA_CUBE_CLOSE_ALL()');
+		frame:SetUserValue('OPEN_MSG_BOX', 1);
     end
+end
+
+function NEWBIE_CHECK_LETICIA_CUBE_OPEN(cubeName,clMsg)
+	local msg = ScpArgMsg('LeticiaGacha{CONSUME}', 'CONSUME', clMsg)
+	local yesScp = string.format('REQ_LETICIA_CUBE_OPEN("%s")',cubeName)
+	ui.MsgBox(msg, yesScp, 'LETICIA_CUBE_CLOSE_ALL()');
 end
 
 function REQ_LETICIA_CUBE_OPEN(cubeItemName)

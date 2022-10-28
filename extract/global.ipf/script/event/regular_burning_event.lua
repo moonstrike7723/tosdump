@@ -1,9 +1,10 @@
 function REGULAR_BURNING_EVENT_TRIGGER_CHECK(self)
 	local x, y, z = GetPos(self)
-    local daytime = os.date("*t")
+	local daytime = os.date("*t")
 	local year, month, day, hour, minute, second, weekday = daytime['year'], daytime['month'], daytime['day'], daytime['hour'], daytime['min'], daytime['sec'], daytime['wday']
-    local nowbasicyday = SCR_DATE_TO_YDAY_BASIC_2000(year, month, day)
-	
+	local nowbasicyday = SCR_DATE_TO_YDAY_BASIC_2000(year, month, day)
+	local isSeasonServer = IS_SEASON_SERVER();
+	 
     if month < 10 then
         month = "0"..tostring(month)
     end
@@ -24,13 +25,15 @@ function REGULAR_BURNING_EVENT_TRIGGER_CHECK(self)
         second = "0"..tostring(second)
     end
 	
-    local npc = GetScpObjectList(self, "WEEKEND_REGULAR_EVENT")
-    if #npc == 0 then
-        if weekday == 1 or weekday == 6 or weekday == 7 then --일, 금, 토
-            if tonumber(hour..minute..second) > 0 then
-                local countResetNPC = CREATE_MONSTER_EX(self, 'NPC_GM2', x, y, z, GetDirectionByAngle(self), "Neutral", 1, WEEKEND_REGULAR_BURNING_EVENT_NPC_INFORMATION)
-    			AddScpObjectList(self, "WEEKEND_REGULAR_EVENT", countResetNPC)
-    		end
+	if isSeasonServer == "NO" then
+		local npc = GetScpObjectList(self, "WEEKEND_REGULAR_EVENT")
+		if #npc == 0 then
+			if weekday == 1 or weekday == 6 or weekday == 7 then --일, 금, 토
+				if tonumber(hour..minute..second) > 0 then
+					local countResetNPC = CREATE_MONSTER_EX(self, 'NPC_GM2', x, y, z, GetDirectionByAngle(self), "Neutral", 1, WEEKEND_REGULAR_BURNING_EVENT_NPC_INFORMATION)
+					AddScpObjectList(self, "WEEKEND_REGULAR_EVENT", countResetNPC)
+				end
+			end
 		end
 	end
 end
@@ -47,11 +50,6 @@ function REGULAR_BURNING_EVENT_SUPPORTER_AI(self)
         day = "0"..tostring(day)
     end
 
-	if GetServerGroupID() == 10001 or GetServerGroupID() == 10003 or GetServerGroupID() == 10004 or GetServerGroupID() == 10005 then
-		Kill(self);
-		return;
-	end
-	
      if weekday > 1 and weekday < 6 then --월~목
         Kill(self)
 		return;

@@ -72,10 +72,18 @@ function GET_LEGEND_PREFIX_NEED_MATERIAL_COUNT_BY_NEEDITEM(targetObj, needItemCl
 		for i = 0, cnt - 1 do
             local cls = GetClassByIndexFromList(clsList, i);
             if string.find(cls.LegendGroup, legendGroup) ~= nil and targetObj.LegendPrefix ~= cls.ClassName and cls.NeedMaterial == needItemClsName then
-                if targetObj.GroupName == 'Armor' and targetObj.ClassType ~= 'Shield' then
-                    return cls.NeedMaterial_ArmorCnt;
-                else
-                    return cls.NeedMaterial_WeaponCnt;
+				if targetObj.GroupName == 'Armor' and targetObj.ClassType ~= 'Shield' then
+					local count = cls.NeedMaterial_ArmorCnt;
+					if IS_SEASON_SERVER() == "YES" then
+						count = math.floor(count*0.5)
+					end
+                    return count;
+				else
+					local count = cls.NeedMaterial_WeaponCnt;
+					if IS_SEASON_SERVER() == "YES" then
+						count = math.floor(count*0.5)
+					end
+                    return count;
                 end
 
 			end

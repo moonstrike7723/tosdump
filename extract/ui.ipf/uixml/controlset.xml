@@ -5129,7 +5129,7 @@
 			<picture name="clear_Pic" rect="0 0 140 140" margin="0 0 15 15" layout_gravity="right bottom" image="very_nice_stamp" stretch="true" hittest="false"/>
 			<picture name="comingsoon_Pic" rect="0 0 474 114" margin="0 0 0 0" layout_gravity="center center" image="coming_soon_notice" stretch="true" hittest="false"/>
 			<button name="go_btn" rect="0 0 100 40" margin="30 175 0 0" layout_gravity="left top" LBtnUpScp="ON_EVENT_STAMP_TOUR_GO_BUTTON_CLICK" skin="test_red_button" caption="{@st42b}{s16}바로가기{/}" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" oversound="button_cursor_over_2" clicksound="button_click_stats_OK"/>
-			<button name="question" parent="title_gb" rect="0 0 44 44" margin="0 2 8 0" layout_gravity="right top" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" hittest="true" image="testquesten_button" oversound="button_over" LBtnUpScp="ON_EVENT_STAMP_TOUR_HELP_CLICK"/>
+			<button name="question" rect="0 0 44 44" margin="0 14 8 0" layout_gravity="right top" MouseOffAnim="btn_mouseoff" MouseOnAnim="btn_mouseover" hittest="true" image="testquesten_button" oversound="button_over" LBtnUpScp="ON_EVENT_STAMP_TOUR_HELP_CLICK" />
 		</controls>
 	</controlset>
 	<controlset name="event_stamp_tour_mission_block_summer" hittest="true" width="541" height="250" stateskin="false">

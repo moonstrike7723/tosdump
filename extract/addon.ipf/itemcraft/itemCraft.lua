@@ -388,7 +388,7 @@ function CRAFT_HAVE_MATERIAL(recipecls)
 	for i = 1 , 5 do
 		if recipecls["Item_"..i.."_1"] ~= "None" then
 			
-			local recipeItemCnt, invItemCnt = GET_RECIPE_MATERIAL_INFO(recipecls, i);            
+			local recipeItemCnt, invItemCnt = GET_RECIPE_MATERIAL_INFO(recipecls, i, GetMyPCObject());            
 			if math.is_larger_than(tostring(recipeItemCnt), tostring(invItemCnt)) == 1 then
 				return 0;
 			end
@@ -652,7 +652,7 @@ local function SET_REQITEM_CERTAIN_NUMBER()
 
 	for i = 1 , 5 do
 		if recipecls["Item_"..i.."_1"] ~= "None" then
-			local recipeItemCnt, invItemCnt, dragRecipeItem, invItem, recipeItemLv, invItemlist  = GET_RECIPE_MATERIAL_INFO(recipecls, i);
+			local recipeItemCnt, invItemCnt, dragRecipeItem, invItem, recipeItemLv, invItemlist  = GET_RECIPE_MATERIAL_INFO(recipecls, i, GetMyPCObject());
 			if nil ~= invItemlist then
 				for j = 0, recipeItemCnt - 1 do
 					local slot = frame:GetChild("EACHMATERIALITEM_" .. i ..'_'.. j);
@@ -688,7 +688,7 @@ local function CHECK_MATERIAL_COUNT(recipecls, totalCount)
     for index = 1, 5 do
         local clsName = "Item_"..index.."_1";
 		local itemName = recipecls[clsName];
-		local recipeItemCnt, recipeItemLv = GET_RECIPE_REQITEM_CNT(recipecls, clsName);        
+		local recipeItemCnt, recipeItemLv = GET_RECIPE_REQITEM_CNT(recipecls, clsName, GetMyPCObject());        
         if itemName ~= 'None' then
             havingItemCount[itemName] = 0
             if recipeItemCnt ~= nil and recipeItemCnt ~= 'None' then
@@ -804,7 +804,7 @@ function CRAFT_START_CRAFT(idSpace, recipeName, totalCount, upDown)
 	for index=1, 5 do
 		local clsName = "Item_"..index.."_1";
 		local itemName = recipecls[clsName];        
-		local recipeItemCnt, recipeItemLv = GET_RECIPE_REQITEM_CNT(recipecls, clsName);
+		local recipeItemCnt, recipeItemLv = GET_RECIPE_REQITEM_CNT(recipecls, clsName, GetMyPCObject());
 
 		if 'None' ~= itemName then
 			for j = 0, resultlist:Count() - 1 do
@@ -1026,7 +1026,7 @@ function CRAFT_DETAIL_CRAFT_EXEC_ON_SUCCESS(frame, msg, str, time)
 		local clsName = "Item_"..index.."_1";        
 		local itemName = recipecls[clsName];
         if itemName ~= 'None' then
-            local recipeItemCnt, recipeItemLv = GET_RECIPE_REQITEM_CNT(recipecls, clsName)
+            local recipeItemCnt, recipeItemLv = GET_RECIPE_REQITEM_CNT(recipecls, clsName, GetMyPCObject())
             if recipeItemCnt ~= 0 then
                 item_count = item_count + 1
                 map_classname[item_count] = itemName
@@ -1388,7 +1388,7 @@ function CRAFT_MAKE_DETAIL_REQITEMS(ctrlset)
 
 	for i = 1 , 5 do
 		if recipecls["Item_"..i.."_1"] ~= "None" then
-			local recipeItemCnt, invItemCnt, dragRecipeItem, invItem, recipeItemLv, invItemlist  = GET_RECIPE_MATERIAL_INFO(recipecls, i);
+			local recipeItemCnt, invItemCnt, dragRecipeItem, invItem, recipeItemLv, invItemlist  = GET_RECIPE_MATERIAL_INFO(recipecls, i, GetMyPCObject());
 			if invItemlist ~= nil then -- 재료 아이템이 비스택형이면 일로 온다
 				for j = 0, recipeItemCnt - 1 do
 					local itemSet = ctrlset:CreateOrGetControlSet(g_craftRecipe_detail_item, "EACHMATERIALITEM_" .. i ..'_'.. j, x, y);
@@ -1499,7 +1499,7 @@ function ITMCRAFT_BUTTON_UP(ctrl)
 
 	for i = 1 , 5 do
 		if recipecls["Item_"..i.."_1"] ~= "None" then
-			local recipeItemCnt, invItemCnt, dragRecipeItem, invItem, recipeItemLv, invItemlist  = GET_RECIPE_MATERIAL_INFO(recipecls, i);
+			local recipeItemCnt, invItemCnt, dragRecipeItem, invItem, recipeItemLv, invItemlist  = GET_RECIPE_MATERIAL_INFO(recipecls, i, GetMyPCObject());
 			if nil ~= invItemlist then
 				for j = 0, recipeItemCnt - 1 do
 					local slot = frame:GetChild("EACHMATERIALITEM_" .. i ..'_'.. j);
@@ -2157,7 +2157,7 @@ function MAKE_DETAIL_REQITEMS(ctrlset)
 	local itemHeight = ui.GetControlSetAttribute("journalRecipe_detail_item", 'height');
 	for i = 1 , 5 do
 		if recipecls["Item_"..i.."_1"] ~= "None" then
-			local recipeItemCnt, invItemCnt, dragRecipeItem = GET_RECIPE_MATERIAL_INFO(recipecls, i);
+			local recipeItemCnt, invItemCnt, dragRecipeItem = GET_RECIPE_MATERIAL_INFO(recipecls, i, GetMyPCObject());
 
 			local itemSet = ctrlset:CreateOrGetControlSet("journalRecipe_detail_item", "ITEM_" .. i, x, y);
 			JOURNAL_DETAIL_CTRL_INIT(itemSet);

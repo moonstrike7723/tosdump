@@ -9218,6 +9218,8 @@
 		<Class ClassID="91021" ClassName="C_REQUEST_1_NPC_MSG_01" Data="필요하신 게 있으신가요?"/>
 		<Class ClassID="91022" ClassName="C_REQUEST_1_NPC_MSG_02" Data="젖은 신발로 돌아다니지 마세요."/>
 		<Class ClassID="91038" ClassName="MOVE_TO_SPACEBAR" Data="스페이스 바를 눌러 이동하세요."/>
+		<Class ClassID="91082" ClassName="BuyCube" Data="큐브 구매"/>
+		<Class ClassID="91083" ClassName="GetBonusReward" Data="회차보상 받기"/>
 	</Category>
 	<Category Name="BattleText">
 		<Class ClassID="100001" ClassName="ADD_DAMAGE_{Auto_1}!" Data="추가 대미지 {Auto_1}!"/>
@@ -9735,6 +9737,8 @@
 		<Class ClassID="102457" ClassName="EventGuildQuestRewardPCAlreadyGet" Data="소속 길드의 길드 퀘스트 클리어 횟수 기록은 다음과 같습니다.{nl}길드 퀘스트 클리어 횟수: {TOTALCOUNT}{nl}{#ff0000}이미 보상을 지급받으셨습니다.{/}"/>
 		<Class ClassID="102458" ClassName="EventGuildQuestRewardCheck" Data="{#003399}[길드 이벤트]{/} 길드 보상 받기"/>
 		<Class ClassID="102459" ClassName="EventGuildQuestRewardPCCheck" Data="{#003399}[길드 이벤트]{/} 개인 보상 받기"/>
+		<Class ClassID="102460" ClassName="EventSeasonGuildQuestRewardCheck" Data="{#003399}[시즌서버]{/} 길드 이벤트 보상 수령하기"/>
+		<Class ClassID="102461" ClassName="EventSeasonGuildQuestCheckMsg{WEEKCOUNT}{TOTALCOUNT}" Data="길드 퀘스트 누적 클리어 횟수{nl}주간 클리어 횟수({WEEKCOUNT}/3){nl}누적 클리어 횟수({TOTALCOUNT}/12){nl}{#FF0000}※주간 클리어 횟수는 매주 월요일 06시에 초기화 됩니다.{/}"/>
 	</Category>
 	<Category Name="EqupClasses">
 		<Class ClassID="103001" ClassName="THSword" Data="양손검"/>
@@ -13943,12 +13947,12 @@
 		<Class ClassID="302081" ClassName="REGULAR_BURNING_EVENT_SUPPORTER" Data="주말 앤 버닝 도우미"/>
 		<Class ClassID="302082" ClassName="npc_Xmas_Evt_NPC" Data="[유료 상품 교환 NPC]{nl}가비야의 전령"/>
 		<Class ClassID="302084" ClassName="EVENT_NEW_SEASON_SERVER_COIN_CHECK_STATE_1" Data="전체 코인 획득량"/>
-		<Class ClassID="302085" ClassName="EVENT_NEW_SEASON_SERVER_COIN_CHECK_STATE_2" Data="1시간 접속 시 코인 10개 획득"/>
+		<Class ClassID="302085" ClassName="EVENT_NEW_SEASON_SERVER_COIN_CHECK_STATE_2" Data="1시간 접속 시 코인 5개 획득"/>
 		<Class ClassID="302086" ClassName="EVENT_NEW_SEASON_SERVER_COIN_CHECK_STATE_3" Data="스탬프 투어 목표 진행률"/>
 		<Class ClassID="302087" ClassName="EVENT_NEW_SEASON_SERVER_COIN_CHECK_STATE_4" Data="콘텐츠 목표 진행률"/>
 		<Class ClassID="302088" ClassName="EVENT_NEW_SEASON_SERVER_COIN_CHECK_STATE_5" Data="룰렛 사용 횟수"/>
 		<Class ClassID="302089" ClassName="EVENT_NEW_SEASON_SERVER_stamp_tour_tip_text" Data="* 스탬프 투어 진행률은 해당 미션 보상을 받아야 적용됩니다."/>
-		<Class ClassID="302090" ClassName="EVENT_NEW_SEASON_SERVER_stamp_tour_tip_text2" Data="마법 협회 npc를 찾아가 이벤트에 참여하세요"/>
+		<Class ClassID="302090" ClassName="EVENT_NEW_SEASON_SERVER_stamp_tour_tip_text2" Data="마법 협회 NPC를 찾아가 이벤트에 참여하세요"/>
 		<Class ClassID="302091" ClassName="REGULAR_BURNING_EVENT_CHALLENGE_RESET_SUCCESS" Data="성공적으로 챌린지 모드 입장횟수를 초기화했습니다!"/>
 		<Class ClassID="302092" ClassName="DailyContentMissionAcquireCount" Data="콘텐츠 목표 일일 획득량"/>
 		<Class ClassID="302093" ClassName="GODDESS_ROULETTE_NPC_DIALOG_MSG_1" Data="여신의 룰렛 돌리기"/>
@@ -14001,7 +14005,24 @@
 		<Class ClassID="302140" ClassName="EVENT_FLEX_BOX_LIMIT_BY_CONTENTS{ITEM}" Data="오늘 콘텐츠 플레이로 획득 가능한 {ITEM}을(를) 전부 획득하셨습니다."/>
 		<Class ClassID="302141" ClassName="Event_Flex_box_Open_Max_Count" Data="개봉 가능 횟 수를 모두 이용하셨습니다."/>
 		<Class ClassID="302142" ClassName="EVENT_FLEX_BOX_StackOverItemExist" Data="인벤토리에 메데이나 FLEX BOX의 상품 중 최대 수량을 가진 아이템이 존재합니다."/>
+		<Class ClassID="302143" ClassName="STAMP_TOUR_ALL_CLEAR_REWARD_ACQUIRE" Data=" 스탬프 투어 미션 클리어 기념 상자 수령하기"/>
+		<Class ClassID="302144" ClassName="NEW_SEASON_SERVER_COIN_CHECK_TOOLTIP_1" Data="일일 1시간 접속, 스탬프 투어, 콘텐츠 이용을 통해 획득한 모든 주화 입니다.{nl}최대 600개 획득 가능합니다."/>
+		<Class ClassID="302145" ClassName="NEW_SEASON_SERVER_COIN_CHECK_TOOLTIP_2" Data="하루 1시간 누적 접속 시 코인을 획득할 수 있습니다.{nl}오전 05시 01분에 접속하신 경우, 코인을 획득할 수 없습니다.{nl}{#FF0000}매일 오전 6시 초기화 됩니다.{/}"/>
+		<Class ClassID="302146" ClassName="NEW_SEASON_SERVER_COIN_CHECK_TOOLTIP_3" Data="여신의 룰렛 코인을 획득할 수 있는 미션의 진행률 입니다."/>
+		<Class ClassID="302147" ClassName="NEW_SEASON_SERVER_COIN_CHECK_TOOLTIP_4" Data="콘텐츠 첫 클리어 통해 여신의 룰렛 코인을 획득할 수 있습니다."/>
+		<Class ClassID="302148" ClassName="NEW_SEASON_SERVER_COIN_CHECK_TOOLTIP_5" Data="현재 룰렛을 돌린 횟수 입니다."/>
+		<Class ClassID="302149" ClassName="EVENT_2007_GUILD_BUFF" Data="시즌 서버 버프 받기"/>
 		<Class ClassID="302163" ClassName="STAMP_TOUR_WEEK_HIDDEN_MSG" Data="{week}주차 미션 클리어 후 공개됩니다."/>
+		<Class ClassID="302164" ClassName="EVENT_SEASON_SERVER_REWARD_PROGRESS" Data="440레벨 달성 보상 ({State1}){nl}450레벨 달성 보상 ({State2}){nl}이벤트 기간: 8월 6일 ~ 10월 22일 점검 전"/>
+		<Class ClassID="302165" ClassName="EVENT_SEASON_SERVER_REWARD_DONE" Data="이미 만랩 달성 보상을 획득하였습니다."/>
+		<Class ClassID="302182" ClassName="Recieved" Data="수령"/>
+		<Class ClassID="302183" ClassName="NotRecieved" Data="미수령"/>
+		<Class ClassID="302173" ClassName="EVENT_2007_GUILD_MSG1" Data="조건을 충족하지 못하였습니다."/>
+		<Class ClassID="302174" ClassName="EVENT_2007_GUILD_MSG2" Data="버프를 활성화 했습니다. (24시간){nl}6시간 후 다시 버프를 활성화할 수 있습니다."/>
+		<Class ClassID="302175" ClassName="EVENT_2007_GUILD_MSG3" Data="이미 버프 효과를 받고있습니다."/>
+		<Class ClassID="302176" ClassName="EVENT_2007_GUILD_DLG1" Data="촉망받는 길드 버프를 활성화를 위해서는 다음과 같은 조건이 만족되어야 합니다.{nl}1. 길드 마스터의 레벨이 440LV 이상{nl}2. 길드원이 길드 마스터 포함 10명 이상{np}길드 버프 활성화는 모든 길드원이 가능합니다.{nl}버프 활성화는 24시간 동안 유지되며, 6시간의 쿨타임이 있습니다.{nl} 버프는 맵 이동 시에 적용됩니다."/>
+		<Class ClassID="302184" ClassName="EVENT_2007_GUILD_MSG4" Data="버프가 활성화 되었습니다. 맵 이동 혹은 재 접속 시 버프가 적용됩니다."/>
+		<Class ClassID="302189" ClassName="EVENT_SEASON_SERVER_GUILD_MSG1" Data="길드 창고에 보상이 지급되었습니다."/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -14056,10 +14077,11 @@
 		<Class ClassID="501010" ClassName="Wihte_Select3_1" Data="{WHITECOUNT}회 완료하셨습니다."/>
 		<Class ClassID="501011" ClassName="LevelUp_Event_Desc01" Data="{REWARD}회 보상을 수령하였습니다."/>
 		<Class ClassID="501012" ClassName="LevelUp_Event_Desc02" Data="{NEXTLV}레벨을 달성하면 보상을 받을 수 있습니다."/>
-		<Class ClassID="501013" ClassName="Steam_VerUP_Select01" Data="'레벨업 보상 상자' 받기"/>
+		<Class ClassID="501013" ClassName="Steam_VerUP_Select01" Data="'레벨업 보상 상자' 받기"/>  
 		<Class ClassID="501014" ClassName="Steam_VerUP_Select02" Data="'330 Level 보상' 받기"/>
 		<Class ClassID="501015" ClassName="Steam_VerUP_Select03" Data="목표레벨 확인"/>
 		<Class ClassID="501072" ClassName="Event_Nru2_Guide_2" Data="장비 선택"/>
+		<Class ClassID="501280" ClassName="GLOBAL_LETICIA_GACHA1" Data="{s20}큐브 구매하고 {@st66d_y}회차 보상{/} 받으세요!{nl}- 큐브 {@st66d_y}낱개{/} 구매 시 회차 보상 카운트가 {@st66d}{#0088FA}1회{/}{/} 증가합니다.{nl}- 큐브 {@st66d_y}10+1{/} 구매 시 회차 보상 카운트가 {@st66d}{#0088FA}10회{/}{/} 증가합니다.{/}"/>
 	</Category>
 	<Category Name="Npc_Equip_Shop_270_315">
 		<Class ClassID="510200" ClassName="NPC_SHOP_WEAPON_NORMAL_270_315" Data="무기"/>
@@ -14667,7 +14689,7 @@
 		<Class ClassID="820047" ClassName="AncientComboBuffHelp" Data="{S14}※어시스터의 속성, 종족, 등급 조합에 따라 패시브가 적용됩니다.{nl}※조합된 어시스터의 레벨, 등급, 진화 등급에 따라 강화됩니다."/>
 		<Class ClassID="820048" ClassName="AncientCostOver" Data="총 코스트가 초과하여 등록할 수 없습니다."/>
 		<Class ClassID="820049" ClassName="AncientAddMaxCost" Data="어시스터 코스트가 {addCost} 증가하였습니다."/>
-	</Category>
+		</Category>
 	<Category Name="NXA">
 		<Class ClassID="900000" ClassName="NXABillingPurchaseSuccess" Data="?????????????"/>
 		<Class ClassID="900001" ClassName="NXABillingPurchaseFailed" Data="Purchase Failed"/>
@@ -15238,6 +15260,7 @@
 	</Category>
 	<Category Name="NPCName">
 		<Class ClassID="595000" ClassName="EVENT_FLEX_BOX_NPC_NAME" Data="[이벤트] 큐폴"/>
+		<Class ClassID="595001" ClassName="EVENT_GODDESS_ROULETTE_NPC_NAME" Data="[이벤트] 여신의 룰렛"/>
 	</Category>
 	<Category Name="EventProgressCheck">
 		<Class ClassID="596000" ClassName="FLEX!" Data="FLEX!"/>

@@ -1,9 +1,10 @@
-ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3
-999901,202008,40000,202008,90000,202009,10000,202008,270000,0,0,inGame_E1,Summer TOS Venture,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2061,,,
-999902,202008,40000,202008,90000,202009,10000,202008,270000,0,0,inGame_E2,Medeina's FLEX Box,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2062,,,
-999903,202007,280000,202008,20000,202008,250000,202008,200000,0,0,inGame_E3,Pocket Wig Package,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2053,,,
-999904,202007,280000,202008,20000,202008,110000,202008,60000,0,0,inGame_E4,Goddess' Blessed Cube,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2056,,,
-999905,202007,210000,202007,260000,202008,110000,202008,60000,0,0,inGame_E5,Flight Package,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2047,,,
-999906,202007,140000,202007,190000,202010,130000,202010,80000,0,0,inGame_E6,SteamGuard Guide,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2042,,,
-999907,202006,160000,202006,210000,202007,70000,202007,20000,0,0,inGame_E7,Stamp Tour,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2020,,,
-999908,202003,310000,202004,50000,202011,120000,202011,70000,0,0,inGame_E8,WeekEnd Burning Event,inGame_E8,"https://treeofsavior.com/page/news/view.php?n=2015 ",,,
+ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3,ShowType
+999901,202008,110000,202008,160000,202008,250000,202008,200000,0,0,inGame_E1,Leticia's Secret Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2073,,,,Normal
+999902,202008,110000,202008,160000,202011,100000,202011,50000,0,0,inGame_E2,Season Server Stamp Tour,inGame_E2,https://treeofsavior.com/page/news/view.php?n=2071,,,,Season
+999903,202008,110000,202008,160000,202011,100000,202011,50000,0,0,inGame_E3,Season Server Goddess' Roulette,inGame_E3,https://treeofsavior.com/page/news/view.php?n=2069,,,,Season
+999904,202008,40000,202008,90000,202009,10000,202008,270000,0,0,inGame_E4,Summer TOS Venture,inGame_E4,https://treeofsavior.com/page/news/view.php?n=2061,,,,Normal
+999905,202008,40000,202008,90000,202009,10000,202008,270000,0,0,inGame_E5,Medeina's FLEX Box,inGame_E5,https://treeofsavior.com/page/news/view.php?n=2062,,,,Normal
+999906,202007,280000,202008,20000,202008,250000,202008,200000,0,0,inGame_E6,Pocket Wig Package,inGame_E6,https://treeofsavior.com/page/news/view.php?n=2053,,,,
+999907,202007,140000,202007,190000,202010,130000,202010,80000,0,0,inGame_E7,SteamGuard Guide,inGame_E7,https://treeofsavior.com/page/news/view.php?n=2042,,,,
+999908,202006,160000,202006,210000,202007,70000,202007,20000,0,0,inGame_E8,Stamp Tour,inGame_E8,https://treeofsavior.com/page/news/view.php?n=2020,,,,
+999909,202003,310000,202004,50000,202011,120000,202011,70000,0,0,inGame_E9,WeekEnd Burning Event,inGame_E9,"https://treeofsavior.com/page/news/view.php?n=2015 ",,,,Normal
