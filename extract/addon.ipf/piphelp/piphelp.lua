@@ -81,6 +81,7 @@ function PIPHELP_POPUP_ADD(frame, isforceopen, addHelpType)
 
 	local detailGroupBox = GET_CHILD_RECURSIVELY(frame, "detail_explain", "ui::CGroupBox");
 	detailGroupBox:RemoveAllChild();
+	detailGroupBox:Resize(detailGroupBox:GetOriginalWidth(), detailGroupBox:GetOriginalHeight() )
 
 	local yPos = 10;
 	for index = 1, 20 do
@@ -148,7 +149,7 @@ local detailCtrlSet = groupBox:CreateControlSet("helpCtrlSet", "detail_"..index,
 		ctrlSetHeight = ctrlSetHeight + subExplainCtrl:GetHeight();
 	end
 
-	detailCtrlSet:Resize(385, ctrlSetHeight + 10);
+	detailCtrlSet:Resize(380, ctrlSetHeight + 10);
 
 	return yPos + detailCtrlSet:GetHeight();
 end

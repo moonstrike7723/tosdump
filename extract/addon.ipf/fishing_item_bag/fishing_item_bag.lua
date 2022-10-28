@@ -4,19 +4,6 @@ function FISHING_ITEM_BAG_ON_INIT(addon, frame)
     addon:RegisterMsg('FISHING_SUCCESS_COUNT', 'FISHING_ITEM_BAG_SET_COUNT_BOX');
 end
 
-function FISHING_ITEM_BAG_TOGGLE_UI()
-    if app.IsBarrackMode() == true then
-		return;
-	end
-
-    local frame = ui.GetFrame('fishing_item_bag');
-    if frame ~= nil and frame:IsVisible() == 1 then
-        ui.CloseFrame('fishing_item_bag');
-        return;
-    end
-    FISHING_ITEM_BAG_OPEN_UI();
-end
-
 function FISHING_ITEM_BAG_OPEN_UI()
     local frame = ui.GetFrame('fishing_item_bag');
     FISHING_ITEM_BAG_RESET_MAX_SLOT_COUNT(frame);
@@ -81,11 +68,12 @@ function ON_FISHING_ITEM_LIST(frame, msg, argStr, argNum) -- argStr: owner aid, 
     if isMyFishingItemBag == false then
         itemList = session.GetOtherPCFishingItemBag();
     end    
-
-    FOR_EACH_INVENTORY(itemList, function(invItemList, invItem, itemSlotset)
-		local itemCls = GetIES(invItem:GetObject());
+    local index = itemList:Head();
+    local slotIndex = 0;
+    while itemList:InvalidIndex() ~= index do
+        local invItem = itemList:Element(index);
+        local itemCls = GetIES(invItem:GetObject());
         local iconImg = GET_ITEM_ICON_IMAGE(itemCls);
-        local slotIndex = imcSlot:GetEmptySlotIndex(itemSlotset);
         local slot = itemSlotset:GetSlotByIndex(slotIndex);
         if slot == nil then
             slot = GET_EMPTY_SLOT(itemSlotset);
@@ -100,9 +88,12 @@ function ON_FISHING_ITEM_LIST(frame, msg, argStr, argNum) -- argStr: owner aid, 
 
         local icon = slot:GetIcon();
         icon:SetTooltipArg("accountwarehouse", invItem.type, invItem:GetIESID());
-        SET_ITEM_TOOLTIP_TYPE(icon, itemCls.ClassID, itemCls, "accountwarehouse");
+        SET_ITEM_TOOLTIP_TYPE(icon, itemCls.ClassID, itemCls, "accountwarehouse");  
         slot:ShowWindow(1);
-    end, false, itemSlotset);
+
+        slotIndex = slotIndex + 1;
+        index = itemList:Next(index);
+    end
 
     local slotCountText = frame:GetChild('slotCountText');
     local maxSlotCount = tonumber(slotCountText:GetTextByKey('max'));
@@ -110,7 +101,6 @@ function ON_FISHING_ITEM_LIST(frame, msg, argStr, argNum) -- argStr: owner aid, 
         maxSlotCount = argNum;
         slotCountText:SetTextByKey('max', maxSlotCount);
     end
-    local slotIndex = imcSlot:GetFilledSlotCount(itemSlotset);
     slotCountText:SetTextByKey('current', slotIndex);
 
     -- other pc ui
@@ -142,7 +132,7 @@ function FISHING_ITEM_BAG_AUTO_RESIZING(slotset, slotIndex)
     local slotsetStartYPos = slotset:GetY();
     local slotsetCol = slotset:GetCol();
     local slotsetSpcY = slotset:GetSpcY();            
-    local slotRow = math.max(1, math.floor(slotIndex / slotsetCol) + 1);
+    local slotRow = math.floor(slotIndex / slotsetCol) + 1;
     local maxSlotBottomPos = slotsetStartYPos + slotset:GetSlotHeight() * slotRow + slotsetSpcY * (slotRow - 1);
 
     local topFrame = slotset:GetTopParentFrame();   
@@ -201,32 +191,9 @@ function FISHING_ITEM_BAG_SET_COUNT_BOX(frame, msg, argStr, argNum)
         countBox:ShowWindow(0);
         return;
     end
-
-    local countInfoText = GET_CHILD_RECURSIVELY(frame, "countInfoText");
-    if argNum == 1 then
-        local count_info_text = string.format("{@sti1}%s{/}", ClMsg("FishingItemBag_EventCountText"));
-        countInfoText:SetText(count_info_text);
-        curSuccessCount = string.format("{#00ddff}%s{/}", curSuccessCount);
-        maxSuccessCount = 500;
-    else
-        local count_info_text = string.format("{@sti1}%s{/}", ClMsg("FishingItemBag_NormalCountText"));
-        countInfoText:SetText(count_info_text);
-    end
-
     countText:SetTextByKey('current', curSuccessCount);
     countText:SetTextByKey('max', maxSuccessCount);
     countBox:ShowWindow(1);
-
-    if msg == 'FISHING_SUCCESS_COUNT' then
-        local itemSlotset = GET_CHILD(frame, 'itemSlotset');    
-        if itemSlotset ~= nil then
-            local slotIndex = imcSlot:GetFilledSlotCount(itemSlotset);
-            local max_count = SCR_GET_MAX_FISHING_SUCCESS_COUNT(GetMyPCObject());            
-            if slotIndex ~= nil and slotIndex >= math.floor(max_count * 0.5) then
-                Fishing.ReqGetFishingItem();
-            end
-        end
-    end
 end
 
 function FISHING_ITEM_BAG_ENABLE_EXIT_BTN(enable)
@@ -242,14 +209,4 @@ function FISHING_ITEM_BAG_TOGGLE()
         return;
     end
     FISHING_ITEM_BAG_OPEN_UI();
-end
-
-function FISHING_ITEM_BAG_UPGRADE(parent, ctrl)
-    local account = session.barrack.GetMyAccount();
-    local currentMaxSlotCount = account:GetMaxFishingItemBagSlotCount(0);
-    if currentMaxSlotCount + FISHING_SLOT_EXPAND_UNIT > MAX_FISHING_ITEM_BAG_SLOT_COUNT then
-        ui.SysMsg(ClMsg('ExceedMaxFishingItemBagSlotCount'));
-        return;
-    end
-    ui.OpenFrame('fishing_bag_upgrade');
 end
