@@ -3,24 +3,20 @@
     <Game Name="MISSION_PRISON_EVENT1" rankScript="RAID_RANK_SCP" minLv="0" maxLv="0" mapName="d_prison_62_1_event" startWaitSec="5177402">
         <StageList>
             <Stage Name="DefGroup">
-                <StartScpList>
-                    <ToolScp Scp="MGAME_MSG" Client="YES" UseSleep="NO">
-                        <Str Str="4분30초 동안 몬스터로부터 도망치세요."/>
-                    </ToolScp>
-                </StartScpList>
                 <ObjList>
                     <Obj Type="Monster" MonType="47230" Pos="676.24#325.90#673.82" genCount="1" genTime="20000" objectKey="0" UseAiOutOfPc="1"/>
-                    <Obj Type="Monster" MonType="47230" Pos="1056.87#323.04#454.65" angle="90" genCount="1" genTime="20000" objectKey="1"/>
-                    <Obj Type="Monster" MonType="47230" Pos="693.97#323.04#900.01" angle="200" genCount="1" genTime="20000" objectKey="2"/>
-                    <Obj Type="Monster" MonType="47230" Pos="1068.67#323.04#883.35" angle="180" genCount="1" genTime="20000" objectKey="3"/>
-                    <Obj Type="Monster" MonType="47230" Pos="689.74#323.04#462.83" angle="90" genCount="1" genTime="20000" objectKey="4"/>
-                    <Obj Type="Monster" MonType="47230" Pos="821.51#323.04#732.78" genCount="1" genTime="20000" objectKey="5"/>
-                    <Obj Type="Monster" MonType="47230" Pos="956.77#323.04#793.11" genCount="1" genTime="20000" objectKey="6"/>
-                    <Obj Type="Monster" MonType="47230" Pos="987.21#323.04#624.16" genCount="1" genTime="20000" objectKey="7"/>
-                    <Obj Type="Monster" MonType="47230" Pos="836.21#323.04#547.05" genCount="1" genTime="20000" objectKey="8"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="sec30">
+                        <execList>
+                            <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
+                                <Str Str="30초 후에 시작됩니다"/>
+                                <Str Str="scroll"/>
+                                <Num Num="10"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="sec10">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
                                 <Num Num="20"/>
@@ -56,21 +52,8 @@
                                 <Str Str="None"/>
                                 <Str Str="None"/>
                                 <Str Str="None"/>
-                                <Str Str="account/EV170330_REWARD_COUNT/1"/>
-                                <Str Str="EV170330_REWARD_COUNT"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_EXEC_CUSTOMLOG_ALLPC" Client="NO" UseSleep="NO">
-                                <Str Str="EV170330"/>
-                                <Str Str="Type/Hard"/>
-                            </ToolScp>
-                        </execList>
-                    </Event>
-                    <Event execCount="1" eventName="sec50">
-                        <execList>
-                            <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="30초 후에 시작됩니다"/>
-                                <Str Str="scroll"/>
-                                <Num Num="10"/>
+                                <Str Str="account/PlayTimeEventRewardCount/1"/>
+                                <Str Str="PlayTimeEventRewardCount"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -146,12 +129,12 @@
             <Stage Name="Fail" AutoStart="0">
                 <StartScpList>
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
-                        <Str Str="미션 실패 : 10초 후 원래 존으로 돌아갑니다"/>
+                        <Str Str="미션 실패 : 30초 후 원래 존으로 돌아갑니다"/>
                     </ToolScp>
                     <ToolScp Scp="MGAME_SET_DM_ICON" Client="NO" UseSleep="NO">
-                        <Str Str="미션 실패 : 10초 후 원래 존으로 돌아갑니다"/>
+                        <Str Str="미션 실패 : 30초 후 원래 존으로 돌아갑니다"/>
                         <Str Str="scroll"/>
-                        <Num Num="5"/>
+                        <Num Num="10"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList/>
@@ -159,7 +142,7 @@
                     <Event execCount="1" eventName="failsec30">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="10"/>
+                                <Num Num="30"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -172,6 +155,16 @@
                 </StageEvents>
             </Stage>
             <Stage Name="Success" AutoStart="0">
+                <StartScpList>
+                    <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
+                        <Str Str="미션 성공!{nl}60초 후에 돌아갑니다"/>
+                    </ToolScp>
+                    <ToolScp Scp="MGAME_SET_DM_ICON" Client="NO" UseSleep="NO">
+                        <Str Str="미션 성공!{nl}60초 후에 돌아갑니다"/>
+                        <Str Str="Clear"/>
+                        <Num Num="10"/>
+                    </ToolScp>
+                </StartScpList>
                 <ObjList/>
                 <StageEvents>
                     <Event execCount="1" eventName="successsec60">
@@ -192,23 +185,42 @@
             <Stage Name="Stage1" AutoStart="0">
                 <StartScpList>
                     <ToolScp Scp="MGAME_SET_TIMEOUT" Client="NO" UseSleep="NO">
-                        <Num Num="60"/>
+                        <Num Num="600"/>
+                    </ToolScp>
+                    <ToolScp Scp="MGAME_MSG" Client="YES" UseSleep="NO">
+                        <Str Str="10분동안 몬스터로부터 도망치세요."/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="41227" Pos="792.17#323.04#513.28" genCount="1" genTime="20000" objectKey="0" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; &apos;INT_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400" AfterGenScript="POST_GEN_PRISONMON">
-                        <SelfAI ActiveMessageMapInBattle="1"/>
+                    <Obj Type="Monster" MonType="41227" Pos="893.87#323.04#520.68" genCount="1" genTime="20000" objectKey="0" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;500&apos; " SimpleAI="ATK_400">
+                        <SelfAI ActiveMessageMapInBattle="1">
+                            <List>
+                                <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
+                                    <Num Num="300"/>
+                                </ToolScp>
+                            </List>
+                        </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="41227" Pos="792.43#323.04#829.07" genCount="1" genTime="20000" objectKey="1" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; &apos;INT_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400_2" AfterGenScript="POST_GEN_PRISONMON">
-                        <SelfAI ActiveMessageMapInBattle="1"/>
+                    <Obj Type="Monster" MonType="41230" Pos="892.51#323.04#813.61" genCount="1" genTime="20000" objectKey="1" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;500&apos; " SimpleAI="ATK_400_2">
+                        <SelfAI ActiveMessageMapInBattle="1">
+                            <List>
+                                <ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
+                                    <Num Num="300"/>
+                                </ToolScp>
+                            </List>
+                        </SelfAI>
                     </Obj>
-                    <Obj Type="Monster" MonType="41384" Pos="1000.57#323.04#547.97" genCount="1" genTime="20000" objectKey="2" propList="&apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; &apos;INT_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400" AfterGenScript="POST_GEN_PRISONMON"/>
+                    <Obj Type="Monster" MonType="47230" Pos="735.64#323.04#544.47" genCount="1" genTime="20000" objectKey="2"/>
+                    <Obj Type="Monster" MonType="47230" Pos="1027.16#323.04#537.41" angle="90" genCount="1" genTime="20000" objectKey="3"/>
+                    <Obj Type="Monster" MonType="47230" Pos="900.78#323.04#668.05" genCount="1" genTime="20000" objectKey="4"/>
+                    <Obj Type="Monster" MonType="47230" Pos="1034.04#323.04#796.59" angle="180" genCount="1" genTime="20000" objectKey="5"/>
+                    <Obj Type="Monster" MonType="47230" Pos="727.55#323.04#838.88" angle="45" genCount="1" genTime="20000" objectKey="6"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="NextStage" execWithStart="0">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="60"/>
+                                <Num Num="120"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_PCCNT_OVER" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
@@ -216,16 +228,16 @@
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_EXEC_DELMON" Client="NO" UseSleep="NO">
-                                <MGameObjPtr List="Stage1/0/Stage1/1/Stage1/2"/>
+                                <MGameObjPtr List="Stage1/0/Stage1/1/Stage1/2/Stage1/3/Stage1/4/Stage1/5/Stage1/6"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_EXEC_REVIVE" Client="NO" UseSleep="NO"/>
+                            <ToolScp Scp="GAME_EVT_RESET_TIME" Client="NO" UseSleep="NO"/>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
                                 <Str Str="1단계 보상이 지급됩니다."/>
                                 <Str Str="scroll"/>
                                 <Num Num="10"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_GIVE_ITEM" Client="NO" UseSleep="NO">
-                                <Str Str="Event_170117_1/1/161215Event_Seed/1"/>
+                                <Str Str="Event_170117_1/1/Drug_Fortunecookie/1"/>
                                 <Str Str="MISSION_PRISON_EVENT1"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
@@ -240,27 +252,22 @@
                 </StageEvents>
             </Stage>
             <Stage Name="Stage2" AutoStart="0">
-                <StartScpList>
-                    <ToolScp Scp="MGAME_SET_TIMEOUT" Client="NO" UseSleep="NO">
-                        <Num Num="90"/>
-                    </ToolScp>
-                </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="41227" Pos="788.49#323.04#530.21" angle="90" genCount="1" genTime="20000" objectKey="0" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; &apos;INT_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400" AfterGenScript="POST_GEN_PRISONMON">
-                        <SelfAI ActiveMessageMapInBattle="1"/>
-                    </Obj>
-                    <Obj Type="Monster" MonType="41227" Pos="1016.03#323.04#800.30" angle="-90" genCount="1" genTime="20000" objectKey="1" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;Summons&apos; &apos;boss_summon_magnet&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; &apos;INT_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400" AfterGenScript="POST_GEN_PRISONMON">
-                        <SelfAI ActiveMessageMapInBattle="1"/>
-                    </Obj>
-                    <Obj Type="Monster" MonType="100170" Pos="769.63#323.04#832.55" genCount="1" genTime="20000" objectKey="2" propList="&apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;DropItemList&apos; &apos;None&apos; &apos;INT_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400_2" AfterGenScript="POST_GEN_PRISONMON">
-                        <SelfAI ActiveMessageMapInBattle="1"/>
-                    </Obj>
+                    <Obj Type="Monster" MonType="41227" Pos="878.05#323.04#572.44" angle="90" genCount="1" genTime="20000" objectKey="0" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;500&apos; " SimpleAI="ATK_400"/>
+                    <Obj Type="Monster" MonType="41230" Pos="803.28#323.04#665.37" angle="-90" genCount="1" genTime="20000" objectKey="1" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;500&apos; " SimpleAI="ATK_400"/>
+                    <Obj Type="Monster" MonType="41384" Pos="909.12#323.04#746.58" genCount="1" genTime="20000" objectKey="2" propList="&apos;Lv&apos; &apos;500&apos; " SimpleAI="ATK_400_2"/>
+                    <Obj Type="Monster" MonType="47230" Pos="947.29#323.04#479.06" angle="90" genCount="1" genTime="20000" objectKey="3"/>
+                    <Obj Type="Monster" MonType="47230" Pos="786.38#323.04#494.09" genCount="1" genTime="20000" objectKey="4"/>
+                    <Obj Type="Monster" MonType="47230" Pos="786.59#323.04#871.16" angle="180" genCount="1" genTime="20000" objectKey="5"/>
+                    <Obj Type="Monster" MonType="47230" Pos="959.51#323.04#879.24" angle="45" genCount="1" genTime="20000" objectKey="6"/>
+                    <Obj Type="Monster" MonType="47230" Pos="1042.72#323.04#746.37" genCount="1" genTime="20000" objectKey="7"/>
+                    <Obj Type="Monster" MonType="47230" Pos="1037.63#323.04#600.59" angle="180" genCount="1" genTime="20000" objectKey="8"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="NextStage" execWithStart="0">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="90"/>
+                                <Num Num="180"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_PCCNT_OVER" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
@@ -268,7 +275,7 @@
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_EXEC_DELMON" Client="NO" UseSleep="NO">
-                                <MGameObjPtr List="Stage2/0/Stage2/1/Stage2/2"/>
+                                <MGameObjPtr List="Stage2/0/Stage2/1/Stage2/2/Stage2/3/Stage2/4/Stage2/5/Stage2/6/Stage2/7/Stage2/8"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EXEC_REVIVE" Client="NO" UseSleep="NO"/>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
@@ -277,7 +284,7 @@
                                 <Num Num="10"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_GIVE_ITEM" Client="NO" UseSleep="NO">
-                                <Str Str="Event_170117_1/2/161215Event_Seed/1"/>
+                                <Str Str="Event_170117_1/2/Drug_Fortunecookie/1"/>
                                 <Str Str="MISSION_PRISON_EVENT1"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
@@ -292,30 +299,23 @@
                 </StageEvents>
             </Stage>
             <Stage Name="Stage3" AutoStart="0">
-                <StartScpList>
-                    <ToolScp Scp="MGAME_SET_TIMEOUT" Client="NO" UseSleep="NO">
-                        <Num Num="120"/>
-                    </ToolScp>
-                </StartScpList>
                 <ObjList>
-                    <Obj Type="Monster" MonType="41227" Pos="1028.25#323.04#660.86" genCount="1" genTime="20000" objectKey="0" propList="&apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; &apos;INT_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400" AfterGenScript="POST_GEN_PRISONMON">
-                        <SelfAI ActiveMessageMapInBattle="1"/>
-                    </Obj>
-                    <Obj Type="Monster" MonType="41227" Pos="875.43#323.04#452.23" angle="90" genCount="1" genTime="20000" objectKey="1" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; &apos;INT_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400" AfterGenScript="POST_GEN_PRISONMON">
-                        <SelfAI ActiveMessageMapInBattle="1"/>
-                    </Obj>
-                    <Obj Type="Monster" MonType="100170" Pos="731.01#323.04#669.96" angle="-90" genCount="1" genTime="20000" objectKey="2" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; &apos;INT_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400_2" AfterGenScript="POST_GEN_PRISONMON">
-                        <SelfAI ActiveMessageMapInBattle="1"/>
-                    </Obj>
-                    <Obj Type="Monster" MonType="100170" Pos="905.54#323.04#867.71" angle="-90" genCount="1" genTime="20000" objectKey="3" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;550&apos; &apos;UseAiOutOfPC&apos; &apos;1&apos; &apos;ATK_BM&apos; &apos;999999&apos; &apos;STR_BM&apos; &apos;999999&apos; &apos;INT_BM&apos; &apos;999999&apos; " SimpleAI="ATK_400_2" AfterGenScript="POST_GEN_PRISONMON">
-                        <SelfAI ActiveMessageMapInBattle="1"/>
-                    </Obj>
+                    <Obj Type="Monster" MonType="41384" Pos="1009.94#323.04#658.49" genCount="1" genTime="20000" objectKey="0" propList="&apos;Lv&apos; &apos;500&apos; " SimpleAI="ATK_400"/>
+                    <Obj Type="Monster" MonType="41227" Pos="873.53#323.04#613.23" angle="90" genCount="1" genTime="20000" objectKey="1" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;500&apos; " SimpleAI="ATK_400"/>
+                    <Obj Type="Monster" MonType="41230" Pos="793.99#323.04#677.32" angle="-90" genCount="1" genTime="20000" objectKey="2" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;500&apos; " SimpleAI="ATK_400_2"/>
+                    <Obj Type="Monster" MonType="57726" Pos="900.10#323.04#725.49" angle="180" genCount="1" genTime="20000" objectKey="3" propList="&apos;DropItemList&apos; &apos;None&apos; &apos;Lv&apos; &apos;500&apos; " SimpleAI="ATK_400_2"/>
+                    <Obj Type="Monster" MonType="47230" Pos="719.19#323.04#821.70" angle="270" genCount="1" genTime="20000" objectKey="4"/>
+                    <Obj Type="Monster" MonType="47230" Pos="1043.85#323.04#535.71" genCount="1" genTime="20000" objectKey="5"/>
+                    <Obj Type="Monster" MonType="47230" Pos="867.88#323.04#482.87" genCount="1" genTime="20000" objectKey="6"/>
+                    <Obj Type="Monster" MonType="47230" Pos="720.39#323.04#572.37" genCount="1" genTime="20000" objectKey="7"/>
+                    <Obj Type="Monster" MonType="47230" Pos="1038.49#323.04#822.76" angle="180" genCount="1" genTime="20000" objectKey="8"/>
+                    <Obj Type="Monster" MonType="47230" Pos="886.28#323.04#870.60" angle="180" genCount="1" genTime="20000" objectKey="9"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="NextStage" execWithStart="0">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="120"/>
+                                <Num Num="300"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_COND_PCCNT_OVER" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
@@ -323,7 +323,7 @@
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EVT_EXEC_DELMON" Client="NO" UseSleep="NO">
-                                <MGameObjPtr List="Stage3/0/Stage3/1/Stage3/2/Stage3/3"/>
+                                <MGameObjPtr List="Stage3/0/Stage3/1/Stage3/2/Stage3/3/Stage3/4/Stage3/5/Stage3/6/Stage3/7/Stage3/8/Stage3/9"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EXEC_REVIVE" Client="NO" UseSleep="NO"/>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
@@ -332,7 +332,7 @@
                                 <Num Num="10"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_GIVE_ITEM" Client="NO" UseSleep="NO">
-                                <Str Str="Event_170117_1/3/161215Event_Seed/1"/>
+                                <Str Str="Event_170117_1/3/Drug_Fortunecookie/1"/>
                                 <Str Str="MISSION_PRISON_EVENT1"/>
                             </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
@@ -356,5 +356,10 @@
                 <Str Str="INIT_PRISON_EVENT_STAT"/>
             </ToolScp>
         </EnterList>
+        <WorldInitList>
+            <ToolScp Scp="MGAME_RECALL" Client="NO" UseSleep="NO">
+                <AbsPos X="968.63806" Y="323.04422" Z="651.92139"/>
+            </ToolScp>
+        </WorldInitList>
     </Game>
 </GameList>
