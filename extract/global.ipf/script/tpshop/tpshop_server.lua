@@ -210,7 +210,18 @@ function SCR_TX_TP_SHOP(pc, argList)
 			
 			TxAddIESProp(tx, aobj, prop_name, 1, 'NpcShop')
 		elseif limit ~= 'NO' then
-			TxAddBuyLimitCount(tx, 0, tpitem.ClassID, 1, limitCount);
+			if limit == 'CUSTOM' then
+				local propertyName = TryGetProp(tpitem, "AccountLimitCustomCountProperty", "None")
+				if propertyName ~= "None" and propertyName ~= nil then 
+					local buytDatePropertyName = propertyName .. '_Buy_DateTime'
+					local nowTime = date_time.get_lua_now_datetime_str()
+					local buyCount = TryGetProp(aobj, propertyName , 1)
+					TxSetIESProp(tx, aobj, propertyName, 1 + buyCount)
+					TxSetIESProp(tx, aobj, buytDatePropertyName, nowTime)
+				end
+			else
+				TxAddBuyLimitCount(tx, 0, tpitem.ClassID, 1, limitCount);
+			end
 		end
 		
         -- 보너스 아이템 지급
@@ -442,7 +453,18 @@ function SCR_TX_NEWBIE_TP_SHOP(pc, argList)
         
         local limit, limitCount = GET_LIMITATION_TO_BUY_WITH_SHOPTYPE(tpitem.ClassID, userType);        
 		if limit ~= 'NO' then
-			TxAddBuyLimitCount(tx, userType, tpitem.ClassID, 1, limitCount);
+			if limit == 'CUSTOM' then
+				local propertyName = TryGetProp(tpitem, "AccountLimitCustomCountProperty", "None")
+				if propertyName ~= "None" and propertyName ~= nil then 
+					local buytDatePropertyName = propertyName .. '_Buy_DateTime'
+					local nowTime = date_time.get_lua_now_datetime_str()
+					local buyCount = TryGetProp(aobj, propertyName , 1)
+					TxSetIESProp(tx, aobj, propertyName, 1 + buyCount)
+					TxSetIESProp(tx, aobj, buytDatePropertyName, nowTime)
+				end
+			else
+				TxAddBuyLimitCount(tx, userType, tpitem.ClassID, 1, limitCount);
+			end
 		end
 
 		--스팀 카드 도용관련 프로퍼티 증가
@@ -664,7 +686,18 @@ function SCR_TX_RETURNUSER_TP_SHOP(pc, argList)
         
         local limit, limitCount = GET_LIMITATION_TO_BUY_WITH_SHOPTYPE(tpitem.ClassID, userType);        
 		if limit ~= 'NO' then
-			TxAddBuyLimitCount(tx, userType, tpitem.ClassID, 1, limitCount);
+			if limit == 'CUSTOM' then
+				local propertyName = TryGetProp(tpitem, "AccountLimitCustomCountProperty", "None")
+				if propertyName ~= "None" and propertyName ~= nil then 
+					local buytDatePropertyName = propertyName .. '_Buy_DateTime'
+					local nowTime = date_time.get_lua_now_datetime_str()
+					local buyCount = TryGetProp(aobj, propertyName , 1)
+					TxSetIESProp(tx, aobj, propertyName, 1 + buyCount)
+					TxSetIESProp(tx, aobj, buytDatePropertyName, nowTime)
+				end
+			else
+				TxAddBuyLimitCount(tx, userType, tpitem.ClassID, 1, limitCount);
+			end
 		end
 
 		--스팀 카드 도용관련 프로퍼티 증가

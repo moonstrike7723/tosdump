@@ -1,4 +1,4 @@
-﻿function SHOP_ON_INIT(addon, frame)
+function SHOP_ON_INIT(addon, frame)
 
 	addon:RegisterMsg('SHOP_ITEM_LIST_GET', 'SHOP_ON_MSG');
 	addon:RegisterMsg('DIALOG_CLOSE', 'SHOP_ON_MSG');
@@ -287,6 +287,11 @@ function SHOP_BUTTON_SELL(frame, slot, argStr, argNum)
 end
 
 function IS_SHOP_SELL(invitem, maxStack, frame)
+	local reputationShopFrame = ui.GetFrame("reputation_shop");
+	if reputationShopFrame:IsVisible() == 1 then
+		return 0;
+	end
+	
 	if frame == nil then
 		frame = ui.GetFrame('shop');
 	end

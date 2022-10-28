@@ -224,7 +224,7 @@ function EVENT_STAMP_TOUR_SET_PAGE(frame)
 				else
 					time = imcTime.GetSysTimeByStr(time)
 					isHidden = EVENT_STAMP_IS_VALID_WEEK_SUMMER(weekNum, time) == false or EVENT_STAMP_IS_HIDDEN_SUMMER(accObj,(3 * currentpage) + i) == true
-				end			
+				end				
 			elseif groupName == "EVENT_STAMP_TOUR_CHRISTMAS" then
 				isHidden = EVENT_STAMP_IS_VALID_CHRISTMAS(weekNum) == false
 			end
@@ -434,8 +434,7 @@ function SCR_EVENT_STAMP_OPEN_ADVENTURE_BOOK_MAP()
 	local gb_adventure = GET_CHILD(frame, "gb_adventure");
 	local tab = GET_CHILD(gb_adventure, "bookmark");
 	tab:SelectTab(7);
-end
-function SCR_EVENT_STAMP_OPEN_INDUNINFO_DIVISION()
+endfunction SCR_EVENT_STAMP_OPEN_INDUNINFO_DIVISION()
 	local frame = ui.GetFrame("induninfo")
 	frame:ShowWindow(1)
 	INDUNINFO_UI_OPEN(frame, 1, "Challenge_Division_Auto_1")

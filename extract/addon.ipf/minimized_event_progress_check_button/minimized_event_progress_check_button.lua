@@ -1,6 +1,6 @@
 ﻿function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_ON_INIT(addon, frame)
 	addon:RegisterMsg("GAME_START", "MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_INIT");
-	addon:RegisterMsg("ACCEPT_STAMPTOUR", "MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_INIT");
+	-- addon:RegisterMsg("ACCEPT_STAMPTOUR", "MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_INIT");
 end
 
 function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_INIT(frame, msg)
@@ -74,15 +74,15 @@ function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON2(frame, gb, msg)
 	-- gb:ShowWindow(1);
 	
 	-- EVENT_2112_CHRISTMAS
-	local aObj = GetMyAccountObj()
-	local stampTourCheck = TryGetProp(aObj, "REGULAR_EVENT_STAMP_TOUR", 0);
-	if stampTourCheck == 1 or msg == "ACCEPT_STAMPTOUR" then
-		btn:SetImage("event_btn");
-		btn:SetEventScript(ui.LBUTTONUP, "ON_EVENT_STAMP_TOUR_UI_OPEN_COMMAND_CHRISTMAS");
-		btn:SetEventScriptArgString(ui.LBUTTONUP, "EVENT_STAMP_TOUR_UI_OPEN_COMMAND_CHRISTMAS");
-		title:SetTextByKey("value", "");
-		gb:ShowWindow(1);
-	end
+	-- local aObj = GetMyAccountObj()
+	-- local stampTourCheck = TryGetProp(aObj, "REGULAR_EVENT_STAMP_TOUR", 0);
+	-- if stampTourCheck == 1 or msg == "ACCEPT_STAMPTOUR" then
+	-- 	btn:SetImage("event_btn");
+	-- 	btn:SetEventScript(ui.LBUTTONUP, "ON_EVENT_STAMP_TOUR_UI_OPEN_COMMAND_CHRISTMAS");
+	-- 	btn:SetEventScriptArgString(ui.LBUTTONUP, "EVENT_STAMP_TOUR_UI_OPEN_COMMAND_CHRISTMAS");
+	-- 	title:SetTextByKey("value", "");
+	-- 	gb:ShowWindow(1);
+	-- end
 end
 
 function MINIMIZED_EVENT_PROGRESS_CHECK_BUTTON_CLICK(parent, ctrl, argStr, type)	

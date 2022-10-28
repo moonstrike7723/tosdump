@@ -129,7 +129,7 @@ function ON_PARTY_UPDATE(frame, msg, str, num)
 		end
 
 		local questinfo2frame = ui.GetFrame('questinfoset_2');
-		QUEST_PARTY_MEMBER_PROP_UPDATE(questinfo2frame)		
+		ON_PARTY_MEMBER_PROP_UPDATE(questinfo2frame)		
 
 		--파티보스 소환관련해서 남아있으면 지워보자.
 		session.minimap.RemoveIconInfo("PartyQuest_FieldBossRaid");

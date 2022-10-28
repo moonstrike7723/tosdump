@@ -184,9 +184,12 @@ return value"/>
                     <Num Num="0" UseFunc="1" FuncTxt="    local value = 8000
     local abil = GetAbility(self, &quot;Schwarzereiter34&quot;)
     if abil ~= nil and TryGetProp(abil, &quot;ActiveState&quot;, 0) == 1 then
-        value = 1800000
+        if IsPVPField(self) == 1 then
+            value = 12000
+        else
+            value = 1800000
+        end
     end
-
     return value"/>
                     <Num Num="1"/>
                     <Num Num="100"/>

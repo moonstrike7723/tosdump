@@ -2,11 +2,7 @@
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <uiframe name="adventure_book">
 	<controls>
-		<richtext name="main_desc" rect="0 0 400 30" margin="46 152 0 0" parent="page_main_left" layout_gravity="left top" textalign="left top" fixwidth="true" caption="{img test_cooltime 24 24} 매월 1일마다 점수가 초기화됩니다.{/}" fontname="limitedsale"/>
-		<!--아이템-->
-		<!-- 팀배 탭 -->
 		<tabitem name="teamBattleObserveTab" parent="teamBattleDetailTab" layout_gravity="left top" caption="{@st66b}Spectate{/}" skinspace="30" width="174"/>
-		<!--개인 탭-->
 		<tabitem name="tab_explore_quest" parent="bookmark_explore" layout_gravity="left top" caption="{@st66b}퀘스트/업적" skinspace="10" width="174"/>
 		<tabitem name="tab_explore_collection" parent="bookmark_explore" layout_gravity="left top" caption="{@st66b}컬렉션" skinspace="10" width="140"/>
 	</controls>

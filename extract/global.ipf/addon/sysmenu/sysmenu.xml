@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <uiframe name="sysmenu" x="0" y="0" width="1920" height="140">
-	<frame layout_gravity="right bottom" margin="0 0 0 0" fasthide="true" hideprocess="true" scale_align="center bottom" keyboardselectframe="true"/>
-	<skin frameskin="systemmenu_vertical 잠정제거"/>
-	<layer layerlevel="96"/>
-	<option visible="true" closebutton="false" alwaysVisible="true" hideable="false"/>
-	<draw drawframe="true" drawtitlebar="false"/>
-	<animation frameOpenAnim="dialog_start2" frameCloseAnim="dialog_end"/>
-	<input hittest="true" hittestframe="false"/>
 	<userconfig PC_BANG_SHOP_ICON="sysmenu_pp"/>
-	<controls>
-	</controls>
 </uiframe>

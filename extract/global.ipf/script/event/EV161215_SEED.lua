@@ -1,39 +1,20 @@
---function SCR_EV161215_SEED_NPC_DIALOG(self, pc)
---    if GetServerNation() ~= 'KOR' then
---        return
---    end
---    local now_time = os.date('*t')
---    local year = now_time['year']
---    local month = now_time['month']
---    local day = now_time['day']
---    local sObj = GetSessionObject(pc, 'ssn_klapeda');
---    if sObj ~= nil then
---        local dlgList = {{'HENRIKA_EV161215_SEED_ERR1','HENRIKA_EV161215_SEED_DLG1'},{'ORSHA_EV161215_SEED_ERR1','ORSHA_EV161215_SEED_DLG1'}}
---        local index = 1
---        if GetZoneName(self) == 'c_orsha' then
---            index = 2
---        end
---        local nowDate = year..'/'..month..'/'..day
---        if sObj.EV161215_SEED_DATE == nowDate then
---            ShowOkDlg(pc,dlgList[index][1], 1)
---        else
---            local tx = TxBegin(pc);
---            TxGiveItem(tx, '161215Event_Seed', 1, 'EV161215_SEED')
---            TxSetIESProp(tx, sObj, 'EV161215_SEED_DATE', nowDate)
---            local ret = TxCommit(tx);
---            if ret == 'SUCCESS' then
---                ShowOkDlg(pc,dlgList[index][2], 1)
---            end
---        end
---    end
---end
---
+
 function SCR_PRE_161215EVENT_SEED(pc)
-    -- if GetServerNation() ~= 'KOR' then
-    --     return 0
-    -- end
+    if GetZoneName(pc) == "c_request_1" then
+        SendAddOnMsg(pc, 'NOTICE_Dm_scroll', ScpArgMsg('DO_NOT_USE_HERE'), 5)
+        return 0 
+    end
+
+    --if GetServerNation() ~= 'KOR' then
+    --    return 0
+    --end
     if IsPVPServer(pc) == 1 then
         SysMsg(pc, "Instant", ScpArgMsg("EV161215_SEED_MSG1"));
+        return 0
+    end
+    
+    if IsJoinColonyWarMap(pc) == 1 then
+        SendAddOnMsg(pc, 'NOTICE_Dm_scroll', ScpArgMsg('COLLECT_FAIL_MSG1'), 3)
         return 0
     end
     
@@ -47,7 +28,12 @@ function SCR_PRE_161215EVENT_SEED(pc)
             end
         end
     end
-    
+
+    if GetZoneName(pc) == "guild_agit_1" or GetZoneName(pc) == "guild_agit_extension" then
+        SendAddOnMsg(pc, "NOTICE_Dm_scroll", ScpArgMsg("DontUseItemThisArea"), 5);
+        return 0
+    end
+
     local layer = GetLayer(pc)
     if layer > 0 then
         SysMsg(pc, "Instant", ScpArgMsg("EV161215_SEED_MSG3"));
@@ -77,10 +63,6 @@ function SCR_USE_161215EVENT_SEED(pc,argObj,BuffName,arg1,arg2)
 		SendAddOnMsg(pc, "NOTICE_Dm_!", ScpArgMsg("EVENT_STEAM_SEED_MS01"), 3)
 --        AttachEffect(npc, 'F_pattern013_ground_white', 1.9, 'BOT')
     end
-end
-
-
-function SCR_161215EVENT_SEED_TS_BORN_ENTER(self)
 end
 
 function SCR_161215EVENT_SEED_TS_BORN_UPDATE(self)
@@ -190,16 +172,4 @@ function SCR_161215EVENT_SEED_TS_BORN_UPDATE(self)
             SetLifeTime(self, 1)
         end
     end
-end
-
-function SCR_161215EVENT_SEED_TS_BORN_LEAVE(self)
-end
-
-function SCR_161215EVENT_SEED_TS_DEAD_ENTER(self)
-end
-
-function SCR_161215EVENT_SEED_TS_DEAD_UPDATE(self)
-end
-
-function SCR_161215EVENT_SEED_TS_DEAD_LEAVE(self)
 end
