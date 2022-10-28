@@ -27,16 +27,8 @@ function ANCIENT_SOLO_SET_ZONE_BUFF(frame,zoneBuffName)
     icon:SetTooltipArg(session.GetMyHandle(), zoneBuffCls.ClassID,0);
 end
 
-function ANCIENT_SOLO_SET_CLEAR_REWARD(frame,stage,alreadyGet)
-    local rewardCls = GetClassByNumProp("ancient_dungeon_reward","Stage",stage)
-    if rewardCls == nil then
-        return
-    end
-    local itemName = TryGetProp(rewardCls,"ItemName","None")
-    local itemCls = GetClass('Item',itemName)
-    if itemCls == nil then
-        return
-    end
+function ANCIENT_SOLO_SET_CLEAR_REWARD(frame,item,cnt,alreadyGet)
+    local itemCls = GetClass('Item',item)
     local slot = GET_CHILD_RECURSIVELY(frame,"stageFirstClearIcon")
     local icon = CreateIcon(slot)
     icon:SetImage(itemCls.Icon)
@@ -48,6 +40,7 @@ function ANCIENT_SOLO_SET_CLEAR_REWARD(frame,stage,alreadyGet)
     else
         checkboxSlot:SetVisible(0)
     end
+
 end
 
 function ANCIENT_SOLO_SET_TOTAL_MON_COUNT(frame,count)
@@ -77,11 +70,11 @@ function ANCIENT_SOLO_SET_REMAIN_TIME(frame,time)
     remaintimeGauge:SetPoint(time, total_time);
 end
 
-function ANCIENT_SOLO_SET_PARAM_BY_SERVER(stage,zoneBuffName,alreadyGet,TotalMonCount)
+function ANCIENT_SOLO_SET_PARAM_BY_SERVER(stage,zoneBuffName,firstClearItem,firstClearItemCnt,alreadyGet,TotalMonCount)
     local frame = ui.GetFrame('ancient_solo_dungeon_info')
     ANCIENT_SOLO_SET_STAGE_NUM(frame,stage)
     ANCIENT_SOLO_SET_ZONE_BUFF(frame,zoneBuffName)
-    ANCIENT_SOLO_SET_CLEAR_REWARD(frame,stage,alreadyGet)
+    ANCIENT_SOLO_SET_CLEAR_REWARD(frame,firstClearItem,firstClearItemCnt,alreadyGet)
     ANCIENT_SOLO_SET_TOTAL_MON_COUNT(frame,TotalMonCount)
     frame:SetUserValue('TOTAL_TIME',180)
     ANCIENT_SOLO_SET_REMAIN_TIME(frame,180)

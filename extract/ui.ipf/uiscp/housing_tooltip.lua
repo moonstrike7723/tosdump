@@ -5,7 +5,7 @@ function ITEM_TOOLTIP_HOUSING(tooltipframe, invitem, argStr, usesubframe)
 
 	local mainframename = 'equip_main';
 
-	local ypos = DRAW_HOUSING_TOOLTIP(tooltipframe, invitem, mainframename, argStr, "tooltip_housing"); -- 기타 템이라면 공통적으로 그리는 툴팁들	
+	local ypos = DRAW_HOUSING_TOOLTIP(tooltipframe, invitem, mainframename, argStr); -- 기타 템이라면 공통적으로 그리는 툴팁들	
 	ypos = DRAW_ETC_DESC_TOOLTIP(tooltipframe, invitem, ypos, mainframename); -- 아이템 설명.
 	ypos = DRAW_ETC_RECIPE_NEEDITEM_TOOLTIP(tooltipframe, invitem, ypos, mainframename); -- 재료템이라면 필요한 재료랑 보여줌
 	ypos = DRAW_EQUIP_TRADABILITY(tooltipframe, invitem, ypos, mainframename);
@@ -13,27 +13,14 @@ function ITEM_TOOLTIP_HOUSING(tooltipframe, invitem, argStr, usesubframe)
 	ypos = DRAW_HOUSING_SELL_PRICE(tooltipframe, invitem, ypos, mainframename); -- 가격
 end
 
-function ITEM_TOOLTIP_PERSONAL_HOUSING(tooltipframe, invitem, argStr, usesubframe)
-	tolua.cast(tooltipframe, "ui::CTooltipFrame");
-
-	local mainframename = 'equip_main';
-
-	local ypos = DRAW_HOUSING_TOOLTIP(tooltipframe, invitem, mainframename, argStr, "tooltip_personal_housing"); -- 기타 템이라면 공통적으로 그리는 툴팁들	
-	ypos = DRAW_ETC_DESC_TOOLTIP(tooltipframe, invitem, ypos, mainframename); -- 아이템 설명.
-	ypos = DRAW_ETC_RECIPE_NEEDITEM_TOOLTIP(tooltipframe, invitem, ypos, mainframename); -- 재료템이라면 필요한 재료랑 보여줌
-	ypos = DRAW_EQUIP_TRADABILITY(tooltipframe, invitem, ypos, mainframename);
-
-	ypos = DRAW_HOUSING_SELL_PRICE(tooltipframe, invitem, ypos, mainframename); -- 가격
-end
-
-function DRAW_HOUSING_TOOLTIP(tooltipframe, invitem, mainframename, from, controlSetName)
+function DRAW_HOUSING_TOOLTIP(tooltipframe, invitem, mainframename, from)
 	local gbox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
 	gbox:RemoveAllChild();
 
 	local SkinName  = GET_ITEM_TOOLTIP_SKIN(invitem);
 	gbox:SetSkinName('test_Item_tooltip_normal');
 
-	local tooltip_housing = gbox:CreateControlSet(controlSetName, 'tooltip_housing', 0, 0);
+	local tooltip_housing = gbox:CreateControlSet("tooltip_housing", 'tooltip_housing', 0, 0);
 	tolua.cast(tooltip_housing, "ui::CControlSet");
 
 	-- 아이템 이름 세팅
@@ -65,18 +52,6 @@ function DRAW_HOUSING_TOOLTIP(tooltipframe, invitem, mainframename, from, contro
 	local value_size = GET_CHILD_RECURSIVELY(tooltip_housing, "value_size");
 	local size = string.format("%sx%s", TryGetProp(furnitureClass, "Column"), TryGetProp(furnitureClass, "Row"));
 	value_size:SetTextByKey("size", size);
-	
-	if controlSetName == "tooltip_personal_housing" then
-		local value_group = GET_CHILD_RECURSIVELY(tooltip_housing, "value_group");
-		
-		local groupName = "-";
-
-		local groupClass = GetClass("Housing_Furniture_Group", TryGetProp(furnitureClass, "Group", "None"));
-		if groupClass ~= nil then
-			groupName = TryGetProp(groupClass, "Name");
-		end
-		value_group:SetTextByKey("group", groupName);
-	end
 
 	local gbox_rotation = GET_CHILD_RECURSIVELY(tooltip_housing, "gbox_rotation");
 
@@ -188,19 +163,12 @@ function DRAW_HOUSING_SELL_PRICE(tooltipframe, invitem, yPos, mainframename)
 
 	local furnitureClass = GET_FURNITURE_CLASS_BY_ITEM(invitem.ClassName);
 	if furnitureClass ~= nil then
-		local baseidClass = GetClass("inven_baseid", invitem.MarketCategory);
-		if baseidClass.TreeGroup == "Housing" then
-			local priceText1 = string.format("{img icon_guild_housing_coin_01 20 20} {@st66b}%s", TryGetProp(furnitureClass, "SellPrice1", 0));
-			local priceText2 = string.format("  {img icon_guild_housing_coin_02 20 20} {@st66b}%s", TryGetProp(furnitureClass, "SellPrice2", 0));
-			local priceText3 = string.format("  {img icon_guild_housing_coin_03 20 20} {@st66b}%s", TryGetProp(furnitureClass, "SellPrice3", 0));
-			local priceText4 = string.format("  {img icon_guild_housing_coin_04 20 20} {@st66b}%s", TryGetProp(furnitureClass, "SellPrice4", 0));
-			local txt_price = GET_CHILD(tooltip_sellinfo_CSet, 'sellprice', 'ui::CRichText');
-			txt_price:SetText(priceText1 .. priceText2 .. priceText3 .. priceText4);
-		else
-			local priceText1 = string.format("{img silver 20 20} {@st66b}%s", TryGetProp(invitem, "SellPrice", 0));
-			local txt_price = GET_CHILD(tooltip_sellinfo_CSet, 'sellprice', 'ui::CRichText');
-			txt_price:SetText(priceText1);
-		end
+		local priceText1 = string.format("{img icon_guild_housing_coin_01 20 20} {@st66b}%s", TryGetProp(furnitureClass, "SellPrice1", 0));
+		local priceText2 = string.format("  {img icon_guild_housing_coin_02 20 20} {@st66b}%s", TryGetProp(furnitureClass, "SellPrice2", 0));
+		local priceText3 = string.format("  {img icon_guild_housing_coin_03 20 20} {@st66b}%s", TryGetProp(furnitureClass, "SellPrice3", 0));
+		local priceText4 = string.format("  {img icon_guild_housing_coin_04 20 20} {@st66b}%s", TryGetProp(furnitureClass, "SellPrice4", 0));
+		local txt_price = GET_CHILD(tooltip_sellinfo_CSet, 'sellprice', 'ui::CRichText');
+		txt_price:SetText(priceText1 .. priceText2 .. priceText3 .. priceText4);
 	end
 
 	local pic_silver = GET_CHILD(tooltip_sellinfo_CSet, "silver");

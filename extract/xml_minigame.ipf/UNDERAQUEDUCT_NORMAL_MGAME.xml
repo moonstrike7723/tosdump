@@ -16,8 +16,6 @@
                     <Obj Type="Monster" MonType="157055" Pos="-244.76#168.02#1376.01" genCount="1" maxStackCount="1" genTime="1" objectKey="1" propList="&apos;Name&apos; &apos;방어력 증가 장치&apos; &apos;Dialog&apos; &apos;D_UNDERAQUEDUCT_DEF_BUFF&apos; "/>
                     <Obj Type="Monster" MonType="157055" Pos="-250.59#167.98#1438.77" genCount="1" maxStackCount="1" genTime="1" objectKey="2" propList="&apos;Name&apos; &apos;실드 생성 장치&apos; &apos;Dialog&apos; &apos;D_UNDERAQUEDUCT_SHIELD_BUFF&apos; "/>
                     <Obj Type="Monster" MonType="20040" Pos="-242.22#176.13#1550.24" genCount="1" maxStackCount="1" genTime="1" objectKey="3" propList="&apos;Name&apos; &apos;머즈루스 제압 장치&apos; &apos;Dialog&apos; &apos;D_UNDERAQUEDUCT_BOSS_GIMMICK_SKILL3&apos; "/>
-                    <Obj Type="Monster" MonType="59319" Pos="20.04#176.10#1527.05" angle="84" genCount="1" genTime="20000" objectKey="4"/>
-                    <Obj Type="Monster" MonType="59319" Pos="5.91#176.25#1204.40" angle="107" genCount="1" genTime="20000" objectKey="5"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="Start">
@@ -33,14 +31,6 @@
                             <ToolScp Scp="GAME_ST_EVT_EXEC_SOUL_CRISTAL_LIMIT" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
                                 <Num Num="2"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_EXEC_GIVE_BUFF" Client="NO" UseSleep="NO">
-                                <Str Str="SOLO_RAID_MSPD_Buff"/>
-                                <Num Num="1"/>
-                                <Num Num="0"/>
-                                <Num Num="0"/>
-                                <Num Num="1"/>
-                                <Num Num="0"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -111,7 +101,7 @@
             </Stage>
             <Stage Name="Boss" AutoStart="0">
                 <ObjList>
-                    <Obj Type="Monster" MonType="59293" Pos="7.76#176.26#1364.44" angle="164" genTime="1" autoGen="0" objectKey="1" propList="&apos;Enter&apos; &apos;0&apos; " tendency="1"/>
+                    <Obj Type="Monster" MonType="59293" Pos="7.76#176.26#1364.44" angle="164" genTime="1" autoGen="0" objectKey="1" propList="&apos;Enter&apos; &apos;SOLO_RAID_UNDERAQUEDUCT_BOSS&apos; &apos;Range&apos; &apos;300&apos; " tendency="1"/>
                 </ObjList>
                 <StageEvents>
                     <Event execCount="1" eventName="BossMsg">
@@ -137,10 +127,6 @@
                             </ToolScp>
                             <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
                                 <Str Str="UNDERAQUEDUCT_MONGO_BOSSMONSTATE_BORN"/>
-                            </ToolScp>
-                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
-                                <MGameObj List="Boss/1"/>
-                                <Str Str="SCR_SOLO_RAID_UNDERAQUEDUCT_BOSS_ENTER"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -180,9 +166,6 @@
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
                                 <Str Str="Success"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
-                                <Str Str="SCR_SOLO_RAID_UNDERAQUEDUCT_BOSS_BGM_STOP"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -211,10 +194,6 @@
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_DISABLE" Client="NO" UseSleep="NO">
                                 <Str Str="Fail"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
-                                <MGameObj List="Boss/1"/>
-                                <Str Str="SCR_SOLO_RAID_UNDERAQUEDUCT_BOSS_ENTER"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -226,11 +205,6 @@
                     </ToolScp>
                     <ToolScp Scp="MGAME_CONTENT_LOG_STR" Client="NO" UseSleep="NO">
                         <Str Str="SoloRaid_Underaqueduct"/>
-                    </ToolScp>
-                    <ToolScp Scp="MGAME_SET_DM_ICON" Client="NO" UseSleep="NO">
-                        <Str Str="머즈루스 처치에 성공하였습니다.{nl}10초 후 선착장 방향 포탈이 생성됩니다."/>
-                        <Str Str="scroll"/>
-                        <Num Num="10"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList/>
@@ -245,14 +219,20 @@
                             <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
                                 <Str Str="UNDERAQUEDUCT_MONGO_MISSIONSTATE_END"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
-                                <Str Str="SCR_REMOVE_SOLO_RAID_MSPD_BUFF"/>
-                            </ToolScp>
                             <ToolScp Scp="MGAME_PCLIST_LAYER_CHANGE" Client="NO" UseSleep="NO">
                                 <Num Num="0"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_END" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="END_MSG">
+                        <execList>
+                            <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
+                                <Str Str="머즈루스 처치에 성공하였습니다.{nl}10초 후 선착장 방향 포탈이 생성됩니다."/>
+                                <Str Str="scroll"/>
+                                <Num Num="10"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -428,7 +408,7 @@
                         <Str Str="TOTAL_POINT"/>
                         <Str Str="bar"/>
                         <Str Str="머즈루스 도전 과제 포인트"/>
-			<Num Num="6"/>
+                        <Num Num="3"/>
                         <Num Num="1"/>
                     </ToolScp>
                 </StartScpList>
@@ -517,7 +497,7 @@
                                 <MGameObj List="Boss/1"/>
                                 <Num Num="0"/>
                             </ToolScp>
-							<ToolScp Scp="MGAME_EVT_COND_PCHP_ISREAL" Client="NO" UseSleep="NO">
+                            <ToolScp Scp="MGAME_EVT_COND_PCHP" Client="NO" UseSleep="NO">
                                 <Num Num="31"/>
                                 <Str Str="OVER"/>
                                 <Num Num="1"/>
@@ -563,7 +543,7 @@
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
                             </ToolScp>
-							<ToolScp Scp="MGAME_EVT_COND_PCHP_ISREAL" Client="NO" UseSleep="NO">
+                            <ToolScp Scp="MGAME_EVT_COND_PCHP" Client="NO" UseSleep="NO">
                                 <Num Num="30"/>
                                 <Str Str="UNDER"/>
                                 <Num Num="1"/>
@@ -602,7 +582,7 @@
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
                                 <Num Num="1"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_EVT_COND_MONCNT_ALIVE" Client="NO" UseSleep="NO">
+                            <ToolScp Scp="MGAME_EVT_COND_MONCNT" Client="NO" UseSleep="NO">
                                 <MGameObj List="Boss/1"/>
                                 <Num Num="0"/>
                             </ToolScp>
@@ -620,9 +600,9 @@
                     <Event execCount="1" eventName="Time_Fail">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="303"/>
+                                <Num Num="300"/>
                             </ToolScp>
-                            <ToolScp Scp="MGAME_EVT_COND_MONCNT_ALIVE" Client="NO" UseSleep="NO">
+                            <ToolScp Scp="MGAME_EVT_COND_MONCNT_OVER" Client="NO" UseSleep="NO">
                                 <MGameObj List="Boss/1"/>
                                 <Num Num="1"/>
                             </ToolScp>

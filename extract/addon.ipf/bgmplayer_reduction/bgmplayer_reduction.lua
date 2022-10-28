@@ -13,6 +13,7 @@ function BGMPLAYER_REDUCTION_ON_INIT(addon, frame)
             BGMPLAYER_INIT_SELECTCTRLSET(bgmplayer_frame);
             BGMPLAYER_REDUCTION_INIT_SET_TITLE(bgmplayer_frame);
             LoadFavoritesBgmList();
+            SaveFavoritesBgmList();
         end
     end
 end
@@ -106,7 +107,6 @@ end
 function BGMPLAYER_REDUCTION_CLOSE_UI()
 	ui.CloseFrame("bgmplayer_reduction");
     SetBgmPlayerReductionFrameVisible(0);
-    SaveFavoritesBgmList();
 end
 
 function BGMPLAYER_REDUCTION_CHANGE_SKIN(isChange)

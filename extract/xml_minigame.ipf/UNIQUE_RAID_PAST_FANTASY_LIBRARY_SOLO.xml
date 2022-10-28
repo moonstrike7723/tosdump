@@ -4,16 +4,8 @@
         <StageList>
             <Stage Name="Success" AutoStart="0">
                 <StartScpList>
-                    <ToolScp Scp="MGAME_GIVE_ADVENTURE_BOOK_CLEAR_POINT" Client="NO" UseSleep="NO">
-                        <Str Str="Casual_M_Past_FantasyLibrary_1"/>
-                    </ToolScp>
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
-                        <Str Str="미션 성공 : 90초 뒤 마을로 돌아갑니다"/>
-                    </ToolScp>
-                    <ToolScp Scp="MGAME_SET_START_CASUAL_GAME" Client="NO" UseSleep="NO">
-                      <Str Str="여신의 축복이 시작되었습니다."/>
-                      <Str Str="Clear"/>
-                      <Num Num="3"/>
+                        <Str Str="미션 성공 : 20초 뒤 마을로 돌아갑니다"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList/>
@@ -21,7 +13,7 @@
                     <Event execCount="1" eventName="GO_TO_ZONE">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="90"/>
+                                <Num Num="20"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -4360,10 +4352,10 @@
                                 <Str Str="Success"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_MSG_ICON" Client="YES" UseSleep="NO">
-                                <Str Str="마군주 프로스터 로드를 쓰러뜨렸습니다!{nl}아가일라 플러리의 계획을 성공적으로 마쳤습니다!{nl}90초 뒤 입장했던 곳으로 이동합니다."/>
+                                <Str Str="마군주 프로스터 로드를 쓰러뜨렸습니다!{nl}아가일라 플러리의 계획을 성공적으로 마쳤습니다!{nl}20초 뒤 입장했던 곳으로 이동합니다."/>
                                 <Str Str="Clear"/>
                                 <Num Num="5"/>
-                            </ToolScp>                            
+                            </ToolScp>
                             <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
                                 <Str Str="PastFantasyLibrary"/>
                                 <Str Str="StageClear"/>
@@ -4371,6 +4363,10 @@
                             <ToolScp Scp="MGAME_STAGE_CHECK_LOG_STAGEPROGRESS" Client="NO" UseSleep="NO">
                                 <Str Str="PastFantasyLibrary"/>
                                 <Str Str="MinigameSuccess"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_RANK_RESET_POINT_SETTING" Client="NO" UseSleep="NO">
+                                <Num Num="20"/>
+                                <Str Str="UniqueRaid: M_Past_FantasyLibrary_1"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -4408,19 +4404,6 @@
                         <execList>
                             <ToolScp Scp="MGAME_EVT_EXEC_DELMON" Client="NO" UseSleep="NO">
                                 <MGameObjPtr List="OBJECT/39/OBJECT/40/OBJECT/41"/>
-                            </ToolScp>
-                        </execList>
-                    </Event>
-                </StageEvents>
-            </Stage>
-            <Stage Name="RankResetPoint">
-                <ObjList/>
-                <StageEvents>
-                    <Event execCount="1" eventName="PointSetting">
-                        <execList>
-                            <ToolScp Scp="MGAME_SET_RANK_RESET_POINT_AND_LOG" Client="NO" UseSleep="NO">
-                                <Num Num="20"/>
-                                <Str Str="UniqueRaid: Casual_M_Past_FantasyLibrary_1"/>
                             </ToolScp>
                         </execList>
                     </Event>

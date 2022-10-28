@@ -105,9 +105,6 @@
                             </ToolScp>
                         </condList>
                         <execList>
-                            <ToolScp Scp="MGAME_EVT_EXEC_SET_BGM" Client="NO" UseSleep="NO">
-                                <Str Str="raid_shadow_trans"/>
-                            </ToolScp>
                             <ToolScp Scp="MGAME_EXEC_RUNSCRIPT" Client="NO" UseSleep="NO">
                                 <Str Str="SCR_SHADOW_RAID_SLEEP"/>
                             </ToolScp>
@@ -154,6 +151,10 @@
                                 <MGameObjIndex List="DefGroup/8"/>
                                 <Num Num="1"/>
                                 <Num Num="0"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_RANK_RESET_POINT_SETTING" Client="NO" UseSleep="NO">
+                                <Num Num="20"/>
+                                <Str Str="UniqueRaid: Casual_Unique_Raid_boss_Skiaclipse"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -1200,7 +1201,7 @@
                         <execList>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="DefGroup/7"/>
-                                <Str Str="SHADOW_UNIQUE_SOLO_MAKE_CURSE"/>
+                                <Str Str="SHADOW_UNIQUE_MAKE_CURSE"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
                                 <MGameObj List="DefGroup/7"/>
@@ -1219,13 +1220,13 @@
                             </ToolScp>
                         </condList>
                         <execList>
-                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
-                                <MGameObj List="DefGroup/7"/>
-                                <Str Str="SHADOW_UNIQUE_SOLO_MAKE_CURSE"/>
-                            </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
                                 <MGameObj List="DefGroup/7"/>
                                 <Str Str="SHADOW_UNIQUE_SOLO_CURSE_PURIFICATION"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
+                                <MGameObj List="DefGroup/7"/>
+                                <Str Str="SHADOW_UNIQUE_MAKE_CURSE"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -1240,13 +1241,13 @@
                             </ToolScp>
                         </condList>
                         <execList>
-                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
-                                <MGameObj List="DefGroup/7"/>
-                                <Str Str="SHADOW_UNIQUE_SOLO_MAKE_CURSE"/>
-                            </ToolScp>
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON" Client="NO" UseSleep="NO">
                                 <MGameObj List="DefGroup/7"/>
                                 <Str Str="SHADOW_UNIQUE_SOLO_CURSE_PURIFICATION"/>
+                            </ToolScp>
+                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
+                                <MGameObj List="DefGroup/7"/>
+                                <Str Str="SHADOW_UNIQUE_MAKE_CURSE"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -1487,20 +1488,15 @@
             <Stage Name="SUCCESS" AutoStart="0">
                 <StartScpList>
                     <ToolScp Scp="MGAME_GIVE_ADVENTURE_BOOK_CLEAR_POINT" Client="NO" UseSleep="NO">
-                        <Str Str="Casual_Unique_Raid_boss_Skiaclipse"/>
+                        <Str Str="Unique_Raid_boss_Skiaclipse"/>
                     </ToolScp>
                     <ToolScp Scp="MGAME_SET_QUEST_NAME" Client="NO" UseSleep="NO">
-                        <Str Str="레이드 성공!{nl}90초 뒤, 입장한 곳으로 돌아갑니다."/>
+                        <Str Str="레이드 성공!{nl}40초 뒤, 입장한 곳으로 돌아갑니다."/>
                     </ToolScp>
                     <ToolScp Scp="MGAME_SET_DM_ICON" Client="NO" UseSleep="NO">
-                        <Str Str="레이드 성공!{nl}90초 뒤, 입장한 곳으로 돌아갑니다."/>
+                        <Str Str="레이드 성공!{nl}40초 뒤, 입장한 곳으로 돌아갑니다."/>
                         <Str Str="Clear"/>
                         <Num Num="5"/>
-                    </ToolScp>
-                    <ToolScp Scp="MGAME_SET_START_CASUAL_GAME" Client="NO" UseSleep="NO">
-                        <Str Str="여신의 축복이 시작되었습니다."/>
-                        <Str Str="Clear"/>
-                        <Num Num="3"/>
                     </ToolScp>
                 </StartScpList>
                 <ObjList/>
@@ -1508,7 +1504,7 @@
                     <Event execCount="1" eventName="RETURN_ZONE">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="90"/>
+                                <Num Num="30"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -1521,7 +1517,7 @@
                     <Event execCount="1" eventName="20&apos;s" execWithStart="0">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="70"/>
+                                <Num Num="20"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -1535,7 +1531,7 @@
                     <Event execCount="1" eventName="10&apos;s">
                         <condList>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
-                                <Num Num="80"/>
+                                <Num Num="30"/>
                             </ToolScp>
                         </condList>
                         <execList>
@@ -1566,19 +1562,6 @@
                         </condList>
                         <execList>
                             <ToolScp Scp="MGAME_EXEC_REVIVE" Client="NO" UseSleep="NO"/>
-                        </execList>
-                    </Event>
-                </StageEvents>
-            </Stage>
-            <Stage Name="RankResetPoint">
-                <ObjList/>
-                <StageEvents>
-                    <Event execCount="1" eventName="PointSetting">
-                        <execList>
-                            <ToolScp Scp="MGAME_SET_RANK_RESET_POINT_AND_LOG" Client="NO" UseSleep="NO">
-                                <Num Num="20"/>
-                                <Str Str="UniqueRaid: Casual_Unique_Raid_boss_Skiaclipse"/>
-                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>

@@ -193,18 +193,19 @@ function SCR_TX_BEAUTYSHOP_PURCHASE(pc, idSpaceList, classNameList, colorClassNa
 	for k,v in pairs(productList) do
 		local tx = TxBegin(pc);
 		local preDyeName = 'None';
-
-		if appliedHairDiscount == true and hairCouponItem ~= nil and hairCouponGuid ~= '0' then
-			TxTakeItemByObject(tx, hairCouponItem, 1, 'BeautyShop');
-		end
-
-		if appliedDyeDiscount == true and dyeCouponItem ~= nil and dyeCouponGuid ~= '0' then
-			TxTakeItemByObject(tx, dyeCouponItem, 1, 'BeautyShop');
-		end
-
 		local medalLog = 'BeautyShop';
 		local cmdIdx = 0;
 		if v.IDSpace == "Beauty_Shop_Hair" then
+
+			-- 쿠폰은 헤어 변경, 염색에만 적용된다.
+			if appliedHairDiscount == true and hairCouponItem ~= nil and hairCouponGuid ~= '0' then
+				TxTakeItemByObject(tx, hairCouponItem, 1, 'BeautyShop');
+			end
+	
+			if appliedDyeDiscount == true and dyeCouponItem ~= nil and dyeCouponGuid ~= '0' then
+				TxTakeItemByObject(tx, dyeCouponItem, 1, 'BeautyShop');
+			end
+			
 			local itemCls = GetClass('Item', v.ClassName);
 			hairEngName = itemCls.StringArg;
 			if v.ColorClassName ~= 'None' then				

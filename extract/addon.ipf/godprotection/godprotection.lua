@@ -8,10 +8,6 @@ end
 
 -- 아이콘으로 UI 오픈
 function GODPROTECTION_DO_OPEN()
-    if ui.GetFrame('silver_gacha'):IsVisible() == 1 then
-        return
-    end
-
 	local frame = ui.GetFrame("godprotection");
 	ui.OpenFrame("godprotection");
 
@@ -20,7 +16,6 @@ function GODPROTECTION_DO_OPEN()
 	silver:SetText(silvercost);
 
 	GODPROTECTION_DEDICATION_INIT()
-	AUTO_GODPROTECTION_DEDICATION_INIT()
 	GODPROTECTION_REMAIN_TIME(frame)
 	GODPROTECTION_ITME_LIST_UPDATE(frame)
 end
@@ -36,8 +31,6 @@ function GODPROTECTION_CLOSE(frame)
 	if ui.CheckHoldedUI() == true then
         return;
 	end
-
-	GODPROTECTION_AUTO_STOP(frame);
 
 	ui.CloseFrame("godprotection");
 end
@@ -98,30 +91,19 @@ function GODPROTECTION_ITME_LIST_INIT(frame)
 		frame = ui.GetFrame("godprotection");
 	end
 
-	local slot_index = session.GodProtection.GetTotalItemCount() - 1
-	local item_index = session.GodProtection.GetItemListCount() - 1;	
-	-- 맨 마지막 slot 부터 생성, 일반 아이템 슬롯만 설정, 뒤에서부터 12개 그리면 됨
-	for i = item_index, item_index - 11, -1 do		
-		slot = GET_CHILD_RECURSIVELY(frame, 'slot_'.. slot_index);		
-		slot_index = slot_index - 1		
+	local allcnt = tonumber(frame:GetUserConfig("ALL_ITEM_COUTN"));
+	local legendcnt = tonumber(frame:GetUserConfig("LEGEND_ITEM_COUTN"));
+	local cnt = session.GodProtection.GetItemListCount();
+	-- slot 12 부터 생성, 일반 아이템 슬롯만 설정
+	for i = allcnt - 1, 2, -1 do
+		cnt = cnt - 1;
+		slot = GET_CHILD_RECURSIVELY(frame, 'slot_'..i);
 		if slot ~= nil then
-			local itemid = session.GodProtection.GetItemIDbyIndex(i);
+			local itemid = session.GodProtection.GetItemIDbyIndex(cnt);	
 			local itemCls = GetClassByType('Item', itemid);
 			if itemCls ~= nil then
 				SET_SLOT_IMG(slot, itemCls.Icon);
 				SET_ITEM_TOOLTIP_BY_TYPE(slot:GetIcon(), itemCls.ClassID);
-				local cls = GetClassByType('Item', itemCls.ClassID)
-				local count = 1
-				if cls ~= nil then
-					local class_name = TryGetProp(cls, 'ClassName', 'None')
-					local cls_count = GetClass('fieldboss_worldevent_reward_count', class_name)					
-					if cls_count ~= nil then
-						count = TryGetProp(cls_count, 'Count', 1)		
-					end	
-				end
-				local style = '{s20}{ol}{b}{ds}'					
-				slot:SetText(style..count, 'count', ui.RIGHT, ui.BOTTOM, -5, -5)
-
 				slot:GetIcon():SetTooltipOverlap(1);
 				slot:SetUserValue("ITEM_ID", itemid);
 			end
@@ -138,7 +120,7 @@ function GODPROTECTION_ITME_LIST_UPDATE(frame)
 		frame = ui.GetFrame("godprotection");
 	end
 
-	local legendcnt = session.GodProtection.GetLegendItemListCount();	
+	local legendcnt = tonumber(frame:GetUserConfig("LEGEND_ITEM_COUTN"));
 	for i = 0, legendcnt - 1 do
 		slot = GET_CHILD_RECURSIVELY(frame, 'slot_'..i);
 		if slot ~= nil then
@@ -149,8 +131,6 @@ function GODPROTECTION_ITME_LIST_UPDATE(frame)
 				SET_ITEM_TOOLTIP_BY_TYPE(slot:GetIcon(), itemCls.ClassID);
 				slot:GetIcon():SetTooltipOverlap(1);							
 				slot:SetUserValue("ITEM_ID", itemid);
-				local style = '{s20}{ol}{b}{ds}'					
-				slot:SetText(style.. '1', 'count', ui.RIGHT, ui.BOTTOM, -5, -5)
 
 				local slot_pic = GET_CHILD_RECURSIVELY(frame, 'slot_'..i..'_pic');
 				if session.GodProtection.GetIsLegendItembyIndex(i) == false then
@@ -169,7 +149,7 @@ function GODPROTECTION_ITME_LIST_UPDATE(frame)
 end
 
 -- 봉헌 버튼 클릭, 조건확인 
-function GODPROTECTION_DEDICATION_CLICK(ctrl)	
+function GODPROTECTION_DEDICATION_CLICK(ctrl)
 	if ui.CheckHoldedUI() == true then
         return;
 	end
@@ -203,63 +183,6 @@ end
 
 function BUTTON_UNFREEZE()
 	ui.SetHoldUI(false);
-end
-
-function AUTO_GODPROTECTION_DEDICATION_CLICK()	
-	if ui.CheckHoldedUI() == true then
-		RemoveLuaTimerFunc('AUTO_GODPROTECTION_DEDICATION_CLICK')		
-        return;
-	end
-	
-	local frame = ui.GetFrame("godprotection");	
-
-	local endtime = session.GodProtection.GetEndTime();
-	local remainsec = imcTime.GetDifSec(endtime, geTime.GetServerSystemTime());
-	if remainsec < 0 then
-		RemoveLuaTimerFunc('AUTO_GODPROTECTION_DEDICATION_CLICK')	
-		GODPROTECTION_AUTO_STOP(frame);	
-		return;
-	end
-
-	local silver = 0; 
-	local silvercost = session.GodProtection.GetSilverCost();
-	local invItem = session.GetInvItemByName('Vis');
-	if invItem ~= nil then
-		silver = tonumber(invItem:GetAmountStr());
-	end
-
-	if silver < silvercost then
-		ui.SysMsg(ScpArgMsg("REQUEST_TAKE_SILVER"));		
-		RemoveLuaTimerFunc('AUTO_GODPROTECTION_DEDICATION_CLICK')		
-		GODPROTECTION_AUTO_STOP(frame);
-		return;
-	end
-
-	local edit = GET_CHILD_RECURSIVELY(frame, "auto_edit");
-	local count = edit:GetText();
-	if edit:GetText() == "" or tonumber(count) - 1 < 0  then
-		GODPROTECTION_AUTO_STOP(frame);
-		return;
-	end
-
-	-- 봉헌!
-	RequestBidFieldBossWorldEvent();
-end
-
-function AUTO_GODPROTECTION_DEDICATION_INIT()
-	if ui.CheckHoldedUI() == true then
-        return;
-	end
-
-	local frame = ui.GetFrame("godprotection");
-
-	GODPROTECTION_AUTO_STOP(frame);
-
-	local edit = GET_CHILD_RECURSIVELY(frame, "auto_edit");
-	edit:SetText('');
-
-	local auto_text = GET_CHILD_RECURSIVELY(frame, "auto_text");
-	auto_text:ShowWindow(1);
 end
 
 -- 획득 가능한 아이템 SLOT들, 버튼 이펙트
@@ -369,9 +292,7 @@ function GODPROTECTION_DEDICATION_ITEM_GET(frame, itemid)
 
 	-- 아이템 획득 사운드
 	local GET_ITEM_SOUND = frame:GetUserConfig('GET_ITEM_SOUND');
-	imcSound.PlaySoundEvent(GET_ITEM_SOUND);
-	
-	GODPROTECTION_AUTO_COUNT_UPDATE(frame);
+    imcSound.PlaySoundEvent(GET_ITEM_SOUND);
 end
 
 -- 봉헌 · 확인 버튼, 획득 아이템 slot 초기화
@@ -409,7 +330,6 @@ function GODPROTECTION_START(frame)
 	silver:SetText(silvercost);
 
 	GODPROTECTION_DEDICATION_INIT();
-	AUTO_GODPROTECTION_DEDICATION_INIT();
 	GODPROTECTION_REMAIN_TIME(frame);	
 	GODPROTECTION_ITME_LIST_INIT(frame);
 end
@@ -437,7 +357,7 @@ function GODPROTECTION_SLOT_CLEAR()
 	local frame = ui.GetFrame("godprotection");
 
 	-- slot들 아이콘 초기화
-	local allcnt = session.GodProtection.GetTotalItemCount();
+	local allcnt = tonumber(frame:GetUserConfig("ALL_ITEM_COUTN"));
 	for i = 0, allcnt - 1 do
 		local slot = GET_CHILD_RECURSIVELY(frame, 'slot_'..i);
 		local slot_pic = GET_CHILD_RECURSIVELY(frame, 'slot_'..i..'_pic');
@@ -460,9 +380,9 @@ function GODPROTECTION_GET_SLOT(itemid)
 	if itemid == "None" then
 		return nil;
 	end
-	
-	local allcnt = session.GodProtection.GetTotalItemCount() - 1;		
-	for i = allcnt, 0, -1 do
+
+	local allcnt = tonumber(frame:GetUserConfig("ALL_ITEM_COUTN"));
+	for i = 0, allcnt - 1 do
 		local slot = GET_CHILD_RECURSIVELY(frame, 'slot_'..i);
 		local slotitemid = slot:GetUserValue("ITEM_ID");
 		if tonumber(itemid) == tonumber(slotitemid) then
@@ -472,7 +392,6 @@ function GODPROTECTION_GET_SLOT(itemid)
 
 	return nil;
 end
-
 function GODPROTECTION_SPINE(frame)
 	local frame = ui.GetFrame("godprotection");
     local picture = GET_CHILD_RECURSIVELY(frame, 'spinepic');
@@ -486,71 +405,4 @@ function GODPROTECTION_SPINE(frame)
 		end	
 	end
 	
-end
-
-function AUTO_godproduction(count)
-	local delay = WORLD_EVENT_CLICK_DELAY * 1000
-	delay = delay + 100	
-	AddUniqueTimerFunccWithLimitCount('AUTO_GODPROTECTION_DEDICATION_CLICK', delay, count)	
-end
-
-function STOP_godproduction()
-	RemoveLuaTimerFunc('AUTO_GODPROTECTION_DEDICATION_CLICK')
-end
-
-function GODPROTECTION_AUTO_START_BTN_CLICK(parent, ctrl)
-	if ui.CheckHoldedUI() == true then
-        return;
-	end
-
-	local frame = ui.GetFrame("godprotection");
-
-	ctrl:SetEnable(0);
-
-	local edit = GET_CHILD(parent, "auto_edit");
-	edit:SetEnable(0);
-	local btn = GET_CHILD_RECURSIVELY(frame, 'dedication_btn');
-	btn:SetEnable(0);
-
-	local auto_count = edit:GetText();
-	AUTO_godproduction(auto_count);
-end
-
-function GODPROTECTION_AUTO_STOP_BTN_CLICK(parent, ctrl)
-	local frame = ui.GetFrame("godprotection");
-	GODPROTECTION_AUTO_STOP(frame);
-end
-
-function GODPROTECTION_AUTO_STOP(frame)
-	local edit = GET_CHILD_RECURSIVELY(frame, "auto_edit");
-	edit:SetEnable(1);
-
-	local auto_btn = GET_CHILD_RECURSIVELY(frame, "auto_btn");
-	auto_btn:SetEnable(1);
-
-	local btn = GET_CHILD_RECURSIVELY(frame, 'dedication_btn');
-	btn:SetEnable(1);
-
-	STOP_godproduction();
-end
-
-function GODPROTECTION_AUTO_EDIT_CLICK(parent, ctrl)
-	local auto_text = GET_CHILD(parent, "auto_text");
-	auto_text:ShowWindow(0);
-end
-
-function GODPROTECTION_AUTO_COUNT_UPDATE(frame)
-	local auto_btn = GET_CHILD_RECURSIVELY(frame, "auto_btn");
-	if auto_btn:IsEnable() == 1 then
-		return;
-	end
-
-	local edit = GET_CHILD_RECURSIVELY(frame, "auto_edit");
-	local count = tonumber(edit:GetText());
-	local next_count = count - 1;
-	if next_count < 0 then
-		return;
-	end
-
-	edit:SetText(next_count);
 end

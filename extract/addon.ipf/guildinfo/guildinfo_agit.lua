@@ -8,8 +8,7 @@ function GUILD_AGIT_INFO_INIT(parent, infoBox)
 end
 
 function RESET_GUILD_AGIT_FACILITY_INFO()
-	-- OPEN_HOUSING_SHOP 에서 RequestGuildAgitInfo 해주고 있으니, 또 요청하지 않도록 수정
-	--housing.RequestGuildAgitInfo("RECEIVE_GUILD_AGIT_INFO");
+	housing.RequestGuildAgitInfo("RECEIVE_GUILD_AGIT_INFO");
 	INIT_GUILD_AGIT_FACILITY_INFO();
 end
 
