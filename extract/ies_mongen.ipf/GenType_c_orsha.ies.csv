@@ -81,4 +81,5 @@ ClassID,GenType,Lv,Range,GenRange,RespawnTime,MaxPop,Minimap,Hide,UseAIOufOfPC,A
 5253,5253,1,40,1,1,1,2,0,0,1,0,0,npc_city_alchemist,[전문 알케미스트]{nl}히시아,,,,,,,ALCHEIST_EXPERT_NPC_ORSHA,,,NO,YES,NO,Neutral,,,,
 5254,5254,1,40,1,1,1,2,0,0,0,0,0,reputation_Board1,[왕국 재건단] 게시판,,,,,,,REPUTATION_QUEST_BOARD_01,,,NO,YES,NO,Neutral,,,,
 5261,5261,1,40,1,1,1,2,0,0,1,0,0,NPC_GM,[럭키 브레이크]{nl}이벤트 도우미,,,,,,,EVENT_LB21_NPC_1,,,NO,YES,NO,Neutral,,,,
+5267,5267,1,40,1,1,1,2,0,0,0,0,0,Event_Camping_npc,[이벤트] 봄 캠핑{nl}여행자,,,,,,,EVENT_2105_CAMPING_TRAVEL_NPC,,,NO,YES,NO,Netual,,,,
 10001,50001,1,40,1,60000,1,2,0,0,0,0,0,Board3_Event,이벤트 알림판,,,,,,,STEAM_TREASURE_EVENT,,,NO,YES,NO,Neutral,,,,

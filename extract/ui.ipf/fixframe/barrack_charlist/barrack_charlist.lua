@@ -467,7 +467,8 @@ function BARRACK_GET_CHAR_INDUN_ENTRANCE_COUNT(cid, resetGroupID)
         if indunCls ~= nil and indunCls.PlayPerResetType == resetGroupID and indunCls.Category ~= 'None' then
             break;
         end
-    end
+	end
+	
 	if indunCls.WeeklyEnterableCount ~= nil and indunCls.WeeklyEnterableCount ~= "None" and indunCls.WeeklyEnterableCount ~= 0 then
 		if indunCls.UnitPerReset == 'PC' then
 			return accountInfo:GetBarrackCharEtcProp(cid,'IndunWeeklyEnteredCount_'..resetGroupID)  --매주 ?��? ?�수
@@ -479,7 +480,19 @@ function BARRACK_GET_CHAR_INDUN_ENTRANCE_COUNT(cid, resetGroupID)
 		if indunCls.UnitPerReset == 'PC' then
 			return accountInfo:GetBarrackCharEtcProp(cid, 'InDunCountType_'..resetGroupID);         --매일 ?��? ?�수
 		else
-			return (acc_obj['InDunCountType_'..resetGroupID]);            							--매일 ?��? ?�수
+			if indunCls.DungeonType == "Challenge_Auto" then
+				if string.find(indunCls.ClassName, "Challenge_Division") == nil then
+					-- 챌린지 자동매칭 클리어 횟수
+					return accountInfo:GetBarrackCharEtcProp(cid, "ChallengeModeCompleteCount");
+				else
+					-- 챌린지 분열 클리어 횟수
+					return acc_obj['InDunCountType_'..resetGroupID];
+				end
+			elseif indunCls.DungeonType == "MythicDungeon_Auto_Hard" then
+				return acc_obj['IndunWeeklyEnteredCount_'..resetGroupID];
+			else
+				return acc_obj['InDunCountType_'..resetGroupID];
+			end
 		end        
     end
 end

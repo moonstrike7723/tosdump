@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by ÀÌÁ¤¿ë (IMCGames Co., Ltd) -->
 <ComponentList>
+	<Particle name="status_icon_mvp" texture="status_icon_mvp" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="100" texel_height="100"/>
 	<Particle name="dash005_1_green" texture="dash005_1_green" width="1.00" height="1.00" pivot_x="0.00" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="128" texel_height="64"/>
 	<Particle name="pattern011_alpha3" texture="pattern011_alpha3" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="256" texel_height="256"/>
 	<Particle name="pattern011_pink1" texture="pattern011_pink1" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="256" texel_height="256"/>
@@ -505,6 +506,10 @@
 	<Particle name="circle017" texture="circle017" width="4.00" height="4.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="160" texel_height="160"/>
 	<Particle name="circle017_2" texture="circle017" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="128" texel_height="128"/>
 	<Particle name="line001" texture="line001" width="10.00" height="10.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="64" texel_height="64"/>
+	<Texture name="skillrange_donut75_4" texture="skillrange_donut75_4" width="1.00" height="1.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="512" texel_height="512"/>
+	<Texture name="skillrange_donut75_2" texture="skillrange_donut75_2" width="1.00" height="1.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="512" texel_height="512"/>
+	<Texture name="skillrange_donut75_1" texture="skillrange_donut75_1" width="1.00" height="1.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="512" texel_height="512"/>
+	<Texture name="skillrange_36_1" texture="skillrange_36_1" width="1.00" height="1.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="512" texel_height="512"/>
 	<Texture name="skillrange_squar_1" texture="skillrange_squar_1" width="1.00" height="1.00" pivot_x="0.50" pivot_y="0" texel_x="0" texel_y="0" texel_width="128" texel_height="512"/>
 	<Texture name="skillrange_squar_2" texture="skillrange_squar_2" width="1.00" height="1.00" pivot_x="0.50" pivot_y="0" texel_x="0" texel_y="0" texel_width="128" texel_height="512"/>
 	<Texture name="skillrange_squar" texture="skillrange_squar" width="1.00" height="1.00" pivot_x="0.50" pivot_y="0" texel_x="0" texel_y="0" texel_width="128" texel_height="512"/>
@@ -685,6 +690,10 @@
 	<Sprite name="sprit001_alpha" texture="sprit001_alpha" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="64" texel_height="64" loop="false" count="16" pitch="4" ticktime="0.04"/>
 	<Sprite name="sprit001" texture="sprit001" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="64" texel_height="64" loop="false" count="16" pitch="4" ticktime="0.04"/>
 	<Sprite name="sprit005" texture="sprit005" width="5.00" height="5.00" pivot_x="0.50" pivot_y="0.50" texel_x="0" texel_y="0" texel_width="64" texel_height="64" loop="false" count="16" pitch="4" ticktime="0.05"/>
+	<Ray name="rize005_2_alpha" texture="rize005_2_alpha" height="3.00" texel_x="0" texel_y="0" texel_width="512" texel_height="128" texel_speed="0.00" loopingwidth="0.00" loop="true" count="4" pitch="2" ticktime="0.10"/>
+	<Ray name="rize004_2_alpha" texture="rize004_2_alpha" height="3.00" texel_x="0" texel_y="0" texel_width="512" texel_height="128" texel_speed="0.00" loopingwidth="0.00" loop="true" count="4" pitch="2" ticktime="0.10"/>
+	<Ray name="rize003_2" texture="rize003_2" height="5.00" texel_x="0" texel_y="0" texel_width="512" texel_height="128" texel_speed="0.00" loopingwidth="0.00" loop="true" count="4" pitch="4" ticktime="0.10"/>
+	<Ray name="rize005_2" texture="rize005_2" height="3.00" texel_x="0" texel_y="0" texel_width="512" texel_height="128" texel_speed="0.00" loopingwidth="0.00" loop="true" count="4" pitch="4" ticktime="0.10"/>
 	<Ray name="rize005_alpha" texture="rize005_alpha" height="3.00" texel_x="0" texel_y="0" texel_width="128" texel_height="32" texel_speed="0.00" loopingwidth="0.00" loop="true" count="4" pitch="4" ticktime="0.10"/>
 	<Ray name="rize004_alpha" texture="rize004_alpha" height="3.00" texel_x="0" texel_y="0" texel_width="128" texel_height="32" texel_speed="0.00" loopingwidth="0.00" loop="true" count="4" pitch="4" ticktime="0.10"/>
 	<Ray name="rize003_alpha" texture="rize003_alpha" height="5.00" texel_x="0" texel_y="0" texel_width="128" texel_height="32" texel_speed="0.00" loopingwidth="0.00" loop="true" count="4" pitch="4" ticktime="0.10"/>

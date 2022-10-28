@@ -83,6 +83,10 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 2510,Giltine_first_kill,[마신의 성소 : 레전드] 서버별 최초 클리어,NO,NO
 2511,Giltine_clear,[마신의 성소] 일정 기간 내 클리어,NO,NO
 2512,Giltine_auto_clear,[마신의 성소 (자동 매칭)] 일정 기간 내 클리어,NO,NO
+2513,Giltine_Reorganization_first_kill,[마신의 성소 : 레전드] 서버별 최초 클리어,NO,NO
+2514,Giltine_clear_gold,[마신의 성소 : 레전드] 3분 이내 클리어,NO,NO
+2515,Giltine_clear_silver,[마신의 성소 : 레전드] 10분 이내 클리어,NO,NO
+2516,Giltine_clear_bronze,[마신의 성소 : 레전드] 클리어,NO,NO
 3001,HairShop,미용실,NO,NO
 3002,Connection,접속 횟수,NO,NO
 3003,INDUN,인던입장횟수,NO,NO
@@ -209,6 +213,22 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 6140,EVENT_Title_2101_2,냉혈한,NO,NO
 6141,EVENT_2102_Title_01,로잘리야의 친구,NO,NO
 6142,EVENT_2102_Title_02,보러블의 친구,NO,NO
+6143,EVENT_2103_Title_01,칭호- 쉘리의 친구,NO,NO
+6144,EVENT_2103_Title_02,칭호- 히토미코의 친구,NO,NO
+6145,EVENT_2103_Title_03,칭호- 테슬라의 친구,NO,NO
+6146,EVENT_2103_Title_04,칭호- 폴린의 친구,NO,NO
+6147,EVENT_2103_Title_05,칭호- 메이의 친구,NO,NO
+6148,EVENT_2103_Title_06,칭호- 펠릭시아의 친구,NO,NO
+6149,EVENT_2103_Title_07,칭호- 이클립스의 친구,NO,NO
+6150,EVENT_2103_Title_08,칭호- 소르샤의 친구,NO,NO
+6151,EVENT_2103_Title_09,칭호- 레콘의 친구,NO,NO
+6152,EVENT_2103_Title_10,칭호- 젠클라스의 친구,NO,NO
+6153,EVENT_Best_Painter,Best Painter,NO,NO
+6154,EVENT_2103_Title_11,칭호- 워 팻의 친구,NO,NO
+6155,EVENT_2103_Title_12,칭호- 지나의 친구,NO,NO
+6156,EVENT_2103_Title_13,칭호- 마리아의 친구,NO,NO
+6157,EVENT_2103_Title_14,칭호- 워시스의 친구,NO,NO
+6158,EVENT_2103_Title_15,칭호- 갈홍의 친구,NO,NO
 6029,Passionate_Artist_Ev,Passionate Artist,NO,NO
 6045,FinestMoment,Finest Moment,NO,NO
 6049,Event_170823_Fanart_Steam,Giving Shade,NO,NO
@@ -276,5 +296,5 @@ ClassID,ClassName,Name,UseDaily,UseWeekly
 21008,Ancient_8,자원 쟁탈전 20회 승리,NO,NO
 21009,Ancient_9,팀 배틀 리그 20회 승리,NO,NO
 21010,Ancient_10,주간 보스 레이드 50회 참여,NO,NO
-21011,Ancient_11,성물 레이드 : Hard 30회 클리어,NO,NO
+21011,Ancient_11,성물 레이드 : 자동 매칭(Hard) 30회 클리어,NO,NO
 21012,Ancient_12,특정 레전드 레이드 50회 클리어,NO,NO

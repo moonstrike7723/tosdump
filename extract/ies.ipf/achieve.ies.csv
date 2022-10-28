@@ -104,10 +104,26 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 2137,1,Event_SeasonNewWorld_Achieve1,AchievePoint,이벤트,시즌서버 이주민,시즌서버 출신 유저들에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,시즌서버 이주민,,False,Event_SeasonNewWorld_Achieve1,NO,,,,,NO,NO,
 2138,1,TOS_School_Graduate,AchievePoint,이벤트,{img Collar_TOS_School_Graduate 24 24} TOS스쿨 졸업생,튜토리얼 콘텐츠의 모든 미션을 클리어한 구원자에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,TOS스쿨 졸업생,,False,TOS_School_Graduate,NO,,,,,NO,NO,
 2139,1,Christmas_Master,AchievePoint,이벤트,마스터의 크리스마스,크리스마스 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,마스터의 크리스마스,,False,Christmas_Master,NO,,,,,NO,NO,plate_Christmas_Master
-2140,1,EVENT_Title_2101_1,AchievePoint,이벤트,오르샤의 작은 영웅,오르샤 피난민을 도운 구원자에에게 주어지는 칭호입니다.(이벤트),icon_item_Misc_00021,YES,오르샤의 작은 영웅,,False,EVENT_Title_2101_1,NO,,,,,NO,NO,
-2141,1,EVENT_Title_2101_2,AchievePoint,이벤트,냉혈한,차가운 냉혈한일지 모르는 구원자에게 주어지는 칭호 입니다.(이벤트),icon_item_Misc_00021,YES,차가운 모험자,,False,EVENT_Title_2101_2,NO,,,,,NO,NO,
-2142,1,EVENT_2102_Title_01,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}로잘리야의 친구,로잘리야와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,로잘리야의 친구,,False,EVENT_2102_Title_01,NO,,,,,NO,NO,
-2143,1,EVENT_2102_Title_02,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}보러블의 친구,보러블과 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,보러블의 친구,,False,EVENT_2102_Title_02,NO,,,,,NO,NO,
+2140,1,EVENT_Title_2101_1,AchievePoint,이벤트,오르샤의 작은 영웅,오르샤 피난민을 도운 구원자에에게 주어지는 칭호입니다.(이벤트),icon_item_Misc_00021,YES,오르샤의 작은 영웅,,False,EVENT_Title_2101_1,NO,,,,,NO,YES,
+2141,1,EVENT_Title_2101_2,AchievePoint,이벤트,냉혈한,차가운 냉혈한일지 모르는 구원자에게 주어지는 칭호 입니다.(이벤트),icon_item_Misc_00021,YES,차가운 모험자,,False,EVENT_Title_2101_2,NO,,,,,NO,YES,
+2142,1,EVENT_2102_Title_01,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}로잘리야의 친구,로잘리야와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,로잘리야의 친구,,False,EVENT_2102_Title_01,NO,,,,,NO,YES,
+2143,1,EVENT_2102_Title_02,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}보러블의 친구,보러블과 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,보러블의 친구,,False,EVENT_2102_Title_02,NO,,,,,NO,YES,
+2144,1,EVENT_2103_Title_01,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}쉘리의 친구,쉘리와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,쉘리의 친구,,False,EVENT_2103_Title_01,NO,,,,,NO,YES,
+2145,1,EVENT_2103_Title_02,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}히토미코의 친구,히토미코와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,히토미코의 친구,,False,EVENT_2103_Title_02,NO,,,,,NO,YES,
+2146,1,EVENT_2103_Title_03,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}테슬라의 친구,테슬라와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,테슬라의 친구,,False,EVENT_2103_Title_03,NO,,,,,NO,YES,
+2147,1,EVENT_2103_Title_04,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}폴린의 친구,폴린과 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,폴린의 친구,,False,EVENT_2103_Title_04,NO,,,,,NO,YES,
+2148,1,EVENT_2103_Title_05,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}메이의 친구,메이와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,메이의 친구,,False,EVENT_2103_Title_05,NO,,,,,NO,YES,
+2149,1,EVENT_2103_Title_06,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}펠릭시아의 친구,펠릭시아와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,펠릭시아의 친구,,False,EVENT_2103_Title_06,NO,,,,,NO,YES,
+2150,1,EVENT_2103_Title_07,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}이클립스의 친구,이클립스와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,이클립스의 친구,,False,EVENT_2103_Title_07,NO,,,,,NO,YES,
+2151,1,EVENT_2103_Title_08,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}소르샤의 친구,소르샤와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,소르샤의 친구,,False,EVENT_2103_Title_08,NO,,,,,NO,YES,
+2152,1,EVENT_2103_Title_09,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}레콘의 친구,레콘과 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,레콘의 친구,,False,EVENT_2103_Title_09,NO,,,,,NO,YES,
+2153,1,EVENT_2103_Title_10,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}젠클라스의 친구,젠클라스와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,젠클라스의 친구,,False,EVENT_2103_Title_10,NO,,,,,NO,YES,
+2154,1,EVENT_Best_Painter,AchievePoint,이벤트,Best Painter,최고의 화가입니다.,icon_item_Misc_00021,YES,Best Painter,,False,EVENT_Best_Painter,NO,,,,,NO,YES,plate_achieve_contest_Event
+2155,1,EVENT_2103_Title_11,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}워 팻의 친구,워 펫과 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,워 팻의 친구,,False,EVENT_2103_Title_11,NO,,,,,NO,YES,
+2156,1,EVENT_2103_Title_12,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}지나의 친구,지나와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,지나의 친구,,False,EVENT_2103_Title_12,NO,,,,,NO,YES,
+2157,1,EVENT_2103_Title_13,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}마리아의 친구,마리아와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,마리아의 친구,,False,EVENT_2103_Title_13,NO,,,,,NO,YES,
+2158,1,EVENT_2103_Title_14,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}워시스의 친구,워시스와 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,워시스의 친구,,False,EVENT_2103_Title_14,NO,,,,,NO,YES,
+2159,1,EVENT_2103_Title_15,AchievePoint,이벤트,{img Collar_Event_valentin 24 24}갈홍의 친구,갈홍과 친한 친구입니다.(이벤트),icon_item_Misc_00021,YES,갈홍의 친구,,False,EVENT_2103_Title_15,NO,,,,,NO,YES,
 2030,1,Passionate_Artist_Ev,AchievePoint,이벤트,{img Collar_Brush 20 20}Passionate Artist,발렌타인 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Passionate Artist,,False,Passionate_Artist_Ev,NO,,,,,,NO,
 2046,1,FinestMoment,AchievePoint,이벤트,{img Collar_FinestMoment 30 30}Finest Moment,봄맞이 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Finest Moment,,False,FinestMoment,NO,,,,,,NO,
 2050,1,Event_170823_Fanart_Steam,AchievePoint,이벤트,{img Collar_GivingShade 30 30}Giving Shade,2017년 여름 팬아트 공모전 수상자에게 주어지는 칭호.,icon_item_Misc_00021,YES,Giving Shade,,False,Event_170823_Fanart_Steam,NO,,,,,,NO,
@@ -231,6 +247,10 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 8014,1,Giltine_first_kill,AchievePoint,킬,Fallen Goddess,각 서버에서 최초로 [마신의 성소: 레전드]를 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Fallen Goddess,,True,Giltine_first_kill,YES,,,,,,NO,plate_achieve_Giltine_first_kill
 8015,1,Giltine_clear,AchievePoint,킬,Wing Breaker,각 서버에서 [마신의 성소: 레전드]를 일정 기간 내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Wing Breaker,,True,Giltine_clear,YES,,,,,,NO,plate_achieve_Giltine_clear
 8016,1,Giltine_auto_clear,AchievePoint,킬,Feather Picker,일정 기간 내에 [마신의 성소 (자동 매칭)]을 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Feather Picker,,False,Giltine_auto_clear,YES,,,,,,NO,plate_achieve_Giltine_auto_clear
+8017,1,Giltine_Reorganization_first_kill,AchievePoint,킬,Death Empress,각 서버에서 최초로 [마신의 성소: 레전드] 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Death Empress,,True,Giltine_Reorganization_first_kill,YES,,,,,,NO,plate_achieve_Giltine_first_kill_2
+8018,1,Giltine_clear_gold,AchievePoint,킬,Begin A Prelude[Gold],[마신의 성소: 레전드] 3분 이내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Begin A Prelude,,True,Giltine_clear_gold,YES,,,,,,NO,plate_achieve_Giltine_clear_2
+8019,1,Giltine_clear_silver,AchievePoint,킬,Begin A Prelude[Silver],[마신의 성소: 레전드] 10분 이내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Begin A Prelude,,True,Giltine_clear_silver,YES,,,,,,NO,plate_achieve_Giltine_clear_2_02
+8020,1,Giltine_clear_bronze,AchievePoint,킬,Begin A Prelude[Bronze],[마신의 성소: 레전드] 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Begin A Prelude,,True,Giltine_clear_bronze,YES,,,,,,NO,plate_achieve_Giltine_clear_2_01
 9001,1,WEEKLY_BOSS_RANK_1,AchievePoint,랭킹,Iron Lord,"주간 보스 [자우라] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Iron Lord,,True,WeeklyRank_1,YES,,,,,,NO,plate_achieve_weeklyrank_1
 9002,1,WEEKLY_BOSS_RANK_2,AchievePoint,랭킹,Demon Rose,"주간 보스 [헬가세르클] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Demon Rose,,True,WeeklyRank_2,YES,,,,,,NO,plate_achieve_weeklyrank_2
 9003,1,WEEKLY_BOSS_RANK_3,AchievePoint,랭킹,Mist Bringer,"주간 보스 [누아엘레] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Mist Bringer,,True,WeeklyRank_3,YES,,,,,,NO,plate_achieve_weeklyrank_3
@@ -323,5 +343,5 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 110008,20,Ancient_8,AchievePoint,어시스터 코스트,광부,[자원 쟁탈전]에서 20회 승리하였습니다.,icon_item_Misc_00021,NO,자원 쟁탈전 20회 승리,,True,Ancient_8,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
 110009,20,Ancient_9,AchievePoint,어시스터 코스트,배틀 비기너,[팀 배틀 리그]에서 20회 승리하였습니다.,icon_item_Misc_00021,NO,팀 배틀 리그 20회 승리,,True,Ancient_9,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
 110010,50,Ancient_10,AchievePoint,어시스터 코스트,피규어 수집가,[주간 보스 레이드]에 50회 참여하였습니다.,icon_item_Misc_00021,NO,주간 보스 레이드 50회 참여,,True,Ancient_10,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
-110011,30,Ancient_11,AchievePoint,어시스터 코스트,끝없는 성장,[성물 레이드 : Hard]를 30회 클리어하였습니다.,icon_item_Misc_00021,NO,성물 레이드 : Hard 30회 클리어,,True,Ancient_11,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
-110012,50,Ancient_12,AchievePoint,어시스터 코스트,레이드 숙련자,"[나비목 접선지 : Hard, 하얀 마녀의 숲 : Hard, 마신의 성소 0단계 이상]을 총50회 클리어하였습니다.",icon_item_Misc_00021,NO,특정 레전드 레이드 50회 클리어,,True,Ancient_12,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
+110011,30,Ancient_11,AchievePoint,어시스터 코스트,끝없는 성장,[성물 레이드 : 자동 매칭(Hard)]를 30회 클리어하였습니다.,icon_item_Misc_00021,NO,성물 레이드 : 자동 매칭(Hard) 30회 클리어,,True,Ancient_11,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,
+110012,50,Ancient_12,AchievePoint,어시스터 코스트,레이드 숙련자,"[나비목 접선지 : Hard, 하얀 마녀의 숲 : Hard, 마신의 성소 : 파티]을 총50회 클리어하였습니다.",icon_item_Misc_00021,NO,특정 레전드 레이드 50회 클리어,,True,Ancient_12,YES,,,,ACHIEVE_REWARD_ANCIENT_COST,NO,YES,

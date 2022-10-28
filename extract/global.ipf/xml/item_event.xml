@@ -108,6 +108,14 @@
 			<Class ClassID="10000309" ClassName="Event_indunReset_Team_14" CT_ExpireDateTime="2021-06-01 00:00"/>
 			<Class ClassID="10000310" ClassName="EVENT_Arts_Ability_Coupon_2" CT_ExpireDateTime="2021-06-01 00:00"/>
 			<Class ClassID="10000291" ClassName="Event_LuckyBreak_AbilPoint_10k" CT_ExpireDateTime="2021-06-08 00:00"/>
+			<Class ClassID="10000346" ClassName="Event_Ability_Point_Stone_1000_20" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10000347" ClassName="Event_Adventure_Reward_Seed_16" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10000348" ClassName="Event_Goddess_Statue_Team_17" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10000349" ClassName="Event_Ability_Point_Stone_10000_23" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10000350" ClassName="Event_ChallengeModeReset_23" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10000351" ClassName="Event_indunReset_Team_17" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10000352" ClassName="Event_dungeoncount_18" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10000353" ClassName="misc_gemExpStone12_Ev3" CT_ExpireDateTime="2021-07-13 00:00"/>
 		</Category>
 		<Category Name="Evnet_Item">
 			<Class ClassID="10003057" ClassName="Event_2004_Stamp_All_Clear_2" CT_ExpireDateTime="2020-11-17 00:00:00"/>
@@ -154,6 +162,9 @@
 			<Class ClassID="10003383" ClassName="Event_2103_LVUP_Box_3" CT_ExpireDateTime="2021-06-01 00:00"/>
 			<Class ClassID="10003384" ClassName="Event_2103_LVUP_Box_4" CT_ExpireDateTime="2021-06-01 00:00"/>
 			<Class ClassID="10003385" ClassName="Event_2103_LVUP_Box_5" CT_ExpireDateTime="2021-06-01 00:00"/>
+			<Class ClassID="10003411" ClassName="Event_Coin_Ticket_500_5" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10003412" ClassName="Event_Coin_Ticket_1000_9" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10003413" ClassName="card_Xpupkit10_Event_7" CT_ExpireDateTime="2021-07-13 00:00"/>
 		</Category>
 		<Category Name="Event_item_Upgrade">
 			<Class ClassID="10010001" ClassName="Extract_kit_Gold_Team_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
@@ -197,6 +208,10 @@
 			<Class ClassID="10010084" ClassName="Moru_Ruby_event_21" CT_ExpireDateTime="2021-06-01 00:00"/>
 			<Class ClassID="10010085" ClassName="Moru_Event_Gold_14" CT_ExpireDateTime="2021-06-01 00:00"/>
 			<Class ClassID="10010086" ClassName="Extract_kit_Gold_Team_16" CT_ExpireDateTime="2021-06-01 00:00"/>
+			<Class ClassID="10010095" ClassName="Moru_Ruby_event_24" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10010096" ClassName="Moru_Event_Gold_17" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10010097" ClassName="Extract_kit_Gold_Team_19" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10010098" ClassName="Old_Socket_Gold_Event_7" CT_ExpireDateTime="2021-07-13 00:00"/>
 		</Category>
 		<Category Name="Event_Item_item_premium">
 			<Class ClassID="10600010" ClassName="Event_Sandra_Glass_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
@@ -245,6 +260,12 @@
 			<Class ClassID="10600115" ClassName="Event_Sandra_Glass_1line_17" CT_ExpireDateTime="2021-06-01 00:00"/>
 			<Class ClassID="10600116" ClassName="Event_Sandra_Glass_12" CT_ExpireDateTime="2021-06-01 00:00"/>
 			<Class ClassID="10600117" ClassName="Event_Enchantchip_13" CT_ExpireDateTime="2021-06-01 00:00"/>
+			<Class ClassID="10600135" ClassName="Event_Master_Glass_18" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10600136" ClassName="Event_Mystic_Glass_18" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10600137" ClassName="Event_awakeningStone_18" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10600138" ClassName="Event_Sandra_Glass_1line_21" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10600139" ClassName="Event_Sandra_Glass_17" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10600140" ClassName="Event_Enchantchip_16" CT_ExpireDateTime="2021-07-13 00:00"/>
 		</Category>
 	</Category>
 </idspace>

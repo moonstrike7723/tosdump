@@ -6717,6 +6717,14 @@
 			<img name="barmiddle" imgrect="272 1184 10 10"/>
 			<img name="barright" imgrect="283 1184 10 10"/>
 		</skin>
+		<skin name="gauge_red" texture="\skin\HUD.tga">
+			<img name="bgleft" imgrect="511 578 10 10"/>
+			<img name="bgmiddle" imgrect="522 578 10 10"/>
+			<img name="bgright" imgrect="533 578 10 10"/>
+			<img name="barleft" imgrect="511 600 10 10"/>
+			<img name="barmiddle" imgrect="522 600 10 10"/>
+			<img name="barright" imgrect="533 600 10 10"/>
+		</skin>
 	</skinlist>
 	<skinlist category="labellines">
 		<skin name="labelline_def_5" texture="\skin\tooltip_skin_3.tga">
@@ -7775,6 +7783,7 @@
 		<image name="indun_icon_event_s_eng" file="\skin\indun_skin.tga" imgrect="818 573 27 20" CMM_Caption="던전 이벤트 표시 : 소_영문"/>
 		<image name="re_appraisal_image2" file="\skin\Appraiser_skin.tga" imgrect="706 0 312 312" CMM_Caption="레어 인챈트 쥬얼 마법진"/>
 		<image name="re_appraisal_image2_1" file="\skin\Appraiser_skin.tga" imgrect="161 314 337 190" CMM_Caption="레어 인챈트 쥬얼 마법진_누운것"/>
+		<image name="pp_point_icon" file="\skin\pip_test2.tga" imgrect="895 31 35 36" CMM_Caption="스팀 홈프리미엄 포인트 아이콘"/>
 		<image name="Icon_seat_handle_1" file="\skin\PVP_skin.tga" imgrect="1829 216 28 28" CMM_Caption="공성탑 운전아이콘 _1"/>
 		<image name="Icon_seat_handle_2" file="\skin\PVP_skin.tga" imgrect="1858 216 28 28" CMM_Caption="공성탑 운전아이콘 _2"/>
 		<image name="Icon_seat_handle_3" file="\skin\PVP_skin.tga" imgrect="1887 216 28 28" CMM_Caption="공성탑 운전아이콘 _3"/>
@@ -10373,6 +10382,7 @@
 		<image name="ability_on" file="\skin\mainframe_A.tga" imgrect="730 390 70 30"/>
 		<image name="ability_off" file="\skin\mainframe_A.tga" imgrect="730 421 70 30"/>
 		<image name="dark_balloon_2_direction" file="\skin\say_balloon.tga" imgrect="1 1 80 74"/>
+		<image name="dark_balloon_direction" file="\skin\tooltip_skin_3.tga" imgrect="929 1494 80 80"/>
 		<image name="dark_balloon" file="\skin\login_barrack.tga" imgrect="352 0 200 200"/>
 		<image name="star_mark" file="\skin\tooltip_skin_3.tga" imgrect="854 50 95 90"/>
 		<image name="star_mark2" file="\skin\pip_test_item.tga" imgrect="1409 928 95 90"/>
@@ -12177,6 +12187,8 @@
 		<image name="038_LufasKehel" file="\skin\npccard\038_LufasKehel.tga" imgrect="0 0 330 440"/>
 		<image name="039_VisavaldasBlack" file="\skin\npccard\039_VisavaldasBlack.tga" imgrect="0 0 330 440"/>
 		<image name="040_Pauline" file="\skin\npccard\040_Pauline.tga" imgrect="0 0 330 440"/>
+		<image name="041_GeHong" file="\skin\npccard\041_GeHong.tga" imgrect="0 0 330 440"/>
+		<image name="042_PhilipAureolus" file="\skin\npccard\042_PhilipAureolus.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>
@@ -12510,7 +12522,12 @@
 		<image name="plate_achieve_weeklyrank_15" file="\skin\user_title_skin.tga" imgrect="0 290 214 36" CMM_Caption="주간보스_솔콤"/>
 		<image name="plate_achieve_weeklyrank_16" file="\skin\user_title_skin.tga" imgrect="0 327 214 36" CMM_Caption="주간보스_루시"/>
 		<image name="plate_Christmas_Master" file="\skin\user_title_skin.tga" imgrect="215 290 214 34" CMM_Caption="2020_크리스마스 칭호"/>
-		<image name="plate_Christmas_ Master" file="\skin\user_title_skin.tga" imgrect="215 290 214 34" CMM_Caption="2020_크리스마스 칭호"/>		<image name="plate_achieve_Giltine_auto_clear" file="\skin\user_title_skin.tga" imgrect="430 283 214 34" CMM_Caption="길티네_자동매칭 클리어"/>
+		<image name="plate_achieve_Giltine_auto_clear" file="\skin\user_title_skin.tga" imgrect="430 283 214 34" CMM_Caption="길티네_자동매칭 클리어"/>
+		<image name="plate_achieve_Giltine_clear_2" file="\skin\user_title_skin.tga" imgrect="0 364 214 34" CMM_Caption="길티네 개편_클리어"/>
+		<image name="plate_achieve_Giltine_first_kill_2" file="\skin\user_title_skin.tga" imgrect="215 364 214 34" CMM_Caption="길티네 개편_퍼스트"/>
+		<image name="plate_achieve_contest_Event" file="\skin\user_title_skin.tga" imgrect="430 364 214 34" CMM_Caption="일본 서버 일러스트 공모전 보상"/>
+		<image name="plate_achieve_Giltine_clear_2_01" file="\skin\user_title_skin.tga" imgrect="0 399 214 34" CMM_Caption="길티네 개편_클리어 동"/>
+		<image name="plate_achieve_Giltine_clear_2_02" file="\skin\user_title_skin.tga" imgrect="215 399 214 34" CMM_Caption="길티네 개편_클리어 은"/>
 	</imagelist>
 	<imagelist category="skin_hair">
 		<image name="icon_skintone_01_m01" file="\skin\skinhair\icon_skintone_01_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 01"/>

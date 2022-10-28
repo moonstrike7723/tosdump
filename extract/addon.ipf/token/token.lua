@@ -147,6 +147,16 @@ function BEFORE_APPLIED_TOKEN_OPEN(invItem)
 		arg1 = 1296000 -- 15일
 	elseif itemobj.ClassName == "PremiumToken_14d_event" then
 		arg1 = 1209600 -- 14일
+	elseif itemobj.ClassName == "PremiumToken_30d" then
+		arg1 = 2592000 -- 30O
+	elseif itemobj.ClassName == "PremiumToken_60d" then
+		arg1 = 5184000 -- 60O
+	elseif itemobj.ClassName == "steam_PremiumToken_30day" then
+		arg1 = 2592000 -- 30O
+	elseif itemobj.ClassName == "steam_PremiumToken_60d" then
+		arg1 = 5184000 -- 60O
+	elseif itemobj.ClassName == "steam_PremiumToken_7d" then
+		arg1 = 604800 -- 70
 	end
 	local endTime = GET_TIME_TXT(arg1, 1)
 	local endTxt = frame:GetChild("endTime");
@@ -451,7 +461,7 @@ function REQ_TOKEN_ITEM(parent, ctrl)
 								'indunReset_1add_14d_NoStack_Team','Event_indunReset_Team_14d',
 								'Event_indunReset_Team_1','Event_indunReset_Team_2','Event_indunReset_Team_3','Event_indunReset_Team_4',
 								'Event_indunReset_Team_5','Event_indunReset_Team_6','Event_indunReset_Team_7','Event_indunReset_Team_8','Event_indunReset_Team_9','Event_indunReset_Team_10',
-							    'Event_indunReset_Team_11', 'Tuto_indunReset_Team', 'Event_indunReset_Team_12', 'Event_indunReset_Team_13', 'Event_indunReset_Team_14'}
+							    'Event_indunReset_Team_11', 'Tuto_indunReset_Team', 'Event_indunReset_Team_12', 'Event_indunReset_Team_13', 'Event_indunReset_Team_14','Event_indunReset_Team_17'}
 	if table.find(indunResetItemList,argList) ~= 0 then
 		local etcObj = GetMyEtcObject();
 		-- 2개뿐이여서 고정으로 넣어둠

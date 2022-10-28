@@ -1,4 +1,4 @@
----- lib_reinforce_131014.lua
+﻿---- lib_reinforce_131014.lua
 function IS_MORU_FREE_PRICE(moruItem)
     if moruItem == nil then
         return false;

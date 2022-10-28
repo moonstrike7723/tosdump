@@ -3378,7 +3378,23 @@
 		<image name="icon_item_ep13cherryblossom_rod" file="\icon\weapon\icon_item_ep13cherryblossom_rod.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep13cherryblossom_thspear" file="\icon\weapon\icon_item_ep13cherryblossom_thspear.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep13cherryblossom_thsword" file="\icon\weapon\icon_item_ep13cherryblossom_thsword.png" imgrect="0 0 256 256"/>
-		<image name="icon_item_ep13dessert_mace" file="\icon\weapon\icon_item_ep13dessert_mace.png" imgrect="0 0 256 256" CMM_Caption="2021.04 테마_3종"/>
+		<image name="icon_item_Artefact_Giltine_bow" file="\icon\weapon\icon_item_Artefact_Giltine_bow.png" imgrect="0 0 256 256" CMM_Caption="길티네 무기 16종"/>
+		<image name="icon_item_Artefact_Giltine_cannon" file="\icon\weapon\icon_item_Artefact_Giltine_cannon.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_dagger" file="\icon\weapon\icon_item_Artefact_Giltine_dagger.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_mace" file="\icon\weapon\icon_item_Artefact_Giltine_mace.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_musket" file="\icon\weapon\icon_item_Artefact_Giltine_musket.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_pistol" file="\icon\weapon\icon_item_Artefact_Giltine_pistol.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_rapier" file="\icon\weapon\icon_item_Artefact_Giltine_rapier.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_rod" file="\icon\weapon\icon_item_Artefact_Giltine_rod.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_shield" file="\icon\weapon\icon_item_Artefact_Giltine_shield.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_spear" file="\icon\weapon\icon_item_Artefact_Giltine_spear.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_staff" file="\icon\weapon\icon_item_Artefact_Giltine_staff.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_sword" file="\icon\weapon\icon_item_Artefact_Giltine_sword.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_thbow" file="\icon\weapon\icon_item_Artefact_Giltine_thbow.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_thmace" file="\icon\weapon\icon_item_Artefact_Giltine_thmace.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_thsepar" file="\icon\weapon\icon_item_Artefact_Giltine_thsepar.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_Artefact_Giltine_thsword" file="\icon\weapon\icon_item_Artefact_Giltine_thsword.png" imgrect="0 0 256 256"/>
+                <image name="icon_item_ep13dessert_mace" file="\icon\weapon\icon_item_ep13dessert_mace.png" imgrect="0 0 256 256" CMM_Caption="2021.04 테마_3종"/>
 		<image name="icon_item_ep13dessert_dagger" file="\icon\weapon\icon_item_ep13dessert_dagger.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep13dessert_rod" file="\icon\weapon\icon_item_ep13dessert_rod.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep13mafia_cannon" file="\icon\weapon\icon_item_ep13mafia_cannon.png" imgrect="0 0 256 256" CMM_Caption="2021.05테마_4종"/>
@@ -6373,11 +6389,13 @@
 		<image name="icon_item_valentinebox" file="\icon\item\icon_item_valentinebox.png" imgrect="0 0 256 256" CMM_Caption="20년 발렌타인 상자"/>
 		<image name="icon_item_vibora_ticket" file="\icon\item\icon_item_vibora_ticket.png" imgrect="0 0 256 256" CMM_Caption="바이보라 합성권"/>
 		<image name="icon_item_Relic_exp_refine_conversion" file="\icon\item\icon_item_Relic_exp_refine_conversion.png" imgrect="0 0 256 256" CMM_Caption="권능의 숨결 정화제"/>
-		<image name="icon_item_reputation_relief_blue" file="\icon\item\icon_item_reputation_relief_blue.png" imgrect="0 0 256 256" CMM_Caption="명성 증가 쿠폰"/>
 		<image name="icon_item_Event_2101_NK1" file="\icon\item\icon_item_Event_2101_NK1.png" imgrect="0 0 128 128" CMM_Caption="피난민 목걸이1"/>
 		<image name="icon_item_Event_2101_NK2" file="\icon\item\icon_item_Event_2101_NK2.png" imgrect="0 0 128 128" CMM_Caption="피난민 목걸이2"/>
 		<image name="icon_item_Event_2101_NK3" file="\icon\item\icon_item_Event_2101_NK3.png" imgrect="0 0 128 128" CMM_Caption="피난민 목걸이3"/>
 		<image name="icon_item_Event_Yugwa" file="\icon\item\icon_item_Event_Yugwa.png" imgrect="0 0 128 128" CMM_Caption="2021_설날 유과"/>
+		<image name="icon_item_2103_candy" file="\icon\item\icon_item_2103_candy.png" imgrect="0 0 256 256" CMM_Caption="21년 사탕"/>
+		<image name="icon_item_2103_WhiteDay_Box" file="\icon\item\icon_item_2103_WhiteDay_Box.png" imgrect="0 0 256 256" CMM_Caption="21년 화이트데이 상자"/>
+		<image name="icon_item_reputation_relief_blue" file="\icon\item\icon_item_reputation_relief_blue.png" imgrect="0 0 256 256" CMM_Caption="명성 증가 쿠폰"/>
 		<image name="icon_item_Gold_Jpn_Episode_13_Event" file="\icon\item\icon_item_Gold_Jpn_Episode_13_Event.png" imgrect="0 0 128 128" CMM_Caption="일본서버_에피소드13 아이템"/>
 		<image name="icon_item_Relic_exp_refine_conversion_color" file="\icon\item\icon_item_Relic_exp_refine_conversion_color.png" imgrect="0 0 256 256" CMM_Caption="이벤트 권능의 숨결 정화제"/>
 		<image name="icon_item_gem_selectbox_color" file="\icon\item\icon_item_gem_selectbox_color.png" imgrect="0 0 256 256" CMM_Caption="스킬 젬 뽑기 상자"/>
@@ -6388,6 +6406,15 @@
 		<image name="icon_item_popo_balloon" file="\icon\item\icon_item_popo_balloon.png" imgrect="0 0 256 256" CMM_Caption="포포리온 풍선"/>
 		<image name="icon_item_2020ArborDay_necklace_Upgrade" file="\icon\item\icon_item_2020ArborDay_necklace_Upgrade.png" imgrect="0 0 256 256" CMM_Caption="2020 근본 네클리스 업그레이드 스크롤"/>
 		<image name="icon_item_2020ArborDay_bracelet_Upgrade" file="\icon\item\icon_item_2020ArborDay_bracelet_Upgrade.png" imgrect="0 0 256 256" CMM_Caption="2020 근본 브레이슬릿 업그레이드 스크롤"/>
+		<image name="icon_item_defensive_potion_lv2" file="\icon\item\icon_item_defensive_potion_lv2.png" imgrect="0 0 128 128" CMM_Caption="[주간 보스 레이드] 레티샤 특제 포션 Lv.2"/>
+		<image name="icon_iten_wing_chick_balloon" file="\icon\item\icon_iten_wing_chick_balloon.png" imgrect="0 0 256 256" CMM_Caption="병아리 풍선"/>
+		<image name="icon_item_misc_Giltine_Raid_HARD" file="\icon\item\icon_item_misc_Giltine_Raid_HARD.png" imgrect="0 0 80 80" CMM_Caption="길티네 깃털"/>
+		<image name="icon_item_Package_Giltine_Auto_Enter" file="\icon\item\icon_item_Package_Giltine_Auto_Enter.png" imgrect="0 0 256 256" CMM_Caption="마신의 성소(자동 매칭) 패키지"/>
+		<image name="icon_item_fire_stone_piece" file="\icon\item\icon_item_fire_stone_piece.png" imgrect="0 0 128 128" CMM_Caption="[이벤트] 불의 조각"/>
+		<image name="icon_item_Giltine_Auto_Enter_box_50ea" file="\icon\item\icon_item_Giltine_Auto_Enter_box_50ea.png" imgrect="0 0 256 256" CMM_Caption="마신의 성소(자동 매칭) 입장권 50장 상자"/>
+		<image name="icon_item_Event_scissors" file="\icon\item\icon_item_Event_scissors.png" imgrect="0 0 80 80" CMM_Caption="[이벤트] 가위"/>
+		<image name="icon_item_Event_rock" file="\icon\item\icon_item_Event_rock.png" imgrect="0 0 80 80" CMM_Caption="[이벤트] 바위"/>
+		<image name="icon_item_Event_paper" file="\icon\item\icon_item_Event_paper.png" imgrect="0 0 80 80" CMM_Caption="[이벤트] 보자기"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_h_bigplant_set_01_green" file="\icon\housing\icon_item_h_bigplant_set_01_green.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 화단_01(초록색)"/>
@@ -8283,7 +8310,14 @@
 		<image name="icon_item_selectbox_ep13cherryblossom03_1" file="\icon\payment\icon_item_selectbox_ep13cherryblossom03_1.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_toy_ep13cherryblossom" file="\icon\payment\icon_item_toy_ep13cherryblossom.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_wing_ep13cherryblossom" file="\icon\payment\icon_item_wing_ep13cherryblossom.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_boruta_wing" file="\icon\payment\icon_item_boruta_wing.png" imgrect="0 0 256 256" CMM_Caption="보루타 날개"/>
 		<image name="icon_item_selectbox_ep13cherryblossom03" file="\icon\payment\icon_item_selectbox_ep13cherryblossom03.png" imgrect="0 0 256 256" CMM_Caption="통합콘텐츠 21년 3월테마 03 선택상자"/>
+		<image name="icon_item_2021_ArborDay_Package_All" file="\icon\payment\icon_item_2021_ArborDay_Package_All.png" imgrect="0 0 256 256" CMM_Caption="2021 식목일 특판 패키지_5종"/>
+		<image name="icon_item_2021_ArborDay_Package_BattleA" file="\icon\payment\icon_item_2021_ArborDay_Package_BattleA.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2021_ArborDay_Package_BattleB" file="\icon\payment\icon_item_2021_ArborDay_Package_BattleB.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2021_ArborDay_Package_Growth02" file="\icon\payment\icon_item_2021_ArborDay_Package_Growth02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_2020_ArborDay_Package_Acc_Upgrade" file="\icon\payment\icon_item_2020_ArborDay_Package_Acc_Upgrade.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_arborday_rabbit" file="\icon\payment\icon_item_arborday_rabbit.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_all_costume_box" file="\icon\payment\icon_item_all_costume_box.png" imgrect="0 0 256 256" CMM_Caption="코스튬all상자"/>
 		<image name="icon_item_box_wing_ep13dessert" file="\icon\payment\icon_item_box_wing_ep13dessert.png" imgrect="0 0 256 256" CMM_Caption="2021.04테마_30종"/>
 		<image name="icon_item_ep13dessert01_1_f" file="\icon\payment\icon_item_ep13dessert01_1_f.png" imgrect="0 0 256 256"/>
@@ -8315,12 +8349,7 @@
 		<image name="icon_item_selectbox_ep13dessert03_2" file="\icon\payment\icon_item_selectbox_ep13dessert03_2.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_wing_ep13dessert" file="\icon\payment\icon_item_wing_ep13dessert.png" imgrect="0 0 256 256"/>
 		<image name="item_icon_pet_ep13dessert" file="\icon\payment\item_icon_pet_ep13dessert.png" imgrect="0 0 256 256"/>
-		<image name="icon_item_2021_ArborDay_Package_All" file="\icon\payment\icon_item_2021_ArborDay_Package_All.png" imgrect="0 0 256 256" CMM_Caption="2021 식목일 특판 패키지_5종"/>
-		<image name="icon_item_2021_ArborDay_Package_BattleA" file="\icon\payment\icon_item_2021_ArborDay_Package_BattleA.png" imgrect="0 0 256 256"/>
-		<image name="icon_item_2021_ArborDay_Package_BattleB" file="\icon\payment\icon_item_2021_ArborDay_Package_BattleB.png" imgrect="0 0 256 256"/>
-		<image name="icon_item_2021_ArborDay_Package_Growth02" file="\icon\payment\icon_item_2021_ArborDay_Package_Growth02.png" imgrect="0 0 256 256"/>
-		<image name="icon_item_2020_ArborDay_Package_Acc_Upgrade" file="\icon\payment\icon_item_2020_ArborDay_Package_Acc_Upgrade.png" imgrect="0 0 256 256"/>
-		<image name="icon_item_arborday_rabbit" file="\icon\payment\icon_item_arborday_rabbit.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_wing_Guilty_Raid" file="\icon\payment\icon_item_wing_Guilty_Raid.png" imgrect="0 0 256 256" CMM_Caption="길티네 날개 색배리"/>
 		<image name="icon_item_box_effect_ep13mafia" file="\icon\payment\icon_item_box_effect_ep13mafia.png" imgrect="0 0 256 256" CMM_Caption="2021.05테마_33종"/>
 		<image name="icon_item_box_toy_ep13mafia" file="\icon\payment\icon_item_box_toy_ep13mafia.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_box_wing_ep13mafia" file="\icon\payment\icon_item_box_wing_ep13mafia.png" imgrect="0 0 256 256"/>

@@ -1,12 +1,12 @@
-function PC_PCAA(pc)
-local jobHistory = GetJobHistorySting(pc)
-    print(jobHistory)
-end
-
+﻿function PC_PCAA(pc)
+    local jobHistory = GetJobHistorySting(pc)
+        print(jobHistory)
+    end
+    
 function LOGGING_ABILITY_CHECK(isEnableLogging, abilityName, logMsg)
-	if isEnableLogging ~= nil and isEnableLogging == true then
-		IMC_LOG("LOGGING_ABILITY_CHECK", "AbilityName : " .. abilityName .. ", LogMsg : " .. logMsg);
-	end
+    if isEnableLogging ~= nil and isEnableLogging == true then
+        IMC_LOG("LOGGING_ABILITY_CHECK", "AbilityName : " .. abilityName .. ", LogMsg : " .. logMsg);
+    end
 end
 
 function CHECK_ABILITY_LOCK(pc, ability, isEnableLogging)    
@@ -15,20 +15,20 @@ function CHECK_ABILITY_LOCK(pc, ability, isEnableLogging)
             if GetExProp(pc, "BUNSIN") == 1 then    -- ??는 분신?¸? --
                 local bunsinOwner = GetExArgObject(pc, 'BUNSIN_OWNER'); -- 분신 본체가 ??는가? --
                 if bunsinOwner == nil then
-					LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[LOCK] BunsinOwner is nullptr");
+                    LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[LOCK] BunsinOwner is nullptr");
                     return 'LOCK';
                 else
                     pc = bunsinOwner;   -- ??는 본체??--
                 end
             else
-				LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[LOCK] Not Real Pc");
+                LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[LOCK] Not Real Pc");
                 return 'LOCK';
             end
         end
     end
     
     if ability.Job == "None" then
-		LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[UNLOCK] Ability Job is None");
+        LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[UNLOCK] Ability Job is None");
         return "UNLOCK";
     end
 
@@ -72,7 +72,7 @@ function CHECK_ABILITY_LOCK(pc, ability, isEnableLogging)
 
             if abilGroupClass == nil then
                 IMC_LOG("INFO_NORMAL", "abilGroupClass is nil!!  jobCls.EngName : "..jobCls.EngName.."  ability.ClassName : "..ability.ClassName)
-				LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[UNLOCK] abilGroupClass is nullptr");
+                LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[UNLOCK] abilGroupClass is nullptr");
                 return "UNLOCK"
             end
 
@@ -85,8 +85,8 @@ function CHECK_ABILITY_LOCK(pc, ability, isEnableLogging)
             local scp = _G[unlockFuncName];
             local ret = scp(pc, abilGroupClass.UnlockArgStr, abilGroupClass.UnlockArgNum, ability);
         
-			LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[" .. ret .. "] Result1");
-			
+            LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[" .. ret .. "] Result1");
+            
             return ret;
         end
     else
@@ -102,7 +102,7 @@ function CHECK_ABILITY_LOCK(pc, ability, isEnableLogging)
                 local unlockFuncName = TryGetProp(abilGroupClass, 'UnlockScr')
 
                 if  unlockFuncName == nil or abilGroupClass.UnlockScr == "None" then
-					LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[UNLOCK] abilGroupClass.UnlockScr is None");
+                    LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[UNLOCK] abilGroupClass.UnlockScr is None");
                     return "UNLOCK"
                 end
 
@@ -110,7 +110,7 @@ function CHECK_ABILITY_LOCK(pc, ability, isEnableLogging)
                 local ret = scp(pc, abilGroupClass.UnlockArgStr, abilGroupClass.UnlockArgNum, ability);
 
                 if ret == "UNLOCK" then
-					LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[" .. ret .. "] Result2");
+                    LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[" .. ret .. "] Result2");
                     return ret;
                 end
             end
@@ -118,7 +118,7 @@ function CHECK_ABILITY_LOCK(pc, ability, isEnableLogging)
     end
 
     IMC_LOG("INFO_NORMAL", "abilityUnlock Error");
-	LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[UNLOCK] Error1");
+    LOGGING_ABILITY_CHECK(isEnableLogging, ability.ClassName, "[UNLOCK] Error1");
     return "UNLOCK";
     
     
@@ -278,7 +278,7 @@ function SCR_ABIL_STAFFMASTERY_ACTIVE(self, ability)
     local rItem = GetEquipItem(self, 'RH');
     local lItem = GetEquipItem(self, 'LH');
     if rItem.ClassType == "Staff" and lItem.ClassType == "Shield" then
-		SetCastingSpeedBuffInfo(self, "StaffMastery", 50);
+        SetCastingSpeedBuffInfo(self, "StaffMastery", 50);
     end
 end
 
@@ -397,28 +397,28 @@ function CHECK_ARMORMATERIAL(self, meaterial)
     itemList[#itemList + 1] = "PANTS";
     itemList[#itemList + 1] = "GLOVES";
     itemList[#itemList + 1] = "BOOTS";
-	
-	local noItemList = { };
-	noItemList[#noItemList + 1] = "NoShirt";
-	noItemList[#noItemList + 1] = "NoPants";
-	noItemList[#noItemList + 1] = "NoGloves";
-	noItemList[#noItemList + 1] = "NoBoots";
+    
+    local noItemList = { };
+    noItemList[#noItemList + 1] = "NoShirt";
+    noItemList[#noItemList + 1] = "NoPants";
+    noItemList[#noItemList + 1] = "NoGloves";
+    noItemList[#noItemList + 1] = "NoBoots";
     
     for i = 1, #itemList do
-    	local item = GetEquipItem(self, itemList[i]);
-    	if TryGetProp(item, "Material", "None") == meaterial and 0 == table.find(noItemList, TryGetProp(item, "ClassName", "None")) then
-    		count = count + 1;
-    		local itemGrade = TryGetProp(item, "ItemGrade", 1);
-    		if lowestGrade == nil or lowestGrade > itemGrade then
-    			lowestGrade = itemGrade;
-    		end
-    	end
+        local item = GetEquipItem(self, itemList[i]);
+        if TryGetProp(item, "Material", "None") == meaterial and 0 == table.find(noItemList, TryGetProp(item, "ClassName", "None")) then
+            count = count + 1;
+            local itemGrade = TryGetProp(item, "ItemGrade", 1);
+            if lowestGrade == nil or lowestGrade > itemGrade then
+                lowestGrade = itemGrade;
+            end
+        end
     end
-	
-	if lowestGrade == nil then
-		lowestGrade = 1;
-	end
-	
+    
+    if lowestGrade == nil then
+        lowestGrade = 1;
+    end
+    
     return count, lowestGrade;
     
 end
@@ -430,8 +430,8 @@ function SCR_ABIL_CLOTH_ACTIVE(self, ability)
     local value = 0;
     
     if count >= 4 then
-	    value = 200     -- 20%
-	end
+        value = 200     -- 20%
+    end
     
     SetExProp(self, "CLOTH_ARMOR_ABIL_VALUE", value);
 end
@@ -464,25 +464,25 @@ end
 
 function SCR_ABIL_LEATHER_ACTIVE(self, ability)
     local count, lowestGrade = CHECK_ARMORMATERIAL(self, "Leather")
-	
+    
     local crtValue = 0;
     local damageValue = 0;
     
     if count >= 4 then
-	    crtValue = 200;     -- 20%
+        crtValue = 200;     -- 20%
 	    damageValue = 150;  -- 15%
         
         if IS_ACTIVE_ABILITY(self, "Hunter16") == 1 then
             AddBuff(self, self, "Hunter_Companion_Bonus_Buff");
         end
-	end
+    end
     
     SetExProp(self, "LEATHER_ARMOR_ABIL_VALUE", crtValue);
     SetExProp(self, "LEATHER_ARMOR_ABIL_VALUE_DAMAGE", damageValue);
 end
 
 function SCR_ABIL_LEATHER_INACTIVE(self, ability)
-	RemoveBuff(self, "Hunter_Companion_Bonus_Buff");
+    RemoveBuff(self, "Hunter_Companion_Bonus_Buff");
 end
 
 
@@ -492,8 +492,8 @@ function SCR_ABIL_IRON_ACTIVE(self, ability)
     local value = 0;
     
     if count >= 4 then
-	    value = 200     -- 20%
-	end
+        value = 200     -- 20%
+    end
     
     SetExProp(self, "IRON_ARMOR_ABIL_VALUE", value);
 end
@@ -748,6 +748,11 @@ function SCR_ABIL_SWORDMASTERY_ACTIVE(self, ability)
         if lItem.ClassType == "Shield" then
             local akt = (rItem.MINATK + rItem.MAXATK) / 2
             addDEF = math.floor(akt * 0.2);
+            
+            local abilHackapell25 = GetAbility(self, "Hackapell25")
+            if abilHackapell25 ~= nil and TryGetProp(abilHackapell25, "ActiveState", 0) == 1 then
+                addDEF = 0
+            end
         else
             addSpeed = 200;
         end
@@ -952,7 +957,7 @@ function SCR_ABIL_THMACE_SR_ACTIVE(self, ability)
     if rItem.ClassType == "THMace" then
         addSR = 5
     end
-	
+    
     SetExProp(self, "ABIL_THMACE_SR", addSR)
 end
 
@@ -966,7 +971,7 @@ function SCR_ABIL_THMACE_StrikeDamage_ACTIVE(self, ability)
     if rItem.ClassType == "THMace" then
         addDamageRate = 0.1
     end
-	
+    
     SetExProp(self, "ABIL_THMACE_STRIKE_DAMAGE", addDamageRate)
 end
 
@@ -1010,31 +1015,31 @@ function SCR_ABIL_KABBALIST21_INACTIVE(self, ability)
 end
 
 function SCR_ABIL_KABBALIST22_ACTIVE(self, ability)
-	local addMSPD = 0;
-	local addBLKABLE = 0;
-	
-	local count = CHECK_ARMORMATERIAL(self, "Cloth")
-	if count >= 4 then
-		addMSPD = 5;
-		addBLKABLE = 1;
-	end
-	
-	self.MSPD_BM = self.MSPD_BM + addMSPD;
-	self.BLKABLE_BM = self.BLKABLE_BM + addBLKABLE;
-	
-	SetExProp(self, "ABIL_KABBALIST22_MSPD", addMSPD);
-	SetExProp(self, "ABIL_KABBALIST22_BLKABLE", addBLKABLE);
+    local addMSPD = 0;
+    local addBLKABLE = 0;
+    
+    local count = CHECK_ARMORMATERIAL(self, "Cloth")
+    if count >= 4 then
+        addMSPD = 5;
+        addBLKABLE = 1;
+    end
+    
+    self.MSPD_BM = self.MSPD_BM + addMSPD;
+    self.BLKABLE_BM = self.BLKABLE_BM + addBLKABLE;
+    
+    SetExProp(self, "ABIL_KABBALIST22_MSPD", addMSPD);
+    SetExProp(self, "ABIL_KABBALIST22_BLKABLE", addBLKABLE);
 end
 
 function SCR_ABIL_KABBALIST22_INACTIVE(self, ability)
-	local addMSPD = GetExProp(self, "ABIL_KABBALIST22_MSPD");
-	local addBLKABLE = GetExProp(self, "ABIL_KABBALIST22_BLKABLE");
-	
-	self.MSPD_BM = self.MSPD_BM - addMSPD;
-	self.BLKABLE_BM = self.BLKABLE_BM - addBLKABLE;
-	
-	DelExProp(self, "ABIL_KABBALIST22_MSPD");
-	DelExProp(self, "ABIL_KABBALIST22_BLKABLE");
+    local addMSPD = GetExProp(self, "ABIL_KABBALIST22_MSPD");
+    local addBLKABLE = GetExProp(self, "ABIL_KABBALIST22_BLKABLE");
+    
+    self.MSPD_BM = self.MSPD_BM - addMSPD;
+    self.BLKABLE_BM = self.BLKABLE_BM - addBLKABLE;
+    
+    DelExProp(self, "ABIL_KABBALIST22_MSPD");
+    DelExProp(self, "ABIL_KABBALIST22_BLKABLE");
 end
 
 function SCR_ABIL_WIZARD23_ACTIVE(self, ability)
@@ -1056,13 +1061,13 @@ function SCR_ABIL_WIZARD23_INACTIVE(self, ability)
 end
 
 function SCR_ABIL_MACE_ACTIVE(self, ability)
-	local addHeaLPwrRate = 0;
-	local rItem  = GetEquipItem(self, 'RH');
-	if TryGetProp(rItem, "ClassType") == "Mace" then
-	   addHeaLPwrRate = ability.Level * 0.02
-	end
+    local addHeaLPwrRate = 0;
+    local rItem  = GetEquipItem(self, 'RH');
+    if TryGetProp(rItem, "ClassType") == "Mace" then
+        addHeaLPwrRate = ability.Level * 0.02
+    end
     
-	SetExProp(self, "ABIL_MACE_ADDHEAL", addHeaLPwrRate);
+    SetExProp(self, "ABIL_MACE_ADDHEAL", addHeaLPwrRate);
 end
 
 function SCR_ABIL_MACE_INACTIVE(self, ability)
@@ -1123,7 +1128,7 @@ function IS_ABILITY_KEYWORD(abilCls, keyword)
         return false;
     end
 
-	local tokenList = StringSplit(keywordStr, ";");
+    local tokenList = StringSplit(keywordStr, ";");
     for i = 1, #tokenList do
         local token = tokenList[i];
         if token == keyword then
@@ -1342,7 +1347,7 @@ function SCR_ABIL_Squire14_ACTIVE(self, ability)
     
     if count >= 4 then
         AddBuff(self, self, "Squire14_Buff");
-	end
+    end
 end
 
 function SCR_ABIL_Squire14_INACTIVE(self, ability)
@@ -1354,11 +1359,11 @@ function SCR_ABIL_Squire15_ACTIVE(self, ability)
     
     if count >= 4 then
         AddBuff(self, self, "Squire15_Buff");
-	end
+    end
 end
 
 function SCR_ABIL_Squire15_INACTIVE(self, ability)
-	RemoveBuff(self, "Squire15_Buff");
+    RemoveBuff(self, "Squire15_Buff");
 end
 
 function SCR_ABIL_Squire16_ACTIVE(self, ability)
@@ -1366,11 +1371,11 @@ function SCR_ABIL_Squire16_ACTIVE(self, ability)
     
     if count >= 4 then
         AddBuff(self, self, "Squire16_Buff");
-	end
+    end
 end
 
 function SCR_ABIL_Squire16_INACTIVE(self, ability)
-	RemoveBuff(self, "Squire16_Buff");
+    RemoveBuff(self, "Squire16_Buff");
 end
 
 function SCR_ABIL_Exorcist19_ACTIVE(self, ability)
@@ -1383,7 +1388,7 @@ function SCR_ABIL_Exorcist19_ACTIVE(self, ability)
 end
 
 function SCR_ABIL_Exorcist19_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Exorcist_Katadikazo");
+    local skill = GetSkill(self, "Exorcist_Katadikazo");
     if skill ~= nil then
         local attribute = GetExProp_Str(self, "Exorcist19_Attribute");
         skill.Attribute = attribute;
@@ -1405,7 +1410,7 @@ function SCR_ABIL_Appraiser7_ACTIVE(self, ability)
 end
 
 function SCR_ABIL_Appraiser7_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Appraiser_Blindside");
+    local skill = GetSkill(self, "Appraiser_Blindside");
     if skill ~= nil then
         local attribute = GetExProp_Str(self, "Appraiser7_Attribute");
         skill.Attribute = attribute;
@@ -1420,15 +1425,17 @@ end
 function SCR_ABIL_Hoplite33_ACTIVE(self, ability)
     local skill = GetSkill(self, "Hoplite_ThrouwingSpear");
     if skill ~= nil then
+        -- 21년 3월 11일 패치로 속성바꾸는 로직이 삭제 되었습니다. 하지만 여전히 ExProp으로 남아 있는 속성을 바꿔 주기위해 속성을 투창 Attribute로 받아 오게 수정 합니다.
         local attribute = TryGetProp(skill, "Attribute");
-        skill.Attribute = "Earth";
+        skill.Attribute = attribute;
         SetExProp_Str(self, "Hoplite33_Attribute", attribute);
+        -- 여기까지
         skill.KnockDownHitType = 1
     end
 end
 
 function SCR_ABIL_Hoplite33_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Hoplite_ThrouwingSpear");
+    local skill = GetSkill(self, "Hoplite_ThrouwingSpear");
     if skill ~= nil then
         local attribute = GetExProp_Str(self, "Hoplite33_Attribute");
         skill.Attribute = attribute;
@@ -1447,7 +1454,7 @@ function SCR_ABIL_Exorcist20_ACTIVE(self, ability)
 end
 
 function SCR_ABIL_Exorcist20_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Exorcist_Rubric");
+    local skill = GetSkill(self, "Exorcist_Rubric");
     if skill ~= nil then
         local attribute = GetExProp_Str(self, "Exorcist20_Attribute");
         skill.Attribute = attribute;
@@ -1505,6 +1512,7 @@ function SCR_ABIL_STATCHANGE_Kriwi_ACTIVE(self, ability)
     Invalidate(self, "MNA");
 
     AddBuff(self, self, "Kriwi_ClassTypeChange_Buff", 1, 0, 0, 1)
+    SCR_AFTER_STATCHANGE_CLERIC(self, 0, 'Kriwi')
 end
 
 function SCR_ABIL_STATCHANGE_Kriwi_INACTIVE(self, ability)
@@ -1517,6 +1525,7 @@ function SCR_ABIL_STATCHANGE_Kriwi_INACTIVE(self, ability)
     Invalidate(self, "MNA");
 
     RemoveBuff(self, "Kriwi_ClassTypeChange_Buff")
+    SCR_AFTER_STATCHANGE_CLERIC(self, 1, 'Kriwi')
 end
 
 function SCR_ABIL_STATCHANGE_Dievdirbys_ACTIVE(self, ability)
@@ -1549,6 +1558,7 @@ function SCR_ABIL_STATCHANGE_Paladin_ACTIVE(self, ability)
     Invalidate(self, "MNA");
 
     AddBuff(self, self, "Paladin_ClassTypeChange_Buff", 1, 0, 0, 1)
+    SCR_AFTER_STATCHANGE_CLERIC(self, 1, 'Paladin')
 end
 
 function SCR_ABIL_STATCHANGE_Paladin_INACTIVE(self, ability)
@@ -1561,6 +1571,7 @@ function SCR_ABIL_STATCHANGE_Paladin_INACTIVE(self, ability)
     Invalidate(self, "MNA");
 
     RemoveBuff(self, "Paladin_ClassTypeChange_Buff")
+    SCR_AFTER_STATCHANGE_CLERIC(self, 0, 'Paladin')
 end
 
 function SCR_ABIL_STATCHANGE_Pardoner_ACTIVE(self, ability)
@@ -1593,6 +1604,7 @@ function SCR_ABIL_STATCHANGE_Druid_ACTIVE(self, ability)
     Invalidate(self, "MNA");
 
     AddBuff(self, self, "Druid_ClassTypeChange_Buff", 1, 0, 0, 1)
+    SCR_AFTER_STATCHANGE_CLERIC(self, 0, 'Druid')
 end
 
 function SCR_ABIL_STATCHANGE_Druid_INACTIVE(self, ability)
@@ -1605,6 +1617,7 @@ function SCR_ABIL_STATCHANGE_Druid_INACTIVE(self, ability)
     Invalidate(self, "MNA");
 
     RemoveBuff(self, "Druid_ClassTypeChange_Buff")
+    SCR_AFTER_STATCHANGE_CLERIC(self, 1, 'Druid')
 end
 
 function SCR_ABIL_STATCHANGE_Chaplain_ACTIVE(self, ability)
@@ -1617,6 +1630,7 @@ function SCR_ABIL_STATCHANGE_Chaplain_ACTIVE(self, ability)
     Invalidate(self, "MNA");
 
     AddBuff(self, self, "Chaplain_ClassTypeChange_Buff", 1, 0, 0, 1)
+    SCR_AFTER_STATCHANGE_CLERIC(self, 1, 'Chaplain')
 end
 
 function SCR_ABIL_STATCHANGE_Chaplain_INACTIVE(self, ability)
@@ -1629,6 +1643,7 @@ function SCR_ABIL_STATCHANGE_Chaplain_INACTIVE(self, ability)
     Invalidate(self, "MNA");
 
     RemoveBuff(self, "Chaplain_ClassTypeChange_Buff")
+    SCR_AFTER_STATCHANGE_CLERIC(self, 0, 'Chaplain')
 end
 
 function SCR_ABIL_Templar8_ACTIVE(self, ability)
@@ -1966,7 +1981,7 @@ function SCR_ABIL_Arbalester10_ACTIVE(self, ability)
 end
 
 function SCR_ABIL_Arbalester10_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Arbalester_DarkJudgement");
+    local skill = GetSkill(self, "Arbalester_DarkJudgement");
     if skill ~= nil then
         local attribute = GetExProp_Str(self, "Arbalester10_Attribute");
         skill.Attribute = attribute;
@@ -1987,13 +2002,13 @@ function SCR_ABIL_SPEARMASTERY_Dagger_ACTIVE(self, ability)
     -- if IsBuffApplied(self, 'SwellHands_Buff') == 'YES' then
     --     local swellhands_buff = GetBuffByName(self, 'SwellHands_Buff');
     --     local max_ratio = GetExProp(swellhands_buff, 'MAX_RATIO');
-	-- 	add_rate = add_rate + (max_ratio / 100);
+    -- 	add_rate = add_rate + (max_ratio / 100);
     -- end
 
     if IsBuffApplied(self, 'Honor_Buff') == 'YES' then
         local honor_buff = GetBuffByName(self, 'Honor_Buff');
         local add_patk = GetExProp(honor_buff, 'ADD_PATK');
-		add_rate = add_rate + add_patk;
+        add_rate = add_rate + add_patk;
     end
 
     addATK = addATK * add_rate;
@@ -2017,7 +2032,7 @@ function SCR_ABIL_Chaplain20_ACTIVE(self, ability)
 end
 
 function SCR_ABIL_Chaplain20_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Chaplain_BuildCappella");
+    local skill = GetSkill(self, "Chaplain_BuildCappella");
     if skill ~= nil then
         InvalidateSkill(self, skill.ClassName);
         SendSkillProperty(self, skill);
@@ -2077,7 +2092,7 @@ function SCR_ABIL_Paladin41_ACTIVE(self, ability)
 end
 
 function SCR_ABIL_Paladin41_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Paladin_Sanctuary");
+    local skill = GetSkill(self, "Paladin_Sanctuary");
     if skill ~= nil then
         local shoottime = GetExProp(ability, "Paladin41_shoottime");
         
@@ -2104,7 +2119,7 @@ function SCR_ABIL_Paladin42_ACTIVE(self, ability)
 end
 
 function SCR_ABIL_Paladin42_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Paladin_Sanctuary");
+    local skill = GetSkill(self, "Paladin_Sanctuary");
     if skill ~= nil then
         local shoottime = GetExProp(ability, "Paladin42_shoottime");
         
@@ -2138,7 +2153,7 @@ function SCR_ABIL_Paladin40_ACTIVE(self, ability)
 end
 
 function SCR_ABIL_Paladin40_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Paladin_Sanctuary");
+    local skill = GetSkill(self, "Paladin_Sanctuary");
     if skill ~= nil then
         local abilPaladin41 = GetAbility(self, "Paladin41")
         local abilPaladin42 = GetAbility(self, "Paladin42")
@@ -2702,7 +2717,7 @@ function SCR_ABIL_Fencer20_INACTIVE(self, ability)
     RemoveBuff(self, "Fencer21_Buff")
     Invalidate(self, "PATK");
 end
- 
+    
 function SCR_ABIL_Paladin43_ACTIVE(self, ability)
     local skill = GetSkill(self, "Paladin_Conviction")
     if skill ~= nil then
@@ -3111,7 +3126,7 @@ function SCR_ABIL_Paladin20_ACTIVE(self, ability)
 end
 
 function SCR_ABIL_Paladin20_INACTIVE(self, ability)
-	local skill = GetSkill(self, "Paladin_Barrier");
+    local skill = GetSkill(self, "Paladin_Barrier");
     if skill ~= nil then
         skill.CastingCategory = "instant"
 
@@ -3129,6 +3144,72 @@ end
 
 function SCR_ABIL_Matador26_INACTIVE(self, ability)
     RemoveInstSkill(self, "Matador_Muleta_Faena")
+end
+
+function SCR_ABIL_Doppelsoeldner36_ACTIVE(self, ability)
+    local skill = GetSkill(self, "Doppelsoeldner_Zornhau")
+    if skill ~= nil then
+        AddInstSkill(self, "Doppelsoeldner_Zornhau_Abil", skill.Level)
+        SetSkillOverHeat(self, TryGetProp(skill, "ClassName", "None"), 0, 1)
+    end
+end
+
+function SCR_ABIL_Doppelsoeldner36_INACTIVE(self, ability)
+    local skill = GetSkill(self, "Doppelsoeldner_Zornhau")
+    if skill ~= nil then
+        RemoveInstSkill(self, "Doppelsoeldner_Zornhau_Abil")
+        SetSkillOverHeat(self, TryGetProp(skill, "ClassName", "None"), 3, 1)
+    end
+end
+
+function SCR_ABIL_Doppelsoeldner38_ACTIVE(self, ability)
+    local skill = GetSkill(self, "Doppelsoeldner_Zwerchhau")
+    if skill ~= nil then
+        SetSkillOverHeat(self, TryGetProp(skill, "ClassName", "None"), 0, 1)
+    end
+end
+
+function SCR_ABIL_Doppelsoeldner38_INACTIVE(self, ability)
+    local skill = GetSkill(self, "Doppelsoeldner_Zwerchhau")
+    if skill ~= nil then
+        SetSkillOverHeat(self, TryGetProp(skill, "ClassName", "None"), 3, 1)
+    end
+end
+
+function SCR_ABIL_Hackapell24_ACTIVE(self, ability)
+    AddBuff(self, self, "Hackapell_Dagger_Shield_Buff");
+end
+
+function SCR_ABIL_Hackapell24_INACTIVE(self, ability)
+    RemoveBuff(self, "Hackapell_Dagger_Shield_Buff")
+end
+
+function SCR_ABIL_Hackapell25_ACTIVE(self, ability)
+    AddBuff(self, self, "Hackapell_Dagger_Shield_Buff");
+end
+
+function SCR_ABIL_Hackapell25_INACTIVE(self, ability)
+    RemoveBuff(self, "Hackapell_Dagger_Shield_Buff")
+end
+
+function SCR_ABIL_Hoplite41_ACTIVE(self, ability)
+    if IsBuffApplied(self, "Hoplite41_Buff") ~= "YES" then
+        AddBuff(self, self, "Hoplite41_Buff", 1, 0, 0, 0);
+    end
+end
+
+function SCR_ABIL_Hoplite41_INACTIVE(self, ability)
+    RemoveBuff(self, "Hoplite41_Buff");
+end
+
+function SCR_ABIL_Retiarii25_ACTIVE(self, ability)
+    if IsBuffApplied(self, "Retiarii25_Buff") ~= "YES" then
+        AddBuff(self, self, "Retiarii25_Buff", 1, 0, 0, 0);
+    end
+end
+
+function SCR_ABIL_Retiarii25_INACTIVE(self, ability)
+    RemoveBuff(self, "Retiarii25_Buff");
 end
 
 function SCR_ABIL_CLOWN12_ACTIVE(self, ability)
@@ -3151,5 +3232,23 @@ function SCR_ABIL_CLOWN12_INACTIVE(self, ability)
 
         InvalidateSkill(self, skill.ClassName);
         SendSkillProperty(self, skill);
+    end
+end
+
+function SCR_ABIL_Crusader22_ACTIVE(self, ability)
+    local skill = GetSkill(self, "Crusader_RingOfLight");
+    if skill ~= nil then
+        skill.HitType = "Pad"
+
+        InvalidateSkill(self, TryGetProp(skill, "ClassName", "None"))
+    end
+end
+
+function SCR_ABIL_Crusader22_INACTIVE(self, ability)
+    local skill = GetSkill(self, "Crusader_RingOfLight");
+    if skill ~= nil then
+        skill.HitType = "Melee"
+
+        InvalidateSkill(self, TryGetProp(skill, "ClassName", "None"))
     end
 end

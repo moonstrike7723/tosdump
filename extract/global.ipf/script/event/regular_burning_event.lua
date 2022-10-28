@@ -26,7 +26,7 @@
 	
 	local npc = GetScpObjectList(self, "WEEKEND_REGULAR_EVENT")
 	if #npc == 0 then
-		if weekday == 1 or weekday == 6 or weekday == 7 or tonumber(year..month..day) == 20210516 then --일, 금, 토
+		if weekday == 1 or weekday == 6 or weekday == 7 or tonumber(year..month..day) == 20210626 then --일, 금, 토
 			if tonumber(hour..minute..second) > 0 then
 				local countResetNPC = CREATE_MONSTER_EX(self, 'NPC_GM2', x, y, z, GetDirectionByAngle(self), "Neutral", 1, WEEKEND_REGULAR_BURNING_EVENT_NPC_INFORMATION)
 				AddScpObjectList(self, "WEEKEND_REGULAR_EVENT", countResetNPC)
@@ -47,7 +47,7 @@ function REGULAR_BURNING_EVENT_SUPPORTER_AI(self)
         day = "0"..tostring(day)
     end
 
-     if weekday > 1 and weekday < 6 and tonumber(year..month..day) ~= 20210516 then --월~목
+     if weekday > 1 and weekday < 6 and tonumber(year..month..day) ~= 20210626 then --월~목
         Kill(self)
 		return;
     end
@@ -84,21 +84,21 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 }
     
     local daycheckbuff = 
-	{{'4','30',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-	,{'5','1',{'Event_LootingChance_Add_1000','GET_FIELD_DROPRATIO_BOOST_WEEKEND'}}
-	,{'5','2',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-	,{'5','7',{'Event_Expup_50','Event_Reagent_Bottle_Expup_100'}}
-	,{'5','8',{'Event_Expup_50','Event_healHSP_Speedup'}}
-	,{'5','9',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'5','14',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
-	,{'5','15',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-	,{'5','16',{'Event_LootingChance_Add_1000','Event_Challenge_Count_Reset'}}
-	,{'5','21',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
-	,{'5','22',{'Event_Expup_50','Event_Reappraisal_Discount_50'}}
-	,{'5','23',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'5','28',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+	{{'5','28',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
 	,{'5','29',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
 	,{'5','30',{'Event_LootingChance_Add_1000','EVENT_CONTENTS_TOTAL_POINT_BOOST'}}
+	,{'6','4',{'Event_Expup_50','Event_Class_Change_Pointup_500'}}
+	,{'6','5',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
+	,{'6','6',{'Event_Expup_50','Event_Reinforce_Discount_50'}}
+	,{'6','11',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'6','12',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
+	,{'6','13',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+	,{'6','18',{'Event_Expup_50','Event_Unique_Raid_Bonus_Limit'}}
+	,{'6','19',{'Event_Expup_50','Event_Worship_Affect_10fold'}}
+	,{'6','20',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
+	,{'6','25',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'6','26',{'Event_LootingChance_Add_1000','Event_Legend_Uphill_Count_Reset'}}
+	,{'6','27',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
 		}
 	
 	-- 기본 적용 버프
@@ -158,7 +158,6 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 			
 			if IsBuffApplied(pc, "Event_Legend_Uphill_Count_Reset") == "YES" then
 				if TryGetProp(accountObject, "REGULAR_BURNING_EVENT_COUNT_RESET") == 0 then
-        
                         local tx = TxBegin(pc)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_400", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_500", 0)
@@ -168,7 +167,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_803", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_805", 0)
 						TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_806", 0)
-						TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_807", 0)
+						TxSetIESProp(tx, accountObject, "Giltine_Raid_EnableEntryCount", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_808", 0)
                         TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_810", 0)
 						TxSetIESProp(tx, accountObject, "IndunWeeklyEnteredCount_811", 0)

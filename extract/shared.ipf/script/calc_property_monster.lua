@@ -235,8 +235,24 @@ function SCR_Get_MON_MHP(self)
     if value < 1 then
         value = 1;
     end
-    
+
+    value = GET_CONVERT_EXCEPTION_MHP(self, value);
+
     return math.floor(value);
+end
+
+function GET_CONVERT_EXCEPTION_MHP(self, value)
+    local zone_name = nil;
+    if IsServerSection(self) == 1 then zone_name = GetZoneName(self)
+    else zone_name = GetZoneName(); end
+
+    -- 샤울레이 서쪽 숲 : 초반 퀘스트 진행 보정(최저 스탯 값보다 낮은 체력을 세팅하기 위해 별도의 보정)
+    if zone_name ~= nil and zone_name == "f_siauliai_west" and TryGetProp(self, "MonRank", "None") ~= "Boss" then
+        value = value / 2;
+    end
+
+    -- 별도의 특정 조건 추가 가능.
+    return value;
 end
 
 function SCR_Get_MON_MSP(self)
@@ -313,11 +329,12 @@ function SCR_GET_MON_JOBEXP(self)
 end
 
 function SCR_Get_MON_DEF(self)
+    
     local fixedDEF = TryGetProp(self, "FixedDefence");
     if fixedDEF ~= nil and fixedDEF > 0 then
         return fixedDEF;
     end
-    
+
     local originDef = GetExProp(self, "MON_ORIGIN_DEF");
 
     local lv = TryGetProp(self, "Lv");
@@ -367,7 +384,7 @@ function SCR_Get_MON_DEF(self)
 --    value = value * JAEDDURY_MON_DEF_RATE;      -- JAEDDURY
     
     value = value + byBuff + byRateBuff;
-
+    
     local decRatio = TryGetProp(self, 'DEF_RATE_MUL_BM', 1);
     if IsBuffApplied(self, 'Tenacity_Buff') == 'YES' or TryGetProp(self, 'MonRank', 'None') == 'Boss' then
         decRatio = 1 - ((1 - decRatio) * 0.5)
@@ -383,7 +400,7 @@ function SCR_Get_MON_DEF(self)
         local starrank = GetExProp(self,'STARRANK',99)
         value = value * SCR_ANCIENT_INFO_RATE_CALC(rarity,starrank,"DefRate")
     end
-
+    
     if value < 0 then
         value = 0;
     end
@@ -2294,36 +2311,41 @@ function SCR_MON_ITEM_ARMOR_CALC(self, defType)
     end
     
     if defType ~= nil then
-        local defClass = GetClass("item_grade", "armorMaterial_" .. defType);
-        local armorMaterial = TryGetProp(self, "ArmorMaterial", "None");
-        local defRatio = TryGetProp(defClass, armorMaterial, 1);
-        -- 물리 방어력, 마법 방어력 평균치 적용 --
-        if statTypeClass ~= nil then
-            local averge_def = TryGetProp(statTypeClass, "AVERAGE_DEF", nil);
-            if averge_def ~= nil and averge_def ~= 0 then
-                local defTypeList = {"DEF", "MDEF"}
-                local defRatioTable = {};
-                for i = 1, #defTypeList do
-                    local defClassType = GetClass("item_grade", "armorMaterial_" .. defTypeList[i]);
-                    defRatioTable[#defRatioTable + 1] = TryGetProp(defClassType, armorMaterial, 1);
-                end
+        local defRatio = 1 --천/판금/가죽 방어타입에 따른 물/마방 편차 제거(유체 방어력기준으로 통일)
+    
+        -- local defClass = GetClass("item_grade", "armorMaterial_" .. defType);
+        -- local armorMaterial = TryGetProp(self, "ArmorMaterial", "None");        
+        -- local defRatio = TryGetProp(defClass, armorMaterial, 1);
                 
-                if averge_def == 1 then
-                    if defRatioTable[1] >= defRatioTable[2] then
-                        defRatio = defRatioTable[2];
-                    else
-                        defRatio = defRatioTable[1];
-                    end
-                elseif averge_def == 2 then
-                    if defRatioTable[1] >= defRatioTable[2] then
-                        defRatio = defRatioTable[1];
-                    else
-                        defRatio = defRatioTable[2];
-                    end
-                end
-            end
-        end
+        -- -- 물리 방어력, 마법 방어력 평균치 적용 --
+        -- if statTypeClass ~= nil then
+        --     local averge_def = TryGetProp(statTypeClass, "AVERAGE_DEF", nil);
+        --     if averge_def ~= nil and averge_def ~= 0 then
+        --         local defTypeList = {"DEF", "MDEF"}
+        --         local defRatioTable = {};
+        --         for i = 1, #defTypeList do
+        --             local defClassType = GetClass("item_grade", "armorMaterial_" .. defTypeList[i]);
+        --             defRatioTable[#defRatioTable + 1] = TryGetProp(defClassType, armorMaterial, 1);
+        --         end
         
+        --         if averge_def == 1 then
+        --             if defRatioTable[1] >= defRatioTable[2] then
+        --                 defRatio = defRatioTable[2];
+        --             else
+        --                 defRatio = defRatioTable[1];
+        --             end
+        --         elseif averge_def == 2 then
+        --             if defRatioTable[1] >= defRatioTable[2] then
+        --                 defRatio = defRatioTable[1];
+        --             else
+        --                 defRatio = defRatioTable[2];
+        --             end
+        --         elseif averge_def == 3 then
+        --             defRatio = (defRatioTable[1] + defRatioTable[2])/2
+        --         end
+        --     end
+        -- end
+
         if defRatio ~= nil then
             value = value * defRatio;
         end

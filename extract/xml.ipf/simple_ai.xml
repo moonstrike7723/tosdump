@@ -11026,6 +11026,14 @@
 			</ToolScp>
 		</List>
 	</AI>
+    <AI Name="GILTINE_SHADOW" ActiveMessageMapInBattle="1">
+        <List>
+            <ToolScp Scp="S_AI_CUSTOM_SCRIPT" Client="NO" UseSleep="YES">
+                <Str Str="SCR_GILTINE_SHADOW_AI"/>
+                <Num Num="0"/>
+            </ToolScp>
+        </List>
+    </AI>
 	<AI Name="GIMMICK_STATUE_AI" ActiveMessageMapInBattle="1">
 		<StartList>
 			<ToolScp Scp="S_AI_SET_BTREE" Client="NO" UseSleep="NO">
@@ -27565,5 +27573,27 @@ return GET_RATE_MHP(self, damage) * 100"/>
 				<Str Str="TOP"/>
 			</ToolScp>
 		</StartList>
+	</AI>
+	<AI Name="EVENT_VIVID_WALL_BORN_AI" ActiveMessageMapInBattle="1">
+		<List>
+			<ToolScp Scp="S_AI_ATTACK_NEAR" Client="NO" UseSleep="NO">
+				<Num Num="100"/>
+			</ToolScp>
+		</List>
+		<DeadList>
+			<ToolScp Scp="SAI_DEAD_SOBJ" Client="NO" UseSleep="NO">
+				<Str Str="ssn_mission"/>
+				<Str Str="Step1"/>
+				<Num Num="11"/>
+			</ToolScp>
+		</DeadList>
+		<HitList>
+			<ToolScp Scp="SAI_DAMAGE_SOBJ" Client="NO" UseSleep="NO">
+				<Num Num="2"/>
+				<Str Str="ssn_mission"/>
+				<Str Str="Step1"/>
+				<Num Num="11"/>
+			</ToolScp>
+		</HitList>
 	</AI>
 </AIList>
