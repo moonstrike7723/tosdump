@@ -18088,6 +18088,7 @@
 		<Class ClassID="1070003" ClassName="ContentsAlert_SysMsg_3" Data="선택하신 콘텐츠 이용을 위해 지역 이동이 필요합니다. 이동하시겠습니까?{nl}{#FF3333}※ '아니요'를 선택하셔도 인벤토리의 '콘텐츠 초대장' 아이템을 사용하여 다시 확인하실 수 있습니다.{/}"/>
 		<Class ClassID="1070004" ClassName="ContentsAlert_SysMsg_4" Data="NPC {NPCNAME}에게 대화를 걸어 콘텐츠에 참여하세요."/>
 		<Class ClassID="1070005" ClassName="ContentsAlert_SysMsg_5" Data="신규/복귀 구원자가 아닐 경우 아이템이 삭제됩니다."/>
+		<Class ClassID="1070006" ClassName="ContentsAlert_RestrictTime" Data="지금은 입장하실 수 없습니다."/>
 	</Category>
 	<Category Name="PartySearchBoard">
 		<Class ClassID="1080001" ClassName="PartyBoard_Participant_Info" Data="특성 달성률:{ABIL}%{nl} {nl}기어 스코어:{GEAR}{nl} {nl}성물 레벨:{RELIC}"/>

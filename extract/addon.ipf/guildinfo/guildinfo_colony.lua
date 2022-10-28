@@ -1,4 +1,4 @@
-function GUILDINFO_COLONY_INIT(frame, colonyBox)   
+﻿function GUILDINFO_COLONY_INIT(frame, colonyBox)   
     GUILDINFO_COLONY_INIT_RADIO(colonyBox);
     --GUILDINFO_COLONY_INIT_INFO(colonyBox);
     GUILDINFO_COLONY_UPDATE_OCCUPY_INFO(frame);
@@ -104,7 +104,12 @@ function GUILDINFO_COLONY_UPDATE_OCCUPY_INFO(frame, msg, argStr, argNum)
 
     GUILDINFO_COLONY_CHECK_COLUMN_NAME(frame)
 	local cls = GetClass("SharedConst", "COLONY_WAR_OPEN");
-	local curValue = TryGetProp(cls, "Value")
+    local curValue = TryGetProp(cls, "Value");
+
+    if CHECK_FISHING_AND_COLONY_RESTRICT_TIME() == true then
+        curValue = 0
+    end
+
 	if curValue == 0 then
 	    return;
 	end
