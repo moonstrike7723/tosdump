@@ -89,21 +89,18 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 }
     
 	local daycheckbuff = 
-					 {{'4','29',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
-					 ,{'4','30',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
-					 ,{'5','1',{'Event_Expup_100','EVENT_CHALLENGE_REWARD_BOOST'}}
-					 ,{'5','6',{'Event_Expup_100','Event_Mythic_Auto_Count_Reset'}}
-					 ,{'5','7',{'Event_Expup_100','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}}
-					 ,{'5','8',{'Event_Expup_100','EVENT_GILTINE_REWARD_BOOST'}}
-					 ,{'5','13',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
-					 ,{'5','14',{'Event_Expup_50','Event_healHSP_Speedup'}}
-					 ,{'5','15',{'Event_LootingChance_Add_1000','Event_ATK_and_DEF_UP_BUFF'}}
-					 ,{'5','20',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
-					 ,{'5','21',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
-					 ,{'5','22',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
-					 ,{'5','27',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
-					 ,{'5','28',{'Event_Expup_50','Event_healHSP_Speedup'}}
-					 ,{'5','29',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+					 {{'6','3',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+					 ,{'6','4',{'Event_Expup_50','Event_healHSP_Speedup'}}
+					 ,{'6','5',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'6','10',{'Event_Expup_100','EVENT_GILTINE_REWARD_BOOST'}}
+					 ,{'6','11',{'Event_Expup_100','EVENT_DIVISION_CHALLENGE_REWARD_BOOST'}}
+					 ,{'6','12',{'Event_Expup_100','Event_Challenge_Count_Reset'}}
+					 ,{'6','17',{'Event_LootingChance_Add_1000','Event_Worship_Affect_10fold'}}
+					 ,{'6','18',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
+					 ,{'6','19',{'Event_Expup_50','Event_healHSP_Speedup'}}
+					 ,{'6','24',{'Event_LootingChance_Add_1000','Event_Class_Change_Pointup_500'}}
+					 ,{'6','25',{'Event_Expup_50','Event_Cooldown_SPamount_Decrease'}}
+					 ,{'6','26',{'Event_Expup_50','Event_ATK_and_DEF_UP_BUFF'}}
 						 }
 	
 	-- 기본 적용 버프
