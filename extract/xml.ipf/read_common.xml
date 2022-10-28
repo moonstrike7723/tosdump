@@ -12,6 +12,7 @@
 	<ReadXml Name="item"/>
 	<ReadXml Name="item_colorspray"/>
 	<ReadXml Name="item_Equip"/>
+	<ReadXml Name="item_event"/>	
 	<ReadXml Name="item_Quest"/>
 	<ReadXml Name="item_opt"/>
 	<ReadXml Name="item_common"/>
@@ -250,4 +251,5 @@
 	<ReadXml Name="playlist_playtime"/>
 	<ReadXml Name="event_new_season_server_content_clear_coin_reward"/>
 	<ReadXml Name="weekly_time_table"/>
+	<ReadXml Name="item_event"/>
 </Category>

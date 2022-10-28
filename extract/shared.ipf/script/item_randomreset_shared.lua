@@ -135,7 +135,9 @@ function IS_ENABLE_APPLY_JEWELL(jewell, targetItem)
 		return false, 'Type';
 	end
 
-	if jewell.Level < targetItem.UseLv then
+	local number_arg1 = TryGetProp(jewell, 'NumberArg1', 0)
+
+	if jewell.Level < targetItem.UseLv and number_arg1 < targetItem.UseLv then
 		return false, 'LEVEL';
 	end
 

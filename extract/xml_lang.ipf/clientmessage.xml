@@ -9514,6 +9514,8 @@
 		<Class ClassID="102436" ClassName="ChangeAccountWareHouseTabName" Data="창고 이름 변경"/>
 		<Class ClassID="102437" ClassName="PleaseChangeAccountWareHouseTabName" Data="변경할 이름을 작성해 주세요."/>
 		<Class ClassID="102438" ClassName="NOTICE_START_CASUAL_GAMBLE" Data="여신의 축복 이벤트가 시작되었습니다!"/>
+		<Class ClassID="102441" ClassName="EventServerGuildQuestCheck" Data="{#003399}[시즌서버]{/} 길드퀘스트 누적 클리어 횟수 확인하기"/>
+		<Class ClassID="102442" ClassName="EventServerGuildQuestCheckMsg{WEEKCOUNT}{TOTALCOUNT}" Data="길드 퀘스트 누적 클리어 횟수{nl}주간 클리어 횟수({WEEKCOUNT}/3){nl}누적 클리어 횟수({TOTALCOUNT}/12){nl}{#FF0000}※주간 클리어 횟수는 매주 화요일 00시에 초기화 됩니다.{/}"/>
 	</Category>
 	<Category Name="EqupClasses">
 		<Class ClassID="103001" ClassName="THSword" Data="양손검"/>

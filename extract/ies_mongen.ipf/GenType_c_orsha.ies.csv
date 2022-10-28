@@ -65,3 +65,4 @@ ClassID,GenType,Lv,Range,GenRange,RespawnTime,MaxPop,Minimap,Hide,UseAIOufOfPC,A
 5209,5209,1,40,1,60000,1,2,0,0,1,0,0,npc_neringa,네링가,,,,,,,EP12_PRELUDE_NERINGA_ORSHA1,,,NO,YES,NO,Neutral,,,,
 5180,5180,1,100,1,1000,1,2,0,0,0,0,0,NPC_GM2,주말 이벤트 도우미,,,,,,,STEAM_TREASURE_EVENT_1912_WEEKEND,,,NO,YES,NO,Neutral,,,,
 10001,50001,1,40,1,60000,1,2,0,0,0,0,0,Board3_Event,이벤트 알림판,,,,,,,STEAM_TREASURE_EVENT,,,NO,YES,NO,Neutral,,,,
+10004,50004,1,40,1,60000,1,2,0,0,0,0,0,gacha_cube1_event,보너스 큐브,,,,,,,GACHA_BOUNS,,,NO,YES,NO,Neutral,,,,

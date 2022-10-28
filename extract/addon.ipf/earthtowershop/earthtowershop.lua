@@ -368,7 +368,7 @@ function INSERT_ITEM(cls, tree, slotHeight, haveMaterial, shopType)
             classType = nil
         end
     end
-
+    
     EXCHANGE_CREATE_TREE_PAGE(tree, slotHeight, groupName, classType, cls, shopType);
 end
 
@@ -454,7 +454,14 @@ function EXCHANGE_CREATE_TREE_PAGE(tree, slotHeight, groupName, classType, cls, 
     
     itemName:SetTextByKey("value", targetItem.Name .. " [" .. recipecls.TargetItemCnt .. ScpArgMsg("Piece") .. "]");
     if targetItem.StringArg == "EnchantJewell" then
-        itemName:SetTextByKey("value", "[Lv. "..cls.TargetItemAppendValue.."] "..targetItem.Name .. " [" .. recipecls.TargetItemCnt .. ScpArgMsg("Piece") .. "]");
+        local number_arg1 = TryGetProp(targetItem, 'NumberArg1', 0)
+        if number_arg1 ~= 0 then
+            itemName:SetTextByKey("value", targetItem.Name .. " [" .. recipecls.TargetItemCnt .. ScpArgMsg("Piece") .. "]");
+        else
+            itemName:SetTextByKey("value", "[Lv. "..cls.TargetItemAppendValue.."] "..targetItem.Name .. " [" .. recipecls.TargetItemCnt .. ScpArgMsg("Piece") .. "]");
+        end
+
+        
     end
     
     itemIcon:SetImage(targetItem.Icon);

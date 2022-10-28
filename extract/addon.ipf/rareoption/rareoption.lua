@@ -14,14 +14,26 @@ local function _RAREOPTION_SET_JEWELL_ITEM(frame, jewellItem)
 			return;
 		end
 
-		local haveCount, itemList = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'Level', Value = frame:GetUserIValue('JEWELL_LEVEL')}, {Name = 'ItemGrade', Value = frame:GetUserIValue('JEWELL_GRADE')}});
+		local haveCount = 0
+		local itemList = {}
+
+		haveCount, itemList = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'Level', Value = frame:GetUserIValue('JEWELL_LEVEL')}, {Name = 'ItemGrade', Value = frame:GetUserIValue('JEWELL_GRADE')}});
+		if haveCount == 0 then
+			haveCount, itemList = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'NumberArg1', Value = frame:GetUserIValue('JEWELL_LEVEL')}, {Name = 'ItemGrade', Value = frame:GetUserIValue('JEWELL_GRADE')}});
+		end
 		if haveCount < 1 then
 			ui.MsgBox(ScpArgMsg('UseUp{LEVEL}{GRADE}Jewell', 'LEVEL', curSettedLv, 'GRADE', gradestr_list[curSettedGrade]), 'ui.CloseFrame("rareoption")', 'None');
 			return;
 		end
 		for i = 1, #itemList do
 			local itemObj = GetIES(itemList[i]:GetObject());
-			if itemObj.Level == curSettedLv and itemObj.ItemGrade == curSettedGrade then
+			local itemObjLevel = itemObj.Level
+			
+			if itemObjLevel == 1 then
+				itemObjLevel = itemObj.NumberArg1
+			end
+
+			if itemObjLevel == curSettedLv and itemObj.ItemGrade == curSettedGrade then
 				jewellItem = itemList[i];
 				break;
 			end
@@ -31,7 +43,11 @@ local function _RAREOPTION_SET_JEWELL_ITEM(frame, jewellItem)
 	local jewellObj = GetIES(jewellItem:GetObject());
 	local margin = frame:GetMargin();	
 	frame:SetUserValue('JEWELL_GUID', jewellItem:GetIESID());
-	frame:SetUserValue('JEWELL_LEVEL', jewellObj.Level);
+	local lv = TryGetProp(jewellObj, 'Level', 1)
+	if lv == 1 then
+		lv = TryGetProp(jewellObj, 'NumberArg1', 1)		
+	end
+	frame:SetUserValue('JEWELL_LEVEL', lv);
 	frame:SetUserValue('JEWELL_GRADE', jewellObj.ItemGrade);
 end
 
@@ -163,6 +179,9 @@ end
 local function RAREOPTION_UPDATE_JEWELL_COUNT(frame)	
 	local text_havematerial = GET_CHILD_RECURSIVELY(frame, 'text_havematerial');
 	local haveCount = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'Level', Value = frame:GetUserIValue('JEWELL_LEVEL')}, {Name = 'ItemGrade', Value = frame:GetUserIValue('JEWELL_GRADE')}});
+	if haveCount == 0 then
+		haveCount = GET_INV_ITEM_COUNT_BY_PROPERTY({{Name = 'StringArg', Value ='EnchantJewell'}, {Name = 'NumberArg1', Value = frame:GetUserIValue('JEWELL_LEVEL')}, {Name = 'ItemGrade', Value = frame:GetUserIValue('JEWELL_GRADE')}});
+	end
 	text_havematerial:SetTextByKey('grade', gradestr_list[frame:GetUserIValue('JEWELL_GRADE')]);
 	text_havematerial:SetTextByKey('count', haveCount);
 	return haveCount;

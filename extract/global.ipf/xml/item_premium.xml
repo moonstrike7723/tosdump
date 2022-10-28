@@ -77,6 +77,10 @@
 			<Class ClassID="490302" ClassName="HiddenJobUnlock_Char2_17_pc" CT_Name="[PC방] 룬캐스터 클래스 해금권" CT_TooltipImage="icon_item_pp_Unlock_runecaster" CT_Icon="icon_item_pp_Unlock_runecaster"/>
 			<Class ClassID="490303" ClassName="HiddenJobUnlock_Char1_13_pc" CT_Name="[PC방] 시노비 클래스 해금권" CT_TooltipImage="icon_item_pp_unlock_shinobi" CT_Icon="icon_item_pp_unlock_shinobi"/>
 			<Class ClassID="490304" ClassName="HiddenJobUnlock_Char1_20_pc" CT_Name="[PC방] 낙무아이 클래스 해금권" CT_TooltipImage="icon_item_pp_Unlock_NakMuay" CT_Icon="icon_item_pp_Unlock_NakMuay"/>
+			<Class ClassID="494226" ClassName="2020_NewYear_Package_01" CT_Name="2020 새해 성장 패키지" CT_TooltipImage="icon_item_gift_box_01" CT_Icon="icon_item_gift_box_01"/>
+			<Class ClassID="494227" ClassName="2020_NewYear_Package_02" CT_Name="2020 새해 강화 패키지" CT_TooltipImage="icon_item_gift_box_02" CT_Icon="icon_item_gift_box_02"/>
+			<Class ClassID="494228" ClassName="2020_NewYear_Package_03" CT_Name="2020 새해 아이커 패키지" CT_TooltipImage="icon_item_gift_box_03" CT_Icon="icon_item_gift_box_03"/>
+			<Class ClassID="494229" ClassName="2020_NewYear_Package_All" CT_Name="2020 새해 올인원 패키지" CT_TooltipImage="icon_item_gift_box_04" CT_Icon="icon_item_gift_box_04"/>
 		</Category>
 		<Category Name="Event-etc">
 			<Class ClassID="495116" ClassName="Beauty_DyeCoupon_50_pc" CT_Name="[PC방] 염색 1회 50% 할인권" CT_TooltipImage="icon_item_DyeCoupon_50_pp" CT_Icon="icon_item_DyeCoupon_50_pp"/>

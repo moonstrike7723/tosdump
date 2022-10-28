@@ -1714,3 +1714,37 @@ function SCR_USE_EVENT_NEARALL_ANIM_RUN(self)
         end
     end
 end
+
+function SCR_USE_ITEM_2020_NEWYEAR_PACKAGE_01(pc, target, string1, arg1, arg2, itemID)
+    local tx = TxBegin(pc);
+    TxGiveItem(tx, '2020NewYear_EQUIPITEM_BOX_ARMOR',4, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, '2020NewYear_EQUIPITEM_BOX',1, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'EVENT_1811_NEWCHARACTER_BARRACK_SLOT',1, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Event_Drug_Alche_HP15_Premium',500, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Event_Drug_Alche_SP15_Premium',500, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Drug_RedApple20',50, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Drug_BlueApple20',50, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Ability_Point_Stone_10000',10, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Premium_moneyBox',10, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'ChallengeModeReset_NoTrade',30, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'CHALLENG_PORTAL_Team',30, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Premium_boostToken02',5, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Event_170119_2',30, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Premium_indunReset',10, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Adventure_dungeoncount_01',20, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Adventure_Reward_Seed',10, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Adventure_Goddess_Statue',10, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Dungeon_Key01',20, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Legend_SlotOpen_Card_Team',1, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'Premium_RankReset',1, '2020_NEWYEAR_PACKAGE_01')
+    TxGiveItem(tx, 'PremiumToken_New_Return',1, '2020_NEWYEAR_PACKAGE_01')
+    local ret = TxCommit(tx);
+end
+
+function SCR_USE_ITEM_2020_NEWYEAR_PACKAGE_ALL(pc, target, string1, arg1, arg2, itemID)
+    local tx = TxBegin(pc);
+    TxGiveItem(tx, '2020_NewYear_Package_01',1,'2020_NEWYEAR_PACKAGE_ALL')
+    TxGiveItem(tx, '2020_NewYear_Package_02',1,'2020_NEWYEAR_PACKAGE_ALL')
+    TxGiveItem(tx, '2020_NewYear_Package_03',1,'2020_NEWYEAR_PACKAGE_ALL')
+    local ret = TxCommit(tx);
+end
