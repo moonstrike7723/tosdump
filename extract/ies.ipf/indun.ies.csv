@@ -30,4 +30,4 @@ ClassID,FindType,Level,AutoMatchLevelLimit,AutoMatchLevelLimit_5MinuteLater,Auto
 32,0,70,10,20,30,5,1,0,700,Request_Mission10_Event2,중급 디펜스 미션 : 이벤트,c_Klaipe,100/100,MISSION_UPHILL_DEFFENSE_EVENT2,
 33,0,315,10,20,30,5,1,1,800,M_Past_FantasyLibrary_1,과거 환상도서관 : 사우시스 9 관,d_firetower_69_1,100/100,M_FLIBRARY_INIT,
 34,0,310,20,30,30,5,0,0,900,M_GTOWER_2,대지의 탑 : 솔미키 구간,mission_groundtower_1,100/100,M_GT2_INIT,
-35,0,290,10,20,30,5,5,0,100,Indun_Castle2,캐슬 던전,c_Klaipe,100/100,ID_CASTLE_MINI_02,Clear_dungeon_03;
+35,0,290,10,20,30,5,2,1,100,Indun_Castle2,캐슬 던전,c_Klaipe,100/100,ID_CASTLE_MINI_02,Clear_dungeon_03;
