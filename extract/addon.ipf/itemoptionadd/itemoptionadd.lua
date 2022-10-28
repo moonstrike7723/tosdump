@@ -10,11 +10,11 @@ function ITEMOPTIONADD_ON_INIT(addon, frame)
 end
 
 function ON_OPEN_DLG_ITEMOPTIONADD(frame)
-	frame:ShowWindow(1);
+	frame:ShowWindow(1);	
 end
 
 function ITEMOPTIONADD_OPEN(frame)
-	ui.CloseFrame('rareoption');
+	
 	SET_OPTIONADD_RESET(frame);
 	CLEAR_ITEMOPTIONADD_UI()
 	INVENTORY_SET_CUSTOM_RBTNDOWN("ITEMOPTIONADD_INV_RBTN")	
@@ -27,7 +27,7 @@ function ITEMOPTIONADD_CLOSE(frame)
 	end
 	INVENTORY_SET_CUSTOM_RBTNDOWN("None");
 	frame:ShowWindow(0);
-		control.DialogOk();
+	control.DialogOk();
 	ui.CloseFrame("inventory");
  end
 
@@ -41,7 +41,7 @@ function CLEAR_ITEMOPTIONADD_UI()
 	if ui.CheckHoldedUI() == true then
 		return;
 	end
-	
+
 	local frame = ui.GetFrame("itemoptionadd");
 
 	local slot = GET_CHILD_RECURSIVELY(frame, "slot", "ui::CSlot");
@@ -57,6 +57,8 @@ function CLEAR_ITEMOPTIONADD_UI()
 	local putOnItem = GET_CHILD_RECURSIVELY(frame, "text_putonitem")
 	putOnItem:ShowWindow(1)
 
+	local text_material = GET_CHILD_RECURSIVELY(frame, "text_material")
+	text_material:ShowWindow(1)
 	local text_beforeadd = GET_CHILD_RECURSIVELY(frame, "text_beforeadd")
 	text_beforeadd:ShowWindow(1)
 	local text_afteradd = GET_CHILD_RECURSIVELY(frame, "text_afteradd")
@@ -83,6 +85,10 @@ function CLEAR_ITEMOPTIONADD_UI()
 
 	local bodyGbox1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox1');
 	bodyGbox1:ShowWindow(1)
+	local bodyGbox2 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox2');
+	bodyGbox2:ShowWindow(1)
+	local bodyGbox2_1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox2_1');
+	bodyGbox2_1:ShowWindow(1)
 	local bodyGbox3 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox3');
 	bodyGbox3:ShowWindow(0)
 
@@ -90,6 +96,8 @@ function CLEAR_ITEMOPTIONADD_UI()
 	local bodyGbox1_1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox1_1');
 	bodyGbox1_1:Resize(bodyGbox1:GetWidth(), bodyGbox1:GetHeight())
 	bodyGbox1_1 : RemoveAllChild();
+	local bodyGbox2_1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox2_1');
+	bodyGbox2_1: RemoveAllChild();
 	local bodyGbox3_1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox3_1');
 	bodyGbox3_1: RemoveAllChild();
 
@@ -99,9 +107,9 @@ function ITEM_OPTIONADD_MAIN_ITEM_DROP(frame, icon, argStr, argNum)
 	if ui.CheckHoldedUI() == true then
 		return;
 	end
-	local liftIcon = ui.GetLiftIcon();
-	local FromFrame = liftIcon:GetTopParentFrame();
-	local toFrame = frame:GetTopParentFrame();
+	local liftIcon 				= ui.GetLiftIcon();
+	local FromFrame 			= liftIcon:GetTopParentFrame();
+	local toFrame				= frame:GetTopParentFrame();
 	CLEAR_ITEMOPTIONADD_UI()
 	if FromFrame:GetName() == 'inventory' then
 		local iconInfo = liftIcon:GetInfo();
@@ -109,7 +117,7 @@ function ITEM_OPTIONADD_MAIN_ITEM_DROP(frame, icon, argStr, argNum)
 	end;
 end;
 
-function ITEM_OPTIONADD_ADD_ITEM_DROP(frame, icon, argStr, argNum)    
+function ITEM_OPTIONADD_ADD_ITEM_DROP(frame, icon, argStr, argNum)
 	if ui.CheckHoldedUI() == true then
 		return;
 	end
@@ -140,23 +148,9 @@ function ITEM_OPTIONADD_REG_MAIN_ITEM(frame, itemID)
 	
 	local item = GetIES(invItem:GetObject());
 	local itemCls = GetClassByType('Item', item.ClassID)
-	if TryGetProp(itemCls, 'NeedRandomOption', 0) == 1 and TryGetProp(itemCls, 'LegendGroup', 'None') == 'None' then
-		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"));
-        return;
-	end
 	local invitem = item
 
-	--이벤트 아이템 확인
-	if SHARED_IS_EVENT_ITEM_CHECK(itemCls, "NoEnchant") == true then
-		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
-		return
-	end
 	
-	if TryGetProp(item, 'ItemGrade') > 5 then
-		ui.SysMsg(ClMsg('CantUseGoddessItemToIcor'))
-		return
-	end
-
 	local slot = GET_CHILD_RECURSIVELY(frame, "slot");
 	local slotInvItem = GET_SLOT_ITEM(slot);
 	local slotInvItemCls = nil
@@ -179,7 +173,7 @@ function ITEM_OPTIONADD_REG_MAIN_ITEM(frame, itemID)
 	else
 		-- invitem 이 slot 들어갈 템이 아니면 에러후 리턴
 		if TryGetProp(item, 'LegendGroup', 'None') == 'None' then
-		--장착 안대는 아이템        
+		--장착 안대는 아이템
 			ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"));
 			return;
 		end
@@ -213,6 +207,77 @@ function ITEM_OPTIONADD_REG_MAIN_ITEM(frame, itemID)
 
 	local materialItemSlot = 2;
 	frame:SetUserValue('MAX_EXCHANGEITEM_CNT', exchangeItemSlot);
+
+	local materialItemName = ScpArgMsg('NotDecidedYet')
+	for i = 1 , materialItemSlot do
+		local materialItemIndex = "MaterialItem_" .. i
+		local materialItemCount = 0
+		local ItemGrade = itemCls.ItemGrade		
+	
+		local bodyGbox2_1 = GET_CHILD_RECURSIVELY(frame, "bodyGbox2_1")
+		local materialClsCtrl = bodyGbox2_1:CreateOrGetControlSet('eachmaterial_in_itemoptionadd', 'MATERIAL_CSET_'..i, 0, 0);
+		materialClsCtrl = AUTO_CAST(materialClsCtrl)
+		local pos_y = materialClsCtrl:GetUserConfig("POS_Y")
+		materialClsCtrl:Move(0, pos_y * (i-1))
+		local material_icon = GET_CHILD_RECURSIVELY(materialClsCtrl, "material_icon", "ui::CPicture");
+		local material_questionmark = GET_CHILD_RECURSIVELY(materialClsCtrl, "material_questionmark", "ui::CPicture");
+		local material_name = GET_CHILD_RECURSIVELY(materialClsCtrl, "material_name", "ui::CRichText");
+		local material_count = GET_CHILD_RECURSIVELY(materialClsCtrl, "material_count", "ui::CRichText");
+		local gradetext2 = GET_CHILD_RECURSIVELY(materialClsCtrl, "grade", "ui::CRichText");
+	
+		if i == 1 then
+			materialItemName = GET_OPTION_EQUIP_CAPITAL_MATERIAL_NAME();
+			materialItemCount = GET_OPTION_EQUIP_NEED_CAPITAL_COUNT(slotInvItemCls);
+			frame:SetUserValue('MATERIAL_ITEM_COUNT', materialItemCount);
+		else
+			materialItemName = GET_OPTION_EXTRACT_MATERIAL_NAME();
+			materialItemCount = GET_OPTION_EQUIP_NEED_MATERIAL_COUNT(slotInvItemCls);
+			frame:SetUserValue('MATERIAL_ITEM_COUNT', materialItemCount);
+		end
+
+		if i == materialItemSlot then
+			local labelline = GET_CHILD_RECURSIVELY(materialClsCtrl, "labelline2")
+			labelline:ShowWindow(0)
+		end
+		
+		local itemIcon = 'question_mark'
+		material_icon:ShowWindow(1)
+		material_questionmark:ShowWindow(0)
+		if item ~= nil then
+			local materialCls = GetClass("Item", materialItemName);
+			if i <= materialItemSlot and materialCls ~= 'None' then
+				materialClsCtrl:ShowWindow(1)
+				itemIcon = materialCls.Icon;
+				materialItemName = materialCls.Name;
+				local itemCount = GetInvItemCount(pc, materialCls.ClassName)
+				local invMaterial = session.GetInvItemByName(materialCls.ClassName)
+
+				local type = item.ClassID;
+				
+				if itemCount < materialItemCount then
+					material_count:SetTextByKey("color", "{#EE0000}");
+					isAbleExchange = isAbleExchange * 0;
+				elseif invMaterial.isLockState == true then
+					isAbleExchange = -1;
+				else 
+					material_count:SetTextByKey("color", nil);
+				end
+				material_count:SetTextByKey("curCount", itemCount);
+				material_count:SetTextByKey("needCount", materialItemCount)
+					
+				session.AddItemID(materialCls.ClassID, materialItemCount);
+	
+			else
+				materialClsCtrl:ShowWindow(0)
+			end
+
+		else
+			materialClsCtrl:ShowWindow(0)
+		end
+
+		material_icon:SetImage(itemIcon)
+		material_name:SetText(materialItemName)
+	end
 	frame:SetUserValue("isAbleExchange", isAbleExchange)
 
 
@@ -244,7 +309,7 @@ function ITEM_OPTIONADD_REG_MAIN_ITEM(frame, itemID)
 	SET_OPTIONADD_RESET(frame);	
 end
 
-function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)    	
+function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
 	if ui.CheckHoldedUI() == true then
 		return;
 	end
@@ -266,71 +331,30 @@ function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
 		return;
 	end
 
-	-- invItem 이 아이커가 아니면 에러 후 리턴 if invItem
-	if TryGetProp(invitem, 'GroupName') ~= 'Icor' and TryGetProp(invitem, 'GroupName', 'None') ~= 'Arcane' then
-		ui.SysMsg(ClMsg("MustEquipIcor"));		
+-- invItem 이 아이커가 아니면 에러 후 리턴 if invItem
+	if TryGetProp(invitem, 'GroupName') ~= 'Icor' then
+		ui.SysMsg(ClMsg("MustEquipIcor"));
 		return;
 	end
 	
 	local slot = GET_CHILD_RECURSIVELY(frame, "slot");
 	local slotInvItem = GET_SLOT_ITEM(slot);
 	local slotInvItemCls = nil
-	local tempItem = nil
 	if slotInvItem ~= nil then
-		tempItem = GetIES(slotInvItem:GetObject());
+		local tempItem = GetIES(slotInvItem:GetObject());
 		slotInvItemCls = GetClass('Item', tempItem.ClassName)
 	end
-	
-	if tempItem ~= nil then
-		local obj = tempItem
-		local obj_add = item
-		if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
-		or (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'GroupName', 'None') == 'Arcane')
-		or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
-			ui.SysMsg(ClMsg("AlearyIcorAdded"))
-			return
-		end	
 
-		if TryGetProp(obj, 'ItemGrade', 0) > 5 then
-			ui.SysMsg(ClMsg('IMPOSSIBLE_ITEM'))			
-			return
-		end
-	end
 
-	--아이커의 atk 과 slot 의 atk 이 맞아야만 장착가능    
+		--아이커의 atk 과 slot 의 atk 이 맞아야만 장착가능
 	local targetItem = GetClass('Item', invitem.InheritanceItemName);
-
-	if invitem.GroupName == 'Icor' then
-        if TryGetProp(targetItem, 'StringArg', 'None') == 'Vibora' then				
-			ui.SysMsg(ClMsg('NowCantViboraIcorToWeapon'))
-			return
-		end
-    end
-
-	if TryGetProp(invitem, 'GroupName', 'None') == 'Arcane' then
-		if TryGetProp(invitem, 'TeamBelonging', 0) == 1 then
-			ui.SysMsg(ClMsg('TeamBelongingArcaneOnlyUseGoddess'))
-			return
-		end
-
-		local class_type = TryGetProp(slotInvItemCls, 'ClassType', 'None')
-		if IS_WEAPON_TYPE(class_type) == false then
-			ui.SysMsg(ClMsg('NotMatchItemClassType')) -- atk 타입이 안맞아서 리턴	
-			return
-		end
-
-		targetItem = GetClass('Item', invitem.ClassName);
-	end
-
-    if targetItem == nil then
-        targetItem = GetClass('Item', invitem.InheritanceRandomItemName);
-    end
-
-	if (IS_ICORABLE_RANDOM_LEGEND_ITEM(slotInvItemCls) and invitem.InheritanceRandomItemName ~= 'None') then
-		ui.SysMsg(ClMsg('NotMatchItemClassType')) -- atk 타입이 안맞아서 리턴
+	if targetItem.ClassType ~= slotInvItemCls.ClassType then
+		ui.SysMsg(ClMsg('NotMatchItemClassType'))
+		-- atk 타입이 안맞아서 리턴
 		return
 	end
 	
+	local targetItem = GetClass('Item', invitem.InheritanceItemName);
 	local yPos = 0
 	local basicList = GET_EQUIP_TOOLTIP_PROP_LIST(targetItem);
     local list = {};
@@ -340,13 +364,13 @@ function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
         list = GET_CHECK_OVERLAP_EQUIPPROP_LIST(basicList, basicTooltipProp, list);
     end
 
-	local list2 = GET_EUQIPITEM_PROP_LIST();    
+	local list2 = GET_EUQIPITEM_PROP_LIST();
 	
 	local cnt = 0;
 	for i = 1 , #list do
 
 		local propName = list[i];
-		local propValue = TryGetProp(targetItem, propName, 0);
+		local propValue = targetItem[propName];
 		
 		if propValue ~= 0 then
             local checkPropName = propName;
@@ -361,7 +385,7 @@ function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
 
 	for i = 1 , #list2 do
 		local propName = list2[i];
-		local propValue = TryGetProp(targetItem, propName, 0);
+		local propValue = targetItem[propName];
 		if propValue ~= 0 then
 
 			cnt = cnt +1
@@ -395,7 +419,7 @@ function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
 
 	for i = 1 , #list do
 		local propName = list[i];
-		local propValue = TryGetProp(targetItem, propName, 0);
+		local propValue = targetItem[propName];
 
 		local needToShow = true;
 		for j = 1, #basicTooltipPropList do
@@ -404,32 +428,32 @@ function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
 			end
 		end
 
-		if needToShow == true and propValue ~= 0 and randomOptionProp[propName] == nil then -- 랜덤 옵션이랑 겹치는 프로퍼티는 여기서 출력하지 않음
+		if needToShow == true and targetItem[propName] ~= 0 and randomOptionProp[propName] == nil then -- 랜덤 옵션이랑 겹치는 프로퍼티는 여기서 출력하지 않음
 
 			if  targetItem.GroupName == 'Weapon' then
 				if propName ~= "MINATK" and propName ~= 'MAXATK' then
-					local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), propValue);
+					local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), targetItem[propName]);					
 					inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, strInfo, 0, inner_yPos);
 				end
 			elseif  targetItem.GroupName == 'Armor' then
 				if targetItem.ClassType == 'Gloves' then
 					if propName ~= "HR" then
-						local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), propValue);
+						local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), targetItem[propName]);
 						inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, strInfo, 0, inner_yPos);
 					end
 				elseif targetItem.ClassType == 'Boots' then
 					if propName ~= "DR" then
-						local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), propValue);
+						local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), targetItem[propName]);
 						inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, strInfo, 0, inner_yPos);
 					end
 				else
 					if propName ~= "DEF" then
-						local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), propValue);
+						local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), targetItem[propName]);
 						inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, strInfo, 0, inner_yPos);
 					end
 				end
 			else
-				local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), propValue);
+				local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), targetItem[propName]);
 				inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, strInfo, 0, inner_yPos);
 			end
 		end
@@ -475,7 +499,7 @@ function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
 
 	for i = 1 , #list2 do
 		local propName = list2[i];
-		local propValue = TryGetProp(targetItem, propName, 0);
+		local propValue = targetItem[propName];
 		if propValue ~= 0 then
 			local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(propName), targetItem[propName]);
 			inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, strInfo, 0, inner_yPos);
@@ -484,26 +508,6 @@ function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
 
 	if targetItem.OptDesc ~= nil and targetItem.OptDesc ~= 'None' then
 		inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, targetItem.OptDesc, 0, inner_yPos);
-	end
-
-	if targetItem.OptDesc ~= nil and (targetItem.OptDesc == 'None' or targetItem.OptDesc == '') and TryGetProp(targetItem, 'StringArg', 'None') == 'Vibora' then
-		local opt_desc = targetItem.OptDesc
-		if opt_desc == 'None' then
-			opt_desc = ''
-		end
-		
-		for idx = 1, MAX_VIBORA_OPTION_COUNT do			
-			local additional_option = TryGetProp(targetItem, 'AdditionalOption_' .. tostring(idx), 'None')			
-			if additional_option ~= 'None' then
-				local tooltip_str = 'tooltip_' .. additional_option					
-				local cls_message = GetClass('ClientMessage', tooltip_str)
-				if cls_message ~= nil then
-					opt_desc = opt_desc .. ClMsg(tooltip_str)
-				end
-			end
-		end
-
-		inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(property_gbox, opt_desc, 0, inner_yPos);
 	end
 
 	if targetItem.IsAwaken == 1 then
@@ -559,25 +563,8 @@ function ITEMOPTIONADD_EXEC(frame)
 		ui.SysMsg(ClMsg("MaxDurUnderflow")); 
 		return
 	end
-	
+
 	local clmsg = ScpArgMsg("DoItemOptionAdd")
-
-	local slot_add = GET_CHILD_RECURSIVELY(frame, "slot_add");
-	local invItem_add = GET_SLOT_ITEM(slot_add);
-	if invItem_add == nil then
-		return
-	end
-
-	local obj = GetIES(invItem:GetObject());
-	local obj_add = GetIES(invItem_add:GetObject());
-
-	if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
-	or (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'GroupName', 'None') == 'Arcane')
-		or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then 
-		ui.SysMsg(ClMsg("AlearyIcorAdded"));
-		return;
-	end
-
 	ui.MsgBox_NonNested(clmsg, frame:GetName(), "_ITEMOPTIONADD_EXEC", "_ITEMOPTIONADD_CANCEL");
 end
 
@@ -585,7 +572,7 @@ function _ITEMOPTIONADD_CANCEL()
 	local frame = ui.GetFrame("itemoptionadd");
 end;
 
-function _ITEMOPTIONADD_EXEC(checkRebuildFlag)
+function _ITEMOPTIONADD_EXEC()
 
 	local frame = ui.GetFrame("itemoptionadd");
 
@@ -607,6 +594,20 @@ function _ITEMOPTIONADD_EXEC(checkRebuildFlag)
 		return
 	end
 
+	local text_beforeadd = GET_CHILD_RECURSIVELY(frame, "text_beforeadd")
+	text_beforeadd:ShowWindow(0)
+	local text_afteradd = GET_CHILD_RECURSIVELY(frame, "text_afteradd")
+	text_afteradd:ShowWindow(1)
+	local bodyGbox2 = GET_CHILD_RECURSIVELY(frame, "bodyGbox2")
+	bodyGbox2:ShowWindow(0)
+	local bodyGbox3 = GET_CHILD_RECURSIVELY(frame, "bodyGbox3")
+	bodyGbox3:ShowWindow(0)
+
+	local doAdd = GET_CHILD_RECURSIVELY(frame, "do_add")
+	doAdd:ShowWindow(0)
+	local sendOK = GET_CHILD_RECURSIVELY(frame, "send_ok")
+	sendOK:ShowWindow(1)
+
 	local frame = ui.GetFrame("itemoptionadd");
 	if frame:IsVisible() == 0 then
 		return;
@@ -618,27 +619,6 @@ function _ITEMOPTIONADD_EXEC(checkRebuildFlag)
 	if mainInvItem == nil then
 		return;
 	end
-
-	if checkRebuildFlag ~= false then
-		local targetItemObj = GetIES(mainInvItem:GetObject());
-		if TryGetProp(targetItemObj, 'Rebuildchangeitem', 0) > 0 then
-			ui.MsgBox(ScpArgMsg('IfUDoCannotExchangeWeaponType'), '_ITEMOPTIONADD_EXEC(false)', 'None');
-			return;
-		end
-	end
-
-	local text_beforeadd = GET_CHILD_RECURSIVELY(frame, "text_beforeadd")
-	text_beforeadd:ShowWindow(0)
-	local text_afteradd = GET_CHILD_RECURSIVELY(frame, "text_afteradd")
-	text_afteradd:ShowWindow(1)
-	local bodyGbox3 = GET_CHILD_RECURSIVELY(frame, "bodyGbox3")
-	bodyGbox3:ShowWindow(0)
-
-	local doAdd = GET_CHILD_RECURSIVELY(frame, "do_add")
-	doAdd:ShowWindow(0)
-	local sendOK = GET_CHILD_RECURSIVELY(frame, "send_ok")
-	sendOK:ShowWindow(1)
-
 
 	local addSlot = GET_CHILD_RECURSIVELY(frame, "slot_add");
 	local addInvItem = GET_SLOT_ITEM(addSlot);
@@ -654,6 +634,8 @@ function _ITEMOPTIONADD_EXEC(checkRebuildFlag)
     session.AddItemID(addInvItem:GetIESID(), 1);
     local resultlist = session.GetItemIDList();
     item.DialogTransaction("EQUIP_ITEM_OPTION", resultlist);
+	return
+
 end
 
 function SUCCESS_ITEM_OPTION_ADD(frame)
@@ -666,18 +648,18 @@ function SUCCESS_ITEM_OPTION_ADD(frame)
 		return;
 	end
 
-	--pic_bg:PlayUIEffect(ADD_RESULT_EFFECT_NAME, EFFECT_SCALE, 'ADD_RESULT_EFFECT');
+	pic_bg:PlayUIEffect(ADD_RESULT_EFFECT_NAME, EFFECT_SCALE, 'ADD_RESULT_EFFECT');
 
 	local do_add = GET_CHILD_RECURSIVELY(frame, "do_add")
 	do_add : ShowWindow(0)
 
 	ui.SetHoldUI(true);
 
-	ReserveScript("_SUCCESS_ITEM_OPTION_ADD()", 0.01)
+	ReserveScript("_SUCCESS_ITEM_OPTION_ADD()", EFFECT_DURATION)
 end
 
 function _SUCCESS_ITEM_OPTION_ADD()
-	ui.SetHoldUI(false);
+ui.SetHoldUI(false);
 	local frame = ui.GetFrame("itemoptionadd");
 	if frame:IsVisible() == 0 then
 		return;
@@ -696,7 +678,7 @@ function _SUCCESS_ITEM_OPTION_ADD()
 	if pic_bg == nil then
 		return;
 	end
-	--pic_bg:StopUIEffect('ADD_RESULT_EFFECT', true, 0.5);
+	pic_bg:StopUIEffect('ADD_RESULT_EFFECT', true, 0.5);
 
 
 	local item = GetIES(invItem:GetObject());
@@ -705,6 +687,15 @@ function _SUCCESS_ITEM_OPTION_ADD()
 	doAdd:ShowWindow(0)
 	local sendOK = GET_CHILD_RECURSIVELY(frame, "send_ok")
 	sendOK:ShowWindow(1)
+
+
+	local bodyGbox2 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox2');
+	bodyGbox2:ShowWindow(0)
+	local bodyGbox2_1 = GET_CHILD_RECURSIVELY(frame, 'bodyGbox2_1');
+	bodyGbox2_1:ShowWindow(0)
+
+	local text_material = GET_CHILD_RECURSIVELY(frame, "text_material")
+	text_material:ShowWindow(0)
 
 	local text_beforeadd = GET_CHILD_RECURSIVELY(frame, "text_beforeadd")
 	text_beforeadd:ShowWindow(0)
@@ -729,8 +720,7 @@ function _SUCCESS_ITEM_OPTION_ADD()
 		refreshScp(obj);
 	end
 
-	local gBox = GET_CHILD_RECURSIVELY(frame, "bodyGbox3_1");
-    local ypos = 0;
+
 	for i = 1 , MAX_OPTION_EXTRACT_COUNT do
 	    local propGroupName = "RandomOptionGroup_"..i;
 		local propName = "RandomOption_"..i;
@@ -754,16 +744,17 @@ function _SUCCESS_ITEM_OPTION_ADD()
 		if obj[propValue] ~= 0 and obj[propName] ~= "None" then
 			local opName = string.format("%s %s", ClMsg(clientMessage), ScpArgMsg(obj[propName]));
 			local strInfo = ABILITY_DESC_NO_PLUS(opName, obj[propValue], 0);
+
+			local gBox = GET_CHILD_RECURSIVELY(frame, "bodyGbox3_1")
 			local itemClsCtrl = gBox:CreateOrGetControlSet('eachproperty_in_itemrandomreset', 'PROPERTY_CSET_'..i, 0, 0);
 			itemClsCtrl = AUTO_CAST(itemClsCtrl)
 			local pos_y = itemClsCtrl:GetUserConfig("POS_Y")
-			itemClsCtrl:Move(0, i * pos_y);
+			itemClsCtrl : Move(0, i * pos_y)
 			local propertyList = GET_CHILD_RECURSIVELY(itemClsCtrl, "property_name", "ui::CRichText");
 			propertyList:SetText(strInfo)
-            ypos = i * pos_y + propertyList:GetHeight();
 		end
 	end
-    
+
 	local resultItemImg = GET_CHILD_RECURSIVELY(frame, "result_item_img")
 	resultItemImg:ShowWindow(1)
 	resultItemImg:SetImage(item.Icon)
@@ -788,9 +779,9 @@ function ADD_SUCCESS_EFFECT(frame)
 	local pic_bg = GET_CHILD_RECURSIVELY(frame, "pic_bg")
 	pic_bg:ShowWindow(0)
 
-	--result_effect_bg:PlayUIEffect(ADD_SUCCESS_EFFECT_NAME, SUCCESS_EFFECT_SCALE, 'ADD_SUCCESS_EFFECT');
+	result_effect_bg:PlayUIEffect(ADD_SUCCESS_EFFECT_NAME, SUCCESS_EFFECT_SCALE, 'ADD_SUCCESS_EFFECT');
 
-	ReserveScript("_ADD_SUCCESS_EFFECT()", 0.01)
+	ReserveScript("_ADD_SUCCESS_EFFECT()", SUCCESS_EFFECT_DURATION)
 end
 
 function  _ADD_SUCCESS_EFFECT()
@@ -803,7 +794,7 @@ function  _ADD_SUCCESS_EFFECT()
 	if result_effect_bg == nil then
 		return;
 	end
-	--result_effect_bg:StopUIEffect('ADD_SUCCESS_EFFECT', true, 0.5);
+	result_effect_bg:StopUIEffect('ADD_SUCCESS_EFFECT', true, 0.5);
 	
 end
 
@@ -838,47 +829,20 @@ function ITEMOPTIONADD_INV_RBTN(itemObj, slot)
 	if frame == nil then
 		return
 	end
-	
-	local itemCls = GetClass('Item', TryGetProp(itemObj, 'ClassName', 'None'))
-	if TryGetProp(itemCls, 'NeedRandomOption', 0) == 1 and TryGetProp(itemCls, 'LegendGroup', 'None') == 'None' then    
-		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"));
-        return;
-	end
-	
-	if TryGetProp(itemObj, 'ItemGrade') > 5 then
-		ui.SysMsg(ClMsg('CantUseGoddessItemToIcor'))
-		return
-	end
 
 	local icon = slot:GetIcon();
 	local iconInfo = icon:GetInfo();
 	local invItem = GET_PC_ITEM_BY_GUID(iconInfo:GetIESID());
 	local obj = GetIES(invItem:GetObject());
 	
+
 	local slot = GET_CHILD_RECURSIVELY(frame, "slot");
 	local slotInvItem = GET_SLOT_ITEM(slot);
 	local slotInvItemCls = nil
-	local tempItem = nil
 	if slotInvItem ~= nil then
-		tempItem = GetIES(slotInvItem:GetObject());
+		local tempItem = GetIES(slotInvItem:GetObject());
 		slotInvItemCls = GetClass('Item', tempItem.ClassName)
 	end
-
-	--이벤트 아이템 확인
-	if SHARED_IS_EVENT_ITEM_CHECK(itemObj, "NoEnchant") == true then
-		ui.SysMsg(ClMsg("IcorNotAdded_EP12_CANT1"))
-		return
-	end
-	
-	if tempItem ~= nil then		
-		local obj_add = tempItem
-		if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
-		or (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'GroupName', 'None') == 'Arcane')
-		or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
-			ui.SysMsg(ClMsg("AlearyIcorAdded"))
-			return
-		end	
-	end	
 
 	if slotInvItem ~= nil then
 		ITEM_OPTIONADD_REG_ADD_ITEM(frame, iconInfo:GetIESID())
@@ -908,55 +872,4 @@ function INVENTORY_ADD_ITEM_CHECK(slot, reinfItemObj, invItem, itemobj)
 	slot:SetUserValue("INVENTORY_ADD_ITEM_CHECK", 0);
 	local icon = slot:GetIcon();
 	icon:SetColorTone("FFFFFFFF");
-end
-
--- 인장
-local function _INIT_SLOT_FOR_OPTION_ADD(frame)
-	local slot = GET_CHILD_RECURSIVELY(frame, 'slot');
-	local slot_add = GET_CHILD_RECURSIVELY(frame, 'slot_add');
-	local slot_bg_image = GET_CHILD(slot, 'slot_bg_image');
-	local arrowbox = GET_CHILD_RECURSIVELY(frame, 'arrowbox');
-	slot:SetGravity(ui.LEFT, ui.CENTER_VERT);
-	slot:ShowWindow(1);
-	slot_bg_image:ShowWindow(0);
-	slot_add:ShowWindow(1);
-	arrowbox:ShowWindow(1);
-end
-
-local function _CREATE_COMPONENT(frame)
-	local parent = GET_CHILD_RECURSIVELY(frame, 'bodyGbox4');
-	local updownmax = CREATE_UPDOWNMAX_COMPONENT(parent, 'updownmax', {
-		x = 0, y = 0, width = 200, height = 36, 
-		margin = {0, 210, 0, 0},
-		gravity = { horz = ui.CENTER_HORZ, vert = ui.TOP },
-		maxBtnUpScp = 'SEAL_REINFORCE_MAX_BTN_CLICK',
-		upBtnUpScp = 'SEAL_REINFORCE_UP_BTN_CLICK',
-		downBtnUpScp = 'SEAL_REINFORCE_DOWN_BTN_CLICK',
-	});
-
-
-	local itemslotComp_Silver = CREATE_ITEMSLOT_MINMAXCOUNT_COMPONENT(parent, 'itemslotComp_Silver', {
-		x = 0, y = 0, width = parent:GetWidth() - 10, height = 80, 
-		margin = {0, 0, 0, 90},
-		gravity = { horz = ui.CENTER_HORZ, vert = ui.BOTTOM },
-	});
-	local moneyCls = GetClass('Item', MONEY_NAME);
-	itemslotComp_Silver:SetName(moneyCls.Name);
-
-	local itemslotComp_Item = CREATE_ITEMSLOT_MINMAXCOUNT_COMPONENT(parent, 'itemslotComp_Item', {
-		x = 0, y = 0, width = parent:GetWidth() - 10, height = 80, 
-		margin = {0, 0, 0, 0},
-		gravity = { horz = ui.CENTER_HORZ, vert = ui.BOTTOM },
-	});
-end
-
-function OPEN_SEAL_OPTION_UI()
-	local frame = ui.GetFrame('itemoptionadd');
-	frame:SetUserValue('MODE', 'REINFORCE_SEAL');
-	CLEAR_ITEMOPTIONADD_UI();
-	_SET_TITLE(frame, 'ReinforceSeal');	
-	_SHOW_MAIN_SLOT(frame, 0);
-	_INIT_SLOT_FOR_OPTION_ADD(frame);	
-	_CREATE_COMPONENT(frame);
-	frame:ShowWindow(1);
 end

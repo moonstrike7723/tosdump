@@ -54,8 +54,6 @@ function LOAD_IMAGE_LOAD_UPLOAD_LIST(frame)
                                     fileName = fileList:Element(index):c_str()};
 		sortListIndex = sortListIndex +1;
     end
-	filefind.DeleteFileList(fileList);
-
     table.sort(sortList, SORT_BY_NAME);
     -- 정렬된 리스트 중 비정상 파일 필터하고 10개 출력
     local posY = 0
@@ -120,7 +118,7 @@ end
 
 function SET_PRIVIEW_ITEM(frame, ctrlSet, fileName, posY)
     local pngFullPath =  folderPath .. "\\" .. fileName
-    
+    print(pngFullPath)
     -- 아이콘을 설정한다
 	local gb_items = GET_CHILD(ctrlSet, "gb_items", "ui::CGroupBox") 
     local rich_fileName = GET_CHILD(gb_items, "file_name", "ui::CRichText")

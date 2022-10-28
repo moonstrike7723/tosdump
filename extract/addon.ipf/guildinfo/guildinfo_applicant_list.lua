@@ -1,5 +1,6 @@
 
-local json = require "json_imc"
+
+local json = require "json"
 local applicant_list = {}
 local selected_applicant = nil
 function GUILD_APPLICANT_INIT(addon, frame)
@@ -29,6 +30,7 @@ function ON_GUILD_APPLICANT_GET(_code, ret_json)
     local frame = ui.GetFrame("guildinfo");
     local scrollPanel = GET_CHILD_RECURSIVELY(frame, "applicantMemberListBox");
 
+
     for k, v in pairs(parsed_json) do
         for x, y in pairs(v) do
             if y['is_accept'] == 0 then
@@ -47,27 +49,19 @@ function ON_GUILD_APPLICANT_GET(_code, ret_json)
                 local teamLevel = GET_CHILD_RECURSIVELY(row, 'teamLevelText');
                 teamLevel:SetTextByKey("teamlvl", txtToJson['team_lv'])
                 
-                local charNumText = GET_CHILD_RECURSIVELY(row, 'charNumText');
-                charNumText:SetTextByKey("charnum", txtToJson['character_count'])
+                local teamLevel = GET_CHILD_RECURSIVELY(row, 'charNumText');
+                teamLevel:SetTextByKey("charnum", txtToJson['character_count'])
 
-                local adventureRankText = GET_CHILD_RECURSIVELY(row, 'adventureRankText');
-                local rankNumber = tonumber(txtToJson['adventure_rank'])
-                rankNumber = rankNumber + 1;
+                local teamLevel = GET_CHILD_RECURSIVELY(row, 'adventureRankText');
+                teamLevel:SetTextByKey("adventureRank", txtToJson['adventure_rank'])
 
-                if rankNumber == 0 then -- 실제 순위보다 1 작은 값이 뜸. ex. 순위에 없을 경우 -1
+                local teamLevel = GET_CHILD_RECURSIVELY(row, 'commentText');
+                teamLevel:SetTextByKey("comment", txtToJson['msg_text'])
+                teamLevel:SetTextTooltip(txtToJson['msg_text'])
 
-                    rankNumber = ClMsg("NONE")
-                end
-                adventureRankText:SetTextByKey("adventureRank", rankNumber) 
-
-                local commentText = GET_CHILD_RECURSIVELY(row, 'commentText');
-                commentText:SetTextByKey("comment", txtToJson['msg_text'])
-                commentText:SetTextTooltip(txtToJson['msg_text'])
-                
                 local acceptBtn = GET_CHILD_RECURSIVELY(row, 'acceptJoinBtn')
                 acceptBtn:SetUserValue('account_idx', y['account_idx'])
                 acceptBtn:SetUserValue('account_team_name', y['account_team_name'])
-                acceptBtn:SetUserValue('server_guild_out_day', txtToJson['server_guild_out_day'])
                 local declineBtn = GET_CHILD_RECURSIVELY(row, 'refuseJoinBtn')
                 declineBtn:SetUserValue('account_idx', y['account_idx'])
                 declineBtn:SetUserValue('account_team_name', y['account_team_name'])
@@ -97,7 +91,7 @@ function ACCEPT_APPLICANT(parent, control)
         return;
     end
     selected_applicant = control:GetAboveControlset();
-    ApplicationUserGuildJoin(control:GetUserValue('account_idx'), control:GetUserValue('account_team_name'), control:GetUserValue('server_guild_out_day'));
+    ApplicationUserGuildJoin(control:GetUserValue('account_idx'), control:GetUserValue('account_team_name'));
     REMOVE_APPLICANT_RESUME();
 end
 
@@ -119,9 +113,6 @@ function REMOVE_APPLICANT_RESUME()
     scrollPanel:RemoveChild(selected_applicant:GetName());
     selected_applicant = nil;
     GBOX_AUTO_ALIGN(scrollPanel, 0, 0, 45, true, false, true)
-
-    --길드UI에 알림 있으면 삭제
-    SYSMENU_GUILD_NOTICE(ui.GetFrame("sysmenu"), 0)
 end
 
 function ACCEPT_SELECTED_USER()
@@ -174,30 +165,4 @@ function DECLINE_SELECTED_USER()
         scrollPanel:RemoveChild(v);
     end
     GBOX_AUTO_ALIGN(scrollPanel, 0, 0, 45, true, false, true)
-end
-
-function CHECK_APPLICATION_LIST(guild_idx)       
-    GetGuildApplicationListByGuildIDX(guild_idx, "on_check_application_list")
-end
-
-function on_check_application_list(_code, ret_json)       
-    local splitmsg = StringSplit(ret_json, " ");
-    local errorCode = splitmsg[1];
-    if _code ~= 200 then
-        if tonumber(errorCode) == 1 then
-            return;
-        end        
-        return
-    end
-    local parsed_json = json.decode(ret_json)    
-    
-    for k, v in pairs(parsed_json) do
-        for x, y in pairs(v) do
-            if y['is_accept'] == 0 then
-                local frame = ui.GetFrame("sysmenu");
-                SYSMENU_GUILD_NOTICE(frame, 1)
-                return
-            end
-        end
-    end
 end

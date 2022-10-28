@@ -29,40 +29,21 @@ end
 function LEGENDDECOMPOSE_EXECUTE(parent, ctrl)
 	local frame = parent:GetTopParentFrame();
 	local targetGuid = frame:GetUserValue('TARGET_ITEM_GUID');
-	if targetGuid == "None" then
-		return;
-	end
-	
 	local targetItem = session.GetInvItemByGuid(targetGuid);
 	if targetItem == nil then
 		return;
 	end
-    
+
 	if targetItem.isLockState == true then
 		ui.SysMsg(ClMsg('MaterialItemIsLock'));
 		return;
 	end
-	
+
 	local targetObj = GetIES(targetItem:GetObject());
-	decomposeAble = TryGetProp(targetObj, 'DecomposeAble')
-    if decomposeAble == nil or decomposeAble == "NO" then
-        ui.SysMsg(ClMsg('decomposeCant'));
-        return;
-    end
 	local rewardCls = GetClass('LegendDecompose', targetObj.LegendGroup);	
-	local matCls = GetClass('Item', rewardCls.MaterialClassName);
+	local matCls = GetClass('Item', rewardCls.MaterialClassName);	
 	local yesScp = string.format('_LEGENDDECOMPOSE_EXECUTE("%s")', targetGuid);
-	if TryGetProp(targetObj, 'UseLv', 1) >= 440 then
-	    local legendRecipeCls = GetClassByStrProp('legendrecipe', 'TargetItem', targetObj.ClassName)
-	    local matCls440 = GetClass('Item', legendRecipeCls.DecomposeItem)
-	    if matCls440 == nil then
-	        ui.SysMsg(ClMsg('decomposeCant'));
-		    return;
-		end
-	    ui.MsgBox(ScpArgMsg('ReallyDecomposeLEgendItemFor{ITEM}?_LV430_UPPER','ITEM', matCls440.Name), yesScp, 'None');
-	else
-	    ui.MsgBox(ScpArgMsg('ReallyDecomposeLEgendItemFor{ITEM}?', 'ITEM', matCls.Name), yesScp, 'None');
-    end
+	ui.MsgBox(ScpArgMsg('ReallyDecomposeLEgendItemFor{ITEM}?', 'ITEM', matCls.Name), yesScp, 'None');
 end
 
 function _LEGENDDECOMPOSE_EXECUTE(targetGuid)

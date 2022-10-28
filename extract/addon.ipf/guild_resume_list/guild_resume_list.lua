@@ -1,5 +1,5 @@
 
-local json = require "json_imc"
+local json = require "json"
 local appliedGuildList = {}
 function GUILD_RESUME_ON_INIT(addon, frame)
     appliedGuildList = {}
@@ -30,14 +30,14 @@ function ON_GUILD_RESUME_GET(_code, ret_json)
         date:SetText(v['reg_time']);
 
         local hasRead = GET_CHILD_RECURSIVELY(row, "column3");
-        local read = ClMsg("Read")
+        local read = "읽음"
         local result = v['is_accept']
         if result == 0 then
-            read = ClMsg("Unread")
+            read = "읽지않음"
         elseif result == 1 then
-            read = ClMsg("Reject")
+            read = "거절"
         elseif result == 2 then
-            read = ClMsg("Accept")
+            read = "수락"
         end
         hasRead:SetText(read);
 

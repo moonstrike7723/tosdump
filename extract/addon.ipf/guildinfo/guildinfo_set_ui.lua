@@ -1,13 +1,8 @@
-local json = require "json_imc"
+local json = require "json"
 local has_kick_claim = false
 local has_guild_war_list_claim = false;
-local claim_list={}
 function HAS_KICK_CLAIM()
     return has_kick_claim
-end
-
-function HAS_CLAIM_CODE(code)
-    return claim_list[code]
 end
 
 function HAS_GUILD_WAR_LIST_CLIAM()
@@ -20,7 +15,6 @@ end
 function SET_UI_BY_CLAIM(code, ret_json)
     has_kick_claim = false;
     has_guild_war_list_claim = false;
-    claim_list={}
     local guild = GET_MY_GUILD_INFO();
     if guild == nil then 
         return
@@ -63,16 +57,19 @@ function SET_UI_BY_CLAIM(code, ret_json)
 
     local colonyJoinBtn = GET_CHILD_RECURSIVELY(frame, 'joinRadio_0')
     local colonyJoinBtn1 = GET_CHILD_RECURSIVELY(frame, 'joinRadio_1')
---    colonyJoinBtn:SetEnable(0)
---    colonyJoinBtn1:SetEnable(0)
---    local templerCls = GetClass('Job', 'Char1_16');
---    if IS_EXIST_JOB_IN_HISTORY(templerCls.ClassID) == true then
-    colonyJoinBtn:SetEnable(isLeader)
-    colonyJoinBtn1:SetEnable(isLeader)
---    end
+    colonyJoinBtn:SetEnable(0)
+    colonyJoinBtn1:SetEnable(0)
+    local templerCls = GetClass('Job', 'Char1_16');
+    if IS_EXIST_JOB_IN_HISTORY(templerCls.ClassID) == true then
+        colonyJoinBtn:SetEnable(isLeader)
+        colonyJoinBtn1:SetEnable(isLeader)
+    end
 
     local neutralCheck = GET_CHILD_RECURSIVELY(frame, 'neutralCheck')
     neutralCheck:SetEnable(isLeader)
+
+    local postNewTxt = GET_CHILD_RECURSIVELY(frame, 'writeOnelineBoardBtn')
+    postNewTxt:SetEnable(isLeader)
 
     local promoteEdit = GET_CHILD_RECURSIVELY(frame, 'regPromoteText')
     promoteEdit:SetEnable(isLeader)
@@ -111,9 +108,6 @@ function SET_UI_BY_CLAIM(code, ret_json)
   
     for index = 1, #ownedClaimList do
         local claim = ownedClaimList[index]
-
-        claim_list[claim] = true
-
         if claim == 10 then
             has_kick_claim = true;
         elseif claim == 11 then
@@ -133,7 +127,9 @@ function SET_UI_BY_CLAIM(code, ret_json)
             depositBtn:SetEnable(1)
         elseif claim == 203 then -- 소개글 쓰기
             regPromoteText:SetEnable(1)
-            promoteSetBtn:SetEnable(1)        
+            promoteSetBtn:SetEnable(1)
+        elseif claim == 205 then -- 길드 한줄 게시판 등록
+            postNewTxt:SetEnable(1)
         elseif claim == 302 then -- 길드 전쟁 중립 설정
             neutralCheck:SetEnable(1)
         elseif claim == 303 then -- 전쟁중인 길드 목록 보기

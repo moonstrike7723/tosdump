@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Hey (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <uiframe name="guildinfo_detail" x="0" y="0" width="1090" height="900" create="open" version="2">
 	<frame title="{@st43}{s22}길드 상세정보{/}" titlepos="0 0" layout_gravity="center center" scale_align="center top"/>
 	<draw drawframe="true" drawtitlebar="false"/>
@@ -21,7 +21,7 @@
 				<layout name="promoteLayout" orientation="horizontal">
 					<layoutsection name="stub0" size="20"/>
 					<layoutsection name="tabSection">
-						<tab name="itembox" itemspc="0" skin="tab2" margin="0 15 0 0" vertical="false" targetcontrol="tabArea" LBtnDownScp="GUILDINFO_DETAIL_TAB_CLICK">
+						<tab name="itembox" itemspc="0" skin="tab2" margin="0 15 0 0" vertical="false" targetcontrol="tabArea">
 							<!-- targetcontrol="" -->
 							<tabitem name="info" caption=" {@st66}정보" width="100" skinspace="0"/>
 							<tabitem name="page" caption=" {@st66}홍보 페이지" skinspace="0" width="100"/>
@@ -34,8 +34,13 @@
 				<overlap name="tabArea">
 					<layout name="intro" margin="10 0 20 10" tabname="page" orientation="vertical">
 						<layoutsection name="introSection">
-							<groupbox name="promoBox" skin="bg" draw="false" scrollbar="true" margin="15 0 25 10">
+							<groupbox name="promoBox" skin="bg" draw="false" scrollbar="true" margin="10 0 20 0">
 								<picture name="promoPicture" forceupdate="true" layout_gravity="left top" image="mainpc_crown" stretch="false" rect="0 0 1024 3840"/>
+							</groupbox>
+						</layoutsection>
+						<layoutsection name="introTextSection" size="10%">
+							<groupbox name="introTextBox" draw="false" margin="10 0 20 0">
+								<richtext name="introText" rect="0 0 1090 990" resizebytext="true" fixwidth="true" caption="{@st43}소개글" fontname="white_16_b_ol"/>
 							</groupbox>
 						</layoutsection>
 					</layout>
@@ -119,7 +124,7 @@
 																	<richtext name="recruitingText" caption="{@s18}모집중{/}" textalign="left center" resizebytext="false" fontname="brown_16" fixwidth="false" drawbackground="false" slideshow="false"/>
 																</layoutsection>
 																<layoutsection name="recruitBtn">
-																	<button name="joinBtn" skin="test_red_button" margin="0 0 0 -4" caption="{@st41}가입 신청" LBtnUpScp="OPEN_REQUEST_GUILDJOIN_CHECK" textalign="center center"/>
+																	<button name="joinBtn" skin="test_red_button" margin="0 0 0 -4" caption="{@st41}가입 신청" LBtnUpScp="OPEN_REQUEST_GUILDJOIN" textalign="center center"/>
 																</layoutsection>
 															</layout>
 														</layoutsection>
@@ -146,22 +151,6 @@
 																</layoutsection>
 																<layoutsection name="avgTeamLvlTextSection">
 																	<richtext name="avgTeamLvlText" caption="{@s18}999{/}" textalign="left center" resizebytext="false" fontname="brown_16" fixwidth="false" drawbackground="false" slideshow="false"/>
-																</layoutsection>
-															</layout>
-														</layoutsection>
-														<layoutsection name="agitLevel">
-															<layout name="agitLevelLayout" spacing="10">
-																<layoutsection name="agitLevelLabel" size="30%">
-																	<overlap name="agitLevelOverlap">
-																		<picture name="agitLevelBg" image="name_box_beige" stretch="true"/>
-																		<richtext name="agitLevelTitleText" caption="{@s18}아지트 레벨{/}" textalign="center center" resizebytext="false" fontname="brown_16" fixwidth="false" drawbackground="false" slideshow="false"/>
-																	</overlap>
-																</layoutsection>
-																<layoutsection name="agitLevelTextSection">
-																	<richtext name="agitLevelText" format="{@s18}%s{/}" param1="level" param1_Def="1" textalign="left center" resizebytext="false" fontname="brown_16" fixwidth="false" drawbackground="false" slideshow="false"/>
-																</layoutsection>
-																<layoutsection name="preview_housing">
-																	<button name="btn_preview_housing" skin="test_red_button" margin="0 0 0 -4" caption="{@st41}미리보기" LBtnUpScp="BTN_PREVIEW_HOUSING" textalign="center center"/>
 																</layoutsection>
 															</layout>
 														</layoutsection>
@@ -192,9 +181,6 @@
 										<richtext margin="15 0 0 0" name="guildMemberLabeltext" caption="{@s18}길드원{/}" textalign="left center" resizebytext="false" fontname="white_18_ol" fixwidth="false" drawbackground="false" slideshow="false"/>
 									</overlap>
 								</layoutsection>
-								<layoutsection name="memberListOptSec" size="5%">
-									<checkbox name="showMemberWithAccept" caption="가입 승인 직급이 있는 접속한 길드원 표시" fontname="white_18_ol" LBtnUpScp="SHOW_GUILD_MEMBER_WITH_ACCEPT_AUTH"/>
-								</layoutsection>
 								<layoutsection name="memberListSec" size="free">
 									<overlap name="memberListoverlap">
 										<groupbox name="memberListBg" skin="test_frame_midle"/>
@@ -207,10 +193,6 @@
 											<layoutsection name="column3">
 												<groupbox name="memberListBg2" skin="pvp_Team_skin"/>
 											</layoutsection>
-											<layoutsection name="column4"/>
-											<layoutsection name="column5">
-												<groupbox name="memberListBg3" skin="pvp_Team_skin"/>
-											</layoutsection>
 										</layout>
 										<layout name="headerLayout" orientation="vertical">
 											<layoutsection name="headerSection" size="40">
@@ -221,19 +203,13 @@
 															<richtext name="teamName" caption="팀명" textalign="center center" fontname="black_18_b"/>
 														</layoutsection>
 														<layoutsection name="memberLvlSection">
-															<richtext name="lvl" caption="팀 레벨" textalign="center center" fontname="black_18_b"/>
-														</layoutsection>
-														<layoutsection name="topCharacterLvl1Sec">
-															<richtext name="topCharacterLvl1" caption="최고 캐릭터 레벨" textalign="center center" fontname="black_18_b"/>
+															<richtext name="lvl" caption="레벨" textalign="center center" fontname="black_18_b"/>
 														</layoutsection>
 														<layoutsection name="memberTeamName1Section">
 															<richtext name="teamName1" caption="팀명" textalign="center center" fontname="black_18_b"/>
 														</layoutsection>
 														<layoutsection name="memberLvl1Section">
-															<richtext name="lvl1" caption="팀 레벨" textalign="center center" fontname="black_18_b"/>
-														</layoutsection>
-														<layoutsection name="topCharacterLvl2Sec">
-															<richtext name="topCharacterLvl2" caption="최고 캐릭터 레벨" textalign="center center" fontname="black_18_b"/>
+															<richtext name="lvl1" caption="레벨" textalign="center center" fontname="black_18_b"/>
 														</layoutsection>
 													</layout>
 												</overlap>
@@ -251,7 +227,5 @@
 			</layoutsection>
 		</layout>
 		<button name="closeBtn" rect="0 0 60 60" margin="0 35 35 0" hittest="true" layout_gravity="right top" image="testclose_button" LBtnUpScp="ui.CloseFrame(&apos;guildinfo_detail&apos;)"/>
-		<groupbox name="joinballoongb" rect="0 0 308 40" margin="0 90 100 0" layout_gravity="right top" skin="textballoon"/>
-		<richtext name="joinText" rect="0 0 280 25" margin="0 98 110 0" layout_gravity="right top" caption="{#001100}{s18}가입을 신청할 수 있습니다." textalign="center center" resizebytext="false"/>
 	</controls>
 </uiframe>
