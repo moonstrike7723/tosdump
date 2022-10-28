@@ -393,7 +393,9 @@ function IS_TRANSCEND_SCROLL_ITEM(scrollObj)
 		return 1;
 	elseif scrollType == "transcend_Set_430" then
         return 1;
-    elseif scrollType == "transcend_Set_440_Weapon" or scrollType == "transcend_Set_440_Armor" or scrollType == "transcend_Set_440_Accessory" then
+	elseif scrollType == "transcend_Set_440" then
+		return 1;
+        elseif scrollType == "transcend_Set_440_Weapon" or scrollType == "transcend_Set_440_Armor" or scrollType == "transcend_Set_440_Accessory" then
 		return 1;
 	elseif scrollType == "transcend_Add" then
 		return 1;
@@ -436,6 +438,13 @@ function IS_TRANSCEND_SCROLL_ABLE_ITEM(itemObj, scrollType, scrollTranscend)
     elseif scrollType == "transcend_Set_430" then
         if SCR_TARGET_TRANSCEND_CHECK(itemObj, scrollTranscend) == 1 and IS_TRANSCEND_ABLE_ITEM(itemObj) == 1 then
             if Lv <= 430 then -- Is item UseLv under 430 then
+                return 1;
+            end
+        return 0
+        end
+   elseif scrollType == "transcend_Set_440" then
+        if SCR_TARGET_TRANSCEND_CHECK(itemObj, scrollTranscend) == 1 and IS_TRANSCEND_ABLE_ITEM(itemObj) == 1 then
+            if Lv <= 440 then -- Is item UseLv under 440 then
                 return 1;
             end
         return 0
@@ -493,7 +502,7 @@ function GET_ANTICIPATED_TRANSCEND_SCROLL_SUCCESS(itemObj, scrollObj)
         return;
     end
     
-    if scrollType == "transcend_Set" or scrollType == "transcend_Set_380" or scrollType == "transcend_Set_400" or scrollType == "transcend_Set_420"  or scrollType == "transcend_Set_430" then
+    if scrollType == "transcend_Set" or scrollType == "transcend_Set_380" or scrollType == "transcend_Set_400" or scrollType == "transcend_Set_420"  or scrollType == "transcend_Set_430" or scrollType == "transcend_Set_440" then
         return transcend, percent;
     elseif scrollType == "transcend_Set_440_Weapon" or scrollType == "transcend_Set_440_Armor" or scrollType == "transcend_Set_440_Accessory" then
         return transcend, percent;

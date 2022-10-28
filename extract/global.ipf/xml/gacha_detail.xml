@@ -2,9 +2,9 @@
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <idspace id="GachaDetail">
 	<Category Name="GachaDetail">
-		<Class ClassID="1" ClassName="Gacha_TP_001" Group="NPC" PreCheckScp="SCR_PRECHECK_LETICIA_CONSUME" GachaLog="SCR_PRECHECK_LETICIA_CONSUME" MsgItem="Recipe_315_Box" Price="10" ConsumeType="TP"/>/>
-		<Class ClassID="2" ClassName="Gacha_TP_010" Group="NPC" PreCheckScp="SCR_PRECHECK_LETICIA_CONSUME" GachaLog="SCR_PRECHECK_LETICIA_CONSUME" MsgItem="Recipe_315_Box" Price="100" ConsumeType="TP"/>/>
-		<Class ClassID="11" ClassName="Gacha_TP_107" Group="CUBE"/>
-		<Class ClassID="12" ClassName="Gacha_TP_108" Group="CUBE"/>
+		<Class ClassID="1" ClassName="Gacha_TP_001" Group="NPC" PreCheckScp="SCR_PRECHECK_LETICIA_CONSUME" GachaLog="SCR_PRECHECK_LETICIA_CONSUME" MsgItem="Recipe_315_Box" Price="10" ConsumeType="TP"/>
+		<Class ClassID="2" ClassName="Gacha_TP_010" Group="NPC" PreCheckScp="SCR_PRECHECK_LETICIA_CONSUME" GachaLog="SCR_PRECHECK_LETICIA_CONSUME" MsgItem="Recipe_315_Box" Price="100" ConsumeType="TP"/>
+		<Class ClassID="11" ClassName="Gacha_TP_107" Group="CUBE" ConsumeType="ITEM"/>
+		<Class ClassID="12" ClassName="Gacha_TP_108" Group="CUBE"  ConsumeType="ITEM"/>
 	</Category>
 </idspace>

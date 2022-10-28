@@ -59,7 +59,7 @@ end
 
 
 function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
-	if IS_SEASON_SERVER(self) == 'YES' then
+	if IS_SEASON_SERVER(pc) == 'YES' then
 		return
 	end
     local accountObject = GetAccountObj(pc)

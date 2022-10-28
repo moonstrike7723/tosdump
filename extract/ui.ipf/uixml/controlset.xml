@@ -1017,7 +1017,7 @@
 			<picture name="index" rect="0 0 5 5" margin="14 0 0 0" hittest="false" layout_gravity="left center" image="white_dot" stretch="true"/>
 		</controls>
 	</controlset>
-	<controlset name="partyinfo" toggle="false" hittest="false" width="450" height="62" skin="">
+	<controlset name="partyinfo" toggle="false" hittest="true" width="450" height="62" skin="" hittestset="true">
 		<controls>
 			<gauge name="hp" rect="0 0 134 22" margin="56 30 0 0" ratewidth="true" skin="party_info_gauge_hp_2" text1="{ds}{b}%v / %m" textoffset1="0 1" textfont1="white_12_ol" textalign1="center top" hittest="false" layout_gravity="left top" point="100"/>
 			<gauge name="sp" rect="0 0 134 22" margin="56 37 0 0" ratewidth="true" skin="party_info_gauge_sp_2" text1="" textoffset1="0 1" textfont1="white_12_ol" textalign1="center bottom" hittest="false" layout_gravity="left top" point="100"/>

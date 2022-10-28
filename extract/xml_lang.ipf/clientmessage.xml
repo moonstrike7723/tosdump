@@ -1759,7 +1759,7 @@
 		<Class ClassID="21389" ClassName="TargetBuffButtonToolTipMin" Data="디버프 표시를 최소화 합니다."/>
 		<Class ClassID="21390" ClassName="TargetBuffButtonToolTipMax" Data="디버프 표시를 최대화 합니다."/>
 		<Class ClassID="21391" ClassName="EndEventMessage" Data="이벤트가 종료되었습니다."/>
-        <Class ClassID="21392" ClassName="ForeverBlockMessage" Data="{Reason} 사유로 인하여{nl}이용자님의 계정은 영구적으로{nl}서버 접속이 불가능하게 되었습니다.{nl}사유 및 기간에 대하여 문의가 있을 시에는{nl}공식홈페이지를 통하여 문의 부탁드립니다."/>
+		<Class ClassID="21392" ClassName="ForeverBlockMessage" Data="{Reason} 사유로 인하여{nl}이용자님의 계정은 영구적으로{nl}서버 접속이 불가능하게 되었습니다.{nl}사유 및 기간에 대하여 문의가 있을 시에는{nl}공식홈페이지를 통하여 문의 부탁드립니다."/>
 		<Class ClassID="21393" ClassName="PeriodBlockMessage" Data="{Reason} 사유로 인하여{nl}{StartTime}부터{nl}{EndTime}까지{nl}접속이 제한되었습니다.{nl}사유 및 기간에 대하여 문의가 있을 시에는{nl}공식홈페이지를 통하여 문의 부탁드립니다."/>
 		<Class ClassID="21394" ClassName="PossibleChangeName_2{Name}" Data="{@st66d_y}{s20}{Name}{/}{/}{nl}사용 가능한 이름입니다.{nl} "/>
 		<Class ClassID="21395" ClassName="ReallCreate?" Data="생성하시겠습니까?"/>
@@ -10593,10 +10593,10 @@
 		<Class ClassID="124057" ClassName="DoNotMarketTarde" Data="마켓 거래가 가능한 거래 등급이 아닙니다."/>
 		<Class ClassID="124058" ClassName="MaxSlotCountMsg" Data="슬롯이 가득 차, 더 이상 아이템과 실버를 획득하실 수 없습니다.{nl}본 메시지 출력 이후 획득하지 못한 아이템과 실버는 복구의 대상이 되지 않습니다."/>
 		<Class ClassID="124059" ClassName="MaxSlotCountMsgCompare" Data="아이템과 실버를 획득할 수 없습니다"/>
-	<Class ClassID="124060" ClassName="TeamDeleteWarning" Data="{s20}팀 삭제 시 모든 캐릭터와 컴패니언, 유/무료 아이템,{nl}TP를 포함한 {#ffa200}모든 게임 데이터가 삭제{/}되며{nl}{#ffa200}복구가 불가능{/}합니다.(프리미엄 TP는 보존){nl} {nl}정말로 팀을 삭제하시려면, 아래 문구를 입력해 주세요.{nl}{/}"/>
+		<Class ClassID="124060" ClassName="TeamDeleteWarning" Data="{s20}팀 삭제 시 모든 캐릭터와 컴패니언, 유/무료 아이템,{nl}TP를 포함한 {#ffa200}모든 게임 데이터가 삭제{/}되며{nl}{#ffa200}복구가 불가능{/}합니다.(프리미엄 TP는 보존){nl} {nl}정말로 팀을 삭제하시려면, 아래 문구를 입력해 주세요.{nl}{/}"/>
 		<Class ClassID="124061" ClassName="TeamDeleteWarningCompare" Data="모든 데이터가 삭제되며 복구할 수 없음에 동의합니다"/>
-                <Class ClassID="124063" ClassName="TeamDeleteWarningTitle" Data="{S30}{#ffa200}게임 데이터 삭제 주의!!{/}{/}"/>
-		</Category>
+		<Class ClassID="124063" ClassName="TeamDeleteWarningTitle" Data="{S30}{#ffa200}게임 데이터 삭제 주의!!{/}{/}"/>
+	</Category>
 	<Category Name="Quest">
 		<Class ClassID="125001" ClassName="QuestAlignFilter_All" Data="모든 퀘스트"/>
 		<Class ClassID="125002" ClassName="QuestAlignFilter_Main" Data="메인 퀘스트"/>
@@ -14013,7 +14013,7 @@
 		<Class ClassID="302148" ClassName="NEW_SEASON_SERVER_COIN_CHECK_TOOLTIP_5" Data="현재 룰렛을 돌린 횟수 입니다."/>
 		<Class ClassID="302149" ClassName="EVENT_2007_GUILD_BUFF" Data="시즌 서버 버프 받기"/>
 		<Class ClassID="302163" ClassName="STAMP_TOUR_WEEK_HIDDEN_MSG" Data="{week}주차 미션 클리어 후 공개됩니다."/>
-		<Class ClassID="302164" ClassName="EVENT_SEASON_SERVER_REWARD_PROGRESS" Data="440레벨 달성 보상 ({State1}){nl}450레벨 달성 보상 ({State2}){nl}이벤트 기간: 8월 6일 ~ 10월 22일 점검 전"/>
+		<Class ClassID="302164" ClassName="EVENT_SEASON_SERVER_REWARD_PROGRESS" Data="450레벨 달성 보상 ({State1}){nl}440레벨 달성 보상 ({State2}){nl}이벤트 기간: 8월 6일 ~ 10월 22일 점검 전"/>
 		<Class ClassID="302165" ClassName="EVENT_SEASON_SERVER_REWARD_DONE" Data="이미 만랩 달성 보상을 획득하였습니다."/>
 		<Class ClassID="302182" ClassName="Recieved" Data="수령"/>
 		<Class ClassID="302183" ClassName="NotRecieved" Data="미수령"/>
@@ -14022,7 +14022,7 @@
 		<Class ClassID="302175" ClassName="EVENT_2007_GUILD_MSG3" Data="이미 버프 효과를 받고있습니다."/>
 		<Class ClassID="302176" ClassName="EVENT_2007_GUILD_DLG1" Data="촉망받는 길드 버프를 활성화를 위해서는 다음과 같은 조건이 만족되어야 합니다.{nl}1. 길드 마스터의 레벨이 440LV 이상{nl}2. 길드원이 길드 마스터 포함 10명 이상{np}길드 버프 활성화는 모든 길드원이 가능합니다.{nl}버프 활성화는 24시간 동안 유지되며, 6시간의 쿨타임이 있습니다.{nl} 버프는 맵 이동 시에 적용됩니다."/>
 		<Class ClassID="302184" ClassName="EVENT_2007_GUILD_MSG4" Data="버프가 활성화 되었습니다. 맵 이동 혹은 재 접속 시 버프가 적용됩니다."/>
-		<Class ClassID="302189" ClassName="EVENT_SEASON_SERVER_GUILD_MSG1" Data="길드 창고에 보상이 지급되었습니다."/>
+		<Class ClassID="302192" ClassName="Event_STM_APPRAISER_SEL" Data="산드라의 반짝이는 보석"/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -14077,7 +14077,7 @@
 		<Class ClassID="501010" ClassName="Wihte_Select3_1" Data="{WHITECOUNT}회 완료하셨습니다."/>
 		<Class ClassID="501011" ClassName="LevelUp_Event_Desc01" Data="{REWARD}회 보상을 수령하였습니다."/>
 		<Class ClassID="501012" ClassName="LevelUp_Event_Desc02" Data="{NEXTLV}레벨을 달성하면 보상을 받을 수 있습니다."/>
-		<Class ClassID="501013" ClassName="Steam_VerUP_Select01" Data="'레벨업 보상 상자' 받기"/>  
+		<Class ClassID="501013" ClassName="Steam_VerUP_Select01" Data="'레벨업 보상 상자' 받기"/>
 		<Class ClassID="501014" ClassName="Steam_VerUP_Select02" Data="'330 Level 보상' 받기"/>
 		<Class ClassID="501015" ClassName="Steam_VerUP_Select03" Data="목표레벨 확인"/>
 		<Class ClassID="501072" ClassName="Event_Nru2_Guide_2" Data="장비 선택"/>
@@ -14125,7 +14125,7 @@
 		<Class ClassID="501207" ClassName="EVENT_1905_TOS_CHILD_MSG1" Data="하루 획득가능한 뱃지 200개를 모두 모았습니다."/>
 		<Class ClassID="501208" ClassName="EVENT_1905_TOS_CHILD_MSG2" Data="오늘 뱃지를 총 {@st66d_y}{s18}{GET}{/}{/}개 획득하였습니다. {@st66d_y}{s18}{REMAIN}{/}{/}개의 뱃지를 더 획득할 수 있습니다."/>
 		<Class ClassID="501209" ClassName="EVENT_1905_TOS_CHILD_MSG3" Data="곧 뱃지가 지급됩니다. 뱃지 지급 전 종료시 정상적으로 아이템이 지급되지 않을 수 있습니다."/>
-		<Class ClassID="501218" ClassName="STM_SAVIOR_BUFF" Data="{#FA3366}배달원{/}{s18}{@st66d_y}{PC}{/}{/}{#FA3366}님의 피자 냄새가 느껴집니다.{/}"/>
+		<Class ClassID="501218" ClassName="STM_SAVIOR_BUFF" Data="{#FA3366}배달원{/}{s18}{@st66d_y}{PC}{/}{/}{#0088FA}님의 피자 냄새가 느껴집니다.{/}"/>
 		<Class ClassID="501219" ClassName="STM_SAVIOR_BUFF_PROP" Data="피자 버프 적용 (1시간)"/>
 		<Class ClassID="501223" ClassName="EVENT_1906_TOTAL_SHOP_MSG1" Data="하루 획득가능한 주화 200개를 모두 모았습니다."/>
 		<Class ClassID="501224" ClassName="EVENT_1906_TOTAL_SHOP_MSG2" Data="곧 주화가 지급됩니다. 주화 지급 전 종료시 정상적으로 아이템이 지급되지 않을 수 있습니다."/>
@@ -14689,7 +14689,7 @@
 		<Class ClassID="820047" ClassName="AncientComboBuffHelp" Data="{S14}※어시스터의 속성, 종족, 등급 조합에 따라 패시브가 적용됩니다.{nl}※조합된 어시스터의 레벨, 등급, 진화 등급에 따라 강화됩니다."/>
 		<Class ClassID="820048" ClassName="AncientCostOver" Data="총 코스트가 초과하여 등록할 수 없습니다."/>
 		<Class ClassID="820049" ClassName="AncientAddMaxCost" Data="어시스터 코스트가 {addCost} 증가하였습니다."/>
-		</Category>
+	</Category>
 	<Category Name="NXA">
 		<Class ClassID="900000" ClassName="NXABillingPurchaseSuccess" Data="?????????????"/>
 		<Class ClassID="900001" ClassName="NXABillingPurchaseFailed" Data="Purchase Failed"/>

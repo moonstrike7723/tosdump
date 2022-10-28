@@ -1,4 +1,4 @@
-function TRANSCEND_SCROLL_ON_INIT(addon, frame)
+﻿function TRANSCEND_SCROLL_ON_INIT(addon, frame)
 
 end
 
@@ -64,7 +64,7 @@ function TRANSCEND_SCROLL_SET_TARGET_ITEM(invframe, invItem)
 	if IS_TRANSCEND_SCROLL_ABLE_ITEM(itemObj, scrollType, scrollObj.NumberArg1) ~= 1 then
 		if scrollType == "transcend_Add" then
 			ui.SysMsg(ClMsg("TranscendScrollAddDisabledItem"));
-		elseif scrollType == "transcend_Set" or scrollType == "transcend_Set_380" or scrollType == "transcend_Set_400" or scrollType == "transcend_Set_420" or scrollType == "transcend_Set_430" then
+		elseif scrollType == "transcend_Set" or scrollType == "transcend_Set_380" or scrollType == "transcend_Set_400" or scrollType == "transcend_Set_420" or scrollType == "transcend_Set_430" or scrollType == "transcend_Set_440" then
 			ui.SysMsg(ClMsg("TranscendScrollSetDisabledItem"));
         elseif scrollType == "transcend_Set_440_Weapon" then
 			ui.SysMsg(ClMsg("TranscendScrollSetDisabledItem"));
@@ -161,7 +161,7 @@ function TRANSCEND_SCROLL_EXEC_ASK_AGAIN(frame, btn)
 	if transcend == nil then
 		if scrollType == "transcend_Add" then
 			ui.SysMsg(ClMsg("TranscendScrollAddDisabledItem"));
-		elseif scrollType == "transcend_Set" or scrollType == "transcend_Set_380" or scrollType == "transcend_Set_400" or scrollType == "transcend_Set_420" or scrollType == "transcend_Set_430" then
+		elseif scrollType == "transcend_Set" or scrollType == "transcend_Set_380" or scrollType == "transcend_Set_400" or scrollType == "transcend_Set_420" or scrollType == "transcend_Set_430" or scrollType == "transcend_Set_440" then
 			ui.SysMsg(ClMsg("TranscendScrollSetDisabledItem"));
 		elseif scrollType == "transcend_Set_440_Weapon" then
 			ui.SysMsg(ClMsg("TranscendScrollSetDisabledItem"));
@@ -389,8 +389,8 @@ function TRANSCEND_SCROLL_SELECT_TARGET_ITEM(scrollItem)
 	
 	local frame = ui.GetFrame("transcend_scroll");
 
-	local scrollObj = GetIES(scrollItem:GetObject());
-	if IS_TRANSCEND_SCROLL_ITEM(scrollObj) ~= 1 then
+	local scrollObj = GetIES(scrollItem:GetObject());	
+	if IS_TRANSCEND_SCROLL_ITEM(scrollObj) ~= 1 then	
 		return;
 	end
 	
