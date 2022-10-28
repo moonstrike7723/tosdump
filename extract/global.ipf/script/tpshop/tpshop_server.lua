@@ -198,7 +198,18 @@ function SCR_TX_TP_SHOP(pc, argList)
 		TxAddIESProp(tx, aobj, "Medal", -tpitem.Price, "NpcShop:"..itemcls.ClassID..":"..itemID, cmdIdx);
         
 		local limit, limitCount = GET_LIMITATION_TO_BUY(tpitem.ClassID);        
-		if limit ~= 'NO' then
+		
+		if limit == 'WEEKLY' then
+			local max_count = TryGetProp(tpitem, 'AccountLimitWeeklyCount', 0)
+			local prop_name = TryGetProp(tpitem, 'AccountLimitWeeklyCountProperty', 'None')
+			local cur_count = TryGetProp(aobj, prop_name, 0)
+			if cur_count >= max_count then
+				TxRollBack(tx)
+				return
+			end			
+			
+			TxAddIESProp(tx, aobj, prop_name, 1, 'NpcShop')
+		elseif limit ~= 'NO' then
 			TxAddBuyLimitCount(tx, 0, tpitem.ClassID, 1, limitCount);
 		end
 		

@@ -98,8 +98,8 @@ function SET_LINK_TEXT(linkstr)
 
 	local left = editCtrl:GetCursurLeftText();
 	local right = editCtrl:GetCursurRightText();
-	local resultText = string.format("%s%s%s", left, linkstr, right);
-	SET_CHAT_TEXT(resultText);
+	local resultText = string.format("%s%s%s", left, linkstr, right);	
+	SET_CHAT_TEXT_TO_CHATFRAME(resultText);
 end
 
 function LINK_ITEM_TEXT(invitem)

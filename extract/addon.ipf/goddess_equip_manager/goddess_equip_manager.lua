@@ -2120,7 +2120,7 @@ function _GODDESS_MGR_MAKE_RANDOM_OPTION_TEXT(gBox, item_obj, option_list)
 	local property_gbox = GET_CHILD(tooltip_equip_property_CSet, 'property_gbox', 'ui::CGroupBox')
 	
 	tooltip_equip_property_CSet:Resize(gBox:GetWidth(), tooltip_equip_property_CSet:GetHeight())
-	property_gbox:Resize(gBox:GetWidth(), property_gbox:GetHeight())
+	property_gbox:Resize(gBox:GetWidth() + 5, property_gbox:GetHeight())
 
 	local inner_yPos = 0
 	if item_obj == nil then
@@ -4888,7 +4888,7 @@ function GODDESS_MGR_CONVERT_MAT_LIST_UPDATE(frame)
 	local target_cls_id = gbox:GetUserIValue('NOW_SELECT_ITEM_ID')
 	local target_cls = GetClassByType('Item', target_cls_id)
 	if target_cls == nil then return end
-
+	
 	local pc = GetMyPCObject()
 	if pc == nil then return end
 
@@ -4900,9 +4900,23 @@ function GODDESS_MGR_CONVERT_MAT_LIST_UPDATE(frame)
 
 	local drawDivisionArrow = mat_list_bg:CreateOrGetControlSet('draw_division_arrow', 'DIVISION_ARROW', 12, 0)
 	local divisionArrow = GET_CHILD_RECURSIVELY(drawDivisionArrow, 'division_arrow')
-	
+
+	local taget_is_weapon = false
+
+	if TryGetProp(target_cls, "EquipGroup" ,"None") == "Weapon" or TryGetProp(target_cls, "EquipGroup" ,"None") == "THWeapon" or TryGetProp(target_cls, "EquipGroup" ,"None") == "SubWeapon" then
+		taget_is_weapon = true
+	end
+
 	-- material
 	local ex_group = TryGetProp(target_cls, 'ExchangeGroup', 'None')
+	
+	if ex_group == 'Weapon_Vasilisa' and taget_is_weapon == true then
+		local invCareItemCount = GetInvItemCount(pc, 'Exchange_Weapon_Book_460_14d')
+		if invCareItemCount > 0 then
+			ex_group = 'Weapon_Vasilisa_Care'
+		end
+	end
+
 	local nameList, countList = GET_EXCHANGE_WEAPONTYPE_MATERIAL(ex_group, target_cls.ClassName)
 	if nameList ~= nil and countList ~= nil and #nameList > 0 and #countList > 0 then
 		for i = 1, #nameList do

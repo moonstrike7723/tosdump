@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <skinset name="Base">
 	<skinlist category="frames">
@@ -2472,12 +2472,12 @@
 			<img name="topleft" imgrect="403 0 10 10"/>
 			<img name="topcore" imgrect="414 0 29 10"/>
 			<img name="topright" imgrect="444 0 10 10"/>
-			<img name="bodyleft" imgrect="403 10 10 15"/>
-			<img name="bodycore" imgrect="414 10 29 15"/>
-			<img name="bodyright" imgrect="444 10 10 15"/>
-			<img name="bottomleft" imgrect="403 25 10 10"/>
-			<img name="bottomcore" imgrect="414 25 29 10"/>
-			<img name="bottomright" imgrect="444 25 10 10"/>
+			<img name="bodyleft" imgrect="403 11 10 15"/>
+			<img name="bodycore" imgrect="414 11 29 15"/>
+			<img name="bodyright" imgrect="444 11 10 15"/>
+			<img name="bottomleft" imgrect="403 27 10 8"/>
+			<img name="bottomcore" imgrect="414 27 29 8"/>
+			<img name="bottomright" imgrect="444 27 10 8"/>
 		</skin>
 		<skin name="test_skill_tooltip" texture="\skin\pip_test.tga">
 			<img name="topleft" imgrect="455 503 150 110"/>
@@ -4604,17 +4604,6 @@
 			<img name="bottomcore" imgrect="542 53 50 1"/>
 			<img name="bottomright" imgrect="593 53 150 1"/>
 		</skin>
-		<skin name="base_btn_shadow" texture="\skin\guild_community.tga">
-			<img name="topleft" imgrect="282 48 29 15"/>
-			<img name="topcore" imgrect="312 48 30 15"/>
-			<img name="topright" imgrect="343 48 29 15"/>
-			<img name="bodyleft" imgrect="282 64 29 5"/>
-			<img name="bodycore" imgrect="312 64 30 5"/>
-			<img name="bodyright" imgrect="343 64 29 5"/>
-			<img name="bottomleft" imgrect="282 70 29 15"/>
-			<img name="bottomcore" imgrect="312 70 30 15"/>
-			<img name="bottomright" imgrect="343 70 29 15"/>
-		</skin>
 		<skin name="housing_property_list_bg" texture="\skin\housing_workroom.tga">
 			<img name="topleft" imgrect="581 55 30 30"/>
 			<img name="topcore" imgrect="612 55 30 30"/>
@@ -4648,6 +4637,72 @@
 			<img name="bottomcore" imgrect="785 14 5 1"/>
 			<img name="bottomright" imgrect="791 14 40 1"/>
 		</skin>
+		<skin name="guild_community_tab_line" texture="\skin\guild_community.tga">
+			<img name="topleft" imgrect="275 51 1 10"/>
+			<img name="topcore" imgrect="277 51 1 10"/>
+			<img name="topright" imgrect="279 51 1 10"/>
+			<img name="bodyleft" imgrect="275 62 1 10"/>
+			<img name="bodycore" imgrect="277 62 1 10"/>
+			<img name="bodyright" imgrect="279 62 1 10"/>
+			<img name="bottomleft" imgrect="275 73 1 10"/>
+			<img name="bottomcore" imgrect="277 73 1 10"/>
+			<img name="bottomright" imgrect="279 73 1 10"/>
+		</skin>
+		<skin name="guild_community_notice" texture="\skin\guild_community.tga">
+			<img name="topleft" imgrect="217 51 20 20"/>
+			<img name="topcore" imgrect="238 51 15 20"/>
+			<img name="topright" imgrect="254 51 20 20"/>
+			<img name="bodyleft" imgrect="217 72 20 4"/>
+			<img name="bodycore" imgrect="238 72 15 4"/>
+			<img name="bodyright" imgrect="254 72 20 4"/>
+			<img name="bottomleft" imgrect="217 77 20 20"/>
+			<img name="bottomcore" imgrect="238 77 15 20"/>
+			<img name="bottomright" imgrect="254 77 20 20"/>
+		</skin>
+		<skin name="guild_community_notice_label" texture="\skin\guild_community.tga">
+			<img name="topleft" imgrect="279 42 15 1"/>
+			<img name="topcore" imgrect="295 42 15 1"/>
+			<img name="topright" imgrect="311 42 15 1"/>
+			<img name="bodyleft" imgrect="279 44 15 1"/>
+			<img name="bodycore" imgrect="295 44 15 1"/>
+			<img name="bodyright" imgrect="311 44 15 1"/>
+			<img name="bottomleft" imgrect="279 46 15 1"/>
+			<img name="bottomcore" imgrect="295 46 15 1"/>
+			<img name="bottomright" imgrect="311 46 15 1"/>
+		</skin>
+		<skin name="base_btn_shadow" texture="\skin\guild_community.tga">
+			<img name="topleft" imgrect="282 48 29 15"/>
+			<img name="topcore" imgrect="312 48 30 15"/>
+			<img name="topright" imgrect="343 48 29 15"/>
+			<img name="bodyleft" imgrect="282 64 29 5"/>
+			<img name="bodycore" imgrect="312 64 30 5"/>
+			<img name="bodyright" imgrect="343 64 29 5"/>
+			<img name="bottomleft" imgrect="282 70 29 15"/>
+			<img name="bottomcore" imgrect="312 70 30 15"/>
+			<img name="bottomright" imgrect="343 70 29 15"/>
+		</skin>
+		<skin name="guild_community_notice_select_cursoron" texture="\skin\guild_community.tga">
+			<img name="topleft" imgrect="446 0 17 17"/>
+			<img name="topcore" imgrect="464 0 17 17"/>
+			<img name="topright" imgrect="482 0 17 17"/>
+			<img name="bodyleft" imgrect="446 18 17 5"/>
+			<img name="bodycore" imgrect="464 18 17 5"/>
+			<img name="bodyright" imgrect="482 18 17 5"/>
+			<img name="bottomleft" imgrect="446 24 17 17"/>
+			<img name="bottomcore" imgrect="464 24 17 17"/>
+			<img name="bottomright" imgrect="482 24 17 17"/>
+		</skin>
+		<skin name="guild_community_notice_select_clicked" texture="\skin\guild_community.tga">
+			<img name="topleft" imgrect="446 0 17 17"/>
+			<img name="topcore" imgrect="464 0 17 17"/>
+			<img name="topright" imgrect="482 0 17 17"/>
+			<img name="bodyleft" imgrect="446 18 17 5"/>
+			<img name="bodycore" imgrect="464 18 17 5"/>
+			<img name="bodyright" imgrect="482 18 17 5"/>
+			<img name="bottomleft" imgrect="446 24 17 17"/>
+			<img name="bottomcore" imgrect="464 24 17 17"/>
+			<img name="bottomright" imgrect="482 24 17 17"/>
+		</skin>
 		<skin name="base_btn_select" texture="\skin\pip_test.tga">
 			<img name="topleft" imgrect="1585 1172 45 32"/>
 			<img name="topcore" imgrect="1631 1172 10 32"/>
@@ -4658,6 +4713,17 @@
 			<img name="bottomleft" imgrect="1585 1221 45 32"/>
 			<img name="bottomcore" imgrect="1631 1221 10 32"/>
 			<img name="bottomright" imgrect="1642 1221 45 32"/>
+		</skin>
+		<skin name="guild_community_notice_detail" texture="\skin\guild_community.tga">
+			<img name="topleft" imgrect="129 181 30 30"/>
+			<img name="topcore" imgrect="160 181 30 30"/>
+			<img name="topright" imgrect="191 181 30 30"/>
+			<img name="bodyleft" imgrect="129 212 30 30"/>
+			<img name="bodycore" imgrect="160 212 30 30"/>
+			<img name="bodyright" imgrect="191 212 30 30"/>
+			<img name="bottomleft" imgrect="129 243 30 30"/>
+			<img name="bottomcore" imgrect="160 243 30 30"/>
+			<img name="bottomright" imgrect="191 243 30 30"/>
 		</skin>
 		<skin name="Chat_Balloon_Cat" texture="\skin\say_balloon.tga">
 			<img name="topleft" imgrect="86 927 15 30"/>
@@ -4681,7 +4747,7 @@
 			<img name="bottomcore" imgrect="114 1042 10 30"/>
 			<img name="bottomright" imgrect="125 1042 50 30"/>
 		</skin>
-	<skin name="alchemist_ui_slotframe_9patch" texture="\skin\glimoire_skin.tga">
+		<skin name="alchemist_ui_slotframe_9patch" texture="\skin\glimoire_skin.tga">
 			<img name="topleft" imgrect="594 416 20 20"/>
 			<img name="topcore" imgrect="615 416 20 20"/>
 			<img name="topright" imgrect="636 416 20 20"/>
@@ -4713,6 +4779,28 @@
 			<img name="bottomleft" imgrect="86 1145 30 15"/>
 			<img name="bottomcore" imgrect="117 1145 30 15"/>
 			<img name="bottomright" imgrect="148 1145 30 15"/>
+		</skin>
+		<skin name="check_period" texture="\skin\attendance_sheet_skin.tga">
+			<img name="topleft" imgrect="891 494 10 10"/>
+			<img name="topcore" imgrect="902 494 10 10"/>
+			<img name="topright" imgrect="913 494 10 10"/>
+			<img name="bodyleft" imgrect="891 505 10 6"/>
+			<img name="bodycore" imgrect="902 505 10 6"/>
+			<img name="bodyright" imgrect="913 505 10 6"/>
+			<img name="bottomleft" imgrect="891 512 10 10"/>
+			<img name="bottomcore" imgrect="902 512 10 10"/>
+			<img name="bottomright" imgrect="913 512 10 10"/>
+		</skin>
+		<skin name="Attendance_check_period" texture="\skin\attendance_sheet_skin.tga">
+			<img name="topleft" imgrect="924 494 10 10"/>
+			<img name="topcore" imgrect="935 494 10 10"/>
+			<img name="topright" imgrect="946 494 10 10"/>
+			<img name="bodyleft" imgrect="924 505 10 6"/>
+			<img name="bodycore" imgrect="935 505 10 6"/>
+			<img name="bodyright" imgrect="946 505 10 6"/>
+			<img name="bottomleft" imgrect="924 512 10 10"/>
+			<img name="bottomcore" imgrect="935 512 10 10"/>
+			<img name="bottomright" imgrect="946 512 10 10"/>
 		</skin>
 	</skinlist>
 	<skinlist category="testje2_buttons">
@@ -8879,6 +8967,8 @@
 		<image name="highcolorgem_CON" file="\skin\pip_test_item.tga" imgrect="964 1372 240 240"/>
 		<image name="600percent_image2" file="\skin\paid_skin.tga" imgrect="837 664 100 45" CMM_Caption="경험의 서 600"/>
 		<image name="1200percent_image2" file="\skin\paid_skin.tga" imgrect="938 664 100 45" CMM_Caption="경험의 서 1200"/>
+		<image name="class_tree_mark" file="\skin\class_tree.tga" imgrect="1 824 159 158" CMM_Caption="클래식 전직 마크"/>
+		<image name="plus_button_plusimag" file="\skin\pip_test.tga" imgrect="2049 328 31 31" CMM_Caption="플러스 버튼의 플러스 이미지만 뗌"/>
 		<image name="Chat_Balloon_Cat_direction" file="\skin\say_balloon.tga" imgrect="1 685 82 75" CMM_Caption="고양이 말꼬리"/>
 		<image name="Chat_Balloon_Cat_deco1" file="\skin\say_balloon.tga" imgrect="153 927 38 27" CMM_Caption="고양이 데코01"/>
 		<image name="Chat_Balloon_Cat_deco2" file="\skin\say_balloon.tga" imgrect="153 955 37 35" CMM_Caption="고양이 데코02"/>
@@ -9557,10 +9647,19 @@
 		<image name="inventory_ark" file="\skin\pip_test2.tga" imgrect="39 637 38 61" CMM_Caption="아크 탭"/>
 		<image name="inventory_ark_cursoron" file="\skin\pip_test2.tga" imgrect="78 637 38 61"/>
 		<image name="inventory_ark_clicked" file="\skin\pip_test2.tga" imgrect="0 637 38 61"/>
+		<image name="ridepet_short_btn" file="\skin\pip_test2.tga" imgrect="117 513 35 35" CMM_Caption="탈 것 버튼"/>
+		<image name="ridepet_short_btn_cursoron" file="\skin\pip_test2.tga" imgrect="153 513 35 35"/>
+		<image name="ridepet_short_btn_clicked" file="\skin\pip_test2.tga" imgrect="153 513 35 35"/>
 		<image name="journey_career_btn_mark" file="\skin\pip_test.tga" imgrect="1792 1025 26 29" CMM_Caption="장비보관함 버튼"/>
 		<image name="inventory_quest" file="\skin\pip_test2.tga" imgrect="39 699 38 61" CMM_Caption="인벤토리_퀘스트"/>
 		<image name="inventory_quest_cursoron" file="\skin\pip_test2.tga" imgrect="78 699 38 61"/>
 		<image name="inventory_quest_clicked" file="\skin\pip_test2.tga" imgrect="0 699 38 61"/>
+		<image name="bgm_cancel_simple_black" file="\skin\bgm_player.tga" imgrect="530 476 13 14" CMM_Caption="캔슬 버튼 배리"/>
+		<image name="bgm_cancel_simple_black_cursoron" file="\skin\bgm_player.tga" imgrect="544 476 13 14"/>
+		<image name="bgm_cancel_simple_black_clicked" file="\skin\bgm_player.tga" imgrect="558 476 13 14"/>
+		<image name="GuildColony_MemberCheck_btn" file="\skin\PVP_skin.tga" imgrect="1013 737 67 63" CMM_Caption="콜로니전 길드원 배치 현황 버튼"/>
+		<image name="GuildColony_MemberCheck_btn_cursoron" file="\skin\PVP_skin.tga" imgrect="1081 737 67 63"/>
+		<image name="GuildColony_MemberCheck_btn_clicked" file="\skin\PVP_skin.tga" imgrect="1149 737 67 63"/>
 	</imagelist>
 	<imagelist category="yiseul_button">
 		<image name="pvpmine_shop_btn" file="\skin\pip_test.tga" imgrect="2049 61 66 59" CMM_Caption="용병단 증표 ui 버튼"/>
@@ -9716,6 +9815,9 @@
 		<image name="pvpmine_shop_btn_total" file="\skin\button_small.tga" imgrect="135 291 44 44" CMM_Caption="용병단 증표 상점 리사이즈"/>
 		<image name="pvpmine_shop_btn_total_cursoron" file="\skin\button_small.tga" imgrect="180 291 44 44"/>
 		<image name="pvpmine_shop_btn_total_clicked" file="\skin\button_small.tga" imgrect="225 291 44 44"/>
+		<image name="Change_Character_btn" file="\skin\button_small.tga" imgrect="270 245 56 56" CMM_Caption="캐릭터 체인지 버튼"/>
+		<image name="Change_Character_btn_cursoron" file="\skin\button_small.tga" imgrect="327 245 56 56"/>
+		<image name="Change_Character_btn_clicked" file="\skin\button_small.tga" imgrect="384 245 56 56"/>
 	</imagelist>
 	<imagelist category="worldmap_image">
 		<image name="worldmap2_mainmap" file="\skin\worldmap\worldmap2_mainmap.jpg" imgrect="0 0 1920 1080" CMM_Caption="월드맵배경"/>
@@ -10147,6 +10249,7 @@
 		<image name="companion_penguin_blue" file="\icon\companion_Velhider.tga" imgrect="80 240 80 80"/>
 		<image name="companion_lessrpanda_gray" file="\icon\companion_Velhider.tga" imgrect="160 240 80 80"/>
 		<image name="companion_sled" file="\icon\companion_Velhider.tga" imgrect="240 240 80 80"/>
+		<image name="companion_sled_blue" file="\icon\companion_Velhider.tga" imgrect="560 0 80 80"/>
 		<image name="companion_Armadilo" file="\icon\companion_Velhider.tga" imgrect="320 0 80 80"/>
 		<image name="companion_goro_suit" file="\icon\companion_Velhider.tga" imgrect="320 80 80 80"/>
 		<image name="companion_gold_goro" file="\icon\companion_Velhider.tga" imgrect="320 160 80 80"/>
@@ -11649,9 +11752,9 @@
 		<image name="minimap_team" file="\icon\minimap_icon3.tga" imgrect="340 587 80 80"/>
 		<image name="minimap_dungeon" file="\icon\minimap_icon3.tga" imgrect="432 653 80 80"/>
 		<image name="minimap_indun" file="\icon\minimap_icon3.tga" imgrect="432 734 80 80"/>
-		<image name="minimap_1_KEYQUEST" file="\icon\minimap_icon3.tga" imgrect="0 882 84 84"/>
-		<image name="minimap_2_KEYQUEST" file="\icon\minimap_icon3.tga" imgrect="85 882 84 84"/>
-		<image name="minimap_3_KEYQUEST" file="\icon\minimap_icon3.tga" imgrect="170 882 84 84"/>
+		<image name="minimap_1_except" file="\icon\minimap_icon3.tga" imgrect="0 882 84 84"/>
+		<image name="minimap_2_except" file="\icon\minimap_icon3.tga" imgrect="85 882 84 84"/>
+		<image name="minimap_3_except" file="\icon\minimap_icon3.tga" imgrect="170 882 84 84"/>
 		<image name="questinfo_1_KEYQUEST" file="\icon\minimap_icon3.tga" imgrect="219 809 72 72"/>
 		<image name="questinfo_2_KEYQUEST" file="\icon\minimap_icon3.tga" imgrect="293 809 72 72"/>
 		<image name="questinfo_3_KEYQUEST" file="\icon\minimap_icon3.tga" imgrect="255 882 72 72"/>
@@ -11671,6 +11774,9 @@
 		<image name="minimap_3_REPUTATION" file="\icon\minimap_icon3.tga" imgrect="170 967 84 84"/>
 		<image name="minimap_portal2" file="\icon\minimap_icon3.tga" imgrect="0 1052 80 80"/>
 		<image name="minimap_lucky" file="\icon\minimap_icon3.tga" imgrect="81 1052 80 80"/>
+		<image name="minimap_1_KEYQUEST" file="\icon\minimap_icon3.tga" imgrect="162 1052 84 84"/>
+		<image name="minimap_2_KEYQUEST" file="\icon\minimap_icon3.tga" imgrect="247 1052 84 84"/>
+		<image name="minimap_3_KEYQUEST" file="\icon\minimap_icon3.tga" imgrect="332 1052 84 84"/>
 	</imagelist>
 	<imagelist category="quest_tags">
 		<image name="quest_tag_1_MAIN" file="\icon\minimap_icon.tga" imgrect="61 31 16 16"/>
@@ -12148,6 +12254,7 @@
 		<image name="InsaneMarnoks" file="\npcimg\InsaneMarnoks.png" imgrect="0 0 800 900" CMM_Caption="광기의 마르녹스"/>
 		<image name="Paulius_before" file="\npcimg\Paulius_before.png" imgrect="0 0 800 900" CMM_Caption="파울루스 기본"/>
 		<image name="Paulius_after" file="\npcimg\Paulius_after.png" imgrect="0 0 800 900" CMM_Caption="파울루스 유령"/>
+		<image name="Dlg_port_ElVoladorMascaras" file="\npcimg\ElVoladorMascaras.png" imgrect="0 0 800 900" CMM_Caption="루차도르 마스터"/>
 	</imagelist>
 	<imagelist category="Dlg_boss">
 		<image name="balloon_Skiaclipse" file="\skin\monster_Dlg.tga" imgrect="0 0 220 260" CMM_Caption="스키아클립스"/>
@@ -12734,6 +12841,11 @@
 		<image name="icon_TOSHero_Buff_Summon_1" file="\icon\buff_icon5.tga" imgrect="640 512 128 128" CMM_Caption="소환수 강화 1"/>
 		<image name="icon_TOSHero_Buff_Summon_2" file="\icon\buff_icon5.tga" imgrect="768 512 128 128" CMM_Caption="소환수 강화 2"/>
 		<image name="icon_TOSHero_Buff_Summon_3" file="\icon\buff_icon5.tga" imgrect="896 512 128 128" CMM_Caption="소환수 강화 3"/>
+		<image name="icon_buff_ridepet_AshLion" file="\icon\buff_icon5.tga" imgrect="256 640 128 128" CMM_Caption="애시라이온"/>
+		<image name="icon_buff_ridepet_KogiBird" file="\icon\buff_icon5.tga" imgrect="384 640 128 128" CMM_Caption="코기버드"/>
+		<image name="icon_buff_ridepet_HelioGriffin" file="\icon\buff_icon5.tga" imgrect="512 640 128 128" CMM_Caption="헬리오그리핀"/>
+		<image name="icon_buff_ridepet_NautilusSnail" file="\icon\buff_icon5.tga" imgrect="640 640 128 128" CMM_Caption="앵무달풍"/>
+		<image name="icon_buff_ridepet_PolarReindeer" file="\icon\buff_icon5.tga" imgrect="768 640 128 128" CMM_Caption="북극순록"/>
 		<image name="icon_Vasilissa_Petrify" file="\icon\buff_icon5.tga" imgrect="896 640 128 128" CMM_Caption="석화"/>
 		<image name="icon_Vasilissa_AquaPrison" file="\icon\buff_icon5.tga" imgrect="0 768 128 128" CMM_Caption="물감옥"/>
 		<image name="icon_Vasilissa_Unrecovery" file="\icon\buff_icon5.tga" imgrect="128 768 128 128" CMM_Caption="회복 불가"/>
@@ -12756,7 +12868,15 @@
 		<image name="icon_TOSHero_Buff_Random_1" file="\icon\buff_icon5.tga" imgrect="256 1024 128 128" CMM_Caption="랜덤 버프"/>
 		<image name="icon_Event_2108_Archeology" file="\icon\buff_icon5.tga" imgrect="384 1024 128 128" CMM_Caption="고고학 버프"/>
 		<image name="icon_ridepet_ep13raincoat_buff" file="\icon\buff_icon5.tga" imgrect="512 1024 128 128" CMM_Caption="금붕어 버프"/>
+		<image name="icon_TOSHero_MAPPATTERN_DONTOUT_OFF" file="\icon\buff_icon5.tga" imgrect="640 1024 128 128" CMM_Caption="마력 전소"/>
+		<image name="icon_TOSHero_PainBarrier" file="\icon\buff_icon5.tga" imgrect="768 1024 128 128" CMM_Caption="영웅심"/>
+		<image name="icon_TOSHero_Ordeal" file="\icon\buff_icon5.tga" imgrect="896 1024 128 128" CMM_Caption="시련의 연속"/>
+		<image name="icon_TOSHero_OvercomeOrdeal" file="\icon\buff_icon5.tga" imgrect="0 1152 128 128" CMM_Caption="시련 극복"/>
+		<image name="icon_TOSHero_Scatter" file="\icon\buff_icon5.tga" imgrect="128 1152 128 128" CMM_Caption="산개"/>
+		<image name="icon_buff_luchador2" file="\icon\buff_icon5.tga" imgrect="384 1152 128 128" CMM_Caption="엔마스카라도: 부세안도 버프"/>
+		<image name="icon_buff_luchador3" file="\icon\buff_icon5.tga" imgrect="512 1152 128 128" CMM_Caption="엔마스카라도: 로단도 버프"/>
 		<image name="icon_Event_Buff_Stew" file="\icon\buff_icon5.tga" imgrect="896 1152 128 128" CMM_Caption="할로윈 이벤트 스튜"/>
+		<image name="icon_ridepet_noblepopo_buff" file="\icon\buff_icon5.tga" imgrect="0 1280 128 128" CMM_Caption="노블포포"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>
@@ -13370,7 +13490,110 @@
 		<image name="plate_achieve_Vasilisa_clear_01" file="\skin\user_title_skin.tga" imgrect="0 434 214 34" CMM_Caption="바실리사_클리어 동"/>
 		<image name="plate_achieve_Vasilisa_clear_02" file="\skin\user_title_skin.tga" imgrect="215 434 214 34" CMM_Caption="바실리사_클리어 은"/>
 		<image name="plate_achieve_Vasilisa_clear_03" file="\skin\user_title_skin.tga" imgrect="430 434 214 34" CMM_Caption="바실리사_클리어 금"/>
+		<image name="plate_achieve_Master_of_Barbarian" file="\skin\user_title_skin.tga" imgrect="864 0 214 34" CMM_Caption="소드맨 계열_18종"/>
+		<image name="plate_achieve_Master_of_Blossom_Blader" file="\skin\user_title_skin.tga" imgrect="1079 0 214 34"/>
+		<image name="plate_achieve_Master_of_Cataphract" file="\skin\user_title_skin.tga" imgrect="864 35 214 34"/>
+		<image name="plate_achieve_Master_of_Doppelsoeldner" file="\skin\user_title_skin.tga" imgrect="1079 35 214 34"/>
+		<image name="plate_achieve_Master_of_Dragoon" file="\skin\user_title_skin.tga" imgrect="864 70 214 34"/>
+		<image name="plate_achieve_Master_of_Fencer" file="\skin\user_title_skin.tga" imgrect="1079 70 214 34"/>
+		<image name="plate_achieve_Master_of_Hackapell" file="\skin\user_title_skin.tga" imgrect="864 105 214 34"/>
+		<image name="plate_achieve_Master_of_Highlander" file="\skin\user_title_skin.tga" imgrect="1079 105 214 34"/>
+		<image name="plate_achieve_Master_of_Hoplite" file="\skin\user_title_skin.tga" imgrect="864 140 214 34"/>
+		<image name="plate_achieve_Master_of_Lancer" file="\skin\user_title_skin.tga" imgrect="1079 140 214 34"/>
+		<image name="plate_achieve_Master_of_Matador" file="\skin\user_title_skin.tga" imgrect="864 175 214 34"/>
+		<image name="plate_achieve_Master_of_Murmillo" file="\skin\user_title_skin.tga" imgrect="1079 175 214 34"/>
+		<image name="plate_achieve_Master_of_Nak_Muay" file="\skin\user_title_skin.tga" imgrect="864 210 214 34"/>
+		<image name="plate_achieve_Master_of_Peltasta" file="\skin\user_title_skin.tga" imgrect="1079 210 214 34"/>
+		<image name="plate_achieve_Master_of_Retiarii" file="\skin\user_title_skin.tga" imgrect="864 245 214 34"/>
+		<image name="plate_achieve_Master_of_Rodelero" file="\skin\user_title_skin.tga" imgrect="1079 245 214 34"/>
+		<image name="plate_achieve_Master_of_Templar" file="\skin\user_title_skin.tga" imgrect="864 280 214 34"/>
+		<image name="plate_achieve_Master_of_Warrior" file="\skin\user_title_skin.tga" imgrect="1079 280 214 34"/>
+		<image name="plate_achieve_Master_of_Ardito" file="\skin\user_title_skin.tga" imgrect="864 315 214 34" CMM_Caption="스카우트 계열_16종"/>
+		<image name="plate_achieve_Master_of_Assassin" file="\skin\user_title_skin.tga" imgrect="1079 315 214 34"/>
+		<image name="plate_achieve_Master_of_Bullet_Marker" file="\skin\user_title_skin.tga" imgrect="864 350 214 34"/>
+		<image name="plate_achieve_Master_of_Clown" file="\skin\user_title_skin.tga" imgrect="1079 350 214 34"/>
+		<image name="plate_achieve_Master_of_Corsair" file="\skin\user_title_skin.tga" imgrect="864 385 214 34"/>
+		<image name="plate_achieve_Master_of_Enchanter" file="\skin\user_title_skin.tga" imgrect="1079 385 214 34"/>
+		<image name="plate_achieve_Master_of_Linker" file="\skin\user_title_skin.tga" imgrect="645 429 214 34"/>
+		<image name="plate_achieve_Master_of_Outlaw" file="\skin\user_title_skin.tga" imgrect="860 429 214 34"/>
+		<image name="plate_achieve_Master_of_Rangda" file="\skin\user_title_skin.tga" imgrect="1075 429 214 34"/>
+		<image name="plate_achieve_Master_of_Rogue" file="\skin\user_title_skin.tga" imgrect="0 469 214 34"/>
+		<image name="plate_achieve_Master_of_Schwarzer_Reiter" file="\skin\user_title_skin.tga" imgrect="215 469 214 34"/>
+		<image name="plate_achieve_Master_of_Scout" file="\skin\user_title_skin.tga" imgrect="430 469 214 34"/>
+		<image name="plate_achieve_Master_of_Sheriff" file="\skin\user_title_skin.tga" imgrect="645 469 214 34"/>
+		<image name="plate_achieve_Master_of_Shinobi" file="\skin\user_title_skin.tga" imgrect="860 469 214 34"/>
+		<image name="plate_achieve_Master_of_Squire" file="\skin\user_title_skin.tga" imgrect="1075 469 214 34"/>
+		<image name="plate_achieve_Master_of_Thaumaturge" file="\skin\user_title_skin.tga" imgrect="0 504 214 34"/>
+		<image name="plate_achieve_Master_of_Cannoneer" file="\skin\user_title_skin.tga" imgrect="215 504 214 34" CMM_Caption="아처 계열_18종"/>
+		<image name="plate_achieve_Master_of_Appraiser" file="\skin\user_title_skin.tga" imgrect="430 504 214 34"/>
+		<image name="plate_achieve_Master_of_Arbalester" file="\skin\user_title_skin.tga" imgrect="645 504 214 34"/>
+		<image name="plate_achieve_Master_of_Archer" file="\skin\user_title_skin.tga" imgrect="860 504 214 34"/>
+		<image name="plate_achieve_Master_of_Arquebusier" file="\skin\user_title_skin.tga" imgrect="1075 504 214 34"/>
+		<image name="plate_achieve_Master_of_Musketeer" file="\skin\user_title_skin.tga" imgrect="0 539 214 34"/>
+		<image name="plate_achieve_Master_of_Falconer" file="\skin\user_title_skin.tga" imgrect="215 539 214 34"/>
+		<image name="plate_achieve_Master_of_Fletcher" file="\skin\user_title_skin.tga" imgrect="430 539 214 34"/>
+		<image name="plate_achieve_Master_of_Hunter" file="\skin\user_title_skin.tga" imgrect="645 539 214 34"/>
+		<image name="plate_achieve_Master_of_Matross" file="\skin\user_title_skin.tga" imgrect="860 539 214 34"/>
+		<image name="plate_achieve_Master_of_Mergen" file="\skin\user_title_skin.tga" imgrect="1075 539 214 34"/>
+		<image name="plate_achieve_Master_of_Pied_Piper" file="\skin\user_title_skin.tga" imgrect="0 574 214 34"/>
+		<image name="plate_achieve_Master_of_Poison_Shooter" file="\skin\user_title_skin.tga" imgrect="215 574 214 34"/>
+		<image name="plate_achieve_Master_of_Quarrel_Shooter" file="\skin\user_title_skin.tga" imgrect="430 574 214 34"/>
+		<image name="plate_achieve_Master_of_Ranger" file="\skin\user_title_skin.tga" imgrect="645 574 214 34"/>
+		<image name="plate_achieve_Master_of_Sapper" file="\skin\user_title_skin.tga" imgrect="860 574 214 34"/>
+		<image name="plate_achieve_Master_of_Tiger_Hunter" file="\skin\user_title_skin.tga" imgrect="1075 574 214 34"/>
+		<image name="plate_achieve_Master_of_Wugushi" file="\skin\user_title_skin.tga" imgrect="0 609 214 34"/>
+		<image name="plate_achieve_Master_of_Elementalist" file="\skin\user_title_skin.tga" imgrect="215 609 214 34" CMM_Caption="위저드 계열_18종"/>
+		<image name="plate_achieve_Master_of_Alchemist" file="\skin\user_title_skin.tga" imgrect="430 609 214 34"/>
+		<image name="plate_achieve_Master_of_Bokor" file="\skin\user_title_skin.tga" imgrect="645 609 214 34"/>
+		<image name="plate_achieve_Master_of_Chronomancer" file="\skin\user_title_skin.tga" imgrect="860 609 214 34"/>
+		<image name="plate_achieve_Master_of_Cryomancer" file="\skin\user_title_skin.tga" imgrect="1075 609 214 34"/>
+		<image name="plate_achieve_Master_of_Rune_Caster" file="\skin\user_title_skin.tga" imgrect="0 644 214 34"/>
+		<image name="plate_achieve_Master_of_Featherfoot" file="\skin\user_title_skin.tga" imgrect="215 644 214 34"/>
+		<image name="plate_achieve_Master_of_Necromancer" file="\skin\user_title_skin.tga" imgrect="430 644 214 34"/>
+		<image name="plate_achieve_Master_of_Onmyoji" file="\skin\user_title_skin.tga" imgrect="645 644 214 34"/>
+		<image name="plate_achieve_Master_of_Psychokino" file="\skin\user_title_skin.tga" imgrect="860 644 214 34"/>
+		<image name="plate_achieve_Master_of_Pyromancer" file="\skin\user_title_skin.tga" imgrect="1075 644 214 34"/>
+		<image name="plate_achieve_Master_of_Sage" file="\skin\user_title_skin.tga" imgrect="0 679 214 34"/>
+		<image name="plate_achieve_Master_of_Shadowmancer" file="\skin\user_title_skin.tga" imgrect="215 679 214 34"/>
+		<image name="plate_achieve_Master_of_Sorcerer" file="\skin\user_title_skin.tga" imgrect="430 679 214 34"/>
+		<image name="plate_achieve_Master_of_Taoist" file="\skin\user_title_skin.tga" imgrect="645 679 214 34"/>
+		<image name="plate_achieve_Master_of_Terramancer" file="\skin\user_title_skin.tga" imgrect="860 679 214 34"/>
+		<image name="plate_achieve_Master_of_Warlock" file="\skin\user_title_skin.tga" imgrect="1075 679 214 34"/>
+		<image name="plate_achieve_Master_of_Wizard" file="\skin\user_title_skin.tga" imgrect="0 714 214 34"/>
+		<image name="plate_achieve_Master_of_Chaplain" file="\skin\user_title_skin.tga" imgrect="215 714 214 34" CMM_Caption="클레릭 계열_18종"/>
+		<image name="plate_achieve_Master_of_Cleric" file="\skin\user_title_skin.tga" imgrect="430 714 214 34"/>
+		<image name="plate_achieve_Master_of_Crusader" file="\skin\user_title_skin.tga" imgrect="645 714 214 34"/>
+		<image name="plate_achieve_Master_of_Dievdirbys" file="\skin\user_title_skin.tga" imgrect="860 714 214 34"/>
+		<image name="plate_achieve_Master_of_Druid" file="\skin\user_title_skin.tga" imgrect="1075 714 214 34"/>
+		<image name="plate_achieve_Master_of_Exorcist" file="\skin\user_title_skin.tga" imgrect="0 749 214 34"/>
+		<image name="plate_achieve_Master_of_Inquisitor" file="\skin\user_title_skin.tga" imgrect="215 749 214 34"/>
+		<image name="plate_achieve_Master_of_Kabbalist" file="\skin\user_title_skin.tga" imgrect="430 749 214 34"/>
+		<image name="plate_achieve_Master_of_Krivis" file="\skin\user_title_skin.tga" imgrect="645 749 214 34"/>
+		<image name="plate_achieve_Master_of_Miko" file="\skin\user_title_skin.tga" imgrect="860 749 214 34"/>
+		<image name="plate_achieve_Master_of_Monk" file="\skin\user_title_skin.tga" imgrect="1075 749 214 34"/>
+		<image name="plate_achieve_Master_of_Oracle" file="\skin\user_title_skin.tga" imgrect="0 784 214 34"/>
+		<image name="plate_achieve_Master_of_Paladin" file="\skin\user_title_skin.tga" imgrect="215 784 214 34"/>
+		<image name="plate_achieve_Master_of_Pardoner" file="\skin\user_title_skin.tga" imgrect="430 784 214 34"/>
+		<image name="plate_achieve_Master_of_Plague_Doctor" file="\skin\user_title_skin.tga" imgrect="645 784 214 34"/>
+		<image name="plate_achieve_Master_of_Priest" file="\skin\user_title_skin.tga" imgrect="860 784 214 34"/>
+		<image name="plate_achieve_Master_of_Sadhu" file="\skin\user_title_skin.tga" imgrect="1075 784 214 34"/>
+		<image name="plate_achieve_Master_of_Zealot" file="\skin\user_title_skin.tga" imgrect="0 819 214 34"/>
+		<image name="plate_achieve_Luchador" file="\skin\user_title_skin.tga" imgrect="215 819 214 34" CMM_Caption="루차도르 칭호"/>
+		<image name="plate_achieve_winner_GOLD" file="\skin\user_title_skin.tga" imgrect="430 819 214 34" CMM_Caption="승리누적_금은동"/>
+		<image name="plate_achieve_winner_SILVER" file="\skin\user_title_skin.tga" imgrect="645 819 214 34"/>
+		<image name="plate_achieve_winner_BRONZE" file="\skin\user_title_skin.tga" imgrect="860 819 214 34"/>
+		<image name="plate_achieve_mvp_GOLD" file="\skin\user_title_skin.tga" imgrect="1075 819 214 34" CMM_Caption="mvp_금은동"/>
+		<image name="plate_achieve_mvp_SILVER" file="\skin\user_title_skin.tga" imgrect="0 854 214 34"/>
+		<image name="plate_achieve_mvp_BRONZE" file="\skin\user_title_skin.tga" imgrect="215 854 214 34"/>
+		<image name="plate_achieve_topwarrior_GOLD" file="\skin\user_title_skin.tga" imgrect="430 854 214 34" CMM_Caption="누적대미지_금은동"/>
+		<image name="plate_achieve_topwarrior_SILVER" file="\skin\user_title_skin.tga" imgrect="645 854 214 34"/>
+		<image name="plate_achieve_topwarrior_BRONZE" file="\skin\user_title_skin.tga" imgrect="860 854 214 34"/>
+		<image name="plate_achieve_Master_of_kannushi" file="\skin\user_title_skin.tga" imgrect="1075 854 214 34"/>
 		<image name="plate_achieve_Prank_of_Apolonija" file="\skin\user_title_skin.tga" imgrect="0 889 214 34" CMM_Caption="스팀_성별이 바뀐 npc 보상"/>
+		<image name="plate_achieve_weeklyrank_17" file="\skin\user_title_skin.tga" imgrect="215 889 214 34" CMM_Caption="주간보스_아시오메이지"/>
+		<image name="plate_achieve_Luchador_weekraid" file="\skin\user_title_skin.tga" imgrect="430 889 214 34" CMM_Caption="주보레 루차도르"/>
+		<image name="plate_achieve_relic_gem_first" file="\skin\user_title_skin.tga" imgrect="0 924 214 34" CMM_Caption="성물젬 10강_퍼스트"/>
+		<image name="plate_achieve_relic_gem_clear" file="\skin\user_title_skin.tga" imgrect="215 924 214 34" CMM_Caption="성물젬 10강_일반"/>
 	</imagelist>
 	<imagelist category="skin_hair">
 		<image name="icon_skintone_01_m01" file="\skin\skinhair\icon_skintone_01_m01.png" imgrect="0 0 80 80" CMM_Caption="남성 01"/>
@@ -13507,7 +13730,13 @@
 		<image name="icon_skintone_06_f12" file="\skin\skinhair\icon_skintone_06_f12.png" imgrect="0 0 80 80"/>
 	</imagelist>
 	<imagelist category="ridepet">
+		<image name="ridepet_AshLion" file="\icon\ridepet.tga" imgrect="0 0 80 80" CMM_Caption="애시라이온"/>
+		<image name="ridepet_KogiBird" file="\icon\ridepet.tga" imgrect="80 0 80 80" CMM_Caption="코기버드"/>
+		<image name="ridepet_HelioGriffin" file="\icon\ridepet.tga" imgrect="160 0 80 80" CMM_Caption="헬리오그리핀"/>
+		<image name="ridepet_NautilusSnail" file="\icon\ridepet.tga" imgrect="240 0 80 80" CMM_Caption="앵무달풍"/>
+		<image name="ridepet_PolarReindeer" file="\icon\ridepet.tga" imgrect="320 0 80 80" CMM_Caption="북극순록"/>
 		<image name="ridepet_ep13raincoat" file="\icon\ridepet.tga" imgrect="400 0 80 80" CMM_Caption="금붕어"/>
+		<image name="ridepet_noblepopo" file="\icon\ridepet.tga" imgrect="480 0 80 80" CMM_Caption="노블포포"/>
 	</imagelist>
 	<effectimagelist category="effectlist">
 		<image name="blue_orb" file="\icon\blue_orb.tga" imgrect="0 0 256 256"/>

@@ -6,7 +6,8 @@ function INDUNINFO_ON_INIT(addon, frame)
     addon:RegisterMsg('FIELD_BOSS_RANKING_UPDATE', 'ON_FIELD_BOSS_RANKING_UPDATE');
     addon:RegisterMsg('BORUTA_RANKING_UI_UPDATE', 'BORUTA_RANKING_UI_UPDATE');
     addon:RegisterMsg("PVP_STATE_CHANGE", "INDUNINFO_TEAM_BATTLE_STATE_CHANGE");
-    addon:RegisterMsg("FAVORITE_CHANGE","INDUN_INFO_UPDATE_FAVORITE")
+    addon:RegisterMsg("FAVORITE_CHANGE","INDUN_INFO_UPDATE_FAVORITE");
+    addon:RegisterMsg("PVP_PC_INFO", "INDUNINFO_UPDATE_PVP_RESULT");
 	g_selectedIndunTable = {};
 end
 
@@ -51,7 +52,7 @@ function INDUNINFO_CHAT_OPEN(frame, msg, argStr, argNum)
     end
 end
 
-function INDUNINFO_UI_OPEN(frame, index)
+function INDUNINFO_UI_OPEN(frame, index, selectIndun)
     if index == nil then
         index = 0
     end
@@ -77,9 +78,14 @@ function INDUNINFO_UI_OPEN(frame, index)
     tab:SelectTab(index);
     TOGGLE_INDUNINFO(frame,index)
     
+    if selectIndun ~= nil then
+        frame:SetUserValue('CONTENTS_ALERT', 'TRUE')
+    else
+        frame:SetUserValue('CONTENTS_ALERT', 'FALSE')
+    end
 
     INDUNINFO_RESET_USERVALUE(frame);
-	INDUNINFO_CREATE_CATEGORY(frame);
+	INDUNINFO_CREATE_CATEGORY(frame,selectIndun);
 end
 
 function SET_WEEKLYBOSS_INDUN_COUNT(frame)
@@ -92,7 +98,7 @@ end
 
 function TOGGLE_INDUNINFO(frame,type)
 	--indun
-	do
+    do
 		local isShow = BoolToNumber(0 == type or 1 == type or 2 == type)
 		local indunbox = GET_CHILD_RECURSIVELY(frame,'indunbox')
 		indunbox:ShowWindow(isShow)
@@ -164,7 +170,7 @@ function INDUNINFO_ADD_COUNT(table,index)
     end
 end
 
-function INDUNINFO_CREATE_CATEGORY(frame)
+function INDUNINFO_CREATE_CATEGORY(frame, selectIndun)
     local categoryBox = GET_CHILD_RECURSIVELY(frame, 'categoryBox');
     categoryBox:RemoveAllChild();
     local cycleCtrlPic = GET_CHILD_RECURSIVELY(frame, 'cycleCtrlPic')
@@ -236,8 +242,20 @@ function INDUNINFO_CREATE_CATEGORY(frame)
         end
 
         categoryCtrl:SetUserValue('RESET_GROUP_ID', groupID);
+
         if firstBtn == nil then
             firstBtn = btn;
+        end
+
+        local dungeonType = TryGetProp(cls, "DungeonType", "None")
+        local selectCls = GetClass("Indun", selectIndun)
+
+        if selectIndun == dungeonType then -- MythicDungeon_Auto  이 경우는 이것밖에 없음
+            firstBtn = btn;
+        elseif selectIndun ~= nil then
+            if TryGetProp(selectCls, "GroupID", "None") == TryGetProp(cls, "GroupID", "None") then
+                firstBtn = btn
+            end
         end
     end
     local isFavorite = function(groupID)
@@ -264,6 +282,13 @@ function INDUNINFO_CREATE_CATEGORY(frame)
                         INDUNINFO_PUSH_BACK_TABLE(g_indunCategoryList, groupID)
                         createCategory(groupID, indunCls)
 			    	end
+                elseif string.find(indunCls.DungeonType, "TOSHero") == 1 then
+                    local dungeonType = session.rank.GetCurrentDungeon(1)
+                    if dungeonType == indunCls.MapName then
+                        INDUNINFO_ADD_COUNT(groupTable, groupID)
+                        INDUNINFO_PUSH_BACK_TABLE(g_indunCategoryList, groupID)
+                        createCategory(groupID, indunCls)
+                    end
                 else
                     INDUNINFO_ADD_COUNT(groupTable, groupID)
                     INDUNINFO_PUSH_BACK_TABLE(g_indunCategoryList, groupID)
@@ -305,7 +330,7 @@ function INDUNINFO_CREATE_CATEGORY(frame)
     local resetText = GET_CHILD_RECURSIVELY(frame, "resetInfoText");
     local resetText_week = GET_CHILD_RECURSIVELY(frame, "resetInfoText_Week");
     local canNotEnterText = GET_CHILD_RECURSIVELY(frame, "canNotEnterText");
-
+    
     if firstBtn == nil then
         infoBox:ShowWindow(0);
         resetText:ShowWindow(0);
@@ -315,7 +340,7 @@ function INDUNINFO_CREATE_CATEGORY(frame)
         infoBox:ShowWindow(1);
         resetText:ShowWindow(1);
         resetText_week:ShowWindow(0);
-        INDUNINFO_CATEGORY_LBTN_CLICK(firstBtn:GetParent(), firstBtn);
+        INDUNINFO_CATEGORY_LBTN_CLICK(firstBtn:GetParent(), firstBtn, selectIndun);
         INDUNINFO_FAVORITE_TAB_FIRST_BTN(favorite_indunlist, categoryBox, tab);
     end
 end
@@ -382,7 +407,7 @@ function INDUNINFO_RESET_USERVALUE(frame)
     frame:SetUserValue('SELECT', 'None');
 end
 
-function INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, cls, is_weekly_reset)
+function INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, cls, is_weekly_reset, selectIndun)
     local indunDetailCtrl = indunListBox:CreateOrGetControlSet('indun_detail_ctrl', 'DETAIL_CTRL_' .. cls.ClassID, 0, 0);
     indunDetailCtrl = tolua.cast(indunDetailCtrl, 'ui::CControlSet');
     indunDetailCtrl:SetUserValue('INDUN_CLASS_ID', cls.ClassID);
@@ -431,6 +456,14 @@ function INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, cls, is_weekly_reset)
         indunListBox:SetUserValue('FIRST_INDUN_ID', cls.ClassID)
         INDUNINFO_DETAIL_LBTN_CLICK(indunListBox, indunDetailCtrl);
     end
+
+    local className = TryGetProp(cls,"ClassName","None") 
+    local dungeonType = TryGetProp(cls,"DungeonType","None")
+
+    if (dungeonType == selectIndun) or selectIndun == className then
+        INDUNINFO_DETAIL_LBTN_CLICK(indunListBox, indunDetailCtrl);
+    end
+
     table.insert(g_selectedIndunTable,cls)
 
     -- 주간 입장 텍스트 설정
@@ -445,20 +478,20 @@ function INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, cls, is_weekly_reset)
         ampm = ClMsg('PM');
     end
     --event 예외처리
-    if TryGetProp(cls,"DungeonType","None") == "Event" then
+    if dungeonType == "Event" then
         if cls.ResetTime > 12 then
             ampm = ClMsg('PM');
         end
         resetTime = cls.ResetTime % 12;
     end
 
-    if TryGetProp(cls, 'DungeonType', 'None') == 'ChallengeMode_HardMode' then
+    if dungeonType == 'ChallengeMode_HardMode' then
         resetInfoText:ShowWindow(0)
         resetInfoText_Week:ShowWindow(0)
         return
     end
 
-    if TryGetProp(cls, 'DungeonType', 'None') == 'TOSHero' then
+    if dungeonType == 'TOSHero' then
         canNotEnterText:ShowWindow(1);
         resetInfoText:ShowWindow(0)
         resetInfoText_Week:ShowWindow(0)
@@ -482,7 +515,7 @@ function INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, cls, is_weekly_reset)
     end
 end
 
-function INDUNINFO_CATEGORY_LBTN_CLICK(categoryCtrl, ctrl)
+function INDUNINFO_CATEGORY_LBTN_CLICK(categoryCtrl, ctrl, selectIndun)
     -- set button skin
     local topFrame = categoryCtrl:GetTopParentFrame();
     local preSelectType = topFrame:GetUserIValue('SELECT');
@@ -509,7 +542,7 @@ function INDUNINFO_CATEGORY_LBTN_CLICK(categoryCtrl, ctrl)
             local contentsCls = GetClassByIndexFromList(contentsClsList, i)
             if contentsCls ~= nil and TryGetProp(contentsCls,"GroupID","None")  == selectedGroupID and contentsCls.Category ~= 'None' then
                 local is_weekly_reset = BoolToNumber(contentsCls.ResetPer == 'WEEK')
-                INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, contentsCls, is_weekly_reset)
+                INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, contentsCls, is_weekly_reset, selectIndun)
             end
         end
     else
@@ -534,6 +567,11 @@ function INDUNINFO_CATEGORY_LBTN_CLICK(categoryCtrl, ctrl)
 					if TryGetProp(mapCls,"ClassName") == indunCls.MapName then
 						add_flag = true;
 					end
+                elseif string.find(indunCls.DungeonType,"TOSHero") == 1 then
+                    local dungeonType = session.rank.GetCurrentDungeon(1)
+                    if dungeonType == indunCls.MapName then
+						add_flag = true;
+                    end
                 else
                     add_flag = true;
                 end
@@ -544,7 +582,7 @@ function INDUNINFO_CATEGORY_LBTN_CLICK(categoryCtrl, ctrl)
 				if indunCls.DungeonType == "Solo_dungeon" or indunCls.DungeonType == "MythicDungeon_Auto_Hard" or indunCls.DungeonType == "TOSHero" then
 					is_weekly_reset = true
                 end
-                INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, indunCls, is_weekly_reset)
+                INDUNINFO_DRAW_CATEGORY_DETAIL_LIST(indunListBox, indunCls, is_weekly_reset, selectIndun)
             end
         end
     end
@@ -663,13 +701,13 @@ function GET_INDUN_MAX_ENTERANCE_COUNT(resetGroupID)
     end
 end
 
-function INDUNINFO_SET_CYCLE_PIC(ctrl,cls,postFix)
-    local imageName = GET_RESET_CYCLE_PIC_TYPE(cls,postFix)
+function INDUNINFO_SET_CYCLE_PIC(ctrl, cls, postFix)
+    local imageName = GET_RESET_CYCLE_PIC_TYPE(cls, postFix)
     if imageName == 'None' then
         ctrl:ShowWindow(0);
         return
     end
-    ctrl:SetImage(GET_INDUN_ICON_NAME(imageName,postFix))
+    ctrl:SetImage(GET_INDUN_ICON_NAME(imageName, postFix));
     if imageName == 'event' then
         local margin = ctrl:GetOriginalMargin();
         ctrl:SetMargin(margin.left, margin.top, margin.right - 6, margin.bottom);
@@ -778,7 +816,7 @@ function INDUNINFO_DETAIL_LBTN_CLICK(parent, detailCtrl, clicked)
     if indunClassID == preSelectedDetail then
         return;
     end
-
+    
     if clicked == "click" then
         imcSound.PlaySoundEvent("button_click_7");        
     end
@@ -1187,7 +1225,7 @@ function PVP_INDUNINFO_MAKE_DETAIL_INFO_BOX(frame, indunClassID)
 
     local resetGroupID = indunCls.GroupID;       
     INDUNINFO_MAKE_DETAIL_COMMON_INFO(frame,indunCls,resetGroupID)
-
+    INDUNINFO_SET_RESTRICT(frame,indunCls)
     INDUNINFO_SET_ENTERANCE_TIME(frame, indunCls)
     --pvp info
     local pvpInfoSet = GET_CHILD_RECURSIVELY(frame, 'pvpInfoBox');
@@ -1201,26 +1239,65 @@ function PVP_INDUNINFO_MAKE_DETAIL_INFO_BOX(frame, indunClassID)
 end
 
 ---------------start draw indun tab detail ui---------------------
-function INDUNINVO_SET_PVP_RESULT(frame,pvpCls)
-	local pvpObj = GET_PVP_OBJECT_FOR_TYPE(pvpCls)
-	local pvpInfoSet = GET_CHILD_RECURSIVELY(frame, 'pvpInfoBox');
-	if pvpObj ~= nil then
-		local pvpInfo = GET_CHILD(pvpInfoSet,'pvpInfoValue')
-		local pvpScore = GET_CHILD(pvpInfoSet,'pvpScoreValue')
+function INDUNINVO_SET_PVP_RESULT(frame, pvpCls)
+    local pvp_info_set = GET_CHILD_RECURSIVELY(frame, 'pvpInfoBox');
+    pvp_info_set:ShowWindow(1);
 
-		local win = pvpObj:GetPropValue(pvpCls.ClassName..'_WIN', 0);
-		pvpInfo:SetTextByKey('win',win)
+    local aid = session.loginInfo.GetAID();
+    local pvp_obj = session.worldPVP.GetTeamBattlePVPObject(aid);
+    if pvp_obj ~= nil then
+        local pvp_class_name = TryGetProp(pvpCls, "ClassName", "None");
+        
+		local pvp_info = GET_CHILD(pvp_info_set, 'pvpInfoValue')
+		local pvp_score = GET_CHILD(pvp_info_set, 'pvpScoreValue')
+        
+		local win = pvp_obj:GetPropValue(pvp_class_name.."_WIN", 0);
+		pvp_info:SetTextByKey('win', win);
 		
-		local lose = pvpObj:GetPropValue(pvpCls.ClassName..'_LOSE', 0);
-		pvpInfo:SetTextByKey('lose',lose)
+		local lose = pvp_obj:GetPropValue(pvp_class_name.."_LOSE", 0);
+		pvp_info:SetTextByKey('lose', lose);
 		
-		local propValue = win+lose
-		pvpInfo:SetTextByKey('total',propValue)
-		
-		propValue = pvpObj:GetPropValue(pvpCls.ClassName .. "_RP", 0);
-		pvpScore:SetTextByKey('score',propValue)
-	end
-	pvpInfoSet:ShowWindow(1)
+        local prop_value = win + lose;
+		pvp_info:SetTextByKey('total', prop_value);
+		prop_value = pvp_obj:GetPropValue(pvp_class_name.."_RP", 0);
+        pvp_score:SetTextByKey('score', prop_value);
+    end
+    pvp_info_set:Invalidate();
+    frame:Invalidate();
+end
+
+function INDUNINFO_UPDATE_PVP_RESULT(frame, msg, arg_str, arg_num)
+    local pvp_name = arg_str;
+    local pvp_cls = GetClass("PVPIndun", pvp_name);
+    if pvp_cls ~= nil then
+        local world_pvp_type = TryGetProp(pvp_cls, "WorldPVPType", 0);
+        local world_pvp_cls = GetClassByType("WorldPVPType", world_pvp_type);
+        if world_pvp_cls ~= nil then
+            local aid = session.loginInfo.GetAID();
+            local pvp_obj = session.worldPVP.GetTeamBattlePVPObject(aid);
+            if pvp_obj ~= nil then
+                local pvp_info_set = GET_CHILD_RECURSIVELY(frame, "pvpInfoBox");
+                local pvp_info = GET_CHILD_RECURSIVELY(pvp_info_set, "pvpInfoValue");
+                local pvp_score = GET_CHILD_RECURSIVELY(pvp_info_set, "pvpScoreValue");
+                local world_pvp_cls_name = TryGetProp(world_pvp_cls, "ClassName", "None");
+                if world_pvp_cls_name ~= "None" then
+                    local win = pvp_obj:GetPropValue(world_pvp_cls_name.."_WIN", 0);
+                    pvp_info:SetTextByKey("win", win);
+                    
+                    local lose = pvp_obj:GetPropValue(world_pvp_cls_name.."_LOSE", 0);
+                    pvp_info:SetTextByKey("lose", lose);
+                    
+                    local prop_value = win + lose;
+                    pvp_info:SetTextByKey("total", prop_value);
+
+                    prop_value = pvp_obj:GetPropValue(world_pvp_cls_name.."_RP", 0);
+                    pvp_score:SetTextByKey("score", prop_value);
+                end
+                pvp_info_set:Invalidate();
+                frame:Invalidate();
+            end
+        end
+    end
 end
 
 function INDUNINFO_MAKE_DETAIL_COMMON_INFO(frame, indunCls, resetGroupID)
@@ -1305,13 +1382,20 @@ function INDUNINFO_SET_ENTERANCE_TIME_BY_RAID(frame, indunCls)
 end
 
 function INDUNINFO_SET_ENTERANCE_TIME(frame,indunCls)
-    local pvpbox = GET_CHILD_RECURSIVELY(frame, 'pvpbox');
     --time
+    local pvpbox = GET_CHILD_RECURSIVELY(frame, 'pvpbox');
     local timeData = GET_CHILD_RECURSIVELY(pvpbox,'timeData')
-    local startTime = string.format("%02d:%02d",TryGetProp(indunCls,"StartHour",0),TryGetProp(indunCls,"StartMin",0))
-    local endTime = string.format("%02d:%02d",TryGetProp(indunCls,"EndHour",0),TryGetProp(indunCls,"EndMin",0))
-    timeData:SetTextByKey('start', startTime);
-    timeData:SetTextByKey('end', endTime);
+    if GetServerNation() == "GLOBAL" then
+        local start_time = string.format("%02d:%02d", TryGetProp(indunCls, "GlobalStartHour", 0), TryGetProp(indunCls, "GlobalStartMin", 0));
+        local end_time = string.format("%02d:%02d", TryGetProp(indunCls, "GlobalEndHour", 0), TryGetProp(indunCls, "GlobalEndMin", 0));
+        timeData:SetTextByKey("start", start_time);
+        timeData:SetTextByKey("end", end_time);
+    else
+        local startTime = string.format("%02d:%02d",TryGetProp(indunCls,"StartHour",0),TryGetProp(indunCls,"StartMin",0))
+        local endTime = string.format("%02d:%02d",TryGetProp(indunCls,"EndHour",0),TryGetProp(indunCls,"EndMin",0))
+        timeData:SetTextByKey('start', startTime);
+        timeData:SetTextByKey('end', endTime);
+    end
 
     local dayPic = GET_CHILD_RECURSIVELY(frame,'dayPic')
     dayPic:ShowWindow(1)
@@ -1354,7 +1438,7 @@ function INDUNINFO_SET_RESTRICT_SKILL(frame,indunCls)
     restrictSkillBox:ShowWindow(0);
     local mapName = TryGetProp(indunCls, "MapName");
     local dungeonType = TryGetProp(indunCls, "DungeonType");
-    local isLegendRaid = BoolToNumber(dungeonType == "Raid" or dungeonType == "GTower");
+    local isLegendRaid = BoolToNumber(dungeonType == "Raid" or dungeonType == "GTower" or string.find(dungeonType, "MythicDungeon") == 1);
 
     if mapName ~= nil and mapName ~= "None" then
         local indunMap = GetClass("Map", mapName);
@@ -1386,7 +1470,7 @@ function INDUNINFO_SET_RESTRICT_ITEM(frame,indunCls)
     end
 end
 
-function INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls)
+function INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls, subTypeCompare)
     local btnInfoCls = nil;
     if indunCls ~= nil then
         local dungeonType = TryGetProp(indunCls, "DungeonType", "None");
@@ -1400,14 +1484,22 @@ function INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls)
             for i = 0, cnt - 1 do
                 local cls = GetClassByIndexFromList(list, i);
                 if cls ~= nil then
-                    local class_name = cls.ClassName;
-                    if subType == "MoveEnterNPC" and class_name == "Raid_MoveEnterNPC" then
-                        class_name = "Raid";
+                    local dungeon_type = TryGetProp(cls, "DungeonType", "None");
+                    if dungeon_type == "MoveEnterNPC" and dungeon_type == "Raid_MoveEnterNPC" then
+                        dungeon_type = "Raid";
                     end
 
-                    if class_name ~= nil and class_name ~= "None" and (class_name == dungeonType or subType == "MoveEnterNPC" and dungeonType == "GTower") then
+                    if dungeon_type ~= nil and dungeon_type ~= "None" and (dungeon_type == dungeonType or subType == "MoveEnterNPC" or dungeonType == "GTower") then
                         local sub_type = TryGetProp(cls, "SubType", "None");
                         if sub_type ~= nil and sub_type ~= "None" and sub_type == subType then
+                            btnInfoCls = cls;
+                            break;
+                        end
+                    end
+
+                    if subTypeCompare == true then
+                        local sub_type = TryGetProp(cls, "SubType", "None");
+                        if dungeon_type == dungeonType and sub_type == subType then
                             btnInfoCls = cls;
                             break;
                         end
@@ -1421,7 +1513,15 @@ end
 
 function INDUNINFO_SET_BUTTONS(frame, indunCls)
     local buttonBox = GET_CHILD_RECURSIVELY(frame, 'buttonBox');
-    local btnInfoCls = GetClass("IndunInfoButton", indunCls.DungeonType);
+    local dungeonType = TryGetProp(indunCls, "DungeonType", "None");
+    local btnInfoCls = GetClassByStrProp("IndunInfoButton", "DungeonType", dungeonType);
+
+    if dungeonType == "TOSHero" then
+        GET_CHILD_RECURSIVELY(buttonBox, 'tinyButton'):ShowWindow(1);
+    else
+        GET_CHILD_RECURSIVELY(buttonBox, 'tinyButton'):ShowWindow(0);
+    end
+
     if btnInfoCls == nil then
         local redButton = GET_CHILD_RECURSIVELY(buttonBox,'RedButton')
         redButton:ShowWindow(0)
@@ -1433,8 +1533,8 @@ function INDUNINFO_SET_BUTTONS(frame, indunCls)
         return;
     end
     
-    if indunCls.DungeonType == "Raid" then
-        if indunCls.SubType ~= "Auto" and indunCls.SubType ~= "MoveEnterNPC" then 
+    if dungeonType == "Raid" then
+        if indunCls.SubType ~= "Casual" and indunCls.SubType ~= "Auto" and indunCls.SubType ~= "MoveEnterNPC" then
             local redButton = GET_CHILD_RECURSIVELY(buttonBox,'RedButton')
             redButton:ShowWindow(0)
             for i = 1, 3 do
@@ -1445,6 +1545,8 @@ function INDUNINFO_SET_BUTTONS(frame, indunCls)
             return;
         end
         btnInfoCls = INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls);
+    elseif string.find(dungeonType, "MythicDungeon") ~= nil then
+        btnInfoCls = INDUNINFO_SET_BUTTONS_FIND_CLASS(indunCls, true);
     end
 
     local type = 0
@@ -1513,8 +1615,13 @@ function INDUNINFO_SET_ADMISSION_ITEM(frame,indunCls)
         countText:SetText(ScpArgMsg("IndunAdmissionItem"))
         countData:ShowWindow(0);
         countItemData:ShowWindow(1);
-        INDUNINFO_SET_CYCLE_PIC(cycleCtrlPic,indunCls,'_l')
-        cycleImage:ShowWindow(0)
+        INDUNINFO_SET_CYCLE_PIC(cycleCtrlPic, indunCls, '_l')
+        cycleImage:ShowWindow(0);
+
+        if nowAdmissionItemCount >= 100 then
+            local margin = cycleCtrlPic:GetOriginalMargin();
+            cycleCtrlPic:SetMargin(margin.left, margin.top, margin.right + 10, margin.bottom);
+        end
 
         local admissionItemName = TryGetProp(indunCls, "AdmissionItemName");
         local admissionItemCls = GetClass('Item', admissionItemName);
@@ -1573,11 +1680,12 @@ function INDUNINFO_RESIZE_BY_BUTTONS(frame,type)
     local monBox = GET_CHILD_RECURSIVELY(frame, 'monBox');
     local mon_margin = monBox:GetOriginalMargin();
     monBox:SetMargin(mon_margin.left, mon_margin.top - resizeHeight, mon_margin.right, mon_margin.bottom);
+
     local rewardBox = GET_CHILD_RECURSIVELY(frame, 'rewardBox');
     local reward_margin = rewardBox:GetOriginalMargin();
     rewardBox:SetMargin(reward_margin.left, reward_margin.top - resizeHeight, reward_margin.right, reward_margin.bottom);
 
-	local patternBox = GET_CHILD_RECURSIVELY(frame, 'patternBox');
+    local patternBox = GET_CHILD_RECURSIVELY(frame, 'patternBox');
     local reward_margin = patternBox:GetOriginalMargin();
 	patternBox:SetMargin(reward_margin.left, reward_margin.top - resizeHeight, reward_margin.right, reward_margin.bottom);
 end
@@ -1624,7 +1732,8 @@ function INDUNINFO_SORT_BY_LEVEL(parent, ctrl)
     
     for i = 1, #g_selectedIndunTable do
         local indunCls = g_selectedIndunTable[i];        
-        local detailCtrl = indunListBox:GetChild('DETAIL_CTRL_'..indunCls.ClassID);        
+        local detailCtrl = indunListBox:GetChild('DETAIL_CTRL_'..indunCls.ClassID);    
+
         if detailCtrl ~= nil then
             detailCtrl:SetOffset(detailCtrl:GetX(), startY + detailCtrl:GetHeight()*(i-1));                
             INDUNINFO_DETAIL_SET_SKIN(detailCtrl,i)
@@ -1640,10 +1749,15 @@ function INDUNINFO_SORT_BY_LEVEL(parent, ctrl)
     local firstSelectedID = indunListBox:GetUserIValue('FIRST_INDUN_ID');
     if table.find(g_contentsCategoryList,groupID) ~= 0 then
         INDUNINFO_MAKE_DETAIL_INFO_BOX_OTHER(topFrame, firstSelectedID)
-    else
+    elseif topFrame:GetUserValue('CONTENTS_ALERT') ~= 'TRUE' then
         INDUNINFO_MAKE_DETAIL_INFO_BOX(topFrame, firstSelectedID);
     end
-    indunListBox:SetUserValue('SELECTED_DETAIL', firstSelectedID);
+    
+    
+    if topFrame:GetUserValue('CONTENTS_ALERT') ~= 'TRUE' then
+        indunListBox:SetUserValue('SELECTED_DETAIL', firstSelectedID);
+    end
+    topFrame:SetUserValue('CONTENTS_ALERT', 'FALSE')
 end
 
 function SORT_BY_LEVEL_BASE_NAME(a, b)
@@ -1772,14 +1886,25 @@ function PVP_INDUNINFO_UI_OPEN(frame)
             end
             INDUNINFO_ADD_COUNT(resetGroupTable,groupID)
             do --time setting
-                local timeText = categoryCtrl:GetChild("timeText")
-                local startTime = string.format("%02d:%02d",indunCls.StartHour,indunCls.StartMin)
-                if startTime < timeText:GetTextByKey("start") then
-                    timeText:SetTextByKey("start",startTime)
-                end
-                local endTime = string.format("%02d:%02d",indunCls.EndHour,indunCls.EndMin)
-                if endTime > timeText:GetTextByKey("end") then
-                    timeText:SetTextByKey("end",endTime)
+                local timeText = categoryCtrl:GetChild("timeText");
+                if GetServerNation() == "GLOBAL" then
+                    local start_time = string.format("%02d:%02d", TryGetProp(indunCls, "GlobalStartHour", 0), TryGetProp(indunCls, "GlobalStartMin", 0));
+                    if start_time < timeText:GetTextByKey("start") then
+                        timeText:SetTextByKey("start", start_time);
+                    end
+                    local end_time = string.format("%02d:%02d", TryGetProp(indunCls, "GlobalEndHour", 0), TryGetProp(indunCls, "GlobalEndMin", 0));
+                    if end_time > timeText:GetTextByKey("end") then
+                        timeText:SetTextByKey("end", end_time);                     
+                    end
+                else
+                    local startTime = string.format("%02d:%02d",indunCls.StartHour,indunCls.StartMin)
+                    if startTime < timeText:GetTextByKey("start") then
+                        timeText:SetTextByKey("start",startTime)
+                    end
+                    local endTime = string.format("%02d:%02d",indunCls.EndHour,indunCls.EndMin)
+                    if endTime > timeText:GetTextByKey("end") then
+                        timeText:SetTextByKey("end",endTime)
+                    end
                 end
             end
         end
@@ -1845,31 +1970,42 @@ end
 
 function PVP_INDUNINFO_DETAIL_SET_ONLINE_PIC(indunDetailCtrl)
     local indunClsID = indunDetailCtrl:GetUserValue('INDUN_CLASS_ID');
-	local indunCls = GetClassByType("PVPIndun",indunClsID)
+	local indunCls = GetClassByType("PVPIndun", indunClsID);
+    local startTime = geTime.GetServerSystemTime();
+    local endTime = geTime.GetServerSystemTime();
+    local start_hour, start_min, end_hour, end_min;
+    if GetServerNation() == "GLOBAL" then
+        start_hour = TryGetProp(indunCls, "GlobalStartHour", 0);
+        start_min = TryGetProp(indunCls, "GlobalStartMin", 0);
+        end_hour = TryGetProp(indunCls, "GlobalEndHour", 0);
+        end_min =  TryGetProp(indunCls, "GlobalEndMin", 0);
+    else
+        start_hour = TryGetProp(indunCls, "StartHour", 0);
+        start_min = TryGetProp(indunCls, "StartMin", 0);
+        end_hour = TryGetProp(indunCls, "EndHour", 0);
+        end_min =  TryGetProp(indunCls, "EndMin", 0);
+    end
 
-	local startTime = geTime.GetServerSystemTime()
-	startTime.wHour = indunCls.StartHour
-	startTime.wMinute = indunCls.StartMin
-	startTime.wSecond = 0
-
-	local endTime = geTime.GetServerSystemTime()
-	endTime.wHour = indunCls.EndHour
-	if indunCls.EndHour >= 24 then
-		endTime.wDay = endTime.wDay + 1
-		endTime.wHour = endTime.wHour - 24
-	elseif indunCls.EndHour < indunCls.StartHour then
-		endTime.wDay = endTime.wDay + 1
-	elseif indunCls.EndHour == indunCls.StartHour and indunCls.EndMin < indunCls.StartMin then
-		endTime.wDay = endTime.wDay + 1
-	end
-	endTime.wMinute = indunCls.EndMin
-	endTime.wSecond = 0
+    startTime.wHour = start_hour;
+    startTime.wMinute = start_min;
+    startTime.wSecond = 0;
+    endTime.wHour = end_hour;
+    if end_hour >= 24 then
+        endTime.wDay = endTime.wDay + 1
+        endTime.wHour = endTime.wHour - 24;
+    elseif end_hour < start_hour then
+        endTime.wDay = endTime.wDay + 1;
+    elseif end_hour == start_hour and end_min < start_min then
+        endTime.wDay = endTime.wDay + 1;
+    end
+    endTime.wMinute = end_min;
+    endTime.wSecond = 0;
 
     if imcTime.GetDiffSecFromNow(startTime) >= 0 then
         if imcTime.GetDiffSecFromNow(endTime) < 0 then
             local onlinePic = indunDetailCtrl:GetChild('onlinePic');
-            AUTO_CAST(onlinePic)
-            onlinePic:SetImage('guild_online')
+            AUTO_CAST(onlinePic);
+            onlinePic:SetImage('guild_online');
         end
     end
 end
@@ -1948,9 +2084,12 @@ function INDUNINFO_TEAM_BATTLE_STATE_CHANGE(frame,ctrl,argStr,argNum)
 	local state = session.worldPVP.GetState();
 	local stateText = GetPVPStateText(state);
 	local viewText = ClMsg( "PVP_State_".. stateText );
-	local join = GET_CHILD_RECURSIVELY(frame, 'RedButton');
-	join:SetTextByKey("btnText", viewText);
-	join:SetEnable(IS_TEAM_BATTLE_ENABLE())
+    local join = GET_CHILD_RECURSIVELY(frame, 'RedButton');
+    if join ~= nil then
+        local join_text = GET_CHILD_RECURSIVELY(join, "RedButtonText");
+        join_text:SetTextByKey("btnText", viewText);
+        join:SetEnable(IS_TEAM_BATTLE_ENABLE());
+    end
 end
 
 function INDUNINFO_MOVE_TO_ENTER_NPC(frame, ctrl)
@@ -2070,9 +2209,11 @@ end
 function INDUNINFO_SELECT_CATEGORY(index)
 	local frame = ui.GetFrame('induninfo')
     local categoryBox = GET_CHILD_RECURSIVELY(frame, 'categoryBox');
-	local ctrl = categoryBox:GetChildByIndex(index)
-	local button = GET_CHILD(ctrl,"button")
-    PVP_INDUNINFO_CATEGORY_LBTN_CLICK(button:GetParent(), button);
+    local ctrl = categoryBox:GetChildByIndex(index);
+    local button = GET_CHILD(ctrl, "button")
+    if button ~= nil then
+        PVP_INDUNINFO_CATEGORY_LBTN_CLICK(button:GetParent(), button);
+    end
 end
 --------------------------------- 주간 보스 레이드 --------------------------------- 
 function  WEEKLYBOSSINFO_UI_OPEN(frame)
@@ -2093,7 +2234,7 @@ function WEEKLY_BOSS_DATA_REUQEST()
     rank_gb:EnableHitTest(0);
     ReserveScript("HOLD_RANKUI_UNFREEZE()", 1);
 
-    local week_num =  WEEKLY_BOSS_RANK_WEEKNUM_NUMBER();
+    local week_num = WEEKLY_BOSS_RANK_WEEKNUM_NUMBER();
     if week_num < 1 then
         return;
     end
@@ -2101,11 +2242,16 @@ function WEEKLY_BOSS_DATA_REUQEST()
     weekly_boss.RequestWeeklyBossRankingRewardList(week_num);   -- 랭킹 보상 목록 요청
     weekly_boss.RequestGetReceiveAbsoluteReward(week_num);      -- 내가 수령한 누적대미지 보상 정보 요청
     weekly_boss.RequestGetReceiveRankingReward(week_num);       -- 내가 수령한 랭킹 보상 정보 요청
+    weekly_boss.RequestGetReceiveClassRankingReward(week_num);  -- 내가 수령한 클래스 랭킹 보상 정보 요청
+    weekly_boss.RequestEnableClassRankRewardSeason(week_num);   -- 클래스 랭킹 보상 가능 여부 확인 요청.
 
     -- 랭킹 정보
     local jobID = WEEKLY_BOSS_RANK_JOBID_NUMBER();
+    WEEKLYBOSS_REWARD_CLASS_SELECT_JOB_ID(jobID);
+    weekly_boss.RequestWeeklyBossClassRankingRewardList(week_num, jobID); -- 클래스 랭킹 보상 목록 요청.
+
     weekly_boss.RequestWeeklyBossRankingInfoList(week_num, jobID);
-	INDUNINFO_CLASS_SELECTOR_FILL_CLASS(jobID)
+    INDUNINFO_CLASS_SELECTOR_FILL_CLASS(jobID)
 
     -- 보스 정보
     weekly_boss.RequestWeeklyBossStartTime(week_num);           -- 해당 주간 보스 시작 시간 정보 요청
@@ -2123,17 +2269,19 @@ function HOLD_RANKUI_UNFREEZE()
 end
 
 -- 갱신된 정보에 맞게 UI 수정 
-function WEEKLY_BOSS_UI_UPDATE()
+function WEEKLY_BOSS_UI_UPDATE(frame, msg, arg_str, arg_num)
     local frame = ui.GetFrame("induninfo")
     local week_num = WEEKLY_BOSS_RANK_WEEKNUM_NUMBER();
 
     -- 몬스터 정보
     local weeklybossPattern = session.weeklyboss.GetPatternInfo();
-	local monClsName = weeklybossPattern.MonsterClassName
+    local monClsName = weeklybossPattern.MonsterClassName
+    
 	--티니 삼형제
 	if string.find(monClsName,"weekly_boss_Tiny") ~= nil then
 		monClsName = "weekly_boss_Tiny_ThreeBrothers"
-	end
+    end
+    
     local monCls = GetClass("Monster",monClsName)
     if monCls ~= nil then
         local monster_icon_pic = GET_CHILD_RECURSIVELY(frame, 'monster_icon_pic');
@@ -2175,7 +2323,6 @@ function WEEKLY_BOSS_UI_UPDATE()
     end
     local mydamage = session.weeklyboss.GetMyDamageInfoToString(week_num);                  -- 도전 1회 최고 점수
     local accumulateDamage = session.weeklyboss.GetWeeklyBossAccumulatedDamage(week_num);   -- 누적 대미지
-    
     local battle_info_attr = GET_CHILD_RECURSIVELY(frame, "battle_info_attr", "ui::CControlSet");
     SET_TEXT(battle_info_attr, "attr_value_text_1", "rank", myrank);
     SET_TEXT(battle_info_attr, "attr_value_text_1", "rank_p", myrank_p);
@@ -2194,16 +2341,13 @@ function WEEKLY_BOSS_UI_UPDATE()
     
     if 0 < difsec then
         gauge:SetPoint(durtime - difsec, durtime);
-        
         local textstr = GET_TIME_TXT(difsec) .. ClMsg("After_Exit");
         battle_info_time_text:SetTextByKey("value", textstr);
-        
         battle_info_time_text:SetUserValue("REMAINSEC", difsec);
         battle_info_time_text:SetUserValue("STARTSEC", imcTime.GetAppTime());
         battle_info_time_text:RunUpdateScript("WEEKLY_BOSS_REMAIN_END_TIME");
     elseif difsec < 0 then
         gauge:SetPoint(1, 1);
-        
         local textstr = ClMsg("Already_Exit_Raid");
         battle_info_time_text:SetTextByKey("value", textstr);
         battle_info_time_text:StopUpdateScript("WEEKLY_BOSS_REMAIN_END_TIME");
@@ -2217,11 +2361,11 @@ function WEEKLY_BOSS_UI_UPDATE()
     else
         joinButton:SetEnable(1)
     end
+
     --시즌 갱신
     WEEKLY_BOSS_SEASON_UPDATE();
     -- 랭킹 LIST 갱신
     WEEKLY_BOSS_RANK_UPDATE();
-
 end
 
 function WEEKLY_BOSS_SEASON_UPDATE()
@@ -2370,6 +2514,11 @@ end
 function WEEKLY_BOSS_TOTAL_DAMAGE_REWARD_CLICK()
     local week_num = WEEKLY_BOSS_RANK_WEEKNUM_NUMBER();
     WEEKLYBOSSREWARD_SHOW(1);
+end
+
+-- 클래스 순위 보상
+function WEEKLY_BOSS_TOTAL_CLASS_RANK_REWARD_CLICK()
+    WEEKLYBOSS_REWARD_CLASS_SELECT_OPEN();
 end
 
 -- 계열 순위 보상 버튼 클릭
@@ -3487,6 +3636,37 @@ function REQ_RAID_AUTO_UI_OPEN(frame, ctrl)
     ReqRaidAutoUIOpen(indun_classid);
 end
 
+function REQ_RAID_SOLO_UI_OPEN(frame, ctrl)
+    if session.world.IsIntegrateServer() == true or IsPVPField(pc) == 1 or IsPVPServer(pc) == 1 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
+
+    if world.GetLayer() ~= 0 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
+
+    local map = GetClass('Map', session.GetMapName());
+    local keyword = TryGetProp(map, 'Keyword', 'None');
+    local keyword_table = StringSplit(keyword, ';');
+    if table.find(keyword_table, 'IsRaidField') > 0 or table.find(keyword_table, 'WeeklyBossMap') > 0 then
+        ui.SysMsg(ScpArgMsg('ThisLocalUseNot'));
+        return;
+    end
+
+    local indun_classid = tonumber(ctrl:GetUserValue("MOVE_INDUN_CLASSID"));
+    local indun_cls = GetClassByType("Indun", indun_classid);
+    local dungeon_type = TryGetProp(indun_cls, "DungeonType", "None");
+    local sub_type = TryGetProp(indun_cls, "SubType", "None");
+    if dungeon_type ~= "Raid" and sub_type ~= "Casual" then
+        return;
+    end
+
+    ui.CloseFrame("induninfo");
+    ReqRaidSoloUIOpen(indun_classid);
+end
+
 function REQ_TOSHERO_ENTER(frame, ctrl)
     -- 매칭 던전중이거나 pvp존이면 이용 불가
     if session.world.IsIntegrateServer() == true or IsPVPField(pc) == 1 or IsPVPServer(pc) == 1 then
@@ -3601,4 +3781,13 @@ function INDUNINFO_CHANGE_FAVORITE_IMG(categoryBox, groupID)
     else
         favorite_img:SetImage("star_in_arrow")
     end
+end
+
+function PVP_INDUNINFO_OPEN_SHOP(frame, btn)
+    REQ_TEAM_BATTLE_SHOP_OPEN()
+    return;
+end
+
+function PVP_INDUNINFO_CHARACTER_REGIST(parent, btn)
+    CHARACTER_CHANGE_REGISTER_OPEN();
 end

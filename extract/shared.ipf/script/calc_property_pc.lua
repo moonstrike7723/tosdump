@@ -1535,17 +1535,19 @@ function SCR_CALC_BASIC_DEF(self)
     
     local byItem = 0;
     if tonumber(USE_SUBWEAPON_SLOT) == 1 then
-        local lhItem = GetEquipItemForPropCalc(self, "LH")
-        if lhItem ~= nil then
-            byItem = TryGetProp(lhItem, "DEF", 0)
-        end
+        if GetExProp(self, "IS_SHIELDSTRIKE_ABIL") == 0 then
+            local lhItem = GetEquipItemForPropCalc(self, "LH")
+            if lhItem ~= nil then
+                byItem = TryGetProp(lhItem, "DEF", 0)
+            end
 
-        local rh_sub = GetEquipItemForPropCalc(self, "RH_SUB")
-        local lh_sub = GetEquipItemForPropCalc(self, "LH_SUB")
-        if IS_NO_EQUIPITEM(rh_sub) ~= 1 or IS_NO_EQUIPITEM(lh_sub) ~= 1 then
-            local lhDef = TryGetProp(lhItem, "DEF", 0)
-            local subDef = TryGetProp(lh_sub, "DEF", 0)
-            byItem = math.floor((lhDef + subDef) / 2)
+            local rh_sub = GetEquipItemForPropCalc(self, "RH_SUB")
+            local lh_sub = GetEquipItemForPropCalc(self, "LH_SUB")
+            if IS_NO_EQUIPITEM(rh_sub) ~= 1 or IS_NO_EQUIPITEM(lh_sub) ~= 1 then
+                local lhDef = TryGetProp(lhItem, "DEF", 0)
+                local subDef = TryGetProp(lh_sub, "DEF", 0)
+                byItem = math.floor((lhDef + subDef) / 2)
+            end
         end
     end
     
@@ -1626,17 +1628,19 @@ function SCR_CALC_BASIC_MDEF(self)
     
     local byItem = 0;
     if tonumber(USE_SUBWEAPON_SLOT) == 1 then
-        local lhItem = GetEquipItemForPropCalc(self, "LH")
-        if lhItem ~= nil then
-            byItem = TryGetProp(lhItem, "MDEF", 0)
-        end
+        if GetExProp(self, "IS_SHIELDSTRIKE_ABIL") == 0 then
+            local lhItem = GetEquipItemForPropCalc(self, "LH")
+            if lhItem ~= nil then
+                byItem = TryGetProp(lhItem, "MDEF", 0)
+            end
 
-        local rh_sub = GetEquipItemForPropCalc(self, "RH_SUB")
-        local lh_sub = GetEquipItemForPropCalc(self, "LH_SUB")
-        if IS_NO_EQUIPITEM(rh_sub) ~= 1 or IS_NO_EQUIPITEM(lh_sub) ~= 1 then
-            local lhDef = TryGetProp(lhItem, "MDEF", 0)
-            local subDef = TryGetProp(lh_sub, "MDEF", 0)
-            byItem = math.floor((lhDef + subDef) / 2)
+            local rh_sub = GetEquipItemForPropCalc(self, "RH_SUB")
+            local lh_sub = GetEquipItemForPropCalc(self, "LH_SUB")
+            if IS_NO_EQUIPITEM(rh_sub) ~= 1 or IS_NO_EQUIPITEM(lh_sub) ~= 1 then
+                local lhDef = TryGetProp(lhItem, "MDEF", 0)
+                local subDef = TryGetProp(lh_sub, "MDEF", 0)
+                byItem = math.floor((lhDef + subDef) / 2)
+            end
         end
     end
     
@@ -1687,6 +1691,10 @@ function SCR_Get_BLKABLE(self)
 
     if value > 2 then
         value = 2
+    end
+
+    if value < 0 then
+        value = 0
     end
 
     return value;
@@ -2061,6 +2069,10 @@ function SCR_Get_RHP(self)
     end
     
     local value = defaultValue + byItem + byBuff;
+
+    if IsPVPServer(self) == 1 then
+        value = value / 2
+    end
     
     if value < 0 then
         value = 0;
@@ -2389,7 +2401,7 @@ function SCR_Get_KDArmorType(self)
         value = 1;
     end
     
-    local buffList = { "Safe", "PainBarrier_Buff", "Lycanthropy_Buff", "Marschierendeslied_Buff", "Methadone_Buff", "Fluting_Buff", "Slithering_Buff", "Algiz_PainBarrier_Buff", "BullyPainBarrier_Buff", "CavalryCharge_Abil_Buff" };
+    local buffList = { "Safe", "PainBarrier_Buff", "Lycanthropy_Buff", "Marschierendeslied_Buff", "Methadone_Buff", "Fluting_Buff", "Slithering_Buff", "Algiz_PainBarrier_Buff", "BullyPainBarrier_Buff", "CavalryCharge_Abil_Buff", "TOSHero_PainBarrier" };
     for i = 1, #buffList do
         if IsBuffApplied(self, buffList[i]) == 'YES' then
             value = 99999;
@@ -2517,6 +2529,10 @@ function SCR_Get_MSPD(self)
                 if TryGetProp(lh_subItem, "ClassType", "None") == "Shield" then
                     addmspd = addmspd - 2
                 end
+            end
+
+            if IsBuffApplied(self, 'Schwarzereiter_MaxR_Buff') == 'YES' then
+                addmspd = addmspd - 2
             end
 
             byBuff = byBuff + addmspd
@@ -2650,8 +2666,11 @@ function SCR_Get_MSPD(self)
     end
     
     -- 최대 이속 제한 --
-    if value > 60 then
-        value = 60;
+    if value > PC_MAX_MSPD then
+        value = PC_MAX_MSPD;
+        if GetExProp(self, 'RIDE_PET_MSPD_LIMIT_INCREASE') > 0 then
+            value = value + GetExProp(self, 'RIDE_PET_MSPD_LIMIT_INCREASE')
+        end
     end
     
     local byBonus = TryGetProp(self, "MSPD_Bonus");
@@ -2757,7 +2776,12 @@ function SCR_Get_SR(self)
 	local byItemRareOption = TryGetProp(self, 'EnchantSR');
 	if byItemRareOption == nil then
 	    byItemRareOption = 0;
-	end
+    end
+    
+    if IsPVPServer(self) == 1 then
+        byItem = 0;
+        byItemRareOption = 0;
+    end
     
     local byBuff = TryGetProp(self, "SR_BM")
     if byBuff == nil then
@@ -2793,7 +2817,7 @@ function SCR_Get_SDR(self)
     if byItem == nil then
         byItem = 0;
     end
-    
+
     local byBuff = TryGetProp(self, "SDR_BM")
     if byBuff == nil then
         byBuff = 0;
@@ -2805,7 +2829,9 @@ function SCR_Get_SDR(self)
     	value = 1;
     end
     
-    if IsPVPField(self) == 1 and value > 4 then
+    if IsPVPServer(self) == 1 then
+        value = 2 + byBuff;
+    elseif IsPVPField(self) == 1 and value > 4 then
         value = math.floor((math.max(0, value-4)^0.5))+math.min(4, value)
     end
 
@@ -2995,7 +3021,7 @@ end
 
 function SCR_Get_Sta_Run(self)
     local consumptionSTA = 0;
-    
+
     -- 기본 스태미너 소모량 --
     local defaultConsumptionSTA = 0;
     
@@ -3010,6 +3036,10 @@ function SCR_Get_Sta_Run(self)
     local isDashRun = TryGetProp(self, "DashRun");
     if isDashRun == nil then
         isDashRun = 0;
+    end
+
+    if isDashRun == 4 then
+        consumptionSTA = 250
     end
     
     local isAgility = GetExProp(self, 'ADD_RCSTA')
@@ -3027,6 +3057,10 @@ function SCR_Get_Sta_Run(self)
     
     if isDashRun > 0 then
         local dashAmount = 500;
+
+        if isDashRun == 4 then
+            dashAmount = 0
+        end
 
 --	    if jobCtrlType == "Archer" then
 --	    	if IsBuffApplied(self, "Tracking_Buff") == "YES" then
@@ -3056,7 +3090,7 @@ function SCR_Get_Sta_Run(self)
         if isDashRun == 2 then
             addRateConsumptionSTA = addRateConsumptionSTA - 0.25;  -- 인보 특성 있는 중에는 추가량 25% 감소
         end
-	    
+
         local byRateBuffDash = TryGetProp(self, 'DASHSTA_RATE_BM');
         if byRateBuffDash == nil then
             byRateBuffDash = 0;
@@ -3675,7 +3709,17 @@ function SCR_GET_ADD_Damage_ATK(pc)
     add_value = add_value + SCR_GET_HOLY_ATK(pc)
     add_value = add_value + SCR_GET_DARK_ATK(pc)
 
-    local value = byItem + byBuff + add_value;    
+    local byabil = 0
+    if GetExProp(pc, "IS_ADDDAMAGE_ABIL") > 0 then
+        local patk = (TryGetProp(pc, "MINPATK") + TryGetProp(pc, "MAXPATK")) / 2
+        local matk = (TryGetProp(pc, "MINMATK") + TryGetProp(pc, "MAXMATK")) / 2
+
+        local atk = math.max(patk, matk)
+
+        byabil = math.floor(atk * 0.15 * GetExProp(pc, "IS_ADDDAMAGE_ABIL"))
+    end
+
+    local value = byItem + byBuff + add_value + byabil;    
     return math.floor(value);
 end
 

@@ -51,8 +51,10 @@ function CHECK_INVENTORY_OPTION_EQUIP(itemCls)
 		optionConfig = config.GetXMLConfig("InvOption_Equip_Rare")
 	elseif itemGrade == 4 then
 		optionConfig = config.GetXMLConfig("InvOption_Equip_Unique")
-	elseif itemGrade >= 5 then
+	elseif itemGrade == 5 then
 		optionConfig = config.GetXMLConfig("InvOption_Equip_Legend")
+	elseif itemGrade == 6 then
+		optionConfig = config.GetXMLConfig("InvOption_Equip_Goddess")
 	end
 
 	if config.GetXMLConfig("InvOption_Equip_All") == 1 then
@@ -164,6 +166,14 @@ function CHECK_INVENTORY_OPTION_GEM(itemCls)
 		optionConfig = config.GetXMLConfig("InvOption_Gem_Skill")
 	elseif cardGroup == "Gem_GemWhite" then
 		optionConfig = config.GetXMLConfig("InvOption_Gem_White")
+	elseif cardGroup == "Gem_Relic_Cyan" then
+		optionConfig = config.GetXMLConfig("InvOption_Gem_Cyan")
+	elseif cardGroup == "Gem_Relic_Magenta" then
+		optionConfig = config.GetXMLConfig("InvOption_Gem_Magenta")
+	elseif cardGroup == "Gem_Relic_Black" then
+		optionConfig = config.GetXMLConfig("InvOption_Gem_Black")
+	elseif cardGroup == "Gem_High_Color" then
+		optionConfig = config.GetXMLConfig("InvOption_Gem_Aether")
 	end
 	
 	return optionConfig
@@ -4890,9 +4900,13 @@ function BEFORE_APPLIED_YESSCP_OPEN_LVCARD(invItem)
 	
 	local lv = TryGetProp(itemobj , 'NumberArg1')
 	if lv ~= 0 then
-    	local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg("EXPCARD_JUMPING_SET_LV_MSG", "LEVEL", lv));
-    	ui.MsgBox_NonNested(textmsg, itemobj.Name, 'REQUEST_SUMMON_BOSS_TX', "None");
-    end
+		local beforeLV = GETMYPCLEVEL()
+		if lv <= beforeLV then
+			return;
+		end
+		local textmsg = string.format("[ %s ]{nl}%s", itemobj.Name, ScpArgMsg("EXPCARD_JUMPING_SET_LV_MSG", "BEFORELEVEL", beforeLV, "AFTERLEVEL", lv));
+		ui.MsgBox_NonNested(textmsg, itemobj.Name, 'REQUEST_SUMMON_BOSS_TX', "None");
+	end
 	return;
 end
 
@@ -5379,6 +5393,33 @@ function CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(item_obj)
 	CHECK_CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(invItem:GetIESID())
 end
 
+function CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT_yesScp(item_obj)
+	multiple_string_give_item_numbersplit = '0'
+	local item = GetIES(item_obj:GetObject())	
+	
+	if GetCraftState() == 1 then
+		return
+	end
+
+	if true == BEING_TRADING_STATE() then
+		return
+	end
+	
+	local invItem = session.GetInvItemByGuid(item_obj:GetIESID())	
+	if nil == invItem then
+		return
+	end
+	
+	if true == invItem.isLockState then
+		ui.SysMsg(ClMsg("MaterialItemIsLock"))
+		return
+	end
+
+	local yesScp = string.format('CHECK_CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT_BELONGING_CHECK("%s")', invItem:GetIESID());
+	local clmsg = ScpArgMsg('ReallyDecompose');
+	ui.MsgBox(clmsg, yesScp, 'None');
+end
+
 function CHECK_CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(item_id)
 	local invItem = session.GetInvItemByGuid(tostring(item_id))
 	local itemObj = GetIES(invItem:GetObject())
@@ -5389,6 +5430,26 @@ function CHECK_CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(item_id)
 	else
 		local titleText = ScpArgMsg("INPUT_CNT_D_D", "Auto_1", 1, "Auto_2", invItem.count)
 		INPUT_NUMBER_BOX(nil, titleText, "RUN_CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT", 1, 1, invItem.count)
+		multiple_string_give_item_numbersplit = tostring(item_id)
+	end
+end
+
+function CHECK_CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT_BELONGING_CHECK(item_id)
+	local invItem = session.GetInvItemByGuid(tostring(item_id))
+	local itemObj = GetIES(invItem:GetObject())
+	local invItemTradeCount = TryGetProp(itemObj, "BelongingCount");
+
+	local realItemCount = invItem.count - invItemTradeCount
+
+	if TryGetProp(itemObj, 'MaxStack', 0) == 1 or realItemCount == 1 then
+		multiple_string_give_item_numbersplit = tostring(item_id)
+		RUN_CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT(1)
+	elseif invItem.count ~= 0 and realItemCount == 0 then
+		ui.SysMsg(ClMsg("DontDecomposeNoTrade"));
+		return;
+	else
+		local titleText = ScpArgMsg("INPUT_CNT_D_D", "Auto_1", 1, "Auto_2", realItemCount)
+		INPUT_NUMBER_BOX(nil, titleText, "RUN_CLIENT_USE_MULTIPLE_USE_STRING_GIVE_ITEM_NUMBER_SPLIT", 1, 1, realItemCount)
 		multiple_string_give_item_numbersplit = tostring(item_id)
 	end
 end

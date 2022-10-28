@@ -5,7 +5,11 @@
 		<groupbox name="countBox"/>
 		<picture name="cyclePic" parent="countBox" rect="0 0 48 27" margin="140 2 0 0" layout_gravity="left center" image="indun_icon_week_l"/>
 		<!-- WeeklyBoss info box -->
-		<button name="classtype_reward" margin="73 0 0 60"/>
-		<button name="total_damage_reward" margin="0 0 59 60"/>
+		<button name="classtype_reward" resizebytext="false" omitbywidth="true" texttooltip="{@st66b}{s16}{#FFFFFFF}계열 순위 보상"/>
+		<button name="total_damage_reward" resizebytext="false" omitbywidth="true" texttooltip="{@st66b}{s16}{#FFFFFFF}누적 대미지 보상"/>
+		<button name="total_class_rank_reward" resizebytext="false" omitbywidth="true" texttooltip="{@st66b}{s16}{#FFFFFFF}클래스 순위 보상"/>
+
+		<button name="pvpShopBtn" resizebytext="false" omitbywidth="true" texttooltip="{@st66b}{s16}{#FFFFFFF}팀 배틀리그 상점"/>
+		<button name="pvpCharacterRegistBtn" resizebytext="false" omitbywidth="true" texttooltip="{@st66b}{s16}{#FFFFFFF}교체 캐릭터 등록"/>
 	</controls>
 </uiframe>

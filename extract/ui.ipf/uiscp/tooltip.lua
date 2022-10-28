@@ -1101,7 +1101,17 @@ end
                     caption = caption .. caption2
                 end
             end
+            
+            local sklObj = GetClass('Skill', className)
+            if sklObj == nil then return end
+
+            if CHECK_SKILL_KEYWORD(sklObj, "pcSummonSkill") == 1 then
+                local factor = SCR_Get_SkillFactor(sklObj)
+                local text = '{@st43}{s16}' .. ClMsg('SkillFactorText') .. tostring(factor) .. '%%'
+                caption = string.gsub(caption, 'None', text)
+
         end
+    end
     end
 
 

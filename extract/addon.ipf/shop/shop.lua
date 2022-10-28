@@ -1,4 +1,4 @@
-function SHOP_ON_INIT(addon, frame)
+﻿function SHOP_ON_INIT(addon, frame)
 
 	addon:RegisterMsg('SHOP_ITEM_LIST_GET', 'SHOP_ON_MSG');
 	addon:RegisterMsg('DIALOG_CLOSE', 'SHOP_ON_MSG');

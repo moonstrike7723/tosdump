@@ -130,7 +130,7 @@ function INIT_COLONY_BATTLE_INFO_TIMER(frame)
 end
 
 function OPEN_COLONY_BATTLE_UI(frame, msg)
-    CHASEINFO_CLOSE_FRAME()
+    ui.CloseFrame('questinfoset_2')
 
     if has_claim == nil then
         local arg_list = {}

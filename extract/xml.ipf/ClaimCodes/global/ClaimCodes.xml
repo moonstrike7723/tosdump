@@ -25,13 +25,14 @@
 	<Class Code="107" Desc="Distribute Funds"/>
 	<Class Code="202" Desc="Write Announcement"/>
 	<Class Code="203" Desc="Write Promotional Post"/>
-	<Class Code="204" Desc="See Community Posts (default)"/>
-	<Class Code="205" Desc="Write Community Post"/>
-	<Class Code="207" Desc="Delete posts on Commumity"/>
 	<Class Code="208" Desc="Guild Highlight Message"/>
+	<Class Code="209" Desc="Create Group Chat"/>
+	<Class Code="210" Desc="Delete Group Chat"/>
+	<Class Code="211" Desc="Register Notice"/>
 	<Class Code="301" Desc="Declare/End War"/>
 	<Class Code="302" Desc="Set/Remove Neutral Status"/>
 	<Class Code="303" Desc="See Ongoing Wars"/>
+	<Class Code="304" Desc="View Current Participants of GTW Zone"/>
 	<Class Code="401" Desc="Start Guild Quest"/>
 	<Class Code="402" Desc="Set Hangout Restrictions"/>
 	<Class Code="403" Desc="Use Hangout Farm"/>

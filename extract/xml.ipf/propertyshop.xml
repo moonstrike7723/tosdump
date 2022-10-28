@@ -154,13 +154,6 @@
 		<Item Script="None" Name="give_ticket_ep13vakarine02_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_11"/>
 		<Item Script="None" Name="give_ticket_ep13vakarine03_2_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_12"/>
 		<Item Script="None" Name="give_ticket_ep13vakarine03_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2012_13"/>
-		<Item Script="None" Name="DRESS_ROOM_COLLECT_6" Count="1" Price="3600" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_1"/>
-		<Item Script="None" Name="give_ticket_ep13toswinter03_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_2"/>
-		<Item Script="None" Name="give_ticket_ep13toswinter03_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_3"/>
-		<Item Script="None" Name="give_ticket_ep13toswinter02_2_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_4"/>
-		<Item Script="None" Name="give_ticket_ep13toswinter02_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_5"/>
-		<Item Script="None" Name="give_ticket_ep13toswinter03_2_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_6"/>
-		<Item Script="None" Name="give_ticket_ep13toswinter03_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_7"/>
 		<Item Script="None" Name="DRESS_ROOM_COLLECT_5" Count="1" Price="3600" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_1"/>
 		<Item Script="None" Name="give_ticket_ep13cybersoldier03_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_2"/>
 		<Item Script="None" Name="give_ticket_ep13cybersoldier03_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_3"/>
@@ -168,6 +161,13 @@
 		<Item Script="None" Name="give_ticket_ep13cybersoldier02_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_5"/>
 		<Item Script="None" Name="give_ticket_ep13cybersoldier03_2_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_6"/>
 		<Item Script="None" Name="give_ticket_ep13cybersoldier03_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2101_7"/>
+		<Item Script="None" Name="DRESS_ROOM_COLLECT_6" Count="1" Price="3600" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_1"/>
+		<Item Script="None" Name="give_ticket_ep13toswinter03_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_2"/>
+		<Item Script="None" Name="give_ticket_ep13toswinter03_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_3"/>
+		<Item Script="None" Name="give_ticket_ep13toswinter02_2_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_4"/>
+		<Item Script="None" Name="give_ticket_ep13toswinter02_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_5"/>
+		<Item Script="None" Name="give_ticket_ep13toswinter03_2_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_6"/>
+		<Item Script="None" Name="give_ticket_ep13toswinter03_2_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2102_7"/>
 		<Item Script="None" Name="DRESS_ROOM_COLLECT_7" Count="1" Price="3600" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_7"/>
 		<Item Script="None" Name="give_ticket_ep13cherryblossom03_m" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_8"/>
 		<Item Script="None" Name="give_ticket_ep13cherryblossom03_f" Count="1" Price="12000" DailyBuyLimit="0" AccountNeedProperty="ContentsTotalShop_2103_9"/>
@@ -273,5 +273,6 @@
 		<Item Script="None" Name="costume_Char5_16_02" Count="1" Price="12200" DailyBuyLimit="0"/>
 		<Item Script="None" Name="SpecialCostume_Clown" Count="1" Price="24400" DailyBuyLimit="0"/>
 		<Item Script="None" Name="Hat_628067" Count="1" Price="24400" DailyBuyLimit="0"/>
+		<Item Script="None" Name="Hat_628386" Count="1" Price="24400" DailyBuyLimit="0"/>
 	</Shop>
 </PropertyShop>

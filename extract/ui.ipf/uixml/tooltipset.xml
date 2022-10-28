@@ -467,4 +467,17 @@
 			<richtext name="caption" rect="0 0 256 20" margin="10 1 0 0" layout_gravity="left center" fixwidth="false" updateparent="true"/>
 		</controls>
 	</tooltip>
+	<tooltip name="skill_summon" x="0" y="0" frameskin="None" marginy="10" fixwidth="true" width="500" height="1000" moveable="false" blendtime="" UpdateScp="UPDATE_SUMMON_SKILL_TOOLTIP" CustomUpdate="UPDATE_SKILL_NEW_TIP">
+		<controls>
+			<groupbox name="skill_desc" margin="0 0 500 50" rect="0 0 500 50" skin="test_skill_tooltip" hittest="false" draw="true" updateparent="true" scrollbar="false" layout_gravity="left top"/>
+			<picture name="icon_frame" image="skilltooltip_skill_image_slot" layout_gravity="left top" rect="0 0 100 100" stretch="true" margin="20 70 0 0" parent="skill_desc"/>
+			<picture name="icon" layout_gravity="left top" rect="0 0 85 85" stretch="true" margin="28 78 0 0" parent="skill_desc"/>
+			<groupbox name="weapon_box" margin="0 170 0 0" rect="0 0 500 40" hittest="false" draw="false" updateparent="true" scrollbar="false" layout_gravity="center top" parent="skill_desc"/>
+			<groupbox name="stance_pic" margin="120 0 0 0" rect="0 0 380 50" hittest="false" draw="false" updateparent="true" scrollbar="false" layout_gravity="left top" parent="weapon_box"/>
+			<richtext name="name" layout_gravity="center top" fontname="yellow_18_ol" rect="0 0 494 60" fixwidth="true" textalign="center center" margin="1 2 0 0" resizebytext="false" hittest="false" updateparent="true" parent="skill_desc"/>
+			<richtext name="type" layout_gravity="center top" rect="0 0 160 20" fixwidth="false" margin="0 70 0 0" hittest="false" updateparent="true" parent="skill_desc"/>
+			<richtext name="desc" layout_gravity="left top" fontname="brown_16_b" rect="0 0 350 20" fixwidth="true" margin="130 80 0 0" resizebytext="true" hittest="false" updateparent="true" parent="skill_desc"/>
+			<richtext name="weapon_text" format="{@st66d}착용 무기" layout_gravity="left center" fontname="white_18_ol" rect="0 0 100 50" fixwidth="true" textalign="left center" margin="30 -5 0 0" hittest="false" updateparent="true" parent="weapon_box"/>
+		</controls>
+	</tooltip>
 </tooltipset>

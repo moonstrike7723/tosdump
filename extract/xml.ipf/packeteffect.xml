@@ -428,6 +428,8 @@
         <Effect Name="F_explosion98_water3_2_white"/>
         <Effect Name="F_spread_in030_air"/>
         <Effect Name="F_spread_in030_ice4"/>
+        <Effect Name="F_explosion98_rize_4"/>
+        <Effect Name="master_Luchador"/>
     </Category>
     <Category ID="132">
         <Effect Name="I_arrow005_mash2_red#Dummy_back_arrow04"/>
@@ -1297,6 +1299,9 @@
         <Effect Name="Orgel1"/>
         <Effect Name="skl_eff_h_barrack_12_lamp_phone"/>
         <Effect Name="I_smoke011_green"/>
+        <Effect Name="t_pvp_2"/>
+        <Effect Name="TeamBattleLeague5vs5"/>
+        <Effect Name="battlefield5vs5"/>
     </Category>
     <Category ID="144">
         <Effect Name="F_pc_CardBook_ground_dark"/>
@@ -3256,6 +3261,14 @@
         <Effect Name="F_ground131_dark_green"/>
         <Effect Name="F_explosion062_liquid"/>
         <Effect Name="F_explosion062_liquid_green"/>
+        <Effect Name="SKL_LUCHADOR_MARTINETE"/>
+        <Effect Name="Luchador_Golpear"/>
+        <Effect Name="skl_Chocar_mask_off"/>
+        <Effect Name="skl_Chop1"/>
+        <Effect Name="skl_Chop2"/>
+        <Effect Name="skl_Martinete"/>
+        <Effect Name="skl_Ceremonia"/>
+        <Effect Name="SKL_LUCHADOR_GOLPEAR_ABIL_LOOP"/>
     </Category>
     <Category ID="197">
         <Effect Name="F_burstup030_fire1"/>
@@ -3399,6 +3412,10 @@
         <Effect Name="hit_twinklestar"/>
         <Effect Name="skl_eff_stormdust_loop"/>
         <Effect Name="skl_eff_elementalist_elementalessence_cast"/>
+    <Effect Name="voice_luchador_m_golpear_huracan"/>
+    <Effect Name="MYTHIC_STARTOWER_MINI_AUTO_SOLO"/>
+        <Effect Name="MYTHIC_CASTLE_MINI_AUTO_SOLO"/>
+        <Effect Name="MYTHIC_FIRETOWER_MINI_AUTO_SOLO"/>
     </Category>
     <Category ID="171">
         <Effect Name="MISSION_UPHILL_DEFFENSE_EVENT2"/>
@@ -3712,6 +3729,34 @@
         <Effect Name="I_cleric_BeadyEyed_dash_red"/>
         <Effect Name="F_hit009_rize_green4"/>
         <Effect Name="voice_cleric_m_barrier_shot"/>
+        <Effect Name="Murmillo_FrenziedBurst_Arena"/>
+        <Effect Name="Luchador_Golpear_Abil"/>
+        <Effect Name="SKL_WHIRLWIND_LOOP"/>
+        <Effect Name="SKL_LUCHADOR_ENMASCARADO_RODANDO"/>
+        <Effect Name="SKL_LUCHADOR_ENMASCARADO_BUCEANDO"/>
+        <Effect Name="voice_luchador_f_martinete_shot"/>
+        <Effect Name="SKL_LUCHADOR_ASTD"/>
+        <Effect Name="voice_luchador_f_golpear_huracan"/>
+        <Effect Name="skl_eff_luchador_golpear_storm_ground"/>
+        <Effect Name="skl_eff_voice_luchador_announce_m_turn"/>
+        <Effect Name="skl_eff_voice_luchador_announce_f_turn"/>
+        <Effect Name="skl_eff_voice_luchador_announce_f_cheers"/>
+        <Effect Name="skl_eff_voice_luchador_announce_f_joy"/>
+        <Effect Name="skl_eff_voice_luchador_audience_f_cheers"/>
+        <Effect Name="skl_eff_voice_luchador_announce_m_cheers"/>
+        <Effect Name="skl_eff_voice_luchador_announce_f_intro"/>
+        <Effect Name="skl_eff_voice_luchador_audience_m_anger"/>
+        <Effect Name="skl_eff_voice_luchador_announce_m_anger"/>
+        <Effect Name="skl_eff_voice_luchador_announce_m_intro"/>
+        <Effect Name="skl_eff_voice_luchador_announce_m_end"/>
+        <Effect Name="skl_eff_voice_luchador_announce_m_catcall"/>
+        <Effect Name="skl_eff_voice_luchador_announce_f_catcall"/>
+        <Effect Name="skl_eff_voice_luchador_announce_f_sad"/>
+        <Effect Name="skl_eff_voice_luchador_announce_f_end"/>
+        <Effect Name="skl_eff_voice_luchador_announce_m_joy"/>
+        <Effect Name="F_buff_basic059"/>
+        <Effect Name="voice_luchador_m_martinete_shot"/>
+        <Effect Name="SKL_BUTTERFLY"/>
     </Category>
     <Category ID="84">
         <Effect Name="M_PAST_FLIBRARY_1"/>
@@ -4464,6 +4509,7 @@
         <Effect Name="F_sys_TPBOX_great_200"/>
         <Effect Name="skl_eff_gacha_box_button"/>
         <Effect Name="skl_eff_gacha_box_result"/>
+        <Effect Name="F_cleric_ProtectionOfGoddess_ground"/>
     </Category>
     <Category ID="50">
         <Effect Name="F_sys_target_monster##0.2"/>
@@ -4581,6 +4627,10 @@
         <Effect Name="I_scout_luka_gun"/>
         <Effect Name="F_explosion90_fire"/>
         <Effect Name="I_vibora_Critical_Edge"/>
+        <Effect Name="Sadhu_EctoplasmExplosion"/>
+        <Effect Name="battlefield5vs5"/>
+        <Effect Name="300"/>
+        <Effect Name="skl_OOBE_loop"/>
     </Category>
     <Category ID="60">
         <Effect Name="SETPOS"/>
@@ -6695,6 +6745,13 @@
         <Effect Name="I_hit003_red"/>
         <Effect Name="I_buff_002_red1"/>
         <Effect Name="skl_eff_jukebox_loop"/>
+        <Effect Name="skl_eff_toy_bubble_pipe"/>
+        <Effect Name="skl_eff_mon_water_jump"/>
+        <Effect Name="ridepet_nautilussnail_born"/>
+        <Effect Name="ridepet_heliogriffin_born"/>
+        <Effect Name="ridepet_ashlion_born"/>
+        <Effect Name="ridepet_kogibird_born"/>
+        <Effect Name="ridepet_polarreindeer_born"/>
     </Category>
     <Category ID="28">
         <Effect Name="F_explosion006_green#Dummy_skl2_shot"/>
@@ -7507,8 +7564,7 @@
         <Effect Name="assistattack_firework"/>
         <Effect Name="firework"/>
         <Effect Name="skl_assistattack_firework"/>
-        <Effect Name="skl_assistattack_firework
-"/>
+        <Effect Name="skl_assistattack_firework"/>
         <Effect Name="skl_assistattack_snowflower2"/>
         <Effect Name="skl_assistattack_foldingchair"/>
         <Effect Name="F_spread_out028_fire2"/>
@@ -10236,7 +10292,13 @@
         <Effect Name="F_ground085_circle"/>
         <Effect Name="skl12_spear"/>
         <Effect Name="I_subzeroshield_shot_obj_mash"/>
+        <Effect Name="I_screen_leaf001"/>
+        <Effect Name="battlefield5vs5"/>
+        <Effect Name="toy_ep13tcance"/>
         <Effect Name="Goddess_Raid_Vasilissa_Solo"/>
+        <Effect Name="Lose"/>
+        <Effect Name="Win"/>
+        <Effect Name="Draw"/>
     </Category>
     <Category ID="19">
         <Effect Name="I_fallen_statue_atk002_mash"/>
@@ -25284,5 +25346,16 @@
         <Effect Name="f_burning_siauliai"/>
         <Effect Name="raid_vasilissa"/>
         <Effect Name="mon_voice_vasilissa_born_script"/>
+        <Effect Name="F_spread_in030_air"/>
+        <Effect Name="F_spread_in030_ice4"/>
+        <Effect Name="battlefield5vs5"/>
+        <Effect Name="weekly_boss_quipmage_forcePad"/>
+        <Effect Name="weekly_boss_quipmage_forcePad"/>
+        <Effect Name="F_explosion125_mint"/>
+        <Effect Name="I_force019_blue#Dummy_effect_wepon"/>
+        <Effect Name="I_force019_blue#Dummy_effect_wepon"/>
+        <Effect Name="I_wizard_Prominence_force_fire2#Dummy_effect_wepon"/>
+        <Effect Name="I_force018_trail_fire#Dummy_effect_wepon"/>
+        <Effect Name="I_force018_trail_fire#Dummy_effect_wepon"/>
     </Category>
 </packeteffects>
