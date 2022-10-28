@@ -130,7 +130,7 @@ function EXEC_INPUT_EXCHANGE_CNT(frame, inputframe, ctrl)
 	end
 end
 
-local function _EXCHANGE_ADD_FROM_INV(obj, item, tradeCnt)
+local function _EXCHANGE_ADD_FROM_INV(obj, item, tradeCnt)    
 	local reason = GetTradeLockByProperty(obj);
 	if reason ~= "None" then
 		ui.SysMsg(ScpArgMsg(reason));
@@ -147,6 +147,11 @@ local function _EXCHANGE_ADD_FROM_INV(obj, item, tradeCnt)
 		ui.AlarmMsg("ItemIsNotTradable");
 		return;
 	end
+    
+    if TryGetProp(obj, 'TeamBelonging', 0) ~= 0 then
+        ui.AlarmMsg("ItemIsNotTradable");
+		return;
+    end
 
 	if geItemTable.IsHavePotential(obj.ClassID) == 1 and obj.PR == 0 then
 		ui.AlarmMsg("NoPotentialForExchange");

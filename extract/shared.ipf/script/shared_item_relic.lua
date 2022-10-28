@@ -1,20 +1,5 @@
 -- shared_item_relic.lua
 
-local function replace(text, to_be_replaced, replace_with)
-	local retText = text
-	local strFindStart, strFindEnd = string.find(text, to_be_replaced)	
-    if strFindStart ~= nil then
-		local nStringCnt = string.len(text)		
-		retText = string.sub(text, 1, strFindStart-1) .. replace_with ..  string.sub(text, strFindEnd+1, nStringCnt)		
-    else
-        retText = text
-	end
-	
-    return retText
-end
-
-item_relic_reinforce = {}  -- namespace
-
 shared_item_relic = {}
 
 max_relic_option_count = 10 -- 옵션이 최대 10개 있다고 가정함
@@ -24,134 +9,6 @@ relic_gem_type = {
     Gem_Relic_Magenta = 1,
     Gem_Relic_Black = 2,
 }
-
-local relic_parameter_list = nil
-function make_relic_parameter_list()
-	if relic_parameter_list ~= nil then
-		return
-	end
-
-	relic_parameter_list = {}
-
-    relic_parameter_list = {} -- 
-    
-    relic_parameter_list['BASE_REINFORCE_FAIL_REVISION_RATIO'] = 5  -- 기본 강화 실패 보정 비율(아이템 없이)
-	relic_parameter_list['REINFORCE_FAIL_REVISION_RATIO'] = 5 -- 5% , 보조제에 의한 강화 실패 보정 비율
-	relic_parameter_list['MAX_SUB_REVISION_COUNT'] = 3 -- 강화 보조제 최대 적용 가능 개수
-	relic_parameter_list['SUB_REVISION_RATIO'] = 20  -- 20%, 보조제 1개당 강화 실패 보정 비율에서 보정할 비율 , reinforce_percentUp
-	relic_parameter_list['MAX_PREMIUM_SUB_REVISION_COUNT'] = 2 -- 프리미엄 강화 보조제 최대 적용 가능 개수
-	relic_parameter_list['PREMIUM_SUB_REVISION_RATIO'] = 20  -- 20%, 프리미엄 보조제 1개당 강화 실패 보정 비율에서 보정할 비율 , reinforce_premium_percentUp	
-end
-make_relic_parameter_list()
-
--- 강화 실패시 보정되는 퍼센트(추가 아이템)
-function GET_RELIC_REINFORCE_FAIL_REVISION_RATIO()
-	if relic_parameter_list == nil then
-		return 5
-	end
-
-	if relic_parameter_list['REINFORCE_FAIL_REVISION_RATIO'] == nil then
-		return 5
-	else
-		return relic_parameter_list['REINFORCE_FAIL_REVISION_RATIO'] -- 5%
-	end
-end
-
-function GET_RELIC_BASE_REINFORCE_FAIL_REVISION_RATIO()
-	if relic_parameter_list == nil then
-		return 10
-	end
-
-	if relic_parameter_list['BASE_REINFORCE_FAIL_REVISION_RATIO'] == nil then
-		return 10
-	else
-		return relic_parameter_list['BASE_REINFORCE_FAIL_REVISION_RATIO'] -- 5%
-	end
-end
-
--- 강화 보조제 최대 적용 가능 개수
-function GET_RELIC_MAX_SUB_REVISION_COUNT()
-	if relic_parameter_list == nil then
-		return 3
-	end
-
-	if relic_parameter_list['MAX_SUB_REVISION_COUNT'] == nil then
-		return 3
-	else
-		return relic_parameter_list['MAX_SUB_REVISION_COUNT']
-	end
-end
-
--- 강화 보조제로 보정되는 비율
-function GET_RELIC_SUB_REVISION_RATIO()
-	if relic_parameter_list == nil then
-		return 10
-	end
-
-	if relic_parameter_list['SUB_REVISION_RATIO'] == nil then
-		return 10
-	else
-		return relic_parameter_list['SUB_REVISION_RATIO']
-	end
-end
-
--- 프리미엄 강화 보조제 최대 적용 가능 개수
-function GET_RELIC_MAX_PREMIUM_SUB_REVISION_COUNT()
-	if relic_parameter_list == nil then
-		return 2
-	end
-
-	if relic_parameter_list['MAX_PREMIUM_SUB_REVISION_COUNT'] == nil then
-		return 2
-	else
-		return relic_parameter_list['MAX_PREMIUM_SUB_REVISION_COUNT']
-	end
-end
-
--- 프리미움 강화 보조제로 보정되는 비율
-function GET_RELIC_PREMIUM_SUB_REVISION_RATIO()
-	if relic_parameter_list == nil then
-		return 10
-	end
-
-	if relic_parameter_list['PREMIUM_SUB_REVISION_RATIO'] == nil then
-		return 10
-	else
-		return relic_parameter_list['PREMIUM_SUB_REVISION_RATIO']
-	end
-end
-
--- 강화 보조제 인가? (노멀, 프리미엄)
-item_relic_reinforce.is_reinforce_percentUp = function(misc_item)
-	if TryGetProp(misc_item, 'StringArg', 'None') == 'reinforce_premium_percentUp' then
-		return 'premium'
-	end
-
-	if TryGetProp(misc_item, 'StringArg', 'None') == 'reinforce_percentUp' then
-		return 'normal'
-	end
-
-	return 'NO'
-end
-
--- 저장된 추가 수치
-item_relic_reinforce.get_additional_ratio = function(gem_item)    
-    return TryGetProp(gem_item, 'ReinforceRevision', 0)
-end
--- 강화 실패시 보정할 수치
-item_relic_reinforce.get_revision_ratio = function(base_success_ratio, sub_revision_count, sub_premium_revision_count)
-    local sub_revision_ratio = GET_RELIC_SUB_REVISION_RATIO() * sub_revision_count
-    local sub_premium_revision_ratio = GET_RELIC_PREMIUM_SUB_REVISION_RATIO() * sub_premium_revision_count    
-
-    local add_rate = GET_RELIC_REINFORCE_FAIL_REVISION_RATIO() -- 강화 실패시에 보정할 비율    
-    local base = GET_RELIC_BASE_REINFORCE_FAIL_REVISION_RATIO() 
-    add_rate = add_rate * (sub_revision_ratio + sub_premium_revision_ratio) * 0.01
-    add_rate = base + add_rate
-    return math.ceil(base_success_ratio * add_rate * 0.01) -- 강화 실패시 보정할 수치
-end
-
---- end of 확률 관련 -----------------------------------------------------
-
 
 -- 성물 젬 강화 확률, 재료
 shared_item_relic.get_gem_reinforce_mat_name = function(lv)
@@ -218,8 +75,9 @@ shared_item_relic.get_gem_compose_mat_name = function()
     end
 
     local mat_1 = TryGetProp(cls, 'Material_1', 'None')
+    local mat_2 = TryGetProp(cls, 'Material_2', 'None')
 
-    return mat_1
+    return mat_1, mat_2
 end
 
 shared_item_relic.get_gem_compose_mat_cnt = function()
@@ -229,8 +87,9 @@ shared_item_relic.get_gem_compose_mat_cnt = function()
     end
 
     local cnt_1 = TryGetProp(cls, 'MaterialCnt_1', 0)
+    local cnt_2 = TryGetProp(cls, 'MaterialCnt_2', 0)
 
-    return cnt_1
+    return cnt_1, cnt_2
 end
 
 shared_item_relic.get_gem_compose_silver = function()
@@ -241,7 +100,7 @@ shared_item_relic.get_gem_compose_silver = function()
 
     local value = TryGetProp(cls, 'SilverCost', 0)
 
-    return 0
+    return value
 end
 
 -- 성물 젬 분해
@@ -303,8 +162,8 @@ end
 
 -- 경험치 재료
 shared_item_relic.get_exp_material_name = function()
-    local name_list = { 'Relic_exp_token_refine', 'Relic_exp_token_refine_Trade', }
-    return name_list
+    local name = 'Relic_exp_token_refine'
+    return name
 end
 
 shared_item_relic.get_exp_material_value = function()
@@ -550,23 +409,4 @@ function get_dummy_item_relic_buff_by_object(self, item)
     end
 
     return item_name;
-end
-
-function SCR_RELIC_GEM_REINFORCE_COUPON()
-    local list = {
-        'Relic_gem_upgrade_token',
-        'Event_Reinforce_100000coupon',
-        'Event_Reinforce_100000coupon_Event',
-        'Relic_Reinforce_100000coupon',
-    }
-    return list
-end
-
-function SCR_RELIC_REINFORCE_COUPON()
-    local list = {
-        'Event_Reinforce_100000coupon',
-        'Event_Reinforce_100000coupon_Event',
-        'Relic_Reinforce_100000coupon',
-    }
-    return list
 end

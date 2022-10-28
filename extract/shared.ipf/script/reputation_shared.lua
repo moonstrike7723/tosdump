@@ -38,7 +38,7 @@ function GET_REPUTATION_REQUIRE_POINT(rank)
 end
 
 function GET_REPUTATION_POINT_EXTRACT_LIMIT()
-    return 2000
+    return 500
 end
 
 function GET_REPUTATION_PRICE_NAME(group)
@@ -189,8 +189,4 @@ function SCR_REPUTAION_WEEKQUEST_POSSIBLECHECK(self, QuestName, SysMsg)
         end
     end
 
-end
-
-function GET_REPUTATION_ITEM_SELL_PRICE(product)
-    return math.floor(TryGetProp(product, "Price", 0) * 0.9)
 end

@@ -454,6 +454,30 @@ function SCR_CRUSADER_CHECK_CHECK_BUFF_C(actor, skl, buffName)
     return 1;
 end
 
+function SCR_BOKOR_CHECK_BUFF_C(actor, skl, buffName)
+    local getBuff = actor:GetBuff():GetBuff("PowerOfDarkness_Buff")
+    if getBuff ~= nil then
+        local over = getBuff.over
+        if over >= 10 then
+            return 1;
+        end
+    end
+    
+    return 0;
+end
+
+function SCR_BOKOR_CHECK_BUFF_C_Mackangdal(actor, skl, buffName)
+    local getBuff = actor:GetBuff():GetBuff("PowerOfDarkness_Buff")
+    if getBuff ~= nil then
+        local over = getBuff.over
+        if over >= 1 then
+            return 1;
+        end
+    end
+    
+    return 0;
+end
+
 function SKL_CHECK_USE_RAMPAGE_SKILL_C(actor, skl, abilName)
     if actor:GetBuff():GetBuff("RidingCompanion") ~= nil then
         local obj = nil
@@ -507,4 +531,97 @@ function SCR_CHECK_SPIRALARROW_ABIL_C()
     else
         return 0
     end
+end
+
+function SKL_CHECK_RELIC_SPEND_RP_C(actor, skl, value)
+	local mapname = session.GetMapName()
+	local mapcls = GetClass("Map", mapname)
+    if TryGetProp(mapcls, "MapType", "None") == "City" then
+        return 0
+    end	
+
+    local equip_item = session.GetEquipItemBySpot(item.GetEquipSpotNum('RELIC'))
+    if equip_item == nil then
+        return 0
+    end
+
+	local item_obj = GetIES(equip_item:GetObject())
+	if item_obj == nil or IS_NO_EQUIPITEM(item_obj) == 1 or TryGetProp(item_obj, 'ClassType', 'None') ~= 'Relic' then
+		return 0
+    end
+
+    local pc = GetMyPCObject()
+	if IsBuffApplied(pc, "Relic_Release_Buff") == "YES" then
+		return 1	
+	end
+
+    local cur_rp, max_rp = shared_item_relic.get_rp(pc)
+    if cur_rp < value then
+        return 0
+    end
+
+	local spend_rp_cyan = GetExProp(pc, "Spend_RP_By_Cyan")
+	local spend_rp_magenta = GetExProp(pc, "Spend_RP_By_Magenta")
+   	if spend_rp_cyan == 0 or spend_rp_magenta == 0 then
+		return 0
+    end
+    
+    if IsPVPField() == 1 then
+        spend_rp_cyan = spend_rp_cyan * 1.5
+        spend_rp_magenta = spend_rp_magenta * 1.5
+    end
+    
+	local cur_rp, max_rp = shared_item_relic.get_rp(pc)
+	if cur_rp < spend_rp_cyan or cur_rp < spend_rp_magenta then
+		return 0	
+	end
+
+    return 1
+end
+
+function SCR_PRAKRITI_CHECK_BUFF_C(actor, skl, buffName)
+    local getBuff = actor:GetBuff():GetBuff("Sadhu_Soul_Buff")
+    if getBuff ~= nil then
+        local over = getBuff.over
+        if over >= 2 then
+            return 1;
+        end
+    end
+
+    return 0;
+end
+
+function CHECK_IS_EQUIP_PREFIX_C(actor, skl, prefix)
+	local cls = GetClass('LegendSetItem', prefix)
+	local MaxCnt = TryGetProp(cls, 'MaxOptionCount')
+	local Cnt = 0
+	local slot = {'RH', 'LH', 'SHIRT', 'PANTS', 'GLOVES', 'BOOTS'}
+
+	local TrinketSlot = session.GetEquipItemBySpot(item.GetEquipSpotNum('TRINKET'))
+	local TrinketObj = GetIES(TrinketSlot:GetObject())
+	if TryGetProp(TrinketObj, "ClassType", "None") == 'Trinket' then
+		slot[2] = 'TRINKET'
+	end
+
+	for i = 1, 6 do
+		local equip_item = session.GetEquipItemBySpot(item.GetEquipSpotNum(slot[i]))
+	    if equip_item == nil then
+	        return 0
+	    end
+
+		local item_obj = GetIES(equip_item:GetObject())
+		if item_obj == nil or IS_NO_EQUIPITEM(item_obj) == 1 then
+			return 0
+	    end
+
+		if TryGetProp(item_obj, 'LegendPrefix', 'None') == prefix then
+			Cnt = Cnt + 1
+		end
+	end
+
+    if Cnt < MaxCnt then
+        return 0
+    end
+    
+    return 1
 end

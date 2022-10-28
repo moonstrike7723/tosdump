@@ -159,6 +159,7 @@ function TGTINFO_TARGET_SET(frame, msg, argStr, argNum)
 			eliteBuffMob = ClMsg("TargetNameElite") .. " ";
 		end		
 	end
+
     local nametext = GET_CHILD_RECURSIVELY(frame, "name", "ui::CRichText");
 	local mypclevel = GETMYPCLEVEL();
     local levelColor = "";
@@ -169,8 +170,13 @@ function TGTINFO_TARGET_SET(frame, msg, argStr, argNum)
     else
         nametext:SetTextByKey('color', frame:GetUserConfig("MON_NAME_COLOR_DEFAULT"));
 	end
-    nametext:SetTextByKey('lv', targetinfo.level);
-    nametext:SetTextByKey('name', eliteBuffMob..targetinfo.name);
+	nametext:SetTextByKey('lv', targetinfo.level);
+
+	if targetinfo.familyName ~= "None" then
+		nametext:SetTextByKey('name', eliteBuffMob..targetinfo.familyName);
+	else
+		nametext:SetTextByKey('name', eliteBuffMob..targetinfo.name);
+	end
 		
 	-- race
     local monsterRaceSet = TARGETINFO_GET_RACE_CONTROL(frame, targetinfo, targetHandle);
@@ -286,12 +292,20 @@ function TARGETINFO_ON_MSG(frame, msg, argStr, argNum)
 			fontStyle = "";
 		end
 		
-		if hp >= 10000 then 
-			-- 100% 일때 계산필요 없이 100%
+		if hp >= 10000 then -- 100% 일때 계산필요 없이 100% 
 			strHPValue = fontStyle.."100%";	
 		else
-			
-			strHPValue = string.format("%s%3.2f%%",fontStyle, hp/100.0);
+			local hp_percent = hp * 0.01;
+			if hp_percent < 0 then
+				local targetinfo = info.GetTargetInfo(handle);
+				if targetinfo ~= nil and targetinfo.TargetWindow ~= 0 then
+					local stat = targetinfo.stat;
+					if stat ~= nil then
+						hp_percent = stat.HP * 0.01;
+					end
+				end
+			end
+			strHPValue = string.format("%s%3.2f%%", fontStyle, hp_percent);
 		end
 	end
 	return strHPValue;

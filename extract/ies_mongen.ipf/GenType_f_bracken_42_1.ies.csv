@@ -1,6 +1,6 @@
 ClassID,GenType,Lv,Range,GenRange,RespawnTime,MaxPop,Minimap,Hide,UseAIOufOfPC,AnchorCount,UP_ReturnRange,P_MaxDialog,ClassType,Name,UniqueName,QuestName,Tag,Tactics,BTree,SimpleAI,Dialog,Enter,Leave,Save,OnlyPCCheck,SmartGen,Faction,ArgStr1,ArgStr2,ArgStr3,Tendency
 1,1,1,40,-1,60000,1,2,0,0,0,0,0,Warp_arrow,살비야스 숲,,,,MON_DUMMY,,,,BRACKEN42_1_TO_PILGRIM41_2,,NO,YES,NO,Neutral,,,,
-2,2,1,40,-1,60000,1,2,0,0,0,0,0,Warp_arrow,크니도스 숲,,,,MON_DUMMY,,,,BRACKEN42_1_TO_BRACKEN63_2,,NO,YES,NO,Neutral,,,,
+2,2,1,40,-1,60000,1,2,0,0,0,0,0,Warp_arrow,렘파라사 연못,,,,MON_DUMMY,,,,BRACKEN42_1_TO_EP13_F_SIAULIAI_1,,NO,YES,NO,Neutral,,,,
 3,3,1,40,-1,60000,1,2,0,0,0,0,0,Warp_arrow,카마돈 숲,,,,MON_DUMMY,,,,BRACKEN42_1_TO_BRACKEN42_2,,NO,YES,NO,Neutral,,,,
 4,4,1,40,-1,60000,1,2,0,0,0,0,0,Warp_arrow,테브린 종유동 1구역,,,,MON_DUMMY,,,,BRACKEN42_1_TO_LIMESTONECAVE52_1,,NO,YES,NO,Neutral,,,,
 5,5,1,40,50,5000,15,0,0,0,1,0,0,rootcrystal_01,,,,,MON_TORCH,,,,,,NO,YES,NO,RootCrystal,,,,
@@ -33,3 +33,8 @@ ClassID,GenType,Lv,Range,GenRange,RespawnTime,MaxPop,Minimap,Hide,UseAIOufOfPC,A
 111,111,1,40,1,1,1,2,0,0,0,0,0,npc_elevator,이동 장치,,,,,,,,,,NO,YES,NO,Neutral,,,,
 112,112,1,40,1,1,1,2,0,0,0,0,0,npc_elevator,이동 장치,,,,,,,,,,NO,YES,NO,Neutral,,,,
 113,113,1,40,1,1,1,2,0,0,0,0,0,npc_elevator,이동 장치,,,,,,,,,,NO,YES,NO,Neutral,,,,
+114,114,1,220,1,60000,1,0,0,0,0,0,0,HiddenTrigger6,UnvisibleName,,,,,,,,LOWLV_EYEOFBAIGA_SQ_30_MON1,,NO,YES,NO,Neutral,,,,
+115,115,1,220,1,60000,1,0,0,0,0,0,0,HiddenTrigger6,UnvisibleName,,,,,,,,LOWLV_EYEOFBAIGA_SQ_30_MON2,,NO,YES,NO,Neutral,,,,
+116,116,1,220,1,60000,1,0,0,0,0,0,0,HiddenTrigger6,UnvisibleName,,,,,,,,LOWLV_EYEOFBAIGA_SQ_30_MON3,,NO,YES,NO,Neutral,,,,
+117,117,1,220,1,60000,1,0,0,0,0,0,0,HiddenTrigger6,UnvisibleName,,,,,,,,LOWLV_EYEOFBAIGA_SQ_30_MON4,,NO,YES,NO,Neutral,,,,
+118,118,1,220,1,60000,1,0,0,0,0,0,0,HiddenTrigger6,UnvisibleName,,,,,,,,LOWLV_EYEOFBAIGA_SQ_30_MON5,,NO,YES,NO,Neutral,,,,

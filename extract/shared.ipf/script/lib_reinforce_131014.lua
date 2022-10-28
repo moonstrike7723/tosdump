@@ -67,7 +67,7 @@ function IS_MORU_NOT_DESTROY_TARGET_ITEM(moruItem)
     if moruItem.StringArg == 'unique_gold_Moru' then
         return true, 'ruby'
     end
-
+    
     return false, 'None';
 end
 
@@ -84,11 +84,11 @@ end
 --     return false;
 -- end
 
-function REINFORCE_ABLE_131014(item)    
+function REINFORCE_ABLE_131014(item, moru_item)              
     if item.ItemType ~= 'Equip' then
         return 0;
     end
-
+    
     if item.Reinforce_Type ~= "Moru" or item.LifeTime > 0 then
         return 0;
     end
@@ -235,7 +235,7 @@ function GET_REINFORCE_PRICE(fromItem, moruItem, pc)
             IncreaseRatio = TryGetProp(Cls, "ReinforcePriceRatio", 1)
         end
     end
-    if IncreaseRatio ~= nil then
+    if IncreaseRatio ~= nil then        
         value = value * IncreaseRatio
     end
     ---------------------

@@ -670,7 +670,7 @@ function TOGGLE_GEM_REINFORCE(frame)
 	end
 end
 
--- 레전드 카드 강화
+-- 고급 카드(여신,레전드 카드) 강화
 function TOGGLE_LEGEND_CARD_REINFORCE(frame)
     if GetCraftState() == 1 then
         ui.SysMsg(ClMsg('CHATHEDRAL53_MQ03_ITEM02'));
@@ -682,7 +682,7 @@ function TOGGLE_LEGEND_CARD_REINFORCE(frame)
 		rframe:ShowWindow(0);
 	else
 		local title = rframe:GetChild("title");
-		title:SetTextByKey("value", ClMsg("LegendCardReinforce"));
+		title:SetTextByKey("value", ClMsg("AdvancedCardReinforce"));
 		rframe:ShowWindow(1);
 	end
 end
@@ -757,4 +757,12 @@ function SYSMENU_GUILD_PROMOTE_NOTICE(frame)
 	noticeBallon:SetMargin(0, 0, x, y);
 	noticeBallon:SetLayerLevel(60);
 	noticeBallon:ShowWindow(1);
+end
+
+function REQUEST_ICOR_MANAGE_DLG(frame)
+	ui.CloseFrame('reinforce_by_mix')
+	ui.CloseFrame('icoradd_multiple')
+	ui.CloseFrame('icorrelease_multiple')
+	ui.CloseFrame('icorrelease_random_multiple')
+	control.CustomCommand('REQ_ICOR_MANAGE_DLG', 0)
 end

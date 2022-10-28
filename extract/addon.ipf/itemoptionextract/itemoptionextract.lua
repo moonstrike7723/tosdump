@@ -10,6 +10,26 @@ function ITEMOPTIONEXTRACT_ON_INIT(addon, frame)
     addon:RegisterMsg("MSG_RUN_FAIL_EFFECT", 'RUN_FAIL_EFFECT');
 end
 
+local function PLAY_EXEC_EFFECT_ITEMOPTION(frame)
+	local frame = ui.GetFrame("itemoptionextract");
+	local EXTRACT_RESULT_EFFECT_NAME = frame:GetUserConfig('EXTRACT_RESULT_EFFECT');
+	local EFFECT_SCALE = tonumber(frame:GetUserConfig('EFFECT_SCALE'));
+	local EFFECT_DURATION = tonumber(frame:GetUserConfig('EFFECT_DURATION'));
+	local pic_bg = GET_CHILD_RECURSIVELY(frame, 'pic_bg');
+	if pic_bg == nil then
+		return;
+	end
+	
+	pic_bg:ShowWindow(1)
+	pic_bg:PlayUIEffect(EXTRACT_RESULT_EFFECT_NAME, EFFECT_SCALE, 'EXTRACT_RESULT_EFFECT');
+
+	local do_extract = GET_CHILD_RECURSIVELY(frame, "do_extract")
+	do_extract:ShowWindow(0)
+	ui.SetHoldUI(true);
+
+    ReserveScript('release_ui_lock()', EFFECT_DURATION);
+end
+
 function ON_OPEN_DLG_ITEMOPTIONEXTRACT(frame)
 	frame:ShowWindow(1);	
 end
@@ -321,6 +341,26 @@ function ITEM_OPTIONEXTRACT_REG_TARGETITEM(frame, itemID)
 		inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, invitem.OptDesc, 0, inner_yPos);
 	end
 
+	if invitem.OptDesc ~= nil and (invitem.OptDesc == 'None' or invitem.OptDesc == '') and TryGetProp(invitem, 'StringArg', 'None') == 'Vibora' then
+		local opt_desc = invitem.OptDesc
+		if opt_desc == 'None' then
+			opt_desc = ''
+		end
+		
+		for idx = 1, MAX_VIBORA_OPTION_COUNT do			
+			local additional_option = TryGetProp(invitem, 'AdditionalOption_' .. tostring(idx), 'None')			
+			if additional_option ~= 'None' then
+				local tooltip_str = 'tooltip_' .. additional_option					
+				local cls_message = GetClass('ClientMessage', tooltip_str)
+				if cls_message ~= nil then
+					opt_desc = opt_desc .. ClMsg(tooltip_str)
+				end
+			end
+		end
+
+		inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, opt_desc, 0, inner_yPos);
+	end
+
 	if invitem.ReinforceRatio > 100 then
 		local opName = ClMsg("ReinforceOption");
 		local strInfo = ABILITY_DESC_PLUS(opName, math.floor(10 * invitem.ReinforceRatio/100));
@@ -365,13 +405,12 @@ function ITEM_OPTIONEXTRACT_REG_TARGETITEM(frame, itemID)
 	material_questionmark : ShowWindow(0)
 	if item ~= nil then
 		local materialCls = GetClass("Item", GET_OPTION_EXTRACT_MATERIAL_NAME());
-		if i <= materialItemSlot and materialCls ~= 'None' then
+		if i <= materialItemSlot and materialCls ~= 'None' and 0 < materialItemCount then
 			materialClsCtrl : ShowWindow(1)
 			itemIcon = materialCls.Icon;
 			materialItemName = materialCls.Name;
 			local itemCount = GetInvItemCount(pc, materialCls.ClassName)
 			local invMaterial = session.GetInvItemByName(materialCls.ClassName)
-
 			local type = item.ClassID;
 				
 			if itemCount < materialItemCount then
@@ -479,6 +518,61 @@ function ITEM_OPTIONEXTRACT_KIT_REG_TARGETITEM(frame, itemID)
 		ui.SysMsg(ClMsg("IsNotOptionExtractKit"));
 		return
 	end
+
+	local slot = GET_CHILD_RECURSIVELY(frame, "slot");
+	local targetItem = GET_SLOT_ITEM(slot);
+	if targetItem == nil then
+		return;
+	end
+	local targetItemObj = GetIES(targetItem:GetObject());
+	
+	--------------------- TUTORIALNOTE ---------------------
+	if IS_ENABLE_TUTORIAL_TARGET_ITEM(targetItemObj) == true and IS_ENABLE_TUTORIAL_KIT_ITEM(item) == false then
+		ui.SysMsg(ClMsg("IsNotOptionExtractKit_Tutorial1"));
+        return;
+	end
+
+	if IS_ENABLE_TUTORIAL_TARGET_ITEM(targetItemObj) == false and IS_ENABLE_TUTORIAL_KIT_ITEM(item) == true then
+		ui.SysMsg(ClMsg("IsNotOptionExtractKit_Tutorial2"));
+		return;
+	end
+
+	if IS_ENABLE_TUTORIAL_TARGET_ITEM(targetItemObj) == true and IS_ENABLE_TUTORIAL_KIT_ITEM(item) == true then
+		local aObj = GetMyPCObject();
+		local prop = TryGetProp(aObj, "TUTO_MISSON_CHECK34", 0);
+		if prop == 300 then
+			return;
+		end
+
+        local sObj = session.GetSessionObjectByName("ssn_klapeda");
+		if sObj == nil then
+			return;
+		end
+		sObj = GetIES(sObj:GetIESObject());
+		
+		local curType = GET_TUTORIALNOTE_MISSION_ICOR_TARGET_ITEM_TYPE(sObj);
+		if curType == nil then 
+			return;
+		end
+		
+		local itemType = TryGetProp(targetItemObj, "ClassType", "None");
+		if curType ~= itemType then
+			ui.SysMsg(ClMsg(curType)..""..ClMsg("IsNotOptionExtractKit_Tutorial3"));
+			return;
+		end
+
+		if curType ~= "Pants" and item.ClassName == "Tuto_Extract_kit_Gold_Team" then			
+			ui.SysMsg(ClMsg("IsNotOptionExtractKit_Tutorial4"));
+			return;
+		end
+		
+		local sProp = TryGetProp(sObj, "TUTO_ICOR_MISSION_CHECK", 0);
+		if sProp == 3 and curType == "Pants" and item.ClassName ~= "Tuto_Extract_kit_Gold_Team" then
+			ui.SysMsg(ClMsg("IsNotOptionExtractKit_Tutorial5"));
+			return;
+		end
+	end
+	--------------------- TUTORIALNOTE ---------------------
 
 	if IS_100PERCENT_SUCCESS_EXTRACT_ICOR_ITEM(item) == true then		
 		local slot = GET_CHILD_RECURSIVELY(frame, "slot");
@@ -637,33 +731,18 @@ function _ITEMOPTIONEXTRACT_EXEC(checkRebuildFlag)
 	local argList = string.format("%d", extractKitIconInfo.type);
 	pc.ReqExecuteTx_Item("EXTRACT_ITEM_OPTION", invItem:GetIESID(), argList)
 	
-	PLAY_EXEC_EFFECT(frame)
-
-	return
+	PLAY_EXEC_EFFECT_ITEMOPTION(frame)
 end
 
 function release_ui_lock()
-    ui.SetHoldUI(false)
-end
-
-function PLAY_EXEC_EFFECT(frame)
+	ui.SetHoldUI(false)
 	local frame = ui.GetFrame("itemoptionextract");
-	local EXTRACT_RESULT_EFFECT_NAME = frame:GetUserConfig('EXTRACT_RESULT_EFFECT');
-	local EFFECT_SCALE = tonumber(frame:GetUserConfig('EFFECT_SCALE'));
-	local EFFECT_DURATION = tonumber(frame:GetUserConfig('EFFECT_DURATION'));
 	local pic_bg = GET_CHILD_RECURSIVELY(frame, 'pic_bg');
 	if pic_bg == nil then
 		return;
 	end
 	
-	pic_bg:ShowWindow(1)
-	pic_bg:PlayUIEffect(EXTRACT_RESULT_EFFECT_NAME, EFFECT_SCALE, 'EXTRACT_RESULT_EFFECT');
-
-	local do_extract = GET_CHILD_RECURSIVELY(frame, "do_extract")
-	do_extract:ShowWindow(0)
-	ui.SetHoldUI(true);
-
-    ReserveScript('release_ui_lock()', EFFECT_DURATION);
+	pic_bg:StopUIEffect('EXTRACT_RESULT_EFFECT', true, 0);		
 end
 
 function _SUCCESS_ITEM_OPTION_EXTRACT()

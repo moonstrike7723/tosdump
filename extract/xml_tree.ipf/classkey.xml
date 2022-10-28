@@ -10161,6 +10161,7 @@
         <Key Name="UPGRADE_GODDESS_TRY_COUNT" Value="107095"/>
         <Key Name="UPGRADE_TRY_COUNT" Value="107260"/>
         <Key Name="DungeonEnterType" Value="107721"/>
+        <Key Name="Ev_EventType" Value="107859"/>
         <Key Name="Relic_EXP" Value="107797"/>
         <Key Name="Relic_LV" Value="107798"/>
         <Key Name="TeamBelonging" Value="107796"/>
@@ -21254,6 +21255,7 @@
         <Key Name="product_ep13_f_siauliai_5_7" Value="107539"/>
         <Key Name="product_ep13_f_siauliai_5_8" Value="107540"/>
         <Key Name="product_ep13_f_siauliai_5_9" Value="107541"/>
+        <Key Name="AutoMatchingPenalty" Value="107877"/>
         <Key Name="BORUTA_BLOCKADE_MODE_ENTERED" Value="107805"/>
         <Key Name="ContentsTotalShop_2012_1" Value="107656"/>
         <Key Name="ContentsTotalShop_2012_10" Value="107666"/>
@@ -21268,6 +21270,13 @@
         <Key Name="ContentsTotalShop_2012_7" Value="107670"/>
         <Key Name="ContentsTotalShop_2012_8" Value="107668"/>
         <Key Name="ContentsTotalShop_2012_9" Value="107660"/>
+        <Key Name="ContentsTotalShop_2101_1" Value="107873"/>
+        <Key Name="ContentsTotalShop_2101_2" Value="107876"/>
+        <Key Name="ContentsTotalShop_2101_3" Value="107872"/>
+        <Key Name="ContentsTotalShop_2101_4" Value="107870"/>
+        <Key Name="ContentsTotalShop_2101_5" Value="107875"/>
+        <Key Name="ContentsTotalShop_2101_6" Value="107874"/>
+        <Key Name="ContentsTotalShop_2101_7" Value="107871"/>
         <Key Name="EVENT_2012_GILTINE_ITEM_COUNT" Value="107794"/>
         <Key Name="EVENT_2012_GILTINE_WEEKEND_REWARD_CHECK" Value="107795"/>
         <Key Name="EVENT_2012_GILTINE_WEEKEND_REWARD_COUNT" Value="107793"/>
@@ -21275,6 +21284,7 @@
         <Key Name="EVENT_2012_NEW_YEAR_REWARD_20210102" Value="107800"/>
         <Key Name="EVENT_2012_NEW_YEAR_REWARD_20210103" Value="107802"/>
         <Key Name="EVENT_2012_YAK_SHOP_2" Value="107724"/>
+        <Key Name="EVENT_2101_NEW_YEAR_DAILY_COIN_COUNT" Value="107862"/>
         <Key Name="EVENT_2101_NEW_YEAR_DAILY_CONTENT_COUNT" Value="107824"/>
         <Key Name="EVENT_2101_NEW_YEAR_DAILY_FIELD_COUNT" Value="107844"/>
         <Key Name="EVENT_2101_NEW_YEAR_DAILY_PLAY_TIME" Value="107852"/>
@@ -21312,6 +21322,8 @@
         <Key Name="EVENT_2101_NEW_YEAR_TOTAL_BOX_OPEN_COUNT" Value="107826"/>
         <Key Name="EVENT_2101_NEW_YEAR_TOTAL_COIN_COUNT" Value="107827"/>
         <Key Name="EVENT_2101_NEW_YEAR_TOTAL_TICKET_COUNT" Value="107836"/>
+        <Key Name="Episode_12_1_Clear" Value="107861"/>
+        <Key Name="Episode_12_2_Clear" Value="107860"/>
         <Key Name="GILTINE_BLOCKADE_MODE_ENTERED" Value="107806"/>
         <Key Name="HadVisited_11220" Value="107684"/>
         <Key Name="HadVisited_11221" Value="107685"/>
@@ -21341,6 +21353,10 @@
         <Key Name="IndunWeeklyEnteredCount_817" Value="107695"/>
         <Key Name="IsEnableClientTracing" Value="107723"/>
         <Key Name="LEGEND_RAID_GILTINE" Value="107801"/>
+        <Key Name="MythicDungeon_Auto_Hard_EnableEntryCount" Value="107881"/>
+        <Key Name="REPUTATION_QUEST_CLEAR_P_R_EP13_1" Value="107880"/>
+        <Key Name="REPUTATION_QUEST_CLEAR_P_R_EP13_2" Value="107879"/>
+        <Key Name="REPUTATION_QUEST_CLEAR_P_R_EP13_3" Value="107878"/>
         <Key Name="RP" Value="107792"/>
         <Key Name="RQ_Category_1" Value="107787"/>
         <Key Name="RQ_Category_1_1" Value="107789"/>
@@ -21426,6 +21442,13 @@
         <Key Name="TUTO_GUIDE_CHECK17" Value="107673"/>
         <Key Name="TUTO_GUIDE_CHECK18" Value="107664"/>
         <Key Name="TUTO_GUIDE_CHECK19" Value="107676"/>
+        <Key Name="cybersoldier_thema" Value="107869"/>
+        <Key Name="dress_cybersoldier_1" Value="107865"/>
+        <Key Name="dress_cybersoldier_2" Value="107867"/>
+        <Key Name="dress_cybersoldier_3" Value="107868"/>
+        <Key Name="dress_cybersoldier_4" Value="107863"/>
+        <Key Name="dress_cybersoldier_5" Value="107864"/>
+        <Key Name="dress_cybersoldier_6" Value="107866"/>
         <Key Name="dress_vakarine_1" Value="107683"/>
         <Key Name="dress_vakarine_2" Value="107699"/>
         <Key Name="dress_vakarine_3" Value="107663"/>

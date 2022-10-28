@@ -369,6 +369,31 @@ function INIT_GRAPHIC_CONFIG(frame)
 	if Check_Enable_Daylight ~= nil then
 		Check_Enable_Daylight:SetCheck(config.GetEnableDayLight());
 	end
+	
+	local performance_limit_text = GET_CHILD_RECURSIVELY(frame, "performance_limit_text");
+	if performance_limit_text ~= nil then
+		if imc.Is64BitWindows() == true then
+			performance_limit_text:ShowWindow(1);
+			performance_limit_text:SetTextByKey("opValue", config.GetPerformanceLimit());
+		else
+			performance_limit_text:ShowWindow(0);
+		end
+	end
+
+	local performance_limit_slide = GET_CHILD_RECURSIVELY(frame, "performance_limit_slide");
+	if performance_limit_slide ~= nil then
+		if imc.Is64BitWindows() == true then
+			performance_limit_slide:ShowWindow(1);
+			performance_limit_slide:SetLevel(config.GetPerformanceLimit());
+		else
+			performance_limit_slide:ShowWindow(0);
+		end
+	end
+	
+	local IsEnableSummonAlpha = GET_CHILD_RECURSIVELY(frame, "Check_IsEnableSummonAlpha", "ui::CCheckBox");
+	if IsEnableSummonAlpha ~= nil then
+		IsEnableSummonAlpha:SetCheck(config.GetIsEnableSummonAlpha());
+	end
 end
 
 function INIT_GAMESYS_CONFIG(frame)
@@ -473,6 +498,14 @@ end
 function SHOW_PERFORMANCE_VALUE(frame)
 	local flag = config.GetXMLConfig("ShowPerformanceValue")
 	SHOW_FPS_FRAME(flag)
+end
+
+function SET_PERFORMANCE_LIMIT(frame, ctrl, str, num)
+	tolua.cast(ctrl, "ui::CSlideBar");
+	config.SetPerformanceLimit(ctrl:GetLevel());
+	
+	local txt = GET_CHILD_RECURSIVELY(frame, "performance_limit_text", "ui::CRichText");
+	txt:SetTextByKey("opValue", ctrl:GetLevel());
 end
 
 function APPLY_SCREEN(frame)
@@ -671,11 +704,7 @@ end
 function ENABEL_VSYNC(frame)
 	local syncRadioBtn = GET_CHILD_RECURSIVELY(frame, "vsync_0" , "ui::CRadioButton");        
 	local syncType = GET_RADIOBTN_NUMBER(syncRadioBtn);
-	local scrRadioBtn = GET_CHILD_RECURSIVELY(frame, "scrtype_1" , "ui::CRadioButton");
-	local resCtrl = GET_CHILD_RECURSIVELY(frame, "resolutionList", "ui::CDropList");        
-	local scrType = GET_RADIOBTN_NUMBER(scrRadioBtn);
-	local resIndex = resCtrl:GetSelItemIndex();
-	option.SetDisplayMode(scrType, resIndex, syncType);
+	option.EnableVSync(syncType);
 end
 
 function ENABLE_OTHER_FLUTING(parent, ctrl)
@@ -1046,4 +1075,10 @@ function SET_COOLDOWN_DECIMAL_POINT_SEC(frame)
 	else
 		txt:SetTextByKey("opValue", ScpArgMsg("LowerThan{SEC}", "SEC", value))
 	end
+end
+
+function SET_ENABLE_SUMMON_ALPHA(parent, ctrl)
+	local isEnable = ctrl:IsChecked();
+    config.SetIsEnableSummonAlpha(isEnable);
+	config.SaveConfig();
 end

@@ -5,7 +5,6 @@ function RELICMANAGER_ON_INIT(addon, frame)
 	addon:RegisterMsg('MSG_SUCCESS_RELIC_EXP', 'RELICMANAGER_EXP_UP_END')
 	addon:RegisterMsg('MSG_SUCCESS_RELIC_SOCKET', 'SUCCESS_RELIC_SOCKET')
 	addon:RegisterMsg('UPDATE_RELIC_EQUIP', 'UPDATE_RELICMANAGER_VISIBLE')
-	addon:RegisterMsg('RELIC_AUTO_CHARGE', 'RELIC_AUTO_CHARGE');
 end
 
 function ON_OPEN_DLG_RELICMANAGER(frame)
@@ -483,63 +482,6 @@ function _RELICMANAGER_CHARGE_EXEC()
 	CloneTempObj('RELIC_RP_TEMPOBJ', acc_obj)
 end
 
-function RELIC_AUTO_CHARGE()
-	if config.GetRelicAutoCharge() == 0 then
-		return
-	end
-
-	local pc = GetMyPCObject()
-	if IsBuffApplied(pc, 'Colony_Limit_Relic_Release_Buff') == 'YES' or IsBuffApplied(pc, 'GuildRaid_Limit_Relic_Release_Buff') == 'YES' or IsBuffApplied(pc, 'Colony_Limit_Relic_Release_Buff2') == 'YES' then		
-		return
-	end
-
-	local zoneName = GetZoneName()
-	local map = GetClass("Map",zoneName)		
-
-
-	
-	local keyword = TryGetProp(map, "Keyword", "None")
-    local keyword_table = SCR_STRING_CUT(keyword, ';')
-    
-    local drop_bounty_ticket = 0
-    for i = 1, #keyword_table do
-        if keyword_table[i] == 'SilverDrop' then
-            drop_bounty_ticket = 1
-        end
-    end
-
-	if TryGetProp(map, "MapType", "None") ~= "City" and drop_bounty_ticket == 0 then
-		return
-	end
-
-	local relic_item, relic_obj = RELICMANAGER_GET_EQUIP_RELIC()
-	if relic_item == nil or relic_obj == nil then		
-		return
-	end
-	
-	local cur_rp, max_rp = shared_item_relic.get_rp(pc)
-	if cur_rp == max_rp then
-		return
-	end
-	
-	local mat_item = session.GetInvItemByName('misc_Ectonite')
-	if mat_item == nil then return end
-
-	if mat_item.isLockState == true then		
-		return
-	end
-
-	session.ResetItemList()
-	local item_idx = mat_item:GetIESID()
-	local cur_count = mat_item.count
-	
-	if cur_count ~= nil and cur_count > 0 then
-		session.AddItemID(item_idx, cur_count)
-		local result_list = session.GetItemIDList()
-		item.DialogTransaction('RELIC_CHARGE_RP', result_list)
-	end
-end
-
 function RELICMANAGER_RP_UP_END(frame, msg, argStr, argNum)
 	local total_point = argNum
 	local do_charge = GET_CHILD_RECURSIVELY(frame, 'do_charge')
@@ -789,15 +731,14 @@ function RELICMANAGER_EXP_REG_MAT_ITEM(frame, inv_item, item_obj)
 	local mat_ctrl = GET_CHILD_RECURSIVELY(frame, 'exp_mat_ctrl')
 	if mat_ctrl == nil then return end
 
-	local mat_name = TryGetProp(item_obj, 'ClassName', 'None')
-	local mat_name_list = shared_item_relic.get_exp_material_name()
-	local mat_index = table.find(mat_name_list, mat_name)
-	if mat_index <= 0 then
+	local mat_class_name = TryGetProp(item_obj, 'ClassName', 'None')
+	local name = shared_item_relic.get_exp_material_name()
+	if name ~= mat_class_name then
 		ui.SysMsg(ClMsg('IMPOSSIBLE_ITEM'))
 		return
 	end
-
-	local mat_class = GetClass('Item', mat_name)
+	
+	local mat_class = GetClass('Item', mat_class_name)
 	local mat_class_id = TryGetProp(mat_class, 'ClassID', 0)
 	local mat_guid = inv_item:GetIESID()
 	local exp_per = shared_item_relic.get_exp_material_value()

@@ -16,6 +16,14 @@ function PARTYINFO_CONTROL_INIT()
 	local title_gbox = GET_CHILD_RECURSIVELY(frame, "titlegbox");
 
 	if IS_NEED_SUMMON_UI() == 0 then
+		-- 파티가 있으면 활성화
+		local pcparty = session.party.GetPartyInfo();
+		local list = session.party.GetPartyMemberList(PARTY_NORMAL);
+		local count = list:Count();
+		if count >= 1 then
+			frame:SetVisible(1);
+		end
+
 		if title_gbox ~= nil and button ~= nil and buttonText ~= nil then
 			title_gbox:EnableDrawFrame(1);
 			button:SetVisible(0);
@@ -462,10 +470,10 @@ function UPDATE_PARTY_INST_SET(partyInfoCtrlSet, partyMemberInfo)
 end
 
 function SET_PARTYINFO_ITEM(frame, msg, partyMemberInfo, count, makeLogoutPC, leaderFID, isCorsairType, ispipui, partyID)
-    if partyID ~= nil and partyMemberInfo ~= nil and partyID ~= partyMemberInfo:GetPartyID() then
+	if partyID ~= nil and partyMemberInfo ~= nil and partyID ~= partyMemberInfo:GetPartyID() then
         return nil;
     end
-
+	
 	local partyinfoFrame = ui.GetFrame('partyinfo')
 	local FAR_MEMBER_FACE_COLORTONE = partyinfoFrame:GetUserConfig("FAR_MEMBER_FACE_COLORTONE")
 	local NEAR_MEMBER_FACE_COLORTONE = partyinfoFrame:GetUserConfig("NEAR_MEMBER_FACE_COLORTONE")

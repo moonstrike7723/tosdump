@@ -1,4 +1,4 @@
-
+﻿
 
 CHAT_LINE_HEIGHT = 100;
 g_emoticonTypelist = {"Normal", "Motion"}
@@ -54,7 +54,7 @@ function CHAT_SET_TO_TITLENAME(chatType, targetName)
 	local btn_ChatType = GET_CHILD(frame,'button_type');
 
 	-- 귓속말 ctrl의 시작위치는 type btn 뒤쪽에.
-	titleCtrl:SetOffset(btn_ChatType:GetOriginalWidth(), titleCtrl:GetOriginalY());
+		titleCtrl:SetOffset(btn_ChatType:GetOriginalWidth(), titleCtrl:GetOriginalY());
 	local offsetX = btn_ChatType:GetOriginalWidth(); -- 시작 offset은 type btn 넓이 다음으로.
 	local titleText = '';
 	local isVisible = 0;
@@ -91,11 +91,10 @@ function CHAT_SET_TO_TITLENAME(chatType, targetName)
 	end;
 		
 	local width = chatEditCtrl:GetOriginalWidth() - titleCtrl:GetWidth() - btn_ChatType:GetWidth();
-	chatEditCtrl:Resize(width, chatEditCtrl:GetOriginalHeight());
+	chatEditCtrl:Resize(width, chatEditCtrl:GetOriginalHeight());	
+	chatEditCtrl:SetOffset(offsetX, chatEditCtrl:GetOriginalY());
+end		
 	
-	chatEditCtrl:SetOffset(offsetX, chatEditCtrl:GetOriginalY());	
-end
-
 
 -- 채팅창의 이모티콘선택창과 옵션창의 Open 스크립트
 --{

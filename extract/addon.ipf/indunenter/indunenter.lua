@@ -2,6 +2,7 @@ function INDUNENTER_ON_INIT(addon, frame)
     addon:RegisterMsg('MOVE_ZONE', 'INDUNENTER_CLOSE');
     addon:RegisterMsg('CLOSE_UI', 'INDUNENTER_CLOSE');
     addon:RegisterMsg('ESCAPE_PRESSED', 'INDUNENTER_ON_ESCAPE_PRESSED');
+	addon:RegisterMsg('UPDATE_MYTHIC_DUNGEON_PATTERN', 'INDUNENTER_MAKE_PATTERN_BOX');    
     
     PC_INFO_COUNT = 5;
 end
@@ -125,7 +126,7 @@ function SHOW_INDUNENTER_DIALOG(indunType, isAlreadyPlaying, enableAutoMatch, en
 	if IsBuffApplied(pc, "Event_Unique_Raid_Bonus") == "YES" and admissionItemName == "Dungeon_Key01" then
         nowAdmissionItemCount = admissionItemCount
     elseif IsBuffApplied(pc, "Event_Unique_Raid_Bonus_Limit") == "YES" and admissionItemName == "Dungeon_Key01" then
-        local accountObject = GetMyAccountObj(pc)
+        local accountObject = GetMyAccountObj()
         if TryGetProp(accountObject, "EVENT_UNIQUE_RAID_BONUS_LIMIT") > 0 then
             nowAdmissionItemCount = admissionItemCount
         else
@@ -192,9 +193,9 @@ function SHOW_INDUNENTER_DIALOG(indunType, isAlreadyPlaying, enableAutoMatch, en
     INDUNENTER_UPDATE_PC_COUNT(frame, nil, "None", 0);
     INDUNENTER_MAKE_MONLIST(frame, indunCls);
     INDUNENTER_MAKE_ETCINFO_BOX(frame, indunCls);
-
+	INDUNENTER_REQUEST_PATTERN(frame,indunCls);
     -- setting
-    INDUNENTER_INIT_MEMBERBOX(frame);
+	INDUNENTER_INIT_MEMBERBOX(frame);
     INDUNENTER_AUTOMATCH_TYPE(0);
     INDUNENTER_AUTOMATCH_PARTY(0);
     INDUNENTER_SET_MEMBERCNTBOX();
@@ -295,8 +296,14 @@ end
 
 -- 스킬 제한 경고문
 function INDUNENTER_MAKE_ALERT(frame, indunCls)
-    local restrictBox = GET_CHILD_RECURSIVELY(frame, 'restrictBox');
-    restrictBox:ShowWindow(0);
+	INDUNENTER_MAKE_SKILL_ALERT(frame, indunCls)
+	INDUNENTER_MAKE_ITEM_ALERT(frame, indunCls)
+	local restrictBox = GET_CHILD_RECURSIVELY(frame, 'restrictBox');
+    GBOX_AUTO_ALIGN(restrictBox, 2, 2, 0, true, true,true);
+end
+function INDUNENTER_MAKE_SKILL_ALERT(frame, indunCls)
+	local restrictSkillBox = GET_CHILD_RECURSIVELY(frame, 'restrictSkillBox');
+    restrictSkillBox:ShowWindow(0);
 
     local mapName = TryGetProp(indunCls, "MapName");
     local dungeonType = TryGetProp(indunCls, "DungeonType");
@@ -308,16 +315,104 @@ function INDUNENTER_MAKE_ALERT(frame, indunCls)
     if mapName ~= nil and mapName ~= "None" then
         local indunMap = GetClass("Map", mapName);
         local mapKeyword = TryGetProp(indunMap, "Keyword");
-        if string.find(mapKeyword, "IsRaidField") ~= nil then
-            restrictBox:ShowWindow(1);
-            restrictBox:SetTooltipOverlap(1);
+        if mapKeyword ~= nil and string.find(mapKeyword, "IsRaidField") ~= nil then
+            restrictSkillBox:ShowWindow(1);
+            restrictSkillBox:SetTooltipOverlap(1);
             local TOOLTIP_POSX = frame:GetUserConfig("TOOLTIP_POSX");
             local TOOLTIP_POSY = frame:GetUserConfig("TOOLTIP_POSY");
-            restrictBox:SetPosTooltip(TOOLTIP_POSX, TOOLTIP_POSY);
-            restrictBox:SetTooltipType("skillRestrictList");
-            restrictBox:SetTooltipArg("IsRaidField", isLegendRaid);
+            restrictSkillBox:SetPosTooltip(TOOLTIP_POSX, TOOLTIP_POSY);
+            restrictSkillBox:SetTooltipType("skillRestrictList");
+            restrictSkillBox:SetTooltipArg("IsRaidField", isLegendRaid);
         end
     end
+end
+function INDUNENTER_MAKE_ITEM_ALERT(frame, indunCls)
+    local restrictItemBox = GET_CHILD_RECURSIVELY(frame, 'restrictItemBox');
+    restrictItemBox:ShowWindow(0);
+
+	local cls = GetClassByStrProp("ItemRestrict","Category",indunCls.ClassName)
+    if cls ~= nil then
+		restrictItemBox:ShowWindow(1);
+		restrictItemBox:SetTooltipOverlap(1);
+		local TOOLTIP_POSX = frame:GetUserConfig("TOOLTIP_POSX");
+		local TOOLTIP_POSY = frame:GetUserConfig("TOOLTIP_POSY");
+		restrictItemBox:SetPosTooltip(TOOLTIP_POSX, TOOLTIP_POSY);
+		restrictItemBox:SetTooltipType("itemRestrictList");
+		restrictItemBox:SetTooltipArg(indunCls.ClassName);
+    end
+end
+
+function INDUNENTER_MAKE_CHALLENGE_DIVISION_HELP_TEXT(frame)
+    if frame == nil then return; end
+    INDUNENTER_SHOW_WINDOW_MONBOX(frame, 0);
+    INDUNENTER_SHOW_WINDOW_REWARDBOX(frame, 0);
+
+    local indun_cls = GetClass("contents_info", "ChallengeMode_HardMode");
+    if indun_cls == nil then return; end
+
+    local map_list = StringSplit(TryGetProp(indun_cls, "StartMap", ""), '/');
+    if map_list ~= nil then
+        local map_help_text = GET_CHILD_RECURSIVELY(frame, "mapHelpText");
+        map_help_text:SetTextByKey("text", ClMsg("challenge_auto_division_mode_day_help_text"));
+
+        for i = 1, 7 do
+            local map_text = GET_CHILD_RECURSIVELY(frame, "mapText"..i);
+            if map_text ~= nil then
+                local map = map_list[i];
+                if map ~= nil then
+                    local map_cls = GetClass("Map", map);
+                    if map_cls ~= nil then
+                        local name = map_cls.Name;
+                        local cl_msg = "challenge_auto_division_mode_day_"..i.."{mapName}";
+                        local text = ScpArgMsg(cl_msg, "mapName", name);
+                        map_text:SetText(text);
+                    end
+                else
+                    if i == 7 then
+                        map_text:SetText(ClMsg("challenge_auto_division_mode_day_"..i));
+                    end
+                end
+            end
+        end
+    end
+end
+
+function INDUNENTER_SHOW_WINDOW_MONBOX(frame, isVisible)
+    local mon_slot_set = GET_CHILD_RECURSIVELY(frame, 'monSlotSet');
+    local mon_right_btn = GET_CHILD_RECURSIVELY(frame, 'monRightBtn');
+    local mon_left_btn = GET_CHILD_RECURSIVELY(frame, 'monLeftBtn');
+    local mon_text = GET_CHILD_RECURSIVELY(frame, "monText");
+    local mon_pic = GET_CHILD_RECURSIVELY(frame, "monPic");
+    mon_slot_set:ShowWindow(isVisible);
+    mon_right_btn:ShowWindow(isVisible);
+    mon_left_btn:ShowWindow(isVisible);
+    mon_text:ShowWindow(isVisible);
+    mon_pic:ShowWindow(isVisible);
+
+    for i = 1, 7 do
+        local map_help_box = GET_CHILD_RECURSIVELY(frame, "mapHelpBox");
+        if map_help_box ~= nil then
+            if isVisible == 0 then map_help_box:ShowWindow(1);
+            elseif isVisible == 1 then map_help_box:ShowWindow(0); end
+        end
+
+        local map_help_text = GET_CHILD_RECURSIVELY(frame, "mapHelpText");
+        if map_help_text ~= nil then
+            if isVisible == 0 then map_help_text:ShowWindow(1);
+            elseif isVisible == 1 then map_help_text:ShowWindow(0); end
+        end
+
+        local map_text = GET_CHILD_RECURSIVELY(frame, "mapText"..i);
+        if map_text ~= nil then
+            if isVisible == 0 then map_text:ShowWindow(1);
+            elseif isVisible == 1 then map_text:ShowWindow(0); end
+        end
+    end
+end
+
+function INDUNENTER_SHOW_WINDOW_REWARDBOX(frame,isVisible)
+	local reward_box = GET_CHILD_RECURSIVELY(frame, "rewardBox");
+    reward_box:ShowWindow(isVisible);
 end
 
 function INDUNENTER_MAKE_MONLIST(frame, indunCls)
@@ -328,7 +423,32 @@ function INDUNENTER_MAKE_MONLIST(frame, indunCls)
     local monSlotSet = GET_CHILD_RECURSIVELY(frame, 'monSlotSet');
     local monRightBtn = GET_CHILD_RECURSIVELY(frame, 'monRightBtn');
     local monLeftBtn = GET_CHILD_RECURSIVELY(frame, 'monLeftBtn');
-    
+    local monText = GET_CHILD_RECURSIVELY(frame, "monText");
+    local monPic = GET_CHILD_RECURSIVELY(frame, "monPic");
+   
+     -- 챌린지 모드 자동매칭 분열 위치 표시 처리
+    if indunCls ~= nil and TryGetProp(indunCls, "PlayPerResetType") == 816 then
+        if frame:GetName() == "induninfo" then
+            INDUNENTER_MAKE_CHALLENGE_DIVISION_HELP_TEXT(frame, indunCls);
+            return;
+        else
+            INDUNENTER_SHOW_WINDOW_MONBOX(frame, 1);
+        end
+	else
+		INDUNENTER_SHOW_WINDOW_MONBOX(frame, 1);
+		local dungeonType = TryGetProp(indunCls,"DungeonType","None")
+		local is_mythic_dungeon = string.find(dungeonType,"MythicDungeon") == 1
+		local is_four_buttons = false;
+		local buttonCls = GetClass("IndunInfoButton",dungeonType)
+		if buttonCls ~= nil then
+			if (TryGetProp(buttonCls,"RedButtonText","None") ~= "None" or TryGetProp(buttonCls,"Button3Text","None") ~= "None") and
+					(TryGetProp(buttonCls,"Button2Text","None") ~= "None" or TryGetProp(buttonCls,"Button1Text","None") ~= "None") then
+				is_four_buttons = true
+			end
+		end
+        INDUNENTER_SHOW_WINDOW_REWARDBOX(frame, BoolToNumber(is_mythic_dungeon == false and is_four_buttons == false));
+    end
+
     -- init
     monSlotSet:ClearIconAll();
     monSlotSet:SetUserValue('CURRENT_SLOT', 1);
@@ -384,6 +504,49 @@ function INDUNENTER_MAKE_ETCINFO_BOX(frame, indunCls)
     else
         etcInfoBox:ShowWindow(0)
     end
+end
+
+function INDUNENTER_REQUEST_PATTERN(frame,indunCls)
+	local dungeonType = TryGetProp(indunCls,"DungeonType")
+	local patternBox = GET_CHILD_RECURSIVELY(frame, 'patternBox');
+	local rewardBox = GET_CHILD_RECURSIVELY(frame, 'rewardBox');
+	if string.find(dungeonType,"MythicDungeon") == 1 then
+		mythic_dungeon.RequestCurrentSeason();
+		patternBox:ShowWindow(1)
+	else
+		patternBox:ShowWindow(0)
+	end
+end
+
+function INDUNENTER_MAKE_PATTERN_BOX(frame,msg,argStr,argNum)
+	local indunType = frame:GetUserIValue('INDUN_TYPE');
+	local indunCls = GetClassByType("Indun",indunType)
+	if indunCls == nil then
+		return
+	end
+	local patternBox = GET_CHILD_RECURSIVELY(frame, 'patternBox');
+	local gbox = GET_CHILD_RECURSIVELY(patternBox,"patternSlotSet")
+	patternBox:ShowWindow(1)
+	
+	local pattern_list = GET_INDUN_PATTERN_ID_LIST(indunCls)
+	if #pattern_list == 0 then
+		patternBox:ShowWindow(0)
+		return
+	end
+	gbox:ClearIconAll();
+	for i = 1,#pattern_list do
+		local patternID = pattern_list[i]
+		local pattern = GetClassByType("boss_pattern",patternID)
+		INDUNINFO_PATTERN_BOX_ADD_ICON(gbox,pattern,i)
+	end
+	gbox:SetUserValue('CURRENT_SLOT', 1);
+	gbox:SetUserValue('MAX_SLOT', #pattern_list);
+	local margin = gbox:GetOriginalMargin();
+    gbox:SetMargin(margin.left, margin.top, margin.right, margin.bottom);
+	local patternRightBtn = GET_CHILD(patternBox,"patternRightBtn")
+	local patternLeftBtn = GET_CHILD(patternBox,"patternLeftBtn")
+	patternRightBtn:SetEnable(BoolToNumber(#pattern_list>5))
+	patternLeftBtn:SetEnable(0)
 end
 
 -- 큐브 재개봉 시스템 개편에 따른 변경사항으로 보상 아이템 목록 보여주는 부분 큐브 대신 구성품으로 풀어서 보여주도록 변경함(2019.2.27 변경)
@@ -681,6 +844,7 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
     if admissionItemCount == nil then
         admissionItemCount = 0;
     end
+
     admissionItemCount = math.floor(admissionItemCount);
 
     if admissionItemName == "None" or admissionItemName == nil then
@@ -701,17 +865,9 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
         end
 
         if session.loginInfo.IsPremiumState(ITEM_TOKEN) == true then
-            local playPerResetToken = TryGetProp(indunCls, 'PlayPerReset_Token');
-            if playPerResetToken ~= nil then
-                maxCount = maxCount + playPerResetToken;
-            end
+                maxCount = maxCount + TryGetProp(indunCls, 'PlayPerReset_Token')
         end
-        if session.loginInfo.IsPremiumState(NEXON_PC) == true then
-            local playPerResetNexonPC = TryGetProp(indunCls, 'PlayPerReset_NexonPC')
-            if playPerResetNexonPC ~= nil then
-                maxCount = maxCount + playPerResetNexonPC;
-            end
-        end
+            
         local maxText = maxCount
         local infinity = TryGetProp(indunCls, 'EnableInfiniteEnter', 'NO')
         if indunCls.AdmissionItemName ~= "None" or infinity == 'YES' then
@@ -736,7 +892,7 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
         -- now play count
         local nowCount = TryGetProp(etc, "InDunCountType_"..tostring(TryGetProp(indunCls, "PlayPerResetType")), 0)        
         if WeeklyEnterableCount ~= nil and WeeklyEnterableCount ~= "None" and WeeklyEnterableCount ~= 0 then            
-            nowCount = GET_CURRENT_ENTERANCE_COUNT(TryGetProp(indunCls, "PlayPerResetType"))            
+            nowCount = GET_CURRENT_ENTERANCE_COUNT(TryGetProp(indunCls, "PlayPerResetType"))
         end
 
         if indunCls.DungeonType == "Raid" or indunCls.DungeonType =="GTower" then
@@ -750,7 +906,6 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
                 countData:ShowWindow(0)
     
                 if indunCls.DungeonType == 'UniqueRaid' then
---                    if SCR_RAID_EVENT_20190102(nil, false) == true and admissionItemName == 'Dungeon_Key01' then
                     if IsBuffApplied(pc, "Event_Unique_Raid_Bonus") == "YES"and admissionItemName == "Dungeon_Key01" then
                         cycleCtrlPic:ShowWindow(1);
                     elseif IsBuffApplied(pc, "Event_Unique_Raid_Bonus_Limit") == "YES" and admissionItemName == "Dungeon_Key01" then
@@ -763,8 +918,8 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
             else
                 local addCount = math.floor(nowCount * admissionPlayAddItemCount);
                 countData:SetTextByKey("now", nowCount);
+
                 -- max play count
-            
                 local maxCount = TryGetProp(indunCls, 'PlayPerReset');
                 if WeeklyEnterableCount ~= nil and WeeklyEnterableCount ~= "None" and WeeklyEnterableCount ~= 0 then
                     maxCount = WeeklyEnterableCount
@@ -773,12 +928,9 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
                 if session.loginInfo.IsPremiumState(ITEM_TOKEN) == true then
                     maxCount = maxCount + TryGetProp(indunCls, 'PlayPerReset_Token', 0)
                 end
-                if session.loginInfo.IsPremiumState(NEXON_PC) == true then
-                    maxCount = maxCount + TryGetProp(indunCls, 'PlayPerReset_NexonPC', 0)
-                end
                 countData:SetTextByKey("max", maxCount);
             
-                    -- set min/max multi count
+                -- set min/max multi count
                 local minCount = frame:GetUserConfig('MULTI_MIN');
                 frame:SetUserValue("MIN_MULTI_CNT", minCount);
                 frame:SetUserValue("MAX_MULTI_CNT", maxCount - nowCount);
@@ -798,7 +950,6 @@ function INDUNENTER_MAKE_COUNT_BOX(frame, noPicBox, indunCls)
 
             local pc = GetMyPCObject()
             if indunCls.DungeonType == 'UniqueRaid' then
---                if SCR_RAID_EVENT_20190102(nil, false) == true and admissionItemName == 'Dungeon_Key01' then
                 if IsBuffApplied(pc, "Event_Unique_Raid_Bonus") == "YES" and admissionItemName == "Dungeon_Key01"then
                     cycleCtrlPic:ShowWindow(1);
                 elseif IsBuffApplied(pc, "Event_Unique_Raid_Bonus_Limit") == "YES" and admissionItemName == "Dungeon_Key01" then
@@ -1069,7 +1220,7 @@ function INDUNENTER_ENTER(frame, ctrl)
     end
     
     local topFrame = frame:GetTopParentFrame();
-    if INDUNENTER_CHECK_ADMISSION_ITEM(topFrame) == false then
+    if INDUNENTER_CHECK_ADMISSION_ITEM(topFrame, 1) == false then
         return;
     end
 
@@ -1093,7 +1244,7 @@ function INDUNENTER_AUTOMATCH(frame, ctrl)
     local indunCls = GetClassByType('Indun', indunType);
     local indunMinPCRank = TryGetProp(indunCls, 'PCRank')
     local totaljobcount = session.GetPcTotalJobGrade()
-    
+
     if indunMinPCRank ~= nil then
         if indunMinPCRank > totaljobcount and indunMinPCRank ~= totaljobcount then
             ui.SysMsg(ScpArgMsg('IndunEnterNeedPCRank', 'NEED_RANK', indunMinPCRank))
@@ -1113,13 +1264,11 @@ function INDUNENTER_AUTOMATCH(frame, ctrl)
     end
     end
     
-    local topFrame = frame:GetTopParentFrame();
-    if INDUNENTER_CHECK_ADMISSION_ITEM(topFrame) == false then
-        return;
-    end
-
     local textCount = topFrame:GetUserIValue("multipleCount");
     if topFrame:GetUserValue('AUTOMATCH_MODE') == 'NO' then
+        if INDUNENTER_CHECK_ADMISSION_ITEM(topFrame, 2) == false then
+            return;
+        end
         ReqMoveToIndun(2, textCount);
     else
         INDUNENTER_AUTOMATCH_CANCEL();
@@ -1172,7 +1321,7 @@ function INDUNENTER_PARTYMATCH(frame, ctrl)
     if topFrame:GetUserValue('WITHMATCH_MODE') == 'NO' then
         ReqMoveToIndun(3, textCount);
         ctrl:SetTextTooltip(ClMsg("PartyMatchInfo_Go"));
-        if enableReenter == trhe then
+        if enableReenter == true then
             understaffEnterAllowBtn:ShowWindow(1);
         else
             understaffEnterAllowBtn:ShowWindow(0);
@@ -1252,6 +1401,15 @@ function INDUNENTER_AUTOMATCH_TYPE(indunType, needUnderstaffAllow)
             INDUNENTER_SMALL(frame, smallBtn);
         end
     elseif frame:GetUserValue('AUTOMATCH_MODE') ~= 'YES' then
+        local indunCls = GetClassByType('Indun', indunType)
+        if indunCls ~= nil then
+            local dungeonType = TryGetProp(indunCls, 'DungeonType', 'None')
+            local bannedDungeonType = {'Raid','GTower','Challenge_Auto','MythicDungeon_Auto','MythicDungeon_Auto_Hard'}
+            if table.find(bannedDungeonType,dungeonType) ~= 0 then
+                needUnderstaffAllow = 0;
+            end
+        end
+
         frame:SetUserValue('AUTOMATCH_MODE', 'YES');
         frame:SetUserValue('EXCEPT_CLOSE_TARGET', 'YES');
         autoMatchText:ShowWindow(0);
@@ -1394,11 +1552,6 @@ function INDUNENTER_UPDATE_PC_COUNT(frame, msg, infoStr, pcCount, understaffCoun
         understaffCount = 0;
     end
     
-	-- enable auto match, with match mode; except initialize
-	if frame:GetUserValue('AUTOMATCH_MODE') == 'NO' and frame:GetUserValue('WITHMATCH_MODE') == 'NO' and pcCount > 0 then
-		return;
-	end
-
     -- update pc count
     if infoStr == nil then
         infoStr = "None";
@@ -1600,6 +1753,47 @@ function INDUNENTER_MON_CLICK_LEFT(parent, ctrl)
     rightBtn:SetEnable(1);
 end
 
+function INDUNENTER_PATTERN_CLICK_RIGHT(parent,ctrl)
+    local topFrame = parent:GetTopParentFrame();
+
+    local patternSlotSet = GET_CHILD_RECURSIVELY(topFrame, 'patternSlotSet');
+	local currentSlot = patternSlotSet:GetUserIValue('CURRENT_SLOT');
+	local slotCnt = patternSlotSet:GetUserIValue('MAX_SLOT');
+    if currentSlot + 4 >= slotCnt then
+        return;
+    end
+            
+	UI_PLAYFORCE(patternSlotSet, "slotsetLeftMove_1");
+    patternSlotSet:SetUserValue('CURRENT_SLOT', currentSlot + 1);
+
+    -- button enable
+    if currentSlot + 5 >= slotCnt then
+       ctrl:SetEnable(0);
+    end
+    local leftBtn = GET_CHILD_RECURSIVELY(topFrame, 'patternLeftBtn');
+    leftBtn:SetEnable(1);
+end
+
+function INDUNENTER_PATTERN_CLICK_LEFT(parent,ctrl)
+    local topFrame = parent:GetTopParentFrame();
+
+    local patternSlotSet = GET_CHILD_RECURSIVELY(topFrame, 'patternSlotSet');
+    local currentSlot = patternSlotSet:GetUserIValue('CURRENT_SLOT');
+    if currentSlot == 1 then
+        return
+    end
+        
+    UI_PLAYFORCE(patternSlotSet, "slotsetRightMove_1");
+    patternSlotSet:SetUserValue('CURRENT_SLOT', currentSlot - 1);
+
+     -- button enable
+    if currentSlot - 1 == 1 then
+       ctrl:SetEnable(0);
+    end
+    local rightBtn = GET_CHILD_RECURSIVELY(topFrame, 'patternRightBtn');
+    rightBtn:SetEnable(1);
+end
+
 function INDUNENTER_REWARD_CLICK_RIGHT(parent, ctrl)
     local topFrame = parent:GetTopParentFrame();
     local rewardSlotCnt = topFrame:GetUserIValue('REWARD_SLOT_CNT');
@@ -1694,7 +1888,7 @@ function INDUNENTER_MULTI_EXEC(frame, ctrl)
     if session.loginInfo.IsPremiumState(ITEM_TOKEN) == true then
 		maxCount = maxCount + TryGetProp(indunCls, 'PlayPerReset_Token');
     end
-
+    
     local remainCount = maxCount - nowCount;    
     if textCount >= remainCount then
         ui.SysMsg(ScpArgMsg('NotEnoughIndunEnterCount'));
@@ -1818,7 +2012,7 @@ function INDUNENTER_REQ_UNDERSTAFF_ENTER_ALLOW(parent, ctrl)
         return;
     end
         
-    -- ?�티?�과 ?�동매칭??경우 처리
+    -- ??티??과 ??동매칭??경우 처리
     local yesScpStr = '_INDUNENTER_REQ_UNDERSTAFF_ENTER_ALLOW()';
     local clientMsg = ScpArgMsg('ReallyAllowUnderstaffMatchingWith{MIN_MEMBER}?', 'MIN_MEMBER', UnderstaffEnterAllowMinMember);
     if INDUNENTER_CHECK_UNDERSTAFF_MODE_WITH_PARTY(topFrame) == true then
@@ -1877,9 +2071,18 @@ function INDUNENTER_CHECK_UNDERSTAFF_MODE_WITH_PARTY(frame)
     return true;
 end
 
-function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
+function INDUNENTER_CHECK_ADMISSION_ITEM(frame, matchType, indunInfoIndunType)
     local indunType = frame:GetUserIValue('INDUN_TYPE');
+    if indunType == nil or indunType == 0 then
+        if indunInfoIndunType ~= nil then
+            indunType = indunInfoIndunType;
+        end
+    end
+    
     local indunCls = GetClassByType('Indun', indunType);
+    if matchType == nil then
+        matchType = 1
+    end
     
     if indunCls ~= nil and indunCls.AdmissionItemName ~= 'None' then
         local user = GetMyPCObject();
@@ -1912,7 +2115,7 @@ function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
 		if IsBuffApplied(user, "Event_Unique_Raid_Bonus") == "YES" and admissionItemName == "Dungeon_Key01" then
             nowAdmissionItemCount = admissionItemCount
         elseif IsBuffApplied(user, "Event_Unique_Raid_Bonus_Limit") == "YES" and admissionItemName == "Dungeon_Key01" then
-            local accountObject = GetMyAccountObj(user)
+            local accountObject = GetMyAccountObj()
             if TryGetProp(accountObject, "EVENT_UNIQUE_RAID_BONUS_LIMIT") > 0 then
                 nowAdmissionItemCount = admissionItemCount
             end
@@ -1926,7 +2129,7 @@ function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
                 return true;
             else
                 local multipleCnt = frame:GetUserIValue("multipleCount");
-                local yesScp = string.format("ReqMoveToIndun(%d,%d)", 1, multipleCnt);
+                local yesScp = string.format("ReqMoveToIndun(%d,%d)", matchType, multipleCnt);
                 local itemCls = GetClass("Item", admissionItemName);
                 local itemName = TryGetProp(itemCls, "Name");
 
@@ -1960,6 +2163,26 @@ function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
         if invItem == nil or invItem.isLockState == true then
             ui.MsgBox_NonNested(ClMsg('AdmissionItemLockMsg'), 0x00000000);
             return false;
+        end
+    elseif indunCls ~= nil and matchType == 2 and (indunCls.DungeonType == 'Raid' or indunCls.DungeonType == 'GTower') then
+        local etc = GetMyEtcObject()
+        if indunCls.UnitPerReset == 'ACCOUNT' then
+            etc = GetMyAccountObj()
+        end
+
+        local nowCount = TryGetProp(etc, "InDunCountType_"..tostring(TryGetProp(indunCls, "PlayPerResetType")))
+        if indunCls.WeeklyEnterableCount ~= 0 then
+            nowCount = TryGetProp(etc, "IndunWeeklyEnteredCount_"..tostring(TryGetProp(indunCls, "PlayPerResetType")))
+        end
+
+        if nowCount < indunCls.WeeklyEnterableCount then
+            return true
+        else
+            local multipleCnt = frame:GetUserIValue("multipleCount")
+            local yesScp = string.format("ReqMoveToIndun(%d,%d)", matchType, multipleCnt)
+            ui.MsgBox(ClMsg("HaveNoEnterableCount"), yesScp, "None")
+
+            return false
         end
     end
     return true;

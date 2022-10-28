@@ -4,11 +4,12 @@ local tabInfo = {
 	episodeTab = 0,
     progressTab = 1,			-- 진행중
 	completeTab  = 2,			-- 완료됨
+	relicTab = 3,				-- 성물 퀘스트
 };
 
 local levelFilter = {
 	Min = 0,
-	Max = 450,
+	Max = PC_MAX_LEVEL,
 	Range = 30, -- PC의 +- 레벨 범위.
 }
 
@@ -64,6 +65,9 @@ function QUEST_ON_INIT(addon, frame)
 	addon:RegisterMsg('EPISODE_REWARD_CLEAR', 'QUEST_EPISODE_REWARD_CLEAR');
 	addon:RegisterMsg('REQUEST_QUEST_UPDATE', "QUEST_EPISODE_REWARD_CLEAR")
 
+	-- relic quest
+	addon:RegisterMsg('RELIC_REWARD_CLEAR', 'QUEST_RELIC_REWARD_CLEAR')
+	
 	-- 초기화 함수에서 퀘스트 목록을 제거한다. 
 	questList = nil;
 
@@ -757,7 +761,7 @@ function UPDATE_QUEST_INFO(frame, msg, argStr, argNum)
 
 	local questFrame = ui.GetFrame("quest")
 	if questFrame == nil then
-		return 
+		return
 	end
 
 	-- episode update
@@ -1502,23 +1506,26 @@ function CLICK_QUEST_MAP_TITLE(ctrl)
 	end
 
 	local tabIndex = frame:GetUserIValue('CurTabIndex')
-	local titleInfo = nil
 	if ctrl:GetName() == "quest_command_window" then
-		titleInfo = GET_CHASE_TITLE_INFO()
+		local titleInfo = GET_CHASE_TITLE_INFO()
+		if titleInfo.isOpened == true then
+			titleInfo.isOpened = false;
+		else		
+			titleInfo.isOpened = true;
+		end
 	elseif tabIndex == tabInfo.episodeTab then
-		titleInfo = GET_EPISODE_TITLE_INFO(ctrl:GetName())
+		ChangeOpenedEpisodeQuestState(ctrl:GetName());
 	else
-		titleInfo = _GET_TITLE_INFO(tabIndex, ctrl:GetName())
-	end
-
-	if titleInfo.isOpened == true then
-		titleInfo.isOpened = false;
-	else		
-		titleInfo.isOpened = true;
+		local titleInfo = _GET_TITLE_INFO(tabIndex, ctrl:GetName())
+		if titleInfo.isOpened == true then
+			titleInfo.isOpened = false;
+		else		
+			titleInfo.isOpened = true;
+		end
 	end
 
 	if tabIndex == tabInfo.episodeTab then
-		DRAW_EPISODE_QUEST_LIST(frame);
+		geQuest.episode.DrawQuest();
 	else
 		DRAW_QUEST_LIST(frame);
 	end
@@ -1634,6 +1641,7 @@ function QUEST_TAB_CHANGE(frame, argStr, argNum)
 	local episodeGbox = GET_CHILD_RECURSIVELY(topFrame, 'episodeGbox');
 	local questGbox = GET_CHILD_RECURSIVELY(topFrame, 'questGbox');
 	local completeGbox = GET_CHILD_RECURSIVELY(topFrame, 'completeGbox');
+	local relicGbox = GET_CHILD_RECURSIVELY(topFrame, 'relicGbox');
 	local questbox_tab = GET_CHILD_RECURSIVELY(topFrame, 'questBox', "ui::CTabControl");
 	local index = questbox_tab:GetSelectItemIndex();
 
@@ -1648,12 +1656,13 @@ function QUEST_TAB_CHANGE(frame, argStr, argNum)
 	completeGbox:RemoveAllChild();
 	questGbox:RemoveAllChild();
 	episodeGbox:RemoveAllChild();
+	relicGbox:RemoveAllChild();
 
 	-- 모두 숨긴다.
 	completeGbox:ShowWindow(0);
 	questGbox:ShowWindow(0);
 	episodeGbox:ShowWindow(0);
-
+	relicGbox:ShowWindow(0);
 
 	if index == tabInfo.episodeTab then
 		UPDATE_EPISODE_QUEST_LIST();
@@ -1664,7 +1673,11 @@ function QUEST_TAB_CHANGE(frame, argStr, argNum)
 	elseif index == tabInfo.completeTab then
 		QUEST_UPDATE_ALL(topFrame);
 		completeGbox:ShowWindow(1);
+	elseif index == tabInfo.relicTab then
+		UPDATE_RELIC_QUEST_LIST();
+		relicGbox:ShowWindow(1);
 	end
+
 	CHANGE_TIP_MESSAGE()
 	_SAVE_QUEST_TAB_INFO()
 	_SAVE_QUEST_LEVEL_OPTION()
@@ -2273,4 +2286,18 @@ function ON_CHANGE_QUEST_TAB()
 	
 	QUEST_TAB_CHANGE(frame, "", 0)
 	QUEST_UPDATE_ALL(frame);
+end
+
+function QUEST_RELIC_REWARD_CLEAR(frame, msg, argStr, argNum) 
+	local questFrame = ui.GetFrame('quest')
+	if questFrame == nil then
+		return 
+	end
+
+	-- relic quest list update
+	local questbox_tab = GET_CHILD_RECURSIVELY(questFrame, 'questBox', "ui::CTabControl")
+	local index = questbox_tab:GetSelectItemIndex()
+	if index == tabInfo.relicTab then
+		UPDATE_RELIC_QUEST_LIST()
+	end
 end

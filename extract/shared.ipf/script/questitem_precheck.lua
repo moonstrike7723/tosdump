@@ -1,4 +1,4 @@
-function SCR_PRE_VACYS_RECORD(self, argstring, argnum1, argnum2)
+﻿function SCR_PRE_VACYS_RECORD(self, argstring, argnum1, argnum2)
     local pcX, pcY, pcZ = GetPos(self)
     if GetZoneName(self) == 'f_rokas_31' and SCR_POINT_DISTANCE(pcX,pcZ,-1229,576) <= 50 then
         return 1
@@ -841,7 +841,8 @@ function SCR_PRE_KEY_OF_LEGEND_01(self, argstring, argnum1, argnum2)
             PC_zone == 'd_velniasprison_51_5' or
             PC_zone == 'id_catacomb_25_4' or
             PC_zone == 'd_fantasylibrary_48_5' or
-            PC_zone == 'f_maple_25_1' then
+            PC_zone == 'f_maple_25_1' or
+            PC_zone == 'd_dcapital_108' then
             
         if GetLayer(self) == 0 then
 --            if result1 == "PROGRESS" or result2 == "PROGRESS" then
@@ -5508,6 +5509,11 @@ function SCR_PRE_ITEM_Escape(self, argObj, BuffName, arg1, arg2)
             SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("CannotUseThieInThisMap"), 3);
             return 0;
         end
+
+        if arg2 ~= 650012 and table.find(keywordList, "MythicMap") > 0 then
+            SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("CannotUseThieInThisMap"), 3);
+            return 0;
+        end 
     end
     
     return 1;
@@ -7038,20 +7044,20 @@ end
 function SCR_PRE_LOWLV_BOASTER_SQ_20_ITEM(self, argObj, argstring, arg1, arg2)
     local result1 = SCR_QUEST_CHECK(self, 'LOWLV_BOASTER_SQ_20')
     if result1 == 'PROGRESS' then
-        if GetZoneName(self) == 'f_siauliai_16' then
+        if GetZoneName(self) == 'f_pilgrimroad_47' then
             if GetLayer(self) == 0 then
                 local x, y, z = GetPos(self)
-                if SCR_POINT_DISTANCE(x,z,-389,-435) <= 70 then
+                if SCR_POINT_DISTANCE(x,z,-1120,1259) <= 70 then
                     return 1; 
-                elseif SCR_POINT_DISTANCE(x,z,-396,201) <= 70 then
+                elseif SCR_POINT_DISTANCE(x,z,-1411,453) <= 70 then
                     return 1; 
-                elseif SCR_POINT_DISTANCE(x,z,654,1145) <= 70 then
+                elseif SCR_POINT_DISTANCE(x,z,-95,140) <= 70 then
                     return 1; 
-                elseif SCR_POINT_DISTANCE(x,z,1434,125) <= 70 then
+                elseif SCR_POINT_DISTANCE(x,z,-344,390) <= 70 then
                     return 1; 
-                elseif SCR_POINT_DISTANCE(x,z,979,-721) <= 70 then
+                elseif SCR_POINT_DISTANCE(x,z,-617,619) <= 70 then
                     return 1; 
-                elseif SCR_POINT_DISTANCE(x,z,54,-945) <= 70 then
+                elseif SCR_POINT_DISTANCE(x,z,-189,1093) <= 70 then
                     return 1; 
                 else
                     return 0
@@ -9188,6 +9194,80 @@ function SCR_PRE_F_TABLELAND_28_2_RAID_09_ITEM(self, argstring, argnum1, argnum2
             MList[i].ClassName == 'Siaulav_bow_blue' or 
             MList[i].ClassName == 'lapasape_blue' then
                 return 1
+            end
+        end
+    end
+    return 0
+end
+
+
+function SCR_PRE_EP12_2_F_CASTLE_101_MQ04_1_ITEM(self, argstring, argnum1, argnum2)
+    if GetZoneName(self) == "f_castle_101" then
+        local result01 = SCR_QUEST_CHECK(self, 'EP12_2_F_CASTLE_101_MQ04_1')
+        if result01 == 'PROGRESS' then
+            local fndList, fndCnt = SelectObject(self, 50, 'ALL', 1)
+            local i
+            if fndCnt > 0 then
+                for i = 1, fndCnt do
+                    if fndList[i].ClassName == 'bower_interfere' or 
+                    fndList[i].ClassName == 'bower_obstructer' or 
+                    fndList[i].ClassName == 'bower_oblivion' or 
+                    fndList[i].ClassName == 'bower_guillotine' then
+                            return GetHandle(fndList[i])
+                    end
+                end
+            end
+        end
+    end
+    return 0
+end
+
+--EP13_MAINSTREAM
+function SCR_PRE_EP13_F_SIAULIAI_1_MQ_05_ITEM_01(self, argstring, argnum1, argnum2)
+    if GetZoneName(self) == "ep13_f_siauliai_1" then
+        local result01 = SCR_QUEST_CHECK(self, 'EP13_F_SIAULIAI_1_MQ_05')
+        if result01 == 'PROGRESS' then
+            local fndList, fndCnt = SelectObject(self, 50, 'ALL', 1)
+            local i
+            if fndCnt > 0 then
+                for i = 1, fndCnt do
+                    if fndList[i].ClassName == 'liepsna_spreader' or 
+                    fndList[i].ClassName == 'liepsna_invader' or 
+                    fndList[i].ClassName == 'liepsna_chaser' or 
+                    fndList[i].ClassName == 'liepsna_destroyer' then
+                        
+                        return GetHandle(fndList[i])
+                    end
+                end
+            end
+        end
+    end
+    return 0
+end
+function SCR_PRE_EP13_F_SIAULIAI_2_MQ_04_ITEM_01(self, argstring, argnum1, argnum2)
+    if GetZoneName(self) == "ep13_f_siauliai_2" then
+        local result01 = SCR_QUEST_CHECK(self, 'EP13_F_SIAULIAI_2_MQ_04')
+        local result02 = SCR_QUEST_CHECK(self, 'EP13_F_SIAULIAI_2_MQ_06')
+        if result01 == 'PROGRESS' or result02 == 'PROGRESS' then
+            return 1
+        end
+    end
+    return 0
+end
+
+
+--EP13 SCROLL
+
+function SCR_PRE_EP13_F_SIAULIAI_4_MQ_02_ITEM(self, argstring, argnum1, argnum2)
+    if GetZoneName(self) == "ep13_f_siauliai_5" then
+        local result1 = SCR_QUEST_CHECK(self, "EP13_F_SIAULIAI_5_MQ_01_RE")
+        if result1 == 'PROGRESS' then
+            local list, cnt = SelectObjectByFaction(self, 150, 'Neutral')
+            local i
+            for i = 1 , cnt do
+                if list[i].ClassName == 'HiddenTrigger6' then
+                    return 1
+                end
             end
         end
     end

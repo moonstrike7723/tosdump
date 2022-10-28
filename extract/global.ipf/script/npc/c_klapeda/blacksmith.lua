@@ -1,11 +1,14 @@
 function SCR_PETSHOP_KLAIPE_DIALOG(self,pc)
+	local ShowTutorialnote = GetConfig(pc, "ShowTutorialnote");
+	if ShowTutorialnote == 0 then
     AddHelpByName(pc, 'TUTO_PETSHOP')
+	end
+    
     TUTO_PIP_CLOSE_QUEST(pc)
     local vel, hawk, hoglan;
     if GetInvItemCount(pc, 'JOB_VELHIDER_COUPON') > 0 then
         local itemLangName = GetClassString('Item', 'JOB_VELHIDER_COUPON', 'Name')
         vel = itemLangName..ScpArgMsg('PetCouponExchange1')
-        
     end
     if GetInvItemCount(pc, 'steam_JOB_HOGLAN_COUPON') > 0 then
         local itemLangName = GetClassString('Item', 'steam_JOB_HOGLAN_COUPON', 'Name')
@@ -28,7 +31,6 @@ function SCR_PETSHOP_KLAIPE_DIALOG(self,pc)
         	end
         end
     end
-    
     
     local jobClassName, companionClassName = SCR_FREE_COMPANION_CHECK(self, pc)
     local jobFreeCompanionMsg = {}

@@ -633,4 +633,32 @@
 		<!--quest_main_text-->
 		<font name="normal" size="16" space="0" color="2b1f14" bold="no" italic="no" dropshadow="no" outline="no" underline="no" centerline="no"/>
 	</style>
+	<style name="st107_coffee">
+		<!--dialog_quotation_text-->
+		<font name="normal" size="21" space="0" color="1f100b" bold="yes" italic="yes" dropshadow="no" outline="no" underline="no" centerline="no"/>
+	</style>
+	<style name="st201">
+		<!--wedge_normal-->
+		<font name="normal" size="18" space="0" color="866c4f" bold="yes" italic="no" dropshadow="no" outline="no" underline="no" centerline="no"/>
+	</style>
+	<style name="st202">
+		<!--wedge_normal-->
+		<font name="normal" size="18" space="0" color="493621" bold="yes" italic="no" dropshadow="no" outline="no" underline="no" centerline="no"/>
+	</style>
+	<style name="st203">
+		<!--wedge_point-->
+		<font name="normal" size="18" space="0" color="e06400" bold="yes" italic="no" dropshadow="no" outline="no" underline="no" centerline="no"/>
+	</style>
+	<style name="st204_purple">
+		<!--wedge_point-->
+		<font name="normal" size="16" space="0" color="a151ec" bold="yes" italic="no" dropshadow="yes" outline="yes" underline="no" centerline="no"/>
+	</style>
+	<style name="st204_green">
+		<!--wedge_point-->
+		<font name="normal" size="16" space="0" color="09ffab" bold="yes" italic="no" dropshadow="yes" outline="yes" underline="no" centerline="no"/>
+	</style>
+	<style name="st204_magenta">
+		<!--relic_text-->
+		<font name="normal" size="16" space="0" color="ff00d8" bold="yes" italic="no" dropshadow="yes" outline="yes" underline="no" centerline="no"/>
+	</style>
 </StyleSheet>

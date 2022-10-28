@@ -108,18 +108,37 @@ function PouncingClientScp_ENTER(actor, obj, buff)
     if abil ~= nil then
         local abilObj = GetIES(abil:GetObject());
         if abilObj.ActiveState == 1 then
-            return;
+            actor:GetAnimation():SetRUNAnim("SKL_POUNCING_STAND_ABIL");
+            actor:GetAnimation():SetWLKAnim("SKL_POUNCING_STAND_ABIL");
+            actor:GetAnimation():SetTURNAnim("None");
+            actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND_ABIL");
+
+            if actor:GetVehicleActor() ~= nil then
+                actor:GetAnimation():SetSTDAnim("SKL_POUNCING_ABIL_RIdE");
+            else
+                actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND_ABIL");
+            end
+        else
+            actor:GetAnimation():SetRUNAnim("SKL_POUNCING");
+            actor:GetAnimation():SetWLKAnim("SKL_POUNCING");
+            actor:GetAnimation():SetTURNAnim("None");
+        
+            if actor:GetVehicleActor() ~= nil then
+                actor:GetAnimation():SetSTDAnim("SKL_POUNCING_RIDE");
+            else
+                actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND");
+            end
         end
-    end
-
-    actor:GetAnimation():SetRUNAnim("SKL_POUNCING");
-    actor:GetAnimation():SetWLKAnim("SKL_POUNCING");
-    actor:GetAnimation():SetTURNAnim("None");
-
-    if actor:GetVehicleActor() ~= nil then
-        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_RIDE");
     else
-        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND");
+        actor:GetAnimation():SetRUNAnim("SKL_POUNCING");
+        actor:GetAnimation():SetWLKAnim("SKL_POUNCING");
+        actor:GetAnimation():SetTURNAnim("None");
+    
+        if actor:GetVehicleActor() ~= nil then
+            actor:GetAnimation():SetSTDAnim("SKL_POUNCING_RIDE");
+        else
+            actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND");
+        end        
     end
 
     actor:SetAlwaysBattleState(true);
@@ -180,8 +199,10 @@ function RunningShotClientScp_LEAVE(actor, obj, buff)
 end
 
 function SnipersSerenityClientScp_ENTER(actor, obj, buff)
-    actor:GetAnimation():SetWLKAnim("SKL_SNIPERSSERENITY_AWLK");
-    actor:GetAnimation():SetRUNAnim("SKL_SNIPERSSERENITY_AWLK");
+    if pc.IsBuffApplied(actor, "DesperateDefense_Buff") == 0 then
+        actor:GetAnimation():SetWLKAnim("SKL_SNIPERSSERENITY_AWLK");
+        actor:GetAnimation():SetRUNAnim("SKL_SNIPERSSERENITY_AWLK");
+    end
 end
 
 function SnipersSerenityClientScp_LEAVE(actor, obj, buff)
@@ -653,8 +674,58 @@ function EliteMonster_ENTER(actor, obj, buff)
 end
 
 function EliteMonster_LEAVE(actor, obj, buff)
+    
 end
 
+function Mythic_Boosting_Morale_ENTER(actor, obj, buff)
+    actor:SetAuraInfo("Mythic_Boosting_Morale");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_Boosting_Morale_LEAVE(actor, obj, buff)
+    actor:SetAuraInfo("");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_Chain_Lightning_ENTER(actor, obj, buff)
+    actor:SetAuraInfo("Mythic_Chain_Lightning");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_Chain_Lightning_LEAVE(actor, obj, buff)
+    actor:SetAuraInfo("");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_Puddle_ENTER(actor, obj, buff)
+    actor:SetAuraInfo("Mythic_Puddle");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_Puddle_LEAVE(actor, obj, buff)
+    actor:SetAuraInfo("");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_Bomb_ENTER(actor, obj, buff)
+    actor:SetAuraInfo("Mythic_Bomb");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_Bomb_LEAVE(actor, obj, buff)
+    actor:SetAuraInfo("");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_InfectiousDisease_ENTER(actor, obj, buff)
+    actor:SetAuraInfo("Mythic_InfectiousDisease");
+    actor:GetTitle():UpdateCaption();
+end
+
+function Mythic_InfectiousDisease_LEAVE(actor, obj, buff)
+    actor:SetAuraInfo("");
+    actor:GetTitle():UpdateCaption();
+end
 --반짝이 버프: 대박 버프처럼 반짝거리기만 하는 용도
 function TwinkleBuff_Client_ENTER(actor, obj, buff)
     if buff.arg2 == 1 then
@@ -683,7 +754,7 @@ function DivineStigma_LEAVE(actor, obj, buff)
 end
 --흰색
 function WhiteBlink_ENTER(actor, obj, buff)
-  imcSound.PlaySoundEvent("monster_state_1")
+    imcSound.PlaySoundEvent("monster_state_1")
     actor:GetEffect():SetColorBlink(0.1,0.1,0.1,0.1,0.3,0.3,0.3,0.3, 1.5, 1);
 end
 
@@ -1380,6 +1451,18 @@ function DOLL_TINY_BUFF_LEAVE(actor, obj, buff)
 	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_tiny");
 end
 
+-- doll_lucy
+function DOLL_LUCY_BUFF_ENTER(actor, obj, buff)
+end
+
+function DOLL_LUCY_BUFF_UPDATE(actor, obj, buff)
+	SCR_CREATE_FAIRY(actor:GetHandleVal(), "doll_lucy");
+end
+
+function DOLL_LUCY_BUFF_LEAVE(actor, obj, buff)
+	SCR_REMOVE_FAIRY(actor:GetHandleVal(), "doll_lucy");
+end
+
 -- 2019Halloween_effect / moon effect
 function HalloweenMoon_effect_ENTER(actor, obj, buff)
     actor:GetBuff():SetUse2DEffect(false);
@@ -1546,4 +1629,18 @@ end
 function EP12DEMONLORD_EFFECT_PRE_LEAVE(actor, obj, buff)
     effect.DetachActorEffect(actor, "I_spread_out015_light_orange", 0.7);
     actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
+end
+
+function DesperateDefenseClientScp_ENTER(actor, obj, buff)
+    if pc.IsBuffApplied(actor, "SnipersSerenity_Buff") == 1 then
+        actor:GetAnimation():ResetWLKAnim();
+        actor:GetAnimation():ResetRUNAnim();
+    end
+end
+
+function DesperateDefenseClientScp_LEAVE(actor, obj, buff)
+    if pc.IsBuffApplied(actor, "SnipersSerenity_Buff") == 1 then
+        actor:GetAnimation():SetWLKAnim("SKL_SNIPERSSERENITY_AWLK");
+        actor:GetAnimation():SetRUNAnim("SKL_SNIPERSSERENITY_AWLK");
+    end
 end

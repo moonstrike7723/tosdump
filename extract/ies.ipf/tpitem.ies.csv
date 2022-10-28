@@ -13,6 +13,10 @@ ClassID,Price,JobGrade,AccountLimitCount,Itemdate,BonusItemCnt,ClassName,Categor
 21,128,0,0,12,0,ClassName21,TP_Premium,TP_Useable,Premium_RankReset_Point_Lv2,,,NO,,,,
 22,227,0,0,13,0,ClassName22,TP_Premium,TP_Useable,Premium_RankReset_Point_Lv3,,,NO,,,,
 32,248,0,0,190501,0,ClassName32,TP_Premium,TP_Useable,STEAM_Pack_TP_Box_2,,,NO,,,,
+33,229,0,3,2012221,0,ClassName33,TP_Premium,TP_Useable,GLOBAL_BUNNY_HOP_PACKAGE,,,NO,2020-12-22 00:00:00,2021-01-06 00:00:00,,
+34,300,0,3,2012222,0,ClassName34,TP_Premium,TP_Useable,GLOBAL_RABBIT_HOLE_PACKAGE,,,NO,2020-12-22 00:00:00,2021-01-06 00:00:00,,
+35,200,0,5,2012223,0,ClassName35,TP_Premium,TP_Useable,GLOBAL_CHROME_RABBIT_PACKAGE,,,NO,2020-12-22 00:00:00,2021-01-06 00:00:00,,
+36,720,0,1,2012224,0,ClassName36,TP_Premium,TP_Useable,GLOBAL_RABBIT_FAMILY_PACKAGE,,,NO,2020-12-22 00:00:00,2021-01-06 00:00:00,,
 37,899,0,1,2101261,0,ClassName37,TP_Premium,TP_Useable,GLOBAL_HOLY_COW_PACKAGE,,,NO,2021-01-26 00:00:00,2021-02-17 00:00:00,,
 38,99,0,5,2101262,0,ClassName38,TP_Premium,TP_Useable,GLOBAL_COW_HORN_PACKAGE,,,NO,2021-01-26 00:00:00,2021-02-17 00:00:00,,
 39,99,0,5,2101263,0,ClassName39,TP_Premium,TP_Useable,GLOBAL_COW_BEEF_PACKAGE,,,NO,2021-01-26 00:00:00,2021-02-17 00:00:00,,
@@ -32,5 +36,6 @@ ClassID,Price,JobGrade,AccountLimitCount,Itemdate,BonusItemCnt,ClassName,Categor
 505,3,0,0,160728,0,ClassName505,TP_Premium,TP_Petitem,food_cereal,,,,,,,
 506,10,0,0,160818,0,ClassName506,TP_Premium,TP_Petitem,Premium_parrotbill_Food,,,,,,,
 601,29,0,1,0,0,ClassName601,TP_Premium,TP_FirstBuy,PremiumToken,,,,,,IS_USED_MEDAL_CHECK,NO
+602,120,0,1,0,0,ClassName602,TP_Premium,TP_FirstBuy,GLOBAL_BUNNY_HOP_PACKAGE,,,,,,IS_USED_MEDAL_CHECK,NO
 4501,134,0,0,190115,0,ClassName4501,TP_Premium_Sale,TP_Sale_New2,Premium_Mystic_Glass_Box,,,,,,,
 4502,215,0,0,190115,0,ClassName4502,TP_Premium_Sale,TP_Sale_New2,Premium_Master_Glass_Box,,,,,,,

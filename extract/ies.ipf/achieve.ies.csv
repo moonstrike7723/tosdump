@@ -100,7 +100,9 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 2128,1,EVENT_2003_Arbor_Day,AchievePoint,이벤트,나무의 소중함을 알고 있는,식목일 이벤트 참여자에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,나무의 소중함을 알고 있는,,False,EVENT_2003_Arbor_Day,NO,,,,,NO,
 2129,1,EVENT_2004_Stamp,AchievePoint,이벤트,{img Collar_Event_Stamp_skin 24 24} 달려라 스탬프 투어!,스탬프 투어의 모든 미션을 클리어한 구원자에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,달려라 스탬프 투어!,,False,EVENT_2004_Stamp,NO,,,,,NO,
 2130,1,EVENT_2007_Tecance,AchievePoint,이벤트,{img Collar_Event_Tecance 24 24} 한여름의 트캉스,트캉스 이벤트의 모든 미션을 클리어한 구원자에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,한여름의 트캉스,,False,EVENT_2007_Tecance,NO,,,,,NO,
+2136,1,Event_EVENT_2010_LVUP_Achieve1,AchievePoint,이벤트,축복받은 구원자,캐릭터 성장 이벤트 참여자에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,축복받은 구원자,,False,Event_EVENT_2010_LVUP_Achieve1,NO,,,,,NO,
 2137,1,Event_SeasonNewWorld_Achieve1,AchievePoint,이벤트,시즌서버 이주민,시즌서버 출신 유저들에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,시즌서버 이주민,,False,Event_SeasonNewWorld_Achieve1,NO,,,,,NO,
+2138,1,TOS_School_Graduate,AchievePoint,이벤트,{img Collar_TOS_School_Graduate 24 24} TOS스쿨 졸업생,튜토리얼 콘텐츠의 모든 미션을 클리어한 구원자에게 지급되는 칭호 입니다.,icon_item_Misc_00021,YES,TOS스쿨 졸업생,,False,TOS_School_Graduate,NO,,,,,NO,
 2139,1,Christmas_Master,AchievePoint,이벤트,마스터의 크리스마스,크리스마스 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,마스터의 크리스마스,,False,Christmas_Master,NO,,,,,NO,plate_Christmas_Master
 2030,1,Passionate_Artist_Ev,AchievePoint,이벤트,{img Collar_Brush 20 20}Passionate Artist,발렌타인 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Passionate Artist,,False,Passionate_Artist_Ev,NO,,,,,,
 2046,1,FinestMoment,AchievePoint,이벤트,{img Collar_FinestMoment 30 30}Finest Moment,봄맞이 팬아트 공모전 수상자에게 주어지는 칭호입니다.,icon_item_Misc_00021,YES,Finest Moment,,False,FinestMoment,NO,,,,,,
@@ -196,6 +198,10 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 5040,1,EPISODE_ACHIEVE_10,AchievePoint,에피소드,EP 10 마족과 결탁한 인간,에피소드 10 마족과 결탁한 인간 클리어,icon_item_Misc_00021,YES,EP 10 마족과 결탁한 인간,,True,EPISODE_ACHIEVE_P_10,NO,,,,,NO,
 5041,1,QAC12_f_dcapital_104,AchievePoint,퀘스트,라이마의 구원자,에피소드 12 : 마지막 계시의 메인퀘스트를 모두 완료한 유저에게 주어지는 칭호,icon_item_Misc_00021,YES,라이마의 구원자,,True,QP12_f_dcapital_104,NO,,,,,NO,
 5042,1,EPISODE_ACHIEVE_11,AchievePoint,에피소드,EP 11 별의 탑을 넘어서,에피소드 11 별의 탑을 넘어서 클리어,icon_item_Misc_00021,YES,EP 11 별의 탑을 넘어서,,True,EPISODE_ACHIEVE_P_11,NO,,,,,NO,
+5043,1,QAC12_2_d_dcapital_108,AchievePoint,퀘스트,냉철한 숙명의 심판자,에피소드 12-2 : 숙명의 메인퀘스트를 모두 완료한 유저에게 주어지는 칭호,icon_item_Misc_00021,YES,냉철한 숙명의 심판자,,True,QP12_2_d_dcapital_108,NO,,,,,NO,
+5044,1,QAC13_ep13_f_siauliai_5,AchievePoint,퀘스트,그림자 흔적,에피소드 13 : 운명의 여흔 메인 퀘스트를 모두 완료한 유저에게 주어지는 칭호,icon_item_Misc_00021,YES,그림자 흔적,,True,QP13_ep13_f_siauliai_5,NO,,,,,NO,
+5045,1,EPISODE_ACHIEVE_12_1,AchievePoint,에피소드,EP 12-1 사명의 완성,에피소드 12-1 마지막 계시 - 사명의 완성 클리어,icon_item_Misc_00021,YES,EP 12-1 사명의 완성,,True,EPISODE_ACHIEVE_P_12_1,NO,,,,,NO,
+5046,1,EPISODE_ACHIEVE_12_2,AchievePoint,에피소드,EP 12-2 숙명,에피소드 12-1 마지막 계시 - 숙명,icon_item_Misc_00021,YES,EP 12-2 숙명,,True,EPISODE_ACHIEVE_P_12_2,NO,,,,,NO,
 6001,1,TeamBattle_GoldRanker,WeekRanker,팀배틀리그,Team Battle 1st,팀 배틀 리그 순위 보상 [매주 월요일 6시 초기화],icon_item_Misc_00021,NO,팀 배틀 리그 1위,,False,TeamBattle_Gold,NO,,,,,YES,Collar_TBL1st
 6002,1,TeamBattle_SilverRanker,WeekRanker,팀배틀리그,Team Battle 2nd,팀 배틀 리그 순위 보상 [매주 월요일 6시 초기화],icon_item_Misc_00021,NO,팀 배틀 리그 2위,,False,TeamBattle_Silver,NO,,,,,YES,Collar_TBL2nd
 6003,1,TeamBattle_BronzeRanker,WeekRanker,팀배틀리그,Team Battle 3rd,팀 배틀 리그 순위 보상 [매주 월요일 6시 초기화],icon_item_Misc_00021,NO,팀 배틀 리그 3위,,False,TeamBattle_Bronze,NO,,,,,YES,Collar_TBL3rd
@@ -218,6 +224,9 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 8011,1,moringponia_clear_hard,AchievePoint,킬,Tempus Fugit,각 서버에서 [나비목 접선지: 레전드(하드)]를 일정 기간 내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Tempus Fugit,,True,moringponia_clear_hard,YES,,,,,,plate_achieve_moringponia_clear_hard
 8012,1,glacier_clear,AchievePoint,킬,Overcome Frostbite,각 서버에서 [하얀 마녀의 숲: 레전드]를 일정 기간 내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Overcome Frostbite,,True,glacier_clear,YES,,,,,,plate_achieve_Glacier_clear
 8013,1,glacier_first_kill,AchievePoint,킬,Icicle Queen,각 서버에서 최초로 [하얀 마녀의 숲: 레전드]를 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Icicle Queen,,True,glacier_first_kill,YES,,,,,,plate_achieve_Glacier_first_kill
+8014,1,Giltine_first_kill,AchievePoint,킬,Fallen Goddess,각 서버에서 최초로 [마신의 성소: 레전드]를 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Fallen Goddess,,True,Giltine_first_kill,YES,,,,,,plate_achieve_Giltine_first_kill
+8015,1,Giltine_clear,AchievePoint,킬,Wing Breaker,각 서버에서 [마신의 성소: 레전드]를 일정 기간 내에 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Wing Breaker,,True,Giltine_clear,YES,,,,,,plate_achieve_Giltine_clear
+8016,1,Giltine_auto_clear,AchievePoint,킬,Feather Picker,일정 기간 내에 [마신의 성소 (자동 매칭)]을 클리어한 유저에게 지급되는 칭호입니다.,icon_item_Misc_00021,YES,Feather Picker,,False,Giltine_auto_clear,YES,,,,,,plate_achieve_Giltine_auto_clear
 9001,1,WEEKLY_BOSS_RANK_1,AchievePoint,랭킹,Iron Lord,"주간 보스 [자우라] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Iron Lord,,True,WeeklyRank_1,YES,,,,,,plate_achieve_weeklyrank_1
 9002,1,WEEKLY_BOSS_RANK_2,AchievePoint,랭킹,Demon Rose,"주간 보스 [헬가세르클] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Demon Rose,,True,WeeklyRank_2,YES,,,,,,plate_achieve_weeklyrank_2
 9003,1,WEEKLY_BOSS_RANK_3,AchievePoint,랭킹,Mist Bringer,"주간 보스 [누아엘레] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Mist Bringer,,True,WeeklyRank_3,YES,,,,,,plate_achieve_weeklyrank_3
@@ -230,6 +239,10 @@ ClassID,NeedCount,ClassName,Group,Category,Name,Desc,Icon,Hidden,DescTitle,Rewar
 9010,1,WEEKLY_BOSS_RANK_10,AchievePoint,랭킹,Absolute Zero,"주간 보스 [프로스터 로드] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Absolute Zero,,True,WeeklyRank_10,YES,,,,,,plate_achieve_weeklyrank_10
 9011,1,WEEKLY_BOSS_RANK_11,AchievePoint,랭킹,Devil Thorn,"주간 보스 [브람블] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Devil Thorn,,True,WeeklyRank_11,YES,,,,,,plate_achieve_weeklyrank_11
 9012,1,WEEKLY_BOSS_RANK_12,AchievePoint,랭킹,Frenzy Circus,"주간 보스 [워퓰리스] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Frenzy Circus,,True,WeeklyRank_12,YES,,,,,,plate_achieve_weeklyrank_12
+9013,1,WEEKLY_BOSS_RANK_13,AchievePoint,랭킹,Night Punisher,"주간 보스 [나크티스] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Night Punisher,,True,WeeklyRank_13,YES,,,,,,plate_achieve_weeklyrank_13
+9014,1,WEEKLY_BOSS_RANK_14,AchievePoint,랭킹,Trinity Bear,"주간 보스 [티니 3형제] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Trinity Bear,,True,WeeklyRank_14,YES,,,,,,plate_achieve_weeklyrank_14
+9015,1,WEEKLY_BOSS_RANK_15,AchievePoint,랭킹,Insight Commander,"주간 보스 [솔콤] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Insight Commander,,True,WeeklyRank_15,YES,,,,,,plate_achieve_weeklyrank_15
+9016,1,WEEKLY_BOSS_RANK_16,AchievePoint,랭킹,Chasing The Rabbit,"주간 보스 [루시] 계열 별 랭킹 보상으로 지급되는 칭호입니다. ",icon_item_Misc_00021,YES,Chasing The Rabbit,,True,WeeklyRank_16,YES,,,,,,plate_achieve_weeklyrank_16
 100001,10000,Kill_1_50,AchievePoint,킬,사냥꾼,"몬스터를 10,000마리 처치",icon_item_Misc_00021,NO,사냥의 시작,,True,MonKill,YES,,,,,NO,
 100002,1000000,Kill_1_100,AchievePoint,킬,학살자,"몬스터를 1,000,000마리 처치",icon_item_Misc_00021,NO,익숙한 사냥,,True,MonKill,YES,,,,,NO,
 100005,10000,OverKill_1,AchievePoint,오버킬,승부사,"오버킬을 10,000회 달성",icon_item_Misc_00021,NO,전투의 기초,,True,OverKill,YES,,,,,NO,

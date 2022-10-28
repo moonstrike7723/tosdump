@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Hey (IMCGames Co., Ltd) -->
 <uiframe name="barrack_charlist" x="0" y="0" width="900" height="1080">
 	<frame title="캐릭터선택" margin="0 60 0 0" layout_gravity="left top" fullheight="true" scale_align="left center" tooltipoverlap="true"/>
 	<draw drawtitlebar="false" drawframe="false"/>
@@ -21,7 +21,5 @@
 		<button name="button_up" rect="0 0 48 47" margin="310 0 0 0" layout_gravity="left top" parent="groupbox_fixed" LBtnUpScp="UP_SWAP_CHARACTER_SLOT" skin="test_pvp_btn" caption="{@st66}{nl}▲"/>
 		<button name="button_down" rect="0 0 48 47" margin="310 0 0 0" layout_gravity="left bottom" parent="groupbox_fixed" LBtnUpScp="DOWN_SWAP_CHARACTER_SLOT" skin="test_pvp_btn" caption="{@st66}{nl}▼"/>
 		<button name="button_new_char" rect="0 0 310 47" margin="0 0 0 0" layout_gravity="left top" skin="test_pvp_btn" caption="{@st66}{nl}새 캐릭터 만들기" parent="groupbox_fixed" LBtnUpScp="BARRACK_GO_CREATE"/>
-		<picture name="button_up_alpha" rect="0 0 40 39" margin="314 4 0 0" layout_gravity="left top" draw="true" hittestbox="false" hittest="false" parent="groupbox_fixed" alpha="0" image="fullblack"/>
-		<picture name="button_down_alpha" rect="0 0 40 39" margin="314 0 0 4" layout_gravity="left bottom" draw="true" hittestbox="false" hittest="false" parent="groupbox_fixed" alpha="0" image="fullblack"/>
 	</controls>
 </uiframe>

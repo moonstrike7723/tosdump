@@ -150,6 +150,13 @@ function ICORADD_CTRL_REG_MAIN_ITEM(ctrlSet, itemID)
 	    ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
         return
 	end
+
+	--이벤트 아이템 확인
+	if SHARED_IS_EVENT_ITEM_CHECK(itemCls, "NoEnchant") == true then
+		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
+		return
+	end
+
 		
 	local invframe = ui.GetFrame("inventory")
 	if true == invItem.isLockState or true == IS_TEMP_LOCK(invframe, invItem) then
@@ -195,7 +202,7 @@ function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 	if ui.CheckHoldedUI() == true then
 		return
 	end
-
+	
 	local frame = ctrlSet:GetTopParentFrame()
 
 	local max_count = GET_ICOR_MULTIPLE_MAX_COUNT()
@@ -242,8 +249,9 @@ function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 	local slot = GET_CHILD_RECURSIVELY(ctrlSet, "slot")
 	local slotInvItem = GET_SLOT_ITEM(slot)
 	local slotInvItemCls = nil
-	if slotInvItem ~= nil then
-		local tempItem = GetIES(slotInvItem:GetObject())
+	local tempItem = nil
+	if slotInvItem ~= nil then		
+		tempItem = GetIES(slotInvItem:GetObject())
 		slotInvItemCls = GetClass('Item', tempItem.ClassName)
 	end
     
@@ -258,6 +266,16 @@ function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 		return
 	end
 	
+	if tempItem ~= nil then
+		local obj = tempItem
+		local obj_add = itemObj
+		if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
+		or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
+			ui.SysMsg(ClMsg("AlearyIcorAdded"))
+			return
+		end	
+	end
+
 	local yPos = 0
 	local basicList = GET_EQUIP_TOOLTIP_PROP_LIST(targetItem)
     local list = {}
@@ -409,6 +427,26 @@ function ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, itemID)
 		inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(property_gbox, targetItem.OptDesc, 0, inner_yPos)
 	end
 
+	if targetItem.OptDesc ~= nil and (targetItem.OptDesc == 'None' or targetItem.OptDesc == '') and TryGetProp(targetItem, 'StringArg', 'None') == 'Vibora' then
+		local opt_desc = targetItem.OptDesc
+		if opt_desc == 'None' then
+			opt_desc = ''
+		end
+		
+		for idx = 1, MAX_VIBORA_OPTION_COUNT do			
+			local additional_option = TryGetProp(targetItem, 'AdditionalOption_' .. tostring(idx), 'None')			
+			if additional_option ~= 'None' then
+				local tooltip_str = 'tooltip_' .. additional_option					
+				local cls_message = GetClass('ClientMessage', tooltip_str)
+				if cls_message ~= nil then
+					opt_desc = opt_desc .. ClMsg(tooltip_str)
+				end
+			end
+		end
+
+		inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(property_gbox, opt_desc, 0, inner_yPos);
+	end
+
 	if targetItem.IsAwaken == 1 then
 		local opName = string.format("[%s] %s", ClMsg("AwakenOption"), ScpArgMsg(targetItem.HiddenProp))
 		local strInfo = ABILITY_DESC_PLUS(opName, targetItem.HiddenPropValue)
@@ -458,7 +496,7 @@ function ICORADD_MULTIPLE_EXEC(frame)
 					ui.SysMsg(ClMsg("MaterialItemIsLock"))
 					return
 				end
-
+				
 				local obj = GetIES(invItem:GetObject())
 				local obj_add = GetIES(invItem_add:GetObject())
 				if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
@@ -514,6 +552,14 @@ function _ICORADD_MULTIPLE_EXEC(checkRebuildFlag)
 				return
 			end
 	
+			local obj = GetIES(mainInvItem:GetObject())
+			local obj_add = GetIES(addInvItem:GetObject())
+			if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
+			or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
+				ui.SysMsg(ClMsg("AlearyIcorAdded"))
+				return
+			end
+
 			session.AddItemID(mainInvItem:GetIESID(), 1)
 			session.AddItemID(addInvItem:GetIESID(), 1)
 		end
@@ -624,6 +670,12 @@ function ICORADD_MULTIPLE_INV_RBTN(itemObj, slot)
         return
 	end
 
+	--이벤트 아이템 확인
+	if SHARED_IS_EVENT_ITEM_CHECK(itemCls, "NoEnchant") == true then
+		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
+		return
+	end
+
 	local icon = slot:GetIcon()
 	local iconInfo = icon:GetInfo()
 	local invItem = GET_PC_ITEM_BY_GUID(iconInfo:GetIESID())
@@ -663,6 +715,17 @@ function ICORADD_MULTIPLE_INV_RBTN(itemObj, slot)
 				if mainItem ~= nil then
 					local mainObj = GetIES(mainItem:GetObject())
 					local inheritItem = GetClass('Item', inheritItemName)
+
+					local slot_add = GET_CHILD_RECURSIVELY(ctrlSet, "slot_add")					
+					local invItem_add = GET_SLOT_ITEM(slot_add)
+					
+					local obj_add = itemObj
+					if (TryGetProp(mainObj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
+					or TryGetProp(mainObj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
+						ui.SysMsg(ClMsg("AlearyIcorAdded"))
+						return
+					end
+
 					if inheritItem ~= nil and mainObj.ClassType == inheritItem.ClassType then
 						ICORADD_CTRL_REG_ADD_ITEM(ctrlSet, iconInfo:GetIESID())
 

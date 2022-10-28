@@ -54,6 +54,7 @@ end
 
 
 function _FRAME_AUTOPOS(frame)
+	AUTO_CAST(frame);
     local handle = frame:GetUserIValue("_AT_OFFSET_HANDLE");
     local offsetX = frame:GetUserIValue("_AT_OFFSET_X");
 	local offsetY = frame:GetUserIValue("_AT_OFFSET_Y");

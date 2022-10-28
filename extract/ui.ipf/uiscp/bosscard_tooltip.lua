@@ -26,6 +26,29 @@ function ITEM_TOOLTIP_LEGEND_BOSSCARD(tooltipframe, invitem, strarg)
 	ypos = DRAW_BOSSCARD_SELL_PRICE(tooltipframe, invitem, ypos, mainframename);
 end
 
+function ITEM_TOOLTIP_GODDESSCARD(tooltipframe, invitem, strarg)
+
+	tolua.cast(tooltipframe, "ui::CTooltipFrame");
+
+	local subframename = 'goddesscard'
+
+	local ypos = DRAW_REINFORCE_CARD_GODDESS_COMMON_TOOLTIP(tooltipframe, invitem,subframename); -- 보스 카드라면 공통적으로 그리는 툴팁들
+	ypos = DRAW_BOSSCARD_ADDSTAT_TOOLTIP(tooltipframe, invitem, ypos, subframename);
+	ypos = DRAW_BOSSCARD_TRADABILITY_TOOLTIP(tooltipframe, invitem, ypos, subframename); -- 
+	CARD_GODDESS_TOOLTIP_X_ALIGN(tooltipframe,subframename)
+end
+
+function CARD_GODDESS_TOOLTIP_X_ALIGN(tooltipframe,subframename)
+	local gBox = GET_CHILD(tooltipframe,subframename)
+	local cnt = gBox:GetChildCount()
+	for i = 0,cnt-1 do
+		local child = gBox:GetChildByIndex(i)
+		if child:GetName() ~= "boss_common_cset" then
+			child:Move(30,0)
+		end
+	end
+end
+
 function ITEM_TOOLTIP_REINFORCE_CARD(tooltipframe, invitem, strarg)
 
 	tolua.cast(tooltipframe, "ui::CTooltipFrame");
@@ -75,6 +98,45 @@ function DRAW_REINFORCE_CARD_COMMON_TOOLTIP(tooltipframe, invitem, mainframename
 	gBox:Resize(gBox:GetWidth(),gBox:GetHeight()+CSet:GetHeight() + 50)
 	return CSet:GetHeight()+50;
 end
+
+function DRAW_REINFORCE_CARD_GODDESS_COMMON_TOOLTIP(tooltipframe, invitem,subframename)
+	local subframe = GET_CHILD(tooltipframe, subframename,'ui::CGroupBox')
+	subframe:RemoveAllChild()
+	
+	local CSetBg = subframe : CreateControlSet('tooltip_bosscard_bg', 'boss_bg_cset', 11, 100);
+
+	local CSet = subframe:CreateControlSet('tooltip_goddesscard_common', 'boss_common_cset', 0, 0);
+	tolua.cast(CSet, "ui::CControlSet");
+	
+	--사이즈 안 줄이면 옆에 선 생김
+	CSetBg:Resize(CSetBg:GetWidth()-21,CSetBg:GetHeight())
+	local GRADE_FONT_SIZE = CSet:GetUserConfig("GRADE_FONT_SIZE"); -- 등급 나타내는 별 크기
+	
+
+	-- 카드 테두리 세팅
+	SET_CARD_EDGE_TOOLTIP(CSet, invitem);
+
+	-- 아이템 이미지
+	local spineItemPicture = GET_CHILD(CSet, "itempic");
+	SET_SPINE_TOOLTIP_IMAGE(spineItemPicture, invitem);
+
+	-- 별 그리기
+	SET_GRADE_TOOLTIP(CSet, invitem, GRADE_FONT_SIZE);
+
+	-- 아이템 이름 세팅
+	local fullname = GET_FULL_NAME(invitem, true);
+	local nameChild = GET_CHILD(CSet, "name");
+	nameChild:SetText(fullname);
+
+	local typeRichtext = GET_CHILD(CSet, "type_text");
+	typeRichtext:SetText("");
+    
+	local BOTTOM_MARGIN = CSet:GetUserConfig("BOTTOM_MARGIN"); -- 맨 아랫쪽 여백
+	CSet:Resize(CSet:GetWidth(),typeRichtext:GetY() + typeRichtext:GetHeight() + BOTTOM_MARGIN);
+	subframe:Resize(subframe:GetWidth(), subframe:GetHeight()+CSet:GetHeight())
+	return CSet:GetHeight();
+end
+
 
 
 
@@ -145,7 +207,7 @@ function DRAW_BOSSCARD_ADDSTAT_TOOLTIP(tooltipframe, invitem, yPos, mainframenam
 	gBox:RemoveChild('tooltip_bosscard_desc');
 	
 	local CSet = gBox:CreateControlSet('tooltip_bosscard_desc', 'tooltip_bosscard_desc', 0, yPos);
-		
+
 	--스텟
 	local desc_text = GET_CHILD(CSet,'desc_text')
 	if invitem.GroupName == "Card" then

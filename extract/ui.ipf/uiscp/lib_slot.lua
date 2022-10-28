@@ -128,7 +128,7 @@ function SET_SLOT_INVITEM_NOT_COUNT(slot, invItem, cnt, font, hor, ver, stateX, 
 end
 
 function SET_SLOT_ITEM_INV(slot, itemCls)
-		local type = itemCls.ClassID;
+	local type = itemCls.ClassID;
 	local img = itemCls.Icon;
 	SET_SLOT_IMG(slot, img)
 	SET_ITEM_TOOLTIP_BY_TYPE(slot:GetIcon(), type);
@@ -145,7 +145,6 @@ function SET_SLOT_ITEM_INV(slot, itemCls)
 
 	slot:SetEventScript(ui.LBUTTONUP, 'SLOT_ITEMUSE_BY_TYPE');
 	slot:SetEventScriptArgNumber(ui.LBUTTONUP, itemCls.ClassID);
-
 end
 
 function SET_SLOT_ITEM_IMAGE(slot, invItem)
@@ -368,6 +367,8 @@ function SET_SLOT_BG_BY_ITEMGRADE(slot, itemgrade)
 		skinName = "invenslot_unique"
 	elseif itemgrade == 5 then
 		skinName = "invenslot_legend"
+	elseif itemgrade == 6 then
+		skinName = "invenslot_pic_goddess"
 	end
 
 	slot:SetSkinName(skinName)
@@ -512,6 +513,12 @@ function SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, obj, count, font)
 		else
 			slot:SetText('{s17}{ol}{#FFFFFF}{b}LV. '..lv, 'count', ui.LEFT, ui.TOP, 3, 2);
 		end
+	end
+
+	local groupName = TryGetProp(obj, 'GroupName', 'None')
+	if groupName == 'Gem_Relic' then
+		local gem_lv = TryGetProp(obj, 'GemLevel', 1)
+		slot:SetText('{s17}{ol}{#FFFFFF}{b}LV. '..gem_lv, 'count', ui.LEFT, ui.TOP, 3, 2)
 	end
 end
 

@@ -247,6 +247,8 @@ function SCR_TX_TP_SHOP(pc, argList)
 			--stamp tour property check
 			--TX_EVENT_STAMP_TOUR_CHECK_TP_SHOP(pc,itemcls)
 			---------------------------
+			-- RELIC_QUEST
+            RunScript("TX_RELIC_QUEST_TPSHOP", pc)
 		else
 			IMC_LOG('ERROR_LOGIC', 'SCR_TX_TP_SHOP: Tx Fail- aid['..GetPcAIDStr(pc)..'], tpitem['..tpitem.ClassName..']');
 		end

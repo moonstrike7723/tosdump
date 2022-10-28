@@ -6,207 +6,122 @@ function get_tooltip_Relic_Guilty_arg1()
 end
 
 -- 시안 젬 - 통치자의 검
-function get_tooltip_SOVEREIGN_SWORD_arg1(pc)
-	local rate = 1500
-	if IsPVPField(pc) == 1 then
-		rate = 500
-	end
-    return rate, 'RELIC_SKILLFACTOR', 1, 'Percent'
+function get_tooltip_SOVEREIGN_SWORD_arg1()
+    return 3000, 'RELIC_SKILLFACTOR', 1, 'Percent'
 end
 
-function get_tooltip_SOVEREIGN_SWORD_arg2(pc)
-	local rate = 22.5
-	if IsPVPField(pc) == 1 then
-		rate = 12
-	end
-    return rate, 'DAMAGERATE_DEBUFF', 1, 'PercentUp'
+function get_tooltip_SOVEREIGN_SWORD_arg2()
+    return 22.5, 'DAMAGERATE_DEBUFF', 1, 'PercentUp'
 end
 
 -- 시안 젬 - 수확의 낫
-function get_tooltip_HARVEST_SCYTHE_arg1(pc)
-	local rate = 1500
-	if IsPVPField(pc) == 1 then
-		rate = 500
-	end
-    return rate, 'RELIC_SKILLFACTOR', 1, 'Percent'
+function get_tooltip_HARVEST_SCYTHE_arg1()
+    return 15000, 'RELIC_SKILLFACTOR', 1, 'Percent'
 end
 
-function get_tooltip_HARVEST_SCYTHE_arg2(pc)
+function get_tooltip_HARVEST_SCYTHE_arg2()
     return 1500, 'HP_DRAIN', 1, 'Value'
 end
 
-function get_tooltip_HARVEST_SCYTHE_arg3(pc)
+function get_tooltip_HARVEST_SCYTHE_arg3()
     return 50, 'SP_DRAIN', 1, 'Value'
 end
 
 -- 시안 젬 - 거인의 마검
-function get_tooltip_GIANT_EVILSWORD_arg1(pc)
-	local rate = 1500
-	if IsPVPField(pc) == 1 then
-		rate = 500
-	end
-    return rate, 'RELIC_SKILLFACTOR', 1, 'Percent'
+function get_tooltip_GIANT_EVILSWORD_arg1()
+    return 15000, 'RELIC_SKILLFACTOR', 1, 'Percent'
 end
 
-function get_tooltip_GIANT_EVILSWORD_arg2(pc)
-	local rate = 200
-	if IsPVPField(pc) == 1 then
-		rate = 100
-	end
-    return rate, 'ADD_ATK_SKILLFACTOR', 1, 'Percent'
+function get_tooltip_GIANT_EVILSWORD_arg2()
+    return 400, 'ADD_ATK_SKILLFACTOR', 1, 'Percent'
 end
 
 -- 시안 젬 - 혜성의 팔찌
-function get_tooltip_OLDTREE_BRACELET_arg1(pc)
-	local rate = 1250
-	if IsPVPField(pc) == 1 then
-		rate = 375
-	end
-    return rate, 'RELIC_SKILLFACTOR', 1, 'Percent'
+function get_tooltip_OLDTREE_BRACELET_arg1()
+    return 10000, 'RELIC_SKILLFACTOR', 1, 'Percent'
 end
 
-function get_tooltip_OLDTREE_BRACELET_arg2(pc)
+function get_tooltip_OLDTREE_BRACELET_arg2()
     return 20000, 'HP_DRAIN', 1, 'Value'
 end
 
 -- 시안 젬 - 통섭의 그릇
-function get_tooltip_CONSILIENCE_PLATE_arg1(pc)
-	local rate = 2500
-	if IsPVPField(pc) == 1 then
-		rate = 2000
-	end
-    return rate, 'DECREASE_ATK', 1, 'Value'
+function get_tooltip_CONSILIENCE_PLATE_arg1()
+    return 2500, 'DECREASE_ATK', 1, 'Value'
 end
 
 -- 시안 젬 - 징조의 날붙이
-function get_tooltip_OMEN_EDGEWISE_arg1(pc)
-	local rate = 1500
-	if IsPVPField(pc) == 1 then
-		rate = 500
-	end
-    return rate, 'RELIC_SKILLFACTOR', 1, 'Percent'
+function get_tooltip_OMEN_EDGEWISE_arg1()
+    return 3000, 'RELIC_SKILLFACTOR', 1, 'Percent'
 end
 
-function get_tooltip_OMEN_EDGEWISE_arg2(pc)
-	local rate = 15
-	if IsPVPField(pc) == 1 then
-		rate = 5
-	end
-    return rate, 'DAMAGERATE_DEBUFF', 1, 'PercentUp'
+function get_tooltip_OMEN_EDGEWISE_arg2()
+    return 15, 'DAMAGERATE_DEBUFF', 1, 'PercentUp'
 end
 
 -------- 마젠타 젬 -------------------------------------------
 
---- 마젠타 젬 PVP 지역 효과 감소 비율
-function get_magenta_pvp_rate(pc)
-	if IsPVPField(pc) == 1 then
-		return 0.25 -- 75% 감소
-	else
-		return 1
-	end
-end
-
 -- 마젠타 젬 - 결단
-function get_tooltip_DECISION_arg1(pc)
-	local rate = 3000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-    return rate, 'PATK_BM', 1, 'ValueUp'
+function get_tooltip_DECISION_arg1()
+    return 3000, 'PATK_BM', 1, 'ValueUp'
 end
 
-function get_tooltip_DECISION_arg2(pc)
+function get_tooltip_DECISION_arg2()
     return 1.5, 'PATK_FINALDAMAGE', 1, 'PercentUp'
-	end
+end
 
 -- 마젠타 젬 - 필살
-function get_tooltip_DEADLY_arg1(pc)
-	local rate = 4000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-    return rate, 'PATK_BM', 1, 'ValueUp'
+function get_tooltip_DEADLY_arg1()
+    return 4000, 'PATK_BM', 1, 'ValueUp'
 end
 
-function get_tooltip_DEADLY_arg2(pc)
+function get_tooltip_DEADLY_arg2()
     return 2, 'PATK_FINALDAMAGE', 1, 'PercentUp'
-	end
+end
 
 -- 마젠타 젬 - 증명
-function get_tooltip_PROOF_arg1(pc)
-	local rate = 3000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-    return rate, 'MATK_BM', 1, 'ValueUp'
+function get_tooltip_PROOF_arg1()
+    return 3000, 'MATK_BM', 1, 'ValueUp'
 end
 
-function get_tooltip_PROOF_arg2(pc)
+function get_tooltip_PROOF_arg2()
     return 1.5, 'MATK_FINALDAMAGE', 1, 'PercentUp'
-	end
+end
 
 -- 마젠타 젬 - 경이
-function get_tooltip_MARVELOUS_arg1(pc)
-	local rate = 4000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-    return rate, 'MATK_BM', 1, 'ValueUp'
+function get_tooltip_MARVELOUS_arg1()
+    return 4000, 'MATK_BM', 1, 'ValueUp'
 end
 
-function get_tooltip_MARVELOUS_arg2(pc)
+function get_tooltip_MARVELOUS_arg2()
     return 2, 'MATK_FINALDAMAGE', 1, 'PercentUp'
-	end
+end
 
 -- 마젠타 젬 - 무장
-function get_tooltip_ARMED_arg1(pc)
-	local rate = 9000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-    return rate, 'DEF_BM/MDEF_BM', 1, 'ValueUp'
+function get_tooltip_ARMED_arg1()
+    return 9000, 'DEF_BM/MDEF_BM', 1, 'ValueUp'
 end
 
-function get_tooltip_ARMED_arg2(pc)
-	local rate = 9000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-    return rate, 'MHP_BM', 1, 'ValueUp'
+function get_tooltip_ARMED_arg2()
+    return 9000, 'MHP_BM', 1, 'ValueUp'
 end
 
 -- 마젠타 젬 - 위격
-function get_tooltip_HYPOSTASIS_arg1(pc)
-	local rate = 12000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-    return rate, 'DEF_BM/MDEF_BM', 1, 'ValueUp'
+function get_tooltip_HYPOSTASIS_arg1()
+    return 12000, 'DEF_BM/MDEF_BM', 1, 'ValueUp'
 end
 
-function get_tooltip_HYPOSTASIS_arg2(pc)
-	local rate = 12000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-    return rate, 'MHP_BM', 1, 'ValueUp'
+function get_tooltip_HYPOSTASIS_arg2()
+    return 12000, 'MHP_BM', 1, 'ValueUp'
 end
 
 -- 마젠타 젬 - 약진 (기본 제공)
-function get_tooltip_ADVANCE_arg1(pc)
-	local rate = 1000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-    return rate, 'PATK_BM', 1, 'ValueUp'
+function get_tooltip_ADVANCE_arg1()
+    return 1000, 'PATK_BM', 1, 'ValueUp'
 end
 
-function get_tooltip_ADVANCE_arg2(pc)
-	local rate = 1000
-	if IsPVPField(pc) == 1 then
-		rate = rate * get_magenta_pvp_rate(pc)
-	end
-	return rate, 'MATK_BM', 1, 'ValueUp'
+function get_tooltip_ADVANCE_arg2()
+	return 1000, 'MATK_BM', 1, 'ValueUp'
 end
 
 -------- 블랙 젬 -------------------------------------------
@@ -355,7 +270,7 @@ function get_tooltip_Magic_Melee_Atk_GEM_GODDESS_arg1()
     return 664, 'Magic_Melee_Atk', 1, 'ValueUp'
 end
 
--- 블랙 젬 - 화살 대미지
+-- 블랙 젬 - 활 대미지
 function get_tooltip_Arrow_Atk_GEM_LEGEND_arg1()
     return 510, 'Arrow_Atk', 1, 'ValueUp'
 end

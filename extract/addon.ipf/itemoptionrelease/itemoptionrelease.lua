@@ -8,8 +8,13 @@ function ITEMOPTIONRELEASE_ON_INIT(addon, frame)
 	addon:RegisterMsg("UPDATE_COLONY_TAX_RATE_SET", "ON_OPTIONRELEASE_UPDATE_COLONY_TAX_RATE_SET");
 end;
 
-function ON_OPEN_DLG_ITEMOPTIONRELEASE(frame)
+function ON_OPEN_DLG_ITEMOPTIONRELEASE(frame, msg, argStr, argNum)
 	frame:ShowWindow(1);
+	if argNum == 1 then
+		frame:SetUserValue('IS_LEGEND_SHOP', 1)
+	else
+		frame:SetUserValue('IS_LEGEND_SHOP', 0)
+	end
 end;
 
 function ON_OPTIONRELEASE_UPDATE_COLONY_TAX_RATE_SET(frame)
@@ -95,7 +100,8 @@ function CLEAR_ITEMOPTIONRELEASE_UI()
 
 	local costBox = GET_CHILD_RECURSIVELY(frame, 'costBox');
 	local priceText = GET_CHILD_RECURSIVELY(costBox, 'priceText');
-	priceText:SetTextByKey('price', GET_OPTION_RELEASE_COST());
+	local price = GET_OPTION_RELEASE_COST()
+	priceText:SetTextByKey('price', price);
 	costBox:ShowWindow(1);
 end;
 
@@ -107,7 +113,8 @@ function _UPDATE_RELEASE_COST(frame)
 		return;
 	end;
 	local invItemObj = GetIES(invItem:GetObject());
-	priceText:SetTextByKey('price', GET_COMMAED_STRING(GET_OPTION_RELEASE_COST(invItemObj, GET_COLONY_TAX_RATE_CURRENT_MAP())));
+	local isLegendShop = frame:GetUserIValue('IS_LEGEND_SHOP')
+	priceText:SetTextByKey('price', GET_COMMAED_STRING(GET_OPTION_RELEASE_COST(invItemObj, GET_COLONY_TAX_RATE_CURRENT_MAP(), isLegendShop)));
 end
 
 function ITEM_OPTIONRELEASE_DROP(frame, icon, argStr, argNum)
@@ -147,6 +154,12 @@ function ITEM_OPTIONRELEASE_REG_TARGETITEM(frame, itemID)
 		return;
 	end;
 	
+	--이벤트 장비인지 체크
+	if SHARED_IS_EVENT_ITEM_CHECK(itemCls, "NoEnchant") == true then
+		ui.SysMsg(ClMsg("IcorNotAdded_EP12_CANT1"))
+		return
+	end
+
 	local pc = GetMyPCObject();
 	if pc == nil then
 		return;
@@ -289,6 +302,26 @@ function ITEM_OPTIONRELEASE_REG_TARGETITEM(frame, itemID)
 		inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, inheritItemCls.OptDesc, 0, inner_yPos);
 	end
 
+	if inheritItemCls.OptDesc ~= nil and (inheritItemCls.OptDesc == 'None' or inheritItemCls.OptDesc == '') and TryGetProp(inheritItemCls, 'StringArg', 'None') == 'Vibora' then
+		local opt_desc = inheritItemCls.OptDesc
+		if opt_desc == 'None' then
+			opt_desc = ''
+		end
+		local idx = 1
+		for idx = 1, MAX_VIBORA_OPTION_COUNT do			
+			local additional_option = TryGetProp(inheritItemCls, 'AdditionalOption_' .. tostring(idx), 'None')			
+			if additional_option ~= 'None' then
+				local tooltip_str = 'tooltip_' .. additional_option					
+				local cls_message = GetClass('ClientMessage', tooltip_str)
+				if cls_message ~= nil then
+					opt_desc = opt_desc .. ClMsg(tooltip_str)
+				end
+			end
+		end
+
+		inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, opt_desc, 0, inner_yPos);
+	end
+
 	if invItemObj.ReinforceRatio > 100 then
 		local opName = ClMsg("ReinforceOption");
 		local strInfo = ABILITY_DESC_PLUS(opName, math.floor(10 * invItemObj.ReinforceRatio/100));
@@ -343,7 +376,8 @@ function ITEMOPTIONRELEASE_EXEC(frame)
 	end;
 
 	local invItemObj = GetIES(invItem:GetObject());
-	local price = GET_OPTION_RELEASE_COST(invItemObj, GET_COLONY_TAX_RATE_CURRENT_MAP());
+	local isLegendShop = frame:GetUserIValue('IS_LEGEND_SHOP')
+	local price = GET_OPTION_RELEASE_COST(invItemObj, GET_COLONY_TAX_RATE_CURRENT_MAP(), isLegendShop);
 	local pcMoney = GET_TOTAL_MONEY_STR();
 	if IsGreaterThanForBigNumber(price, pcMoney) == 1 then
         ui.SysMsg(ClMsg('NotEnoughMoney'));

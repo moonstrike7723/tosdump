@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Hey (IMCGames Co., Ltd) -->
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by IMC (IMCGames Co., Ltd) -->
 <uiframe name="minimized_housing_promote_board" width="80" height="80">
-	<frame layout_gravity="right top" margin="0 400 345 0"/>
+	<frame layout_gravity="right top" margin="0 450 345 0"/>
 	<controls>
-		<richtext name="title" param1_def=" " />
+		<richtext name="title" param1_def=" "/>
 	</controls>
 </uiframe>

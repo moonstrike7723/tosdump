@@ -62,6 +62,22 @@ function C_SKL_LOCK_ROTATE(actor, obj, isOn)
     end
 end
 
+function C_SKL_LOCK_ROTATE_ABIL(actor, obj, abilName, isOn)
+	if abilName ~= nil and type(abilName) == 'string' and abilName ~= 'None' then
+	local abil = session.GetAbilityByName(abilName);
+        if abil ~= nil then
+                local abilObj = GetIES(abil:GetObject());
+                if abilObj.ActiveState == 1 then
+                local key = "SKL_" .. obj.type;
+                actor:LockRotateByKey(key, isOn);
+                if isOn == 1 then
+                    actor:AddSkillLockRotate(key);
+                end
+            end
+        end
+    end
+end
+
 function C_EFFECT(actor, obj, effectName, scale, nodeName, lifeTime)
     
     if lifeTime == nil then
@@ -81,7 +97,6 @@ function C_EFFECT(actor, obj, effectName, scale, nodeName, lifeTime)
 
     -- 레일건 머스킷 체크
     if IS_EXIST_BRIQUETTING_OR_BEAUTYSHOP_ITEM(actor, "RH", "Musket", obj.type, 11007105) == true then
-        print(effectName)
         effectName = "None";
     end
 
@@ -121,6 +136,9 @@ function C_EFFECT_ABIL(actor, obj, abilName, effectName, scale, nodeName, lifeTi
 end
 
 function C_EFFECT_USE_XYZ(actor, obj, effectName, scale, nodeName, x, y, z)
+    if lifeTime == nil then
+        lifeTime = 1
+    end
 
     effect.PlayActorEffect(actor, effectName, nodeName, lifeTime, scale,x,y,z);
 

@@ -4,6 +4,8 @@ account_warehouse = {}
 
 unpack = unpack or table.unpack
 
+MAX_VIBORA_OPTION_COUNT = 3 
+
 random_item.is_sealed_random_item = function(itemobj)
     if IS_EQUIP(itemobj) == false then
         return false;
@@ -3259,69 +3261,6 @@ function ENABLE_GUILD_MEMBER_JOIN_AUTO(aObj)
     end
 
     return false;
-end
-
-function GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX()
-    local nation = GetServerNation();
-    local groupid = GetServerGroupID();
-
-    if nation == "KOR" then
-        if groupid == 1006 then -- qa
-            return "518402552627671";
-        elseif groupid == 9001 then -- 테스트
-            return "125675038049103";
-        elseif groupid == 8001 then -- 스테이지
-            return "347819336532015";
-        elseif groupid == 3001 then -- 시즌 서버 아우슈리네
-            return "1137006692273513";
-        elseif groupid == 3002 then -- 시즌 서버 바이보라
-            return "1137058231881971";
-        end
-end
-
-    return "0";
-end
-
-function GET_GUILD_MEMBER_JOIN_AUTO_GUILD_OUT_IDX()
-    local nation = GetServerNation();
-    local groupid = GetServerGroupID();
-
-    if nation == "KOR" then
-        if groupid == 1006 then -- qa
-            return "518402552627671";
-        elseif groupid == 9001 then -- 테스트
-            return "125675038049103";
-        elseif groupid == 8001 then -- 스테이지
-            return "347819336532015";
-        elseif groupid == 3001 or groupid == 1001 then -- 아우슈리네
-            return "1137006692273513";
-        elseif groupid == 3002 or groupid == 1002 then -- 바이보라
-            return "1137058231881971";
-        end
-    end
-
-    return "0";
-end
-
-function GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX()
-    local nation = GetServerNation();
-    local groupid = GetServerGroupID();
-
-    if nation == "KOR" then
-        if groupid == 1006 then -- qa
-            return "518402552627671";
-        elseif groupid == 9001 then -- 테스트
-            return "125675038049103";
-        elseif groupid == 8002 then -- 스테이지
-            return "347819336532015";
-        elseif groupid == 1001 then -- 아우슈리네
-            return "1137006692273513";
-        elseif groupid == 1002 then -- 바이보라
-            return "1137058231881971";
-        end
-    end
-
-    return "0";
 end
 
 function GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX()

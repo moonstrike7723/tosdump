@@ -155,6 +155,13 @@
                             </ToolScp>
                         </execList>
                     </Event>
+                    <Event execCount="1" eventName="ForLog">
+                        <execList>
+                            <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_LEGEND_RAID_DPS_RESULT"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
                 </StageEvents>
             </Stage>
             <Stage Name="Fail" AutoStart="0">
@@ -234,6 +241,13 @@
                                 <Num Num="1"/>
                             </ToolScp>
                             <ToolScp Scp="MGAME_RETURN" Client="NO" UseSleep="NO"/>
+                        </execList>
+                    </Event>
+                    <Event execCount="1" eventName="ForLog">
+                        <execList>
+                            <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_LEGEND_RAID_DPS_RESULT"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>
@@ -859,6 +873,13 @@
                             </ToolScp>
                         </execList>
                     </Event>
+                    <Event execCount="1" eventName="ForLog">
+                        <execList>
+                            <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_LEGEND_RAID_DPS_START_PC"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
                 </StageEvents>
             </Stage>
             <Stage Name="RankResetPoint">
@@ -1207,6 +1228,11 @@
                                 <MGameObj List="Boss_Glacier/0"/>
                                 <Num Num="1"/>
                             </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
+                                <Str Str="Pbeta_Clear"/>
+                                <Str Str="=="/>
+                                <Num Num="0"/>
+                            </ToolScp>
                             <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
                                 <Num Num="3"/>
                             </ToolScp>
@@ -1241,6 +1267,28 @@
                             <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
                                 <MGameObj List="Boss_Glacier/0"/>
                                 <Str Str="SCR_LEGEND_GLACIER_WITCH_COLD_DEBUFF_TOP_HATER_CHECK"/>
+                            </ToolScp>
+                        </execList>
+                    </Event>
+                    <Event eventName="WtichCold_Debuff_Clear_Pbeta">
+                        <condList>
+                            <ToolScp Scp="MGAME_EVT_COND_MONCNT_ALIVE" Client="NO" UseSleep="NO">
+                                <MGameObj List="Boss_Glacier/0"/>
+                                <Num Num="1"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_COND_VALUE" Client="NO" UseSleep="NO">
+                                <Str Str="Pbeta_Clear"/>
+                                <Str Str="=="/>
+                                <Num Num="1"/>
+                            </ToolScp>
+                            <ToolScp Scp="GAME_ST_EVT_COND_TIMECHECK" Client="NO" UseSleep="NO">
+                                <Num Num="6"/>
+                            </ToolScp>
+                        </condList>
+                        <execList>
+                            <ToolScp Scp="MGAME_EVT_SCP_TO_MON_CMD" Client="NO" UseSleep="NO">
+                                <MGameObj List="Boss_Glacier/0"/>
+                                <Str Str="SCR_LEGEND_GLACIER_APPLY_WITCH_COLD_DEBUFF_ALL_PC"/>
                             </ToolScp>
                         </execList>
                     </Event>
@@ -1593,7 +1641,7 @@
                     </Event>
                 </StageEvents>
             </Stage>
-        </StageList>
+            </StageList>
         <WorldInitList>
             <ToolScp Scp="MGAME_INIT_CHANGE_VIEW" Client="NO" UseSleep="NO">
                 <Num Num="1500"/>

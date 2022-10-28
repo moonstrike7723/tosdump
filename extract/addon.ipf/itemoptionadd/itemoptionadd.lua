@@ -136,7 +136,7 @@ function ITEM_OPTIONADD_REG_MAIN_ITEM(frame, itemID)
 	if invItem == nil then
 		return;
 	end
-	
+
 	
 	local item = GetIES(invItem:GetObject());
 	local itemCls = GetClassByType('Item', item.ClassID)
@@ -146,6 +146,11 @@ function ITEM_OPTIONADD_REG_MAIN_ITEM(frame, itemID)
 	end
 	local invitem = item
 
+	--이벤트 아이템 확인
+	if SHARED_IS_EVENT_ITEM_CHECK(itemCls, "NoEnchant") == true then
+		ui.SysMsg(ClMsg("NotAllowedItemOptionAdd"))
+		return
+	end
 	
 	local slot = GET_CHILD_RECURSIVELY(frame, "slot");
 	local slotInvItem = GET_SLOT_ITEM(slot);
@@ -265,11 +270,22 @@ function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
 	local slot = GET_CHILD_RECURSIVELY(frame, "slot");
 	local slotInvItem = GET_SLOT_ITEM(slot);
 	local slotInvItemCls = nil
+	local tempItem = nil
 	if slotInvItem ~= nil then
-		local tempItem = GetIES(slotInvItem:GetObject());
+		tempItem = GetIES(slotInvItem:GetObject());
 		slotInvItemCls = GetClass('Item', tempItem.ClassName)
 	end
-    
+	
+	if tempItem ~= nil then
+		local obj = tempItem
+		local obj_add = item
+		if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
+		or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
+			ui.SysMsg(ClMsg("AlearyIcorAdded"))
+			return
+		end	
+	end
+
 	--아이커의 atk 과 slot 의 atk 이 맞아야만 장착가능    
 	local targetItem = GetClass('Item', invitem.InheritanceItemName);
 
@@ -435,6 +451,26 @@ function ITEM_OPTIONADD_REG_ADD_ITEM(frame, itemID)
 
 	if targetItem.OptDesc ~= nil and targetItem.OptDesc ~= 'None' then
 		inner_yPos = ADD_ITEM_PROPERTY_TEXT(property_gbox, targetItem.OptDesc, 0, inner_yPos);
+	end
+
+	if targetItem.OptDesc ~= nil and (targetItem.OptDesc == 'None' or targetItem.OptDesc == '') and TryGetProp(targetItem, 'StringArg', 'None') == 'Vibora' then
+		local opt_desc = targetItem.OptDesc
+		if opt_desc == 'None' then
+			opt_desc = ''
+		end
+		
+		for idx = 1, MAX_VIBORA_OPTION_COUNT do			
+			local additional_option = TryGetProp(targetItem, 'AdditionalOption_' .. tostring(idx), 'None')			
+			if additional_option ~= 'None' then
+				local tooltip_str = 'tooltip_' .. additional_option					
+				local cls_message = GetClass('ClientMessage', tooltip_str)
+				if cls_message ~= nil then
+					opt_desc = opt_desc .. ClMsg(tooltip_str)
+				end
+			end
+		end
+
+		inner_yPos = ADD_ITEM_PROPERTY_TEXT_NARROW(property_gbox, opt_desc, 0, inner_yPos);
 	end
 
 	if targetItem.IsAwaken == 1 then
@@ -780,14 +816,29 @@ function ITEMOPTIONADD_INV_RBTN(itemObj, slot)
 	local invItem = GET_PC_ITEM_BY_GUID(iconInfo:GetIESID());
 	local obj = GetIES(invItem:GetObject());
 	
-
 	local slot = GET_CHILD_RECURSIVELY(frame, "slot");
 	local slotInvItem = GET_SLOT_ITEM(slot);
 	local slotInvItemCls = nil
+	local tempItem = nil
 	if slotInvItem ~= nil then
-		local tempItem = GetIES(slotInvItem:GetObject());
+		tempItem = GetIES(slotInvItem:GetObject());
 		slotInvItemCls = GetClass('Item', tempItem.ClassName)
 	end
+
+	--이벤트 아이템 확인
+	if SHARED_IS_EVENT_ITEM_CHECK(itemObj, "NoEnchant") == true then
+		ui.SysMsg(ClMsg("IcorNotAdded_EP12_CANT1"))
+		return
+	end
+	
+	if tempItem ~= nil then		
+		local obj_add = tempItem
+		if (TryGetProp(obj, 'InheritanceItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceItemName', 'None') ~= 'None')
+		or TryGetProp(obj, 'InheritanceRandomItemName', 'None') ~= 'None' and TryGetProp(obj_add, 'InheritanceRandomItemName', 'None') ~= 'None' then
+			ui.SysMsg(ClMsg("AlearyIcorAdded"))
+			return
+		end	
+	end	
 
 	if slotInvItem ~= nil then
 		ITEM_OPTIONADD_REG_ADD_ITEM(frame, iconInfo:GetIESID())
