@@ -20,7 +20,10 @@ function UI_TOGGLE_POSE_MACRO()
 end
 
 function CHATMACRO_CLOSE(frame)
-	CHASEINFO_OPEN_FRAME()
+	local questInfoSetFrame = ui.GetFrame('questinfoset_2');
+	if questInfoSetFrame:IsVisible() == 0 and ui.IsVisibleFramePIPType('CHATMACRO') == false then
+		questInfoSetFrame:ShowWindow(1);
+	end
 	ui.CloseFrame('skilltree');
 end
 
@@ -30,8 +33,9 @@ function ROLLBACK_MACRO_LIST(frame)
 end
 
 function SAVE_MACRO_LIST(frame)
+
 	local gbox = frame:GetChild('macroGroupbox');
-	
+
 	SAVE_CHAT_MACRO(gbox, 1);
 end
 
@@ -54,14 +58,8 @@ function CHATMACRO_UPDATE_TOKEN_STATE(frame)
 
 end
 
-function IS_MACRO_UNVISIBLE_WEAPON_POSE(className)
-	if className == "KICK" or className == "POPCORN" or className == "DABDANCE" or className == "CHEERUP" or className == "UNBELIEVABLE" or className == "SPOTLIGHT" then
-		return true;
-	end
-	return false;
-end
-
 function MACRO_POSE_VIEW(poseGbox)	
+
 	local csetwidth =  ui.GetControlSetAttribute("pose_icon", 'width');
 	local csetheight =  ui.GetControlSetAttribute("pose_icon", 'height');
 	
@@ -70,101 +68,45 @@ function MACRO_POSE_VIEW(poseGbox)
 	local x = xmargin;
 	local y = ymargin;
 
+
+	local clslist = GetClassList("Pose");
 	local index = 0;
 	local controlIndex = 0;
 
 	local isPremiumTokenState = session.loginInfo.IsPremiumState(ITEM_TOKEN);
 	
-	local freeTable = {}
-    local premiumTable = {}
-	local rewardTable = {}
-    local clslist, cnt = GetClassList("Pose");
-    for i = 0 , cnt - 1 do
-        local cls = GetClassByIndexFromList(clslist, i);
-        if cls.PoseType == "Basic" then
-            freeTable[#freeTable + 1] = cls.ClassID;
-		elseif cls.PoseType == "Premium" then
-			premiumTable[#premiumTable + 1] = cls.ClassID
-		elseif cls.PoseType == "Reward" then
-			rewardTable[#rewardTable + 1] = cls.ClassID
-        end
-    end
+	while 1 do
+		local cls = GetClassByIndexFromList(clslist, index);
+		if cls == nil then
+			break;
+		end
 
-    table.sort(freeTable, POSE_TABLE_SORT);
-    table.sort(premiumTable, POSE_TABLE_SORT);
-	table.sort(rewardTable, POSE_TABLE_SORT);
+		if cls.Premium == "NO" or isPremiumTokenState == true then
+			local eachcontrol = poseGbox:CreateOrGetControlSet('pose_icon','pose_icon'..cls.ClassName, x, y)
 
-	for i = 1, #freeTable do
-	    local cls = GetClassByType("Pose", freeTable[i]);
-	    if cls ~= nil then
-    	    local eachcontrol = poseGbox:CreateOrGetControlSet('pose_icon','pose_icon'..cls.ClassName, x, y)
-            local each_pose_name = GET_CHILD(eachcontrol, 'pose_name','ui::CRichText');
-    		local each_pose_slot = GET_CHILD(eachcontrol, 'pose_slot','ui::CSlot');
-			each_pose_slot:SetEventScript(ui.LBUTTONDOWN, 'SOCIAL_POSE');
-			if IS_MACRO_UNVISIBLE_WEAPON_POSE(cls.ClassName) == true then
-				each_pose_slot:SetEventScriptArgString(ui.LBUTTONDOWN, "UnVisibleWeapon");
-			end
-    		each_pose_slot:SetEventScriptArgNumber(ui.LBUTTONDOWN, cls.ClassID);
-    		SET_SLOT_IMG(each_pose_slot, cls.Icon);
-    		each_pose_name:SetTextByKey('posename',cls.Name);
-    		each_pose_slot:SetTextByKey('posename',cls.Name);
-    		local icon = each_pose_slot:GetIcon();
-    		icon:SetUserValue('POSEID', cls.ClassID);			
-    		controlIndex = controlIndex + 1;
-    		x = xmargin + (controlIndex % 6) * csetwidth
-    		y = ymargin + math.floor(controlIndex / 6) * csetheight
-    	end
-    end
-    
-	if isPremiumTokenState == true then
-    	for i = 1, #premiumTable do
-    	    local cls = GetClassByType("Pose", premiumTable[i]);
-    	    if cls ~= nil then
-        	    local eachcontrol = poseGbox:CreateOrGetControlSet('pose_icon','pose_icon'..cls.ClassName, x, y)
-                local each_pose_name = GET_CHILD(eachcontrol, 'pose_name','ui::CRichText');
-        		local each_pose_slot = GET_CHILD(eachcontrol, 'pose_slot','ui::CSlot');
-				each_pose_slot:SetEventScript(ui.LBUTTONDOWN, 'SOCIAL_POSE');
-				if IS_MACRO_UNVISIBLE_WEAPON_POSE(cls.ClassName) == true then
-					each_pose_slot:SetEventScriptArgString(ui.LBUTTONDOWN, "UnVisibleWeapon");
-				end
-        		each_pose_slot:SetEventScriptArgNumber(ui.LBUTTONDOWN, cls.ClassID);
-        		SET_SLOT_IMG(each_pose_slot, cls.Icon);
-        		each_pose_name:SetTextByKey('posename',cls.Name);
-        		each_pose_slot:SetTextByKey('posename',cls.Name);
-        		local icon = each_pose_slot:GetIcon();
-        		icon:SetUserValue('POSEID', cls.ClassID);			
-        		controlIndex = controlIndex + 1;
-        		x = xmargin + (controlIndex % 6) * csetwidth
-        		y = ymargin + math.floor(controlIndex / 6) * csetheight
-        	end
-        end 
+			local each_pose_name = GET_CHILD(eachcontrol, 'pose_name','ui::CRichText');
+			local each_pose_slot = GET_CHILD(eachcontrol, 'pose_slot','ui::CSlot');
+
+			each_pose_slot:SetEventScript(ui.LBUTTONDOWN, 'SOCIAL_POSE')
+			each_pose_slot:SetEventScriptArgNumber(ui.LBUTTONDOWN, cls.ClassID);
+
+			SET_SLOT_IMG(each_pose_slot, cls.Icon);
+
+			each_pose_name:SetTextByKey('posename',cls.Name);
+			each_pose_slot:SetTextByKey('posename',cls.Name);
+
+			local icon = each_pose_slot:GetIcon();
+		
+			icon:SetUserValue('POSEID', cls.ClassID);			
+		
+			controlIndex = controlIndex + 1;
+
+			x = xmargin + (controlIndex % 6) * csetwidth
+			y = ymargin + math.floor(controlIndex / 6) * csetheight
+		end
+
+		index = index + 1;
 	end
-	
-	local aObj = GetMyAccountObj();
-	if nil ~= aObj then
-		for i = 1, #rewardTable do
-			local cls = GetClassByType("Pose", rewardTable[i]);
-			if cls ~= nil then
-				if aObj[cls.RewardName] >= cls.RewardCheckCount then
-					local eachcontrol = poseGbox:CreateOrGetControlSet('pose_icon','pose_icon'..cls.ClassName, x, y)
-					local each_pose_name = GET_CHILD(eachcontrol, 'pose_name','ui::CRichText');
-					local each_pose_slot = GET_CHILD(eachcontrol, 'pose_slot','ui::CSlot');
-					each_pose_slot:SetEventScript(ui.LBUTTONDOWN, 'SOCIAL_POSE')
-					each_pose_slot:SetEventScriptArgNumber(ui.LBUTTONDOWN, cls.ClassID);
-					SET_SLOT_IMG(each_pose_slot, cls.Icon);
-					each_pose_name:SetTextByKey('posename',cls.Name);
-					each_pose_slot:SetTextByKey('posename',cls.Name);
-					local icon = each_pose_slot:GetIcon();
-					icon:SetUserValue('POSEID', cls.ClassID);			
-					controlIndex = controlIndex + 1;
-					x = xmargin + (controlIndex % 6) * csetwidth
-					y = ymargin + math.floor(controlIndex / 6) * csetheight
-				end
-			end
-		end 	
-	end
-
-    index = index + 1;
 end
 
 function UPDATE_CHAT_MACRO(frame)    
@@ -208,7 +150,7 @@ function UPDATE_CHAT_MACRO(frame)
 		icon:SetImage('icon_item_none');
 		icon:SetColorTone("FF666666");		
 
-        local edit = macroGbox:CreateOrGetControl("edit", "CHAT_MACRO_" .. i, 205, posy, 400, 36);
+local edit = macroGbox:CreateOrGetControl("edit", "CHAT_MACRO_" .. i, 205, posy, 400, 36);
 		tolua.cast(edit, "ui::CEditControl");
 		edit:MakeTextPack();
 		edit:Resize(330, 36);
@@ -217,7 +159,6 @@ function UPDATE_CHAT_MACRO(frame)
 		edit:SetOffsetXForDraw(20);
 		edit:SetOffsetYForDraw(0);
 		edit:SetSkinName("test_weight_skin");
-		edit:SetTypingScp('CHATMACRO_TYPE_MACRO');
 			
 		posy = posy + 40;	
 	end
@@ -253,39 +194,17 @@ function LOAD_SESSION_CHAT_MACRO(frame)
 end
 
 function SAVE_CHAT_MACRO(macroGbox, isclose)   
-	local badWordText = nil;
-	local badWordIndex = 0;
-
-	-- Check BadWord
 	for i = 1 , MAX_MACRO_CNT do
 		local ctrl = macroGbox:GetChild("CHAT_MACRO_" .. i);
 		local text = ctrl:GetText();
         local badword = IsBadString(text);
 	    if badword ~= nil then
-	    	badWordText = text;
-			badWordIndex = i;
-		else
-			local slot = macroGbox:GetChild("CHAT_MACRO_SLOT_" .. i);		
-			local poseID = tonumber( slot:GetUserValue('POSEID') );
-			if poseID == nil then
-				poseID = 0;
-			end
-			packet.ReqSaveChatMacro(i, poseID, text);
+		    ui.MsgBox(ScpArgMsg('{Word}_FobiddenWord','Word',badword, "None", "None"));
+		    return
 	    end        
-	end
-
-	-- Check ConvertBadWord
-	if badWordText ~= nil then
-		local isConvertBadWord = ConvertBadWord(badWordText);
-		if isConvertBadWord == 1 then
-			local badword = IsBadString(badWordText);
-			ui.MsgBox(ScpArgMsg('{Word}_FobiddenWord','Word', badword, "None", "None"));
-			return;				
-		end
-
-		local slot = macroGbox:GetChild("CHAT_MACRO_SLOT_" .. badWordIndex);		
+		local slot = macroGbox:GetChild("CHAT_MACRO_SLOT_" .. i);		
 		local poseID = tonumber( slot:GetUserValue('POSEID') );
-		packet.ReqSaveChatMacro(badWordIndex, poseID, badWordText);
+		packet.ReqSaveChatMacro(i, poseID, text);
 	end
 
 	if isclose == 1 then
@@ -353,45 +272,11 @@ function SCR_GESTURE_DROP(frame, icon, argStr, argNum)
 end
 
 function SOCIAL_POSE(frame, ctrl, strarg, poseClsID)
-	if strarg == nil then
-		strarg = "None";
-	end
-
-	local visible = 1;
-	if strarg ~= "None" then
-		visible = 0;
-	end
 
 	local poseCls = GetClassByType('Pose', poseClsID);
 	if poseCls ~= nil then
-		control.Pose(poseCls.ClassName, 0, 0, visible);
+		control.Pose(poseCls.ClassName);
 	end
 end
 
-function CHATMACRO_TYPE_MACRO(parent, ctrl)
-	local text = ctrl:GetText();
-	local stringLen = string.len(text);
-	if string.sub(text, stringLen, stringLen) ~= ' ' then
-		return;
-	end
 
-	local tokenList = StringSplit(text, ' ');
-	local iconToken = tokenList[#tokenList];
-	local slashIndex = string.find(iconToken, '/');
-	if slashIndex ~= 1 then
-		return;
-	end
-
-	local _iconToken = string.sub(iconToken, 2);
-	local imageClass = GET_EMOTICON_CLASS_BY_ICON_TOKEN(_iconToken);
-	if imageClass == nil then
-		return;
-	end
-
-	local replaceTargetText = iconToken..' ';	
-	local toText = string.format('{img %s 30 30}', imageClass.ClassName);			
-	text = string.gsub(text, replaceTargetText, toText);
-		--이 함수 들어오는 시점에서 이미 스페이스키를 클릭한 상태이므로 추가해줌
-	text = text .. " "; 	
-	ctrl:SetText(text);
-end

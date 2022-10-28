@@ -10,28 +10,24 @@ end
 
 function ADVENTURE_BOOK_GROW.CLEAR()
 	local frame = ui.GetFrame('adventure_book');
-	local gb_adventure = GET_CHILD(frame, "gb_adventure", "ui::CGroupBox");
-	local page = GET_CHILD(gb_adventure, "page_grow", "ui::CGroupBox");
+	local page = GET_CHILD(frame, "page_grow", "ui::CGroupBox");
 	local charList = GET_CHILD(page, "grow_char_list", "ui::CGroupBox");
 
 	local warriorList = GET_CHILD(page, "page_grow_warrior", "ui::CGroupBox");
 	local wizardList = GET_CHILD(page, "page_grow_wizard", "ui::CGroupBox");
 	local archerList = GET_CHILD(page, "page_grow_archer", "ui::CGroupBox");
 	local clericList = GET_CHILD(page, "page_grow_cleric", "ui::CGroupBox");
-	local scoutList = GET_CHILD(page, "page_grow_scout", "ui::CGroupBox");
 
 	charList:RemoveAllChild();
 	warriorList:RemoveAllChild();
 	wizardList:RemoveAllChild();
 	archerList:RemoveAllChild();
 	clericList:RemoveAllChild();
-	scoutList:RemoveAllChild();
 end
 
 function ADVENTURE_BOOK_GROW.FILL_CHAR_LIST()
 	local frame = ui.GetFrame('adventure_book');
-	local gb_adventure = GET_CHILD(frame, "gb_adventure", "ui::CGroupBox");
-	local page = GET_CHILD(gb_adventure, "page_grow", "ui::CGroupBox");
+	local page = GET_CHILD(frame, "page_grow", "ui::CGroupBox");
 	local gbox = GET_CHILD(page, "grow_char_list", "ui::CGroupBox");
 
 	local char_name_func = ADVENTURE_BOOK_GROW_CONTENT['CHAR_NAME_LIST']
@@ -56,6 +52,21 @@ function ADVENTURE_BOOK_GROW.FILL_CHAR_LIST()
         ADVENTURE_BOOK_GROW_SET_JOB_HISTORY_TOOLTIP(icon, char_info_table["name"]);
         yPos = yPos + ctrlSet:GetHeight();
 	end
+
+    -- companion list
+    local petCount = session.pet.GetPetCount();    
+    for i = 0, petCount - 1 do    
+        local petInfo = session.pet.GetPetInfoByIndex(i);
+        if petInfo ~= nil then
+            local ctrlSet = gbox:CreateOrGetControlSet("adventure_book_grow_elem", "list_char_pet_"..i , ui.LEFT, ui.TOP, 0, yPos, 0, 0);
+		    local icon = GET_CHILD(ctrlSet, "icon_pic", "ui::CPicture");
+            local monCls = GetClass('Monster', petInfo:GetClassName());
+		    icon:SetImage(GET_MON_ILLUST(monCls));
+		    SET_TEXT(ctrlSet, "name_text", "value", petInfo:GetName());
+		    SET_TEXT(ctrlSet, "level_text", "value", petInfo:GetLevel());
+            yPos = yPos + ctrlSet:GetHeight();
+        end
+    end
 end
 
 function ADVENTURE_BOOK_GROW.FILL_CTRL_TYPES()
@@ -63,13 +74,11 @@ function ADVENTURE_BOOK_GROW.FILL_CTRL_TYPES()
 	ADVENTURE_BOOK_GROW.FILL_CTRL_TYPE("Wizard", "page_grow_wizard");
 	ADVENTURE_BOOK_GROW.FILL_CTRL_TYPE("Archer", "page_grow_archer");
 	ADVENTURE_BOOK_GROW.FILL_CTRL_TYPE("Cleric", "page_grow_cleric");
-	ADVENTURE_BOOK_GROW.FILL_CTRL_TYPE("Scout", "page_grow_scout");
 end
 
 function ADVENTURE_BOOK_GROW.FILL_CTRL_TYPE(ctrlType, ctrlName)
 	local frame = ui.GetFrame('adventure_book');
-	local gb_adventure = GET_CHILD(frame, "gb_adventure", "ui::CGroupBox");
-	local page = GET_CHILD(gb_adventure, "page_grow", "ui::CGroupBox");
+	local page = GET_CHILD(frame, "page_grow", "ui::CGroupBox");
 	local gbox = GET_CHILD(page, ctrlName, "ui::CGroupBox");
 
 	local job_list_func = ADVENTURE_BOOK_GROW_CONTENT['JOB_LIST_BY_TYPE']
@@ -115,8 +124,7 @@ end
 
 function ADVENTURE_BOOK_GROW_SET_POINT()
     local adventure_book = ui.GetFrame('adventure_book');
-    local gb_adventure = adventure_book:GetChild('gb_adventure');
-    local page_grow = gb_adventure:GetChild('page_grow');
+    local page_grow = adventure_book:GetChild('page_grow');
     local total_score_text = page_grow:GetChild('total_score_text');
     local totalScore = ADVENTURE_GROWTH_CATEGORY();   
     total_score_text:SetTextByKey('value', totalScore);
@@ -124,8 +132,7 @@ end
 
 function ADVENTURE_BOOK_GROW_SET_TEAM_LEVEL()
     local adventure_book = ui.GetFrame('adventure_book');
-    local gb_adventure = adventure_book:GetChild('gb_adventure');
-    local page_grow = gb_adventure:GetChild('page_grow');
+    local page_grow = adventure_book:GetChild('page_grow');
     local team_level_text = page_grow:GetChild('team_level_text');
     local team_score_text = page_grow:GetChild('team_score_text');
     local class_score_text = page_grow:GetChild('class_score_text');
@@ -152,13 +159,22 @@ function ADVENTURE_BOOK_GROW_SET_JOB_HISTORY_TOOLTIP(icon, charName)
 	end
 
     local gender = info.GetGender(session.GetMyHandle());
-    local jobtext = '';
+    local startext = '';
     for jobName, grade in pairs(jobInfoTable) do
         local jobCls = GetClass('Job', jobName);        
         if jobCls ~= nil then
-            jobtext = jobtext .. ("{@st41}").. GET_JOB_NAME(jobCls, gender).."{nl}";
+            startext = startext .. ("{@st41}").. GET_JOB_NAME(jobCls, gender);
         end
+        
+		for i = 1 , 3 do
+			if i <= grade then
+				startext = startext ..('{img star_in_arrow 20 20}');
+			else
+				startext = startext ..('{img star_out_arrow 20 20}');
+			end
+		end
+		startext = startext ..('{nl}');
     end
-    icon:SetTextTooltip(jobtext);
+    icon:SetTextTooltip(startext);
 	icon:EnableHitTest(1);
 end

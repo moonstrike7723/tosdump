@@ -1,8 +1,9 @@
 function GUILDINFO_INVENTORY_DEPOSIT_CLICK(parent, ctrl)
     local topFrame = parent:GetTopParentFrame();
     local balanceEdit = GET_CHILD_RECURSIVELY(topFrame, 'balanceEdit');
-    local depositMoney = GET_NOT_COMMAED_NUMBER(balanceEdit:GetText());    
-    if IsGreaterThanForBigNumber(depositMoney, GET_TOTAL_MONEY_STR()) == 1 then
+    local depositMoney = GET_NOT_COMMAED_NUMBER(balanceEdit:GetText());
+    local myMoney = GET_TOTAL_MONEY();
+    if depositMoney > myMoney or myMoney < 1 then
         ui.SysMsg(ClMsg('Auto_SilBeoKa_BuJogHapNiDa.'));
         return;
     end
@@ -12,10 +13,17 @@ function GUILDINFO_INVENTORY_DEPOSIT_CLICK(parent, ctrl)
 		return;
 	end
 
-	local nowGuildAsset = guild.info:GetAssetAmount();
-    local sumStr = SumForBigNumber(depositMoney, nowGuildAsset);
-	if IsGreaterThanForBigNumber(sumStr, MAX_GUILD_ASSET_DEPOSIT_AMOUNT) == 1 then
-		ui.SysMsg(ScpArgMsg("Money{MAX}OverAtAcc", "MAX", GET_COMMAED_STRING(MAX_GUILD_ASSET_DEPOSIT_AMOUNT)));
+	local guildObj = GET_MY_GUILD_OBJECT();
+	local nowGuildAsset = TryGetProp(guildObj, "GuildAsset");
+	if nowGuildAsset == nil then
+		return;
+	end
+    if nowGuildAsset == 'None' then
+        nowGuildAsset = 0;
+    end
+    local sumStr = SumForBigNumber(depositMoney, nowGuildAsset);    
+	if IsGreaterThanForBigNumber(sumStr, MONEY_MAX_STACK) == 1 then
+		ui.SysMsg(ScpArgMsg("Money{MAX}OverAtAcc", "MAX", GET_COMMAED_STRING(MONEY_MAX_STACK)));
 		return;
 	end
 
@@ -38,8 +46,10 @@ function GUILDINFO_INVEN_UPDATE_INVENTORY(frame, msg, argStr, argNum)
     local slotset = GET_CHILD_RECURSIVELY(frame, 'itemSlotset');
     slotset:ClearIconAll();
 
-    local itemList = session.GetEtcItemList(IT_GUILD);
-    FOR_EACH_INVENTORY(itemList, function(invItemList, invItem, slotset)
+	local itemList = session.GetEtcItemList(IT_GUILD);
+	local index = itemList:Head();			
+	while itemList:InvalidIndex() ~= index do
+		local invItem = itemList:Element(index);
 		local slot = slotset:GetSlotByIndex(invItem.invIndex);
 		if slot == nil then
 			slot = GET_EMPTY_SLOT(slotset);
@@ -48,11 +58,10 @@ function GUILDINFO_INVEN_UPDATE_INVENTORY(frame, msg, argStr, argNum)
 		local iconImg = GET_ITEM_ICON_IMAGE(itemCls);
 		
 		SET_SLOT_IMG(slot, iconImg)
-        SET_SLOT_COUNT(slot, invItem.count)
-
+		SET_SLOT_COUNT(slot, invItem.count)
+		SET_SLOT_COUNT_TEXT(slot, invItem.count);
 		SET_SLOT_IESID(slot, invItem:GetIESID())
         SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, itemCls, nil)
-        SET_SLOT_STYLESET(slot, itemCls)
 		slot:SetMaxSelectCount(invItem.count);
 		local icon = slot:GetIcon();
 		icon:SetTooltipArg('guildinfo', invItem.type, invItem:GetIESID());
@@ -62,42 +71,23 @@ function GUILDINFO_INVEN_UPDATE_INVENTORY(frame, msg, argStr, argNum)
         slot:SetUserValue('ITEM_CLASS_NAME', itemCls.ClassName);        
         slot:SetUserValue('ITEM_COUNT', invItem.count);
         slot:SetUserValue('ITEM_ID', invItem:GetIESID());
-        slot:SetEventScript(ui.LBUTTONUP, 'GUILDINFO_INVEN_ITEM_CLICK');     
-    end, false, slotset);
+        slot:SetEventScript(ui.LBUTTONUP, 'GUILDINFO_INVEN_ITEM_CLICK');        
+
+		index = itemList:Next(index);
+	end
 end
 
-function callback_GUILDINFO_INVEN_ITEM_CLICK(code, ret_json, argList)
-    if code ~= 200 then        
-        SHOW_GUILD_HTTP_ERROR(code, "1", "callback_GUILDINFO_INVEN_ITEM_CLICK") -- 권한 없음
-        return
-    end
+function GUILDINFO_INVEN_ITEM_CLICK(parent, slot)
+    local isLeader = AM_I_LEADER(PARTY_GUILD);
+	if 0 == isLeader then
+		ui.SysMsg(ScpArgMsg("OnlyLeaderAbleToDoThis"));
+		return;
+	end
 
-    if ret_json == 'True' then
-        local itemClassName = argList[1]
-        local itemCount = tonumber(argList[2])
-        local itemID = argList[3]
-        GUILDINVEN_SEND_INIT(itemClassName, itemCount, itemID);        
-    else
-        SHOW_GUILD_HTTP_ERROR(code, "1", "callback_GUILDINFO_INVEN_ITEM_CLICK") -- 권한 없음
-    end
-end
-
-function GUILDINFO_INVEN_ITEM_CLICK(parent, slot)    
     local itemClassName = slot:GetUserValue('ITEM_CLASS_NAME');
     local itemCount = slot:GetUserIValue('ITEM_COUNT');
     local itemID = slot:GetUserValue('ITEM_ID');
-
-    local isLeader = AM_I_LEADER(PARTY_GUILD);
-    if isLeader == 1 then
-        GUILDINVEN_SEND_INIT(itemClassName, itemCount, itemID);
-    else
-        local argList = {}
-        table.insert(argList, tostring(itemClassName))
-        table.insert(argList, tostring(itemCount))
-        table.insert(argList, tostring(itemID))
-        CheckClaim('callback_GUILDINFO_INVEN_ITEM_CLICK', 20, argList)
-    end
-    
+    GUILDINVEN_SEND_INIT(itemClassName, itemCount, itemID);
 end
 
 function ON_GUILD_ASSET_LOG(frame, msg, argStr, argNum)
@@ -116,16 +106,16 @@ function ON_GUILD_ASSET_LOG(frame, msg, argStr, argNum)
                 line:ShowWindow(0);
             end
 
-            local dateText = GET_CHILD_RECURSIVELY(ctrlSet, 'dateText');
+            local dateText = ctrlSet:GetChild('dateText');
             local regTime = imcTime.ImcTimeToSysTime(guildLog.registerTime);
             local dateStr = string.format('%04d/%02d/%02d', regTime.wYear, regTime.wMonth, regTime.wDay); -- yyyy/mm/dd
             dateText:SetTextByKey('date', dateStr);
 
             local DEPOSIT_IMG = ctrlSet:GetUserConfig('DEPOSIT_IMG');
             local WITHDRAW_IMG = ctrlSet:GetUserConfig('WITHDRAW_IMG');
-            local depositText =  GET_CHILD_RECURSIVELY(ctrlSet, 'depositText');
-            local useText = GET_CHILD_RECURSIVELY(ctrlSet, 'useText');
-            local descText = GET_CHILD_RECURSIVELY(ctrlSet,'descText');
+            local depositText = ctrlSet:GetChild('depositText');
+            local useText = ctrlSet:GetChild('useText');
+            local descText = ctrlSet:GetChild('descText');
             if guildLog.isDeposit == true then
                 dateText:SetTextByKey('img', DEPOSIT_IMG);
                 depositText:SetTextByKey('amount', GET_COMMAED_STRING(guildLog:GetAmount()));
@@ -139,13 +129,12 @@ function ON_GUILD_ASSET_LOG(frame, msg, argStr, argNum)
                 descText:SetText(text);
             else
                 dateText:SetTextByKey('img', WITHDRAW_IMG);
-                dateText:SetMargin(18, 3, 0, 0)
                 depositText:ShowWindow(0);
                 useText:SetTextByKey('amount', GET_COMMAED_STRING(guildLog:GetAmount()));
                 descText:SetText(ClMsg('GuildAssetLog_'..guildLog:GetDesc()));
             end
 
-            local balanceText = GET_CHILD_RECURSIVELY(ctrlSet, 'balanceText');
+            local balanceText = ctrlSet:GetChild('balanceText');
             balanceText:SetTextByKey('amount', GET_COMMAED_STRING(guildLog:GetTotalAmount()));
         end
     end

@@ -54,7 +54,7 @@ function MANU_SET_CLS(frame, recipeName)
 	gBox:Resize(gBox:GetWidth(), ypos);
 	ypos = ypos + gBox:GetY() + 20;
 
-	-- ï¿½ï¿½ ï¿½×·ï¿½Ú½ï¿½ï¿½ï¿½ Å©ï¿½â°¡ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
+	-- À§ ±×·ì¹Ú½º°¡ Å©±â°¡ º¯ÇØ¼­ ¾Æ·¡µµ Á¤·ÄÇØ ¸ÂÃçÁØ´Ù.
 	local bottomUIList = {};
 	bottomUIList[#bottomUIList + 1] = "slotlist";
 	bottomUIList[#bottomUIList + 1] = "prog_gauge";
@@ -403,10 +403,8 @@ function ON_MANU_END(frame, msg, madeItemID)
 		local item = itemList[i]["Item"];
 		local popcnt = itemList[i]["Used"];
 		local slot = GET_SLOT_BY_ITEMID(slotSet, item:GetIESID())
-		if slot ~= nil then
-			slot:SetUserValue("_POP_COUNT", popcnt);
-			UI_PLAYFORCE(slot, "manu_slot_pop", x, y);
-		end
+		slot:SetUserValue("_POP_COUNT", popcnt);
+		UI_PLAYFORCE(slot, "manu_slot_pop", x, y);
 	end
 
 	frame:Invalidate();
@@ -426,7 +424,7 @@ function MANU_FORCE_COLLISION(slot)
 	frame:SetUserValue("FORCE_STARTED", 0);
 	local tgtItemSlot = GET_CHILD(frame, "tgtItemSlot", "ui::CSlot");
 	local x, y = GET_GLOBAL_XY(tgtItemSlot);
-	local imgName = tgtItemSlot:GetIcon():GetInfo():GetImageName();
+	local imgName = tgtItemSlot:GetIcon():GetInfo().imageName;
 	
 	local madeItemID = frame:GetUserValue("MADE_ITEM_ID");
 	INV_FORCE_NOTIFY(madeItemID, x, y, 0);
@@ -490,7 +488,7 @@ function DRAW_RECIPE_MATERIAL(exinfoGroupBox, recipecls, ypos, drawStartIndex)
 				if propname == 'FromItem' or propname == 'NeedWiki' then
 					recipeItemCnt = 1;
 				else
-					recipeItemCnt, recipeItemLv = GET_RECIPE_REQITEM_CNT(recipecls, propname, GetMyPCObject());
+					recipeItemCnt, recipeItemLv = GET_RECIPE_REQITEM_CNT(recipecls, propname);
 				end
 
 				local itemRecipePicCtrl = exinfoGroupBox:CreateOrGetControl('picture', recipeItem, recipeItemXPos, groupboxYPos, recipeItemPicSize, recipeItemPicSize);

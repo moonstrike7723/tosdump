@@ -1,27 +1,11 @@
-local json = require "json_imc"
-
 function GUILDINFO_INFO_INIT(parent, infoBox)
     local guildObj = GET_MY_GUILD_OBJECT();
     GUILDINFO_INFO_INIT_EXP(infoBox, guildObj);
     GUILDINFO_INFO_INIT_TOWER(infoBox, guildObj);
     GUILDINFO_INFO_INIT_BENEFIT(infoBox, guildObj);
     GUILDINFO_INFO_INIT_ABILITY(infoBox, guildObj);
-    ui.UpdateKeyboardSelectChildByFrameName("guildinfo");
+
     ui.CloseFrame('guild_authority_popup');
-end
-
-function SET_INTRO_TXT()
-    local frame = ui.GetFrame("guildinfo")
-    local introduceText = GET_CHILD_RECURSIVELY(frame, 'regPromoteText');
-    SetGuildProfile("RECV_INTRO_TXT", introduceText:GetText())
-end
-
-function RECV_INTRO_TXT(code, ret_json)
-    if code ~= 200 then
-		SHOW_GUILD_HTTP_ERROR(code, ret_json, "RECV_INTRO_TXT");
-        return;
-    end
-    ui.SysMsg(ClMsg("GuildIntroUpdated"))
 end
 
 function GUILDINFO_INFO_INIT_EXP(infoBox, guildObj)
@@ -97,36 +81,82 @@ function UPDATE_TOWER_REMAIN_TIME(towerTimeText)
 end
 
 function GUILDINFO_INFO_INIT_BENEFIT(infoBox, guildObj)
-    local benefitBox = GET_CHILD_RECURSIVELY(infoBox, 'benefitbox');
+    local benefitBox = infoBox:GetChild('benefitBox');    
     DESTROY_CHILD_BYNAME(benefitBox, 'BENEFIT_');
-   
+
     local yPos = 40;
-    local currentLevel = guildObj.Level;    
-    
-    local function _SET_INFO_CTRLSET(benefitBox, name, yPos, currentLevel, level, infoStr, imgConfigName)
-        local towerCtrlSet = benefitBox:CreateOrGetControlSet('guild_benefit', name, 0, yPos);
-        towerCtrlSet = AUTO_CAST(towerCtrlSet);
-        local DISABLE_COLOR = towerCtrlSet:GetUserConfig('DISABLE_COLOR');
-        towerCtrlSet = AUTO_CAST(towerCtrlSet);
-        towerCtrlSet:SetGravity(ui.CENTER_HORZ, ui.TOP)
-        local IMG_NAME = towerCtrlSet:GetUserConfig(imgConfigName);    
-        local infoPic = GET_CHILD(towerCtrlSet, 'infoPic');
-        local infoText = towerCtrlSet:GetChild('infoText');
-        local infoStr = string.format('%s %s %d: %s', ClMsg('ChatType_4'), ClMsg('Level'), level, infoStr);
-        infoPic:SetImage(IMG_NAME);
-        infoText:SetText(infoStr);
-        if currentLevel < level then        
-            towerCtrlSet:SetColorTone(DISABLE_COLOR);
-        end
-        yPos = yPos + towerCtrlSet:GetHeight();
-        return yPos;
+    local currentTowerLevel = guildObj.TowerLevel;    
+
+    -- warp
+    local towerCtrlSet1 = benefitBox:CreateOrGetControlSet('guild_benefit', 'BENEFIT_WARP', 0, yPos);
+    towerCtrlSet1 = AUTO_CAST(towerCtrlSet1);
+    local WARP_IMG = towerCtrlSet1:GetUserConfig('WARP_IMG');    
+    local DISABLE_COLOR = towerCtrlSet1:GetUserConfig('DISABLE_COLOR');
+    local infoPic = GET_CHILD(towerCtrlSet1, 'infoPic');
+    local infoText = towerCtrlSet1:GetChild('infoText');
+    local infoStr = string.format('%s %s %d: %s', ClMsg('GuildTower'), ClMsg('Level'), 1, ClMsg('Warp'));
+    infoPic:SetImage(WARP_IMG);
+    infoText:SetText(infoStr);
+    if currentTowerLevel < 1 then        
+        towerCtrlSet1:SetColorTone(DISABLE_COLOR);
     end
-    
-    yPos = _SET_INFO_CTRLSET(benefitBox, 'BENEFIT_WARP', yPos, currentLevel, 1, ClMsg('Warp'), 'WARP_IMG');
-    yPos = _SET_INFO_CTRLSET(benefitBox, 'BENEFIT_WAREHOUSE', yPos, currentLevel, 1, ClMsg('WareHouse'), 'WAREHOUSE_IMG');
-    yPos = _SET_INFO_CTRLSET(benefitBox, 'BENEFIT_GROWTH', yPos, currentLevel, 1, ClMsg('GuildGrowth'), 'GROWTH_IMG');
-    yPos = _SET_INFO_CTRLSET(benefitBox, 'BENEFIT_AGIT', yPos, currentLevel, 2, ClMsg('MoveToAgit'), 'AGIT_IMG');
-    yPos = _SET_INFO_CTRLSET(benefitBox, 'BENEFIT_EVENT', yPos, currentLevel, 4, ClMsg('GuildEvent'), 'EVENT_IMG');
+    yPos = yPos + towerCtrlSet1:GetHeight();
+
+    -- warehouse
+    local towerCtrlSet2 = benefitBox:CreateOrGetControlSet('guild_benefit', 'BENEFIT_WAREHOUSE', 0, yPos);
+    towerCtrlSet2 = AUTO_CAST(towerCtrlSet2);
+    local WAREHOUSE_IMG = towerCtrlSet2:GetUserConfig('WAREHOUSE_IMG');    
+    local infoPic = GET_CHILD(towerCtrlSet2, 'infoPic');
+    local infoText = towerCtrlSet2:GetChild('infoText');
+    local infoStr = string.format('%s %s %d: %s', ClMsg('GuildTower'), ClMsg('Level'), 2, ClMsg('WareHouse'));
+    infoPic:SetImage(WAREHOUSE_IMG);
+    infoText:SetText(infoStr);
+    if currentTowerLevel < 2 then        
+        towerCtrlSet2:SetColorTone(DISABLE_COLOR);
+    end
+    yPos = yPos + towerCtrlSet2:GetHeight();
+
+    -- growth
+    local towerCtrlSet3 = benefitBox:CreateOrGetControlSet('guild_benefit', 'BENEFIT_GROWTH', 0, yPos);
+    towerCtrlSet3 = AUTO_CAST(towerCtrlSet3);
+    local GROWTH_IMG = towerCtrlSet3:GetUserConfig('GROWTH_IMG');    
+    local infoPic = GET_CHILD(towerCtrlSet3, 'infoPic');
+    local infoText = towerCtrlSet3:GetChild('infoText');
+    local infoStr = string.format('%s %s %d: %s', ClMsg('GuildTower'), ClMsg('Level'), 3,  ClMsg('GuildGrowth'));
+    infoPic:SetImage(GROWTH_IMG);
+    infoText:SetText(infoStr);
+    if currentTowerLevel < 3 then        
+        towerCtrlSet3:SetColorTone(DISABLE_COLOR);
+    end
+    yPos = yPos + towerCtrlSet3:GetHeight();
+
+    -- event
+    local towerCtrlSet4 = benefitBox:CreateOrGetControlSet('guild_benefit', 'BENEFIT_EVENT', 0, yPos);
+    towerCtrlSet4 = AUTO_CAST(towerCtrlSet4);
+    local EVENT_IMG = towerCtrlSet4:GetUserConfig('EVENT_IMG');    
+    local infoPic = GET_CHILD(towerCtrlSet4, 'infoPic');
+    local infoText = towerCtrlSet4:GetChild('infoText');
+    local infoStr = string.format('%s %s %d: %s', ClMsg('GuildTower'), ClMsg('Level'), 4,  ClMsg('GuildEvent'));
+    infoPic:SetImage(EVENT_IMG);
+    infoText:SetText(infoStr);
+    if currentTowerLevel < 4 then        
+        towerCtrlSet4:SetColorTone(DISABLE_COLOR);
+    end
+    yPos = yPos + towerCtrlSet4:GetHeight();
+
+    -- agit
+    local towerCtrlSet5 = benefitBox:CreateOrGetControlSet('guild_benefit', 'BENEFIT_AGIT', 0, yPos);
+    towerCtrlSet5 = AUTO_CAST(towerCtrlSet5);
+    local AGIT_IMG = towerCtrlSet5:GetUserConfig('AGIT_IMG');    
+    local infoPic = GET_CHILD(towerCtrlSet5, 'infoPic');
+    local infoText = towerCtrlSet5:GetChild('infoText');
+    local infoStr = string.format('%s %s %d: %s', ClMsg('GuildTower'), ClMsg('Level'), 5,  ClMsg('MoveToAgit'));
+    infoPic:SetImage(AGIT_IMG);
+    infoText:SetText(infoStr);
+    if currentTowerLevel < 5 then        
+        towerCtrlSet5:SetColorTone(DISABLE_COLOR);
+    end
+    yPos = yPos + towerCtrlSet5:GetHeight();
 end
 
 function GUILDINFO_INFO_INIT_ABILITY(infoBox, guildObj)
@@ -140,7 +170,6 @@ function GUILDINFO_INFO_INIT_ABILITY(infoBox, guildObj)
     for i = 0, cnt - 1 do
         local abilityCls = GetClassByIndexFromList(clsList, i);
         local ctrlSet = abilityBox:CreateOrGetControlSet('guild_benefit', 'ABILITY_'..abilityCls.ClassName, 0, yPos);
-        ctrlSet:SetGravity(ui.CENTER_HORZ, ui.TOP)
         ctrlSet = AUTO_CAST(ctrlSet);
 
         local DISABLE_COLOR = ctrlSet:GetUserConfig('DISABLE_COLOR');
@@ -176,62 +205,30 @@ function UPDATE_TOWER_DESTROY_TIME(towerTimeText)
 	return 1;
 end
 
-function GUILDINFO_INFO_UPDATE_WAREHOUSE(frame, ctrl)
-	party.RequestReloadInventory(PARTY_GUILD);
-	DISABLE_BUTTON_DOUBLECLICK("guildinfo", ctrl:GetName(), 0.1);
+function GUILDINFO_INFO_UPDATE_TOWERLEVEL(benefitBox, updateBtn)
+    local isLeader = AM_I_LEADER(PARTY_GUILD);
+	if 0 == isLeader then
+		ui.SysMsg(ScpArgMsg("OnlyLeaderAbleToDoThis"));
+		return;
+	end
+
+    local templerCls = GetClass('Job', 'Char1_16');
+    if IS_EXIST_JOB_IN_HISTORY(templerCls.ClassID) == false then
+        ui.SysMsg(ClMsg('TgtDonHaveTmpler'));
+        return;
+    end
+    control.CustomCommand('UPDATE_GUILD_TOWER_LEVEL', 0);
 end
 
 function IS_EXIST_JOB_IN_HISTORY(jobID)
     local mySession = session.GetMySession();
-    local jobHistory = mySession:GetPCJobInfo();
-    local jobHistoryCnt = jobHistory:GetJobCount();
+    local jobHistory = mySession.jobHistory;
+    local jobHistoryCnt = jobHistory:GetJobHistoryCount();
     for i = 0, jobHistoryCnt - 1 do
-		local jobInfo = jobHistory:GetJobInfoByIndex(i);
+		local jobInfo = jobHistory:GetJobHistory(i);
         if jobID == jobInfo.jobID then
             return true;
         end
     end
     return false;
-end
-
-
-function save_guild_notice_call_back(code, ret_json)
-    if code ~= 200 then
-        SHOW_GUILD_HTTP_ERROR(code, ret_json, "save_guild_notice_call_back")
-        return
-    end
-
-    ui.SysMsg(ClMsg("UpdateSuccess"))
-    -- 여기에서 해당 ui에 글자 채워주기
-end
-
-function SAVE_GUILD_NOTICE(parent, ctrl)
-	local frame = parent:GetTopParentFrame();
-	local noticeEdit = GET_CHILD_RECURSIVELY(frame, 'noticeEdit')
-	local noticeText = noticeEdit:GetText();
-	local guild = GET_MY_GUILD_INFO();
-	local nowNotice = guild.info:GetNotice();
-	local badword = IsBadString(noticeText);
-	if badword ~= nil then
-		ui.MsgBox(ScpArgMsg('{Word}_FobiddenWord','Word',badword, "None", "None"));
-		return;
-	end
-	if nowNotice ~= noticeText then		
-        SetGuildNotice('save_guild_notice_call_back', noticeText)
-	end
-	noticeEdit:ReleaseFocus();
-end
-
-function IS_EXIST_GUILD_TOWER()
-    local guildObj = GET_MY_GUILD_OBJECT();    
-    if guildObj == nil then
-        return false;
-    end
-
-    local towerPosition = guildObj.HousePosition;
-    local sList = StringSplit(towerPosition, '#');
-    if #sList ~= 6 then
-        return false;
-    end
-    return true;
 end

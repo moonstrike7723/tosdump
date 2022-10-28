@@ -1,6 +1,3 @@
-function GUILDMEMBERGO_ON_INIT(addon, frame)
-    addon:RegisterMsg('CLEAR_ACCEPT_GUILDSKILL_MSGBOX', 'ON_CLEAR_ACCEPT_GUILDSKILL_MSGBOX');
-end
 
 function GUILDMEMBER_GO_UPDATE_MEMBERLIST(frame, skillType)
 
@@ -99,11 +96,19 @@ function GUILDMEMBER_GO_CTRLSET_UPDATE(ctrlSet, updateTotalCheckCount)
 
 end
 
+function GUILD_CALL_EXEC(parent, ctrl)
+
+	local frame = parent:GetTopParentFrame();
+	local skillType = frame:GetUserIValue("SKILLTYPE");
+	local sklCls = GetClassByType("Skill", skillType);
+
+	local msgString = ScpArgMsg("WillYouUseSkill{SkillName}?", "SkillName", sklCls.Name);
+	local yesScp = string.format("_GUILD_GO_EXEC(\"%s\")", frame:GetName());
+	ui.MsgBox(msgString, yesScp, "None");
+
+end
+
 function GUILD_GO_EXEC(parent, ctrl)
-    if IS_IN_EVENT_MAP() == true then
-        ui.SysMsg(ClMsg('ImpossibleInCurrentMap'));
-        return;
-    end
 
 	local frame = parent:GetTopParentFrame();
 	local skillType = frame:GetUserIValue("SKILLTYPE");
@@ -139,7 +144,8 @@ function _GUILD_GO_EXEC(frameName)
 
 end
 
-function GUILD_MEMBER_SKILL_INVITE(argList)    
+function GUILD_MEMBER_SKILL_INVITE(argList)
+    
 	local sList = StringSplit(argList, "#");
     
 	local aid = sList[1];
@@ -154,70 +160,17 @@ function GUILD_MEMBER_SKILL_INVITE(argList)
     if callMemberName == nil then
         msgString = ScpArgMsg("GuildLeaderUse{SkillName}Skill_WillYouToAccept?", "SkillName", sklCls.Name);
     end
-
+    
     local yesScp = string.format("ACCEPT_GUILD_SKILL(\"%s\", %d)", aid, skillType);
-    local noScp = string.format('DISAGREE_GUILD_SKILL("%s", %d)', aid, skillType);
-
-    local msgBox = ui.GetMsgBox(ui.ConvertScpArgMsgTag(msgString));
-    if msgBox ~= nil then
-        return
-    end
-
-	local acceptMsgBox = ui.MsgBox(msgString, yesScp, noScp);
-    acceptMsgBox = tolua.cast(acceptMsgBox, 'ui::CMessageBoxFrame');
-
-    local frame = ui.GetFrame('guildmembergo');
-    frame:SetUserValue('ACCEPT_MSGBOX_INDEX', acceptMsgBox:GetIndex());
+	ui.MsgBox(msgString, yesScp, "None");
 end
 
 function ACCEPT_GUILD_SKILL(aid, skillType)
-    if session.colonywar.GetProgressState() == true then
-        local list = session.party.GetPartyMemberList(PARTY_GUILD);
-        local count = list:Count();
-        for i = 0 , count - 1 do
-            local partyMemberInfo = list:Element(i);
-            local guild = GET_MY_GUILD_INFO();
-            if partyMemberInfo:GetAID() == guild.info:GetLeaderAID() then
-                local mapID = partyMemberInfo:GetMapID()
-                if mapID == 9996 or mapID == 9997 or mapID == 9998 then
-					local aObj = GetMyAccountObj();
-					local lastGuildGIDX = TryGetProp(aObj, 'LastGuildOutGIDX');
-                    local lastGuildOutDay = TryGetProp(aObj, "LastGuildOutDay")
-                    if lastGuildOutDay ~= "None" then
-                        local lastTime = imcTime.GetSysTimeByStr(lastGuildOutDay)
-						local addTime = AFTER_GUILD_OUT_COLONY_WAR_PARTICIPATE_PERIOD_DELAY
-						
-						-- 개척 길드 탈퇴 패널티 제거
-						local guildidx = GET_GUILD_MEMBER_JOIN_AUTO_GUILD_IDX();
-						if guildidx ~= "0" and guildidx == lastGuildGIDX then
-							return;
-						end
 
-                	    local enterEnableTime = imcTime.AddSec(lastTime, (addTime*60));
-                	    local nowTime = session.GetDBSysTime();
-                    	local difSec = imcTime.GetDifSec(enterEnableTime, nowTime);
-                	    if difSec > 0 then
-                	        local remainDay = math.floor((((difSec/60)/60)/24))
-                	        local remainHour = math.floor(((difSec/60)/60)%24)
-                	        local remainMin = math.floor((difSec/60)%60)
-                	        local remainSec = math.floor(difSec%60)
-                            local remainTimeStr = ScpArgMsg("GUILD_COLONY_ENTER_REMAIN_TIME{day}{hour}{min}{sec}", "day", remainDay, "hour", remainHour, "min", remainMin, "sec", remainSec)
-                            addon.BroadMsg("NOTICE_Dm_scroll", ScpArgMsg("GUILD_COLONY_MSG_ENTER_FAIL5{day}{time}", "day", ((addTime/60)/24), "time", remainTimeStr), 5);
-                            return
-                        end
-                    end
-                end
-            end
-        end
-    end
-    session.party.AcceptUsePartyMemberSkill(aid, skillType, true);	
+	session.party.AcceptUsePartyMemberSkill(aid, skillType);
+	
 end
 
-function ON_CLEAR_ACCEPT_GUILDSKILL_MSGBOX(frame, msg, argStr, argNum)
-    local index = frame:GetUserIValue('ACCEPT_MSGBOX_INDEX');    
-    ui.CloseMsgBoxByIndex(index);
-end
 
-function DISAGREE_GUILD_SKILL(aid, skillType)
-    session.party.AcceptUsePartyMemberSkill(aid, skillType, false);
-end
+
+

@@ -31,8 +31,7 @@ end
 
 function ADVENTURE_BOOK_MAP.TOTAL_RATE_TEXT()
 	local frame = ui.GetFrame('adventure_book');
-	local gb_adventure = GET_CHILD(frame, "gb_adventure", "ui::CGroupBox");
-	local page_explore = GET_CHILD(gb_adventure, "page_explore", "ui::CGroupBox");
+	local page_explore = GET_CHILD(frame, "page_explore", "ui::CGroupBox");
 	local total_rate_text = GET_CHILD(page_explore, "total_rate_text", "ui::CGroupBox");
     total_rate_text:ShowWindow(1);
 	local total_rate_func = ADVENTURE_BOOK_MAP_CONTENT['TOTAL_MAP_REVEAL_RATE']
@@ -42,8 +41,7 @@ end
 
 function ADVENTURE_BOOK_MAP.CLEAR()
 	local frame = ui.GetFrame('adventure_book');
-	local gb_adventure = GET_CHILD(frame, "gb_adventure", "ui::CGroupBox");
-	local page_explore = GET_CHILD(gb_adventure, "page_explore", "ui::CGroupBox");
+	local page_explore = GET_CHILD(frame, "page_explore", "ui::CGroupBox");
 	local page = GET_CHILD(page_explore, "page_map", "ui::CGroupBox");
 	local map_list = GET_CHILD(page, "map_list", "ui::CGroupBox");
 	map_list:RemoveAllChild();
@@ -51,8 +49,7 @@ end
 
 function ADVENTURE_BOOK_MAP.FILL_REGION_LIST()
 	local frame = ui.GetFrame('adventure_book');
-	local gb_adventure = GET_CHILD(frame, "gb_adventure", "ui::CGroupBox");
-	local page_explore = GET_CHILD(gb_adventure, "page_explore", "ui::CGroupBox");
+	local page_explore = GET_CHILD(frame, "page_explore", "ui::CGroupBox");
 	local page = GET_CHILD(page_explore, "page_map", "ui::CGroupBox");
 	local map_list_gb = GET_CHILD(page, "map_list", "ui::CGroupBox");
 	local search_editbox = GET_CHILD(page, "search_editbox");
@@ -91,8 +88,7 @@ end
 
 function ADVENTURE_BOOK_MAP.FILL_MAP_LIST(regionName, regionIndex)
 	local frame = ui.GetFrame('adventure_book');
-	local gb_adventure = GET_CHILD(frame, "gb_adventure", "ui::CGroupBox");
-	local page_explore = GET_CHILD(gb_adventure, "page_explore", "ui::CGroupBox");
+	local page_explore = GET_CHILD(frame, "page_explore", "ui::CGroupBox");
 	local page = GET_CHILD(page_explore, "page_map", "ui::CGroupBox");
 	local map_list_gb = GET_CHILD(page, "map_list", "ui::CGroupBox");
 	local sort_opt_list = GET_CHILD(page, "sort_opt_list", "ui::CDropList");
@@ -139,8 +135,7 @@ end
 
 function ADVENTURE_BOOK_MAP.FILL_MAP_INFO()
 	local frame = ui.GetFrame('adventure_book');
-	local gb_adventure = GET_CHILD(frame, "gb_adventure", "ui::CGroupBox");
-	local page_explore = GET_CHILD(gb_adventure, "page_explore", "ui::CGroupBox");
+	local page_explore = GET_CHILD(frame, "page_explore", "ui::CGroupBox");
 	local page = GET_CHILD(page_explore, "page_map", "ui::CGroupBox");
 	local map_list_gb = GET_CHILD(page, "map_info_gb", "ui::CGroupBox");
 	
@@ -160,8 +155,7 @@ end
 
 function ADVENTURE_BOOK_MAP.DROPDOWN_LIST_INIT()
 	local frame = ui.GetFrame('adventure_book');
-	local gb_adventure = GET_CHILD(frame, "gb_adventure", "ui::CGroupBox");
-	local page_explore = GET_CHILD(gb_adventure, "page_explore", "ui::CGroupBox");
+	local page_explore = GET_CHILD(frame, "page_explore", "ui::CGroupBox");
 	local page = GET_CHILD(page_explore, "page_map", "ui::CGroupBox");
 	local sort_opt_list = GET_CHILD(page, "sort_opt_list", "ui::CDropList");
 	local state_opt_list = GET_CHILD(page, "state_opt_list", "ui::CDropList");
@@ -193,7 +187,7 @@ function ADVENTURE_BOOK_MAP.DRAW_MINIMAP(selectedMapID)
 	local MINIMAP_HEIGHT = adventure_book:GetUserConfig('MINIMAP_HEIGHT');
     mappic_gb:RemoveAllChild();
 	mappic_gb:SetSkinName(INDUN_DETAIL_MINIMAP_SKIN)
-	
+
     local ctrlSet = mappic_gb:CreateControlSet("worldmap_tooltip", "MAP_" .. selectedMapID, ui.CENTER_HORZ, ui.CENTER_VERT, 0, 0, 0, 0);
     ctrlSet = AUTO_CAST(ctrlSet);
     ctrlSet:EnableHitTest(0);
@@ -205,10 +199,6 @@ function ADVENTURE_BOOK_MAP.DRAW_MINIMAP(selectedMapID)
 		ratestr = " {img minimap_complete 24 24}"
 	end
 
-	if ADVENTURE_BOOK_MAP_CONTENT.IS_VISIBLE_MAP(mapCls) ~= 1 then
-		return;
-	end
-
 	local mapnameCtrl = ctrlSet:GetChild("mapname");
     mapnameCtrl:ShowWindow(0);
 		
@@ -216,13 +206,9 @@ function ADVENTURE_BOOK_MAP.DRAW_MINIMAP(selectedMapID)
 	local pic = GET_CHILD(ctrlSet, "map", "ui::CPicture");
     pic:SetOffset(0, 0);
     pic:Resize(ctrlSet:GetWidth(), ctrlSet:GetHeight());
-	local isValid = ui.IsImageExist(drawMapName .. "_fog");
-	if isValid == false then
+	local mapimage = ui.GetImage(drawMapName .. "_fog");
+	if mapimage == nil then
 		world.PreloadMinimap(drawMapName);
-	end
-
-	if ui.IsImageExist(drawMapName .. "_fog") == false then
-		return;
 	end
 	pic:SetImage(drawMapName .. "_fog");
 		
@@ -269,14 +255,15 @@ function ADVENTURE_BOOK_MAP.DRAW_MINIMAP(selectedMapID)
 	ctrlSet:GetChild("monlv"):SetVisible(0)
 
     -- map fog
-    MAKE_MAP_FOG_PICTURE(drawMapName, pic, true);    
-    UPDATE_MAP_FOG_RATE(ctrlSet, drawMapName);
+    MAKE_MAP_FOG_PICTURE(drawMapName, pic, true);
+    if UPDATE_MAP_FOG_RATE ~= nil then
+	    UPDATE_MAP_FOG_RATE(ctrlSet, drawMapName);
+    end
 end
 
 function ADVENTURE_BOOK_MAP_SET_POINT()
     local adventure_book = ui.GetFrame('adventure_book');
-    local gb_adventure = adventure_book:GetChild('gb_adventure');
-    local page_explore = gb_adventure:GetChild('page_explore');
+    local page_explore = adventure_book:GetChild('page_explore');
     local total_rate_text = page_explore:GetChild('total_rate_text');
     local total_score_text = page_explore:GetChild('total_score_text');
     total_rate_text:ShowWindow(1);

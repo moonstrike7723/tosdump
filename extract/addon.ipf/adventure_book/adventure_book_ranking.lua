@@ -22,8 +22,7 @@ end
 
 function ADVENTURE_BOOK_RANKING_SEARCH_BTN(parent, ctrl)
     local topFrame = parent:GetTopParentFrame();
-    local gb_adventure = GET_CHILD(topFrame, 'gb_adventure');
-    local rankingTab = GET_CHILD(gb_adventure, 'rankingTab');
+    local rankingTab = GET_CHILD(topFrame, 'rankingTab');
     local searchIndex = rankingTab:GetSelectItemIndex();
     local categoryName = 'Initialization_point';
     local rankSet = GET_CHILD_RECURSIVELY(topFrame, 'adventureBookRankingSet');    
@@ -62,38 +61,22 @@ function ADVENTURE_BOOK_RANKING_PAGE_SELECT(parent, ctrl, argStr, pageNum)
     local categoryName = 'Initialization_point';
     if argStr == '' then
         local rankingPageFrame = parent:GetParent();
-        local rankingPageFrameName = rankingPageFrame:GetName();        
-        if rankingPageFrameName == 'upHillRankingSet' then
+        if rankingPageFrame == 'upHillRankingSet' then
             categoryName = 'UpHill';
-        elseif rankingPageFrameName == 'teamBattleRankSet' then
-            local pvpCls = GET_TEAM_BATTLE_CLASS();            
-            worldPVP.RequestPVPRanking(pvpCls.ClassID, 0, -1, pageNum + 1, 0, '');
+        elseif rankingPageFrame == 'teamBattleRankSet' then
+            local pvpCls = GET_TEAM_BATTLE_CLASS();
+            worldPVP.RequestPVPRanking(pvpCls.ClassID, 0, -1, pageNum, 0, '');
             return;
         end
     elseif argStr == 'page_upHillRanking' then
         categoryName = 'UpHill';
-    elseif argStr == 'TeamBattle' then    
+    elseif argStr == 'TeamBattle' then
         local pvpCls = GET_TEAM_BATTLE_CLASS();
-		worldPVP.RequestPVPRanking(pvpCls.ClassID, 0, -1, pageNum, 0, '');
-		worldPVP.RequestGuildBattlePrevSeasonRanking(pvpCls.ClassID);
+        worldPVP.RequestPVPRanking(pvpCls.ClassID, 0, -1, pageNum, 0, '');
         return;
     end
     ReqAdventureBookRanking(categoryName, pageNum);
     ADVENTURE_BOOK_RANK_PAGE_INIT(parent);
-end
-
-function ADVENTURE_BOOK_RANKING_PAGE_SELECT_PREV(parent, ctrl)
-    local page = parent:GetCurPage();
-    if page ~= 0 then
-        ADVENTURE_BOOK_RANKING_PAGE_SELECT(parent, nil, '', page-1);
-    end
-end
-
-function ADVENTURE_BOOK_RANKING_PAGE_SELECT_NEXT(parent, ctrl)
-    local page = parent:GetCurPage();
-    if page ~= parent:GetMaxPage()-1 then
-        ADVENTURE_BOOK_RANKING_PAGE_SELECT(parent, nil, '', page+1);
-    end
 end
 
 function ADVENTURE_BOOK_RANKING_SHOW_PAGE(adventureBookFrame, page)    
@@ -155,11 +138,6 @@ function ADVENTURE_BOOK_RANK_PAGE_INIT(frame)
         maxPage = 2000;
     end
     pageCtrl:SetMaxPage(maxPage);
-
-    local prevBtn = GET_CHILD_RECURSIVELY(pageCtrl, 'prev');
-    local nextBtn = GET_CHILD_RECURSIVELY(pageCtrl, 'next');
-    prevBtn:SetEventScript(ui.LBUTTONUP, 'ADVENTURE_BOOK_RANKING_PAGE_SELECT_PREV');
-    nextBtn:SetEventScript(ui.LBUTTONUP, 'ADVENTURE_BOOK_RANKING_PAGE_SELECT_NEXT');
 end
 
 function ADVENTURE_BOOK_RANKING_SHOW_BY_SEARCH(adventureBookFrame, name, rank, score)    

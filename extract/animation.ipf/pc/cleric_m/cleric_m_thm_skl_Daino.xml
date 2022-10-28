@@ -1,13 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMCGames Co., Ltd (IMCGames Co., Ltd) -->
-<ActionDesc>
-	<Sound frame="0.00" soundFile="skl_fgt_tackle_cast"/>
-	<Sound frame="0.00" soundFile="skl_eff_acaneenergy_shot"/>
-	<Sound frame="4.00" soundFile="skl_eff_agility_cast_eff"/>
-	<BlendOn frame="0" R="0" G="0" B="0" A="50"/>
-	<BlendOn frame="11" R="80" G="80" B="80" A="100"/>
-	<BlendOn frame="12" R="100" G="100" B="100" A="200"/>
-	<BlendOff frame="13" R="0" G="0" B="0" A="0"/>
-	<Sound frame="7.00" soundFile="skl_fgt_tackle_cast_2"/>
-	<Sound frame="7.00" soundFile="skl_fgt_tackle_shot"/>
-</ActionDesc>
+<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) --><ActionDesc>	<Sound frame="0.00" soundFile="skl_fgt_tackle_cast"/>	<Sound frame="7.00" soundFile="skl_fgt_tackle_shot"/></ActionDesc>

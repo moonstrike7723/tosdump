@@ -12,14 +12,6 @@ end
 
 function COLONY_RESULT_OPEN(isWin, argStr)
     local frame = ui.GetFrame('colony_result');
-    frame:SetUserValue('SERVICE_NATION', config.GetServiceNation());
-
-    if frame:GetUserValue('SERVICE_NATION') == 'KOR' then        
-        COLONY_RESULT_SHOW_UI_MODE(frame, 0);
-    else        
-        COLONY_RESULT_SHOW_UI_MODE(frame, 1);
-    end
-
     COLONY_RESULT_INIT(frame, isWin, argStr);
     COLONY_RESULT_INIT_TIMER(frame);
     frame:ShowWindow(1);
@@ -32,24 +24,12 @@ function COLONY_RESULT_INIT(frame, isWin, argStr)
 
     local winBox = GET_CHILD_RECURSIVELY(frame, 'winBox');
     local loseBox = GET_CHILD_RECURSIVELY(frame, 'loseBox');
-    local winUIBox = GET_CHILD_RECURSIVELY(frame, 'winUIBox');
-    local loseUIBox = GET_CHILD_RECURSIVELY(frame, 'loseUIBox');
     if isWin == 1 then
         winBox:ShowWindow(1);
         loseBox:ShowWindow(0);
 
-        if frame:GetUserValue('SERVICE_NATION') == 'KOR' then
-            imcSound.PlayMusicQueueLocal('colonywar_win_k')
-        else
-            imcSound.PlayMusicQueueLocal('colonywar_win')
-        end
-
-        if frame:GetUserValue('SERVICE_NATION') == 'KOR' then
-            winBox:PlayUIEffect(WIN_EFFECT_NAME, EFFECT_SCALE, 'COLONY_WIN');
-        else
-            winUIBox:ShowWindow(1);
-            loseUIBox:ShowWindow(0);
-        end
+        imcSound.PlaySoundEvent('battle_win');
+        winBox:PlayUIEffect(WIN_EFFECT_NAME, EFFECT_SCALE, 'COLONY_WIN');
     else
         local winnerInfoBox = GET_CHILD_RECURSIVELY(loseBox, 'winnerInfoBox');
         if argStr ~= 'None' then
@@ -62,8 +42,7 @@ function COLONY_RESULT_INIT(frame, isWin, argStr)
             local worldID = session.party.GetMyWorldIDStr();
             local emblemImgName = guild.GetEmblemImageName(guildID,worldID);
             if emblemImgName ~= 'None' then
-                winnerEmblemPic:SetImage("");
-                winnerEmblemPic:SetFileName(emblemImgName);
+                winnerEmblemPic:SetImage(emblemImgName);
             else
                 local worldID = session.party.GetMyWorldIDStr();
                 guild.ReqEmblemImage(guildID,worldID);
@@ -75,24 +54,14 @@ function COLONY_RESULT_INIT(frame, isWin, argStr)
         winBox:ShowWindow(0);
         loseBox:ShowWindow(1);
 
-        if frame:GetUserValue('SERVICE_NATION') == 'KOR' then
-            imcSound.PlayMusicQueueLocal('colonywar_lose_k')
-        else
-            imcSound.PlayMusicQueueLocal('colonywar_lose')
-        end
-
-        if frame:GetUserValue('SERVICE_NATION') == 'KOR' then            
-            loseBox:PlayUIEffect(LOSE_EFFECT_NAME, EFFECT_SCALE, 'COLONY_LOSE');
-        else
-            winUIBox:ShowWindow(0);
-            loseUIBox:ShowWindow(1);
-        end
+        imcSound.PlaySoundEvent('battle_lose');        
+        loseBox:PlayUIEffect(LOSE_EFFECT_NAME, EFFECT_SCALE, 'COLONY_LOSE');
     end
 end
 
 function COLONY_RESULT_INIT_TIMER(frame)
     local infoText = GET_CHILD_RECURSIVELY(frame, 'infoText');
-    infoText:SetUserValue('CLOSE_SEC', 30);
+    infoText:SetUserValue('CLOSE_SEC', 60);
     infoText:SetUserValue('START_SEC', math.floor(imcTime.GetAppTime()));
     infoText:RunUpdateScript('COLONY_RESULT_UPDATE_TIMER', 0.2);
 end
@@ -122,14 +91,6 @@ function ON_UPDATE_WINNER_INFO_EMBLEM(frame, msg, argStr, argNum)
     local worldID = session.party.GetMyWorldIDStr();
     local emblemImgName = guild.GetEmblemImageName(argStr,worldID);
     if emblemImgName ~= 'None' then
-        winnerEmblemPic:SetImage("");
-        winnerEmblemPic:SetFileName(emblemImgName);
+        winnerEmblemPic:SetImage(emblemImgName);
     end
-end
-
-function COLONY_RESULT_SHOW_UI_MODE(frame, isOn)
-    local winUIBox = GET_CHILD_RECURSIVELY(frame, 'winUIBox');
-    local loseUIBox = GET_CHILD_RECURSIVELY(frame, 'loseUIBox');
-    winUIBox:ShowWindow(isOn);
-    loseUIBox:ShowWindow(isOn);
 end
