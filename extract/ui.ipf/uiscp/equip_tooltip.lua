@@ -1731,6 +1731,10 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 	socket_text:SetText(text);
 
 	local bottomMargin = CSet:GetUserConfig("BOTTOM_MARGIN");
+
+	local DEFAULT_HEIGHT = 50
+	local height = math.max(DEFAULT_HEIGHT,socket_text:GetHeight()+12)
+	CSet:Resize(CSet:GetWidth(),height)
 	return yPos + CSet:GetHeight();
 end
 

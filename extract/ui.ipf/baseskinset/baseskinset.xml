@@ -10564,6 +10564,8 @@
 		<image name="009_npc_Maria" file="\skin\npccard\009_npc_Maria.tga" imgrect="0 0 330 440"/>
 		<image name="010_npc_JuraSwajone" file="\skin\npccard\010_npc_JuraSwajone.tga" imgrect="0 0 330 440"/>
 		<image name="011_npc_Kamiya" file="\skin\npccard\011_npc_Kamiya.tga" imgrect="0 0 330 440"/>
+		<image name="012_npc_EclipseUbik" file="\skin\npccard\012_npc_EclipseUbik.tga" imgrect="0 0 330 440"/>
+		<image name="013_npc_AbrehMelinn" file="\skin\npccard\013_npc_AbrehMelinn.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>
