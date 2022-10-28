@@ -221,7 +221,6 @@ function WORLDMAP2_SUBMAP_DRAW_BASE(frame)
     local submapSbarSubQText = AUTO_CAST(frame:GetChild("submap_sbar_subq_text"))
     local submapShowOption = AUTO_CAST(frame:GetChild("submap_show_option_gb"))
     local submapTip = AUTO_CAST(frame:GetChild("submap_tip"))
-    local submapTipText = AUTO_CAST(submapTip:GetChild("submap_tip_text"))
 
 	submapPic:SetImage(mapData.SubmapImageName)
 
@@ -297,8 +296,6 @@ function WORLDMAP2_SUBMAP_DRAW_BASE(frame)
     else
         submapTip:ShowWindow(0)
     end
-
-    submapTip:Resize(submapTipText:GetWidth() + 20, submapTip:GetHeight())
 end
 
 function WORLDMAP2_SUBMAP_DRAW(frame)
@@ -414,24 +411,8 @@ function WORLDMAP2_SUBMAP_DRAW_ZONE(frame, cls)
 	-- 하단 텍스트
 	do
         local level = GET_ZONE_QUEST_LEVEL(mapCls)
-        local isGoddess = false
-        local isDungeon = false
-
-        if cls.DungeonName ~= "None" then
-            local dungeonList = SCR_GET_XML_IES("worldmap2_submap_data", "DungeonName", cls.DungeonName)
-            for i = 1, #dungeonList do
-                local mapData = GetClass("Map", dungeonList[i].MapName)
-                if GET_ZONE_GODDESS_STATUE(mapData) == true then
-                    isGoddess = true
-                end
-                if GET_ZONE_DUNGEON_TYPE(mapData) == true then
-                    isDungeon = true
-                end
-            end
-        else
-            isGoddess = GET_ZONE_GODDESS_STATUE(mapCls)
-            isDungeon = GET_ZONE_DUNGEON_TYPE(mapCls)
-        end
+		local isGoddess = GET_ZONE_GODDESS_STATUE(mapCls)
+        local isDungeon = GET_ZONE_DUNGEON_TYPE(mapCls)
         
         local pcLevel = info.GetLevel(session.GetMyHandle())
 

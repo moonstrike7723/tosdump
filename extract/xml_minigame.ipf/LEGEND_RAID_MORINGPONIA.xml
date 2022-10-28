@@ -400,6 +400,9 @@
                             </ToolScp>
                         </condList>
                         <execList>
+                            <ToolScp Scp="MGAME_EVT_EXEC_SET_BGM" Client="NO" UseSleep="NO">
+                                <Str Str="boss_lepidoptera"/>
+                            </ToolScp>
                             <ToolScp Scp="MGAME_EVT_EXEC_CREMON" Client="NO" UseSleep="NO">
                                 <MGameObjIndex List="Stage_02(Tantaliser)/0"/>
                                 <Num Num="1"/>
@@ -1079,7 +1082,7 @@
                     <Event execCount="1" eventName="PointSetting">
                         <execList>
                             <ToolScp Scp="MGAME_SET_RANK_RESET_POINT_AND_LOG" Client="NO" UseSleep="NO">
-                                <Num Num="20"/>
+                                <Num Num="35"/>
                                 <Str Str="LegendRaid: Legend_Raid_boss_Moringponia"/>
                             </ToolScp>
                         </execList>

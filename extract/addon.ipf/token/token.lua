@@ -100,6 +100,13 @@ function BEFORE_APPLIED_TOKEN_OPEN(invItem)
 	local value = GET_CHILD_RECURSIVELY(ctrlSet, "value");
 	value:ShowWindow(0);
 
+	local ctrlSet = gBox:CreateControlSet("tokenDetail", "CTRLSET_" .. 10,  ui.CENTER_HORZ, ui.TOP, 0, 0, 0, 0);
+	local prop = ctrlSet:GetChild("prop");
+	local imag = string.format("{img worldmaptoken_image %d %d}", 55, 45)
+	prop:SetTextByKey("value", imag..ClMsg("CanUseWorldMapToken"));
+	local value = GET_CHILD_RECURSIVELY(ctrlSet, "value");
+	value:ShowWindow(0);
+
 --    local ctrlSet = gBox:CreateControlSet("tokenDetail", "CTRLSET_" .. 9,  ui.CENTER_HORZ, ui.TOP, 0, 0, 0, 0);
 --    local prop = ctrlSet:GetChild("prop");
 --    local imag = string.format("{img 1plus_image %d %d}", 55, 45)

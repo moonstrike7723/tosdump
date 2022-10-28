@@ -130,22 +130,30 @@ local function _CHECK_ACCOUNT_WAREHOUSE_SLOT_COUNT_TO_PUT(insertItem)
     local itemList = session.GetEtcItemList(IT_ACCOUNT_WAREHOUSE);
     local itemCnt = 0;
     local guidList = itemList:GetGuidList();
+
+    local is_exist_stack_item = false
+    
     local cnt = guidList:Count();
     for i = 0, cnt - 1 do
         local guid = guidList:Get(i);
         local invItem = itemList:GetItemByGuid(guid);
         local obj = GetIES(invItem:GetObject());
+        
+        if obj.ClassName ~= MONEY_NAME and TryGetProp(obj, 'MaxStack', 1) > 1 and TryGetProp(insertItem, 'ClassID', 0) == TryGetProp(obj, 'ClassID', -1) then
+            is_exist_stack_item = true            
+        end
+
         if obj.ClassName ~= MONEY_NAME and invItem.invIndex < max_slot_per_tab then
             itemCnt = itemCnt + 1;
         end
     end
-
-    if slotCount <= itemCnt and index < max_slot_per_tab then
+    
+    if is_exist_stack_item == false and (slotCount <= itemCnt and index < max_slot_per_tab) then
         ui.SysMsg(ClMsg('CannotPutBecauseMasSlot'));
         return false;
     end
     
-    if slotCount <= index and index < max_slot_per_tab then
+    if is_exist_stack_item == false and (slotCount <= index and index < max_slot_per_tab) then
         ui.SysMsg(ClMsg('CannotPutBecauseMasSlot'));
         return false;
     end
@@ -379,6 +387,9 @@ function ON_ACCOUNT_WAREHOUSE_ITEM_LIST(frame, msg, argStr, argNum, tab_index)
                 slot = GET_EMPTY_SLOT(slotset, current_tab_index, max_slot_per_tab);
             end
 
+            -- 아이커 종류 표시	
+            SET_SLOT_ICOR_CATEGORY(slot, obj);
+            
             slot:SetSkinName('invenslot2')
             local itemCls = GetIES(invItem:GetObject());
             local iconImg = GET_ITEM_ICON_IMAGE(itemCls);

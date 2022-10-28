@@ -209,6 +209,7 @@ function SCR_GET_STR(self)
     -- self.STR_ADD : 장비, 버프 등 가변적인 스탯 --
     -- GetExProp(self, "STR_TEMP") : 임시로 지정한 추가 스탯 (아마도 PVP 보정용?) --
     -- rewardProperty : 퀘스트 등에서 보상으로 지급한 스탯 (현재는 지급되는 곳 없음?) --
+    -- ALLSTAT : 올 스탯 증가 --
     
     local statString = "STR";
     
@@ -238,7 +239,7 @@ function SCR_GET_STR(self)
     if byTemp == nil then
         byTemp = 0;
     end
-    
+
     local rewardProperty = GET_REWARD_PROPERTY(self, statString);
     
     local value = defaultStat + byJob + byStat + byBonus + byAdd + byTemp + rewardProperty;
@@ -267,8 +268,13 @@ function SCR_GET_ADDSTR(self)
     if byItemBuff == nil then
         byItemBuff = 0
     end
-    
-    local value = byItem + byBuff + byItemBuff;
+
+    local byAllStat = TryGetProp(self, "ALLSTAT");
+    if byAllStat == nil then
+        byAllStat = 0;
+    end
+
+    local value = byItem + byBuff + byItemBuff + byAllStat;
     
     return math.floor(value);
 end
@@ -332,7 +338,12 @@ function SCR_GET_ADDDEX(self)
         byItemBuff = 0
     end
     
-    local value = byItem + byBuff + byItemBuff;
+    local byAllStat = TryGetProp(self, "ALLSTAT");
+    if byAllStat == nil then
+        byAllStat = 0;
+    end
+
+    local value = byItem + byBuff + byItemBuff + byAllStat;
     
     return math.floor(value);
 end
@@ -367,7 +378,7 @@ function SCR_GET_CON(self)
     if byTemp == nil then
         byTemp = 0;
     end
-    
+
     local rewardProperty = GET_REWARD_PROPERTY(self, statString);
     
     local byEnchant = 0;
@@ -384,8 +395,8 @@ function SCR_GET_CON(self)
         byEnchant = ((enchantByJob + enchantByStat + enchantByBonus + enchantByTemp + enchantRewardProp) / 20) * enchantCount;
     end
     
-    local value = defaultStat + byJob + byStat + byBonus + byAdd + byTemp + rewardProperty + byEnchant;
-	
+    local value = defaultStat + byJob + byStat + byBonus + byAdd + byTemp + rewardProperty;
+    
     if value < 1 then
         value = 1;
     end
@@ -410,8 +421,13 @@ function SCR_GET_ADDCON(self)
     if byItemBuff == nil then
         byItemBuff = 0
     end
+
+    local byAllStat = TryGetProp(self, "ALLSTAT");
+    if byAllStat == nil then
+        byAllStat = 0;
+    end
     
-    local value = byItem + byBuff + byItemBuff;
+    local value = byItem + byBuff + byItemBuff + byAllStat;
     
     return math.floor(value);
 end
@@ -445,7 +461,7 @@ function SCR_GET_INT(self)
     if byTemp == nil then
         byTemp = 0;
     end
-    
+
     local rewardProperty = GET_REWARD_PROPERTY(self, statString);
     
     local value = defaultStat + byJob + byStat + byBonus + byAdd + byTemp + rewardProperty;
@@ -474,8 +490,13 @@ function SCR_GET_ADDINT(self)
     if byItemBuff == nil then
         byItemBuff = 0
     end
+
+    local byAllStat = TryGetProp(self, "ALLSTAT");
+    if byAllStat == nil then
+        byAllStat = 0;
+    end
     
-    local value = byItem + byBuff + byItemBuff;
+    local value = byItem + byBuff + byItemBuff + byAllStat;
     
     return math.floor(value);
 end
@@ -511,7 +532,7 @@ function SCR_GET_MNA(self)
     end
     
     local rewardProperty = GET_REWARD_PROPERTY(self, statString);
-	
+    
     local value = defaultStat + byJob + byStat + byBonus + byAdd + byTemp + rewardProperty;
     
     if value < 1 then
@@ -538,8 +559,13 @@ function SCR_GET_ADDMNA(self)
     if byItemBuff == nil then
         byItemBuff = 0
     end
+
+    local byAllStat = TryGetProp(self, "ALLSTAT");
+    if byAllStat == nil then
+        byAllStat = 0;
+    end
     
-    local value = byItem + byBuff + byItemBuff;
+    local value = byItem + byBuff + byItemBuff + byAllStat;
     
     return math.floor(value);
 end
@@ -579,6 +605,46 @@ function SCR_GET_ADDLUCK(self)
     
     local value = byItem + byBuff + byItemBuff;
     
+    return math.floor(value);
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_ALLSTAT(self)
+    local byStat = TryGetProp(self, "ALLSTAT_STAT");
+    if byStat == nil then
+        byStat = 0;
+    end
+    
+    local byAdd = TryGetProp(self, "ALLSTAT_ADD");
+    if byAdd == nil then
+        byAdd = 0;
+    end
+    
+    local value = math.floor(byStat + byAdd);
+    return math.max(0, value);
+end
+
+-- done, 해당 함수 내용은 cpp로 이전되었습니다. 변경 사항이 있다면 반드시 프로그램팀에 알려주시기 바랍니다.
+function SCR_GET_ADDALLSTAT(self)
+    local statString = "ALLSTAT";
+    
+    local byItem = GetSumOfEquipItem(self, statString);
+    if byItem == nil then
+        byItem = 0;
+    end
+
+    local byBuff = TryGetProp(self, statString.."_BM");
+    if byBuff == nil then
+        byBuff = 0
+    end
+
+    local byItemBuff = TryGetProp(self, statString.."_ITEM_BM");
+    if byItemBuff == nil then
+        byItemBuff = 0
+    end
+
+    local value = byItem + byBuff + byItemBuff;
+
     return math.floor(value);
 end
 
@@ -794,6 +860,12 @@ function SCR_Get_MINPATK(self)
     byRateBuff = math.floor(value * byRateBuff);
     
     value = value + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'PATK_RATE_MUL_BM', 1);
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)    
     
     local maxPATK = TryGetProp(self, "MAXPATK");
     if value > maxPATK then
@@ -870,6 +942,12 @@ function SCR_Get_MAXPATK(self)
     byRateBuff = math.floor(value * byRateBuff);
     
     value = value + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'PATK_RATE_MUL_BM', 1);
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)
     
     if value < 1 then
     	value = 1;
@@ -965,6 +1043,12 @@ function SCR_Get_MINPATK_SUB(self)
     byRateBuff = math.floor(value * byRateBuff);
     
     value = value + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'PATK_RATE_MUL_BM', 1);
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)
     
     local maxPATK_SUB = TryGetProp(self, "MAXPATK_SUB");
     if value > maxPATK_SUB then
@@ -1045,6 +1129,12 @@ function SCR_Get_MAXPATK_SUB(self)
     byRateBuff = math.floor(value * byRateBuff);
     
     value = value + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'PATK_RATE_MUL_BM', 1);
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)
     
     if value < 1 then
     	value = 1;
@@ -1133,6 +1223,12 @@ function SCR_Get_MINMATK(self)
     byRateBuff = math.floor(value * byRateBuff);
     
     value = value + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'MATK_RATE_MUL_BM', 1);
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)
     
     local maxMATK = TryGetProp(self, "MAXMATK");
     if value > maxMATK then
@@ -1213,6 +1309,12 @@ function SCR_Get_MAXMATK(self)
     byRateBuff = math.floor(value * byRateBuff);
     
     value = value + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'MATK_RATE_MUL_BM', 1);
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)
     
     if value < 1 then
     	value = 1;
@@ -1237,6 +1339,12 @@ function SCR_Get_DEF(self)
     byRateBuff = math.floor(value * byRateBuff);
     
     value = value + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'DEF_RATE_MUL_BM', 1);
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)
     
     local throwItemDef = 0;
     local leftHand = GetEquipItemForPropCalc(self, 'LH');
@@ -1319,6 +1427,12 @@ function SCR_Get_MDEF(self)
     byRateBuff = math.floor(value * byRateBuff);
     
     value = value + byEnchant + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'MDEF_RATE_MUL_BM', 1);
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)
     
     return math.floor(value);
 end
@@ -1652,6 +1766,12 @@ function SCR_Get_CRTDR(self)
     byRateBuff = math.floor(value * byRateBuff);
     
     value = value + byItemRareOption + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'CRTDR_RATE_MUL_BM', 1);
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)
 	
     if value < 0 then
     	value = 0;
@@ -1731,7 +1851,7 @@ function SCR_Get_RHP(self)
             return 0;
         end
     end
-    
+
     local baseMHP = TryGetProp(self, 'MHP', 1);
     
 	local jobRate = SCR_GET_JOB_RATIO_STAT(self, "RHP");
@@ -2077,7 +2197,7 @@ function SCR_Get_KDArmorType(self)
         value = 1;
     end
     
-    local buffList = { "Safe", "PainBarrier_Buff", "Lycanthropy_Buff", "Marschierendeslied_Buff", "Methadone_Buff", "Fluting_Buff", "Slithering_Buff", "Algiz_PainBarrier_Buff", "BullyPainBarrier_Buff" };
+    local buffList = { "Safe", "PainBarrier_Buff", "Lycanthropy_Buff", "Marschierendeslied_Buff", "Methadone_Buff", "Fluting_Buff", "Slithering_Buff", "Algiz_PainBarrier_Buff", "BullyPainBarrier_Buff", "CavalryCharge_Abil_Buff" };
     for i = 1, #buffList do
         if IsBuffApplied(self, buffList[i]) == 'YES' then
             value = 99999;
@@ -2270,6 +2390,11 @@ function SCR_Get_MSPD(self)
         isDashRun = 0
         --return value;
     end
+    
+    if IsBuffApplied(self, 'ITEM_LEGEND_SVIRTI_BUFF') == 'YES' then
+        isDashRun = 0
+    end
+    
     if isDashRun > 0 then    -- 대시 런 --
         local dashRunAddValue = 10
         
@@ -2337,7 +2462,13 @@ function SCR_Get_MSPD(self)
             return GetExProp(self, 'BurrowSPD')
         end
     end
-    
+
+    if IsBuffApplied(self, 'Bazooka_Abill_Buff') == 'YES' then
+        if value >= GetExProp(self, 'BazookaSPD') then
+            return GetExProp(self, 'BazookaSPD')
+        end
+    end
+
     return math.floor(value);
 end
 

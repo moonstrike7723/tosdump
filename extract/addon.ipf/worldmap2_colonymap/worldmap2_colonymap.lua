@@ -131,7 +131,7 @@ function WORLDMAP2_COLONYMAP_INIT_CHAMPIONS_LEAGUE(frame, colonyData, mapData, c
 
 	guildInfoTextCtrl:SetText(guildInfoText)
 	taxCityInfoTextCtrl:SetText(taxCityInfoText)
-    taxRateInfoTextCtrl:SetText(taxRateInfoText)
+	taxRateInfoTextCtrl:SetText(taxRateInfoText)
 end
 
 function WORLDMAP2_COLONYMAP_INIT_CHALLENGES_LEAGUE(frame, colonyData, mapData, count)

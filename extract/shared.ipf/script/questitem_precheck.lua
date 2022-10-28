@@ -1370,7 +1370,9 @@ function SCR_PRE_CHATHEDRAL53_MQ03_ITEM(self, argstring, argnum1, argnum2)
             end
         end
     elseif GetZoneName(self) == 'd_cathedral_54' then
-        if result3 == "COMPLETE" then
+        if result4 == "POSSIBLE" then
+            return 1
+        elseif result3 == "COMPLETE" then
             return 0
         elseif result2 == 'COMPLETE' then
             if GetLayer(self) == 0 then
@@ -1418,9 +1420,9 @@ function SCR_PRE_SIAULIAI_46_2_MQ_01_ITEM(self, argstring, argnum1, argnum2)
                 local i 
                 for i = 1, fndCnt do
                     if fndList[i].Faction == 'Monster' then
-                        if GetHpPercent(fndList[i]) <= 0.5 then
+                        -- if GetHpPercent(fndList[i]) <= 0.5 then
                             return GetHandle(fndList[i])
-                        end
+                        -- end
                     end
                 end
             end
@@ -1986,9 +1988,9 @@ function SCR_PRE_FARM49_2_MQ05_ITEM(self, argstring, argnum1, argnum2)
                         local i
                         for i = 1, cnt do
                             if list[i].ClassName == 'Flying_Flog_green' then
-                                if GetHpPercent(list[i]) < 0.5 then
+                                -- if GetHpPercent(list[i]) < 0.5 then
                                     return GetHandle(list[i])
-                                end
+                                -- end
                             end
                         end
                     end
@@ -4269,7 +4271,7 @@ function SCR_PRE_UNDER68_MQ3_ITEM01(self, argObj, argstring, arg1, arg2)
             local i
             if fndCnt > 0 then
                 for i = 1, fndCnt do
-                    if fndList[i].ClassName == 'Deadbornscab_red' then
+                    if fndList[i].ClassName == 'Deadbornscab_red' or fndList[i].ClassName == 'Infroholder_green' or fndList[i].ClassName == 'Deadbornscab_mage_red' then
                         return 1
                     end
                 end
@@ -4888,9 +4890,9 @@ function SCR_PRE_JOB_2_KRIVIS4_ITEM1(self, argObj, argstring, argnum1, argnum2)
                 local list, cnt = SelectObjectByFaction(self, 50, 'Monster')
                 local i
                 for i = 1, cnt do
-                    if GetHpPercent(list[i]) < 0.5 then
+                    -- if GetHpPercent(list[i]) < 0.5 then
                         return GetHandle(list[i])
-                    end
+                    -- end
                 end
             end
         end
@@ -5451,23 +5453,35 @@ function SCR_PRE_ITEM_Escape(self, argObj, BuffName, arg1, arg2)
         SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("CanNotUseWarpDuringFeeding"), 2)
         return
     end
+
     if IsJoinColonyWarMap(self) == 1 then
         return 0;
     end
+
+    if IsAutoMatchingState(self) == 1 then
+        SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("EscapeDisabledDuringMatching"), 5)
+        return 0;
+    end
+
+    if IsPVPAutoMatchingState(self) == 1 then
+        SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("EscapeDisabledDuringPVPMatching"), 5)
+        return 0;
+    end
     
-    if GetLayer(self) ~= 0 or IsUsingSkill(self) == 1 then
+    if GetLayer(self) ~= 0 or IsUsingSkill(self) == 1 or GetOpenedAutoSellerType(self) ~= -1 then
         SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("EscapeDisabled"), 5)
         return 0;
     else
         local cls = GetClassList('Map');
         local zone = GetZoneName(self);
         local obj = GetClassByNameFromList(cls, zone);
+
         if zone == "c_barber_dress" then
             SendSysMsg(self, "ThisLocalUseNot");
             return 0;
         end
         
-        if zone == "shadow_raid_main" or zone == "uniq_castle_raid" then
+        if zone == "shadow_raid_main" or zone == "uniq_castle_raid" or zone == "snow_raid_glacier" then
             SendSysMsg(self, "ThisLocalUseNot");
             return 0;
         end
@@ -5484,6 +5498,7 @@ function SCR_PRE_ITEM_Escape(self, argObj, BuffName, arg1, arg2)
         
         local keyword = TryGetProp(obj, "Keyword", "None")
         local keywordList = StringSplit(keyword, ";");
+        
         if table.find(keywordList, "WeeklyBossMap") > 0 then
             SendAddOnMsg(self, "NOTICE_Dm_!", ScpArgMsg("CannotUseThieInThisMap"), 3);
             return 0;
@@ -5660,9 +5675,9 @@ function SCR_PRE_ABBEY_35_3_SQ_ORB(self, argObj, BuffName, arg1, arg2)
                     for i = 1, cnt do
                         if list[i].ClassName ~= 'PC' then
                             if list[i].ClassName == 'Hohen_mage_red' or list[i].ClassName == 'Hohen_ritter_green' or list[i].ClassName == 'hohen_barkle_green' then
-                                if GetHpPercent(list[i]) <= 0.5 then
+                                -- if GetHpPercent(list[i]) <= 0.5 then
                                     return GetHandle(list[i])
-                                end
+                                -- end
                             end
                         end
                     end
@@ -5998,9 +6013,9 @@ function SCR_PRE_MAPLE_25_3_SQ_120_ITEM1(self, argstring, argnum1, argnum2)
                 local i 
                 for i = 1, fndCnt do
                     if fndList[i].ClassName == 'rodeyokel' then
-                        if GetHpPercent(fndList[i]) <= 0.5 then
+                        -- if GetHpPercent(fndList[i]) <= 0.5 then
                             return GetHandle(fndList[i])
-                        end
+                        -- end
                     end
                 end
             end
@@ -6071,9 +6086,9 @@ function SCR_PRE_BRACKEN42_2_SQ05_ITEM(self, argstring, argnum1, argnum2)
                 for i = 1, cnt do
                     if list[i].ClassName ~= 'PC' then
                         if list[i].ClassName == 'Moglan_blue' then
-                            if GetHpPercent(list[i]) <= 0.3 then
+                            -- if GetHpPercent(list[i]) <= 0.3 then
                                 return GetHandle(list[i])
-                            end
+                            -- end
                         end
                     end
                 end
@@ -6171,9 +6186,9 @@ function SCR_PRE_LIMESTONE_52_1_SQ_1_POWDER(self, argstring, argnum1, argnum2)
                 for i = 1, fndCnt do
                     if fndList[i].ClassName ~= 'PC' then
                         if fndList[i].ClassName == 'tala_sorcerer' then
-                            if GetHpPercent(fndList[i]) <= 0.5 then
+                            -- if GetHpPercent(fndList[i]) <= 0.5 then
                                 return GetHandle(fndList[i])
-                            end
+                            -- end
                         end
                     end
                 end
@@ -6381,18 +6396,18 @@ function SCR_PRE_BRACKEN432_SUBQ2_ITEM1(self, argstring, argnum1, argnum2)
                     if fndList[i].ClassName == 'darong' then
                         local item_cnt = GetInvItemCount(self, "BRACKEN432_SUBQ2_ITEM5")
                         if item_cnt < 1 then
-                            if GetHpPercent(fndList[i]) <= 0.5 then
+                            -- if GetHpPercent(fndList[i]) <= 0.5 then
                                 return GetHandle(fndList[i])
-                            end
+                            -- end
                         else
                             return 0
                         end
                     elseif fndList[i].ClassName == 'dorong' then
                         local item_cnt = GetInvItemCount(self, "BRACKEN432_SUBQ2_ITEM6")
                         if item_cnt < 1 then
-                            if GetHpPercent(fndList[i]) <= 0.5 then
+                            -- if GetHpPercent(fndList[i]) <= 0.5 then
                                 return GetHandle(fndList[i])
-                            end
+                            -- end
                         else
                             return 0
                         end
@@ -6480,9 +6495,9 @@ function SCR_PRE_BRACKEN434_SUBQ9_ITEM2(self, argstring, argnum1, argnum2)
                 local i 
                 for i = 1, fndCnt do
                     if fndList[i].ClassName == 'vilkas_mage' or fndList[i].ClassName == 'vilkas_warrior' or fndList[i].ClassName == 'vilkas_fighter' then
-                        if GetHpPercent(fndList[i]) <= 0.3 then
+                        -- if GetHpPercent(fndList[i]) <= 0.3 then
                             return GetHandle(fndList[i])
-                        end
+                        -- end
                     end
                 end
             end
@@ -7003,9 +7018,9 @@ function SCR_PRE_PILGRIMROAD55_SQ12_ITEM(self, argObj, argstring, arg1, arg2)
                 local i 
                 for i = 1, fndCnt do
                     if fndList[i].ClassName == 'Burialer' then
-                        if GetHpPercent(fndList[i]) <= 0.3 then
+                        -- if GetHpPercent(fndList[i]) <= 0.3 then
                             return GetHandle(fndList[i])
-                        end
+                        -- end
                     end
                 end
             end
@@ -7053,9 +7068,9 @@ function SCR_PRE_THORN39_1_SQ04_ITEM1(self, argObj, argstring, arg1, arg2)
                 local i 
                 for i = 1, Cnt do
                     if list[i].ClassName == 'Pandroceum' then
-                        if GetHpPercent(list[i]) <= 0.5 then
+                        -- if GetHpPercent(list[i]) <= 0.5 then
                             return GetHandle(list[i])
-                        end
+                        -- end
                     end
                 end
             end
@@ -8382,7 +8397,7 @@ function SCR_PRE_STARTOWER_91_MQ_70_ITEM(self, argObj, argstring, arg1, arg2)
             if GetZoneName(self) == "d_startower_91" then
                 if GetLayer(self) == 0 then
                     local x, y, z = GetPos(self)
-                    if SCR_POINT_DISTANCE(x,z,-1534,1060) <= 300 then
+                    if SCR_POINT_DISTANCE(x,z,-1534,1060) <= 350 then
                         local objectList, objectCount = SelectObject(self, 300, "ALL")
                         if objectCount ~= nil then
                             for i = 1, objectCount do
@@ -8900,11 +8915,11 @@ function SCR_PRE_CASTLE94_MAIN04_ITEM(self, argstring, argnum1, argnum2)
             if result1 == 'PROGRESS' then
                 local enemyList, enemyCount = SelectObject(self, 100, 'ENEMY')
                 for i = 1, enemyCount do
-                    if GetHpPercent(enemyList[i]) <= 0.5 then
+                    -- if GetHpPercent(enemyList[i]) <= 0.5 then
                         if enemyList[i].ClassName == 'gland' or enemyList[i].ClassName == 'grievous_wheel' or enemyList[i].ClassName == 'ghosnatus' then
                             return GetHandle(enemyList[i])
                         end
-                    end
+                    -- end
                 end
             end
         end
@@ -9154,4 +9169,22 @@ function SCR_PRE_ITEM_BuffStone_NewUser(self, argStr, arg1, arg2)
     end
 
     return 1
+end
+
+function SCR_PRE_F_TABLELAND_28_2_RAID_09_ITEM(self, argstring, argnum1, argnum2)
+    local QCheck = SCR_QUEST_CHECK(self, 'F_TABLELAND_28_2_RAID_09')
+
+    if QCheck == 'PROGRESS' then
+        local MList, MCnt = SelectObjectByFaction(self, 100, 'Monster')
+        
+        for i = 1, MCnt do
+            if MList[i].ClassName == 'Siaulav_blue' or 
+            MList[i].ClassName == 'Siaulav_mage_blue' or 
+            MList[i].ClassName == 'Siaulav_bow_blue' or 
+            MList[i].ClassName == 'lapasape_blue' then
+                return 1
+            end
+        end
+    end
+    return 0
 end

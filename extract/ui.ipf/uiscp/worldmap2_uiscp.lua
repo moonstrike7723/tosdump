@@ -345,13 +345,7 @@ end
 
 -- 토큰이동 로직
 function WORLDMAP2_TOKEN_WARP(mapName)
-	-- 바운티 헌트 이동제한
-	if ENABLE_WARP_CHECK(GetMyPCObject()) == false then
-		 ui.SysMsg(ScpArgMsg("WarpBanBountyHunt"))
-        return
-	end
-
-    if session.loginInfo.IsPremiumState(ITEM_TOKEN) == false and IsBuffApplied(GetMyPCObject(), 'Premium_Nexon') ~= 'YES' then
+    if session.loginInfo.IsPremiumState(ITEM_TOKEN) == false then
         return
     end
 
@@ -381,10 +375,8 @@ function WORLDMAP2_TOKEN_WARP(mapName)
 end
 
 function WORLDMAP2_TOKEN_WARP_REQUEST(mapName)
-	movie.InteWarp(session.GetMyHandle(), string.format("/intewarpByToken %s", mapName))
-	packet.ClientDirect("InteWarp")
-    
-	WORLDMAP2_CLOSE()
+    RequestTokenWarp(mapName)
+    WORLDMAP2_CLOSE()
 end
 
 -- 즐겨찾기 목록

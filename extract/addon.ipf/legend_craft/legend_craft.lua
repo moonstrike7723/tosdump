@@ -76,6 +76,20 @@ function LEGEND_CRAFT_TYPE_INIT(craftType)
 	close:SetTextTooltip(ScpArgMsg('CloseUI{NAME}', 'NAME', title));
 end
 
+local function pairsByKeys (t, f)
+	local a = {}
+	for n in pairs(t) do table.insert(a, n) end
+	table.sort(a, f)
+	local i = 0      -- iterator variable
+	local iter = function ()   -- iterator function
+	  i = i + 1
+	  if a[i] == nil then return nil
+	  else return a[i], t[a[i]]
+	  end
+	end
+	return iter
+end
+
 g_legendCraftRecipeTable = {}; -- key: DropGroupName, vlaue: className list
 g_legendCraftRecipeTableByGroupName = {}; -- key: Item.GroupName, value: className list
 g_legendArmorTable = {};
@@ -129,7 +143,7 @@ function LEGEND_CRAFT_DROPLIST_INIT(frame)
     groupDroplist:ClearItems();
     local dropGroupIndex = 1;
     groupDroplist:AddItem(0, ClMsg('PartyShowAll'));
-    for dropGroup, list in pairs (g_legendCraftRecipeTable) do
+	for dropGroup, list in pairsByKeys (g_legendCraftRecipeTable) do
     	groupDroplist:AddItem(dropGroupIndex, dropGroup);
     	groupDroplist:SetUserValue('GROUP_INDEX_'..dropGroupIndex, dropGroup);
     	dropGroupIndex = dropGroupIndex + 1;
@@ -139,15 +153,15 @@ function LEGEND_CRAFT_DROPLIST_INIT(frame)
     itemGroupNameDroplist:ClearItems();
     local groupNameIndex = 1;
     itemGroupNameDroplist:AddItem(0, ClMsg('PartyShowAll'));
-    for groupName, list in pairs (g_legendCraftRecipeTableByGroupName) do
-    	if groupName ~= 'Armor' then -- 방어구는 재료별로 따로 하기로 함
+    for groupName, list in pairsByKeys (g_legendCraftRecipeTableByGroupName) do
+		if groupName ~= 'Armor' then -- 방어구는 재료별로 따로 하기로 함			
 	    	itemGroupNameDroplist:AddItem(groupNameIndex, ClMsg(groupName));
 	    	itemGroupNameDroplist:SetUserValue('GROUPNAME_INDEX_'..groupNameIndex, groupName);
 	    	groupNameIndex = groupNameIndex + 1;
     	end
 	end
 
-	for material, dummy in pairs (g_legendArmorTable) do
+	for material, dummy in pairsByKeys (g_legendArmorTable) do
 		local clmsg = ClMsg('Armor');
 		if material ~= 'None' then
 			clmsg = clmsg..'-'..ClMsg(material);
@@ -288,12 +302,18 @@ function LEGEND_CRAFT_MAKE_CTRLSET(recipeBox, recipeCls, checkGroup, checkMateri
 			local matItemCls = GetClass('Item', materialItemName);
 			local item = GET_CHILD(matCtrlset, 'item');
 			local require_reinforce = TryGetProp(recipeCls, 'MaterialItemReinforce_'.. i, 0)
+			local require_transcend = TryGetProp(recipeCls, 'MaterialItemTranscend_'.. i, 0)
 			local prefix = ''
+			local prefix_transcend = ''
 			if require_reinforce ~= 0 then
-				prefix = '{#FF0000}+' .. tostring(require_reinforce) .. ' {/}'
+				prefix = '{#FF0000}+' .. tostring(require_reinforce) .. '{img craft_reinforce 25 25}' ..  ' {/}'
 			end
 
-			item:SetText(prefix .. matItemCls.Name);
+			if require_transcend ~= 0 then
+				prefix_transcend = '{#FF0000}+' .. tostring(require_transcend) .. '{img craft_transcend 25 25}' .. ' {/}'
+			end
+
+			item:SetText(prefix_transcend .. prefix .. matItemCls.Name);
 
 			local needcount = GET_CHILD(matCtrlset, 'needcount');
 			local matItemCnt = recipeCls['MaterialItemCnt_'..i];

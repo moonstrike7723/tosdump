@@ -382,6 +382,12 @@
 		</ItemList>
 	</Effect_Item>
 	<Effect_Item>
+		<ItemList ItemClassName="wing_froster_lord">
+			<effect TargetNode="Dummy002" effect="F_light164_snow6" scale="1" offset="0;0" ReinforceValue="0" UseAttach="NO" PlayType="All" IsKeeping="NO" BlendMode="NO" OnLifeTime="NO" LifeTimeValue="0.0" GiveAttackFromEffect="None" UseTrailEffectChange="true" GiveAttackFromEffectScale="0.5" GiveAttackSelfEffect="None" GiveAttackSelfEffectScale="1" GiveAttackFromSound="None" GiveAttackSelfSound="None" TakeAttackEffect="None" TakeAttackEffectScale="0.7" TakeAttackSound="None" GiveAttackFromEffectOffSet="0;0" GiveAttackSelfEffectOffSet="0;0" TakeAttackEffectOffSet="0;0" SoundVolume="1"/>
+			<effect TargetNode="Dummy001" effect="F_light164_snow6" scale="1" offset="0;0" ReinforceValue="0" UseAttach="NO" PlayType="All" IsKeeping="NO" BlendMode="NO" OnLifeTime="NO" LifeTimeValue="0.0" GiveAttackFromEffect="None" UseTrailEffectChange="true" GiveAttackFromEffectScale="0.5" GiveAttackSelfEffect="None" GiveAttackSelfEffectScale="1" GiveAttackFromSound="None" GiveAttackSelfSound="None" TakeAttackEffect="None" TakeAttackEffectScale="0.7" TakeAttackSound="None" GiveAttackFromEffectOffSet="0;0" GiveAttackSelfEffectOffSet="0;0" TakeAttackEffectOffSet="0;0" SoundVolume="1"/>
+		</ItemList>
+	</Effect_Item>
+	<Effect_Item>
 		<ItemList ItemClassName="EP12_Artefact_061">
 			<effect TargetNode="Dummy_effect02" effect="F_rize023_loop" scale="1" offset="0;0" ReinforceValue="0" UseAttach="NO" PlayType="All" IsKeeping="NO" BlendMode="NO" OnLifeTime="NO" LifeTimeValue="0.0" GiveAttackFromEffect="None" UseTrailEffectChange="true" GiveAttackFromEffectScale="0.5" GiveAttackSelfEffect="None" GiveAttackSelfEffectScale="1" GiveAttackFromSound="None" GiveAttackSelfSound="None" TakeAttackEffect="None" TakeAttackEffectScale="0.7" TakeAttackSound="None" GiveAttackFromEffectOffSet="0;0" GiveAttackSelfEffectOffSet="0;0" TakeAttackEffectOffSet="0;0" SoundVolume="1"/>
 			<effect TargetNode="Dummy_effect02" effect="None" scale="1" offset="0;0" ReinforceValue="0" UseAttach="NO" PlayType="All" IsKeeping="NO" BlendMode="NO" OnLifeTime="NO" LifeTimeValue="0.0" GiveAttackFromEffect="None" UseTrailEffectChange="true" GiveAttackFromEffectScale="0.5" GiveAttackSelfEffect="None" GiveAttackSelfEffectScale="1" GiveAttackFromSound="None" GiveAttackSelfSound="None" TakeAttackEffect="None" TakeAttackEffectScale="0.7" TakeAttackSound="None" GiveAttackFromEffectOffSet="0;0" GiveAttackSelfEffectOffSet="0;0" TakeAttackEffectOffSet="0;0" SoundVolume="1"/>

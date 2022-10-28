@@ -1,5 +1,19 @@
 -- equip_tooltip.lua
 
+local function replace(text, to_be_replaced, replace_with)
+	local retText = text
+	local strFindStart, strFindEnd = string.find(text, to_be_replaced)	
+    if strFindStart ~= nil then
+		local nStringCnt = string.len(text)		
+		retText = string.sub(text, 1, strFindStart-1) .. replace_with ..  string.sub(text, strFindEnd+1, nStringCnt)		
+    else
+        retText = text
+	end
+	
+    return retText
+end
+
+
 function ITEM_TOOLTIP_WEAPON(tooltipframe, invitem, strarg, usesubframe)
 	ITEM_TOOLTIP_EQUIP(tooltipframe, invitem, strarg, usesubframe)
 end
@@ -1078,21 +1092,24 @@ function DRAW_EQUIP_DESC(tooltipframe, invitem, yPos, mainframename)
 	return tooltip_equip_property_CSet:GetHeight() + tooltip_equip_property_CSet:GetY();
 end
 
+-- 아크 tooltip_equip_desc
 function DRAW_EQUIP_ARK_DESC(tooltipframe, invitem, yPos, mainframename)
 	local class_name = TryGetProp(invitem, 'ClassName', 'None')
 	local tooltip_type = 1
 
 	local desc = ""
-
-	local func_str = string.format('get_tooltip_%s_arg%d', class_name, 2)
+	
+	class_name = replace(class_name, 'PVP_', '')
+	
+	local func_str = string.format('get_tooltip_%s_arg%d', class_name, 2)		
 	local tooltip_func = _G[func_str]  -- get_tooltip_Ark_str_arg1 시리즈
 	if tooltip_func ~= nil then
-		local tooltiptype, option, level, value, base_value = tooltip_func()
-		tooltip_type = tooltiptype		
+		local tooltiptype, option, level, value, base_value = tooltip_func()		
+		tooltip_type = tooltiptype
 	end	
-
+	
 	if tooltip_type == 3 then
-		local msg = class_name .. '_desc{base1}{base2}'		
+		local msg = class_name .. '_desc{base1}{base2}'
 		local base1 = ''
 		local base2 = ''
 		local func_str = string.format('get_tooltip_%s_arg%d', class_name, 2)
@@ -1101,15 +1118,28 @@ function DRAW_EQUIP_ARK_DESC(tooltipframe, invitem, yPos, mainframename)
 			local tooltiptype, option, level, value, base_value = tooltip_func()			
 			base1 = base_value
 		end	
-		local func_str = string.format('get_tooltip_%s_arg%d', class_name, 3)
+		local func_str = string.format('get_tooltip_%s_arg%d', class_name, 3)		
 		local tooltip_func = _G[func_str]  -- get_tooltip_Ark_str_arg1 시리즈
 		if tooltip_func ~= nil then
-			local tooltiptype, option, level, value, base_value = tooltip_func()			
+			local tooltiptype, option, level, value, base_value = tooltip_func()						
 			base2 = base_value
 		end	
-		desc = ScpArgMsg(msg, 'base1', base1, 'base2', base2)
+		desc = ScpArgMsg(msg, 'base1', base1, 'base2', base2)		
 	else
-		desc = GET_ITEM_TOOLTIP_DESC(invitem);
+		local func_str = string.format('get_tooltip_%s_arg%d', class_name, 3)		
+		local tooltip_func = _G[func_str]  -- get_tooltip_Ark_str_arg3 시리즈
+		if tooltip_func ~= nil then
+			local tooltiptype, option, level, value, base_value, msg = tooltip_func()			
+			if tooltiptype == 4 then -- 3레벨 효과에 base가 1개인 경우
+				local base1 = base_value				
+				desc = ScpArgMsg(msg, 'base1', base1)
+			else
+				desc = GET_ITEM_TOOLTIP_DESC(invitem);
+			end
+			
+		else
+			desc = GET_ITEM_TOOLTIP_DESC(invitem);
+		end	
 	end
 
 	local gBox = GET_CHILD(tooltipframe, mainframename,'ui::CGroupBox')
@@ -1470,10 +1500,10 @@ function DRAW_EQUIP_SET(tooltipframe, invitem, ypos, mainframename)
 
 	if isUseLegendSet == 1 then
 		local prefixCls = GetClass('LegendSetItem', invitem.LegendPrefix)
+		local max_option_count = TryGetProp(prefixCls, 'MaxOptionCount', 5)
 		if prefixCls ~= nil then
-			for i = 0, 2 do
-		
-			local index = 'EffectDesc_' .. i+3
+			for i = 0, (max_option_count - 3) do		-- 3 4 5 
+			local index = 'EffectDesc_' .. i+ 3
 		--	local setEffect = set:GetSetEffect(i);
 
 				local color = USE_SETOPTION_FONT
@@ -1704,6 +1734,7 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 	local extract_flag = 0
 	local socket_flag = 0
 	local briquet_flag = 0;
+	local briquet_Valid_flag = 0
 	local exchange_flag = TryGetProp(invitem, 'Rebuildchangeitem', 0);
 	local text = ""
 
@@ -1734,6 +1765,11 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 		extract_flag = 1
 	end
 
+    if TryGetProp(itemClass, "BriquetingAble", "No") == "No" or TryGetProp(itemClass, "StringArg", "None") == "WoodCarving" then
+        briquet_Valid_flag = 1
+    end
+    
+    if invitem.MaxSocket > 100 then invitem.MaxSocket = 0 end
 	if invitem.MaxSocket == 0 then
 		socket_flag = 1
 	end
@@ -1767,7 +1803,7 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 
 		local _text = text..targetText;
 		if appendComma ~= false then
-			_text = _text..',';
+			_text = _text..', ';
 		end
 		return _text;
 	end
@@ -1779,12 +1815,13 @@ function DRAW_CANNOT_REINFORCE(tooltipframe, invitem, yPos, mainframename)
 	text = _APPEND_LIMITATION_TEXT(extract_flag, text, CSet:GetUserConfig("EXTRACT_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(socket_flag, text, CSet:GetUserConfig("SOCKET_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(briquet_flag, text, CSet:GetUserConfig("BRIQUET_TEXT"));
+	text = _APPEND_LIMITATION_TEXT(briquet_Valid_flag, text, CSet:GetUserConfig("BRIQUET_VALID_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(exchange_flag, text, CSet:GetUserConfig("EXCHANGE_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(awaken_flag, text, CSet:GetUserConfig("AWAKEN_TEXT"));
 	text = _APPEND_LIMITATION_TEXT(enchant_flag, text, CSet:GetUserConfig("ENCHANT_TEXT"))
 
-	if text:sub(-#',') == ',' then
-		text = text:sub(0, text:len() - 1);
+	if text:sub(-#', ') == ', ' then
+		text = text:sub(0, text:len() - 2);
 	end
 
 	socket_text:SetText(text);
@@ -1989,10 +2026,19 @@ end
 local function _CREATE_ARK_LV(gBox, ypos, step, class_name, curlv)
 	local margin = 5;
 
+	class_name = replace(class_name, 'PVP_', '')
+
 	local func_str = string.format('get_tooltip_%s_arg%d', class_name, step)
     local tooltip_func = _G[func_str]  -- get_tooltip_Ark_str_arg1 시리즈
 	if tooltip_func ~= nil then
-		local tooltip_type, status, interval, add_value, summon_atk = tooltip_func();		
+		local tooltip_type, status, interval, add_value, summon_atk, client_msg, unit = tooltip_func();		
+		local option_active_lv = nil
+		local option_active_func_str = string.format('get_%s_option_active_lv', class_name)
+		local option_active_func = _G[option_active_func_str]
+		if option_active_func ~= nil then
+			option_active_lv = option_active_func();			
+		end
+
 		local option = status        
 		local grade_count = math.floor(curlv / interval);
 		if tooltip_type == 3 then
@@ -2001,18 +2047,28 @@ local function _CREATE_ARK_LV(gBox, ypos, step, class_name, curlv)
 			add_value = math.floor(add_value * grade_count);		
 		end
 		
-		if add_value <= 0 then
+		if add_value <= 0 and (option_active_lv == nil or curlv < option_active_lv)then			
 			return ypos;
 		end
 		
 		local strInfo = ABILITY_DESC_PLUS(ScpArgMsg(option), add_value)
-
-		if tooltip_type == 2 then			
+		
+		if tooltip_type == 2 then
 			local add_msg =  string.format(", %s "..ScpArgMsg("PropUp").."%.1f", ScpArgMsg('SUMMON_ATK'), math.abs(add_value / 200)) .. '%'
 			strInfo = strInfo .. ' ' .. add_msg
-		elseif tooltip_type == 3 then						
-			strInfo = string.format(" - %s "..ScpArgMsg("PropUp").."%d", ScpArgMsg(option), add_value + summon_atk) .. '%'
-		end
+		elseif tooltip_type == 3 then
+			if unit == nil then				
+				strInfo = string.format(" - %s "..ScpArgMsg("PropUp").."%d", ScpArgMsg(option), add_value + summon_atk) .. '%'								
+			else
+				strInfo = string.format(" - %s "..ScpArgMsg("PropUp").."%d", ScpArgMsg(option), add_value + summon_atk) .. unit				
+			end
+		elseif tooltip_type == 4 then
+			if unit == nil then
+				strInfo = string.format(" - %s "..ScpArgMsg("PropUp").."%d", ScpArgMsg(option), add_value + summon_atk) .. '%'
+			else
+				strInfo = string.format(" - %s "..ScpArgMsg("PropUp").."%d", ScpArgMsg(option), add_value + summon_atk) .. unit				
+			end
+		end		
 		
 		local infoText = gBox:CreateControl('richtext', 'infoText'..step, 15, ypos, gBox:GetWidth(), 30);
 		infoText:SetText(strInfo);		
@@ -2027,10 +2083,12 @@ end
 local function _CREATE_ARK_OPTION(gBox, ypos, step, class_name)
 	local margin = 5;
 
+	class_name = replace(class_name, 'PVP_', '')
+
 	local func_str = string.format('get_tooltip_%s_arg%d', class_name, step)
     local tooltip_func = _G[func_str]  -- get_tooltip_Ark_str_arg1 시리즈
 	if tooltip_func ~= nil then
-		local tooltip_type, status, interval, add_value, summon_atk = tooltip_func();
+		local tooltip_type, status, interval, add_value, summon_atk, client_msg, unit = tooltip_func();
 		local option = status
 		local infoText = gBox:CreateControl('richtext', 'infoText'..step, 15, ypos, gBox:GetWidth(), 30);
 		local text = ''
@@ -2038,9 +2096,13 @@ local function _CREATE_ARK_OPTION(gBox, ypos, step, class_name)
 			text = ScpArgMsg("ArkOptionText{Option}{interval}{addvalue}", "Option", ClMsg(option), "interval", interval, "addvalue", add_value)
 		elseif tooltip_type == 2 then
 			text = ScpArgMsg("ArkOptionText{Option}{interval}{addvalue}{option2}{addvalue2}", "Option", ClMsg(option), "interval", interval, "addvalue", add_value, 'option2', ClMsg(summon_atk), 'addvalue2', string.format('%.1f', add_value / 200))
-		elseif tooltip_type == 3 then
-			text = ScpArgMsg("ArkOptionText3{Option}{interval}{addvalue}", "Option", ClMsg(option), "interval", interval, "addvalue", add_value)
-		elseif tooltip_type == 4 then
+		elseif tooltip_type == 3 then			
+			if client_msg == nil then
+				text = ScpArgMsg("ArkOptionText3{Option}{interval}{addvalue}", "Option", ClMsg(option), "interval", interval, "addvalue", add_value)				
+			else
+				text = ScpArgMsg(client_msg, "Option", ClMsg(option), "interval", interval, "addvalue", add_value)				
+			end
+		elseif tooltip_type == 4 then			
 			text = ScpArgMsg("ArkOptionText4{Option}{interval}{addvalue}", "Option", ClMsg(option), "interval", interval, "addvalue", add_value)
 		end
 		
@@ -2088,8 +2150,10 @@ end
 
 -- 현재 아크 레벨, 레벨에 따른 옵션 증가 내용 
 function DRAW_ARK_LV(tooltipframe, invitem, ypos, mainframename)
-	local class_name = TryGetProp(invitem, 'ClassName', 'None')
+	local class_name = TryGetProp(invitem, 'ClassName', 'None')	
 	if class_name == 'None' then return; end
+
+	class_name = replace(class_name, 'PVP_', '')
 
 	local gBox = GET_CHILD(tooltipframe, mainframename);
 	if gBox == nil then return; end
@@ -2103,7 +2167,7 @@ function DRAW_ARK_LV(tooltipframe, invitem, ypos, mainframename)
 
 	-- 레벨에 따른 옵션 증가 text
 	local _ypos = 43;			-- offset
-	for i = 1, max_ark_option_count do 	-- 옵션이 최대 10개 있다고 가정함
+	for i = 1, max_ark_option_count do 	-- 옵션이 최대 10개 있다고 가정함		
 		_ypos = _CREATE_ARK_LV(CSet, _ypos, i, class_name, curlv);
 	end
 	
@@ -2117,6 +2181,8 @@ end
 function DRAW_ARK_OPTION(tooltipframe, invitem, ypos, mainframename)
 	local class_name = TryGetProp(invitem, 'ClassName', 'None')
 	if class_name == 'None' then return; end
+
+	class_name = replace(class_name, 'PVP_', '')
 
 	local gBox = GET_CHILD(tooltipframe, mainframename);
 	if gBox == nil then return; end

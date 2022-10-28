@@ -97,54 +97,37 @@ end
 
 function SlitheringClientScp_LEAVE(actor, obj, buff)
 
-    local buffRamMuay = actor:GetBuff():GetBuff('RamMuay_Buff');
-
-    if buffRamMuay ~= nil then
-        actor:GetAnimation():SetSTDAnim("SKL_NAKMUAY_ASTD");
-        actor:GetAnimation():SetRUNAnim("SKL_NAKMUAY_ARUN");actor:GetAnimation():SetRAISEAnim("SKL_NAKMUAY_RAISE");
-        actor:GetAnimation():SetOnAIRAnim("SKL_NAKMUAY_ONAIR");
-        actor:GetAnimation():SetFALLAnim("SKL_NAKMUAY_FALL");   
-    else
-        actor:GetAnimation():ResetSTDAnim();
-        actor:GetAnimation():ResetRUNAnim();
-        actor:GetAnimation():ResetWLKAnim();
-        actor:GetAnimation():ResetTURNAnim();
-    end
+    ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
     
     actor:SetAlwaysBattleState(false);
 
 end
 
 function PouncingClientScp_ENTER(actor, obj, buff)
-    
-    if actor:GetVehicleActor() ~= nil then
-        actor:GetAnimation():SetSTDAnim("SKL_POUNCING");
-    else
-        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND");
+    local abil = session.GetAbilityByName("Barbarian41");
+    if abil ~= nil then
+        local abilObj = GetIES(abil:GetObject());
+        if abilObj.ActiveState == 1 then
+            return;
+        end
     end
-    
+
     actor:GetAnimation():SetRUNAnim("SKL_POUNCING");
     actor:GetAnimation():SetWLKAnim("SKL_POUNCING");
     actor:GetAnimation():SetTURNAnim("None");
-    
+
+    if actor:GetVehicleActor() ~= nil then
+        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_RIDE");
+    else
+        actor:GetAnimation():SetSTDAnim("SKL_POUNCING_STAND");
+    end
+
     actor:SetAlwaysBattleState(true);
 end
 
 function PouncingClientScp_LEAVE(actor, obj, buff)
 
-    local buffRamMuay = actor:GetBuff():GetBuff('RamMuay_Buff');
-
-    if buffRamMuay ~= nil then
-        actor:GetAnimation():SetSTDAnim("SKL_NAKMUAY_ASTD");
-        actor:GetAnimation():SetRUNAnim("SKL_NAKMUAY_ARUN");actor:GetAnimation():SetRAISEAnim("SKL_NAKMUAY_RAISE");
-        actor:GetAnimation():SetOnAIRAnim("SKL_NAKMUAY_ONAIR");
-        actor:GetAnimation():SetFALLAnim("SKL_NAKMUAY_FALL");   
-    else
-        actor:GetAnimation():ResetSTDAnim();
-        actor:GetAnimation():ResetRUNAnim();
-        actor:GetAnimation():ResetWLKAnim();
-        actor:GetAnimation():ResetTURNAnim();
-    end
+    ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
 
     actor:SetAlwaysBattleState(false);
 end
@@ -196,6 +179,16 @@ function RunningShotClientScp_LEAVE(actor, obj, buff)
     ScpChangeMovingShotAnimationSet(actor, obj, buff)
 end
 
+function SnipersSerenityClientScp_ENTER(actor, obj, buff)
+    actor:GetAnimation():SetWLKAnim("SKL_SNIPERSSERENITY_AWLK");
+    actor:GetAnimation():SetRUNAnim("SKL_SNIPERSSERENITY_AWLK");
+end
+
+function SnipersSerenityClientScp_LEAVE(actor, obj, buff)
+    actor:GetAnimation():ResetWLKAnim();
+    actor:GetAnimation():ResetRUNAnim();
+end
+
 function FlutingClientScp_ENTER(actor, obj, buff)
 
     actor:GetAnimation():SetRUNAnim("SKL_PIEDPIPER_FLUTING");
@@ -238,6 +231,8 @@ function Murmillo_ChangeStance_LEAVE(actor, obj, buff)
     actor:GetAnimation():ResetSTDAnim();
     actor:GetAnimation():ResetRUNAnim();
 
+    ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
+
 end
 
 
@@ -271,18 +266,22 @@ end
 
 
 function BeakMask_ENTER(actor, obj, buff)
-
-
     actor:SetAlwaysBattleState(true);
-    
 end
 
 
 function BeakMask_LEAVE(actor, obj, buff)
+    local anim = "SKL_BEAKMASK_OFF"
+    local abil = session.GetAbilityByName("PlagueDoctor23");
+    if abil ~= nil then
+        local abilObj = GetIES(abil:GetObject());
+        if abilObj.ActiveState == 1 then
+            anim = "SKL_BEAKMASK_OFF_ABIL"
+        end
+    end
     
     actor:SetAlwaysBattleState(false);
-    actor:GetAnimation():PlayFixAnim('SKL_BEAKMASK_OFF', 1, 0);
-
+    actor:GetAnimation():PlayFixAnim(anim, 1, 0);
 end
 
 
@@ -321,6 +320,8 @@ function Finestra_LEAVE(actor, obj, buff)
     actor:GetAnimation():ResetSTDAnim();
     actor:GetAnimation():ResetRUNAnim();
 
+    ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
+
 end
 
 function EpeeGarde_ENTER(actor, obj, buff)
@@ -347,6 +348,8 @@ function EpeeGarde_LEAVE(actor, obj, buff)
     actor:GetAnimation():ResetSTDAnim();
     actor:ShowModelByPart('LH', 1, 0);
     actor:GetAnimation():UpdateFixAnim();
+
+    ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
     
 end
 
@@ -371,11 +374,13 @@ end
 function HighGuard_LEAVE(actor, obj, buff)
 
     actor:SetAlwaysBattleState(false);
-
+    
     actor:GetAnimation():InitJumpAnimation();
     actor:GetAnimation():ResetTURNAnim();
     actor:GetAnimation():ResetSTDAnim();
     actor:GetAnimation():ResetRUNAnim();
+
+    ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
 
 end
 
@@ -1013,7 +1018,16 @@ end
 
 function ShadowPool_Buff_CLIENT_ENTER(actor, obj, buff)
     --movie.ShowModel(actor:GetHandleVal(), 0);
-    actor:GetEffect():SetColorBlend("ShadowPool", 0, 0, 0, 0, true, 0, false, 0);
+    
+    local value = actor:GetEffect():SetColorBlend("ShadowPool", 0, 0, 0, 0, true, 0, false, 0);
+    local pc = GetMyPCObject()
+    local abil = session.GetAbilityByName('Shadowmancer16');
+    if abil ~= nil then
+        local abilObj = GetIES(abil:GetObject());
+        if abilObj.ActiveState == 1 then
+            value = actor:GetEffect():SetColorBlend("ShadowPool", 0, 0, 0, 255, true, 0, false, 0);
+        end
+    end
 end
 
 function ShadowPool_Buff_CLIENT_LEAVE(actor, obj, buff)
@@ -1171,6 +1185,8 @@ function RamMuay_LEAVE(actor, obj, buff)
     actor:GetAnimation():ResetTURNAnim();
     actor:GetAnimation():ResetSTDAnim();
     actor:GetAnimation():ResetRUNAnim();
+
+    ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
 end
 
 function ScpChangeMovingShotAnimationSet(actor, obj, buff)
@@ -1249,6 +1265,69 @@ function ScpChangeMovingShotAnimationSet(actor, obj, buff)
         actor:GetAnimation():SetTURNAnim("None");
         actor:GetAnimation():PlayFixAnim("SKL_WILDSHOT_LOOP_STD_RIDE", 1, 1);
         actor:SetAlwaysBattleState(true);
+    end
+end
+
+function ScpChangeSwordmanStanceAnimationSet(actor, obj, buff)
+    local buffRamMuay = actor:GetBuff():GetBuff('RamMuay_Buff');
+    local buffHighGuard = actor:GetBuff():GetBuff('HighGuard_Buff');
+    local buffHighGuard_abil = actor:GetBuff():GetBuff('HighGuard_Abil_Buff');
+    local buffFinestra= actor:GetBuff():GetBuff('Finestra_Buff');
+    local buffEpeeGarde = actor:GetBuff():GetBuff('EpeeGarde_Buff');
+    local buffHelmet = actor:GetBuff():GetBuff('murmillo_helmet');
+    
+    if buffRamMuay ~= nil then
+        actor:GetAnimation():SetSTDAnim("SKL_NAKMUAY_ASTD");
+        actor:GetAnimation():SetRUNAnim("SKL_NAKMUAY_ARUN");
+        actor:GetAnimation():SetRAISEAnim("SKL_NAKMUAY_RAISE");
+        actor:GetAnimation():SetOnAIRAnim("SKL_NAKMUAY_ONAIR");
+        actor:GetAnimation():SetFALLAnim("SKL_NAKMUAY_FALL");
+    elseif buffHighGuard ~= nil or buffHighGuard_abil ~= nil then
+        if actor:GetVehicleActor() ~= nil then
+            actor:GetAnimation():InitJumpAnimation();
+            actor:GetAnimation():SetTURNAnim("SKL_HIGHGUARD_ATURN_RIDE");
+            actor:GetAnimation():SetSTDAnim("SKL_HIGHGUARD_ASTD_RIDE");
+            actor:GetAnimation():SetRUNAnim("SKL_HIGHGUARD_ARUN_RIDE");
+        else
+            actor:GetAnimation():InitJumpAnimation();
+            actor:GetAnimation():SetTURNAnim("SKL_HIGHGUARD_ATURN");
+            actor:GetAnimation():SetSTDAnim("SKL_HIGHGUARD_ASTD");
+            actor:GetAnimation():SetRUNAnim("SKL_HIGHGUARD_ARUN");
+        end
+    elseif buffFinestra ~= nil then
+        if actor:GetVehicleActor() ~= nil then
+            actor:GetAnimation():SetTURNAnim("SKL_FINESTRA_ATURN_RIDE");
+            actor:GetAnimation():SetSTDAnim("SKL_FINESTRA_ASTD_RIDE");
+            actor:GetAnimation():SetRUNAnim("SKL_FINESTRA_ARUN_RIDE");
+            actor:GetAnimation():SetLANDAnim("SKL_FINESTRA_LAND_RIDE")
+            actor:GetAnimation():SetRAISEAnim("SKL_FINESTRA_RAISE_RIDE")
+            actor:GetAnimation():SetOnAIRAnim("SKL_FINESTRA_ONAIR_RIDE")
+            actor:GetAnimation():SetFALLAnim("SKL_FINESTRA_FALL_RIDE")
+        else
+            actor:GetAnimation():SetTURNAnim("SKL_FINESTRA_ATURN");
+            actor:GetAnimation():SetSTDAnim("SKL_FINESTRA_ASTD");
+            actor:GetAnimation():SetRUNAnim("SKL_FINESTRA_ARUN");
+            actor:GetAnimation():SetLANDAnim("SKL_FINESTRA_LAND")
+            actor:GetAnimation():SetRAISEAnim("SKL_FINESTRA_RAISE")
+            actor:GetAnimation():SetOnAIRAnim("SKL_FINESTRA_ONAIR")
+            actor:GetAnimation():SetFALLAnim("SKL_FINESTRA_FALL")
+        end
+    elseif buffEpeeGarde ~= nil then
+        actor:GetAnimation():SetSTDAnim("SKL_EPEEGARDE_ASTD");
+    elseif buffHelmet ~= nil then
+        actor:GetAnimation():SetChangeJumpAnim(true);
+        actor:GetAnimation():SetTURNAnim("SKL_MURMILLO_ATURN");
+        actor:GetAnimation():SetSTDAnim("SKL_MURMILLO_ASTD");
+        actor:GetAnimation():SetRUNAnim("SKL_MURMILLO_ARUN");
+        actor:GetAnimation():SetLANDAnim("SKL_MURMILLO_LAND")
+        actor:GetAnimation():SetRAISEAnim("SKL_MURMILLO_RAISE")
+        actor:GetAnimation():SetOnAIRAnim("SKL_MURMILLO_ONAIR")
+        actor:GetAnimation():SetFALLAnim("SKL_MURMILLO_FALL")
+    else
+        actor:GetAnimation():ResetSTDAnim();
+        actor:GetAnimation():ResetRUNAnim();
+        actor:GetAnimation():ResetWLKAnim();
+        actor:GetAnimation():ResetTURNAnim();
     end
 end
 
@@ -1332,7 +1411,7 @@ function DOLL_HAUBERK_BUFF_LEAVE(actor, obj, buff)
 end
 
 function XMAS_EFFECT_2019_ENTER(actor, obj, buff)
-    effect.AddActorEffectByOffset(actor, "E_effectitem_whitebird", 0.4, "BOT");
+    effect.AddActorEffectByOffset(actor, "E_effectitem_whitebird", 0.4, "BOT", false, true);
 end
 
 function XMAS_EFFECT_2019_LEAVE(actor, obj, buff)
@@ -1340,7 +1419,7 @@ function XMAS_EFFECT_2019_LEAVE(actor, obj, buff)
 end
 
 function WEEKLY_MIRTIS_EFFECT_ENTER(actor, obj, buff)
-    effect.AddActorEffectByOffset(actor, "E_effectitem_mirtis", 1, "BOT");
+    effect.AddActorEffectByOffset(actor, "E_effectitem_mirtis", 1, "BOT", false, true);
 end
 
 function WEEKLY_MIRTIS_EFFECT_LEAVE(actor, obj, buff)
@@ -1348,7 +1427,7 @@ function WEEKLY_MIRTIS_EFFECT_LEAVE(actor, obj, buff)
 end
 
 function WEEKLY_WARPULIS_EFFECT_ENTER(actor, obj, buff)
-    effect.AddActorEffectByOffset(actor, "E_effect_item_warpulis", 0.8, "BOT");
+    effect.AddActorEffectByOffset(actor, "E_effect_item_warpulis", 0.8, "BOT", false, true);
 end
 
 function WEEKLY_WARPULIS_EFFECT_LEAVE(actor, obj, buff)
@@ -1363,7 +1442,7 @@ function HiphopEffect_pre_LEAVE(actor, obj, buff)
 end
 
 function ITEM_EFFECT_LITTLEPRINCE_ENTER(actor, obj, buff)
-    effect.AddActorEffectByOffset(actor, "E_effectitem_littleprince", 0.4, "MID")
+    effect.AddActorEffectByOffset(actor, "E_effectitem_littleprince", 0.4, "MID", false, true)
 end
 
 function ITEM_EFFECT_LITTLEPRINCE_LEAVE(actor, obj, buff)
@@ -1379,16 +1458,46 @@ function Bunsin_Mijinhide_Buff_CLIENT_LEAVE(actor, obj, buff)
 end
 
 function EP12TACTICAL_EFFECT02_PRE_ENTER(actor, obj, buff)
-    effect.AddActorEffectByOffset(actor, "I_policeline001_mesh", 1, "Middle", true);
+    effect.AddActorEffectByOffset(actor, "I_policeline001_mesh", 1, "Middle", true, true);
     actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
 end
 
 function EP12TACTICAL_EFFECT02_PRE_LEAVE(actor, obj, buff)
     effect.DetachActorEffect(actor, "I_policeline001_mesh", 0);
     actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
+end
+
+-- Friedenslied_Debuff
+function FRIEDENSLIED_DANCE_ENTER(actor, obj, buff)
+    if actor:GetVehicleActor() ~= nil then
+        actor:GetAnimation():SetSTDAnim("FRIEDENSLIED_DANCE_RIDE");
+    else
+        actor:GetAnimation():SetSTDAnim("FRIEDENSLIED_DANCE");
+    end
+    actor:SetAlwaysBattleState(true);
+end
+
+function FRIEDENSLIED_DANCE_LEAVE(actor, obj, buff)
+    actor:GetAnimation():ResetSTDAnim();
+    actor:SetAlwaysBattleState(false);
+end
+
+-- Friedenslied_AbilDance_Debuff
+function FRIEDENSLIED_ABILDANCE_ENTER(actor, obj, buff)
+    if actor:GetVehicleActor() ~= nil then
+        actor:GetAnimation():SetSTDAnim("FRIEDENSLIED_DANCE_ABIL_RIDE");
+    else
+        actor:GetAnimation():SetSTDAnim("FRIEDENSLIED_DANCE_ABIL");
+    end
+    actor:SetAlwaysBattleState(true);
+end
+
+function FRIEDENSLIED_ABILDANCE_LEAVE(actor, obj, buff)
+    actor:GetAnimation():ResetSTDAnim();
+    actor:SetAlwaysBattleState(false);
 end-- 끼룩끼룩 갈매기 떼
 function ITEM_EP12FLYINGSEAGULL_EFFECT_PRE_ENTER(actor, obj, buff)
-    effect.AddActorEffectByOffset(actor, "I_pc_effectitem_flyingseagull", 1.35, "BOT", true);
+    effect.AddActorEffectByOffset(actor, "I_pc_effectitem_flyingseagull", 1.35, "BOT", true, true);
     actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
 end
 
@@ -1399,7 +1508,7 @@ end
 
 -- 주변을 맴도는 상어 떼
 function ITEM_EP12TWINSHARK_EFFECT_PRE_ENTER(actor, obj, buff)
-    effect.AddActorEffectByOffset(actor, "E_effect_twinshark", 1.35, "BOT", true);
+    effect.AddActorEffectByOffset(actor, "E_effect_twinshark", 1.35, "BOT", true, true);
     actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
 end
 
@@ -1408,4 +1517,11 @@ function ITEM_EP12TWINSHARK_EFFECT_PRE_LEAVE(actor, obj, buff)
     actor:SetEquipItemFlagProp("EFFECTCOSTUME", 0);
 end
 
-    
+function StereaTrofhClientScp_ENTER(actor, obj, buff)
+    local actorPos = actor:GetPos();
+    effect.AddActorEffect(actor, "F_cleric_StereaTrofh_buff", 2.5, actorPos.x, actorPos.y + 55, actorPos.z, -1)
+end
+
+function StereaTrofhClientScp_LEAVE(actor, obj, buff)
+    effect.DetachActorEffect(actor, "F_cleric_StereaTrofh_buff", 0.0);
+end

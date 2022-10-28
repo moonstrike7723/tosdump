@@ -1788,7 +1788,9 @@ function CRAFT_ITEM_ALL(itemSet, btn)
 	local resultlist = session.GetItemIDList();	
 
 	local check_reinforce = false
+	local check_transcend = false
 	local restrict_reinforce = 0
+	local restrict_transcend = 0
 
 	local legend_recipe = targetslot:GetUserValue('recipe_name')		
 	if legend_recipe ~= 'None' then
@@ -1800,10 +1802,31 @@ function CRAFT_ITEM_ALL(itemSet, btn)
 			if restrict_reinforce ~= 0 then
 				check_reinforce = true
 			end
+
+			restrict_transcend = TryGetProp(legend_recipe_cls, 'MaterialItemTranscend_' .. slot_number, 0)
+			if restrict_transcend ~= 0 then
+				check_transcend = true
+			end
 		end	
 	end
 
-	local min_reinforce = 1000
+	local function sort_tmp(a, b)		
+		local a_obj = GetIES(a:GetObject())
+		local b_obj = GetIES(b:GetObject())
+
+		if TryGetProp(a_obj, 'Reinforce_2', 0) < TryGetProp(b_obj, 'Reinforce_2', 0) then
+			-- 강화가 우선
+			return true
+		elseif TryGetProp(a_obj, 'Reinforce_2', 0) == TryGetProp(b_obj, 'Reinforce_2', 0) then
+			return TryGetProp(a_obj, 'Transcend', 0) < TryGetProp(b_obj, 'Transcend', 0)
+		else
+			return false;
+		end	
+	end
+
+	if check_transcend == true or check_reinforce == true then  -- 강화/초월로 정렬
+		table.sort(invItemlist, sort_tmp)		
+	end
 
 	for i = 1, #invItemlist do
 		local tempinvItem = invItemlist[i];
@@ -1816,27 +1839,38 @@ function CRAFT_ITEM_ALL(itemSet, btn)
 			end
 		end
 
-		if check_reinforce == true then
-			local item_obj = GetIES(tempinvItem:GetObject())
-			if isAlreadyAdd == 0 and tempinvItem.isLockState == false and TryGetProp(item_obj, 'Reinforce_2', 0) >= restrict_reinforce then				
-				local diff = math.abs(TryGetProp(item_obj, 'Reinforce_2', 0) - restrict_reinforce)
-				if diff < min_reinforce then
-					min_reinforce = diff
-					invItemadd = tempinvItem					
-				end
+		if check_reinforce == false and check_transcend == false then
+			if isAlreadyAdd == 0 and tempinvItem.isLockState == false then
+				invItemadd = tempinvItem
+				break
 			end
 		else
-		if isAlreadyAdd == 0 and tempinvItem.isLockState == false then
+			if check_reinforce == true and check_transcend == true then
+				local item_obj = GetIES(tempinvItem:GetObject())
+				if isAlreadyAdd == 0 and tempinvItem.isLockState == false 
+				and TryGetProp(item_obj, 'Reinforce_2', 0) >= restrict_reinforce 
+				and TryGetProp(item_obj, 'Transcend', 0) >= restrict_transcend then
+					invItemadd = tempinvItem
+					break
+				end
+			elseif check_reinforce == true then
+			local item_obj = GetIES(tempinvItem:GetObject())
+			if isAlreadyAdd == 0 and tempinvItem.isLockState == false and TryGetProp(item_obj, 'Reinforce_2', 0) >= restrict_reinforce then				
+					invItemadd = tempinvItem					
+					break
+				end
+			elseif check_transcend == true then
+				local item_obj = GetIES(tempinvItem:GetObject())
+				if isAlreadyAdd == 0 and tempinvItem.isLockState == false and TryGetProp(item_obj, 'Transcend', 0) >= restrict_transcend then
 			invItemadd = tempinvItem
 			break
 		end
 	end
 	end
+	end
 
 	if invItemadd == nil then
-		if check_reinforce == true then
-			ui.SysMsg(ScpArgMsg('MoreReinforceForCraft{count}', 'count', restrict_reinforce))
-		end
+		ui.SysMsg(ScpArgMsg('CantCraftCusRestriciton'))
 		return
 	end
 	
@@ -1850,21 +1884,17 @@ function CRAFT_ITEM_ALL(itemSet, btn)
 	itemSet:SetUserValue(itemSet:GetName(), tostring(item_guid))
 
 	if IS_EQUIP(itemObj) == true then		
-		-- 제작재료 강화수치 체크
-		local legend_recipe = targetslot:GetUserValue('recipe_name')		
-		if legend_recipe ~= 'None' then
-			local legend_recipe_cls = GetClass('legendrecipe', legend_recipe)			
-			local token = StringSplit(itemSet:GetName(), '_')
-			if #token >= 2 then
-				local slot_number = token[2]
-				local restrict_reinforce = TryGetProp(legend_recipe_cls, 'MaterialItemReinforce_' .. slot_number, 0)
+		-- 제작재료 강화/초월 수치 체크
 				if TryGetProp(itemObj, 'Reinforce_2', 0) < restrict_reinforce then
 					ui.SysMsg(ScpArgMsg('MoreReinforceForCraft{count}', 'count', restrict_reinforce))
 					return
 				end
+		
+		if TryGetProp(itemObj, 'Transcend', 0) < restrict_transcend then
+			ui.SysMsg(ScpArgMsg('MoreTranscendForCraft{count}', 'count', restrict_transcend))
+			return
 			end			
-		end
-		-- end of 제작재료 강화수치 체크
+		-- end of 제작재료 강화/초월 수치 체크
 
 		local frame = ui.GetFrame(g_itemCraftFrameName);
 		frame:SetUserValue("TARGETSET", itemSet:GetName())
@@ -1959,7 +1989,9 @@ function CRAFT_ITEM_ALL_ForLegend()
 	local resultlist = session.GetItemIDList();	
 
 	local check_reinforce = false
+	local check_transcend = false
 	local restrict_reinforce = 0
+	local restrict_transcend = 0
 
 	local legend_recipe = targetslot:GetUserValue('recipe_name')		
 	if legend_recipe ~= 'None' then
@@ -1971,10 +2003,31 @@ function CRAFT_ITEM_ALL_ForLegend()
 			if restrict_reinforce ~= 0 then
 				check_reinforce = true
 			end
+
+			restrict_transcend = TryGetProp(legend_recipe_cls, 'MaterialItemTranscend_' .. slot_number, 0)
+			if restrict_transcend ~= 0 then
+				check_transcend = true
+			end
 		end	
 	end
 
-	local min_reinforce = 1000
+	local function sort_tmp(a, b)		
+		local a_obj = GetIES(a:GetObject())
+		local b_obj = GetIES(b:GetObject())
+			
+		if TryGetProp(a_obj, 'Reinforce_2', 0) < TryGetProp(b_obj, 'Reinforce_2', 0) then
+			-- 강화가 우선
+			return true
+		elseif TryGetProp(a_obj, 'Reinforce_2', 0) == TryGetProp(b_obj, 'Reinforce_2', 0) then
+			return TryGetProp(a_obj, 'Transcend', 0) < TryGetProp(b_obj, 'Transcend', 0)
+		else
+			return false;
+		end	
+	end
+
+	if check_transcend == true or check_reinforce == true then  -- 강화/초월로 정렬
+		table.sort(invItemlist, sort_tmp)		
+	end
 
 	for i = 1, #invItemlist do
 		local tempinvItem = invItemlist[i];
@@ -1987,24 +2040,38 @@ function CRAFT_ITEM_ALL_ForLegend()
 			end
 		end
 
-		if check_reinforce == true then
-			local item_obj = GetIES(tempinvItem:GetObject())
-			if isAlreadyAdd == 0 and tempinvItem.isLockState == false and TryGetProp(item_obj, 'Reinforce_2', 0) >= restrict_reinforce then				
-				local diff = math.abs(TryGetProp(item_obj, 'Reinforce_2', 0) - restrict_reinforce)
-				if diff < min_reinforce then
-					min_reinforce = diff
-					invItemadd = tempinvItem					
-				end
+		if check_reinforce == false and check_transcend == false then
+			if isAlreadyAdd == 0 and tempinvItem.isLockState == false then
+				invItemadd = tempinvItem
+				break
 			end
 		else
-		if isAlreadyAdd == 0 and tempinvItem.isLockState == false then
+			if check_reinforce == true and check_transcend == true then
+				local item_obj = GetIES(tempinvItem:GetObject())
+				if isAlreadyAdd == 0 and tempinvItem.isLockState == false 
+				and TryGetProp(item_obj, 'Reinforce_2', 0) >= restrict_reinforce 
+				and TryGetProp(item_obj, 'Transcend', 0) >= restrict_transcend then
+					invItemadd = tempinvItem
+					break
+				end
+			elseif check_reinforce == true then
+			local item_obj = GetIES(tempinvItem:GetObject())
+			if isAlreadyAdd == 0 and tempinvItem.isLockState == false and TryGetProp(item_obj, 'Reinforce_2', 0) >= restrict_reinforce then				
+					invItemadd = tempinvItem					
+					break
+				end
+			elseif check_transcend == true then
+				local item_obj = GetIES(tempinvItem:GetObject())
+				if isAlreadyAdd == 0 and tempinvItem.isLockState == false and TryGetProp(item_obj, 'Transcend', 0) >= restrict_transcend then
 			invItemadd = tempinvItem
 			break
 		end
 	end
 	end
+	end	
 
 	if invItemadd == nil then
+		ui.SysMsg(ScpArgMsg('CantCraftCusRestriciton'))	
 		return
 	end
 	
@@ -2018,21 +2085,17 @@ function CRAFT_ITEM_ALL_ForLegend()
 	itemSet:SetUserValue(itemSet:GetName(), tostring(item_guid))
 
 	if IS_EQUIP(itemObj) == true then		
-		-- 제작재료 강화수치 체크
-		local legend_recipe = targetslot:GetUserValue('recipe_name')		
-		if legend_recipe ~= 'None' then
-			local legend_recipe_cls = GetClass('legendrecipe', legend_recipe)			
-			local token = StringSplit(itemSet:GetName(), '_')
-			if #token >= 2 then
-				local slot_number = token[2]
-				local restrict_reinforce = TryGetProp(legend_recipe_cls, 'MaterialItemReinforce_' .. slot_number, 0)
+		-- 제작재료 강화/초월 수치 체크
 				if TryGetProp(itemObj, 'Reinforce_2', 0) < restrict_reinforce then
 					ui.SysMsg(ScpArgMsg('MoreReinforceForCraft{count}', 'count', restrict_reinforce))
 					return
 				end
+		
+		if TryGetProp(itemObj, 'Transcend', 0) < restrict_transcend then
+			ui.SysMsg(ScpArgMsg('MoreTranscendForCraft{count}', 'count', restrict_transcend))
+			return
 			end			
-		end
-		-- end of 제작재료 강화수치 체크
+		-- end of 제작재료 강화/초월 수치 체크
 
 		local frame = ui.GetFrame(g_itemCraftFrameName);
 		frame:SetUserValue("TARGETSET", itemSet:GetName())

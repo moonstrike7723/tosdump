@@ -368,6 +368,15 @@ function SCR_Get_MON_DEF(self)
     
     value = value + byBuff + byRateBuff;
 
+    local decRatio = TryGetProp(self, 'DEF_RATE_MUL_BM', 1);
+    if IsBuffApplied(self, 'Tenacity_Buff') == 'YES' or TryGetProp(self, 'MonRank', 'None') == 'Boss' then
+        decRatio = 1 - ((1 - decRatio) * 0.5)
+    end
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+    value = math.floor(value * decRatio)
+
     local infoCls = GetClass("Ancient_Info",self.ClassName)
     if infoCls ~= nil then
         local rarity= infoCls.Rarity
@@ -456,6 +465,15 @@ function SCR_Get_MON_MDEF(self)
 --    value = value * JAEDDURY_MON_DEF_RATE;      -- JAEDDURY
     
     value = value + byBuff + byRateBuff;
+    
+    local decRatio = TryGetProp(self, 'MDEF_RATE_MUL_BM', 1);
+    if IsBuffApplied(self, 'Tenacity_Buff') == 'YES' or TryGetProp(self, 'MonRank', 'None') == 'Boss' then
+        decRatio = 1 - ((1 - decRatio) * 0.5)
+    end
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+        value = math.floor(value * decRatio)
     
     local infoCls = GetClass("Ancient_Info",self.ClassName)
     if infoCls ~= nil then
@@ -613,6 +631,15 @@ function SCR_Get_MON_CRTDR(self)
 	
     value = value + byBuff + byRateBuff;
     
+    local decRatio = TryGetProp(self, 'CRTDR_RATE_MUL_BM', 1);
+    if IsBuffApplied(self, 'Tenacity_Buff') == 'YES' or TryGetProp(self, 'MonRank', 'None') == 'Boss' then
+        decRatio = 1 - ((1 - decRatio) * 0.5)
+    end
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+        value = math.floor(value * decRatio)
+    
     if value < 0 then
     	value = 0;
     end
@@ -732,6 +759,15 @@ function SCR_Get_MON_MINPATK(self)
     
     value = value + byBuff + byRateBuff;
 
+    local decRatio = TryGetProp(self, 'PATK_RATE_MUL_BM', 1);
+    if IsBuffApplied(self, 'Tenacity_Buff') == 'YES' or TryGetProp(self, 'MonRank', 'None') == 'Boss' then
+        decRatio = 1 - ((1 - decRatio) * 0.5)
+    end
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+        value = math.floor(value * decRatio)
+
     local infoCls = GetClass("Ancient_Info",self.ClassName)
     if infoCls ~= nil then
         local rarity= infoCls.Rarity
@@ -825,6 +861,15 @@ function SCR_Get_MON_MAXPATK(self)
     byRateBuff = value * byRateBuff;
     
     value = value + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'PATK_RATE_MUL_BM', 1);    
+    if IsBuffApplied(self, 'Tenacity_Buff') == 'YES' or TryGetProp(self, 'MonRank', 'None') == 'Boss' then
+        decRatio = 1 - ((1 - decRatio) * 0.5)
+    end
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+        value = math.floor(value * decRatio)
 
     local infoCls = GetClass("Ancient_Info",self.ClassName)
     if infoCls ~= nil then
@@ -920,6 +965,15 @@ function SCR_Get_MON_MINMATK(self)
     
     value = value + byBuff + byRateBuff;
 
+    local decRatio = TryGetProp(self, 'MATK_RATE_MUL_BM', 1);
+    if IsBuffApplied(self, 'Tenacity_Buff') == 'YES' or TryGetProp(self, 'MonRank', 'None') == 'Boss' then
+        decRatio = 1 - ((1 - decRatio) * 0.5)
+    end
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+        value = math.floor(value * decRatio)
+
     local infoCls = GetClass("Ancient_Info",self.ClassName)
     if infoCls ~= nil then
         local rarity= infoCls.Rarity
@@ -1013,6 +1067,15 @@ function SCR_Get_MON_MAXMATK(self)
     byRateBuff = value * byRateBuff;
     
     value = value + byBuff + byRateBuff;
+
+    local decRatio = TryGetProp(self, 'MATK_RATE_MUL_BM', 1);
+    if IsBuffApplied(self, 'Tenacity_Buff') == 'YES' or TryGetProp(self, 'MonRank', 'None') == 'Boss' then
+        decRatio = 1 - ((1 - decRatio) * 0.5)
+    end
+    if decRatio < 0.5 then
+        decRatio = 0.5
+    end
+        value = math.floor(value * decRatio)
 
     local infoCls = GetClass("Ancient_Info",self.ClassName)
     if infoCls ~= nil then
@@ -2371,9 +2434,9 @@ function SCR_MON_STAT_RATE(self, prop)
         local statTypeClass = GetClass("Stat_Monster_Type", statType);
         if statTypeClass ~= nil then
             statTypeRate = TryGetProp(statTypeClass, prop, statTypeRate);
-            --주간 보스 레이드 3주차 임시 처리--
-            if prop == "ATK" and statType == "Weekly_Boss" and GetExProp(self, "Weekly_Num") <= 3 then
-                statTypeRate = 112;
+            --주간 보스 레이드 25주차 임시 처리--
+            if (prop == "DEF" or prop == "MDEF") and statType == "Weekly_Boss" and GetExProp(self, "Weekly_Num") <= 25 then
+                statTypeRate = 148;
             end
         end
     end

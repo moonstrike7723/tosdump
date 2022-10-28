@@ -31,10 +31,12 @@ function SYSTEMOPTION_CREATE(frame)
     SET_AUTO_CELL_SELECT_CONFIG(frame);
     SET_DMG_FONT_SCALE_CONTROLLER(frame);
 	SET_SHOW_PAD_SKILL_RANGE(frame);
+	SET_SHOW_BOSS_SKILL_RANGE(frame);
 	SET_SIMPLIFY_BUFF_EFFECTS(frame);
 	SET_SIMPLIFY_MODEL(frame);
 	SET_RENDER_SHADOW(frame);
 	SET_QUESTINFOSET_TRANSPARENCY(frame);
+	SET_COOLDOWN_DECIMAL_POINT_SEC(frame);
 	SHOW_COLONY_BATTLEMESSAGE(frame);		
 	SYSTEMOPTION_INIT_TAB(frame);
 end
@@ -125,6 +127,72 @@ function SYSTEMOPTION_PVP_SETTING_VIEW(frame)
 	SHOW_COLONY_PARTY_BUFF(frame);
 	SHOW_COLONY_GUILD_BUFF(frame);
 	SHOW_COLONY_ENEMY_BUFF(frame);	
+end
+
+function SYSTEMOPTION_PVP_SETTING_DEFAULT(frame)
+	if frame == nil then return; end
+	local chkShowPadSkillRange = GET_CHILD_RECURSIVELY(frame, "chkShowPadSkillRange", "ui::CCheckBox");
+	if chkShowPadSkillRange ~= nil then
+		local isCheck = config.IsEnableShowPadSkillRange();
+		chkShowPadSkillRange:SetCheck(isCheck);
+	end
+
+	local chkSimplifyBuffEffects = GET_CHILD_RECURSIVELY(frame, "chkSimplifyBuffEffects", "ui::CCheckBox");
+	if chkSimplifyBuffEffects ~= nil then
+		local isCheck = config.IsEnableSimplifyBuffEffects();
+		chkSimplifyBuffEffects:SetCheck(isCheck);
+	end
+
+	local chkSimplifyModel = GET_CHILD_RECURSIVELY(frame, "chkSimplifyModel", "ui::CCheckBox");
+	if chkSimplifyModel ~= nil then
+		local isCheck = config.IsEnableSimplifyModel();
+		chkSimplifyModel:SetCheck(isCheck);
+	end
+
+	local chkShowGuildInColony = GET_CHILD_RECURSIVELY(frame, "chkShowGuildInColony", "ui::CCheckBox");
+	if chkShowGuildInColony ~= nil then
+		local isCheck = config.GetShowGuildInColony();
+		chkShowGuildInColony:SetCheck(isCheck);
+	end
+
+	local chkShowGuildInColonyEffectCostume = GET_CHILD_RECURSIVELY(frame, "chkShowGuildInColonyEffectCostume", "ui::CCheckBox");
+	if chkShowGuildInColonyEffectCostume ~= nil then
+		local isCheck = config.GetShowGuildInColonyEffectCostume();
+		chkShowGuildInColonyEffectCostume:SetCheck(isCheck);
+	end
+
+	local chkShowGuilldInColonyGuildName = GET_CHILD_RECURSIVELY(frame, "chkShowGuilldInColonyGuildName", "ui::CCheckBox");
+	if chkShowGuilldInColonyGuildName ~= nil then
+		local isCheck = config.GetShowGuildInColonyGuildName();
+		chkShowGuilldInColonyGuildName:SetCheck(isCheck);
+	end
+
+	local isRadioCheck = config.GetShowGuildInColonyPartyHpGaugeSizeType();
+	if isRadioCheck == 0 then
+		local guildInColonyPartyhpInfoSize_0 = GET_CHILD_RECURSIVELY(frame, "guildInColonyPartyhpInfoSize_0", "ui::CRadioButton");
+		if guildInColonyPartyhpInfoSize_0 ~= nil then
+			guildInColonyPartyhpInfoSize_0:SetCheck(false);
+			config.SetShowGuildInColonyPartyHpGaugeSizeType(sizeType);
+		end
+	elseif isRadioCheck == 1 then
+		local guildInColonyPartyhpInfoSize_1 = GET_CHILD_RECURSIVELY(frame, "guildInColonyPartyhpInfoSize_1", "ui::CRadioButton");
+		if guildInColonyPartyhpInfoSize_1 ~= nil then
+			guildInColonyPartyhpInfoSize_1:SetCheck(true);
+		end
+	end
+
+	local value = config.GetDmgFontScale();
+	local dmgFontSizeController = GET_CHILD_RECURSIVELY(frame, "dmgFontSizeController", "ui::CSlideBar");
+	if dmgFontSizeController ~= nil then
+		config.SetDmgFontScale(value);
+		dmgFontSizeController:SetLevel(value * 100);
+	end
+
+	local dmgFontSizeController_text = GET_CHILD_RECURSIVELY(frame, "dmgFontSizeController_text", "ui::CRichText");
+	if dmgFontSizeController_text ~= nil then
+		local str = string.format("%.2f", value);
+		dmgFontSizeController_text:SetTextByKey("ctrlValue", str);
+	end
 end
 -- // System Option Tab Item End // --
 
@@ -324,6 +392,8 @@ function INIT_GAMESYS_CONFIG(frame)
 	if isEnableEffectTransparency == 0 then
 		EFFECT_TRANSPARENCY_OFF();
 	end
+
+	SYSTEMOPTION_PVP_SETTING_DEFAULT(frame);	
 end
 
 function INIT_CONTROL_CONFIG(frame)
@@ -655,7 +725,7 @@ function SHOW_COLONY_EFFECTCOSTUME(frame)
 		chkShowGuildInColonyEffectCostume:SetCheck(isShow);
 	end
 
-	effect.ShowColonyEffectCostume();
+	effect.ShowColonyEffectCostume(isShow);
 end
 
 -- // Colony Option // --
@@ -809,6 +879,18 @@ function CONFIG_SHOW_PAD_SKILL_RANGE(frame, ctrl, str, num)
 	config.SetEnableShowPadSkillRange(ctrl:IsChecked());
 end
 
+function SET_SHOW_BOSS_SKILL_RANGE(frame)
+	local isEnable = config.IsEnableShowBossSkillRange();
+	local chkShowBossSkillRange = GET_CHILD_RECURSIVELY(frame, "chkShowBossSkillRange", "ui::CCheckBox");
+	if nil ~= chkShowBossSkillRange then
+		chkShowBossSkillRange:SetCheck(isEnable);
+	end;
+end
+
+function CONFIG_SHOW_BOSS_SKILL_RANGE(frame, ctrl, str, num)
+	config.SetEnableShowBossSkillRange(ctrl:IsChecked());
+end
+
 function SET_SIMPLIFY_BUFF_EFFECTS(frame)
 	local isEnable = config.IsEnableSimplifyBuffEffects();
 	local chkSimplifyBuffEffects = GET_CHILD_RECURSIVELY(frame, "chkSimplifyBuffEffects", "ui::CCheckBox");
@@ -947,4 +1029,21 @@ function SET_ENABLE_DAYLIGHT_OPTION(frame, ctrl, str, num)
 	local isEnable = ctrl:IsChecked();
     config.SetEnableDayLight(isEnable);
 	config.SaveConfig();
+end
+function CONFIG_COOLDOWN_DECIMAL_POINT_SEC(frame, ctrl, str, num)
+	tolua.cast(ctrl, "ui::CSlideBar")
+	config.SetCoolDownDecimalPointSec(ctrl:GetLevel())
+	SET_COOLDOWN_DECIMAL_POINT_SEC(frame)
+end
+
+function SET_COOLDOWN_DECIMAL_POINT_SEC(frame)
+	local value = config.GetCoolDownDecimalPointSec()
+	local slide = GET_CHILD_RECURSIVELY(frame, "coolDownDecimalPointSec", "ui::CSlideBar")
+	slide:SetLevel(value)
+	local txt = GET_CHILD_RECURSIVELY(frame, "coolDownDecimalPointSec_text", "ui::CRichText")
+	if value <= 0 then
+		txt:SetTextByKey("opValue", ClMsg("NONE"))
+	else
+		txt:SetTextByKey("opValue", ScpArgMsg("LowerThan{SEC}", "SEC", value))
+	end
 end

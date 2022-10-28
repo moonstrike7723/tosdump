@@ -181,7 +181,7 @@ function GET_TRANSCEND_MATERIAL_COUNT(targetItem, Arg1)
 
     --Need Material Count --
     needMatCount = math.floor(((1 + (transcendCount + lv ^ (0.2 + ((math.floor(transcendCount / 3) * 0.03)) + (transcendCount * 0.05))) * equipTypeRatio) * gradeRatio)* 0.5);
-    --20180409 초월 개편으로 인한 gradeRatio 뒤 0.5 추가 50% 감소 --
+    --20180409 초월 개편?�로 ?�한 gradeRatio ??0.5 추�? 50% 감소 --
     if needMatCount < 1 then
         needMatCount = 1;
     end
@@ -233,6 +233,11 @@ function GET_TRANSCEND_MATERIAL_COUNT(targetItem, Arg1)
             needMatCount = 1
         end
     end
+    -- PvP ?�이?�인 경우, ?�구??개수 1
+    if TryGetProp(targetItem, 'StringArg', 'None') == 'FreePvP' then
+        needMatCount = 1
+    end
+
     return SyncFloor(needMatCount);
 end
 
@@ -392,7 +397,7 @@ function IS_TRANSCEND_SCROLL_ITEM(scrollObj)
 	elseif scrollType == "transcend_Set_420" then
 		return 1;
 	elseif scrollType == "transcend_Set_430" then
-        return 1;
+		return 1;
 	elseif scrollType == "transcend_Set_440" then
 		return 1;
         elseif scrollType == "transcend_Set_440_Weapon" or scrollType == "transcend_Set_440_Armor" or scrollType == "transcend_Set_440_Accessory" then
@@ -442,7 +447,7 @@ function IS_TRANSCEND_SCROLL_ABLE_ITEM(itemObj, scrollType, scrollTranscend)
             end
         return 0
         end
-   elseif scrollType == "transcend_Set_440" then
+    elseif scrollType == "transcend_Set_440" then
         if SCR_TARGET_TRANSCEND_CHECK(itemObj, scrollTranscend) == 1 and IS_TRANSCEND_ABLE_ITEM(itemObj) == 1 then
             if Lv <= 440 then -- Is item UseLv under 440 then
                 return 1;

@@ -1,4 +1,4 @@
-﻿function TRANSCEND_SCROLL_ON_INIT(addon, frame)
+function TRANSCEND_SCROLL_ON_INIT(addon, frame)
 
 end
 
@@ -389,8 +389,8 @@ function TRANSCEND_SCROLL_SELECT_TARGET_ITEM(scrollItem)
 	
 	local frame = ui.GetFrame("transcend_scroll");
 
-	local scrollObj = GetIES(scrollItem:GetObject());	
-	if IS_TRANSCEND_SCROLL_ITEM(scrollObj) ~= 1 then	
+	local scrollObj = GetIES(scrollItem:GetObject());
+	if IS_TRANSCEND_SCROLL_ITEM(scrollObj) ~= 1 then
 		return;
 	end
 	

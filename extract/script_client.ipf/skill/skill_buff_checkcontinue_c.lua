@@ -7,8 +7,12 @@ function SCR_BUFF_C_CHECKCONTINUE_HiphopEffect_pre(handle, type)
         return 0;
     end
 
+    if session.colonywar.GetIsColonyWarMap() == true and seesion. config.GetShowGuildInColonyEffectCostume() == 0 then
+        return 0;
+    end
+
     if type == "Stand" and actor:GetEquipItemFlagProp("EFFECTCOSTUME") == 0 then
-        effect.AddActorEffectByOffset(actor, "E_pc_effectitem_hiphop", 1, "Ground");
+        effect.AddActorEffectByOffset(actor, "E_pc_effectitem_hiphop", 1, "Ground", false, true);
         actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
     elseif type == "Move" then
         effect.DetachActorEffect(actor, "E_pc_effectitem_hiphop", 0);
@@ -24,8 +28,12 @@ function SCR_BUFF_C_CHECKCONTINUE_EP12TACTICAL_EFFECT02_PRE(handle, type)
         return 0;
     end
 
+    if session.colonywar.GetIsColonyWarMap() == true and config.GetShowGuildInColonyEffectCostume() == 0 then
+        return 0;
+    end
+
     if type == "Stand" and actor:GetEquipItemFlagProp("EFFECTCOSTUME") == 0 then
-        effect.AddActorEffectByOffset(actor, "I_policeline001_mesh", 1, "Middle", true);
+        effect.AddActorEffectByOffset(actor, "I_policeline001_mesh", 1, "Middle", true, true);
         actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
     elseif type == "Move" then
         effect.DetachActorEffect(actor, "I_policeline001_mesh", 0);
@@ -46,7 +54,7 @@ function SCR_BUFF_C_CHECKCONTINUE_ITEM_EP12FLYINGSEAGULL_EFFECT_PRE(handle, type
     end
 
     if type == "Stand" and actor:GetEquipItemFlagProp("EFFECTCOSTUME") == 0 then
-        effect.AddActorEffectByOffset(actor, "I_pc_effectitem_flyingseagull", 1.35, "BOT", true);
+        effect.AddActorEffectByOffset(actor, "I_pc_effectitem_flyingseagull", 1.35, "BOT", true, true);
         actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
     elseif type == "Move" then
         effect.DetachActorEffect(actor, "I_pc_effectitem_flyingseagull", 0);
@@ -66,7 +74,7 @@ function SCR_BUFF_C_CHECKCONTINUE_ITEM_EP12TWINSHARK_EFFECT_PRE(handle, type)
     end
 
     if type == "Stand" and actor:GetEquipItemFlagProp("EFFECTCOSTUME") == 0 then
-        effect.AddActorEffectByOffset(actor, "E_effect_twinshark", 1.35, "BOT", true);
+        effect.AddActorEffectByOffset(actor, "E_effect_twinshark", 1.35, "BOT", true, true);
         actor:SetEquipItemFlagProp("EFFECTCOSTUME", 1);
     elseif type == "Move" then
         effect.DetachActorEffect(actor, "E_effect_twinshark", 0);

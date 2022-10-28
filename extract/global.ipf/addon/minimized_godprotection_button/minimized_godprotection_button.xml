@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by IMC (IMCGames Co., Ltd) -->
 <uiframe name="minimized_godprotection_button" x="0" y="0" width="110" height="100">
-	<frame fullheight="false" fasthide="false" scale_align="center center" layout_gravity="right top" margin="0 408 410 0"/>
+	<frame fullheight="false" fasthide="false" scale_align="center center" layout_gravity="right top" margin="0 408 414 0"/>
 	<controls>
 		<richtext 	name="title"		 rect="0 0 110 30" margin="0 10 0 0" layout_gravity="center center" param1_def="Goddess'{nl}Grace" textalign="center center"/>
 		<richtext 	name="time"		 	 rect="0 0 100 30" margin="3 35 0 0" />

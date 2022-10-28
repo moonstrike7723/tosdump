@@ -15,11 +15,11 @@ function SCR_STEAM_TREASURE_EVENT_DIALOG(self,pc)
 	-- 	SCR_EVENT_2006_SUMMER_BOARD_DIALOG(self, pc)
 	-- end
 	local select = ShowSelDlg(pc, 0, 'EV_DAILYBOX_SEL', 
-            ScpArgMsg("Event_STM_APPRAISER_SEL"),
+	               ScpArgMsg("Event_STM_YOUR_MASTER_SEL"),
 	               ScpArgMsg("Cancel")) 
    
     if select == 1 then
-        SCR_EVENT_2005_APPRAISER_SANDRA_DIALOG(self,pc)
+		SCR_EVENT_YOUR_MASTER_NPC_DIALOG(self,pc)
    end
 end
 

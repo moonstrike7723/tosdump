@@ -314,10 +314,6 @@ function REINFORCE_SEAL_DROP_ADDITIONAL_ITEM(parent, slot)
 end
 
 function REINFORCE_SEAL_CHECK_TARGET(parent, ctrl, itemObj)
-	if IS_SEAL_MATERIAL_ITEM(itemObj) == true then
-		return true;
-	end
-
 	if IS_SEAL_ITEM(itemObj) == false then
 		ui.SysMsg(ClMsg('CantUseSeal'));
 		return false;

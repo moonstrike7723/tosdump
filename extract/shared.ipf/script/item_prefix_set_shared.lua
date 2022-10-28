@@ -70,21 +70,36 @@ function GET_LEGEND_PREFIX_NEED_MATERIAL_COUNT_BY_NEEDITEM(targetObj, needItemCl
 	local clsList, cnt = GetClassList("LegendSetItem");
 	if clsList ~= nil then
 		for i = 0, cnt - 1 do
-            local cls = GetClassByIndexFromList(clsList, i);
-            if string.find(cls.LegendGroup, legendGroup) ~= nil and targetObj.LegendPrefix ~= cls.ClassName and cls.NeedMaterial == needItemClsName then
+			local cls = GetClassByIndexFromList(clsList, i);
+			if string.find(cls.LegendGroup, legendGroup) ~= nil and targetObj.LegendPrefix ~= cls.ClassName and cls.NeedMaterial == needItemClsName then
 				if targetObj.GroupName == 'Armor' and targetObj.ClassType ~= 'Shield' then
-					local count = cls.NeedMaterial_ArmorCnt;
+					local count = cls.NeedMaterial_ArmorCnt
+					--EVENT_SEASON_SERVER
 					if IS_SEASON_SERVER() == "YES" then
-						count = math.floor(count*0.5)
+                        count = math.floor(count*0.5)
+                        
+					-- else
+					-- 	count = math.floor(count*0.7)
 					end
-                    return count;
+					-- PvP 전용 아이템 재료 1
+					if TryGetProp(targetObj, 'StringArg', 'None') == 'FreePvP' then
+						count = 1
+					end
+					return count;
 				else
 					local count = cls.NeedMaterial_WeaponCnt;
+					--EVENT_SEASON_SERVER
 					if IS_SEASON_SERVER() == "YES" then
 						count = math.floor(count*0.5)
+					-- else
+					-- 	count = math.floor(count*0.7)
 					end
-                    return count;
-                end
+					-- PvP 전용 아이템 재료 1
+					if TryGetProp(targetObj, 'StringArg', 'None') == 'FreePvP' then
+						count = 1
+					end
+					return count
+				end
 
 			end
 		end

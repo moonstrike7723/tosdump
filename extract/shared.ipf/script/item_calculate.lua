@@ -105,6 +105,7 @@ function GET_COMMON_PROP_LIST()
         'ADD_BOSS_ATK',
         'Magic_Ice_Atk',
         'Magic_Earth_Atk',
+        'ALLSTAT',
     };
 end
 
@@ -375,6 +376,11 @@ function GET_BASIC_ATK(item)
         itemATK = itemATK * weaponClass[classType];
     end
 
+    local Upper440BonusRatio = GetClassByNameFromList(itemGradeClass,'Upper440LevelClassTypeRatioIncrease')
+    if Upper440BonusRatio ~= nil and lv >= 440 then
+        itemATK = itemATK * Upper440BonusRatio[classType]
+    end
+    
     local ChangeBasicProp = TryGetProp(item, "ChangeBasicPropValue", 0)
     if ChangeBasicProp > 0 then
         itemATK = ChangeBasicProp
@@ -387,6 +393,7 @@ function GET_BASIC_ATK(item)
     
     local maxAtk = itemATK * damageRange;
     local minAtk = itemATK * (2 - damageRange);
+
     return maxAtk, minAtk;
 end
 
@@ -455,6 +462,11 @@ function GET_BASIC_MATK(item)
         itemATK = itemATK * weaponClass[classType];
     end
     
+    local Upper440BonusRatio = GetClassByNameFromList(itemGradeClass,'Upper440LevelClassTypeRatioIncrease')
+    if Upper440BonusRatio ~= nil and lv >= 440 then
+        itemATK = itemATK * Upper440BonusRatio[classType]
+    end
+
     local ChangeBasicProp = TryGetProp(item, "ChangeBasicPropValue", 0)
     if ChangeBasicProp > 0 then
         itemATK = ChangeBasicProp
@@ -631,6 +643,11 @@ function SCR_REFRESH_ARMOR(item, enchantUpdate, ignoreReinfAndTranscend, reinfBo
 
         basicDef = ((40 + lv * 8) * armorClassTypeRatio[classType]) * gradeRatio;
         
+        local Upper440BonusRatio = GetClassByNameFromList(itemGradeClass,'Upper440LevelClassTypeRatioIncrease')
+        if Upper440BonusRatio ~= nil and lv >= 440 then
+            basicDef = basicDef * Upper440BonusRatio[classType]
+        end
+
         local ChangeBasicProp = TryGetProp(item, "ChangeBasicPropValue", 0)
         if ChangeBasicProp > 0 then
             basicDef = ChangeBasicProp
@@ -645,6 +662,15 @@ function SCR_REFRESH_ARMOR(item, enchantUpdate, ignoreReinfAndTranscend, reinfBo
         if basicDef < 1 then
             basicDef = 1;
         end
+    
+        local pc = GetItemOwner(item)
+    -- pvp 전용아이템인 경우 체크 (팀배, 수정광산 적용)    
+    if pc ~= nil and TryGetProp(item, 'StringArg', 'None') == 'FreePvP' then        
+            if IsJoinColonyWarMap(pc) == 1 or ( IsPvPMineMap(pc) == false and IsTeamBattleLeague(pc) == 0) then
+                basicDef = 0
+            end
+        end
+
         basicDef = math.floor(basicDef) * upgradeRatio + GET_REINFORCE_ADD_VALUE(basicProp, item, ignoreReinfAndTranscend, reinfBonusValue) + buffarg
         item[basicProp] = SyncFloor(basicDef);
     end
@@ -1273,7 +1299,22 @@ function GET_REPAIR_PRICE(item, fillValue, taxRate)
     local transcendRatio = (0.1 * transcendCount);
     
     value = value * priceRatio * (1 + (item.ItemGrade - 1) * 0.1) * (1 + reinforceRatio + transcendRatio);
+
+    -- 440레벨 장비 부터는 item_IncreaseCost.xml 테이블의 영향을 받아 비용 증가
+    local IncreaseRatio = nil
+    if lv >= 440 then
+        local Cls = GetClassByNumProp("IncreaseCost", "UseLv", lv)
+        if Cls ~= nil then
+            IncreaseRatio = TryGetProp(Cls, "RepairPriceRatio", 1)
+        end
+    end
+    if IncreaseRatio ~= nil then
+        value = value * IncreaseRatio
+    end
+    ---------------------
+    
     value = math.floor(value)
+
     if taxRate ~= nil then
         value = tonumber(CALC_PRICE_WITH_TAX_RATE(value, taxRate))
     end

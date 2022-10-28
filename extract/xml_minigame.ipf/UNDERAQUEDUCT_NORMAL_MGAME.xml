@@ -172,6 +172,9 @@
                             <ToolScp Scp="GAME_ST_EVT_EXEC_STAGE_CLEAR" Client="NO" UseSleep="NO">
                                 <Str Str="Success"/>
                             </ToolScp>
+                            <ToolScp Scp="MGAME_EXEC_ACTORSCP" Client="NO" UseSleep="NO">
+                                <Str Str="SCR_SOLO_RAID_UNDERAQUEDUCT_BOSS_BGM_STOP"/>
+                            </ToolScp>
                         </execList>
                     </Event>
                 </StageEvents>

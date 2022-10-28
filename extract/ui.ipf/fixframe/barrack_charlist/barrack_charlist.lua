@@ -486,7 +486,11 @@ function BARRACK_GET_INDUN_MAX_ENTERANCE_COUNT(resetGroupID)
             end
         end
 
-        return contentsCls.EnterableCount
+        local ret = contentsCls.EnterableCount
+        if ret == 0 then
+            ret = "{img infinity_text 20 10}"
+        end
+        return ret
 	else
 		local indunClsList, cnt = GetClassList('Indun');
 		local indunCls = nil;
@@ -1178,8 +1182,7 @@ function SELECT_GAMESTART_CHANNEL(parent, ctrl)
 
 end
 
-function BARRACK_TO_GAME()
-	
+function BARRACK_TO_GAME()	
 	local myaccount = session.barrack.GetMyAccount();
 	if nil == myaccount then
 		return;
