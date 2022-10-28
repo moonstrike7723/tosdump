@@ -584,8 +584,10 @@
 		<Class ClassID="2430" ClassName="FreeUnEquipGem" Data="{#0000ff}또한, 가디스 등급 이상 장비에만 장착 가능하며 젬 추출시 소멸되지 않습니다.{nl}파편화시에 1개의 {@st66d}{s15}[Lv.480] 광채나는 스킬 젬 파편{/}{/}을 획득할 수 있습니다.{nl}파편화는 {@st66d}{s15}파이로맨서 마스터 NPC{/}{/}에게서 가능합니다.{nl}"/>
 		<Class ClassID="2431" ClassName="ReallyDoCraftByConvert2{item1}{item2}" Data="{#0001ff}[{item1}]{/}을/를{nl}{#0001ff}[{item2}]{/}로{nl}정말 변경 하시겠습니까?{nl} {nl}{#ff0100}(계열 변경 시 가디스 아이커 옵션이 계승시 초기값으로 변경됩니다.){/}"/>
 		<Class ClassID="2432" ClassName="ReallyDoCraftByConvertArmor2{item1}{item2}" Data="{#0001ff}[{item1}]{/}을/를{nl}{#0001ff}[{item2}]{/}로{nl}정말 변경 하시겠습니까?{nl} {nl}{#ff0100}(계열 변경 시 각성, 고정 아이커 옵션이 사라지며 가디스 아이커 옵션이 계승시 초기값으로 변경됩니다.){/}"/>
-		<Class ClassID="2433" ClassName="LockReinforceState" Data="아직 강화할 수 없습니다."/>
-		<Class ClassID="2434" ClassName="CantUseCabinetCuzCopiedGem" Data="거래가 불가능한 스킬 젬은 등록할 수 없습니다."/>
+		<Class ClassID="2433" ClassName="CantUseCabinetCuzCopiedGem" Data="거래가 불가능한 스킬 젬은 등록할 수 없습니다."/>
+		<Class ClassID="2434" ClassName="CantRegisterCuzTeamBelonging" Data="팀 귀속된 아이템은 등록할 수 없습니다."/>
+		<Class ClassID="2435" ClassName="RegisterCostumeItemFirst" Data="등록할 코스튬 아이템을 올려주세요."/>
+		<Class ClassID="2436" ClassName="ReallyRegisterCostume{item}" Data="{#0001ff}[{item}]{/}을/를{nl}코스튬 컬렉션에 등록합니다.{nl} {nl}{#ff0100}등록에 사용된 코스튬 아이템은 소멸{/}되며,{nl}코스튬 컬렉션에서 우클릭 시{nl}해당 코스튬 아이템을{nl}{#0001ff}팀 귀속 상태로 생성{/}할 수 있습니다.{nl} {nl}계속하시겠습니까?"/>
 	</Category>
 	<Category Name="ClassContents">
 		<Class ClassID="2500" ClassName="FullWeeklyGainClassResetExp" Data="주간 획득 가능한 클래스 변경 포인트를 모두 달성하였습니다."/>
@@ -1367,6 +1369,9 @@
 		<Class ClassID="4572" ClassName="Require20Reinforce" Data="20강 이상 장비부터 계승이 가능합니다."/>
 		<Class ClassID="4573" ClassName="RemoveGemFromSocketForInheritance" Data="계승을 위해서는 소켓의 젬을 제거해야 합니다."/>
 		<Class ClassID="4574" ClassName="ITEM_DRAGON_POWER2" Data="드래곤 기운 {img green_up_arrow 16 16}2단계 증가"/>
+		<Class ClassID="4577" ClassName="ReallyRegisterForCabinet_Artefact" Data="등록한 외형은 {#0000ff}가디스 등급의 장비에만 적용 가능{/}합니다.{nl} {nl}등록한 아이템은 복구가 불가능합니다.{nl}정말 등록하시겠습니까?"/>
+		<Class ClassID="4578" ClassName="ItemCabinetLastKeyWord7" Data="스피어"/>
+		<Class ClassID="4579" ClassName="BriquetDesc" Data="해당 슬롯에 넣은 아이템이 선택한 외형으로 변경됩니다.{nl}{#FF0000}※성물 해방 시 변경된 외형으로 유지가 안되는 경우가 있습니다.{nl}※외형 변경으로 인한 데미지의 증감 및 기어스코어의 변화는 없습니다."/>
 	</Category>
 	<Category Name="ItemTooltip">
 		<Class ClassID="5001" ClassName="CoolDown : {Sec} Sec" Data="재사용 대기시간 : {Sec}초"/>
@@ -2216,6 +2221,8 @@
 		<Class ClassID="10614" ClassName="CanNotSelectMessage" Data="이미 수령한 아이템이 있는 메세지는 선택할 수 없습니다."/>
 		<Class ClassID="10615" ClassName="MessageNotHaveItem" Data="아이템이 없는 메세지는 선택할 수 없습니다."/>
 		<Class ClassID="10617" ClassName="CanNotSelectMultipleItemMessage" Data="수령 가능한 아이템이 여러 개인 메세지는 선택할 수 없습니다."/>
+		<Class ClassID="10621" ClassName="AlreadyBriquet" Data="이미 적용된 외형입니다."/>
+		<Class ClassID="10622" ClassName="NotEnoughCoin" Data="주화가 부족합니다"/>
 		</Category>
 	<Category Name="FoodTable">
 		<Class ClassID="20001" ClassName="IncreaseHP{Value}For{Time}Minute" Data="{Time}분 동안 HP가 {Value}% 증가합니다."/>
@@ -10551,7 +10558,7 @@
 		<Class ClassID="92163" ClassName="Preview_Weapon" Data="무기 외형"/>
 		<Class ClassID="92164" ClassName="Preview_Wing" Data="등 코스튬"/>
 		<Class ClassID="92165" ClassName="Preview_Effect" Data="이펙트"/>
-		<Class ClassID="92166" ClassName="Preview_HairCostume" Data="헤어 코스튬"/>
+		<Class ClassID="92166" ClassName="Preview_HairCostume" Data="헤어 코스튬 (공용)"/>
 		<Class ClassID="92167" ClassName="Legend_Boss_Giltine_Solo" Data="마신의 성소 : 레전드 레이드 (1인)"/>
 		<Class ClassID="92168" ClassName="EP14_2_WALL_NOTICE" Data="이 이상 결계를 건드리는 것은 위험할 거 같다."/>
 		<Class ClassID="92169" ClassName="EP14_2_MANA_NOTICE" Data="이 제어 장치에는 마력이 비어있는 거 같다."/>
@@ -10566,7 +10573,9 @@
 		<Class ClassID="92178" ClassName="Goddess_Raid_Falouros_Auto" Data="팔로우로스: 가디스 레이드 (자동 매칭)"/>
 		<Class ClassID="92179" ClassName="Goddess_Raid_Falouros_Solo" Data="팔로우로스: 가디스 레이드 (1인)"/>>
 		<Class ClassID="92180" ClassName="Relic_Release_Banned_Contents" Data="성물 제한 지역에 입장하셨습니다.{nl}[성물 해방] 스킬의 사용이 제한됩니다."/>
-		<Class ClassID="92181" ClassName="FieldPartyPlay_MSG" Data="{#ff0000}※경고, 해당 지역은 파티 플레이가 권장되는 지역입니다.{/}"/><![CDATA[]]></Category>
+		<Class ClassID="92181" ClassName="FieldPartyPlay_MSG" Data="{#ff0000}※경고, 해당 지역은 파티 플레이가 권장되는 지역입니다.{/}"/>		
+<Class ClassID="92183" ClassName="Preview_HairCostume_M" Data="헤어 코스튬 (남)"/>
+		<Class ClassID="92184" ClassName="Preview_HairCostume_F" Data="헤어 코스튬 (여)"/><![CDATA[]]></Category>
 	<Category Name="BattleText">
 		<Class ClassID="100001" ClassName="ADD_DAMAGE_{Auto_1}!" Data="추가 대미지 {Auto_1}!"/>
 		<Class ClassID="100002" ClassName="ADD_BUFF_{Auto_1}!" Data="{Auto_1}!"/>
@@ -11963,6 +11972,7 @@
 		<Class ClassID="119018" ClassName="COLLECT_FAIL_MSG3" Data="인스턴스 지역에서는 사용하실 수 없습니다"/>
 		<Class ClassID="119019" ClassName="COLLECT_NOT_EXIST" Data="컬렉션을 먼저 등록해주세요."/>
 		<Class ClassID="119020" ClassName="AddDenied" Data="사본 젬은 등록 할 수 없습니다.{nl}사본 및 원본 젬을 동시 보유 시, 사본 젬 제거 후 다시 등록해주세요."/>
+		<Class ClassID="119021" ClassName="PerPieceInCollection" Data="등록된 구성품 1개당"/>
 		</Category>
 	<Category Name="Wiki">
 		<Class ClassID="120001" ClassName="From{Auto_1}_Get_{Auto_2}_Count" Data="{Auto_1}로부터 {Auto_2}개 획득"/>
@@ -16256,6 +16266,7 @@
 		<Class ClassID="302760" ClassName="GODDESS_ROULETTE_INFO_MSG{COIN}{MINCOIN}{MIN}" Data="[여신의 룰렛 이벤트 현황]{nl}일일 코인 획득량 {#3366FF}({COIN}/50){/}{nl}누적 접속 코인 획득량 {#3366FF}({MINCOIN}/20){/}{nl}일일 누적 접속 시간 {#3366FF}({MIN}/120분){/}"/>
 		<Class ClassID="302761" ClassName="EVENT_2207_UNITY_INFO_MSG{COIN}{MIC}" Data="[화합의 트오세 이벤트 현황]{nl}[이벤트] 화합의 끈 일일 획득 {#3366FF}({COIN}/1500){/}{nl}확성기 일일 무료 획득 {#3366FF}({MIC}/1){/}{nl} {nl}{#FF3333}※ 일일 획득량은 매일 오전 6시 초기화 됩니다.{nl}※ 이벤트 업적을 통한 획득은 일일 획득 제한에 포함되지 않습니다.{/}"/>
 		<Class ClassID="302762" ClassName="EVENT_2207_UNITY_SHOP" Data="화합의 끈 상점"/>
+		<Class ClassID="302764" ClassName="ThisItemNeedToRegister" Data="해당 아이템은 장비 보관함에 등록 후 사용하실 수 있습니다."/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -18293,6 +18304,10 @@
 		<Class ClassID="1050048" ClassName="trade_select_item_set_f_costume_SET_NoTrade_3" Data="치킨 푸들 코스튬 세트 (여)"/>
 		<Class ClassID="1050049" ClassName="trade_select_item_set_ocelot_black" Data="아기 흑표범 코스튬 세트"/>
 		<Class ClassID="1050050" ClassName="trade_select_item_set_ocelot_white" Data="아기 눈표범 코스튬 세트"/>
+		<Class ClassID="1050051" ClassName="trade_select_item_set_m_ep14egypt01" Data="헬리오폴리스 호루스 세트 (남)"/>
+		<Class ClassID="1050052" ClassName="trade_select_item_set_f_ep14egypt01" Data="헬리오폴리스 바스테트 세트 (여)"/>
+		<Class ClassID="1050053" ClassName="trade_select_item_set_m_ep14egypt02" Data="헬리오폴리스 아누비스 세트 (남)"/>
+		<Class ClassID="1050054" ClassName="trade_select_item_set_f_ep14egypt02" Data="헬리오폴리스 아누비스 세트 (여)"/>
 	</Category>
 	<Category Name="UnlockQuest">
 		<Class ClassID="1060001" ClassName="UnlockQuest_SysMsg_1" Data="{#FFFF00}{s20}{QuestInfoName}{/}{/}{nl}퀘스트 목표를 갱신합니다"/>
