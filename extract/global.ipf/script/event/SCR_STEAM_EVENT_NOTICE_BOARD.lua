@@ -112,3 +112,55 @@ end
 --     --     SendAddOnMsg(pc, "NOTICE_Dm_scroll", ScpArgMsg("EVENT_STEAM_1903_CHOCO_REWARD_SEL2"), 5);
 --     -- end
 -- end
+
+function SCR_STEAM_TREASURE_EVENT_1912_WEEKEND_DIALOG(self, pc) -- 버프 이벤트 npc -- 
+
+    --local sysTime = nil;
+    
+    --if IsServerSection() == 1 then
+    --    sysTime = GetDBTime();
+    --end
+	
+	--if sysTime == nil then
+    --    return "NO";
+    --end
+	
+	local now_time = os.date('*t')
+	local weekday = now_time['wday']
+	
+    local buffList = {{'모루 강화 비용 50% 할인','Event_Reinforce_Discount_50'}
+                     ,{'루팅 찬스 1,000 증가','	Event_LootingChance_Add_1000'}
+					 ,{'아이템 옵션 재감정 비용 50% 할인','Event_Reappraisal_Discount_50'}
+					 ,{'시약병 경험치 증가량 2배','Event_Reagent_Bottle_Expup_100'}
+					 ,{'클래스 변경 포인트 지급량 500% 증가','Event_Class_Change_Pointup_500'}
+					 ,{'짝수 단계 초월 비용 50% 할인','Event_Even_Transcend_Discount_50'}
+					 ,{'젬 강화에 젬 사용 시, 경험치 페널티 면제','Event_Penalty_Clear_Gem_Reinforce'}
+					 ,{'유니크 레이드 입장 아이템 소모량 고정 + 유니크 레이드 보상 2배 지급','Event_Unique_Raid_Bonus'}
+					 ,{'10초마다 HP 및 SP+500 회복, 이동 속도 +2','Event_healHSP_Speedup'}
+					 }
+    
+
+	if pc.Lv < 50 then
+        SendAddOnMsg(pc, "NOTICE_Dm_scroll", ScpArgMsg("EVENT_1801_ORB_MSG8","LV",50), 10);
+        return
+    end
+	
+    local select = ShowSelDlg(pc, 0, 'FLASHMOB_EVENT_REWARD_SUCCESS', ScpArgMsg("Receieve"), ScpArgMsg("Cancel"))
+    --sysTime.wDayOfWeek
+	
+	if weekday > 1 and weekday < 6 then --월~목
+		SendSysMsg(pc,"EVENT_1708_JURATE_MSG7")
+			return;
+	end
+
+    if select == 1 then 
+			for i = 1,#buffList do
+				PlayEffect(pc, 'F_sys_expcard_normal', 2.5, 1, "BOT", 1);
+				PlaySound(pc, "item_drop_hp_1")
+				AddBuff(pc, pc, buffList[i][2], 1, 0, 3600*6*1000, 1)
+				SendAddOnMsg(pc, "NOTICE_Dm_GetItem", ScpArgMsg("GM_BUFF_MSG1","BUFF",#buffList), 5);
+			end
+	end
+
+	
+end

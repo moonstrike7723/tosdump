@@ -1,6 +1,6 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3
-999901,201912,170000,201912,220000,202001,70000,202001,20000,0,0,inGame_E1,HairAcc Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1869,,,
-999902,201912,100000,201912,150000,201912,240000,201912,190000,0,0,inGame_E2,Leticia Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1867,,,
+999901,201912,240000,201912,290000,202001,70000,202001,20000,0,0,inGame_E1,Year End Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1873,,,
+999902,201912,170000,201912,220000,202001,70000,202001,20000,0,0,inGame_E2,HairAcc Cube,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1869,,,
 999903,201912,30000,201912,80000,201912,310000,201912,260000,0,0,inGame_E3,Phantom Theif Event,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1859,,,
 999904,201912,30000,201912,80000,201912,310000,201912,260000,0,0,inGame_E4,Full Moon Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=1857,,,
 999905,201912,30000,201912,80000,201912,310000,201912,260000,0,0,inGame_E5,Christmas Event,inGame_E5,https://treeofsavior.com/page/news/view.php?n=1858,,,

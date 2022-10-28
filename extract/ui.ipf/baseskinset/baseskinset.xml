@@ -6678,6 +6678,7 @@
 		<image name="Collar_Content_Creator" file="\skin\Collar_skin.tga" imgrect="0 31 30 30" CMM_Caption="스팀 유저 영상 공모 이벤트"/>
 		<image name="Collar_Happy_Anniversary" file="\skin\Collar_skin.tga" imgrect="31 31 30 30" CMM_Caption="스팀 3주년 팬아트 "/>
 		<image name="Collar_PoPo_Vacation" file="\skin\Collar_skin.tga" imgrect="62 31 30 30" CMM_Caption="스팀 2019여름 팬아트 "/>
+		<image name="Collar_One_of_A_Kind" file="\skin\Collar_skin.tga" imgrect="93 31 30 30" CMM_Caption="2019 스팀 겨울 팬아트"/>
 	</imagelist>
 	<imagelist category="testse_image">
 		<image name="indun_soulcrystal_bg" file="\skin\indun_skin.tga" imgrect="614 552 84 86" CMM_Caption="소울크리스탈 횟수제한 UI"/>
