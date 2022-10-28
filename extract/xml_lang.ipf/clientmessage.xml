@@ -14894,8 +14894,8 @@
 		<Class ClassID="302358" ClassName="EVENT_2011_5TH_Special_Vibora_Shop_Material" Data="바이보라 무기 1개 {nl}[이벤트] TOS 주화 1000개{nl}[이벤트] 5주년 기념 주화 50개"/>
 		<Class ClassID="302365" ClassName="Event_LuckyBreak_Reinforce_Success_World_Msg{TEAMNAME}{COUNT}" Data="{TEAMNAME} 님이 [럭키브레이크]럭키 네잎클로버{nl} + {COUNT} 강화에 성공했습니다!"/>
 		<Class ClassID="302366" ClassName="Event_Item_Use_Map_Limit_Msg" Data="이벤트 아이템은 도시 지역에서만 사용할 수 있습니다.{nl}클라페다/오르샤/페디미안"/>
-		<Class ClassID="302367" ClassName="Event_LuckyBreak_Reinforce_CMD_MSG_1" Data="{#00BFFF}[럭키브레이크]럭키 브레이크{/} 진행 정보{nl}강화 시도 횟수 : {#00BFFF}( {COUNT} 회 ){/}{nl}금일 [럭키브레이크]럭키 모루 획득 수 : {#00BFFF}( {MORU} / 24 ){/}{nl}다음 [럭키브레이크]럭키 모루 획득까지 남은 시간 :  {MIN} 분"/>
-		<Class ClassID="302368" ClassName="Event_LuckyBreak_Reinforce_CMD_MSG_2" Data="{#00BFFF}[럭키브레이크]럭키 브레이크{/} 진행 정보{nl}강화 시도 횟수 : {#00BFFF}( {COUNT} 회 ){/}{nl}금일 [럭키브레이크]럭키 모루 획득 수 : {#00BFFF}( {MORU} / 24 ){/}{nl}다음 [럭키브레이크]럭키 모루 획득까지 남은 시간 : 모두 획득"/>
+		<Class ClassID="302367" ClassName="Event_LuckyBreak_Reinforce_CMD_MSG_1" Data="{#00BFFF}[럭키브레이크]럭키 브레이크{/} 진행 정보{nl}강화 시도 횟수 : {#00BFFF}( {COUNT} 회 ){/}{nl}금일 [럭키브레이크]럭키 모루 획득 수 : {#00BFFF}( {MORU} / 18 ){/}{nl}다음 [럭키브레이크]럭키 모루 획득까지 남은 시간 :  {MIN} 분"/>
+		<Class ClassID="302368" ClassName="Event_LuckyBreak_Reinforce_CMD_MSG_2" Data="{#00BFFF}[럭키브레이크]럭키 브레이크{/} 진행 정보{nl}강화 시도 횟수 : {#00BFFF}( {COUNT} 회 ){/}{nl}금일 [럭키브레이크]럭키 모루 획득 수 : {#00BFFF}( {MORU} / 18 ){/}{nl}다음 [럭키브레이크]럭키 모루 획득까지 남은 시간 : 모두 획득"/>
 		<Class ClassID="302369" ClassName="EVENT_LUCKYBREAK_REMAIN_DATE_MSG1" Data="{#003399}[럭키브레이크]럭키 브레이크{/}안내"/>
 		<Class ClassID="302370" ClassName="EVENT_LUCKYBREAK_IS_GET_EQP_MSG1" Data="[럭키브레이크]럭키 네잎클로버 수령"/>
 		<Class ClassID="302371" ClassName="EVENT_LUCKYBREAK_IS_GET_EQP_MSG2" Data="이벤트 순위를 확인한다"/>
