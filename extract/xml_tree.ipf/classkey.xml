@@ -261,6 +261,18 @@
         <Key Name="MaxCount" Value="7691"/>
         <Key Name="MiningLevel" Value="9329"/>
         <Key Name="GUILD_SYSTEM_MSG_HEAL_PWR" Value="105227"/>
+        <Key Name="STEAM_NEW_GUILD_QUEST_BORUTA_SPECIAL_SUCCESS_COUNT" Value="105312"/>
+        <Key Name="STEAM_NEW_GUILD_QUEST_BORUTA_TOTAL_SUCCESS_COUNT" Value="105315"/>
+        <Key Name="STEAM_NEW_GUILD_QUEST_BORUTA_WEEK_SUCCESS_COUNT" Value="105305"/>
+        <Key Name="STEAM_NEW_GUILD_QUEST_NEXT_RESET_DATE" Value="105313"/>
+        <Key Name="STEAM_NEW_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="105307"/>
+        <Key Name="STEAM_NEW_GUILD_QUEST_WEEK_SUCCESS_COUNT" Value="105310"/>
+        <Key Name="STEAM_OLD_GUILD_QUEST_BORUTA_SPECIAL_SUCCESS_COUNT" Value="105306"/>
+        <Key Name="STEAM_OLD_GUILD_QUEST_BORUTA_TOTAL_SUCCESS_COUNT" Value="105309"/>
+        <Key Name="STEAM_OLD_GUILD_QUEST_BORUTA_WEEK_SUCCESS_COUNT" Value="105311"/>
+        <Key Name="STEAM_OLD_GUILD_QUEST_NEXT_RESET_DATE" Value="105308"/>
+        <Key Name="STEAM_OLD_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="105314"/>
+        <Key Name="STEAM_OLD_GUILD_QUEST_WEEK_SUCCESS_COUNT" Value="105316"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Ability">
         <Key Name="Desc" Value="131"/>
@@ -11630,6 +11642,7 @@
         <Key Name="GODDESS_ROULETTE_USE_ROULETTE_COUNT" Value="105183"/>
         <Key Name="PVP_MINE_TradeCount11" Value="105202"/>
         <Key Name="SEASON_SERVER_INDEX" Value="105304"/>
+        <Key Name="STEAM_GUILD_EVENT_CARD_GET" Value="105317"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PC">
         <Key Name="GroupName" Value="6880"/>

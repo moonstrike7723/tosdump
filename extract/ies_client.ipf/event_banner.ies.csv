@@ -1,7 +1,7 @@
 ClassID,StartTimeYYYYMM,StartTimeDDHHMM,NewTimeYYYYMM,NewTimeDDHHMM,EndTimeYYYYMM,EndTimeDDHHMM,DeadlineTimeYYYYMM,DeadlineTimeDDHHMM,ExchangeTimeYYYYMM,ExchangeTimeDDHHMM,ClassName,Name,ImagePath,url,UserCommand1,UserCommand2,UserCommand3
-999901,202005,120000,202005,170000,202006,20000,202005,280000,0,0,inGame_E1,Botanic Package,inGame_E1,https://treeofsavior.com/page/news/view.php?n=1987,,,
-999902,202005,120000,202005,170000,202006,160000,202006,210000,0,0,inGame_E2,Lucky Pot Festival,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1986,,,
-999903,202005,60000,202005,110000,202005,190000,202005,140000,0,0,inGame_E3,Goddess's Cube,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1988,,,
+999901,202005,190000,202005,240000,202006,20000,202005,280000,0,0,inGame_E1,Leticia Cube,inGame_E1,https://treeofsavior.com/page/news/view.php?n=2005,,,
+999902,202005,120000,202005,170000,202006,20000,202005,280000,0,0,inGame_E2,Botanic Package,inGame_E2,https://treeofsavior.com/page/news/view.php?n=1987,,,
+999903,202005,120000,202005,170000,202006,160000,202006,210000,0,0,inGame_E3,Lucky Pot Festival,inGame_E3,https://treeofsavior.com/page/news/view.php?n=1986,,,
 999904,202003,310000,202004,50000,202011,120000,202011,70000,0,0,inGame_E4,WeekEnd Burning Event,inGame_E4,https://treeofsavior.com/page/news/view.php?n=1957,,,
 999905,201910,290000,201911,30000,201911,120000,201911,70000,0,0,inGame_E5,Goddess' Grace Event,inGame_E5,https://treeofsavior.com/page/news/view.php?n=1841,,,
 999906,201911,120000,201911,170000,201911,260000,201911,210000,0,0,inGame_E6,Thanksgiving Package,inGame_E6,https://treeofsavior.com/page/news/view.php?n=1849,,,

@@ -892,6 +892,7 @@
 		<Class ClassID="8103" ClassName="{layer}LayerFull" Data="현재 [숙소{layer}]가 가득차 더 이상 캐릭터를 생성할 수 없습니다. 숙소를 변경하여 시도해 주세요."/>
 		<Class ClassID="8104" ClassName="CanNotUseWarpDuringFeeding" Data="컴패니언 먹이주기 중 워프하거나 게임을 종료할 수 없습니다."/>
 		<Class ClassID="8105" ClassName="LevelRestricrion" Data="{Lv} 레벨 이상 캐릭터는 사용할 수 없습니다."/>
+		<Class ClassID="8109" ClassName="SummonedLandPetDoesNotExist" Data="소환된 지상형 컴패니언이 없습니다."/>
 	</Category>
 	<Category Name="RestMode">
 		<Class ClassID="9001" ClassName="WhereToMakeCampFire?" Data="어디에 모닥불을 피워볼까?"/>
@@ -9606,6 +9607,11 @@
 		<Class ClassID="102440" ClassName="ReallyCancelRecruit" Data="현재 진행중인 길드 퀘스트를 포기하시겠습니까?"/>
 		<Class ClassID="102441" ClassName="EventServerGuildQuestCheck" Data="{#003399}[시즌서버]{/} 길드퀘스트 누적 클리어 횟수 확인하기"/>
 		<Class ClassID="102442" ClassName="EventServerGuildQuestCheckMsg{WEEKCOUNT}{TOTALCOUNT}" Data="길드 퀘스트 누적 클리어 횟수{nl}주간 클리어 횟수({WEEKCOUNT}/3){nl}누적 클리어 횟수({TOTALCOUNT}/12){nl}{#FF0000}※주간 클리어 횟수는 매주 화요일 00시에 초기화 됩니다.{/}"/>
+		<Class ClassID="102446" ClassName="EventGuildQuestCheck" Data="{#003399}[길드 이벤트]{/} 길드퀘스트 누적 클리어 횟수 확인하기"/>
+		<Class ClassID="102447" ClassName="EventNewGuildQuestCheckMsg{WEEKCOUNT}{WEEKCOUNT_BORUTA}{TOTALCOUNT}{TOTALCOUNT_BORUTA}{SPECIALCOUNT}" Data="길드 퀘스트 누적 클리어 횟수{nl}[주간] 길드 퀘스트({WEEKCOUNT}/3){nl}[주간] 슬리비나스 레어({WEEKCOUNT_BORUTA}/1){nl}[누적] 길드 퀘스트({TOTALCOUNT}/9){nl}[누적] 슬리비나스 레어({TOTALCOUNT_BORUTA}/3){nl}[영웅 미션] 슬리비나스 레어({SPECIALCOUNT}/3){nl}{#FF0000}※주간 클리어 횟수는 매주 화요일 00시에 초기화 됩니다.{/}"/>
+		<Class ClassID="102448" ClassName="EventOldGuildQuestCheckMsg{WEEKCOUNT}{WEEKCOUNT_BORUTA}{TOTALCOUNT}{TOTALCOUNT_BORUTA}{SPECIALCOUNT}" Data="길드 퀘스트 누적 클리어 횟수{nl}[주간] 길드 퀘스트({WEEKCOUNT}/3){nl}[주간] 슬리비나스 레어({WEEKCOUNT_BORUTA}/1){nl}[누적] 길드 퀘스트({TOTALCOUNT}/15){nl}[누적] 슬리비나스 레어({TOTALCOUNT_BORUTA}/4){nl}[영웅 미션] 슬리비나스 레어({SPECIALCOUNT}/5){nl}{#FF0000}※주간 클리어 횟수는 매주 화요일 00시에 초기화 됩니다.{/}"/>
+		<Class ClassID="102449" ClassName="EventGuildCardGet" Data="{#003399}[길드 이벤트]{/} [길드 퀘스트] 확인 스크롤 수령하기"/>
+		<Class ClassID="102450" ClassName="EventGuildCardAlreadyGet" Data="이미 해당 아이템을 수령하셨습니다."/>
 	</Category>
 	<Category Name="EqupClasses">
 		<Class ClassID="103001" ClassName="THSword" Data="양손검"/>
@@ -13919,6 +13925,9 @@
 		<Class ClassID="501264" ClassName="Event_Roulette_Ignas_box_1" Data="장비 선택"/>
 		<Class ClassID="501265" ClassName="Event_Roulette_Asio_box" Data="장비 선택"/>
 		<Class ClassID="501266" ClassName="Event_Roulette_Wastrel_box" Data="장비 선택"/>
+		<Class ClassID="501267" ClassName="EXPCARD_COMPANION_FAIL_LVMAX" Data="함께하고 있는 컴패니언이 이미 최대 레벨입니다."/>
+		<Class ClassID="501268" ClassName="NotInGuildMission" Data="길드 퀘스트에 입장하지 않은 상태에서는 사용하실 수 없습니다."/>
+		<Class ClassID="501269" ClassName="NewWorldCheckScrollMsg{COUNT}" Data="현재 {COUNT}명의 신규 월드 출신 유저가 입장했습니다."/>
 	</Category>
 	<Category Name="GEM_GACHA">
 		<Class ClassID="510001" ClassName="GEM_GACHA_SEL1" Data="젬 1회 뽑기"/>

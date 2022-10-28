@@ -106,7 +106,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 		}
 	
 	-- 기본 적용 버프
-	local dayBuffList = {buffList[7][2]}
+	local dayBuffList = {'Event_Even_Transcend_Discount_50'}
 	--날짜별 버프
 	for i = 1, #daycheckbuff do
 		if (tostring(month) == daycheckbuff[i][1]) and (tostring(day) == daycheckbuff[i][2])then
