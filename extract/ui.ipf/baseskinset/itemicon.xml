@@ -3079,6 +3079,19 @@
 		<image name="icon_item_ep12wedding_pistol" file="\icon\weapon\icon_item_ep12wedding_pistol.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep12wedding_cannon" file="\icon\weapon\icon_item_ep12wedding_cannon.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_ep12wedding_bow" file="\icon\weapon\icon_item_ep12wedding_bow.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_rapier" file="\icon\weapon\icon_item_catagnan_rapier.png" imgrect="0 0 256 256" CMM_Caption="2020_6월 냥총사 무기"/>
+		<image name="icon_item_catagnan_staff" file="\icon\weapon\icon_item_catagnan_staff.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_rod" file="\icon\weapon\icon_item_catagnan_rod.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_cannon" file="\icon\weapon\icon_item_catagnan_cannon.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_dagger" file="\icon\weapon\icon_item_catagnan_dagger.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_shield" file="\icon\weapon\icon_item_catagnan_shield.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_thspear" file="\icon\weapon\icon_item_catagnan_thspear.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_spear" file="\icon\weapon\icon_item_catagnan_spear.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_bow" file="\icon\weapon\icon_item_catagnan_bow.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_thmace" file="\icon\weapon\icon_item_catagnan_thmace.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_mace" file="\icon\weapon\icon_item_catagnan_mace.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_thsword" file="\icon\weapon\icon_item_catagnan_thsword.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan_sword" file="\icon\weapon\icon_item_catagnan_sword.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="acc_item">
 		<image name="item_necklace_01" file="\icon\acc\item_necklace_1.png" imgrect="0 0 256 256" CMM_Caption="목걸이"/>
@@ -3576,6 +3589,8 @@
 		<image name="icon_item_papership" file="\icon\hairacc\icon_item_papership.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_Hat_628008" file="\icon\hairacc\icon_item_Hat_628008.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_pumkin_helmet" file="\icon\hairacc\icon_item_pumkin_helmet.png" imgrect="0 0 256 256" CMM_Caption="17 할로윈 호박 모자"/>
+		<image name="icon_item_Hat025_blue" file="\icon\hairacc\icon_item_Hat025_blue.png" imgrect="0 0 256 256" CMM_Caption="베레모"/>
+		<image name="icon_item_Hat025_green" file="\icon\hairacc\icon_item_Hat025_green.png" imgrect="0 0 256 256" CMM_Caption="베레모"/>
 		<image name="icon_item_Hat_icecrown" file="\icon\hairacc\icon_item_Hat_icecrown.png" imgrect="0 0 256 256" CMM_Caption="눈꽃 헤어 악세"/>
 		<image name="icon_item_Hat_unicornhorn" file="\icon\hairacc\icon_item_Hat_unicornhorn.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_Hac_iceglasses" file="\icon\hairacc\icon_item_Hac_iceglasses.png" imgrect="0 0 256 256"/>
@@ -3738,6 +3753,16 @@
 		<image name="icon_item_accessory_ep12wedding07" file="\icon\hairacc\icon_item_accessory_ep12wedding07.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_accessory_ep12wedding08" file="\icon\hairacc\icon_item_accessory_ep12wedding08.png" imgrect="0 0 256 256"/>
 		<image name="icon_item_accessory_ep12wedding09" file="\icon\hairacc\icon_item_accessory_ep12wedding09.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_catagnan01" file="\icon\hairacc\icon_item_accessory_catagnan01.png" imgrect="0 0 256 256" CMM_Caption="2020_6월 냥총사"/>
+		<image name="icon_item_accessory_catagnan02" file="\icon\hairacc\icon_item_accessory_catagnan02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_catagnan03" file="\icon\hairacc\icon_item_accessory_catagnan03.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_catagnan04" file="\icon\hairacc\icon_item_accessory_catagnan04.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_catagnan05" file="\icon\hairacc\icon_item_accessory_catagnan05.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_catagnan06" file="\icon\hairacc\icon_item_accessory_catagnan06.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_catagnan07" file="\icon\hairacc\icon_item_accessory_catagnan07.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_catagnan08" file="\icon\hairacc\icon_item_accessory_catagnan08.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_catagnan09" file="\icon\hairacc\icon_item_accessory_catagnan09.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_accessory_catagnan10" file="\icon\hairacc\icon_item_accessory_catagnan10.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="collection_item">
 		<image name="icon_collitem_collection" file="\icon\colletion\icon_item_collection.tga" imgrect="0 0 673 419" CMM_Caption="월계수"/>
@@ -7242,6 +7267,18 @@
 		<image name="item_icon_selectbox_ep12wedding02" file="\icon\payment\item_icon_selectbox_ep12wedding02.png" imgrect="0 0 256 256"/>
 		<image name="item_icon_selectbox_ep12wedding03" file="\icon\payment\item_icon_selectbox_ep12wedding03.png" imgrect="0 0 256 256"/>
 		<image name="item_icon_allbox_ep12wedding" file="\icon\payment\item_icon_allbox_ep12wedding.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_egg_hedgehog" file="\icon\payment\icon_item_egg_hedgehog.png" imgrect="0 0 256 256" CMM_Caption="고슴도치 알"/>
+		<image name="icon_item_selectbox_catagnan01" file="\icon\payment\icon_item_selectbox_catagnan01.png" imgrect="0 0 256 256" CMM_Caption="2020_6월 냥총사"/>
+		<image name="icon_item_selectbox_catagnan02" file="\icon\payment\icon_item_selectbox_catagnan02.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_selectbox_catagnan03" file="\icon\payment\icon_item_selectbox_catagnan03.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan01_m" file="\icon\payment\icon_item_catagnan01_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan01_f" file="\icon\payment\icon_item_catagnan01_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan02_m" file="\icon\payment\icon_item_catagnan02_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan02_f" file="\icon\payment\icon_item_catagnan02_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan03_m" file="\icon\payment\icon_item_catagnan03_m.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_catagnan03_f" file="\icon\payment\icon_item_catagnan03_f.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_allbox_catagnan" file="\icon\payment\icon_item_allbox_catagnan.png" imgrect="0 0 256 256"/>
+		<image name="icon_item_F_pc_effectitem_catagnan" file="\icon\payment\icon_item_F_pc_effectitem_catagnan.png" imgrect="0 0 256 256"/>
 	</imagelist>
 	<imagelist category="seal">
 		<image name="icon_seal_yellow_cc_A1" file="\icon\seal\seal_yellow_cc_A1.tga" imgrect="0 0 80 80"/>

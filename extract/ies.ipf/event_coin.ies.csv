@@ -84,6 +84,7 @@ ClassID,CoinCount_1,CoinCount_2,CoinCount_3,ClassName,Type,ContentsName,CoinName
 543,20,0,0,MISSION_UPHILL_DEFFENSE_LEGEND_13,uphill,업힐 디펜스 미션 : 매우 어려움 13단계,Event_Popo_Coin,,
 544,20,0,0,MISSION_UPHILL_DEFFENSE_LEGEND_14,uphill,업힐 디펜스 미션 : 매우 어려움 14단계,Event_Popo_Coin,,
 545,20,0,0,MISSION_UPHILL_DEFFENSE_LEGEND_15,uphill,업힐 디펜스 미션 : 매우 어려움 15단계,Event_Popo_Coin,,
+546,20,0,0,MISSION_UPHILL_DEFFENSE_LEGEND_16,uphill,업힐 디펜스 미션 : 매우 어려움 히든,Event_Popo_Coin,,
 601,15,0,0,challenge_5,challenge,챌린지 모드 5단,Event_Popo_Coin,,
 602,15,0,0,challenge_6,challenge,챌린지 모드 6단,Event_Popo_Coin,,
 603,25,0,0,challenge_7,challenge,챌린지 모드 7단,Event_Popo_Coin,,

@@ -6634,6 +6634,9 @@
 		<image name="test_companion_27" file="\icon\companion.tga" imgrect="404 615 100 122" CMM_Caption="스쿨도도_탭버튼"/>
 		<image name="test_companion_27_cursoron" file="\icon\companion.tga" imgrect="505 615 100 122"/>
 		<image name="test_companion_27_clicked" file="\icon\companion.tga" imgrect="505 615 100 122"/>
+		<image name="test_companion_28" file="\icon\companion.tga" imgrect="606 615 100 122" CMM_Caption="고슴도치_탭버튼"/>
+		<image name="test_companion_28_cursoron" file="\icon\companion.tga" imgrect="707 615 100 122"/>
+		<image name="test_companion_28_clicked" file="\icon\companion.tga" imgrect="707 615 100 122"/>
 		<image name="test_com_ability" file="\skin\pip_test.tga" imgrect="1832 851 54 35" CMM_Caption="컴패니언_특성플러스"/>
 		<image name="test_com_ability_cursoron" file="\skin\pip_test.tga" imgrect="1832 887 54 35"/>
 		<image name="test_com_ability_clicked" file="\skin\pip_test.tga" imgrect="1832 923 54 35"/>
@@ -8271,6 +8274,7 @@
 		<image name="companion_Dionys" file="\icon\companion_Velhider.tga" imgrect="480 240 80 80"/>
 		<image name="companion_sparrow" file="\icon\companion_Velhider.tga" imgrect="0 320 80 80"/>
 		<image name="companion_school_dodo" file="\icon\companion_Velhider.tga" imgrect="80 320 80 80"/>
+		<image name="companion_hedgehog" file="\icon\companion_Velhider.tga" imgrect="160 320 80 80"/>
 		<image name="bg_w" file="\skin\button.tga" imgrect="252 974 50 50"/>
 		<image name="barrack_signboard" file="\skin\barrack.tga" imgrect="356 0 257 192"/>
 		<image name="barrack_attack_icon" file="\skin\barrack.tga" imgrect="59 720 55 61"/>
@@ -10536,6 +10540,7 @@
 		<image name="icon_Acient_passive_unique" file="\icon\buff_icon3.tga" imgrect="0 1152 128 128" CMM_Caption="어시스터 조합 효과 버프_unique"/>
 		<image name="icon_Acient_passive_legend" file="\icon\buff_icon3.tga" imgrect="128 1152 128 128" CMM_Caption="어시스터 조합 효과 버프_legend"/>
 		<image name="icon_warri_Padbreak" file="\icon\buff_icon3.tga" imgrect="256 1152 128 128" CMM_Caption="창 숙련: 마법진 파괴"/>
+		<image name="icon_pet_hedgehog_buff" file="\icon\buff_icon3.tga" imgrect="768 1408 128 128" CMM_Caption="고슴도치 버프"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>

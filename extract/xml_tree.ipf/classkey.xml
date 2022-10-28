@@ -273,6 +273,7 @@
         <Key Name="STEAM_OLD_GUILD_QUEST_NEXT_RESET_DATE" Value="105308"/>
         <Key Name="STEAM_OLD_GUILD_QUEST_TOTAL_SUCCESS_COUNT" Value="105314"/>
         <Key Name="STEAM_OLD_GUILD_QUEST_WEEK_SUCCESS_COUNT" Value="105316"/>
+        <Key Name="STEAM_GUILD_QUEST_REWARD" Value="105458"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Ability">
         <Key Name="Desc" Value="131"/>
@@ -499,6 +500,7 @@
         <Key Name="SkillASPD" Value="6860"/>
         <Key Name="SklUseOverOverHeat" Value="105016"/>
         <Key Name="UseOverHeat" Value="6859"/>
+        <Key Name="CastingCategory" Value="105402"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PCEtc">
         <Key Name="Kill_ID_boss_NetherBovine" Value="4565"/>
@@ -8781,6 +8783,35 @@
         <Key Name="Kill_Unique_boss_Glacier" Value="105275"/>
         <Key Name="Kill_Unique_boss_Pbeta" Value="105274"/>
         <Key Name="Kill_boss_molich_Q2" Value="105197"/>
+        <Key Name="F_TABLELAND_28_2_RAID_10_TRACK" Value="105414"/>
+        <Key Name="HadVisited_119" Value="105363"/>
+        <Key Name="HadVisited_7012" Value="105330"/>
+        <Key Name="HaveEmoticon_103" Value="105415"/>
+        <Key Name="HaveEmoticon_104" Value="105416"/>
+        <Key Name="HaveEmoticon_105" Value="105417"/>
+        <Key Name="HaveEmoticon_5006" Value="105438"/>
+        <Key Name="HaveEmoticon_5007" Value="105439"/>
+        <Key Name="HaveEmoticon_5008" Value="105440"/>
+        <Key Name="Hide_3082" Value="105412"/>
+        <Key Name="Hide_3083" Value="105413"/>
+        <Key Name="InDunCountType_806" Value="105441"/>
+        <Key Name="IndunWeeklyEnteredCount_806" Value="105442"/>
+        <Key Name="Kill_Guild_boss_Boruta_2" Value="105366"/>
+        <Key Name="Kill_Legend_boss_Glacier_Easy" Value="105444"/>
+        <Key Name="Kill_Legend_boss_Glacier_Hard" Value="105448"/>
+        <Key Name="Kill_Legend_boss_Glacier_Normal" Value="105446"/>
+        <Key Name="Kill_Legend_boss_Pbeta_Easy" Value="105443"/>
+        <Key Name="Kill_Legend_boss_Pbeta_Hard" Value="105447"/>
+        <Key Name="Kill_Legend_boss_Pbeta_Normal" Value="105445"/>
+        <Key Name="Kill_weekly_boss_ChiefGuard" Value="105331"/>
+        <Key Name="Kill_weekly_boss_bramble" Value="105333"/>
+        <Key Name="Kill_weekly_boss_froster_lord" Value="105332"/>
+        <Key Name="Kill_weekly_boss_warpulis" Value="105334"/>
+        <Key Name="Kill_weekly_boss_warpulis_summon" Value="105335"/>
+        <Key Name="Pose_DABDANCE" Value="105449"/>
+        <Key Name="Pose_PULLUP" Value="105450"/>
+        <Key Name="Pose_SPOTLIGHT" Value="105452"/>
+        <Key Name="Pose_SQUAT" Value="105451"/>
     </KeyIDSpc>
     <KeyIDSpc Name="ZoneObject">
         <Key Name="Law_Line" Value="117"/>
@@ -9324,6 +9355,9 @@
         <Key Name="Socket_JamLv_8" Value="100066"/>
         <Key Name="Socket_JamLv_9" Value="100060"/>
         <Key Name="ChangeBasicPropValue" Value="105151"/>
+        <Key Name="DesigncutColor" Value="105398"/>
+        <Key Name="Magic_Earth_Atk" Value="105401"/>
+        <Key Name="Magic_Ice_Atk" Value="105400"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Monster">
         <Key Name="Boss_UseZone" Value="6443"/>
@@ -11643,6 +11677,91 @@
         <Key Name="PVP_MINE_TradeCount11" Value="105202"/>
         <Key Name="SEASON_SERVER_INDEX" Value="105304"/>
         <Key Name="STEAM_GUILD_EVENT_CARD_GET" Value="105317"/>
+        <Key Name="CARE_POWER_POINT" Value="105362"/>
+        <Key Name="CONTENTS_TOTAL_SHOP_POSE_11" Value="105434"/>
+        <Key Name="CONTENTS_TOTAL_SHOP_POSE_12" Value="105420"/>
+        <Key Name="CONTENTS_TOTAL_SHOP_POSE_4" Value="105427"/>
+        <Key Name="CONTENTS_TOTAL_SHOP_POSE_9" Value="105431"/>
+        <Key Name="ChallengeMode_HardMode_EnableEntryCount" Value="105404"/>
+        <Key Name="ContentsTotalShop_2006_1" Value="105418"/>
+        <Key Name="ContentsTotalShop_2006_10" Value="105422"/>
+        <Key Name="ContentsTotalShop_2006_11" Value="105424"/>
+        <Key Name="ContentsTotalShop_2006_2" Value="105421"/>
+        <Key Name="ContentsTotalShop_2006_3" Value="105423"/>
+        <Key Name="ContentsTotalShop_2006_4" Value="105426"/>
+        <Key Name="ContentsTotalShop_2006_5" Value="105425"/>
+        <Key Name="ContentsTotalShop_2006_6" Value="105428"/>
+        <Key Name="ContentsTotalShop_2006_7" Value="105432"/>
+        <Key Name="ContentsTotalShop_2006_8" Value="105433"/>
+        <Key Name="ContentsTotalShop_2006_9" Value="105419"/>
+        <Key Name="DAILY_PICK_SILVER" Value="105403"/>
+        <Key Name="EVENT_2005_APPRAISER_COIN_COUNT" Value="105346"/>
+        <Key Name="EVENT_2005_APPRAISER_PLAY_TIME" Value="105350"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP1" Value="105354"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP10" Value="105353"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP11" Value="105358"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP12" Value="105361"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP13" Value="105338"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP14" Value="105342"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP15" Value="105345"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP16" Value="105349"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP17" Value="105352"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP18" Value="105356"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP19" Value="105360"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP2" Value="105357"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP20" Value="105336"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP3" Value="105359"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP4" Value="105337"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP5" Value="105340"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP6" Value="105341"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP7" Value="105344"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP8" Value="105347"/>
+        <Key Name="EVENT_2005_APPRAISER_SHOP9" Value="105351"/>
+        <Key Name="EVENT_2006_DRAGON_BOAT_BAMBOO_GET" Value="105454"/>
+        <Key Name="EVENT_2006_DRAGON_BOAT_BAMBOO_GET_TOTAL" Value="105455"/>
+        <Key Name="EVENT_2006_DRAGON_BOAT_LUCKY_TRADE_COUNT" Value="105453"/>
+        <Key Name="EVENT_2006_DRAGON_BOAT_MORU_GET" Value="105456"/>
+        <Key Name="EVENT_2006_DRAGON_BOAT_SHINE_TRADE_COUNT" Value="105457"/>
+        <Key Name="EVENT_2006_SUMMER_BAIT_RECEIVED" Value="105393"/>
+        <Key Name="EVENT_2006_SUMMER_COIN_COUNT" Value="105388"/>
+        <Key Name="EVENT_2006_SUMMER_FISHING_COIN_COUNT" Value="105376"/>
+        <Key Name="EVENT_2006_SUMMER_FISHING_TRADE_COUNT" Value="105380"/>
+        <Key Name="EVENT_2006_SUMMER_PLAY_TIME" Value="105383"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP1" Value="105386"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP10" Value="105395"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP11" Value="105368"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP12" Value="105374"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP13" Value="105378"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP14" Value="105382"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP15" Value="105387"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP16" Value="105392"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP17" Value="105397"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP18" Value="105369"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP19" Value="105372"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP2" Value="105390"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP20" Value="105375"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP21" Value="105379"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP22" Value="105384"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP23" Value="105389"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP24" Value="105394"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP25" Value="105367"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP26" Value="105371"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP3" Value="105396"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP4" Value="105370"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP5" Value="105373"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP6" Value="105377"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP7" Value="105381"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP8" Value="105385"/>
+        <Key Name="EVENT_2006_SUMMER_SHOP9" Value="105391"/>
+        <Key Name="EVENT_GLACIERQUEST_EMOTICON" Value="105405"/>
+        <Key Name="HadVisited_119" Value="105364"/>
+        <Key Name="HadVisited_7012" Value="105355"/>
+        <Key Name="InDunCountType_806" Value="105429"/>
+        <Key Name="IndunWeeklyEnteredCount_806" Value="105430"/>
+        <Key Name="MISC_PVP_MINE2" Value="105365"/>
+        <Key Name="PersonalHousing_HasPlace_7012" Value="105348"/>
+        <Key Name="STEAM_GUILD_QUEST_REWARD" Value="105459"/>
+        <Key Name="TeamBattleLeague_Reward_Check_2" Value="105399"/>
     </KeyIDSpc>
     <KeyIDSpc Name="PC">
         <Key Name="GroupName" Value="6880"/>
@@ -19544,6 +19663,15 @@
         <Key Name="MG_Last_GLACIER_TUTO_RP_MINI" Value="105291"/>
         <Key Name="MG_Last_SOLO_DUNGEON_MINI_ANCIENT_QUEST" Value="105201"/>
         <Key Name="MG_Last_UNIQUE_RAID_GLACIER" Value="105298"/>
+        <Key Name="F_TABLELAND_28_2_RAID_09" Value="105406"/>
+        <Key Name="F_TABLELAND_28_2_RAID_10" Value="105407"/>
+        <Key Name="F_TABLELAND_28_2_RAID_11" Value="105408"/>
+        <Key Name="F_TABLELAND_28_2_RAID_12" Value="105409"/>
+        <Key Name="F_TABLELAND_28_2_RAID_13" Value="105410"/>
+        <Key Name="MG_Last_F_TABLELAND_28_2_RAID_10_MINI01" Value="105411"/>
+        <Key Name="MG_Last_LEGEND_RAID_GLACIER_EASY" Value="105436"/>
+        <Key Name="MG_Last_LEGEND_RAID_GLACIER_HARD" Value="105437"/>
+        <Key Name="MG_Last_LEGEND_RAID_GLACIER_NORMAL" Value="105435"/>
     </KeyIDSpc>
     <KeyIDSpc Name="Party">
         <Key Name="ExpGainType" Value="4"/>

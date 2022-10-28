@@ -84,22 +84,23 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 					 ,{'탁본 1위 동상 경배 효과 10배 증가','Event_Worship_Affect_10fold'}
 					 ,{'챌린지 모드 횟수 초기화 (하루 3회 제한)','Event_Challenge_Count_Reset'}					 
 					 ,{'스킬 쿨타임, SP 소모량 90% 감소 (지역 제한)','Event_Cooldown_SPamount_Decrease'}	
-					 ,{'물리 및 마법 공격력 +500, 물리 및 마법 방어력 +3,000','Event_ATK_and_DEF_UP_BUFF'}				 
+					 ,{'물리 및 마법 공격력 +500, 물리 및 마법 방어력 +3,000','Event_ATK_and_DEF_UP_BUFF'}
+					 ,{'나무뿌리 수정 파괴 시, 이동 속도 5 증가','Event_RootCrystal_Check_Buff'}				 
 					 }
     
     local daycheckbuff = 
-	{{'6','5',{'Event_Class_Change_Pointup_500','Event_ATK_and_DEF_UP_BUFF'}}
-	,{'6','6',{'Event_ATK_and_DEF_UP_BUFF','Event_LootingChance_Add_1000'}}
-	,{'6','7',{'Event_ATK_and_DEF_UP_BUFF','Event_Cooldown_SPamount_Decrease'}}
-	,{'6','12',{'Event_healHSP_Speedup','Event_Reappraisal_Discount_50'}}
-	,{'6','13',{'Event_healHSP_Speedup','Event_Even_Transcend_Discount_50'}}
-	,{'6','14',{'Event_healHSP_Speedup','Event_Penalty_Clear_Gem_Reinforce'}}
-	,{'6','19',{'Event_ATK_and_DEF_UP_BUFF','Event_Class_Change_Pointup_500'}}
-	,{'6','20',{'Event_healHSP_Speedup','Event_LootingChance_Add_1000'}}
-	,{'6','21',{'Event_healHSP_Speedup','Event_Unique_Raid_Bonus_Limit'}}
-	,{'6','26',{'Event_LootingChance_Add_1000','Event_healHSP_Speedup'}}
-	,{'6','27',{'Event_ATK_and_DEF_UP_BUFF','Event_Reinforce_Discount_50'}}
-	,{'6','28',{'Event_healHSP_Speedup','Event_LootingChance_Add_1000'}}
+	{{'7','3',{'Event_ATK_and_DEF_UP_BUFF','Event_RootCrystal_Check_Buff'}}
+	,{'7','4',{'Event_LootingChance_Add_1000','Event_Cooldown_SPamount_Decrease'}}
+	,{'7','5',{'Event_LootingChance_Add_1000','Event_Reagent_Bottle_Expup_100'}}
+	,{'7','10',{'Event_Class_Change_Pointup_500','Event_LootingChance_Add_1000'}}
+	,{'7','11',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'7','12',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'7','17',{'Event_RootCrystal_Check_Buff','Event_Worship_Affect_10fold'}}
+	,{'7','18',{'Event_RootCrystal_Check_Buff','Event_Reappraisal_Discount_50'}}
+	,{'7','19',{'Event_healHSP_Speedup','Event_Worship_Affect_10fold'}}
+	,{'7','24',{'Event_healHSP_Speedup','Event_ATK_and_DEF_UP_BUFF'}}
+	,{'7','25',{'Event_Class_Change_Pointup_500','Event_LootingChance_Add_1000'}}
+	,{'7','26',{'Event_healHSP_Speedup','Event_Reinforce_Discount_50'}}
 		}
 	
 	-- 기본 적용 버프
@@ -134,8 +135,6 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 			
 		if accountObject.STEAM_TREASURE_EVENT_1902_WEEKEND ~= day then --보상 지급
 			local tx = TxBegin(pc);
-			TxGiveItem(tx, 'EVENT_1712_SECOND_CHALLENG_14d_Team', 5, 'STEAM_TREASURE_EVENT_1912_WEEKEND'); 
-			TxGiveItem(tx, 'Event_190110_ChallengeModeReset_14d', 5, 'STEAM_TREASURE_EVENT_1912_WEEKEND'); 
 			TxGiveItem(tx, 'Adventure_Reward_Seed_14d_Team', 10, 'STEAM_TREASURE_EVENT_1912_WEEKEND'); 
 			TxGiveItem(tx, 'Event_Goddess_Statue', 5, 'STEAM_TREASURE_EVENT_1912_WEEKEND'); 
 			TxSetIESProp(tx, accountObject, 'STEAM_TREASURE_EVENT_1902_WEEKEND', day);
