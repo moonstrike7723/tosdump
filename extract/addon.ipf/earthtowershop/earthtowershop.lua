@@ -163,9 +163,9 @@ function REQ_EVENT_1910_HALLOWEEN_SHOP_OPEN()
 end
 
 function REQ_EVENT1912_4TH_SHOP_OPEN()
-    local frame = ui.GetFrame("earthtowershop");
-    frame:SetUserValue("SHOP_TYPE", 'Event4thShop1912');
-    ui.OpenFrame('earthtowershop');
+--    local frame = ui.GetFrame("earthtowershop");
+--    frame:SetUserValue("SHOP_TYPE", 'Event4thShop1912');
+--    ui.OpenFrame('earthtowershop');
 end
 
 function REQ_SELL_TPSHOP1912_SHOP_OPEN()

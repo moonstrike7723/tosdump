@@ -711,6 +711,18 @@
 				<Node2 ClassID="718" ClassName="Hair60_brown" Face="head60" Hair="hair60_brown" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="브라운" EngColor="brown" UseableBarrack="NO"/>
 				<Node2 ClassID="719" ClassName="Hair60_midnightblue" Face="head60" Hair="hair60_midnightblue" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="미드나이트 블루" EngColor="midnightblue" UseableBarrack="NO"/>
 				<Node2 ClassID="735" ClassName="Hair75" Face="head75" Hair="Hair75" Name="빛나는 트리 헤드 코스튬" EngName="helmet_xmastreecos" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="750" ClassName="Hair78" Face="head78" Hair="Hair78" Name="자신장의 탈" EngName="helmet_12animal_rat" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="751" ClassName="Hair78" Face="head78" Hair="Hair78" Name="축신장의 탈" EngName="helmet_12animal_cow" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="752" ClassName="Hair78" Face="head78" Hair="Hair78" Name="인신장의 탈" EngName="helmet_12animal_tiger" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="753" ClassName="Hair78" Face="head78" Hair="Hair78" Name="묘신장의 탈" EngName="helmet_12animal_rabbit" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="754" ClassName="Hair78" Face="head78" Hair="Hair78" Name="진신장의 탈" EngName="helmet_12animal_dragon" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="755" ClassName="Hair78" Face="head78" Hair="Hair78" Name="사신장의 탈" EngName="helmet_12animal_snake" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="756" ClassName="Hair78" Face="head78" Hair="Hair78" Name="오신장의 탈" EngName="helmet_12animal_horse" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="757" ClassName="Hair78" Face="head78" Hair="Hair78" Name="미신장의 탈" EngName="helmet_12animal_sheep" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="758" ClassName="Hair78" Face="head78" Hair="Hair78" Name="신신장의 탈" EngName="helmet_12animal_monkey" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="759" ClassName="Hair78" Face="head78" Hair="Hair78" Name="유신장의 탈" EngName="helmet_12animal_chick" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="760" ClassName="Hair78" Face="head78" Hair="Hair78" Name="술신장의 탈" EngName="helmet_12animal_dog" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="761" ClassName="Hair78" Face="head78" Hair="Hair78" Name="해신장의 탈" EngName="helmet_12animal_pig" Color="기본" EngColor="default" UseableBarrack="NO"/>
 			</Node1>
 			<Node1 ClassID="2" ClassName="FEMALE">
 				<Node2 ClassID="1" ClassName="Hair01" Face="head" Hair="hair"/>
@@ -1469,6 +1481,18 @@
 				<Node2 ClassID="768" ClassName="Hair60_brown" Face="head60" Hair="hair60_brown" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="브라운" EngColor="brown" UseableBarrack="NO"/>
 				<Node2 ClassID="769" ClassName="Hair60_midnightblue" Face="head60" Hair="hair60_midnightblue" Name="검은 토끼 인형탈 헬멧 코스튬" EngName="helmet_devilrabbit" Color="미드나이트 블루" EngColor="midnightblue" UseableBarrack="NO"/>
 				<Node2 ClassID="795" ClassName="Hair75" Face="head75" Hair="Hair75" Name="빛나는 트리 헤드 코스튬" EngName="helmet_xmastreecos" Color="기본" EngColor="default" UseableBarrack="NO"/>
+								<Node2 ClassID="809" ClassName="Hair79" Face="head79" Hair="Hair79" Name="자신장의 탈" EngName="helmet_12animal_rat" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="810" ClassName="Hair79" Face="head79" Hair="Hair79" Name="축신장의 탈" EngName="helmet_12animal_cow" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="811" ClassName="Hair79" Face="head79" Hair="Hair79" Name="인신장의 탈" EngName="helmet_12animal_tiger" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="812" ClassName="Hair79" Face="head79" Hair="Hair79" Name="묘신장의 탈" EngName="helmet_12animal_rabbit" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="813" ClassName="Hair79" Face="head79" Hair="Hair79" Name="진신장의 탈" EngName="helmet_12animal_dragon" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="814" ClassName="Hair79" Face="head79" Hair="Hair79" Name="사신장의 탈" EngName="helmet_12animal_snake" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="815" ClassName="Hair79" Face="head79" Hair="Hair79" Name="오신장의 탈" EngName="helmet_12animal_horse" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="816" ClassName="Hair79" Face="head79" Hair="Hair79" Name="미신장의 탈" EngName="helmet_12animal_sheep" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="817" ClassName="Hair79" Face="head79" Hair="Hair79" Name="신신장의 탈" EngName="helmet_12animal_monkey" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="818" ClassName="Hair79" Face="head79" Hair="Hair79" Name="유신장의 탈" EngName="helmet_12animal_chick" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="819" ClassName="Hair79" Face="head79" Hair="Hair79" Name="술신장의 탈" EngName="helmet_12animal_dog" Color="기본" EngColor="default" UseableBarrack="NO"/>
+				<Node2 ClassID="820" ClassName="Hair79" Face="head79" Hair="Hair79" Name="해신장의 탈" EngName="helmet_12animal_pig" Color="기본" EngColor="default" UseableBarrack="NO"/>
 			</Node1>
 		</Class>
 	</Category>

@@ -1228,6 +1228,7 @@
 		<Class ClassID="10522" ClassName="RegisterPrefixItem" Data="옵션을 부여할 아이템을 등록해주세요."/>
 		<Class ClassID="10523" ClassName="AlreadyPrefixOption" Data="이미 적용된 옵션입니다."/>
 		<Class ClassID="10524" ClassName="{Name}ItemCountOver" Data="인벤토리에 [{Name}]이(가) 가득 차서 분해할 수 없습니다."/>
+		<Class ClassID="10542" ClassName="TeamnameResetByTime" Data="장기간 미접속으로 팀이름이 초기화되었습니다. 팀이름을 설정한 후에 기존의 캐릭터를 이용할 수 있습니다."/>
 	</Category>
 	<Category Name="FoodTable">
 		<Class ClassID="20001" ClassName="IncreaseHP{Value}For{Time}Minute" Data="{Time}분 동안 HP가 {Value}% 증가합니다."/>

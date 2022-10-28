@@ -1906,8 +1906,6 @@ function INDUNENTER_CHECK_ADMISSION_ITEM(frame)
         if indunCls.DungeonType == "Raid" or indunCls.DungeonType == "GTower" then
             if nowCount < indunCls.WeeklyEnterableCount then
                 return true;
-            elseif nowCount > indunCls.WeeklyEnterableCount then
-                nowAdmissionItemCount = nowAdmissionItemCount + (nowCount - (indunCls.WeeklyEnterableCount));
             end
         end 
 
