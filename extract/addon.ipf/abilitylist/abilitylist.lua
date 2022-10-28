@@ -1,5 +1,8 @@
 function ABILITYLIST_ON_INIT(addon, frame)
 
+	--addon:RegisterMsg('RESET_ABILITY_UP', 'UPDATE_ABILITYLIST');
+	--addon:RegisterMsg('RESET_ABILITY_ACTIVE', 'REFRESH_ABILITY_ACTIVE');
+
 end
 
 function ABILITYLIST_OPEN(frame)
@@ -22,6 +25,35 @@ function ABILITYLIST_CLOSE(frame)
 	local timer = GET_CHILD(frame, "addontimer", "ui::CAddOnTimer");
 	timer:Stop();
 end
+--[[
+function REFRESH_ABILITY_ACTIVE_OLD(frame, msg, abilName, IsActiveState)
+
+	local grid = GET_CHILD(frame, 'ability', 'ui::CGrid');
+	local classCtrl = grid:CreateOrGetControlSet('ability_set', 'ABIL_'..abilName, 0, 0);
+	local activeImg = GET_CHILD(classCtrl, "activeImg", "ui::CPicture");
+	local activeText = GET_CHILD(classCtrl, "abilActive", "ui::CRichText");
+
+	if IsActiveState == 1 then
+		activeImg:SetImage("ability_on");
+
+	else
+		activeImg:SetImage("ability_off");
+	end
+end
+
+function UPDATE_ABILITYLIST(frame, msg, argStr, argNum)
+
+	if msg == 'RESET_ABILITY_UP' then
+		local learnAbilID = argNum;
+		if learnAbilID == 0 then
+			local timer = GET_CHILD(frame, "addontimer", "ui::CAddOnTimer");
+			timer:Stop();
+		end
+	end
+
+	REFRESH_ABILITY_LIST(frame);
+	frame:Invalidate();
+end]]
 
 function REFRESH_ABILITY_LIST_OLD(frame)
 
@@ -68,7 +100,9 @@ function REFRESH_ABILITY_LIST_OLD(frame)
 		end
 	end
 
-	-- ActiveAbility  �̰� �Ⱦ�����.
+
+
+	-- ActiveAbility  이거 안쓸예정.
 	--for i=0, MAX_ACTIVE_ABILITY do
 	--	local activeAbil = session.GetActiveAbility(i);
 	--	if activeAbil ~= nil then
@@ -92,11 +126,11 @@ function MAKE_ABILITY_ICON_OLD(frame, pc, grid, abilClass, posY, index)
 			prop = "LearnAbilityID_" ..i;
 		end
 		if pc[prop] ~= nil and pc[prop] == abilClass.ClassID then
-	-- ���� ���� Ư���� ������ �ش�Ư���� �����ð� ǥ��, Ȱ����ư�� ����
+	-- 현재 배우는 특성이 있으면 해당특성은 남은시간 표시, 활성버튼은 막기
 		local activeImg = GET_CHILD(classCtrl, "activeImg", "ui::CPicture");
 		activeImg:ShowWindow(0);
 	else
-		-- Ư�� Ȱ��ȭ ��ư
+		-- 특성 활성화 버튼
 		classCtrl:EnableHitTest(1);
 		classCtrl:SetEventScript(ui.LBUTTONUP, "TOGGLE_ABILITY_ACTIVE");
 		classCtrl:SetEventScriptArgString(ui.LBUTTONUP, abilClass.ClassName);
@@ -104,7 +138,7 @@ function MAKE_ABILITY_ICON_OLD(frame, pc, grid, abilClass, posY, index)
 		classCtrl:SetOverSound('button_over');
 		classCtrl:SetClickSound('button_click_big');
 
-		-- Ȱ��/��Ȱ���� ���� �̹��� ����
+		-- 활성/비활성에 따른 이미지 셋팅
 		local activeImg = GET_CHILD(classCtrl, "activeImg", "ui::CPicture");
 		local activeText = GET_CHILD(classCtrl, "abilActive", "ui::CRichText");
 
@@ -116,20 +150,20 @@ function MAKE_ABILITY_ICON_OLD(frame, pc, grid, abilClass, posY, index)
 		activeImg:ShowWindow(1);
 	end
 	end
-	-- Ư�� ������
+	-- 특성 아이콘
 	local classSlot = GET_CHILD(classCtrl, "slot", "ui::CSlot");
 	local icon = CreateIcon(classSlot);	
 	icon:SetImage(abilClass.Icon);
 
-	-- Ư�� �̸�
+	-- 특성 이름
 	local nameCtrl = GET_CHILD(classCtrl, "abilName", "ui::CRichText");
 	nameCtrl:SetText("{@st41}".. abilClass.Name);
 
-	-- Ư�� ����
+	-- 특성 설명
 	local descCtrl = GET_CHILD(classCtrl, "abilDesc", "ui::CRichText");
 	descCtrl:SetText("{@st42b}".. abilClass.Desc);
 
-	-- Ư�� ����
+	-- 특성 레벨
 	local abilIES = GetAbilityIESObject(pc, abilClass.ClassName);
 	for i = 0, RUN_ABIL_MAX_COUNT do
 		local prop = "None";
@@ -144,13 +178,13 @@ function MAKE_ABILITY_ICON_OLD(frame, pc, grid, abilClass, posY, index)
 		local levelCtrl = GET_CHILD(classCtrl, "abilLevel", "ui::CRichText");
 		levelCtrl:SetText("{@sti9}Lv.".. abilLv);
 
-		-- Ư�� ����ó
+		-- 특성 구입처
 		local shopCtrl = GET_CHILD(classCtrl, "abilShop", "ui::CRichText");
 		shopCtrl:SetText(ScpArgMsg("Auto_{@st42}{b}{#ff9900}JeonSuJa_:_").. "NPC");
 		shopCtrl:ShowWindow(1);
 	else
 
-		-- Ư�� ������
+		-- 특성 배우는중
 		local levelCtrl = GET_CHILD(classCtrl, "abilLevel", "ui::CRichText");
 		levelCtrl:SetText("{@st42}Lv.1");
 		if abilIES ~= nil then
