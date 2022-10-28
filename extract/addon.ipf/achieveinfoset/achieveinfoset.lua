@@ -117,7 +117,7 @@ function MAKE_ACHIEVE_INFO_BASE_CTRL(gBox, ctrlname, x, y, cls)
 	local ctrlset = gBox:CreateOrGetControlSet('emptyset2', ctrlname, x, y);
 	tolua.cast(ctrlset, 'ui::CControlSet');
 	local topFrame = ui.GetFrame('achieveinfoset');
-	topFrame:EnableHitTest(0)
+	topFrame:EnableHitTest(1)
 	-- 배경
 	ctrlset:SetSkinName("quest_bg_black_op_50");
 	ctrlset:SetAlpha(GET_QUESTINFOSET_TRANSPARENCY());
