@@ -7992,6 +7992,7 @@
 		<image name="bonus_rank_B" file="\skin\gacha_ui.tga" imgrect="513 373 100 100" CMM_Caption="회차 보너스 등급 B 마크"/>
 		<image name="craft_reinforce" file="\skin\pip_test_item.tga" imgrect="603 1136 80 80" CMM_Caption="강화 수치 아이콘"/>
 		<image name="craft_transcend" file="\skin\pip_test_item.tga" imgrect="684 1136 80 80" CMM_Caption="초월 수치 아이콘"/>
+		<image name="2021_flex_box" file="\skin\2021flexbox.tga" imgrect="0 0 510 714" CMM_Caption="[2021 신년맞이] 플렉스 박스"/>
 	</imagelist>
 	<imagelist category="je_button">
 		<image name="menu_guild_info" file="\skin\guild_skin.tga" imgrect="165 298 45 45" CMM_Caption="길드 정보"/>
@@ -11550,6 +11551,8 @@
 		<image name="026_npc_MistesGoldmund" file="\skin\npccard\026_npc_MistesGoldmund.tga" imgrect="0 0 330 440"/>
 		<image name="027_npc_FeliksiaAleisterCrowley" file="\skin\npccard\027_npc_FeliksiaAleisterCrowley.tga" imgrect="0 0 330 440"/>
 		<image name="028_npc_Leticia" file="\skin\npccard\028_npc_Leticia.tga" imgrect="0 0 330 440"/>
+		<image name="028_npc_Tesla" file="\skin\npccard\028_npc_Tesla.tga" imgrect="0 0 330 440"/>
+		<image name="029_npc_KiolRuarawa" file="\skin\npccard\029_npc_KiolRuarawa.tga" imgrect="0 0 330 440"/>
 	</imagelist>
 	<imagelist category="bosscard2">
 		<image name="001_boss_poata" file="\skin\bosscard\001_boss_poata.tga" imgrect="0 0 330 440"/>

@@ -1,4 +1,4 @@
-﻿function GET_INDUN_MULTIPLE_ITEM_LIST()
+function GET_INDUN_MULTIPLE_ITEM_LIST()
     return {'Premium_dungeoncount_01', 
             'Premium_dungeoncount_Event',
             'Adventure_dungeoncount_01',
@@ -14,6 +14,7 @@
             'Event_dungeoncount_10',
             'Event_dungeoncount_11',
             'Event_dungeoncount_12',
+            'Event_dungeoncount_13',
             'Event_dungeoncount_14'};   
 end
 

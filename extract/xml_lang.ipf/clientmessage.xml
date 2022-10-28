@@ -14251,6 +14251,15 @@
 		<Class ClassID="302262" ClassName="EVENT_2012_YAK_SEL_MSG6" Data="{#FF282C}특성 포인트 무료 추출권을 모두 획득하셨습니다.(팀당 3회){/}"/>
 		<Class ClassID="302263" ClassName="EVENT_2012_YAK_SEL_MSG7" Data="{#FF282C}[야크맘보] 황금 눈꽃 열쇠가 없습니다.{/}"/>
 		<Class ClassID="302264" ClassName="EVENT_2012_YAK_SEL_MSG8" Data="{#FF282C}[야크맘보] 눈꽃 열쇠가 없습니다.{/}"/>
+		<Class ClassID="302290" ClassName="EVENT_2101_NEW_YEAR_SEL_MSG1" Data="{#003399}[신년맞이]{/}이벤트 안내"/>
+		<Class ClassID="302291" ClassName="EVENT_2101_NEW_YEAR_SEL_MSG2" Data="{#003399}[신년맞이]{/}이벤트 상점"/>
+		<Class ClassID="302292" ClassName="EVENT_2101_NEW_YEAR_SEL_MSG3" Data="{#003399}[신년맞이]{/}말순이의 행운 박스"/>
+		<Class ClassID="302293" ClassName="EVENT_2101_NEW_YEAR_COMMAND{CNT1}{CNT2}{CNT3}" Data="신년맞이 축제{nl}[이벤트] 행운의 동전 콘텐츠 획득량 ({CNT1}/200){nl}[이벤트] 행운의 동전 필드 사냥 획득량 ({CNT2}/100){nl}[이벤트] 신년 티켓 1시간 접속 보상 획득량 ({CNT3}/5){nl}※일일 제한은 매일 오전 06시 초기화 됩니다."/>
+		<Class ClassID="302294" ClassName="EVENT_2101_NEW_YEAR_SHOP" Data="[신년맞이] 이벤트 상점"/>
+		<Class ClassID="302295" ClassName="EVENT_2101_NEW_YEAR_BOX_TITLE" Data="말순이의 행운 박스"/>
+		<Class ClassID="302296" ClassName="EVENT_COIN_CONTENT_FULL{COIN}" Data="오늘 콘텐츠 클리어로 획득 가능한 {COIN}을(를) 전부 획득하셨습니다."/>
+		<Class ClassID="302297" ClassName="EVENT_COIN_FIELD_FULL{COIN}" Data="오늘 필드 사냥으로 획득 가능한 {COIN}을(를) 전부 획득하셨습니다."/>
+		<Class ClassID="302298" ClassName="Event_Flex_box_Daily_Open_Max_Count_Over" Data="일일 개봉 가능 횟 수를 모두 이용하셨습니다."/>
 	</Category>
 	<Category Name="Account">
 		<Class ClassID="303001" ClassName="MaxAccountWarehouseCount" Data="팀 창고"/>
@@ -14400,6 +14409,7 @@
 		<Class ClassID="501274" ClassName="EVENT_2006_DRAGON_BOAT_SEL_MSG4" Data="행운의 죽엽 교환"/>
 		<Class ClassID="501275" ClassName="EVENT_2006_DRAGON_BOAT_SEL_MSG5" Data="+{REINFORCE} 보상 교환({NOW}/{MAX})"/>
 		<Class ClassID="501276" ClassName="EVENT_2006_DRAGON_BOAT_INFINITY" Data="무제한"/>
+		<Class ClassID="501281" ClassName="Event_Transcend_Scroll_Choice_box" Data="아이템 선택"/>
 	</Category>
 	<Category Name="GEM_GACHA">
 		<Class ClassID="510001" ClassName="GEM_GACHA_SEL1" Data="젬 1회 뽑기"/>
@@ -15479,6 +15489,7 @@
 		<Class ClassID="560037" ClassName="malsuns_emotion86" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560038" ClassName="malsuns_emotion87" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 		<Class ClassID="560039" ClassName="Hitomico_emoticon_01" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
+		<Class ClassID="560048" ClassName="malsuns_emotion82" Data="{nl} {nl}사용한 캐릭터가 채팅 이모티콘을 흭득합니다.{nl} {nl}{#FF0000}사용 후 복구가 불가능합니다.{nl} {nl}{@st66d_y}이모티콘을 습득하시겠습니까?"/>
 	</Category>
 	<Category Name="Gesture">
 		<Class ClassID="570000" ClassName="Already_Gesture" Data="이미 보유한 제스처입니다."/>

@@ -6161,6 +6161,8 @@
 		<image name="icon_item_EVENT_2012_New_Year_Box_1" file="\icon\item\icon_item_EVENT_2012_New_Year_Box_1.png" imgrect="0 0 256 256" CMM_Caption="야크맘보 2021 신년 상자"/>
 		<image name="icon_item_Yak_Key" file="\icon\item\icon_item_Yak_Key.png" imgrect="0 0 128 128" CMM_Caption="눈꽃 열쇠"/>
 		<image name="icon_item_Yak_Key2" file="\icon\item\icon_item_Yak_Key2.png" imgrect="0 0 128 128" CMM_Caption="야크맘보 황금열쇠"/>
+		<image name="icon_item_2021_lucky_coin" file="\icon\item\icon_item_2021_lucky_coin.png" imgrect="0 0 128 128" CMM_Caption="[2021 신년맞이] 행운의 동전"/>
+		<image name="icon_item_2021_new_year_ticket" file="\icon\item\icon_item_2021_new_year_ticket.png" imgrect="0 0 128 128" CMM_Caption="[2021 신년맞이] 신년 티켓"/>
 	</imagelist>
 	<imagelist category="housing">
 		<image name="icon_item_h_bigplant_set_01_green" file="\icon\housing\icon_item_h_bigplant_set_01_green.png" imgrect="0 0 256 256" CMM_Caption="[길드 하우징] 화단_01(초록색)"/>
@@ -7376,7 +7378,7 @@
 		<image name="icon_item_changeboy_yellow_m" file="\icon\payment\icon_item_changeboy_yellow_m.png" imgrect="0 0 256 256"/>
 		<image name="item_icon_misc_exchangestone" file="\icon\payment\item_icon_misc_exchangestone.png" imgrect="0 0 256 256" CMM_Caption="무기 계열 변경 소재"/>
 		<image name="item_icon_misc_ExchangeBook" file="\icon\payment\item_icon_misc_ExchangeBook.png" imgrect="0 0 256 256" CMM_Caption="무기 계열 변경의 서"/>
-                <image name="icon_item_Dirbtumas_kit" file="\icon\payment\icon_item_Dirbtumas_kit.png" imgrect="0 0 256 256" CMM_Caption="연성 키트 아이콘_초록"/>
+		<image name="icon_item_Dirbtumas_kit" file="\icon\payment\icon_item_Dirbtumas_kit.png" imgrect="0 0 256 256" CMM_Caption="연성 키트 아이콘_초록"/>
 		<image name="icon_item_Dirbtumas_kit_silver" file="\icon\payment\icon_item_Dirbtumas_kit_silver.png" imgrect="0 0 256 256" CMM_Caption="연성 키트 아이콘_파랑"/>
 		<image name="icon_item_astronaut02_selelctbox" file="\icon\payment\icon_item_astronaut02_selelctbox.png" imgrect="0 0 256 256" CMM_Caption="[pc방]우주복 코스튬 박스"/>
 		<image name="icon_item_astronaut02_f" file="\icon\payment\icon_item_astronaut02.png" imgrect="0 0 256 256" CMM_Caption=""/>

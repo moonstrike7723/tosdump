@@ -88,7 +88,7 @@ function SCR_REGULAR_BURNING_EVENT_SUPPORTER_DIALOG(self, pc)
 	,{'1','9',{'Event_ATK_and_DEF_UP_BUFF','Event_Cooldown_SPamount_Decrease'}}
 	,{'1','10',{'Event_ATK_and_DEF_UP_BUFF','Event_Worship_Affect_10fold'}}
 	,{'1','15',{'Event_LootingChance_Add_1000','Event_Reappraisal_Discount_50'}}
-	,{'1','16',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
+	,{'1','16',{'Event_LootingChance_Add_1000','Event_Legend_Uphill_Count_Reset'}}
 	,{'1','17',{'Event_LootingChance_Add_1000','Event_RootCrystal_Check_Buff'}}
 	,{'1','22',{'Event_healHSP_Speedup','Event_Reagent_Bottle_Expup_100'}}
 	,{'1','23',{'Event_healHSP_Speedup','Event_Worship_Affect_10fold'}}

@@ -65,6 +65,16 @@
 			<Class ClassID="10000218" ClassName="Event_2012_Key" CT_ExpireDateTime="2021-01-05 14:00"/>
 			<Class ClassID="10000219" ClassName="Event_2012_Key_2" CT_ExpireDateTime="2021-01-05 14:00"/>
 			<Class ClassID="10000220" ClassName="Event_free_ap_return2" CT_ExpireDateTime="2021-01-05 14:00"/>
+			<Class ClassID="10000240" ClassName="Event_Ability_Point_Stone_1000_14" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10000241" ClassName="Event_Ability_Point_Stone_10000_18" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10000242" ClassName="Event_ChallengeModeReset_17" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10000243" ClassName="EVENT_SECOND_CHALLENG_10" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10000244" ClassName="Event_gemExpStone09_9" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10000245" ClassName="Event_repairPotion_12" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10000246" ClassName="EVENT_Coupon_Reagent_Bottle_Expup_100_7" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10000247" ClassName="Event_dungeoncount_13" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10000248" ClassName="Event_indunReset_Team_12" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10000249" ClassName="Event_Ability_Point_Stone_100_2" CT_ExpireDateTime="2021-02-23 14:00"/>
 		</Category>
 		<Category Name="Evnet_Item">
 			<Class ClassID="10003057" ClassName="Event_2004_Stamp_All_Clear_2" CT_ExpireDateTime="2020-11-17 00:00:00"/>
@@ -89,6 +99,12 @@
 			<Class ClassID="10003322" ClassName="Event_New_Year_box_5_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
 			<Class ClassID="10003323" ClassName="Event_New_Year_box_6_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
 			<Class ClassID="10003324" ClassName="Event_New_Year_box_7_STM" CT_ExpireDateTime="2021-01-12 14:00"/>
+			<Class ClassID="10003312" ClassName="EVENT_2101_MORU_BOX_1" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10003313" ClassName="Event_SandraGlass_Box_4" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10003314" ClassName="Event_Coin_Ticket_100_1" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10003315" ClassName="Event_Coin_Ticket_1000_4" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10003316" ClassName="Event_Transcend_Scroll_Choice_box" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10003338" ClassName="card_Xpupkit10_Event_5" CT_ExpireDateTime="2021-02-23 14:00"/>
 		</Category>
 		<Category Name="Event_item_Upgrade">
 			<Class ClassID="10010001" ClassName="Extract_kit_Gold_Team_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
@@ -119,6 +135,10 @@
 			<Class ClassID="10010062" ClassName="Moru_Event_Gold_9" CT_ExpireDateTime="2021-01-05 14:00"/>
 			<Class ClassID="10010063" ClassName="Extract_kit_Sliver_Team_9" CT_ExpireDateTime="2021-01-05 14:00"/>
 			<Class ClassID="10010064" ClassName="Extract_kit_Gold_Team_11" CT_ExpireDateTime="2021-01-05 14:00"/>
+			<Class ClassID="10010071" ClassName="Moru_Event_Gold_11" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10010072" ClassName="Moru_Ruby_event_17" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10010073" ClassName="Extract_kit_Gold_Team_13" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10010074" ClassName="Extract_kit_Sliver_Team_11" CT_ExpireDateTime="2021-02-23 14:00"/>
 		</Category>
 		<Category Name="Event_Item_item_premium">
 			<Class ClassID="10600010" ClassName="Event_Sandra_Glass_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
@@ -148,6 +168,12 @@
 			<Class ClassID="10000136" ClassName="Event_repairPotion_200" CT_ExpireDateTime="2020-11-26 06:00"/>
 			<Class ClassID="10600085" ClassName="Event_Sandra_Glass_1line_14" CT_ExpireDateTime="2021-01-05 14:00"/>
 			<Class ClassID="10600086" ClassName="Event_Sandra_Glass_8" CT_ExpireDateTime="2021-01-05 14:00"/>
+			<Class ClassID="10600096" ClassName="Event_Master_Glass_11" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10600097" ClassName="Event_Enchantchip_10" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10600098" ClassName="Event_awakeningStone_11" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10600099" ClassName="Event_Sandra_Glass_10" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10600100" ClassName="Event_Sandra_Glass_1line_16" CT_ExpireDateTime="2021-02-23 14:00"/>
+			<Class ClassID="10600101" ClassName="Event_Pamoca_Box_1" CT_ExpireDateTime="2021-02-23 14:00"/>
 		</Category>
 	</Category>
 </idspace>

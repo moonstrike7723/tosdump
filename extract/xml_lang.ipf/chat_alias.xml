@@ -62,5 +62,6 @@
 		<Class ClassID="67" ClassName="/fullmoon" Alias="/달맞이" ConvertWhenSend="1"/>
 		<Class ClassID="73" ClassName="/harvest" Alias="/수확제" ConvertWhenSend="1"/>
 		<Class ClassID="75" ClassName="/YAK" Alias="/야크맘보" ConvertWhenSend="1"/>
+		<Class ClassID="77" ClassName="/newyear" Alias="/신년" ConvertWhenSend="1"/>
 	</Category>
 </idspace>
