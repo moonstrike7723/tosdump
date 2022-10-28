@@ -11,8 +11,9 @@ function BACKMASKING_READY(actor, obj, range)
 end
 
 function SKL_OPEN_UI_C(actor, obj, uiName, subUi)
-	if GetMyActor() == actor then	
+	if GetMyActor() == actor then
 		ui.OpenFrame(uiName);
+
 		if nil ~= subUi then	
 			ui.OpenFrame(subUi);
 		end
@@ -21,11 +22,6 @@ function SKL_OPEN_UI_C(actor, obj, uiName, subUi)
 end
 
 function C_SCR_OPEN_SAGE_PORTAL(skillType)
-    if session.colonywar.GetIsColonyWarMap() == true then
-        ui.SysMsg(ClMsg('ThisLocalUseNot'));
-        return 0;
-    end
-
 	local skil = session.GetSkill(skillType);
 	if nil == skil then
 		return 0;
@@ -62,29 +58,11 @@ function C_SCR_SORCERER_CARD_CHECK(skillType)
 end
 
 function SCR_ITEMDUNGEON_SKL_UI(skillType)
-    if session.colonywar.GetIsColonyWarMap() == true then
-        ui.SysMsg(ClMsg('ThisLocalUseNot'));
-        return 0;
-	end
-	
-	local zoneName = session.GetMapName();
-	if SCR_ZONE_KEYWORD_CHECK(zoneName, "NoShop") == "YES" then
-		ui.SysMsg(ClMsg('DontOpenThisAria'));
-		return 0;
-	end
-	
-	local pc = GetMyPCObject();
-	local x, y, z = GetPos(pc);
-	if 0 == IsFarFromNPC(pc, x, y, z, 60) then
-		ui.SysMsg(ClMsg("TooNearFromNPC"));	
-		return 0;
-	end
-
 	local skill = session.GetSkill(skillType);
 	if skill == nil then
 		return 0;
 	end
-	OPEN_ITEMDUNGEON_SELLER();
+	ui.OpenFrame("itemdungeon");
 	return 0;
 end
 
@@ -99,18 +77,22 @@ function RUN_BUFF_SELLER(actor, obj)
 	end
 end
 
-function OPEN_MAGIC_SKL_UI()	
+function OPEN_MAGIC_SKL_UI(skillType)
+	local skill = session.GetSkill(skillType);
+	if skill == nil then
+		return 0;
+	end
+
 	local frame = ui.GetFrame('skillitemmaker');
 	local richtext_1 = frame:GetChild('richtext_1');
 	richtext_1:ShowWindow(0);
 	local richtext_1_1 = frame:GetChild('richtext_1_1');
 	richtext_1_1:ShowWindow(1);
-	frame:SetUserValue('MODE', 'CraftSpellBook');
-	frame:SetUserValue('SKLNAME', 'RuneCaster_CraftMagicScrolls');
+	local obj = GetIES(skill:GetObject());
+
+	frame:SetUserValue("SKLNAME", obj.ClassName);
 	_SKILLITEMMAKE_RESET(frame);
 	frame:ShowWindow(1)
-
-	ui.OpenFrame('skillability');
 end
 
 function EQUIP_MENDING_SKL(skillType)
@@ -118,21 +100,6 @@ function EQUIP_MENDING_SKL(skillType)
 	if skill == nil then
 		return 0;
 	end
-
-	-- NPC 옆에 설치 막기
-	local pc = GetMyPCObject();
-	local x, y, z = GetPos(pc);
-	if 0 == IsFarFromNPC(pc, x, y, z, 60) then
-		ui.SysMsg(ClMsg("TooNearFromNPC"));	
-		return 0;
-	end
-
-	local zoneName = session.GetMapName();
-	if SCR_ZONE_KEYWORD_CHECK(zoneName, "NoShop") == "YES" then
-		ui.SysMsg(ClMsg('DontOpenThisAria'));
-		return;
-	end
-	
 		-- 방향은 정면과 대각정면까지만 허용. 상점을 뒤로 개설 할 필욘없음.
 	local myActor = GetMyActor();
 	local rotateAngle = fsmactor.GetAngle(myActor);
@@ -165,7 +132,7 @@ function EQUIP_MENDING_SKL(skillType)
 		return;
 	elseif "Oracle_SwitchGender" == clsName then
 		local frame = ui.GetFrame("switchgender");
-		SWITCHGENDER_OPEN_UI_SET(frame, clsName, true);
+		SWITCHGENDER_OPEN_UI_SET(frame, clsName)
 		frame:ShowWindow(1);
 		return;
 	elseif "Enchanter_EnchantArmor" == clsName then
@@ -173,9 +140,6 @@ function EQUIP_MENDING_SKL(skillType)
 		ENCHANTARMOR_OPEN_UI_SET(frame, obj)
 		frame:ShowWindow(1);
 		return;
-    elseif "Sage_PortalShop" == clsName then
-        PORTAL_SHOP_REGISTER_OPEN(obj);
-        return;
 	end
 
 	local frame = ui.GetFrame("itembuff");
@@ -183,23 +147,31 @@ function EQUIP_MENDING_SKL(skillType)
 		return 0;
 	end
 
-	if clsName == 'Appraiser_Apprise' then
-		local moneyInput = GET_CHILD_RECURSIVELY(frame, 'MoneyInput');
-		moneyInput:SetNumberMode(1);
-		moneyInput:SetTypingScp("APPRAISAL_PC_ON_TYPING");	
-	end
-
-    local titleName = obj.Name;
-    if clsName == 'Squire_WeaponTouchUp' or clsName == 'Squire_ArmorTouchUp' then
-        titleName = ClMsg('EqiupmentTouchUp');
-    end
-
-	ITEMBUFF_SET_SKILLTYPE(frame, obj.ClassName, obj.Level, titleName);
-	ITEMBUFF_INIT_USER_PRICE(frame, obj.ClassName);
+	ITEMBUFF_SET_SKILLTYPE(frame, obj.ClassName, obj.Level, obj.Name);
 	frame:ShowWindow(1);
-	ITEMBUFF_REFRESH_LIST(frame);	
+	ITEMBUFF_REFRESH_LIST(frame);
 	return 0;
 end
+
+function SCR_SKILL_BRIQUITE(skillType)
+	local skill = session.GetSkill(skillType);
+	if skill == nil then
+		return 0;
+	end
+
+	local obj = GetIES(skill:GetObject());
+	local frame = ui.GetFrame("briquetting");
+	if nil == frame then
+		return 0;
+	end
+
+	frame:ShowWindow(1);
+	BRIQUETTING_SET_SKILLTYPE(frame, obj.ClassName, obj.Level);
+	BRIQUETTING_UI_RESET(frame);
+	ui.OpenFrame("inventory");
+	return 0;
+end
+
 
 function CAMP_SKILL(skillType)
 	local skill = session.GetSkill(skillType);
@@ -224,20 +196,6 @@ function FOODTABLE_SKILL(skillType)
 		return 0;
 	end
 
-	-- NPC 옆에 설치 막기
-	local pc = GetMyPCObject();
-	local x, y, z = GetPos(pc);
-	if 0 == IsFarFromNPC(pc, x, y, z, 60) then
-		ui.SysMsg(ClMsg("TooNearFromNPC"));	
-		return 0;
-	end
-	
-	local zoneName = session.GetMapName();
-	if SCR_ZONE_KEYWORD_CHECK(zoneName, "NoShop") == "YES" then
-		ui.SysMsg(ClMsg('DontOpenThisAria'));
-		return 0;
-	end
-	
 	local obj = GetIES(skill:GetObject());
 	local frame = ui.GetFrame("foodtable_register");
 	if nil == frame then
@@ -274,41 +232,10 @@ function SET_ENABLESKILLCANCEL_HITINDEX_C(actor, obj, cancelHitIndex)
 end
 
 function GET_LH_SOUND_SKILL(sklID)
-	local skillCls = GetClassByType('Skill', sklID);
-	if skillCls == nil then
-		return 0;
-	end
-
-	if skillCls.ClassName == 'Hackapell_Skarphuggning' then
-		return 1;
-	end
-
-	if skillCls.AttackType == 'Gun' then
+	-- 스칼푸그닝
+	if sklID == 31301 then
 		return 1;
 	end
 
 	return 0;
-end
-
-function SCR_SET_EXPROP_C(name, value)
-	local pc = GetMyPCObject()
-	SetExProp(pc, name, tonumber(value))
-end
-
-function SCR_DEL_EXPROP_C(name)
-	local pc = GetMyPCObject()
-	DelExProp(pc, name)
-end
-
-function REQ_RIDE_RIDEPET_C(skillType)
-	local skill = session.GetSkill(skillType)
-	if skill == nil then
-		return 0
-	end
-
-	-- need to manage client exception
-
-	ride_pet.RequestSummonRidePet()
-
-	return 0
 end

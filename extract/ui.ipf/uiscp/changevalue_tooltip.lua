@@ -93,7 +93,7 @@ function UPDATE_ITEM_CHANGEVALUE_TOOLTIP(tooltipframe, strarg, numarg1, numarg2)
 end
 
 function ITEM_TOOLTIP_SOCKETCHANGEVALUE(frame, invItem, socketItem, strarg)
-	local socketCnt = GET_NEXT_SOCKET_SLOT_INDEX(invItem);
+	local socketCnt = GET_SOCKET_CNT(invItem);
 
 	-- 일단 소켓 비교 툴팁 안뜨게 변경
 	if socketCnt < 0 then
@@ -207,11 +207,6 @@ function ITEM_TOOLTIP_SOCKETCHANGEVALUE(frame, invItem, socketItem, strarg)
 				CREATE_SOCKETCHANGEVALUE_TEXT(GroupCtrl, newtxt);
 			end
 
-            if socketItem.SkillWidthRange ~= 0 then
-				local newtxt = string.format("{#050505}{s18}{b}%s", ScpArgMsg("SkillWidthRange").." +"..socketItem.SkillWidthRange);
-				CREATE_SOCKETCHANGEVALUE_TEXT(GroupCtrl, newtxt);
-			end
-
 			if socketItem.SkillAngle ~= 0 then
 				local newtxt = string.format("{#050505}{s18}{b}%s", ScpArgMsg("SkillAngle").." +"..socketItem.SkillAngle);
 				CREATE_SOCKETCHANGEVALUE_TEXT(GroupCtrl, newtxt);
@@ -277,37 +272,6 @@ function ITEM_TOOLTIP_ARMOR_CHANGEVALUE(tooltipframe, invitem, equipItem, strarg
 		local ypos = DRAW_UNEQUIP_CHANGE_ARMOR_TOOLTIP(tooltipframe, invitem, ypos, ispickitem);
 		return ypos;
 	end
-end
-
-function DRAW_APPRAISAL_PICTURE(tooltipframe)
-	local GroupCtrl   = tooltipframe:GetChild('appraisal');
-	local cnt 			 = GroupCtrl:GetChildCount();
-	local ControlSetObj	 = GroupCtrl:CreateControlSet('appralsal', "EX" .. cnt , 0, 0);
-	local ControlSetCtrl = tolua.cast(ControlSetObj, 'ui::CControlSet');
-
-	local X_MARGIN_OF_TITLE = ControlSetCtrl:GetUserConfig("X_MARGIN_OF_TITLE")
-	local Y_MARGIN_OF_TITLE = ControlSetCtrl:GetUserConfig("Y_MARGIN_OF_TITLE")
-	local MARGIN_BETWEEN_VALUE_N_VALUE = ControlSetCtrl:GetUserConfig("MARGIN_BETWEEN_VALUE_N_VALUE")
-
-	ControlSetCtrl:SetOffset(X_MARGIN_OF_TITLE, cnt * MARGIN_BETWEEN_VALUE_N_VALUE + Y_MARGIN_OF_TITLE)
-
-	local pic	 = GET_CHILD(ControlSetCtrl, "pic", "ui::CPicture");
-	pic:SetImage("USsentiment_top");
-	local equipchange = tolua.cast(GroupCtrl, 'ui::CGroupBox');
-	local cnt = equipchange:GetChildCount();
-	local width = equipchange:GetWidth();
-	if cnt > 0 then
-		width = -1;
-		for i = 0 , cnt - 1 do
-			local obj = equipchange:GetChildByIndex(i);
-			width = math.max(width, obj:GetWidth() + 50);
-		end
-	end
-
-	local lastChild = equipchange:GetChild("EX" .. cnt-1)
-	local lastHeight = lastChild:GetY() + lastChild:GetHeight();
-	equipchange:Resize(width, lastHeight)
-	tooltipframe:Resize(width, lastHeight);
 end
 
 function DRAW_EQUIP_CHANGE_WEAPON_TOOLTIP(tooltipframe, invitem, equipItem, ypos, ispickitem)

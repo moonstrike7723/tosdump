@@ -17,34 +17,15 @@ function SAGE_PORTAL_SAVE_SUCCESS()
 	SAGEPORTAL_UPDATE_LIST(frame, skillName);
 end
 
-function GET_SAGE_PORTAL_MAX_COUNT_C()
-    local maxCnt = tonumber(SAGE_PORTAL_BASE_CNT);
-	
-    -- 특성 --
-	local abilSage1 = session.GetAbilityByName("Sage1")
-	if abilSage1 ~= nil then
-	    local abilObj = GetIES(abilSage1:GetObject());
-	    maxCnt = maxCnt + abilObj.Level
-	end
-	
-	local abilSage16 = session.GetAbilityByName("Sage16")
-	if abilSage16 ~= nil then
-	    local abilObj = GetIES(abilSage16:GetObject());
-	    maxCnt = maxCnt + abilObj.Level
-	end
-	
-	local abilSage17 = session.GetAbilityByName("Sage17")
-	if abilSage17 ~= nil then
-	    local abilObj = GetIES(abilSage17:GetObject());
-	    maxCnt = maxCnt + abilObj.Level
-	end
-	
-    return maxCnt;
-end
-
 function SAGEPORTAL_WRITE_PORTAL_CNT(frame, etcObj, skillName)
 	local nowCnt = 0;
-	local maxCnt = GET_SAGE_PORTAL_MAX_COUNT_C();
+	local maxCnt = tonumber(SAGE_PORTAL_BASE_CNT); -- + 특성
+
+	local abil = session.GetAbilityByName("Sage1")
+	if abil ~= nil then
+	    local abilObj = GetIES(abil:GetObject());
+	    maxCnt = maxCnt + abilObj.Level
+	end
 
 	for i = 1, maxCnt do
 		local propName = skillName .. "_"..i;
@@ -73,7 +54,8 @@ function SAGEPORTAL_UPDATE_LIST(frame, skillName)
 	local picX, picY = 125, 125;
 	for i = 1, maxCnt do
 		local propName =  skillName.. "_"..i;
-		local propValue = etcObj[propName];		
+		local propValue = etcObj[propName];
+		
 		if 'None' ~= propValue then
 			local ctrlSet = warplist:CreateControlSet("sage_portal_warp_list", "CTRLSET_" .. i,  ui.CENTER_HORZ, ui.TOP, 0, 0, 0, 0);
 			local sSave = StringSplit(etcObj[propName], "@");
@@ -97,8 +79,8 @@ function SAGEPORTAL_UPDATE_LIST(frame, skillName)
 					local picBox = gBox:GetChild("picBox");	
 					local pic = GET_CHILD(picBox, "pic", "ui::CPicture");
 					local mapName = sList[1]
-					local isValid = ui.IsImageExist(mapName);
-					if isValid == false then
+					local mapimage = ui.GetImage(mapName);
+					if mapimage == nil then
 						world.PreloadMinimap(mapName);
 					end
 
@@ -162,22 +144,18 @@ function SHOW_REMAIN_POTAL_COOLDOWN(ctrl)
 end
 
 function SAGEPORTAL_SAVE_BTN(frame, ctrl)
-	local zoneName = session.GetMapName();
-	local mapCls = GetClass("Map", zoneName);
-	local mapType = TryGetProp(mapCls, "MapType", "None");
-	if mapType ~= "Field" and mapType ~= "Dungeon" then
+	local mapCls = GetClass("Map", session.GetMapName());
+	if mapCls == nil or mapCls.MapType ~= "Field" then
 		ui.SysMsg(ClMsg('CannotSaveThisZone'));
-		return;
+		return 
 	end
-	
-	if SCR_ZONE_KEYWORD_CHECK(zoneName, "NoWarp") == "YES" then
-		ui.SysMsg(ClMsg('CannotSaveThisZone'));
-		return;
-	end
-	
-	local saveName = TryGetProp(mapCls, "Name", "None");
 
-	ui.MsgBox(ScpArgMsg("SageSavePos{MN}","MN", saveName), "ui.Chat('/sageSavePos')", "None");
+	local mapName = "None"
+	if nil ~= mapCls then
+		mapName = mapCls.Name;
+	end
+
+	ui.MsgBox(ScpArgMsg("SageSavePos{MN}","MN", mapName), "ui.Chat('/sageSavePos')", "None");
 	DISABLE_BUTTON_DOUBLECLICK("sageportal",ctrl:GetName())
 end
 

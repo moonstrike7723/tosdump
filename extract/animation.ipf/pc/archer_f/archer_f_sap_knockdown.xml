@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <ActionDesc>
     <Sound frame="0.00" soundFile="move_block_1"/>
     <Sound frame="0.00" soundFile="voice_down_war_f"/>

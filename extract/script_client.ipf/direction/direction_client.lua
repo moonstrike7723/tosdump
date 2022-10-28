@@ -1,5 +1,7 @@
-﻿
+
+
 function DRT_C_PLAY_ANIM(actor, cmd, animName, fixAnim, duplicationPlay, delayTime, passedTime)
+
 	if fixAnim == nil then
 		fixAnim = 1;
 	end
@@ -16,14 +18,6 @@ function DRT_C_PLAY_ANIM(actor, cmd, animName, fixAnim, duplicationPlay, delayTi
 	if passedTime ~= nil and passedTime > 0.0 then
 		startTime = passedTime;
 	end
-
-		local isPubUsePoseActor = customizing_ui.IsPubUsePoseByActor(actor:GetHandleVal());
-		if isPubUsePoseActor == true then
-			local pubUsePoseName = customizing_ui.GetUsePoseName();
-			if pubUsePoseName ~= "None" then
-				animName = pubUsePoseName;
-			end
-		end
 
 	actor:GetAnimation():PlayFixAnim(animName, 1.0, fixAnim, 1, delayTime, skipIfExist, false, startTime);
 end
@@ -115,15 +109,10 @@ function DRT_PLAY_EFT_C(pc, cmd, eftName, scl, x, y, z, lifeTime, delay)
 end
 
 
-function DRT_C_PLAYSOUND(actor, cmd, soundName, enableSkip)
-	if enableSkip == nil then
-		enableSkip = 0;
-	end
+function DRT_C_PLAYSOUND(actor, cmd, soundName)
 
 	movie.PlayCenterSound(soundName);
-	if enableSkip == 1 then
-		cmd:EnableSkipSound(soundName);
-	end
+
 end
 
 function DRT_C_FADEOUT(actor, cmd, isOut)

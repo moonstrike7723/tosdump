@@ -56,75 +56,26 @@ function MCC_SCRIPT_NINJA(actor, mccIndex)
 			end
 		end
 
---		if false == useSkill then
---			local sklProp = geSkillTable.Get(sklName);
---			if sklProp.isNormalAttack then
---				useSkill = true;
---			end
---		end
-
-		if useSkill == true then
-		
-			local tgt = geMCC.GetLastAttackObject(25.0);
-			geMCC.UseSkill(actor, tgt, skillID);
-			return;
-		end
-	end
-
-	local forpos = actor:GetFormationPos(mccIndex, 25.0);			
-	local distFromActor = imcMath.Vec3Dist(actor:GetPos(), myActor:GetPos());
-	if distFromActor >= 65 then
-		geMCC.MoveTo(actor, forpos);		
-	end
-	
-	local objList, objCount = SelectObject(myActor, 60, 'ENEMY');
-	if objCount > 0 then
-		for i = 1, objCount do
-			local enemyHandle = GetHandle(objList[i]);
-			local enemy = world.GetActor(enemyHandle);
-			if enemy ~= nil then
-				if imcMath.Vec3Dist(enemy:GetPos(), actor:GetPos()) <= 30 then
-					geMCC.UseSkill(actor, enemy, 20);
-					return;
-				end
-				geMCC.MoveTo(actor, enemy:GetPos());
-				return;
-			end
-		end
-	end
-end
-
-function MCC_SCRIPT_NINJA_VIBORA(actor, mccIndex)
-	if actor:IsSkillState() == true then
-		return;
-	end
-
-	local myActor = GetMyActor();
-	if myActor:IsSkillState() == true then
-
-		local skillID = myActor:GetUseSkill();
-		local sklName = GetClassByType("Skill", skillID).ClassName;
-		local skills = GET_NINJA_SKILLS();
-		local useSkill = false;
-		for i = 1 , #skills do
-			local ninjaSklName = skills[i];
-			if ninjaSklName == sklName then
+		if false == useSkill then
+			local sklProp = geSkillTable.Get(sklName);
+			if sklProp.isNormalAttack then
 				useSkill = true;
 			end
 		end
 
 		if useSkill == true then
 		
-			local tgt = geMCC.GetLastAttackObject(25.0);
+			local tgt = geMCC.GetLastAttackObject(5.0);
 			geMCC.UseSkill(actor, tgt, skillID);
 			return;
 		end
 	end
 
-	local forpos = actor:GetFormationPos(mccIndex, 20.0);			
+
+	local forpos = actor:GetFormationPos(mccIndex, 25.0);			
 	local distFromActor = imcMath.Vec3Dist(actor:GetPos(), myActor:GetPos());
-	if distFromActor >= 20 then
-		geMCC.MoveTo(actor, forpos);		
+	if distFromActor >= 30 then
+		geMCC.MoveTo(actor, forpos);
 	end
 end
 

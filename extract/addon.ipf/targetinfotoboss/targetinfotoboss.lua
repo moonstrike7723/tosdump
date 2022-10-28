@@ -5,16 +5,16 @@ function TARGETINFOTOBOSS_ON_INIT(addon, frame)
 	addon:RegisterMsg('TARGET_CLEAR_BOSS', 'TARGETINFOTOBOSS_ON_MSG');
 	addon:RegisterMsg('TARGET_UPDATE', 'TARGETINFOTOBOSS_ON_MSG');
 	addon:RegisterMsg('UPDATE_SDR', 'TARGETINFOTOBOSS_UPDATE_SDR');
-	addon:RegisterMsg("MISS_CHECK_SHOW_ICON", "TARGETINFOTOBOSS_MISSCHECK");
-	addon:RegisterMsg("MISS_CHECK_REMOVE_ICON", "TARGETINFOTOBOSS_MISSCHECK_ICON_REMOVE");
 
 	local timer = frame:GetChild("addontimer");
 	tolua.cast(timer, "ui::CAddOnTimer");
 	timer:SetUpdateScript("UPDATE_BOSS_DISTANCE");
 	timer:Start(0.1);
+
  end
  
  function UPDATE_BOSS_DISTANCE(frame)
+
  	local handle = session.GetTargetBossHandle();
 	local targetinfo = info.GetTargetInfo(handle);
 	if nil == targetinfo then
@@ -22,6 +22,13 @@ function TARGETINFOTOBOSS_ON_INIT(addon, frame)
 		frame:ShowWindow(0);
 		return;
 	end
+
+	local dist = targetinfo.distance;
+	local str = string.format("%0.1f m", dist / 25);
+
+	local nameRichText = GET_CHILD(frame, "dist", "ui::CRichText");
+	nameRichText:SetText("{s16}{ol}"..str);
+
  end
 
 function TARGETINFOTOBOSS_UPDATE_SDR(frame, msg, argStr, SDR)
@@ -42,59 +49,45 @@ function TARGETINFOTOBOSS_TARGET_SET(frame, msg, argStr, argNum)
 		return;
 	end
 	
-	local targetHandle = argNum ;
 	local targetinfo = info.GetTargetInfo(argNum);
 	if targetinfo == nil then
 		session.ResetTargetBossHandle();
 		frame:ShowWindow(0);
 		return;
 	end
-
+	
 	if 0 == targetinfo.TargetWindow or targetinfo.isBoss == 0 then
 		session.ResetTargetBossHandle();
 		frame:ShowWindow(0);
 		return;
 	end
 
-	local boss_attribute_img = GET_CHILD_RECURSIVELY(frame, "boss_attribute_img");
-	local attribute = targetinfo.attribute
-    local attributeImgName = "attribute_"..attribute
-	if attributeImgName == "None" then
-		boss_attribute_img:ShowWindow(0)
-	else
-		boss_attribute_img:ShowWindow(1)
-		boss_attribute_img:SetImage(attributeImgName)
-	end
+	--dist
+	local dist = targetinfo.distance;
+	local str = string.format("%0.1f m", dist / 25);
+	local nameRichText = GET_CHILD(frame, "dist", "ui::CRichText");
+	nameRichText:SetText("{s16}{ol}"..str);
 
-	-- name
-	local nametext = GET_CHILD_RECURSIVELY(frame, "name", "ui::CRichText");
-	local mypclevel = GETMYPCLEVEL();
-    local levelColor = "";
-    if mypclevel + 10 < targetinfo.level then
-        nametext:SetTextByKey('color', frame:GetUserConfig("MON_NAME_COLOR_MORE_THAN_10"));
-	elseif mypclevel + 5 < targetinfo.level then
-        nametext:SetTextByKey('color', frame:GetUserConfig("MON_NAME_COLOR_MORE_THAN_5"));
-    else
-        nametext:SetTextByKey('color', frame:GetUserConfig("MON_NAME_COLOR_DEFAULT"));
-	end
-    nametext:SetTextByKey('lv', targetinfo.level);
-    nametext:SetTextByKey('name', targetinfo.name);
+	-- lv
+	local levelRichText = GET_CHILD(frame, "level", "ui::CRichText");
+	levelRichText:SetText('{@st41}{#ffcc00}Lv. '..targetinfo.level);
+
+	-- name size
+	local nametext = GET_CHILD(frame, "name", "ui::CRichText");
+	local bossSize = targetinfo.size;
+	--nametext:SetText('{@st41}      {@st43}'.. targetinfo.name .. '{@st53} ' .. targetinfo.size);
+	nametext:SetText('{@st41}{#ffcc00}'.. targetinfo.name);
 	
 	-- race
-	local raceTypeSet = GET_CHILD(frame, "race");    
-    local image = raceTypeSet:GetChild('racePic');    
-    local imageStr = TARGETINFO_GET_RACE_TYPE_IMAGE(raceTypeSet, targetinfo.raceType);
-    image = tolua.cast(image, 'ui::CPicture');    
-    image:SetImage(imageStr);
+	local image = GET_CHILD(frame, "race", "ui::CPicture");
+	image:SetImage('Tribe_' .. targetinfo.raceType);
+	image:SetOffset( nametext:GetX() , image:GetY());
 
 	-- hp
+
 	local stat = targetinfo.stat;
 	local hpGauge = GET_CHILD(frame, "hp", "ui::CGauge");
-    local hpText = frame:GetChild('hpText');
 	hpGauge:SetPoint(stat.HP, stat.maxHP);
-
-	local strHPValue = TARGETINFO_TRANS_HP_VALUE(targetHandle, stat.HP, frame:GetUserConfig("HPTEXT_STYLESHEET") ); 
-    hpText:SetText(strHPValue);
 
 	if targetinfo.isInvincible ~= hpGauge:GetValue() then
 		hpGauge:SetValue(targetinfo.isInvincible);
@@ -105,22 +98,50 @@ function TARGETINFOTOBOSS_TARGET_SET(frame, msg, argStr, argNum)
 		end
 	end
 
+	-- attr
+	local imageattr = GET_CHILD(frame, "attr", "ui::CPicture");
+
+	if targetinfo.attribute == 'Melee' then
+		imageattr:ShowWindow(0);
+	else
+		imageattr:ShowWindow(1);
+		imageattr:SetImage('Attri_' .. targetinfo.attribute);
+	end
+
+	-- attr
+	local imageArmor = GET_CHILD(frame, "armor", "ui::CPicture");
+
+	if targetinfo.armorType == 'Melee' then
+		imageArmor:ShowWindow(0);
+	else
+		imageArmor:ShowWindow(1);
+		imageArmor:SetImage('Armor_' .. targetinfo.armorType .. '_B');
+	end
+
+	local targetFrame = ui.GetFrame("targetinfo");
+	if targetFrame:IsVisible() == 1 then
+		--targetFrame:SetOffset(230, 20);
+		--targetFrame:SetEffect("targetinfo_left", ui.UI_TEMP0);
+		--targetFrame:StartEffect(ui.UI_TEMP0);
+	end
+
 	frame:ShowWindow(1);
 	frame:Invalidate();
-	frame:SetValue(argNum);	-- argNum ê°€ í•¸ë“¤ìž„
+	frame:SetValue(argNum);	-- argNum °¡ ÇÚµéÀÓ
 end
 
 function TARGETINFOTOBOSS_ON_MSG(frame, msg, argStr, argNum)
+
 	if msg == 'TARGET_CLEAR_BOSS' then
 		session.ResetTargetBossHandle();
-		frame:SetVisible(0); -- visibleê°’ì´ 1ì´ë©´ ë‹¤ë¥¸ ëª¬ìŠ¤í„° hp gauge offsetì´ ì˜†ìœ¼ë¡œ ë°€ë¦¼.(targetinfo.lua ì°¸ì¡°)
+		frame:SetVisible(0); -- visible°ªÀÌ 1ÀÌ¸é ´Ù¸¥ ¸ó½ºÅÍ hp gauge offsetÀÌ ¿·À¸·Î ¹Ð¸².(targetinfo.lua ÂüÁ¶)
 		frame:ShowWindow(0);
 	end
 	
 	if msg == 'TARGET_UPDATE' or msg == 'TARGET_BUFF_UPDATE' then
 		local target = session.GetTargetBossHandle();
-		if target ~= 0 then  
-			if session.IsBoss(target) == true then	
+		if target ~= 0 then
+			if session.IsBoss( target ) == true then				
 				TARGETINFOTOBOSS_TARGET_SET(frame, 'TARGET_SET_BOSS', "Enemy", target)
 			end
 		end
@@ -129,9 +150,6 @@ function TARGETINFOTOBOSS_ON_MSG(frame, msg, argStr, argNum)
 		if stat ~= nil then
 			local hpGauge = GET_CHILD(frame, "hp", "ui::CGauge");
 			hpGauge:SetPoint(stat.HP, stat.maxHP);
-			local strHPValue = TARGETINFO_TRANS_HP_VALUE(session.GetTargetBossHandle(), stat.HP, frame:GetUserConfig("HPTEXT_STYLESHEET"));
-			local hpText = frame:GetChild('hpText');
-            hpText:SetText(strHPValue);
 			if frame:IsVisible() == 0 then
 				frame:ShowWindow(1)
 			end
@@ -140,67 +158,4 @@ function TARGETINFOTOBOSS_ON_MSG(frame, msg, argStr, argNum)
 	end
  end
 
- function TARGETINFO_GET_RACE_TYPE_IMAGE(monsterRaceSet, raceType)
-    local raceStr = '';
-    if raceType == 'Klaida' then
-	    raceStr = monsterRaceSet:GetUserConfig('IMG_RACE_INSECT');
-    elseif raceType == 'Widling' then
-        raceStr = monsterRaceSet:GetUserConfig('IMG_RACE_WILD');
-    elseif raceType == 'Velnias' then
-        raceStr = monsterRaceSet:GetUserConfig('IMG_RACE_DEVIL');
-    elseif raceType == 'Forester' then
-        raceStr = monsterRaceSet:GetUserConfig('IMG_RACE_PLANT');
-    elseif raceType == 'Paramune' then
-        raceStr = monsterRaceSet:GetUserConfig('IMG_RACE_VARIATION');
-    elseif raceType == 'None' then
-        raceStr = monsterRaceSet:GetUserConfig('IMG_RACE_NONE');
-    end
-    return raceStr;
- end
 
-function TARGETINFOTOBOSS_MISSCHECK(frame, msg, iconName, count)
-	if frame == nil then return; end
-
-	local boss_misscheck = GET_CHILD_RECURSIVELY(frame, "boss_misscheck");
-	if boss_misscheck == nil then return; end
-
-	local icon = CreateIcon(boss_misscheck);
-	if icon ~= nil then
-		icon:SetImage(iconName);
-		boss_misscheck:SetVisible(1);
-		boss_misscheck:SetText("{s13}{ol}{b}"..count, "count", ui.RIGHT, ui.BOTTOM, -5, -3);
-	end
-end
-
-function TARGETINFOTOBOSS_MISSCHECK_ICON_REMOVE(frame, msg)
-	if frame == nil then return; end
-
-	local boss_misscheck = GET_CHILD_RECURSIVELY(frame, "boss_misscheck");
-	if boss_misscheck == nil then return; end
-
-	local timer = GET_CHILD_RECURSIVELY(frame, "misschecktimer");
-	tolua.cast(timer, "ui::CAddOnTimer");
-	timer:SetArgNum(2);
-	timer:SetUpdateScript("UPDATE_MISSCHECK_ICON_REMOVE");
-	timer:Start(1);
-end
-
-function UPDATE_MISSCHECK_ICON_REMOVE(frame, timer, argStr, argNum, time)
-	if frame == nil then return; end
-	local boss_misscheck = GET_CHILD_RECURSIVELY(frame, "boss_misscheck");
-	if boss_misscheck ~= nil then
-		if time >= argNum then
-			if boss_misscheck:IsBlinking() == 1 then
-				boss_misscheck:ReleaseBlink();
-			end
-
-			boss_misscheck:SetVisible(0);
-			boss_misscheck:SetText("");
-			timer:Stop();
-		else
-			if boss_misscheck:IsBlinking() == 0 then
-				boss_misscheck:SetBlink(600000, 1.0, "55FFFFFF", 1);
-			end
-		end
-	end
-end

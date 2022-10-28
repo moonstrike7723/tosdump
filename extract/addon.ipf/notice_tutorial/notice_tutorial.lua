@@ -14,7 +14,6 @@ function INIT_KEYBOARD_TUTORIAL(frame)
 	
 	END_KEYBOARD_TUTORIAL(frame);
 	frame:GetChild('comment'):ShowWindow(0);
-	frame:GetChild('comment2'):ShowWindow(0);
 	frame:GetChild('SpaceKey'):ShowWindow(0);
 	frame:GetChild('MoveKey'):ShowWindow(0);
 	frame:GetChild('MoveKey2'):ShowWindow(0);
@@ -191,9 +190,6 @@ function ON_DIALOG_SPACE_TUTORIAL(frame, msg, argStr, argNum)
 	comment:ShowWindow(1);
 	local groupBox = frame:GetChild('SpaceKey');
 	groupBox:ShowWindow(1);
-	local comment2 = frame:GetChild('comment2');
-	comment2:SetText( ScpArgMsg("USE_Growth_Equip_Box") );
-	comment2:ShowWindow(1);
 
 	groupBox:GetChild("SpaceText"):SetText(ScpArgMsg("Auto_{@st41}DaeHwa_SinCheongKi{/}"));
 	
@@ -238,7 +234,7 @@ end
 function ON_KEYBOARD_TUTORIAL(frame, msg, argStr, argNum)
 
 	INIT_KEYBOARD_TUTORIAL(frame);
-	quickslot.RequestSave();
+	session.SaveQuickSlot();
 	local comment = frame:GetChild('comment');
 	comment:SetText(ScpArgMsg('Auto_{@st64}Keimui_KiBon_JoJageul_TtaLaHae_BopNiDa!'));
 	comment:ShowWindow(1);
@@ -309,7 +305,7 @@ function UPDATE_KEYBOARD_TUTORIAL(frame)
 	end
 	if keyboard.IsKeyDown("UP") == 1 then
 		frame:SetUserValue("move3", 'off')
-		local img = GET_CHILD_RECURSIVELY(moveGroupBox, 'move_u');
+		local img = moveGroupBox:GetChild('move_u');
 		img:SetBlink(0, 1, '0xFF000000');
 	end
 	if keyboard.IsKeyDown("DOWN") == 1 then

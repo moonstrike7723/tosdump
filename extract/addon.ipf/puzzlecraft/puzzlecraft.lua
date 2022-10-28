@@ -78,7 +78,7 @@ function PUZZLECRAFT_DROP(frame, slot, argStr, argNum)
 			return;
 		end
 		SET_SLOT_INVITEM(slot, invItem);
-		slot:SetText("", 'count', ui.RIGHT, ui.BOTTOM, -2, 1);
+		slot:SetText("", 'count', 'right', 'bottom', -2, 1);
 		CHECK_NEW_PUZZLE(frame, slot);
 		
 	elseif FromFrame:GetName() == "puzzlecraft" then
@@ -91,7 +91,7 @@ function PUZZLECRAFT_DROP(frame, slot, argStr, argNum)
 		captureSlot:SetUserValue("SELECTED", 0);
 
 		SET_SLOT_INVITEM(slot, invItem);
-		slot:SetText("", 'count', ui.RIGHT, ui.BOTTOM, -2, 1);
+		slot:SetText("", 'count', 'right', 'bottom', -2, 1);
 		CHECK_NEW_PUZZLE(frame, slot);
 	end
 
@@ -132,7 +132,7 @@ function CHECK_NEW_PUZZLE(frame, checkSlot)
 			if slot:GetUserIValue("SELECTED") == 0 then
 				local iconInfo = icon:GetInfo();
 				local row = math.floor(i / slotset:GetCol());
-				local col = math.fmod(i, slotset:GetCol());
+				local col = math.mod(i, slotset:GetCol());
 				geItemPuzzle.AddPuzzleInfo(row, col, iconInfo.type);
 
 				if checkSlot == slot then
@@ -212,18 +212,6 @@ function UPDATE_PUZZLECRAFT_TARGETS()
 	end		
 	
 	local cnt = geItemPuzzle.GetCombinationCount();
-	local totalNeedSecond = 0;
-	local reduceSecBySklLv = 0;
-	local skl = session.GetSkill(21006);
-	if skl ~= nil then
-		local sklObj = GetIES(skl:GetObject());
-		local lvOver = math.floor(sklObj.Level) - 5;
-		if lvOver < 0 then
-			lvOver = 0
-		end
-		reduceSecBySklLv = lvOver * 2
-	end
-
 	for i = 0 , cnt - 1 do
 		local info = geItemPuzzle.GetCombinationByIndex(i);
 		local resultInfo = geItemPuzzle.GetByClassID(info.classID);
@@ -247,28 +235,8 @@ function UPDATE_PUZZLECRAFT_TARGETS()
 		local itemCls = GetClass("Item", resultInfo:GetTargetItemName());
 		SET_SLOT_ITEM_CLS(retSlot, itemCls);
 		SET_SLOT_COUNT_TEXT(retSlot, ptCount)
-        
-        local needSec = 1
-        if resultInfo ~= nil and resultInfo.needSec ~= nil then
-            needSec = resultInfo.needSec
-        end
-        
-        totalNeedSecond = totalNeedSecond + (needSec - reduceSecBySklLv) * ptCount;
 	end
 
-    PUZZLECRAFT_UPDATE_TOTAL_TIME(frame, totalNeedSecond);
-end
-
-function PUZZLECRAFT_UPDATE_TOTAL_TIME(frame, totalNeedSecond)
-    if totalNeedSecond < 0 then
-        totalNeedSecond = 0;
-    end
-    
-    local richtext_1 = GET_CHILD_RECURSIVELY(frame, 'richtext_1');
-    local minute = totalNeedSecond / 60;
-    local second = totalNeedSecond % 60;
-    local timeStr = string.format('%d:%02d', minute, second);
-    richtext_1:SetTextByKey('value', timeStr);
 end
 
 function PUZZLE_ANIM_EXCUTE()
@@ -344,8 +312,7 @@ function PUZZLE_COMPLETE()
 		CLEAR_SLOT_ITEM_INFO(slot);
 		slot:SetUserValue("SELECTED", 0);
 	end		
-    
-    PUZZLECRAFT_UPDATE_TOTAL_TIME(frame, 0);
+		
 end
 
 function PUZZLE_MAKING_BALLOON(handle, itemCount)
@@ -399,3 +366,6 @@ function UPDATE_PUZZLECRAFT_MAKING_TOOLTIP(frame, strArg, numArg)
 	frame:Resize(frame:GetWidth(), gbox:GetY() + gbox:GetHeight() + 10)
 
 end
+
+
+

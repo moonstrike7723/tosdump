@@ -40,45 +40,40 @@ end
 
 
 function SCR_JOB_2_PSYCHOKINO_5_1_BOOK_1_PRE_DIALOG(pc, dialog)
-    local questCheck1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
-    local questCheck2 = SCR_QUEST_CHECK(pc, 'MASTER_PSYCHOKINO1')
-    if questCheck1 == 'PROGRESS' or questCheck2 == 'PROGRESS' then
+    local result1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
+    if result1 == 'PROGRESS' then
         return 'YES'
     end
     return 'NO'
 end
 
 function SCR_JOB_2_PSYCHOKINO_5_1_BOOK_2_PRE_DIALOG(pc, dialog)
-    local questCheck1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
-    local questCheck2 = SCR_QUEST_CHECK(pc, 'MASTER_PSYCHOKINO1')
-    if questCheck1 == 'PROGRESS' or questCheck2 == 'PROGRESS' then
+    local result1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
+    if result1 == 'PROGRESS' then
         return 'YES'
     end
     return 'NO'
 end
 
 function SCR_JOB_2_PSYCHOKINO_5_1_BOOK_3_PRE_DIALOG(pc, dialog)
-    local questCheck1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
-    local questCheck2 = SCR_QUEST_CHECK(pc, 'MASTER_PSYCHOKINO1')
-    if questCheck1 == 'PROGRESS' or questCheck2 == 'PROGRESS' then
+    local result1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
+    if result1 == 'PROGRESS' then
         return 'YES'
     end
     return 'NO'
 end
 
 function SCR_JOB_2_PSYCHOKINO_5_1_BOOK_4_PRE_DIALOG(pc, dialog)
-    local questCheck1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
-    local questCheck2 = SCR_QUEST_CHECK(pc, 'MASTER_PSYCHOKINO1')
-    if questCheck1 == 'PROGRESS' or questCheck2 == 'PROGRESS' then
+    local result1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
+    if result1 == 'PROGRESS' then
         return 'YES'
     end
     return 'NO'
 end
 
 function SCR_JOB_2_PSYCHOKINO_5_1_BOOK_5_PRE_DIALOG(pc, dialog)
-    local questCheck1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
-    local questCheck2 = SCR_QUEST_CHECK(pc, 'MASTER_PSYCHOKINO1')
-    if questCheck1 == 'PROGRESS' or questCheck2 == 'PROGRESS' then
+    local result1 = SCR_QUEST_CHECK(pc, 'JOB_2_PSYCHOKINO_5_1')
+    if result1 == 'PROGRESS' then
         return 'YES'
     end
     return 'NO'
@@ -110,56 +105,4 @@ end
 
 function SCR_JOB_MIKO_6_1_FTOWER_61_1_PRE_DIALOG(pc, dialog)
     return 'NO'
-end
-
-function SCR_COLONY_WOODENWALL_TRAP_PRE_DIALOG(pc, dialog, handle)
-    local buildinginfo = session.guildbuilding.GetByHandle(handle);
-    if buildinginfo == nil then
-        return 'NO' 
-    end
-    local objGuildID = buildinginfo:GetGuildID()
-    
-    local guild = GET_MY_GUILD_INFO();
-    local guildID = guild.info:GetPartyID()
-    
-    if objGuildID ~= guildID then
-        return 'NO'
-    end
-    return 'YES'
-end
-
-function SCR_COLONY_BALLISTA_PRE_DIALOG(pc, dialog, handle)
-    local buildinginfo = session.guildbuilding.GetByHandle(handle);
-    if buildinginfo == nil then
-        return 'NO' 
-    end
-    local objGuildID = buildinginfo:GetGuildID()
-    
-    local guild = GET_MY_GUILD_INFO();
-    local guildID = guild.info:GetPartyID()
-
-    if objGuildID ~= guildID then
-        return 'NO'
-    end
-    return 'YES'
-end
-
-function SCR_COLONY_SIEGE_TOWER_PRE_DIALOG(pc, dialog, handle)
-    local buildinginfo = session.guildbuilding.GetByHandle(handle);
-    if buildinginfo == nil then
-        return 'NO' 
-    end
-    local objGuildID = buildinginfo:GetGuildID()
-
-    local guild = GET_MY_GUILD_INFO();
-    local guildID = guild.info:GetPartyID()
-
-    if objGuildID ~= guildID then
-        return 'NO'
-    end
-    
-    if GET_GUILD_VEHICLE_RIDE_STATE(handle) == 1 then
-        return 'NO'
-    end
-    return 'YES'
 end

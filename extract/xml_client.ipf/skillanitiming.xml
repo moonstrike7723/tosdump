@@ -509,7 +509,7 @@
 	<Skill Name="Sorcerer_SummonFamiliar"/>
 	<Skill Name="Sorcerer_SummonSalamion"/>
 	<Skill Name="Sorcerer_SummonServant"/>
-	<Skill Name="Thaumaturge_Quicken"/>
+	<Skill Name="Chronomancer_Quicken"/>
 	<Skill Name="Chronomancer_Samsara"/>
 	<Skill Name="Chronomancer_Stop"/>
 	<Skill Name="Chronomancer_Slow">
@@ -518,7 +518,7 @@
 			<Value Name="ReadyAniTime" Value="500"/>
 		</Property>
 	</Skill>
-	<Skill Name="PlagueDoctor_Haste">
+	<Skill Name="Chronomancer_Haste">
 		<Property Job="4001" Stance="10004" Gender="2">
 			<Value Name="HitAni" Value="6"/>
 			<Value Name="ReadyAniFrame" Value="4"/>
@@ -789,7 +789,7 @@
 			<Value Name="HitAni" Value="200"/>
 		</Property>
 	</Skill>
-	<Skill Name="PiedPiper_HypnotischeFlote"/>
+	<Skill Name="PiedPiper_Fluting"/>
 	<Skill Name="Appraiser_Skill1"/>
 	<Skill Name="Appraiser_Skill2"/>
 	<Skill Name="Schwarzereiter_ConcentratedFire"/>
@@ -841,7 +841,7 @@
 		</Property>
 	</Skill>
 	<Skill Name="Cleric_DeprotectedZone"/>
-	<Skill Name="Oracle_DivineMight">
+	<Skill Name="Cleric_DivineMight">
 		<Property Job="4001" Stance="10004" Gender="2">
 			<Value Name="HitAni" Value="533"/>
 		</Property>
@@ -913,11 +913,11 @@
 	<Skill Name="Sadhu_AstralBodyExplosion"/>
 	<Skill Name="Sadhu_TransmitPrana"/>
 	<Skill Name="Sadhu_EctoplasmAttack"/>
-	<Skill Name="Cleric_Smite"/>
+	<Skill Name="Paladin_Smite"/>
 	<Skill Name="Paladin_Restoration"/>
 	<Skill Name="Paladin_Conversion"/>
 	<Skill Name="Paladin_ResistElements"/>
-	<Skill Name="Priest_TurnUndead"/>
+	<Skill Name="Paladin_TurnUndead"/>
 	<Skill Name="Paladin_Barrier"/>
 	<Skill Name="Monk_IronSkin"/>
 	<Skill Name="Monk_DoublePunch"/>
@@ -2155,16 +2155,16 @@
 	<Skill Name="Mon_Velwriggler_Skill_1"/>
 	<Skill Name="Mon_Lichenclops_Skill_1"/>
 	<Skill Name="Mon_Dumaro_Skill_1"/>
-	<Skill Name="Mon_ticen_Skill_1"/>
-	<Skill Name="Mon_tucen_Skill_1"/>
+	<Skill Name="Mon_ticen _Skill_1"/>
+	<Skill Name="Mon_tucen _Skill_1"/>
 	<Skill Name="Mon_Siaulago_Skill_1"/>
 	<Skill Name="Mon_Siaulamb_Skill_1"/>
 	<Skill Name="Mon_Siaumire_Skill_1"/>
 	<Skill Name="Mon_minivern_Skill_1"/>
-	<Skill Name="Mon_Cronewt_Skill_1"/>
-	<Skill Name="Mon_InfroHoglan_Skill_1"/>
+	<Skill Name="Mon_Cronewt  _Skill_1"/>
+	<Skill Name="Mon_InfroHoglan _Skill_1"/>
 	<Skill Name="Mon_colistump_Skill_1"/>
-	<Skill Name="Mon_Lapasape_Skill_1"/>
+	<Skill Name="Mon_Lapasape _Skill_1"/>
 	<Skill Name="Mon_infro_Blud_Skill_1"/>
 	<Skill Name="Mon_leaf_diving_Skill_1"/>
 	<Skill Name="Mon_Hanaming_Skill_1"/>
@@ -2200,8 +2200,8 @@
 	<Skill Name="Mon_boss_Strongholder_Skill_5"/>
 	<Skill Name="Mon_Skill_boss_Strongholder_Dummy_Skill_1"/>
 	<Skill Name="Mon_boss_stone_whale_Skill_6"/>
-	<Skill Name="Mon_Big_Siaulamb_Skill_1"/>
-	<Skill Name="Mon_Big_Siaulamb_Skill_2"/>
+	<Skill Name="Mon_Big Siaulamb_Skill_1"/>
+	<Skill Name="Mon_Big Siaulamb_Skill_2"/>
 	<Skill Name="Mon_Siaulogre_Skill_1"/>
 	<Skill Name="Mon_Siaulogre_Skill_2"/>
 	<Skill Name="Mon_yognome_Skill_1"/>

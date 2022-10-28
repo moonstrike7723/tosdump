@@ -4,10 +4,11 @@ function MONSTERSKILLUSE_ON_INIT(addon, frame)
 	
 end
 
-function MON_PC_SKILL_BALLOON(title, handle, castTimeMS, showCastingBar, changeColor)
+function MON_PC_SKILL_BALLOON(title, handle, castTimeMS, isBoss, changeColor)
+
 	local frame = nil;
 	local offsetY;
-	if showCastingBar == 0 then
+	if isBoss == 0 then
 		frame = ui.CreateNewFrame("monsterskilluse_normalmon", "MON_PCSKILL_" .. handle);
 		if changeColor == 1 then
 			offsetY= -50;			
@@ -26,7 +27,7 @@ function MON_PC_SKILL_BALLOON(title, handle, castTimeMS, showCastingBar, changeC
 	local castTimeSec = castTimeMS * 0.001;
 	
 	local text = frame:GetChild("text");
-	if changeColor ~= 0 then
+	if changeColor == 1 then
 		text:SetTextByKey("value", '{@st41_yellow}'..title);
 	else
 		text:SetTextByKey("value", title);
@@ -36,27 +37,16 @@ function MON_PC_SKILL_BALLOON(title, handle, castTimeMS, showCastingBar, changeC
 		AUTO_CAST(gauge);
 		gauge:SetPoint(0, 100);
 		gauge:SetPointWithTime(100, castTimeSec);
-		local animpic = GET_CHILD_RECURSIVELY(frame, "animpic");
-		animpic:SetUserValue("LINKED_GAUGE", 0);
-		LINK_OBJ_TO_GAUGE(frame, animpic, gauge, 1);
 	end
 
-	frame:Resize(text:GetWidth()+80, frame:GetHeight())
 	frame:ShowWindow(1);
 	if castTimeSec <= 0 then
 		castTimeSec =1;
 	end
 
-	frame:SetDuration(castTimeSec);	
+	frame:SetDuration(castTimeSec);
 	FRAME_AUTO_POS_TO_OBJ(frame, handle, -frame:GetWidth() / 2, offsetY, 3, 1);
 
-end
-
-function MON_PC_SKILL_BALLOON_CANCEL(handle)
-	frame = ui.GetFrame("MON_PCSKILL_" .. handle);
-	if frame ~= nil then
-		frame:ShowWindow(0)
-	end
 end
 
 function MONSTER_SAY_BALLOON(handle, msg, isBoss, showTime)
@@ -90,3 +80,5 @@ function MONSTER_SAY_BALLOON(handle, msg, isBoss, showTime)
 	FRAME_AUTO_POS_TO_OBJ(frame, handle, -frame:GetWidth() / 2, offsetY, 3, 1);
 
 end
+
+

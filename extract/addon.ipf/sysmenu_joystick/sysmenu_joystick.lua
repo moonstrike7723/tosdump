@@ -6,8 +6,11 @@ function SYSMENU_JOYSTICK_ON_INIT(addon, frame)
 	addon:RegisterMsg("SYSMENU_JOYSTICK_ROLL_RIGHT", 'SYSMENU_JOYSTICK_MOVE_RIGHT');
 	
 ----------------------------------------------------------------------
+-- Àü¿ª º¯¼ö 
+----------------------------------------------------------------------
 	CURRENT_OFFSET = 0;
 ----------------------------------------------------------------------
+	SYSMENU_JOYSTICK_CLOSE();
 end
 
 function SYSMENU_JOYSTICK_ON_MSG()
@@ -27,9 +30,7 @@ end
 	pic:SetImage(button:GetImageName());
 
 	if pic:GetName() == 'slot_center' then
-        local script = button:GetEventScript(ui.LBUTTONUP);
-        local byFullString = string.find(script, ')') ~= nil;
-		pic:SetEventScript(ui.LBUTTONUP, script, byFullString);
+		pic:SetEventScript(ui.LBUTTONUP, button:GetEventScript(ui.LBUTTONUP));
 	end
  end
 
@@ -94,12 +95,12 @@ end
 function SYSMENU_JOYSTICK_ROLL_RIGHT()
 	SYSMENU_JOYSTICK_ROLL('right');
 end
--- sysmenuï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ð¾ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ç¼­ tableï¿½ï¿½È¯. 0ï¿½ï¿½ status.
+-- sysmenuÀÇ ¹öÆ°À» ÀÐ¾î¿Í¼­ ¼ø¼­¸ÂÃç¼­ table¹ÝÈ¯. 0ÀÌ status.
 function GET_SYSMENU_BUTTONS()
 	local sysmenu = ui.GetFrame("sysmenu");
 	local indexTable = {};
 
-	-- sysmenuï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½. ï¿½×¸ï¿½ï¿½ï¿½ alarmqueue ï¿½Ç³Ê¶ï¿½.
+	-- sysmenuÀÇ ¿ø·¡ ÀÚ½Ä °¹¼ö. ±×¸®°í alarmqueue °Ç³Ê¶Ü.
 	for i=0, 11 do
 		indexTable[i] = sysmenu:GetChildByIndex(i);
 	end
@@ -174,7 +175,7 @@ function SYSMENU_JOYSTICK_OPEN()
 	if IsJoyStickMode() == 0 then
 		return;
 	end
-	
+
 	SYSMENU_JOYSTICK_LOAD()
 
 	local frame = ui.GetFrame("sysmenu_joystick");

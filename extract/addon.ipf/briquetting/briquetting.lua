@@ -1,34 +1,25 @@
 -- briquetting.lua
+
 function BRIQUETTING_ON_INIT(addon, frame)
-	addon:RegisterMsg('SUCCESS_BRIQUETTING', 'BRIQUETTING_REFRESH_INVENTORY_ICON');
-	addon:RegisterOpenOnlyMsg('UPDATE_COLONY_TAX_RATE_SET', 'ON_BRIQUETTING_UPDATE_COLONY_TAX_RATE_SET');
+
 end
 
-function BRIQUETTING_UI_OPEN(frame)
-	INVENTORY_SET_CUSTOM_RBTNDOWN('BRIQUETTING_INVENTORY_RBTN_CLICK');
-	BRIQUETTING_UI_RESET(frame);
-	
-	local priceStaticText = GET_CHILD_RECURSIVELY(frame, "priceStaticText")
-	SET_COLONY_TAX_RATE_TEXT(priceStaticText, "tax_rate")
-	
-	ui.OpenFrame('inventory');
+function BRIQUETTING_SET_SKILLTYPE(frame, skillName, skillLevel)
+	frame:SetUserValue("SKILLNAME", skillName)
+	frame:SetUserValue("SKILLLEVEL", skillLevel)
 end
 
 function BRIQUETTING_UI_CLOSE()
-	INVENTORY_SET_CUSTOM_RBTNDOWN('None');
-	ui.CloseFrame('inventory');
-	RESET_INVENTORY_ICON();
-end
-
-function ON_BRIQUETTING_UPDATE_COLONY_TAX_RATE_SET(frame)
-	BRIQUETTING_UI_RESET(frame);
-	local priceStaticText = GET_CHILD_RECURSIVELY(frame, "priceStaticText")
-	SET_COLONY_TAX_RATE_TEXT(priceStaticText, "tax_rate")
+	ui.CloseFrame("briquetting");	
 end
 
 function BRIQUETTING_SLOT_POP(parent, ctrl)
 	local frame = parent:GetTopParentFrame();
 	BRIQUETTING_UI_RESET(frame);
+end
+
+function BRIQUETTIN_MAX_MIN_TEXT(nowPower, min, max)
+	return string.format("%d > {#FF0000}%d ~ {#00FF00}%d", nowPower, min, max);
 end
 
 function BRIQUETTING_SLOT_SET(richtxt, item)
@@ -41,158 +32,98 @@ function BRIQUETTING_SLOT_SET(richtxt, item)
 	richtxt:SetTextByKey("itemtype", item.type);
 end
 
-function BRIQUETTING_SLOT_DROP(parent, ctrl)	
-	local frame = parent:GetTopParentFrame();
-	local invItem, invSlot = BRIQUETTING_SLOT_ITEM(parent, ctrl);
-	if nil == invItem or nil == ctrl or nil == invItem:GetObject() then
-		return;
-	end
-
-	if true == invItem.isLockState then
-		ui.SysMsg(ClMsg("MaterialItemIsLock"));
-		return;
-	end
-
-	local invItemObj = GetIES(invItem:GetObject());
-	if invItemObj == nil then
-		return;
-	end
-
-	local slot = tolua.cast(ctrl, 'ui::CSlot');
-	BRIQUETTING_SET_TARGET_SLOT(frame, invItemObj, invSlot, slot, invItem:GetIESID());
-end
-
-function BRIQUETTING_SET_TARGET_SLOT(frame, invItemObj, invSlot, targetSlot, invItemGuid)	
-	local invItem = session.GetInvItemByGuid(invItemGuid);
-	if invItem == nil then
-		return;
-	end
-
-	if true == invItem.isLockState then
-		ui.SysMsg(ClMsg("MaterialItemIsLock"));
-		return;
-	end
-
-	if invItemObj.ItemLifeTimeOver > 0 then
-		ui.SysMsg(ClMsg('CannotUseLifeTimeOverItem'));
-		return;
-	end
-
-	local lookItem, lookItemGuid = BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'look');
-	if lookItemGuid == invItemGuid then
-		return;
-	end	
-	if lookItem ~= nil and invItemObj.ClassType ~= lookItem.ClassType then
-		ui.SysMsg(ClMsg('NeedSameEquipClassType'));
-		return;
-	end
-
-	if IS_VALID_BRIQUETTING_TARGET_ITEM(invItemObj) == false then
-		ui.SysMsg(ScpArgMsg('InvalidTargetFor{CONTENTS}', 'CONTENTS', ClMsg('Briquetting')));
-		return;
-	end
-
-	if targetSlot:GetUserValue('SELECTED_INV_GUID') ~= 'None' then
-		BRIQUETTING_SELECT_INVENTORY_ITEM(targetSlot, 0);
-	end
-
-	BRIQUETTING_SELECT_INVENTORY_ITEM(invSlot, 1);
-	targetSlot:SetUserValue('SELECTED_INV_GUID', invItemGuid);
-    
-	-- 슬롯 박스에 이미지를 넣고	
-	SET_SLOT_ITEM_IMAGE(targetSlot, invItem);
-	local targetEmptyPic = GET_CHILD(targetSlot, 'targetEmptyPic');
-	local staticInfoText = GET_CHILD_RECURSIVELY(frame, 'staticInfoText');
-	targetEmptyPic:ShowWindow(0);	
-	staticInfoText:ShowWindow(0);
-
-	local bodyGBox = frame:GetChild("bodyGbox");
-	local slotNametext = bodyGBox:GetChild("slotName");
-	bodyGBox:RemoveChild('tooltip_only_pr');
-	local nowPotential = bodyGBox:CreateControlSet('tooltip_only_pr', 'tooltip_only_pr', 40, 290);
-	local nowPotentialStr = GET_CHILD_RECURSIVELY(frame, 'nowPotentialStr');
-	tolua.cast(nowPotential, "ui::CControlSet");	
-	local pr_gauge = GET_CHILD(nowPotential,'pr_gauge','ui::CGauge')
-	pr_gauge:SetPoint(invItemObj.PR, invItemObj.MaxPR);	
-	local pr_txt = GET_CHILD(nowPotential,'pr_text','ui::CGauge')
-    local labelline = nowPotential:GetChild('labelline');
-	pr_txt:SetVisible(0);
-    labelline:SetVisible(0);
-    nowPotentialStr:ShowWindow(1);
-
-	-- 이름을 표시한다.
-	slotNametext:SetTextByKey("txt", invItemObj.Name);
-	BRIQUETTING_SLOT_SET(slotNametext, invItem);
-	BRIQUETTING_REFRESH_MATERIAL(frame);
-
-	INVENTORY_SET_ICON_SCRIPT('BRIQUETTING_CHECK_LOOK_ICON_IN_INVENTORY');
-end
-
-function BRIQUETTING_SELECT_INVENTORY_ITEM(slot, isSelect)
-	slot = AUTO_CAST(slot);
-	if isSelect == 1 then
-		slot:SetSelectedImage('socket_slot_check');
-		slot:Select(1);
-	else
-		local guid = slot:GetUserValue('SELECTED_INV_GUID');
-		if guid == 'None' then
-			return;
-		end
-		SELECT_INV_SLOT_BY_GUID(guid, 0);
-	end
-end
-
-function BRIQUETTING_REFRESH_MATERIAL(frame)
-	local targetSlot = GET_CHILD_RECURSIVELY(frame, 'targetSlot');
-	local priceText = GET_CHILD_RECURSIVELY(frame, 'priceText');
-
-	local icon = targetSlot:GetIcon();
-	if icon == nil then
-		priceText:SetTextByKey('price', 0);
-	else
-		local targetItem = BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'target');
-		local lookItem = BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'look');		
-		local price = 0;		
-		if targetItem ~= nil and lookItem ~= nil then
-			price = GET_BRIQUETTING_PRICE(targetItem, lookItem, BRIQUETTING_GET_LOOK_MATERIAL_LIST(frame), GET_COLONY_TAX_RATE_CURRENT_MAP());
-
-			local prCheck = GET_CHILD_RECURSIVELY(frame, 'prCheck');
-			if prCheck:IsChecked() == 0 then
-				price = 0;
-			end
-		end
-		priceText:SetTextByKey('price', GetCommaedString(price));
-
-		local myMoney = tonumber(GET_TOTAL_MONEY_STR());
-		if myMoney < price then
-			local NOT_ENOUGH_PRICE_STYLE = frame:GetUserConfig('NOT_ENOUGH_PRICE_STYLE');
-			priceText:SetTextByKey('style', NOT_ENOUGH_PRICE_STYLE);
-		else
-			local ENOUGH_PRICE_STYLE = frame:GetUserConfig('ENOUGH_PRICE_STYLE');
-			priceText:SetTextByKey('style', ENOUGH_PRICE_STYLE);
-		end
-	end
-end
-
-function BRIQUETTING_SPEND_DROP(parent, ctrl)
-	local invItem, invSlot = BRIQUETTING_SLOT_ITEM(parent, ctrl);	
-	local slot = tolua.cast(ctrl, 'ui::CSlot');
+function BRIQUETTING_SLOT_DROP(parent, ctrl)
+	local invItem = BRIQUETTING_SLOT_ITEM(parent, ctrl)
+	local slot 			    = tolua.cast(ctrl, 'ui::CSlot');
 	if nil == invItem or nil == slot then
 		return;
 	end
 
-	local obj = GetIES(invItem:GetObject());
-	if nil == obj then 
+	if true == invItem.isLockState then
+		ui.SysMsg(ClMsg("MaterialItemIsLock"));
 		return;
 	end
 
-	BRIQUETTING_SET_LOOK_ITEM(parent:GetTopParentFrame(), obj, invSlot, slot, invItem:GetIESID());
+	-- 슬롯 박스에 이미지를 넣고
+	local itemCls = GetClassByType("Item", invItem.type);
+	
+	SET_SLOT_ITEM_IMANGE(slot, invItem);
+
+	local obj = GetIES(invItem:GetObject());
+	if nil == obj then 
+		return nil;
+	end
+	-- 원래 공격력, 마공을 가진 object를 만든다.
+	local tempObj = CreateIESByID("Item", itemCls.ClassID);
+	if nil == tempObj then
+		return;
+	end
+	local refreshScp = tempObj.RefreshScp;
+	if refreshScp ~= "None" then
+		refreshScp = _G[refreshScp];
+		refreshScp(tempObj);
+	end	
+
+	local frame				= parent:GetTopParentFrame();
+	local bodyGBox			= frame:GetChild("bodyGbox");
+	local slotNametext      = bodyGBox:GetChild("slotName");
+	bodyGBox:RemoveChild('tooltip_only_pr');
+
+	-- 이름을 표시한다.
+	slotNametext:SetTextByKey("txt", obj.Name);
+	BRIQUETTING_SLOT_SET(slotNametext, invItem);
+
+	-- 이후 최대, 최소 공격력, 포텐셜을표시한다.
+
+	-- 컨트롤 셋으로 저장되어있는 포텐셜을 생성해 메인 bodx에 붙인다.
+	local nowPotential = bodyGBox:CreateControlSet('tooltip_only_pr', 'tooltip_only_pr', 40, 290);
+	tolua.cast(nowPotential, "ui::CControlSet");
+	-- 컨트롤셋 ui에 있는 pr_gauge를 찾아 현재 포텐셜과 본래 포텐셜을 표시하고
+	local pr_gauge = GET_CHILD(nowPotential,'pr_gauge','ui::CGauge')
+	pr_gauge:SetPoint(obj.PR, tempObj.PR);
+	-- pr_txt는 현재 여기서 보일 필요가 없다.
+	local pr_txt = GET_CHILD(nowPotential,'pr_text','ui::CGauge')
+	pr_txt:SetVisible(0);
+
+	-- 최대, 최소를 작성하고자 해당 항목의 속성을 가지고 옵니다.
+	local minPowerStr = bodyGBox:GetChild("minPowerStr");
+	local maxPowerStr = bodyGBox:GetChild("maxPowerStr");
+
+	-- 어떤 타입의 무기인지를 확인하는 속성을 리턴합니다.
+	-- 이 함수를 보시면 무기에 근접 무기면 최대, 최소공격력을
+	-- 마법공격력의 무기면 마법공격력과  빈  글자를 리턴합니다.
+	local prop1, prop2 = GET_ITEM_PROPERT_STR(obj);
+	
+	-- 받은 내용의 값을 토대로, param1에 정의한 키값을 변경해줍니다.
+	minPowerStr:SetTextByKey("txt", prop2);
+	maxPowerStr:SetTextByKey("txt", prop1);
+	
+	local checkValue = _G["ALCHEMIST_VALUE_" .. frame:GetUserValue("SKILLNAME")];
+	-- 이것은 각각의 최대 최소의 수치를 표시하고자 하는 속성입니다.
+	local maxPower = bodyGBox:GetChild("maxPower");
+	local minPower = bodyGBox:GetChild("minPower");
+	if obj.BasicTooltipProp == "ATK" then
+		local min, max = checkValue(frame:GetUserIValue("SKILLLEVEL"), tempObj.MAXATK); -- 최대
+		maxPower:SetTextByKey("txt", BRIQUETTIN_MAX_MIN_TEXT(tempObj.MAXATK, min, max));
+		local min, max = checkValue(frame:GetUserIValue("SKILLLEVEL"), tempObj.MINATK); -- 최소
+		minPower:SetTextByKey("txt", BRIQUETTIN_MAX_MIN_TEXT(tempObj.MINATK, min, max));
+
+	elseif obj.BasicTooltipProp == "MATK" then -- 마법공격력
+		local min, max = checkValue(frame:GetUserIValue("SKILLLEVEL"), tempObj.MATK);
+		maxPower:SetTextByKey("txt", BRIQUETTIN_MAX_MIN_TEXT(tempObj.MATK, min, max));
+		minPower:SetTextByKey("txt", prop2);
+	end
+
+	local checkValue = _G["ALCHEMIST_NEEDITEM_" .. frame:GetUserValue("SKILLNAME")];
+	local name, count = checkValue(GetMyPCObject(), tempObj);
+	BRIQUETTING_REFRESH_MATERIAL(frame, count .. " " ..ClMsg("CountOfThings"));
+	DestroyIES(tempObj);
 end
 
-g_invSlot = nil;
-function BRIQUETTING_SET_LOOK_ITEM(frame, itemObj, invSlot, lookSlot, invItemGuid)
-	local invItem = session.GetInvItemByGuid(invItemGuid);
-	if invItem == nil then
+function BRIQUETTING_SPEND_DROP(parent, ctrl)
+	local invItem = BRIQUETTING_SLOT_ITEM(parent, ctrl)
+	local slot 			    = tolua.cast(ctrl, 'ui::CSlot');
+	if nil == invItem or nil == slot then
 		return;
 	end
 
@@ -201,110 +132,83 @@ function BRIQUETTING_SET_LOOK_ITEM(frame, itemObj, invSlot, lookSlot, invItemGui
 		return;
 	end
 
-	if itemObj.ItemLifeTimeOver > 0 then
-		ui.SysMsg(ClMsg('CannotUseLifeTimeOverItem'));
-		return;
-	end
-
-	local targetItem, targetItemGuid = BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'target');
-	if targetItem == nil then
-		ui.SysMsg(ClMsg('FirstRegisterTargetForBriquetting'));
-		return;
-	end
-
-	if targetItemGuid == invItemGuid then
-		return;
-	end
-
-	if targetItem ~= nil and targetItem.ClassType ~= itemObj.ClassType then
-		ui.SysMsg(ClMsg('NeedSameEquipClassType'));
-		return;
-	end
-
-	if itemObj.BriquettingIndex > 0 then
-		ui.SysMsg(ClMsg('CannotBriquettingBecauseAlready'));
-		return;
-	end
-
-	if IS_VALID_LOOK_ITEM(itemObj) == false then
-		ui.SysMsg(ScpArgMsg('InvalidTargetFor{CONTENTS}', 'CONTENTS', ClMsg('Briquetting')));
-		return;
-	end
-
-	g_invSlot = invSlot;
-	if IS_ENCHANTED_ITEM(itemObj) == true then
-		local yesscp = string.format('_BRIQUETTING_SET_LOOK_ITEM("%s")', invItemGuid);
-		ui.MsgBox(ClMsg('EnchantedItemForBriquetting'), yesscp, 'None');
-		return;
-	end
-	_BRIQUETTING_SET_LOOK_ITEM(invItemGuid);	
-end
-
-function _BRIQUETTING_SET_LOOK_ITEM(invItemGuid)
-	local invItem = session.GetInvItemByGuid(invItemGuid);
-	if invItem == nil or invItem:GetObject() == nil or invItem.isLockState == true then
-		return;
-	end
-
-	local itemObj = GetIES(invItem:GetObject());
-	if itemObj == nil then
-		return;
-	end
-
-	local frame = ui.GetFrame('briquetting');
-	local lookSlot = GET_CHILD_RECURSIVELY(frame, 'lookSlot');
-	if lookSlot:GetUserValue('SELECTED_INV_GUID') ~= 'None' then
-		BRIQUETTING_SELECT_INVENTORY_ITEM(lookSlot, 0);
-	end
-
-	local invSlot = g_invSlot;
-
 	-- 슬롯 박스에 이미지를 넣고
-	BRIQUETTING_SELECT_INVENTORY_ITEM(invSlot, 1);	
-	lookSlot:SetUserValue('SELECTED_INV_GUID', invItemGuid);
+	SET_SLOT_ITEM_IMANGE(slot, invItem);
+	local frame				= parent:GetTopParentFrame();
+	local bodyGBox			= frame:GetChild("bodyGbox");
+	local slotNametext		= bodyGBox:GetChild("spendName");
 
-	SET_SLOT_ITEM_IMAGE(lookSlot, invItem);
-	local slotNametext = GET_CHILD_RECURSIVELY(frame, "spendName");
-	local matInfoText = GET_CHILD_RECURSIVELY(frame, 'matInfoText');
-	matInfoText:ShowWindow(1);
+	local obj = GetIES(invItem:GetObject());
+	if nil == obj then 
+		return nil;
+	end
+
+	local abil = session.GetAbilityByName('Alchemist10')
+	if nil ~= abil then
+		local check2Name      = frame:GetChild("check2Name");
+		check2Name:SetTextByKey("txt", obj.Name);
+	end
 
 	-- 이름을 표시한다.
-	slotNametext:SetTextByKey("txt", itemObj.Name);
+	slotNametext:SetTextByKey("txt", obj.Name);
 	BRIQUETTING_SLOT_SET(slotNametext, invItem);
-	BRIQUETTING_REFRESH_MATERIAL(frame);
-	BRIQUETTING_INIT_LOOK_MATERIAL_LIST(frame, itemObj);
-	
-	INVENTORY_SET_ICON_SCRIPT('BRIQUETTING_CHECK_LOOK_MATERIAL_ICON_IN_INVENTORY');
 end
 
-function BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, type)
-	local targetSlot = GET_CHILD_RECURSIVELY(frame, type..'Slot');
-	if targetSlot:GetIcon() == nil then
-		return nil;
-	end
-
-	local invItem = session.GetInvItemByGuid(targetSlot:GetIcon():GetInfo():GetIESID());
-	if invItem == nil or invItem:GetObject() == nil then
-		return nil;
-	end
-
-	return GetIES(invItem:GetObject()), invItem:GetIESID();
-end
-
-function BRIQUETTING_SPEND_POP(parent, ctrl)
+function BRIQUETTING_SKILL_EXCUTE(parent)
 	local frame = parent:GetTopParentFrame();
-	BRIQUETTING_UI_RESET(frame);
+	local bodyGBox			= frame:GetChild("bodyGbox");
+	local slotNametext		= bodyGBox:GetChild("spendName");
+	local mainSlotName      = bodyGBox:GetChild("slotName");
+
+	local index = 0;
+	local slotName = frame:GetUserValue('SELECT');
+	if slotName == 'checkbox_1' then
+		index = 1;
+	elseif slotName == 'checkbox_2' then
+		index = 2;
+	end
+
+	local abil = session.GetAbilityByName('Alchemist10')
+	if index > 0 then 
+		if nil == abil then 
+			ui.SysMsg(ClMsg("DonotLearnAbility"));
+			return;
+		end
+
+		local mainGuid = mainSlotName:GetTextByKey("guid");
+		local mainItem = session.GetInvItemByGuid(mainGuid);
+		local spend = slotNametext:GetTextByKey("guid");
+		local spendItem = session.GetInvItemByGuid(spend);		
+		if nil == mainItem or spendItem == nil then
+			return;
+		end
+		
+		local mainObj = GetIES(mainItem:GetObject())
+		local spendObj = GetIES(spendItem:GetObject())
+		if mainObj.ClassType ~= spendObj.ClassType then
+			ui.SysMsg(ClMsg("NeedSameEquipClassType"));
+			return;
+		end
+
+	end
+	Alchemist.ExcuteBriquetting(mainSlotName:GetTextByKey("guid"), slotNametext:GetTextByKey("guid"), index);
+end
+
+function BRIQUETTING_SPEND_POP(parent)
+	local frame = parent:GetTopParentFrame();
+	BRIQUETTING_UI_SPEND_RESET(frame);
 end
 
 function BRIQUETTING_SLOT_ITEM(parent, ctrl)
-	local frame = parent:GetTopParentFrame();
-	local liftIcon = ui.GetLiftIcon();
-	local iconInfo = liftIcon:GetInfo();
-	local invItem = GET_PC_ITEM_BY_GUID(iconInfo:GetIESID());	
+	local frame				= parent:GetTopParentFrame();
+	local liftIcon 			= ui.GetLiftIcon();
+	local iconInfo			= liftIcon:GetInfo();
+	local invItem = GET_PC_ITEM_BY_GUID(iconInfo:GetIESID());
+	
 	if nil == invItem then
 		return nil;
 	end
-
+	
 	if true == invItem.isLockState then
 		ui.SysMsg(ClMsg("MaterialItemIsLock"));
 		return;
@@ -318,491 +222,146 @@ function BRIQUETTING_SLOT_ITEM(parent, ctrl)
 	if iconInfo == nil or invItem == nil then
 		return nil;
 	end
-    
-	return invItem, liftIcon:GetParent();
+
+	local checkItem = _G["ALCHEMIST_CHECK_" .. frame:GetUserValue("SKILLNAME")];
+	local obj = GetIES(invItem:GetObject())
+	if 1 ~= checkItem(GetMyPCObject(), obj) then
+		ui.SysMsg(ClMsg("WrongDropItem"));
+		return nil;
+	end
+	
+	if 0 > obj.PR then
+		ui.SysMsg(ClMsg("NoMorePotential"));
+	end
+
+	-- 위에 걸린 재료와 일치하지 않는지 확인한다.
+	local bodyGBox = frame:GetChild("bodyGbox");
+	local mainSlotName      = bodyGBox:GetChild("slotName");
+	local slotNametext		= bodyGBox:GetChild("spendName");
+
+	if slotNametext:GetTextByKey("guid") == invItem:GetIESID() or
+	  mainSlotName:GetTextByKey("guid") == invItem:GetIESID() then 
+		--테스트 문구: 같은종류의 아이템을 등록할 수 없습니다.
+		ui.SysMsg(ClMsg("CantRegisterSameTypeGoods"));
+		return nil;
+	end
+
+	local MainType = mainSlotName:GetTextByKey("itemtype");
+	local spendType = slotNametext:GetTextByKey("itemtype");
+
+	-- 메인과 소비재료 별 비교..
+	local mainCls = GetClassByType("Item", MainType);
+	local spendCls = GetClassByType("Item", spendType);
+	if nil ~= mainCls and mainCls.ItemStar > obj.ItemStar or
+		nil ~= spendCls and spendCls.ItemStar > obj.ItemStar then
+		ui.SysMsg(ClMsg("LowWeaponStar"));
+		return nil;
+	end
+
+	return invItem;
 end
+
+function BRIQUETTING_SELECT_WEAPON(frame, ctrl)
+	local parent	= frame:GetTopParentFrame();
+	local select = parent:GetUserValue('SELECT');
+	if 'None' ~= select then
+		local excute = GET_CHILD(frame, select, "ui::CCheckBox");
+		excute:SetCheck(0);
+	end
+
+	if ctrl:IsChecked() == 0 then
+		parent:SetUserValue('SELECT', 'None');
+		ctrl:SetCheck(0);
+	else
+		parent:SetUserValue('SELECT', ctrl:GetName());
+		ctrl:SetCheck(1);
+	end
+end
+
 
 function BRIQUETTING_UI_RESET(frame)
 	local bodyGBox = frame:GetChild("bodyGbox");
-	local slot = bodyGBox:GetChild("targetSlot");
-	slot = tolua.cast(slot, 'ui::CSlot');
+	local slot  = bodyGBox:GetChild("slot");
+	slot  = tolua.cast(slot, 'ui::CSlot');
 	slot:ClearIcon();
-
-	local targetEmptyPic = GET_CHILD(slot, 'targetEmptyPic');
-	local staticInfoText = GET_CHILD_RECURSIVELY(frame, 'staticInfoText');
-	targetEmptyPic:ShowWindow(1);
-	staticInfoText:ShowWindow(1);
-
-	BRIQUETTING_SELECT_INVENTORY_ITEM(slot, 0);
 	
 	local slotName = bodyGBox:GetChild("slotName");
 	slotName:SetTextByKey("txt", "");
 	BRIQUETTING_SLOT_SET(slotName);
 
+	local maxPowerStr = bodyGBox:GetChild("maxPowerStr");
+	local minPowerStr = bodyGBox:GetChild("minPowerStr");
+	local maxPower = bodyGBox:GetChild("maxPower");
+	local minPower = bodyGBox:GetChild("minPower");
+	maxPowerStr:SetTextByKey("txt", "");
+	maxPowerStr:SetTextByKey("txt", "");
+	minPowerStr:SetTextByKey("txt", "");
+	maxPower:SetTextByKey("txt", "");
+	minPower:SetTextByKey("txt", "");
 	bodyGBox:RemoveChild('tooltip_only_pr');
-	local nowPotentialStr = GET_CHILD_RECURSIVELY(frame, 'nowPotentialStr');
-	nowPotentialStr:ShowWindow(0);
 
-	local lookSlot = GET_CHILD_RECURSIVELY(frame, 'lookSlot');	
-	BRIQUETTING_SELECT_INVENTORY_ITEM(lookSlot, 0);
-	INVENTORY_SET_ICON_SCRIPT('BRIQUETTING_CHECK_TARGET_ICON_IN_INVENTORY');
-	lookSlot:SetUserValue('SELECTED_INV_GUID', 'None');
+	local check2Name      = frame:GetChild("check2Name");
+	check2Name:SetTextByKey("txt", '');
 
-	BRIQUETTING_INIT_LOOK_MATERIAL_LIST(frame);
+	local abil = session.GetAbilityByName('Alchemist10')
+	
+	local checkbox_2 = GET_CHILD(frame, "checkbox_2", "ui::CCheckBox");
+	local spendMainStr_1 = bodyGBox:GetChild("spendMainStr_1");
+
+	if nil == abil then
+	checkbox_2:ShowWindow(0);
+	spendMainStr_1:ShowWindow(0);
+	else
+		checkbox_2:ShowWindow(1);
+		spendMainStr_1:ShowWindow(1);
+	end
+	checkbox_2:SetCheck(0);
+
+
 	BRIQUETTING_UI_SPEND_RESET(frame);
 	BRIQUETTING_REFRESH_MATERIAL(frame, "");
-	BRIQUETTING_INIT_PR_CHECK(frame);	
 end 
 
 function BRIQUETTING_UI_SPEND_RESET(frame)
-	local slot = GET_CHILD_RECURSIVELY(frame, "lookSlot");
-	slot = tolua.cast(slot, 'ui::CSlot');
+	local bodyGBox = frame:GetChild("bodyGbox");
+	local slot  = bodyGBox:GetChild("slot2");
+	slot  = tolua.cast(slot, 'ui::CSlot');
 	slot:ClearIcon();
 
-	local slotNametext = GET_CHILD_RECURSIVELY(frame, "spendName");
+	local slotNametext		= bodyGBox:GetChild("spendName");
 	slotNametext:SetTextByKey("txt", "");
 	BRIQUETTING_SLOT_SET(slotNametext);
 
+	local check2Name      = frame:GetChild("check2Name");
+	check2Name:SetTextByKey("txt", '');
+
 	frame:SetUserValue('SELECT', 'None');
-
-	local matInfoText = GET_CHILD_RECURSIVELY(frame, 'matInfoText');
-	matInfoText:ShowWindow(0);
 end
 
-function BRIQUETTING_GET_LOOK_MATERIAL_LIST(frame)	
-	local lookMatItemSlotset = GET_CHILD_RECURSIVELY(frame, 'lookMatItemSlotset');
-	local materialList = {};
-	local materialGuidList = {};
-	local slotCnt = lookMatItemSlotset:GetSlotCount();	
-	for i = 0, slotCnt - 1 do
-		local slot = lookMatItemSlotset:GetSlotByIndex(i);
-		local guid = slot:GetUserValue('SELECTED_INV_GUID');
-		if slot:IsVisible() == 1 and guid ~= 'None' then
-			local invItem = session.GetInvItemByGuid(guid);
-			if invItem ~= nil and invItem:GetObject() ~= nil then
-				materialList[#materialList + 1] = GetIES(invItem:GetObject());
-				materialGuidList[#materialGuidList + 1] = guid;
-			else
-				ui.SysMsg(ClMsg('InvalidItemRegisterStep'));
-				ui.CloseFrame('briquetting');
-				return nil, nil, false;
-			end
-		end
-	end
-
-	return materialList, materialGuidList, true;
-end
-
-function BRIQUETTING_DROP_LOOK_MATERIAL_ITEM(parent, ctrl)
-	local frame = parent:GetTopParentFrame();	
-	local invItem, invSlot = BRIQUETTING_SLOT_ITEM(parent, ctrl);	
-	if invItem == nil or invItem:GetObject() == nil then
-		return;
-	end
-
-	local invItemObj = GetIES(invItem:GetObject());
-	BRIQUETTING_ADD_LOOK_MATERIAL_ITEM(frame, invItemObj, invSlot, invItem:GetIESID(), ctrl);
-end
-
-function BRIQUETTING_ADD_LOOK_MATERIAL_ITEM(frame, invItemObj, invSlot, invItemGuid, lookMatSlot)		
-	local invItem = session.GetInvItemByGuid(invItemGuid);
-	if invItem == nil then
-		return;
-	end
-
-	local targetItem = BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'target');
-	if targetItem == nil then
-		ui.SysMsg(ClMsg('DropTargetItemFirst'));
-		return;
-	end
-
-	local lookItem, lookItemGuid = BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'look');
-	if lookItem == nil then
-		ui.SysMsg(ClMsg('DropLookItemFirst'));
-		return;
-	end
-
-	local materialList, materialGuidList = BRIQUETTING_GET_LOOK_MATERIAL_LIST(frame);	
-	local needLookMatItemCnt = GET_BRIQUETTING_NEED_LOOK_ITEM_CNT(lookItem);
-	if #materialList >= needLookMatItemCnt then
-		ui.SysMsg(ClMsg('AlreadyEnoughLookMatItem'));
-		return;
-	end
-
-	if invItem.isLockState == true then
-		ui.SysMsg(ClMsg('MaterialItemIsLock'));
-		return;
-	end
-
-	if invItemObj.ItemLifeTimeOver > 0 then
-		ui.SysMsg(ClMsg('CannotUseLifeTimeOverItem'));
-		return;
-	end
-
-	if lookItemGuid == invItemGuid then
-		ui.SysMsg(ClMsg('AlreadyEqualItemRegistered'));
-		return;
-	end
-
-	for i = 1, #materialGuidList do
-		if materialGuidList[i] == invItemGuid then
-			ui.SysMsg(ClMsg('AlreadyEqualItemRegistered'));
-			return;
-		end
-	end
-
-    local result, containDummyItem, containCoreItem = IS_VALID_LOOK_MATERIAL_ITEM(lookItem, {invItemObj});
-	if result == false then		
-		ui.SysMsg(ClMsg('WrongLookMaterialItem'));
-		return;
-	end
-
-	g_invSlot = invSlot;
-	if IS_ENCHANTED_ITEM(invItemObj) == true then
-		local yesscp = string.format('_BRIQUETTING_ADD_LOOK_MATERIAL_ITEM("%s", "%s", ', lookMatSlot:GetName(), invItemGuid, containCoreItem);
-		if containCoreItem == true then
-			yesscp = yesscp..'true)';
-		else
-			yesscp = yesscp..'false)';
-		end
-		ui.MsgBox(ClMsg('EnchantedItemForBriquetting'), yesscp, 'None');
-		return;
-	end
-	_BRIQUETTING_ADD_LOOK_MATERIAL_ITEM(lookMatSlot:GetName(), invItemGuid, containCoreItem);
-end
-
-function _BRIQUETTING_ADD_LOOK_MATERIAL_ITEM(lookMatSlotName, invItemGuid, containCoreItem)
-	local frame = ui.GetFrame('briquetting');
-	local lookMatItemSlotset = GET_CHILD_RECURSIVELY(frame, 'lookMatItemSlotset');
-	local lookMatSlot = GET_CHILD(lookMatItemSlotset, lookMatSlotName);
-	local invSlot = g_invSlot;
-	local invItem = session.GetInvItemByGuid(invItemGuid);
-	if invItem == nil or invItem:GetObject() == nil or invItem.isLockState == true then
-		return;
-	end
-
-	if lookMatSlot:GetUserValue('SELECTED_INV_GUID') ~= 'None' then
-		BRIQUETTING_SELECT_INVENTORY_ITEM(lookMatSlot, 0);
-	end
-
-	BRIQUETTING_SELECT_INVENTORY_ITEM(invSlot, 1);
-	lookMatSlot:SetUserValue('SELECTED_INV_GUID', invItemGuid);
-
-	if containCoreItem == true then
-		BRIQUETTING_SET_CORE_ITEM(frame, invItem);
-		return;
-	end
-
-	SET_SLOT_ITEM_IMAGE(lookMatSlot, invItem);
-	lookMatSlot:SetUserValue('SELECTED_INV_GUID', invItemGuid);
-	BRIQUETTING_REFRESH_MATERIAL(frame);	
-end
-
-function BRIQUETTING_SET_CORE_ITEM(frame, coreItem)
-	local lookMatItemSlotset = GET_CHILD_RECURSIVELY(frame, 'lookMatItemSlotset');
-	local firstSlot = lookMatItemSlotset:GetSlotByIndex(0);
-	BRIQUETTING_SELECT_INVENTORY_ITEM(firstSlot, 0);
-	SET_SLOT_ITEM_IMAGE(firstSlot, coreItem);
-	firstSlot:SetUserValue('SELECTED_INV_GUID', coreItem:GetIESID());
-	BRIQUETTING_REFRESH_MATERIAL(frame);
-	BRIQUETTING_SELECT_INVENTORY_ITEM(g_invSlot, 1);
-
-	local slotCnt = lookMatItemSlotset:GetSlotCount();
-	for i = 1, slotCnt - 1 do
-		local slot = lookMatItemSlotset:GetSlotByIndex(i);
-		BRIQUETTING_SELECT_INVENTORY_ITEM(slot, 0);
-		slot:SetUserValue('SELECTED_INV_GUID', 'None');
-		slot:ClearIcon();
-		slot:ShowWindow(0);		
-	end
-end
-
-function BRIQUETTING_POP_LOOK_MATERIAL_ITEM(parent, ctrl)
-	ctrl:ClearIcon();
-	BRIQUETTING_SELECT_INVENTORY_ITEM(ctrl, 0);
-	ctrl:SetUserValue('SELECTED_INV_GUID', 'None');
-
-	if parent ~= nil then
-		local frame = parent:GetTopParentFrame();
-		local lookItem, lookItemGuid = BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'look');
-		if lookItem ~= nil then
-			BRIQUETTING_INIT_LOOK_MATERIAL_LIST(frame, lookItem);
-		end
-		BRIQUETTING_REFRESH_MATERIAL(frame);
-	end
-end
-
-function BRIQUETTING_SKILL_EXCUTE(parent, ctrl)
-	local frame = parent:GetTopParentFrame();
-	local targetItem, targetItemGuid = BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'target');
-	if targetItem == nil then
-		local targetSlot = GET_CHILD_RECURSIVELY(frame, 'targetSlot');
-		if targetSlot:GetIcon() ~= nil then
-			ui.SysMsg(ClMsg('InvalidItemRegisterStep'));
-			ui.CloseFrame('briquetting');
-		else
-			ui.SysMsg(ClMsg('PleaseRegisterBriquettingTarget'));			
-		end
-		return;
-	end
-
-	local prCheck = GET_CHILD_RECURSIVELY(frame, 'prCheck');
-	if prCheck:IsChecked() == 0 and targetItem.PR < 1 then
-		ui.SysMsg(ClMsg('NoMorePotential'));
-		return;
-	end
-
-	local lookItem, lookItemGuid = BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'look');
-	if lookItem == nil then
-		local lookSlot = GET_CHILD_RECURSIVELY(frame, 'lookSlot');
-		if lookSlot:GetIcon() ~= nil then
-			ui.SysMsg(ClMsg('InvalidItemRegisterStep'));
-			ui.CloseFrame('briquetting');
-		else
-			ui.SysMsg(ClMsg('PleaseRegisterBriquettingLook'));
-		end
-		return;
-	end
-
-	local needLookMatItemCnt = GET_BRIQUETTING_NEED_LOOK_ITEM_CNT(lookItem);
-	local lookMatItemList, lookMatItemGuidList, validate = BRIQUETTING_GET_LOOK_MATERIAL_LIST(frame);
-	if validate == false then
-		return;
-	end
-
-	local result, containDummyItem, containCoreItem = IS_VALID_LOOK_MATERIAL_ITEM(lookItem, lookMatItemList);	
-	if containDummyItem ~= true and #lookMatItemList < 1 then
-		ui.SysMsg(ScpArgMsg('MustRegister{COUNT}LookMatItem', 'COUNT', needLookMatItemCnt));
-		return;
-	end
-
-	if result == false then
-		ui.SysMsg(ClMsg('WrongLookMaterialItem'));
-		return;
-	end
-
-	if containDummyItem == false then -- 제물 재료 필요한 경우
-		if containCoreItem == true then			
-			if #lookMatItemList ~= 1 then
-				ui.SysMsg(ScpArgMsg('MustRegister{COUNT}LookMatItem', 'COUNT', needLookMatItemCnt));
-				return;
-			end
-		else
-			if #lookMatItemList ~= needLookMatItemCnt then
-				ui.SysMsg(ScpArgMsg('MustRegister{COUNT}LookMatItem', 'COUNT', needLookMatItemCnt));
-				return;
-			end
-		end
-	else
-		if #lookMatItemList ~= 0 then
-			return;
-		end
-	end
-
-	local myMoney = tonumber(GET_TOTAL_MONEY_STR());
-	local price = GET_BRIQUETTING_PRICE(targetItem, lookItem, lookMatItemList, GET_COLONY_TAX_RATE_CURRENT_MAP());
-	if prCheck:IsChecked() == 0 then
-		price = 0;
-	end
-	if myMoney < price then
-		ui.SysMsg(ClMsg('Auto_SilBeoKa_BuJogHapNiDa.'));
-		return;
-	end
-
-	frame:SetUserValue('BRIQUETTING_TARGET_GUID', targetItemGuid);
-	frame:SetUserValue('BRIQUETTING_LOOK_GUID', lookItemGuid);
-	local clmsg = '';
-	if prCheck:IsChecked() == 0 and containCoreItem == false then
-		clmsg = ScpArgMsg('ReallyBriquetting', 'BEFORE', targetItem.Name, 'AFTER', lookItem.Name);
-	else
-		clmsg = ScpArgMsg('BriquettingResult', 'BEFORE', targetItem.Name, 'AFTER', lookItem.Name);
-	end
-	WARNINGMSGBOX_FRAME_OPEN(clmsg, 'IMPL_BRIQUETTING_SKILL_EXCUTE', 'None');
-end
-
-function IMPL_BRIQUETTING_SKILL_EXCUTE()
-	local frame = ui.GetFrame('briquetting');
-	_BRIQUETTING_SKILL_EXCUTE(frame:GetUserValue('BRIQUETTING_TARGET_GUID'), frame:GetUserValue('BRIQUETTING_LOOK_GUID'));
-end
-
-function _BRIQUETTING_SKILL_EXCUTE(targetItemGuid, lookItemGuid, checkRebuildFlag)
-	if checkRebuildFlag ~= false then
-		local targetItem = session.GetInvItemByGuid(targetItemGuid);
-		if targetItem == nil or targetItem:GetObject() == nil then
-			return;
-		end
-
-		if TryGetProp(GetIES(targetItem:GetObject()), 'Rebuildchangeitem', 0) > 0 then
-			ui.MsgBox(ScpArgMsg('IfUDoCannotExchangeWeaponType'), '_BRIQUETTING_SKILL_EXCUTE("'..targetItemGuid..'", "'..lookItemGuid..'", false)', 'None');
-			return;
-		end
-	end
-
-	local frame = ui.GetFrame('briquetting');	
-	local prCheck = GET_CHILD_RECURSIVELY(frame, 'prCheck');
-	local lookMatItemList, lookMatItemGuidList = BRIQUETTING_GET_LOOK_MATERIAL_LIST(frame);	
-
- 	session.shop.ClearBriquetting();
-	session.shop.AddBriquettingGuid(targetItemGuid);
-	session.shop.AddBriquettingGuid(lookItemGuid);
-	for i = 1, #lookMatItemGuidList do
-	 	session.shop.AddBriquettingGuid(lookMatItemGuidList[i]);	 	
-	end
-
-	session.shop.ExecuteBriquetting(prCheck:IsChecked());	
-	ui.CloseFrame('briquetting');
-end
-
-function BRIQUETTING_REFRESH_INVENTORY_ICON(frame, msg, guid, argNum)
-	local inventory = ui.GetFrame('inventory');
-	if inventory == nil or inventory:IsVisible() ~= 1 then
-		return;
-	end
-
-    local invItem = session.GetInvItemByGuid(guid);
-    if invItem == nil then
-    	return;
-    end
-
-    local itemSlot = INV_GET_SLOT_BY_ITEMGUID(mainGuid, inventory);
-	if itemSlot ~= nil then
-		INV_SLOT_UPDATE(inventory, invItem, itemSlot);
-	end	
-end
-
-function BRIQUETTING_INIT_LOOK_MATERIAL_LIST(frame, lookItem)
-	local needLookMatItemCnt = 0;
-	if lookItem ~= nil then
-		needLookMatItemCnt = GET_BRIQUETTING_NEED_LOOK_ITEM_CNT(lookItem);		
-	end
-
-	local lookMatItemSlotset = GET_CHILD_RECURSIVELY(frame, 'lookMatItemSlotset');
-	local slotCnt = lookMatItemSlotset:GetSlotCount();
-	for i = 0, slotCnt - 1 do
-		local slot = lookMatItemSlotset:GetSlotByIndex(i);
-		BRIQUETTING_POP_LOOK_MATERIAL_ITEM(nil, slot);
-
-		if i < needLookMatItemCnt then
-			slot:ShowWindow(1);
-		else
-			slot:ShowWindow(0);
-		end
-	end
-	lookMatItemSlotset:ClearIconAll();		
-end
-
-function BRIQUETTING_INIT_PR_CHECK(frame)
-	local prCheck = GET_CHILD_RECURSIVELY(frame, 'prCheck');
-	prCheck:SetCheck(1);
-	frame:SetUserValue('BEFORE_CHECK_VALUE', 1);
-end
-
-function BRIQUETTING_CLICK_PR_CHECK(parent, ctrl)
-	local frame = parent:GetTopParentFrame();
-	local afterCheckValue = ctrl:IsChecked();
-	if afterCheckValue == 0 then
-		ctrl:SetCheck(1);
-		ui.MsgBox(ClMsg('BriquettingAlert'), '_BRIQUETTING_CLICK_PR_CHECK()', 'None');
-	else		
-		BRIQUETTING_REFRESH_MATERIAL(frame);
-	end
-end
-
-function _BRIQUETTING_CLICK_PR_CHECK()
-	local frame = ui.GetFrame('briquetting');
-	local prCheck = GET_CHILD_RECURSIVELY(frame, 'prCheck');
-	prCheck:SetCheck(0);
-	BRIQUETTING_REFRESH_MATERIAL(frame);
-end
-
-function BRIQUETTING_INVENTORY_RBTN_CLICK(itemObj, invSlot, invItemGuid)
-	local frame = ui.GetFrame('briquetting');
-	if invSlot:IsSelected() == 1 then
-		BRIQUETTING_UI_RESET(frame);
-	else
-		if BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'target') == nil then
-			local targetSlot = GET_CHILD_RECURSIVELY(frame, 'targetSlot');
-			BRIQUETTING_SET_TARGET_SLOT(frame, itemObj, invSlot, targetSlot, invItemGuid);
-		elseif BRIQUETTING_GET_SLOT_ITEM_OBJECT(frame, 'look') == nil then
-			local lookSlot = GET_CHILD_RECURSIVELY(frame, 'lookSlot');
-			BRIQUETTING_SET_LOOK_ITEM(frame, itemObj, invSlot, lookSlot, invItemGuid);
-		else
-			local lookMatSlot = GET_BRIQUETTING_EMPTY_LOOK_MATERIAL_SLOT(frame);
-			if lookMatSlot ~= nil then
-				BRIQUETTING_ADD_LOOK_MATERIAL_ITEM(frame, itemObj, invSlot, invItemGuid, lookMatSlot)
-			end
-		end
-	end
-end
-
-function GET_BRIQUETTING_EMPTY_LOOK_MATERIAL_SLOT(frame)
-	local lookMatItemSlotset = GET_CHILD_RECURSIVELY(frame, 'lookMatItemSlotset');
-	local slotCnt = lookMatItemSlotset:GetSlotCount();
-	for i = 0, slotCnt - 1 do
-		local slot = lookMatItemSlotset:GetSlotByIndex(i);
-		local guid = slot:GetUserValue('SELECTED_INV_GUID');
-		if slot:IsVisible() == 1 and guid == 'None' then
-			return slot;
-		end		
-	end
-	return nil;
-end
-
-function IS_ENCHANTED_ITEM(item)
-	if item ~= nil and (TryGetProp(item, 'Reinforce_2', 0) > 0 or TryGetProp(item, 'Transcend', 0) > 0) then
-		return true;
-	end
-	return false;
-end
-
-function BRIQUETTING_CHECK_TARGET_ICON_IN_INVENTORY(slot, reinfItemObj, invItem, itemobj)
-	local icon = slot:GetIcon();
-	if itemobj ~= nil then
-		if IS_VALID_BRIQUETTING_TARGET_ITEM(itemobj) == true then
-			icon:SetColorTone("FFFFFFFF");
-		else
-			icon:SetColorTone("33000000");
-		end
-		return;
-	end		
+function BRIQUETTING_REFRESH_MATERIAL(frame, spendUI)
+	local bodyGBox = frame:GetChild("bodyGbox");
+	local materiaICount = bodyGBox:GetChild("materiaICount");
+	local metarialName = bodyGBox:GetChild("metarialName");
+	local materiaIimage = bodyGBox:GetChild("materiaIimage");
 	
-	if icon ~= nil then
-		icon:SetColorTone("AA000000");
-	end
+	local invItemList = session.GetInvItemList();
+	local checkFunc = _G["ALCHEMIST_MATERIAL_" .. frame:GetUserValue("SKILLNAME")];
+	local name, cnt = checkFunc(invItemList);
+	local cls = GetClass("Item", name);
+	local txt = GET_ITEM_IMG_BY_CLS(cls, 60);
+	materiaIimage:SetTextByKey("txt", txt);
+	metarialName:SetTextByKey("txt", cls.Name);
+	local text = cnt .. " " .. ClMsg("CountOfThings");
+	materiaICount:SetTextByKey("txt", text);
+
+	local spendCount = bodyGBox:GetChild("spendCount");
+	spendCount:SetTextByKey("txt", spendUI);
 end
 
-function BRIQUETTING_CHECK_LOOK_ICON_IN_INVENTORY(slot, reinfItemObj, invItem, itemobj)
-	local briquetting = ui.GetFrame('briquetting');
-	local targetItem = BRIQUETTING_GET_SLOT_ITEM_OBJECT(briquetting, 'target');
-	local icon = slot:GetIcon();
-	if itemobj ~= nil then
-		if IS_VALID_LOOK_ITEM(itemobj) == true and targetItem ~= nil and targetItem.ClassType == itemobj.ClassType then
-			icon:SetColorTone("FFFFFFFF");
-		else
-			icon:SetColorTone("33000000");
-		end
+function ALCHEMIST_BRIQUE_SUCCEED()
+	local frame = ui.GetFrame("briquetting");
+	if nil == frame then
 		return;
-	end		
-	
-	if icon ~= nil then
-		icon:SetColorTone("AA000000");
 	end
-end
-
-function BRIQUETTING_CHECK_LOOK_MATERIAL_ICON_IN_INVENTORY(slot, reinfItemObj, invItem, itemobj)	
-	local briquetting = ui.GetFrame('briquetting');
-	local lookItem = BRIQUETTING_GET_SLOT_ITEM_OBJECT(briquetting, 'look');
-	local icon = slot:GetIcon();
-	if itemobj ~= nil then
-		if lookItem ~= nil and IS_VALID_LOOK_MATERIAL_ITEM(lookItem, {itemobj}) == true then
-			icon:SetColorTone("FFFFFFFF");
-		else
-			icon:SetColorTone("33000000");
-		end
-		return;
-	end		
-	
-	if icon ~= nil then
-		icon:SetColorTone("AA000000");
-	end
+	BRIQUETTING_UI_RESET(frame);
 end

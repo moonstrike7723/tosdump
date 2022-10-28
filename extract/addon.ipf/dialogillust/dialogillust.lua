@@ -23,7 +23,7 @@ function DIALOGILLUST_TEXTVIEW(frame, msg, argStr, argNum)
 	local imgObject = frame:GetChild('dialogimage');
 	if nil ~= imgObject then
 		tolua.cast(imgObject, 'ui::CPicture');
-		if DialogTable ~= nil and DialogTable.ImgName ~= 'None' then
+		if DialogTable ~= nil then
 			imgObject:SetImage(DialogTable.ImgName);	
 		else
 			imgObject:SetImage("");

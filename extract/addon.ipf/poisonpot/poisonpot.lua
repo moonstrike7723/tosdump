@@ -72,41 +72,55 @@ function UPDATE_POISONPOT_UI(frame)
 	slotSet:ClearIconAll();
 
 	local invItemList = session.GetInvItemList();
+
 	local bExistsCard = false;
-	local retTable = {Value = bExistsCard};
-	FOR_EACH_INVENTORY(invItemList, function(invItemList, invItem, slotSet, bosscardid, retTable)
-		local obj = GetIES(invItem:GetObject());		
+	local i = invItemList:Head();
+	local slotindex = 0
+	while 1 do
+		
+		if i == invItemList:InvalidIndex() then
+			break;
+		end
+
+		local invItem = invItemList:Element(i);
+		local obj = GetIES(invItem:GetObject());
+		
 		if IS_USEABLEITEM_IN_POISONPOT(obj) == 1 then
-			local slotindex = imcSlot:GetEmptySlotIndex(slotSet);
-			local slot = slotSet:GetSlotByIndex(slotindex);
+
+			local slot = slotSet:GetSlotByIndex(slotindex)
+			
 			while slot == nil do 
 				slotSet:ExpandRow()
 				slot = slotSet:GetSlotByIndex(slotindex)
 			end
+
 			slot:SetMaxSelectCount(invItem.count);
 			
-			local icon = CreateIcon(slot);			
-			icon:Set(obj.Icon, 'Item', invItem.type, slotindex, invItem:GetIESID(), invItem.count);
-			local class = GetClassByType('Item', invItem.type);
+			local icon = CreateIcon(slot);
+			
+			icon:Set(obj.Icon, 'Item', invItem.type, i, invItem:GetIESID(), invItem.count);
+			local class 			= GetClassByType('Item', invItem.type);
 			SET_SLOT_ITEM_TEXT_USE_INVCOUNT(slot, invItem, obj, invItem.count);
 			ICON_SET_INVENTORY_TOOLTIP(icon, invItem, "poisonpot", class);
+
+			slotindex = slotindex + 1
+
 		end
 
 		if obj.ClassID == bosscardid then
-			retTable.Value = true;
+			bExistsCard = true;
 		end
-	end, false, slotSet, bosscardid, retTable);
-	bExistsCard = retTable.Value;
+
+		i = invItemList:Next(i);
+	end
 
 	if bExistsCard == false and bosscardid ~= 0 then
-		slotchild:ClearIcon();		
+		slotchild:ClearIcon();
+		
 		local slot = tolua.cast(slotchild, "ui::CSlot");
 		SET_POISONPOT_CARD_COMMIT(slot:GetName(), "UnEquip")
 	end
 
-    local showHUDGauge = config.GetXMLConfig('PoisonPotHUD');
-    local hudCheck = GET_CHILD_RECURSIVELY(frame, 'hudCheck');
-    hudCheck:SetCheck(showHUDGauge);
 end
 
 function IS_USEABLEITEM_IN_POISONPOT(itemobj)
@@ -141,7 +155,7 @@ function POISONPOT_SELECT_ALL(frame, ctrl)
 				slot:SetSelectCount(0)
 			else
 				slot:Select(1)
-				slot:SetSelectCount(99999) -- ?�차???�스?�서 ???�한?�고 ?�다. ?�에??맥스값�? ?��? ?�정 ?�으므�?
+				slot:SetSelectCount(99999) -- ?�차???�스?�서 ???�한?�고 ?�다. ?�에??맥스값�? ?��? ?�정 ?�으므�?
 			end
 		end
 	end
@@ -163,10 +177,6 @@ function POISONPOT_SLOT_DROP(frame, control, argStr, argNum)
 	
 	local iconInfo = liftIcon:GetInfo();
 	local invenItemInfo = session.GetInvItem(iconInfo.ext);
-    if invenItemInfo == nil then -- 카드 슬롯 to 카드 슬롯        
-	    SET_POISONPOT_CARD_COMMIT(slot:GetName(), "UnEquip")
-        return;
-    end
 
 	local tempobj = invenItemInfo:GetObject()
 	local cardobj = GetIES(invenItemInfo:GetObject());
@@ -242,21 +252,4 @@ function SET_POISONPOT_CARD_COMMIT(slotname, type)
 	local argStr = string.format("%s %s", slotname, iType);
 	item.DialogTransaction("SET_POISON_CARD", resultlist, argStr); 
 
-end
-
-function POISONPOT_HUD_CONFIG_CHANGE(frame)
-    local hudShow = POISONPOT_HUD_CHECK_VISIBLE();
-    if hudShow == true then
-        local poisonpotHUD = ui.GetFrame('poisonpot_hud');
-        POISONPOT_HUD_SET_SAVED_OFFSET(poisonpotHUD);
-    end
-end
-
-function POISONPOT_CHECK_OPEN(propname, propvalue)
-	local jobcls = GetClass("Job", 'Char3_6');
-	local jobid = jobcls.ClassID;
-	if IS_HAD_JOB(jobid) == true then
-		return 1;
-	end
-	return 0;
 end

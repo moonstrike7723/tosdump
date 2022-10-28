@@ -33,13 +33,6 @@ function SHOW_DMG_CRI()
 	return ScpArgMsg("ADD_CRI");
 end
 
-function SHOW_DMG_BLOCK()
-	return ScpArgMsg("ADD_BLOCK");
-end
-
-function SHOW_REMOVE_BUFF(arg)
-	return ScpArgMsg("REMOVE_BUFF_{Auto_1}","Auto_1", arg);	
-end
 
 function SHOW_DMG_COUNTER()
 	return ScpArgMsg("ADD_COUNTER");
@@ -109,10 +102,6 @@ function SHOW_HASTE(arg1, argString)
 	return string.format("%s (%s)", ScpArgMsg("ADD_HASTE_{Auto_1}!","Auto_1", buff.Name), argString);
 end
 
-function SHOW_MACANGDAL()
-	return ScpArgMsg("MackangdalOFF");
-end
-
 
 -- ????? ????
 function SHOW_SKILL_ATTRIBUTE(arg, argString)
@@ -126,21 +115,7 @@ function SHOW_SKILL_ATTRIBUTE(arg, argString)
 		return "";
 	end
 
-	local format = "%s ";
-	if arg >= 0 then
-		format = format .. "+%s";
-	else
-		format = format .. "%s";
-	end
-
-	local value;
-	if arg - math.floor(arg) > 0 then
-		value = string.format("%.1f", arg);	
-	else
-		value = string.format("%.0f", arg);	
-	end
-
-	return string.format(format, cls.TextEffectMsg, ScpArgMsg("SKILL_ATTRIBUTE_{Auto_1}!", "Auto_1", value));	
+	return string.format("%s +%s", cls.TextEffectMsg, ScpArgMsg("SKILL_ATTRIBUTE_{Auto_1}!", "Auto_1", arg));	
 end
 
 -- ????? ????
@@ -168,12 +143,6 @@ function SHOW_SKILL_BONUS2(arg, skillID)
 	return string.format("%s +%d%%", skill.Name, arg);
 end
 
-function SHOW_SKILL_BONUS3(arg, argString)
-    -- 소수점 둘째 자리까지 표현하기 위함 --------
-    arg = math.floor(arg*100)
-    return string.format("%s +%.2f%%", ScpArgMsg(argString), arg/100);
-end
-
 -- ????????
 function SHOW_SKILL_EFFECT(arg, argString)
 	return string.format("%s", ScpArgMsg(argString), arg);	
@@ -182,8 +151,4 @@ end
 -- ????????
 function SHOW_ATTRIBUTE_RESIST(arg, argString)
 	return string.format("%s +%s", ScpArgMsg(argString), arg);
-end
-
-function SHOW_REDUCE_HP(arg, argString)
-    return string.format("%s %d", ScpArgMsg("StartUp_Charging_Buff"), arg);
 end
