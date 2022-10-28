@@ -2323,6 +2323,9 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_CLEAR(frame)
 	local rand_item_text = GET_CHILD_RECURSIVELY(frame, 'rand_item_text')
 	rand_item_text:ShowWindow(1)
 
+	local rand_equip_list = GET_CHILD_RECURSIVELY(frame, 'rand_equip_list')
+	rand_equip_list:SetMargin(30, rand_item_text:GetMargin().top + rand_item_text:GetHeight() + 10, 0, 0)
+
 	local rand_engrave_current_inner = GET_CHILD_RECURSIVELY(frame, 'rand_engrave_current_inner')
 	rand_engrave_current_inner:RemoveChild('tooltip_equip_property_narrow')
 
@@ -2503,6 +2506,9 @@ function GODDESS_MGR_RANDOMOPTION_ENGRAVE_REG_ITEM(frame, inv_item, item_obj, sp
 	local rand_item_name = GET_CHILD_RECURSIVELY(frame, 'rand_item_name')
 	rand_item_name:SetTextByKey('name', dic.getTranslatedStr(TryGetProp(item_obj, 'Name', 'NONE')))
 	rand_item_name:ShowWindow(1)
+
+	local rand_equip_list = GET_CHILD_RECURSIVELY(frame, 'rand_equip_list')
+	rand_equip_list:SetMargin(30, rand_item_name:GetMargin().top + rand_item_name:GetHeight() + 10, 0, 0)
 
 	local rand_engrave_current_inner = GET_CHILD_RECURSIVELY(frame, 'rand_engrave_current_inner')
 	rand_engrave_current_inner:RemoveChild('tooltip_equip_property_narrow')
