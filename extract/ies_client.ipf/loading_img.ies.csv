@@ -7,6 +7,8 @@ ClassID,ClassName,LoadingType,FileName,FAQ_Hide,Tooltip_Hide
 18,img18,LoadingFirst,46.jpg,NO,NO
 20,img20,LoadingFirst,48.jpg,NO,NO
 21,img21,LoadingFirst,Leticia_Cube.jpg,NO,NO
+22,img22,LoadingFirst,47.jpg,NO,NO
+24,img24,LoadingFirst,49.jpg,NO,NO
 30,img30,LoadingFirst,22.jpg,NO,NO
 31,img31,LoadingFirst,23.jpg,NO,NO
 32,img32,LoadingFirst,24.jpg,NO,NO
@@ -35,6 +37,8 @@ ClassID,ClassName,LoadingType,FileName,FAQ_Hide,Tooltip_Hide
 127,img127,LoadingCity,46.jpg,NO,NO
 129,img129,LoadingCity,48.jpg,NO,NO
 130,img130,LoadingCity,Leticia_Cube.jpg,NO,NO
+131,img131,LoadingCity,47.jpg,NO,NO
+133,img133,LoadingCity,49.jpg,NO,NO
 140,img140,LoadingCity,22.jpg,NO,NO
 141,img141,LoadingCity,23.jpg,NO,NO
 142,img142,LoadingCity,24.jpg,NO,NO
@@ -74,6 +78,8 @@ ClassID,ClassName,LoadingType,FileName,FAQ_Hide,Tooltip_Hide
 238,img238,LoadingDefault,46.jpg,NO,NO
 240,img240,LoadingDefault,48.jpg,NO,NO
 241,img241,LoadingDefault,Leticia_Cube.jpg,NO,NO
+242,img242,LoadingDefault,47.jpg,NO,NO
+244,img244,LoadingDefault,49.jpg,NO,NO
 250,img250,LoadingDefault,22.jpg,NO,NO
 251,img251,LoadingDefault,23.jpg,NO,NO
 252,img252,LoadingDefault,24.jpg,NO,NO

@@ -164,12 +164,19 @@ function GET_MORE_EVENT_EXP(pc)
 	if  TryGetProp(pc, 'Lv', 0) < 450 then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'ITEM_BUFF_2020ArborDay_ExpUP'); --2020 근본--
 	end
+	if  TryGetProp(pc, 'Lv', 0) < 460 then
+	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'ITEM_BUFF_2021ArborDay_ExpUP'); --2021 근본--
+	end
 	if  TryGetProp(pc, 'Lv', 0) < PC_MAX_LEVEL then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'pet_sparrow_thanksgivng_buff'); --달맞이 참새 동행 버프--
 	end
-	
+
 	if  TryGetProp(pc, 'Lv', 0) < PC_MAX_LEVEL then
 	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'pet_winter_rabbit_buff'); --하얀 눈 토끼 동행 버프--
+	end
+
+	if  TryGetProp(pc, 'Lv', 0) < PC_MAX_LEVEL then
+	    sumExp = sumExp + IsBuffAppliedEXP(pc, 'pet_arborday_rabbit_buff'); -- 근본 토끼 동행 버프--
 	end
 	
 	if  TryGetProp(pc, 'Lv', 0) < PC_MAX_LEVEL then

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by imc (imc) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
 <!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MintPC (Mi) -->
 <skinset name="Base">
 	<skinlist category="frames">
@@ -7359,6 +7359,9 @@
 		<image name="test_companion_34" file="\icon\companion.tga" imgrect="808 738 100 122" CMM_Caption="어시스턴트 로봇_탭버튼"/>
 		<image name="test_companion_34_cursoron" file="\icon\companion.tga" imgrect="909 738 100 122"/>
 		<image name="test_companion_34_clicked" file="\icon\companion.tga" imgrect="909 738 100 122"/>
+		<image name="test_companion_35" file="\icon\companion.tga" imgrect="0 861 100 122" CMM_Caption="근본 토끼_탭버튼"/>
+		<image name="test_companion_35_cursoron" file="\icon\companion.tga" imgrect="101 861 100 122"/>
+		<image name="test_companion_35_clicked" file="\icon\companion.tga" imgrect="101 861 100 122"/>
 		<image name="test_com_ability" file="\skin\pip_test.tga" imgrect="1832 851 54 35" CMM_Caption="컴패니언_특성플러스"/>
 		<image name="test_com_ability_cursoron" file="\skin\pip_test.tga" imgrect="1832 887 54 35"/>
 		<image name="test_com_ability_clicked" file="\skin\pip_test.tga" imgrect="1832 923 54 35"/>
@@ -9468,6 +9471,8 @@
 		<image name="companion_pet_winter_rabbit" file="\icon\companion_Velhider.tga" imgrect="80 400 80 80"/>
 		<image name="companion_pet_robot_dog" file="\icon\companion_Velhider.tga" imgrect="160 400 80 80"/>
 		<image name="companion_pet_twnpanda" file="\icon\companion_Velhider.tga" imgrect="240 400 80 80"/>
+		<image name="companion_pet_arborday_rabbit" file="\icon\companion_Velhider.tga" imgrect="320 400 80 80"/>
+		<image name="companion_pet_ep13dessert" file="\icon\companion_Velhider.tga" imgrect="400 400 80 80"/>
 		<image name="bg_w" file="\skin\button.tga" imgrect="252 974 50 50"/>
 		<image name="barrack_signboard" file="\skin\barrack.tga" imgrect="356 0 257 192"/>
 		<image name="barrack_attack_icon" file="\skin\barrack.tga" imgrect="59 720 55 61"/>
@@ -11911,6 +11916,8 @@
 		<image name="icon_AUTO_MATCHING2_BLOW_HEAL_BUFF" file="\icon\buff_icon4.tga" imgrect="128 896 128 128" CMM_Caption="타격 힐"/>
 		<image name="icon_pet_twnpanda" file="\icon\buff_icon4.tga" imgrect="256 896 128 128" CMM_Caption="판다"/>
 		<image name="icon_Event_Yugwa" file="\icon\buff_icon4.tga" imgrect="384 896 128 128" CMM_Caption="2021_설날 유과 버프"/>
+		<image name="icon_pet_arborday_rabbit_buff" file="\icon\buff_icon5.tga" imgrect="0 128 128 128" CMM_Caption="근본 토끼 버프"/>
+		<image name="icon_pet_ep13dessert_buff" file="\icon\buff_icon5.tga" imgrect="128 128 128 128" CMM_Caption="스위트팽 버프"/>
 	</imagelist>
 	<imagelist category="housing_bufficon">
 		<image name="icon_Weapon_Klaida" file="\icon\icon_hosing_buff.tga" imgrect="0 0 128 128"/>

@@ -13930,6 +13930,9 @@
 		<Class ClassID="138414" ClassName="ChallengeExpertModeReset_MSG2" Data="챌린지 모드 : 분열 특이점 1회 추가 횟수를 받으셨습니다"/>
 		<Class ClassID="138415" ClassName="Auto_jungbo_jeondal_jung" Data="거짓 정보를 전달하는 중.."/>
 		<Class ClassID="138416" ClassName="AutoMatchingEnableCountUp" Data="자동 매칭 입장 가능 횟수가 1 증가했습니다."/>
+		<Class ClassID="138418" ClassName="Auto_Dont_Have_2020_ARBORDAY_Neck" Data="2020 근본 네클리스를 가지고 있지 않습니다."/>
+		<Class ClassID="138419" ClassName="Auto_Dont_Have_2020_ARBORDAY_Brc" Data="2020 근본 브레이슬릿을 가지고 있지 않습니다."/>
+		<Class ClassID="138420" ClassName="Auto_Dont_Have_Upgrade_scroll" Data="업그레이드 스크롤을 가지고 있지 않습니다."/>
 	</Category>
 	<Category Name="SkillMsg">
 		<Class ClassID="200001" ClassName="DontBuildCampThisAria" Data="해당 지역에서는 거점을 설치할 수 없습니다."/>

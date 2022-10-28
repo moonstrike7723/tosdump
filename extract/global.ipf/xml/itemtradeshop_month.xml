@@ -74,5 +74,10 @@
 		<Class ClassID="237" ClassName="SilverGachaShop_37" SellStartTime="2021-03-09 18:00:00" SellEndTime="2021-09-07 13:59:59"/>
 		<Class ClassID="238" ClassName="SilverGachaShop_38" SellStartTime="2021-03-09 18:00:00" SellEndTime="2021-09-07 13:59:59"/>
 		<Class ClassID="239" ClassName="SilverGachaShop_39" SellStartTime="2021-03-09 18:00:00" SellEndTime="2021-09-07 13:59:59"/>
+		<Class ClassID="240" ClassName="SilverGachaShop_40" SellStartTime="2021-04-20 00:00:00" SellEndTime="2021-10-04 23:59:59"/>
+		<Class ClassID="241" ClassName="SilverGachaShop_41" SellStartTime="2021-04-20 00:00:00" SellEndTime="2021-10-04 23:59:59"/>
+		<Class ClassID="242" ClassName="SilverGachaShop_42" SellStartTime="2021-04-20 00:00:00" SellEndTime="2021-10-04 23:59:59"/>
+		<Class ClassID="243" ClassName="SilverGachaShop_43" SellStartTime="2021-04-20 00:00:00" SellEndTime="2021-10-04 23:59:59"/>
+		<Class ClassID="244" ClassName="SilverGachaShop_44" SellStartTime="2021-04-20 00:00:00" SellEndTime="2021-10-04 23:59:59"/>
 	</Category>
 </idspace>

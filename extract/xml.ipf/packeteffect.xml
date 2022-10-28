@@ -6079,6 +6079,22 @@
 		<Effect Name="F_light111_blue_star "/>
 		<Effect Name="I_light005_blue_attach"/>
 		<Effect Name="F_blackfall001"/>
+        	<Effect Name="F_pose_magical2_light01_mint"/>
+        	<Effect Name="F_pose_magical_light3"/>
+        	<Effect Name="F_spin045_ground_mint"/>
+        	<Effect Name="F_pose_magical2_light02_mint"/>
+        	<Effect Name=" F_pose_magical2_light01_cream"/>
+     	  	<Effect Name="F_pose_magical_light4"/>
+		<Effect Name="F_spin045_ground_cream"/>
+     		<Effect Name=" F_pose_magical2_light02_cream"/>
+    		<Effect Name=" F_pose_magical2_light01_brown"/>
+        	<Effect Name="F_spin045_ground_brown"/>
+        	<Effect Name=" F_pose_magical2_light02_brown"/>
+        	<Effect Name="F_pose_magical2_light01_brown"/>
+        	<Effect Name="F_pose_magical2_light02_brown"/>
+        	<Effect Name="F_pose_magical2_light01_cream"/>
+        	<Effect Name="F_pose_magical2_light02_cream"/>
+		<Effect Name="FEED3"/>
 	</Category>
 	<Category ID="28">
 		<Effect Name="F_explosion006_green#Dummy_skl2_shot"/>
