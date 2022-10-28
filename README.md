@@ -2,7 +2,6 @@
 
 Continuing off of the work of the king god general emperor meldavy (https://github.com/meldavy)
 
-TODSDump.exe
 TOSDump.exe is used to extract and dump all ipf files.
 
 Use TOSDump.exe <path-to-tos-dir> to use. It detects tos dir by checking for /data and /patch dir.
