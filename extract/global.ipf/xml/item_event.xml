@@ -116,6 +116,14 @@
 			<Class ClassID="10000351" ClassName="Event_indunReset_Team_17" CT_ExpireDateTime="2021-07-13 00:00"/>
 			<Class ClassID="10000352" ClassName="Event_dungeoncount_18" CT_ExpireDateTime="2021-07-13 00:00"/>
 			<Class ClassID="10000353" ClassName="misc_gemExpStone12_Ev3" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10000392" ClassName="Event_Ability_Point_Stone_1000_205" CT_Name="[출석체크] 특성 포인트 1,000" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10000393" ClassName="Event_repairPotion_205" CT_Name="[출석체크] 긴급 수리키트" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10000394" ClassName="Event_ChallengeModeReset_205" CT_Name="[출석체크] 챌린지 모드 1회 입장권" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10000395" ClassName="Event_Ability_Point_Stone_10000_205" CT_Name="[출석체크] 특성 포인트 10,000" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10000396" ClassName="Event_Drug_Looting_Potion_500_205" CT_Name="[출석체크] 루팅 찬스 : 500" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10000397" ClassName="Event_indunReset_Team_205" CT_Name="[출석체크] 인스턴스 던전 입장 횟수 초기화권" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10000398" ClassName="Event_gemExpStone09_205" CT_Name="[출석체크] 7성 젬 연마제" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10000399" ClassName="EVENT_Coupon_Reagent_Bottle_Expup_100_205" CT_Name="[출석체크] 시약병 경험치 증가량 2배 쿠폰" CT_ExpireDateTime="2021-07-21 00:00"/>
 		</Category>
 		<Category Name="Evnet_Item">
 			<Class ClassID="10003057" ClassName="Event_2004_Stamp_All_Clear_2" CT_ExpireDateTime="2020-11-17 00:00:00"/>
@@ -165,6 +173,36 @@
 			<Class ClassID="10003411" ClassName="Event_Coin_Ticket_500_5" CT_ExpireDateTime="2021-07-13 00:00"/>
 			<Class ClassID="10003412" ClassName="Event_Coin_Ticket_1000_9" CT_ExpireDateTime="2021-07-13 00:00"/>
 			<Class ClassID="10003413" ClassName="card_Xpupkit10_Event_7" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10003431" ClassName="Event_Coin_Ticket_1000_205" CT_Name="[출석체크] 용병단 증표 쿠폰 : 1,000" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003432" ClassName="card_Xpupkit10_Event_205" CT_Name="[출석체크] Lv10 강화용 카드" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003433" ClassName="Event_Reward_Attendance_box_1" CT_Name="[출석 체크] 출석 1회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003434" ClassName="Event_Reward_Attendance_box_2" CT_Name="[출석 체크] 출석 2회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003435" ClassName="Event_Reward_Attendance_box_3" CT_Name="[출석 체크] 출석 3회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003436" ClassName="Event_Reward_Attendance_box_4" CT_Name="[출석 체크] 출석 4회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003437" ClassName="Event_Reward_Attendance_box_5" CT_Name="[출석 체크] 출석 5회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003438" ClassName="Event_Reward_Attendance_box_6" CT_Name="[출석 체크] 출석 6회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003439" ClassName="Event_Reward_Attendance_box_7" CT_Name="[출석 체크] 출석 7회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003440" ClassName="Event_Reward_Attendance_box_8" CT_Name="[출석 체크] 출석 8회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003441" ClassName="Event_Reward_Attendance_box_9" CT_Name="[출석 체크] 출석 9회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003442" ClassName="Event_Reward_Attendance_box_10" CT_Name="[출석 체크] 출석 10회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003443" ClassName="Event_Reward_Attendance_box_11" CT_Name="[출석 체크] 출석 11회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003444" ClassName="Event_Reward_Attendance_box_12" CT_Name="[출석 체크] 출석 12회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003445" ClassName="Event_Reward_Attendance_box_13" CT_Name="[출석 체크] 출석 13회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003446" ClassName="Event_Reward_Attendance_box_14" CT_Name="[출석 체크] 출석 14회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003447" ClassName="Event_Reward_Attendance_box_15" CT_Name="[출석 체크] 출석 15회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003448" ClassName="Event_Reward_Attendance_box_16" CT_Name="[출석 체크] 출석 16회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003449" ClassName="Event_Reward_Attendance_box_17" CT_Name="[출석 체크] 출석 17회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003450" ClassName="Event_Reward_Attendance_box_18" CT_Name="[출석 체크] 출석 18회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003451" ClassName="Event_Reward_Attendance_box_19" CT_Name="[출석 체크] 출석 19회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003452" ClassName="Event_Reward_Attendance_box_20" CT_Name="[출석 체크] 출석 20회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003453" ClassName="Event_Reward_Attendance_box_21" CT_Name="[출석 체크] 출석 21회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003454" ClassName="Event_Reward_Attendance_box_22" CT_Name="[출석 체크] 출석 22회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003455" ClassName="Event_Reward_Attendance_box_23" CT_Name="[출석 체크] 출석 23회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003456" ClassName="Event_Reward_Attendance_box_24" CT_Name="[출석 체크] 출석 24회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003457" ClassName="Event_Reward_Attendance_box_25" CT_Name="[출석 체크] 출석 25회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003458" ClassName="Event_Reward_Attendance_box_26" CT_Name="[출석 체크] 출석 26회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003459" ClassName="Event_Reward_Attendance_box_27" CT_Name="[출석 체크] 출석 27회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10003460" ClassName="Event_Reward_Attendance_box_28" CT_Name="[출석 체크] 출석 28회차 보상상자" CT_ExpireDateTime="2021-07-21 00:00"/>
 		</Category>
 		<Category Name="Event_item_Upgrade">
 			<Class ClassID="10010001" ClassName="Extract_kit_Gold_Team_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
@@ -212,6 +250,9 @@
 			<Class ClassID="10010096" ClassName="Moru_Event_Gold_17" CT_ExpireDateTime="2021-07-13 00:00"/>
 			<Class ClassID="10010097" ClassName="Extract_kit_Gold_Team_19" CT_ExpireDateTime="2021-07-13 00:00"/>
 			<Class ClassID="10010098" ClassName="Old_Socket_Gold_Event_7" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10010106" ClassName="Moru_Event_Gold_205" CT_Name="[출석체크] 황금 모루" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10010107" ClassName="Moru_Ruby_event_205" CT_Name="[출석체크] 루비 모루" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10010108" ClassName="Extract_kit_Gold_Team_205" CT_Name="[출석체크] 황금 아이커 추출 키트" CT_ExpireDateTime="2021-07-21 00:00"/>
 		</Category>
 		<Category Name="Event_Item_item_premium">
 			<Class ClassID="10600010" ClassName="Event_Sandra_Glass_1" CT_ExpireDateTime="2020-09-08 00:00:00"/>
@@ -266,6 +307,12 @@
 			<Class ClassID="10600138" ClassName="Event_Sandra_Glass_1line_21" CT_ExpireDateTime="2021-07-13 00:00"/>
 			<Class ClassID="10600139" ClassName="Event_Sandra_Glass_17" CT_ExpireDateTime="2021-07-13 00:00"/>
 			<Class ClassID="10600140" ClassName="Event_Enchantchip_16" CT_ExpireDateTime="2021-07-13 00:00"/>
+			<Class ClassID="10600155" ClassName="Event_Sandra_Glass_205" CT_Name="[출석체크] 산드라의 감정 돋보기" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10600156" ClassName="Event_Sandra_Glass_1line_205" CT_Name="[출석체크] 산드라의 미세 감정 돋보기" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10600157" ClassName="Event_awakeningStone_205" CT_Name="[출석체크] 프리미엄 각성석" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10600158" ClassName="Event_Mystic_Glass_205" CT_Name="[출석체크] 신비한 돋보기" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10600159" ClassName="Event_Master_Glass_205" CT_Name="[출석체크] 장인의 돋보기" CT_ExpireDateTime="2021-07-21 00:00"/>
+			<Class ClassID="10600160" ClassName="Event_Enchantchip_205" CT_Name="[출석체크] 마법 부여 스크롤" CT_ExpireDateTime="2021-07-21 00:00"/>
 		</Category>
 	</Category>
 </idspace>

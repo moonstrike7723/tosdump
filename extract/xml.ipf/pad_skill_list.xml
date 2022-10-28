@@ -683,6 +683,36 @@ return value"/>
 				<Num Num="-500"/>
 				<Num Num="0"/>
 			</ToolScp>
+			<ToolScp Scp="PAD_BUFF_CHECK_BUFF_ENEMY" Client="NO" UseSleep="NO">
+                <Str Str="ENEMY"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+                <Str Str="JincanGu_Debuff"/>
+                <Str Str="JincanGu_Debuff"/>
+                <Num Num="99"/>
+                <Num Num="0"/>
+                <Num Num="0" UseFunc="1" FuncTxt="local value = 60000
+
+local CrescendoBane = GetSkill(self, 'Wugushi_CrescendoBane')
+
+if CrescendoBane ~= nil then
+
+    local CrescendoBaneLv = TryGetProp(CrescendoBane, 'Level', 0)
+
+    local downtime = 1 - (CrescendoBaneLv * 0.1)
+
+    if IsBuffApplied(self, 'Crescendo_Bane_Buff') == 'YES' then 
+
+        value = value * downtime
+
+    end 
+
+end
+
+return value"/>
+                <Num Num="1"/>
+                <Num Num="100"/>
+            </ToolScp>
 		</updateEvent>
 	</PadSkill>
 	<PadSkill Name="Archer_JincanGu_Abil" CheckerType="0" Range="100" ApplyFlyMon="1" AllowOverlap="1" IsMagicType="0">
@@ -776,6 +806,36 @@ return value"/>
 				<Num Num="-500"/>
 				<Num Num="0"/>
 			</ToolScp>
+			<ToolScp Scp="PAD_BUFF_CHECK_BUFF_ENEMY" Client="NO" UseSleep="NO">
+                <Str Str="ENEMY"/>
+                <Num Num="0"/>
+                <Num Num="0"/>
+                <Str Str="JincanGu_Abil_Debuff"/>
+                <Str Str="JincanGu_Abil_Debuff"/>
+                <Num Num="99"/>
+                <Num Num="0"/>
+                <Num Num="0" UseFunc="1" FuncTxt="local value = 60000
+
+local CrescendoBane = GetSkill(self, 'Wugushi_CrescendoBane')
+
+if CrescendoBane ~= nil then
+
+    local CrescendoBaneLv = TryGetProp(CrescendoBane, 'Level', 0)
+
+    local downtime = 1 - (CrescendoBaneLv * 0.1)
+
+    if IsBuffApplied(self, 'Crescendo_Bane_Buff') == 'YES' then 
+
+        value = value * downtime
+
+    end 
+
+end
+
+return value"/>
+                <Num Num="1"/>
+                <Num Num="100"/>
+            </ToolScp>
 		</updateEvent>
 	</PadSkill>
 	<PadSkill Name="Archer_SpikeShooter" CheckerType="5" UpdateTerm="1500" ApplyFlyMon="1" Relation="2" IsMagicType="0">

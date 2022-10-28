@@ -145,7 +145,7 @@ function IS_HIDDENABILITY_DECOMPOSE_BOOK_MATERIAL(itemObj)
       return false;
     end
     
-    if string.find(ClassName, 'HiddenAbility_') ~= nil  then
+    if string.find(ClassName, 'HiddenAbility_') ~= nil and string.find(string.lower(ClassName), 'box') == nil  then
         local cls = GetClass('Item', ClassName)
         if cls ~= nil then
             return true

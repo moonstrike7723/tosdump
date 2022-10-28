@@ -471,6 +471,13 @@
 			<groupbox name="property_gbox" rect="0 0 410 0" layout_gravity="left top" margin="0 46 0 0" skin="bg" hittest="false" draw="false" updateparent="true" scrollbar="false"/>
 		</controls>
 	</controlset>
+	<controlset name="tooltip_equip_property_Luciferi" hittest="true" width="410" height="0">
+		<controls>
+			<richtext name="set_item" margin="0 5 0 0" rect="0 0 190 30" format="{@st41b}{s18}  옵션" layout_gravity="left top" fixwidth="true" hittest="false" fontname="brown_16"/>
+			<labelline name="labelline2" margin="0 31 0 0" rect="0 0 390 3" skin="labelline_def_2" layout_gravity="center top"/>
+			<groupbox name="property_gbox" rect="0 0 410 0" layout_gravity="left top" margin="0 46 0 0" skin="bg" hittest="false" draw="false" updateparent="true" scrollbar="false"/>
+		</controls>
+	</controlset>
 	<controlset name="tooltip_equip_desc" hittest="true" width="410" height="0">
 		<controls>
 			<labelline name="labelline" margin="-3 0 0 0" rect="0 0 390 3" skin="labelline_def_2" layout_gravity="center top"/>
