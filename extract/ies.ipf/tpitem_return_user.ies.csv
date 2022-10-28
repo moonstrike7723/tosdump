@@ -1,3 +1,2 @@
 ClassID,Price,JobGrade,Itemdate,AccountLimitCount,ClassName,Category,SubCategory,ItemClassName,Job,SellStartTime,SellEndTime,WarningMsg
 1,49,0,181213,1,ClassName1,TP_Premium,TP_Useable,PremiumToken_New_Return,,,,NO
-2,245,0,2107271,3,ClassName2,TP_Premium,TP_Useable,GLOBAL_JP_HUMITUKI_NEWBIE_PACKAGE,,2021-07-27 00:00:00,2021-08-18 00:00:00,NO
